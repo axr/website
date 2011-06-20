@@ -50,7 +50,7 @@ $(function(){
 		$('html, body').animate({ scrollTop: 0 }, 800);
 	});
 	
-	$.getJSON("http://api.twitter.com/1/statuses/user_timeline.json?count=1&screen_name=axrproject&callback=?",
+	$.getJSON("http://api.twitter.com/1/statuses/user_timeline.json?count=1&include_rts=t&screen_name=axrproject&callback=?",
 	        function(tweet){
 				var $tweet = tweet[0].text.parseURL().parseUsername().parseHashtag();
 	        	$("#container > footer > .activity > .last_tweet > p:first").html($tweet);
