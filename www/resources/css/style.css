@@ -1,0 +1,513 @@
+/* @override http://axr.dev/resources/msstmt/css/style.css?v=3 */
+
+/*  HTML5 ✰ Boilerplate  */
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,  footer, header, hgroup, 
+menu, nav, section, summary, time, mark, audio, video {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:10pt;
+  vertical-align:baseline;
+  background:transparent;
+}                  
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+    display:block;
+}
+nav ul { list-style:none; }
+blockquote, q { quotes:none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content:''; content:none; }
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+ins { background-color:#ff9; color:#000; text-decoration:none; }
+mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+del { text-decoration: line-through; }
+abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
+table { border-collapse:collapse; border-spacing:0; }
+hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
+input, select { vertical-align:middle; }
+
+
+body { font:13px/1.231 sans-serif; *font-size:small; } 
+select, input, textarea, button { font:99% sans-serif; }
+pre, code, kbd, samp { font-family: monospace, sans-serif; }
+
+body, select, input, textarea {   color: #444; }
+h1,h2,h3,h4,h5,h6 { font-weight: bold; }
+html { overflow-y: scroll; }
+
+a:hover, a:active { outline: none; }
+a, a:active, a:visited { color: #607890; }
+a:hover { color: #036; }
+
+ul, ol { margin-left: 1.8em; }
+ol { list-style-type: decimal; }
+
+nav ul, nav li { margin: 0; } 
+small { font-size: 85%; }
+strong, th { font-weight: bold; }
+td, td img { vertical-align: top; } 
+sub { vertical-align: sub; font-size: smaller; }
+sup { vertical-align: super; font-size: smaller; }
+pre {  padding: 15px;  white-space: pre;  white-space: pre-wrap;  white-space: pre-line;  word-wrap: break-word; }
+textarea { overflow: auto; } 
+.ie6 legend, .ie7 legend { margin-left: -7px; } 
+input[type="radio"] { vertical-align: text-bottom; }
+input[type="checkbox"] { vertical-align: bottom; }
+.ie7 input[type="checkbox"] { vertical-align: baseline; }
+.ie6 input { vertical-align: text-bottom; }
+label, input[type=button], input[type=submit], button { cursor: pointer; }
+button, input, select, textarea { margin: 0; }
+input:valid, textarea:valid   {  }
+input:invalid, textarea:invalid { border-radius: 1px;  -moz-box-shadow: 0px 0px 5px red; -webkit-box-shadow: 0px 0px 5px red;  box-shadow: 0px 0px 5px red; }
+.no-boxshadow input:invalid, 
+.no-boxshadow textarea:invalid { background-color: #f0dddd; }
+
+::-moz-selection{ background: #EFC442; color:#fff; text-shadow: none; }
+::selection { background:#EFC442; color:#fff; text-shadow: none; } 
+a:link { -webkit-tap-highlight-color: #FF5E99; } 
+
+button {  width: auto; overflow: visible; }
+.ie7 img { -ms-interpolation-mode: bicubic; }
+
+.ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.hidden { display: none; visibility: hidden; } 
+.visuallyhidden { position: absolute !important; clip: rect(1px 1px 1px 1px);  clip: rect(1px, 1px, 1px, 1px); }
+.invisible { visibility: hidden; }
+.clearfix:before, .clearfix:after {  content: "\0020"; display: block; height: 0; visibility: hidden;	 } 
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+
+ /* Primary Styles
+    Author: Miro Keller
+ */
+ 
+body {
+    background-color: #E5E5E5;
+    color: #666666;
+    font-family: 'Century Gothic',Futura,sans-serif;
+    line-height: 1.38;
+}
+
+#fork_me_on_github
+{
+	width: 140px;
+	height: 113px;
+	position: fixed;
+	right: 0;
+	top: 0;
+	background-image: url(../images/fork_me_on_github.png);
+	z-index: 1;
+}
+
+#fork_me_on_github > a
+{
+	display: block;
+	height: 113px;
+	text-indent: -999px;
+	overflow: hidden;
+}
+
+#container {
+	min-width: 1024px;
+    overflow: hidden;
+    position: relative;
+}
+#intro {
+    background-image: url("../images/sprite.jpg");
+    background-position: 0 0;
+    height: 561px;
+    margin: 0 auto;
+    padding-top: 1px;
+    position: relative;
+    width: 1014px;
+}
+#intro > h1 {
+    height: 200px;
+    left: 125px;
+    overflow: hidden;
+    position: absolute;
+    text-indent: -999px;
+    top: 80px;
+    width: 350px;
+}
+#intro > div.slides {
+    height: 278px;
+    left: 555px;
+    position: absolute;
+    top: 129px;
+    width: 346px;
+}
+#intro > ul.social {
+    height: 30px;
+    left: 656px;
+    list-style: none outside none;
+    position: absolute;
+    top: 450px;
+}
+#intro > ul.social > li {
+    float: left;
+    height: 27px;
+    margin-right: 8px;
+    width: 28px;
+}
+#intro > ul.social > li > a {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+#intro > h2 {
+    color: #666666;
+    font-size: 1.05em;
+    margin-left: 150px;
+    padding-top: 270px;
+    width: 350px;
+}
+#intro > p {
+    color: #666666;
+    font-size: 0.9em;
+    margin-left: 150px;
+    padding-top: 10px;
+    width: 350px;
+}
+#intro > a {
+    background-image: url("../images/sprite.jpg");
+    background-position: -462px -691px;
+    color: white;
+    display: block;
+    float: left;
+    font-size: 0.9em;
+    font-weight: bold;
+    height: 31px;
+    line-height: 9px;
+    margin-left: 150px;
+    margin-top: 20px;
+    padding-left: 30px;
+    padding-right: 10px;
+    padding-top: 8px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #BC910E;
+    width: 134px;
+}
+#intro > a:hover {
+    background-position: -462px -730px;
+    text-shadow: 0 1px 0 #B58B19;
+}
+#intro > a.join > span {
+    color: #BF8300;
+    display: block;
+    font-size: 0.8em;
+    padding-top: 3px;
+    text-shadow: 0 1px 0 #FFF29F;
+}
+#intro > a.join > span:hover {
+    color: #B58B19;
+}
+#intro > a.join > span {
+    color: #BF8300;
+    display: block;
+    font-size: 0.8em;
+    padding-top: 3px;
+    text-shadow: 0 1px 0 #FFF29F;
+}
+#intro > a.manifiesto {
+    background-position: -462px -769px;
+    color: #7A7A7A;
+    line-height: 22px;
+    margin-left: 15px;
+    text-shadow: 0 1px 0 #E3E3E3;
+}
+#intro > a.manifiesto:hover {
+    background-position: -462px -808px;
+    color: #7A7A7A;
+}
+#manifiesto {
+    background-image: url("../images/footer_repeat.jpg");
+    background-repeat: repeat-x;
+}
+#manifiesto > .extra_0 {
+    margin: 0 auto;
+    padding-top: 50px;
+    width: 748px;
+}
+#manifiesto > .extra_0 > section > h2 {
+    background-image: url("../images/title_bg.png");
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    font-size: 1.85em;
+    left: -75px;
+    margin-top: -20px;
+    padding-bottom: 46px;
+    padding-left: 75px;
+    position: relative;
+    top: 20px;
+    width: 813px;
+}
+#manifiesto > .extra_0 > section > p {
+    font-size: 1.05em;
+    margin-bottom: 15px;
+    position: relative;
+}
+#manifiesto > .extra_0 > section {
+    padding-bottom: 40px;
+}
+#manifiesto > .extra_0 > section > p > a {
+    color: #D09610;
+    font-weight: bold;
+    text-decoration: none;
+}
+#container > footer {
+    background-image: url("../images/footer_repeat.jpg");
+    background-position: center 115px;
+    background-repeat: repeat-x;
+    position: relative;
+    width: 100%;
+}
+#container > footer > a {
+    background-image: url("../images/sprite.jpg");
+    background-position: -636px -562px;
+    display: block;
+    height: 116px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    text-indent: -9999px;
+    width: 365px;
+    z-index: 1;
+}
+#container > footer > a:hover {
+    background-position: -636px -678px;
+}
+#container > footer > ul {
+    height: 95px;
+    list-style: none outside none;
+    margin: -95px auto 0;
+    position: relative;
+    width: 748px;
+}
+#container > footer > ul.technologies_used > li {
+    float: left;
+    margin-right: 8px;
+    position: absolute;
+    z-index: 1;
+}
+#container > footer > ul.technologies_used > li > a {
+    background-image: url("../images/sprite.jpg");
+    display: block;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+#container > footer > ul.technologies_used > li.html5 {
+    left: 0;
+    top: 20px;
+}
+#container > footer > ul.technologies_used > li.html5 > a {
+    background-position: -346px -691px;
+    height: 53px;
+    width: 116px;
+}
+#container > footer > ul.technologies_used > li.html5 > a:hover {
+    background-position: -346px -744px;
+}
+#container > footer > ul.technologies_used > li.humanstxt {
+    left: 145px;
+    top: 30px;
+}
+#container > footer > ul.technologies_used > li.humanstxt > a {
+    background-position: -209px -691px;
+    height: 37px;
+    width: 137px;
+}
+#container > footer > ul.technologies_used > li.humanstxt > a:hover {
+    background-position: -209px -728px;
+}
+#container > footer > ul.technologies_used > li.github {
+    left: 510px;
+    top: 30px;
+}
+#container > footer > ul.technologies_used > li.github > a {
+    background-position: -90px -691px;
+    height: 43px;
+    width: 119px;
+}
+#container > footer > ul.technologies_used > li.github > a:hover {
+    background-position: -90px -734px;
+}
+#container > footer > ul.technologies_used > li.google_groups {
+    left: 665px;
+    top: 35px;
+}
+#container > footer > ul.technologies_used > li.google_groups > a {
+    background-position: 0 -691px;
+    height: 48px;
+    width: 90px;
+}
+#container > footer > ul.technologies_used > li.google_groups > a:hover {
+    background-position: 0 -739px;
+}
+#container > footer > .activity {
+    height: 201px;
+    margin: 0 auto;
+    position: relative;
+    width: 810px;
+}
+#container > footer > .activity > form > a {
+    background-image: url("../images/sprite.jpg");
+    background-position: -357px -797px;
+    display: block;
+    height: 43px;
+    overflow: hidden;
+    position: absolute;
+    text-indent: -9999px;
+    top: 45px;
+    width: 105px;
+}
+#container > footer > .activity > form > a:hover {
+    background-position: -241px -765px;
+}
+#container > footer > .activity > .follow_us {
+    background-image: url("../images/sprite.jpg");
+    background-position: 0 -787px;
+    height: 77px;
+    left: -25px;
+    list-style: none outside none;
+    margin: 0;
+    padding: 11px 0 0 29px;
+    position: absolute;
+    top: 100px;
+    width: 178px;
+    z-index: 1;
+}
+#container > footer > .activity > .follow_us > li {
+    display: block;
+    float: left;
+    height: 26px;
+    margin-right: 13px;
+    width: 24px;
+}
+#container > footer > .activity > .follow_us > li > a {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 100%;
+}
+#container > footer > .activity > .follow_us > li > a:hover {
+    background-image: url("../images/sprite.jpg");
+}
+#container > footer > .activity > .follow_us > li.twitter > a:hover {
+    background-position: -285px -808px;
+}
+#container > footer > .activity > .follow_us > li.facebook > a:hover {
+    background-position: -309px -808px;
+}
+#container > footer > .activity > .follow_us > li.vimeo > a:hover {
+    background-position: -333px -808px;
+}
+#container > footer > .activity > .last_tweet {
+    background-image: url("../images/sprite.jpg");
+    background-position: 0 -562px;
+    height: 129px;
+    left: 180px;
+    position: absolute;
+    top: 25px;
+    width: 346px;
+}
+#container > footer > .activity > .last_tweet > p {
+    color: #939393;
+    font-size: 0.9em;
+    margin: 14px 0 0 90px;
+    text-shadow: 0 1px 0 #EBEBEB;
+    width: 233px;
+}
+#container > footer > .activity > .last_tweet > p.follow_us {
+    bottom: 16px;
+	font-weight: bold;
+    left: 0;
+    position: absolute;
+    text-align: center;
+}
+#container > footer > .activity > .last_tweet > p > a {
+    color: #D09610;
+    text-decoration: none;
+	font-weight: bold;
+}
+#container > footer > .activity > .participate {
+    background-image: url("../images/sprite.jpg");
+    background-position: -369px -562px;
+    height: 126px;
+    left: 550px;
+    position: absolute;
+    top: 25px;
+    width: 267px;
+	font-weight: bold;
+}
+#container > footer > .activity > .participate > h2 {
+    color: white;
+    font-weight: bold;
+    margin: 10px 0 0 20px;
+    text-shadow: 0 1px 0 #666666;
+    width: 72px;
+}
+#container > footer > .activity > .participate > p {
+    color: white;
+    font-size: 0.89em;
+    margin: 16px 0 0 20px;
+    text-shadow: 0 1px 0 #666666;
+    width: 230px;
+}
+#container > footer > .activity > .participate > p > a {
+    color: #FFD519;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #666666;
+}
+#container > footer > .activity > .copy {
+    bottom: 5px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 1px 0 white;
+    width: 100%;
+}
+#container > footer > .activity > .copy > p > a {
+    color: #666666;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+@media all and (orientation:portrait) { 
+  
+}
+
+@media all and (orientation:landscape) { 
+  
+}
+
+@media screen and (max-device-width: 480px) {
+  
+  
+  /* html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
+}
+
+@media print {
+  * { background: transparent !important; color: #444 !important; text-shadow: none !important; }
+  a, a:visited { color: #444 !important; text-decoration: underline; }
+  a:after { content: " (" attr(href) ")"; } 
+  abbr:after { content: " (" attr(title) ")"; }
+  .ir a:after { content: ""; }  
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; }  
+  tr, img { page-break-inside: avoid; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3{ page-break-after: avoid; }
+}
+
