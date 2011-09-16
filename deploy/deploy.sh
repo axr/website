@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-#change to working directory
+#change to working directoryy
 cd ../clone/
 
 #update the clone
