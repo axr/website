@@ -1,13 +1,12 @@
 #! /usr/bin/env bash
 
-#clone the repo
-#git clone -q "${1}" "clones/${2}"
+#change to working directory
+cd ../clone/
 
-cd "../clone/"
-
-#update the submodules (how do we handle errors here?)
+#update the clone
 git pull
 
+#move files to www
 cp -rf www/* ../www/
 
 echo "Operation successful"
