@@ -12,7 +12,6 @@
         }
 
         // Log the payload object
-        file_put_contents('../logs/deploy/github.txt', print_r($payload, TRUE), FILE_APPEND);
 
         // Pushed to master?
         if ($payload->ref === 'refs/heads/master') {
@@ -23,11 +22,18 @@
                 // Run the build script
                 exec("./build.sh {$url} {$payload->respository->name}", $output);
 
-	        $output = implode(" ", $output);
+	        $output = implode("\n", $output);
 
-		$email = "Deployment execution at timestamp". time() ."\n\nHere are the execution logs:\n\n";
+		$email = "Deployment execution at timestamp ". time() ."\n\nHere are the execution logs:\n\n";
 		$email .= $output;
+		
+		//Email group
+		mail("axr-web-team@googlegroups.com", "Deployment execution ". time(), $email);
+		
+		//Log stuff
+		$output = time() ."\n--------\n";
+		file_put_contents('../logs/deploy/github.txt', $output, FILE_APPEND);
+		
 
-		mail("axr-web-team@googlegroups.com", "Deployment execution". time(), $email);
 	}
 ?>
