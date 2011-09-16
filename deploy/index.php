@@ -12,7 +12,7 @@
         }
 
         // Log the payload object
-        file_put_contents('logs/github.txt', print_r($payload, TRUE), FILE_APPEND);
+        file_put_contents('../logs/deploy/github.txt', print_r($payload, TRUE), FILE_APPEND);
 
         // Pushed to master?
         if ($payload->ref === 'refs/heads/master') {
