@@ -1,0 +1,222 @@
+
+CREATE THE MySQL DATABASE
+--------------------------
+
+This step is only necessary if you don't already have a database set up (e.g.,
+by your host). In the following examples, 'username' is an example MySQL user
+which has the CREATE and GRANT privileges. Use the appropriate user name for
+your system.
+
+First, you must create a new database for your Drupal site (here, 'databasename'
+is the name of the new database):
+
+  mysqladmin -u username -p create databasename
+
+MySQL will prompt for the 'username' database password and then create the
+initial database files. Next you must log in and set the access database rights:
+
+  mysql -u username -p
+
+Again, you will be asked for the 'username' database password. At the MySQL
+prompt, enter following command:
+
+  GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER
+  ON databasename.*
+  TO 'username'@'localhost' IDENTIFIED BY 'password';
+
+where
+
+ 'databasename' is the name of your database
+ 'username@localhost' is the username of your MySQL account
+ 'password' is the password required for that username
+
+Note: Unless your database user has all of the privileges listed above, you will
+not be able to run Drupal.
+
+If successful, MySQL will reply with:
+
+  Query OK, 0 rows affected
+
+If the InnoDB storage engine is available, it will be used for all database
+tables. InnoDB provides features over MyISAM such as transaction support,
+row-level locks, and consistent non-locking reads.
+
+3. Create the Drupal database.
+
+   Because Drupal stores all site information in a database, you must create
+   this database in order to install Drupal, and grant Drupal certain database
+   privileges (such as the ability to create tables). For details, consult
+   INSTALL.mysql.txt, INSTALL.pgsql.txt, or INSTALL.sqlite.txt. You may also
+   need to consult your web hosting provider for instructions specific to your
+   web host.
+
+   Take note of the username, password, database name, and hostname as you
+   create the database. You will enter this information during the install.
+
+4. Run the install script.
+
+   To run the install script, point your browser to the base URL of your
+   website (e.g., http://www.example.com).
+
+   You will be guided through several screens to set up the database, add the
+   site maintenance account (the first user, also known as user/1), and provide
+   basic web site settings.
+
+   During installation, several files and directories need to be created, which
+   the install script will try to do automatically. However, on some hosting
+   environments, manual steps are required, and the install script will tell
+   you that it cannot proceed until you fix certain issues. This is normal and
+   does not indicate a problem with your server.
+
+   The most common steps you may need to perform are:
+
+   a. Missing files directory.
+
+      The install script will attempt to create a file storage directory in
+      the default location at sites/default/files (the location of the files
+      directory may be changed after Drupal is installed).
+
+      If auto-creation fails, you can make it work by changing permissions on
+      the sites/default directory so that the web server can create the files
+      directory within it for you. (If you are creating a multisite
+      installation, substitute the correct sites directory for sites/default;
+      see the Multisite Configuration section of this file, below.)
+
+      For example, on a Unix/Linux command line, you can grant everyone
+      (including the web server) permission to write to the sites/default
+      directory with this command:
+
+        chmod a+w sites/default
+
+      Be sure to set the permissions back after the installation is finished!
+      Sample command:
+
+        chmod go-w sites/default
+
+      Alternatively, instead of allowing the web server to create the files
+      directory for you as described above, you can create it yourself. Sample
+      commands from a Unix/Linux command line:
+
+        mkdir sites/default/files
+        chmod a+w sites/default/files
+
+   b. Missing settings file.
+
+      Drupal will try to automatically create a settings.php configuration file,
+      which is normally in the directory sites/default (to avoid problems when
+      upgrading, Drupal is not packaged with this file). If auto-creation fails,
+      you will need to create this file yourself, using the file
+      sites/default/default.settings.php as a template.
+
+      For example, on a Unix/Linux command line, you can make a copy of the
+      default.settings.php file with the command:
+
+        cp sites/default/default.settings.php sites/default/settings.php
+
+      Next, grant write privileges to the file to everyone (including the web
+      server) with the command:
+
+        chmod a+w sites/default/settings.php
+
+      Be sure to set the permissions back after the installation is finished!
+      Sample command:
+
+        chmod go-w sites/default/settings.php
+
+   c. Write permissions after install.
+
+      The install script will attempt to write-protect the settings.php file and
+      the sites/default directory after saving your configuration. If this
+      fails, you will be notified, and you can do it manually. Sample commands
+      from a Unix/Linux command line:
+
+        chmod go-w sites/default/settings.php
+        chmod go-w sites/default
+
+5. Verify that the site is working.
+
+   When the install script finishes, you will be logged in with the site
+   maintenance account on a "Welcome" page. If the default Drupal theme is not
+   displaying properly and links on the page result in "Page Not Found" errors,
+   you may be experiencing problems with clean URLs. Visit
+   http://drupal.org/getting-started/clean-urls to troubleshoot.
+
+6. Change file system storage settings (optional).
+
+   The files directory created in step 4 is the default file system path used to
+   store all uploaded files, as well as some temporary files created by
+   Drupal. After installation, you can modify the file system path to store
+   uploaded files in a different location.
+
+   It is not necessary to modify this path, but you may wish to change it if:
+
+   - Your site runs multiple Drupal installations from a single codebase (modify
+     the file system path of each installation to a different directory so that
+     uploads do not overlap between installations).
+
+   - Your site runs on a number of web servers behind a load balancer or reverse
+     proxy (modify the file system path on each server to point to a shared file
+     repository).
+
+   - You want to restrict access to uploaded files.
+
+   To modify the file system path:
+
+   a. Ensure that the new location for the path exists and is writable by the
+      web server. For example, to create a new directory named uploads and grant
+      write permissions, use the following commands on a Unix/Linux command
+      line:
+
+        mkdir uploads
+        chmod a+w uploads
+
+   b. Navigate to Administration > Configuration > Media > File system, and
+      enter the desired path. Note that if you want to use private file storage,
+      you need to first enter the path for private files and save the
+      configuration, and then change the "Default download method" setting and
+      save again.
+
+   Changing the file system path after files have been uploaded may cause
+   unexpected problems on an existing site. If you modify the file system path
+   on an existing site, remember to copy all files from the original location
+   to the new location.
+
+8. Set up independent "cron" maintenance jobs.
+
+   Many Drupal modules have tasks that must be run periodically, including the
+   Search module (building and updating the index used for keyword searching),
+   the Aggregator module (retrieving feeds from other sites), and the System
+   module (performing routine maintenance and pruning of database tables). These
+   tasks are known as "cron maintenance tasks", named after the Unix/Linux
+   "cron" utility.
+
+   When you install Drupal, its built-in cron feature is enabled, which
+   automatically runs the cron tasks periodically, triggered by people visiting
+   pages of your site. You can configure the built-in cron feature by navigating
+   to Administration > Configuration > System > Cron.
+
+   It is also possible to run the cron tasks independent of site visits; this is
+   recommended for most sites. To do this, you will need to set up an automated
+   process to visit the page cron.php on your site, which executes the cron
+   tasks.
+
+   The URL of the cron.php page requires a "cron key" to protect against
+   unauthorized access. Your site's cron key is automatically generated during
+   installation and is specific to your site. The full URL of the page, with the
+   cron key, is available in the "Cron maintenance tasks" section of the Status
+   report page at Administration > Reports > Status report.
+
+   As an example for how to set up this automated process, you can use the
+   crontab utility on Unix/Linux systems. The following crontab line uses the
+   wget command to visit the cron.php page, and runs each hour, on the hour:
+
+   0 * * * * wget -O - -q -t 1 http://example.com/cron.php?cron_key=YOURKEY
+
+   Replace the text "http://example.com/cron.php?cron_key=YOURKEY" in the
+   example with the full URL displayed under "Cron maintenance tasks" on the
+   "Status report" page.
+
+   More information about cron maintenance tasks is available at
+   http://drupal.org/cron, and sample cron shell scripts can be found in the
+   scripts/ directory. (Note that these scripts must be customized like the
+   above example, to add your site-specific cron key and domain name.)
