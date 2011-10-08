@@ -8,7 +8,7 @@
 /**
  * Root directory of Drupal installation.
  */
-define('DRUPAL_ROOT', getcwd() ."../www/");
+define('DRUPAL_ROOT', getcwd());
 
   /**
    * Global flag to indicate that site is in installation mode.
@@ -25,21 +25,21 @@ define('DRUPAL_ROOT', getcwd() ."../www/");
     'forms' => array(
       'install_settings_form' => array(
         'driver' => 'mysql',
-       // 'username' => '',
-       // 'host' => 'myhost',
-       // 'port' => '',
-       // 'password' => 'mypass',
-       // 'database' => 'mydbname',
+		'username' => 'root',
+        'host' => 'localhost',
+        'port' => '3306',
+        'password' => '',
+        'database' => 'drupal',
       ),
       'install_configure_form' => array(
-      //  'site_name' => 'my site',
-      //  'site_mail' => 'me@me.com',
+		'site_name' => 'my site',
+        'site_mail' => 'me@me.com',
         'account' => array(
-      //    'name' => 'admin',
-      //    'mail' => 'me@me.com',
+          'name' => 'admin',
+          'mail' => 'me@me.com',
           'pass' => array(
-     //       'pass1' => 'adminpass',
-       //     'pass2' => 'adminpass',
+            'pass1' => 'adminpass',
+            'pass2' => 'adminpass',
           ),
         ),
         'update_status_module' => array(
@@ -47,6 +47,8 @@ define('DRUPAL_ROOT', getcwd() ."../www/");
           2 => TRUE,
         ),
         'clean_url' => TRUE,
+		'op' => 'Save and continue',
+
       ),
     ),
   );

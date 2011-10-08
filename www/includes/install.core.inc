@@ -411,7 +411,9 @@ function install_run_task($task, &$install_state) {
         // which requires that referenced variables be passed explicitly.
         'build_info' => array('args' => array(&$install_state)),
       );
+
       drupal_form_submit($function, $form_state);
+
       $errors = form_get_errors();
       if (!empty($errors)) {
         throw new Exception(implode("\n", $errors));
@@ -805,6 +807,7 @@ function install_verify_settings() {
     $database = $databases['default']['default'];
     drupal_static_reset('conf_path');
     $settings_file = './' . conf_path(FALSE) . '/settings.php';
+
     $errors = install_database_errors($database, $settings_file);
     if (empty($errors)) {
       return TRUE;
@@ -838,14 +841,19 @@ function install_verify_pdo() {
  */
 function install_settings_form($form, &$form_state, &$install_state) {
   global $databases;
+
   $profile = $install_state['parameters']['profile'];
   $install_locale = $install_state['parameters']['locale'];
 
   drupal_static_reset('conf_path');
   $conf_path = './' . conf_path(FALSE);
   $settings_file = $conf_path . '/settings.php';
-  $database = isset($databases['default']['default']) ? $databases['default']['default'] : array();
 
+  
+ /* @MODIFIED BY AXR TEAM */
+  //$database = isset($databases['default']['default']) ? $databases['default']['default'] : array();
+	$database = $form_state['values'];
+  
   drupal_set_title(st('Database configuration'));
 
   $drivers = drupal_get_database_types();
@@ -910,6 +918,7 @@ function install_settings_form_validate($form, &$form_state) {
   unset($database['db_prefix']);
 
   $form_state['storage']['database'] = $database;
+
   $errors = install_database_errors($database, $form_state['values']['settings_file']);
   foreach ($errors as $name => $message) {
     form_set_error($name, $message);
@@ -922,24 +931,23 @@ function install_settings_form_validate($form, &$form_state) {
 function install_database_errors($database, $settings_file) {
   global $databases;
   $errors = array();
-
   // Check database type.
   $database_types = drupal_get_database_types();
   $driver = $database['driver'];
+
   if (!isset($database_types[$driver])) {
     $errors['driver'] = st("In your %settings_file file you have configured @drupal to use a %driver server, however your PHP installation currently does not support this database type.", array('%settings_file' => $settings_file, '@drupal' => drupal_install_profile_distribution_name(), '%driver' => $driver));
   }
   else {
     // Run driver specific validation
     $errors += $database_types[$driver]->validateDatabaseSettings($database);
-
     // Run tasks associated with the database type. Any errors are caught in the
     // calling function.
     $databases['default']['default'] = $database;
     // Just changing the global doesn't get the new information processed.
     // We tell tell the Database class to re-parse $databases.
     Database::parseConnectionInfo();
-
+	
     try {
       db_run_tasks($driver);
     }
