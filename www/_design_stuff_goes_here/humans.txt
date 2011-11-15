@@ -1,43 +1,48 @@
-/* the humans responsible & colophon */
-/* humanstxt.org */
-
+             a  A                                                        
+            AM\/MA                                                         
+           (MA:MMD                                                         
+            :: VD
+           ::  º                                                         
+          ::                                                              
+         ::   **      .A$MMMMND   AMMMD     AMMM6    MMMM  MMMM6             
+       6::Z. TMMM    MMMMMMMMMDA   VMMMD   AMMM6     MMMMMMMMM6            
+      6M:AMMJMMOD     V     MMMA    VMMMD AMMM6      MMMMMMM6              
+      ::  TMMTMC         ___MMMM     VMMMMMMM6       MMMM                   
+     MMM  TMMMTTM,     AMMMMMMMM      VMMMMM6        MMMM                  
+    :: MM TMMTMMMD    MMMMMMMMMM       MMMMMM        MMMM                   
+   ::   MMMTTMMM6    MMMMMMMMMMM      AMMMMMMD       MMMM                   
+  :.     MMMMMM6    MMMM    MMMM     AMMMMMMMMD      MMMM                   
+         TTMMT      MMMM    MMMM    AMMM6  MMMMD     MMMM                   
+        TMMMM8       MMMMMMMMMMM   AMMM6    MMMMD    MMMM                   
+       TMMMMMM$       MMMM6 MMMM  AMMM6      MMMMD   MMMM                   
+      TMMM MMMM                                                           
+     TMMM  .MMM                                         
+     TMM   .MMD       ARBITRARY·······XML········RENDERING                           
+     TMM    MMA       ====================================                              
+     TMN    MM                               
+      MN    ZM                       
+            MM,
 
 /* TEAM */
-  <your title>: <your name>
-  Site: 
-  Twitter: 
-  Location: 
+	Founder, Design & Development: Miro Keller
+	Contact: veosotano@gmail.com
+	Twitter: @veosotano
+	Dribbble: http://dribbble.com/veosotano/
+	Site: http://www.veo-design.com/
+	From: Madrid, Spain
 
-/* THANKS */
-  Names (& URL): 
+	Development: Guilllermo Pascual
+	Contact: akira.space@gmail.com
+	Twitter: @pasku1
+	From: Madrid, Spain
+
+	Hosting graciously provided by: Mr. Bohnke
+	Twitter: @mrbohnke
+	From: La Palma, Spain
 
 /* SITE */
-  Standards: HTML5, CSS3
-  Components: Modernizr, jQuery
-  Software:
-  
-
-                                    
-                               -o/-                       
-                               +oo//-                     
-                              :ooo+//:                    
-                             -ooooo///-                   
-                             /oooooo//:                   
-                            :ooooooo+//-                  
-                           -+oooooooo///-                 
-           -://////////////+oooooooooo++////////////::    
-            :+ooooooooooooooooooooooooooooooooooooo+:::-  
-              -/+ooooooooooooooooooooooooooooooo+/::////:-
-                -:+oooooooooooooooooooooooooooo/::///////:-
-                  --/+ooooooooooooooooooooo+::://////:-   
-                     -:+ooooooooooooooooo+:://////:--     
-                       /ooooooooooooooooo+//////:-        
-                      -ooooooooooooooooooo////-           
-                      /ooooooooo+oooooooooo//:            
-                     :ooooooo+/::/+oooooooo+//-           
-                    -oooooo/::///////+oooooo///-          
-                    /ooo+::://////:---:/+oooo//:          
-                   -o+/::///////:-      -:/+o+//-         
-                   :-:///////:-            -:/://         
-                     -////:-                 --//:        
-                       --                       -:        
+	Last update:2011/05/01
+	Language:English
+	Doctype:HTML5 with CSS3 on the Mission Statement & xHTML 1.0 Strict on the rest (for now)
+	Tools:PHP,MSQL
+	Apps:TextMate, CSSEdit, Transmit, WebKit Inspector
