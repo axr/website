@@ -1,5 +1,3 @@
-
-
 (function($) {
 	$(function(){
 		String.prototype.parseURL = function() {
@@ -58,4 +56,4 @@
 				}
 		);
 	});
-});
+})(jQuery);
