@@ -1,0 +1,46 @@
+#pathway ul li
+{
+	display: block;
+	float: left;
+	margin: 0 20px;
+}
+
+#user_menu
+{
+	clear: both;
+	margin: 20px 0 20px 0;
+}
+
+#user_menu .login_form .view
+{
+	width: 200px;
+	float: left;
+}
+
+.outline_view .extra_outline .expansor a
+{
+	display: block;
+	float: left;
+}
+
+#spec.spec_item .chapter .header
+{
+	margin: 40px 0;
+	overflow: hidden;
+	float: left;
+}
+
+#spec.spec_item .chapter .header .previous_chapter
+{
+	float: left;
+}
+
+#spec.spec_item .chapter .header .next_chapter
+{
+	float: right;
+}
+
+#content h1
+{
+	clear: both;
+}

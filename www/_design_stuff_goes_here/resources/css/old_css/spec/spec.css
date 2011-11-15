@@ -1,0 +1,225 @@
+/* @override http://axr.dev/resources/axr/english/css/spec.css */
+
+#main #menu ul li.spec > a
+{
+	opacity: 1;
+	background-image: url(../images/sprite.jpg);
+	background-position: -159px -102px;
+}
+
+#spec
+{
+	clear: both;
+	overflow: hidden;
+	position: relative;
+	top: -105px;
+}
+
+#spec > .chapter
+{
+	width: 665px;
+	float: left;
+}
+
+#spec > .chapter > .content
+{
+	width: 580px;
+	font-size: 1.2em;
+	margin-left: 35px;
+}
+
+#spec > .chapter > .header
+{
+	width: 664px;
+	height: 43px;
+	background-image: url(../images/chapters_top_repeat_h.jpg);
+}
+
+#spec > .chapter > .header > .previous_chapter
+{
+	width: 280px;
+	height: 43px;
+	float: left;
+	line-height: 43px;
+	margin-left: 15px;
+}
+
+#spec > .chapter > .header > .next_chapter
+{
+	width: 280px;
+	height: 43px;
+	float: right;
+	line-height: 43px;
+	text-align: right;
+	margin-right: 15px;
+}
+
+#spec > .chapter > .header > .link > a
+{
+	display: block;
+	position: relative;
+}
+
+#spec > .chapter > .header > .link > a > .block_0
+{
+	display: block;
+	width: 15px;
+	height: 15px;
+	background-image: url(../images/sprite32.png);
+	background-position: -49px -17px;
+	float: right;
+	margin-top: 14px;
+	margin-left: 10px;
+}
+
+#spec > .chapter > .header > .previous_chapter > a > .block_0
+{
+	float: left;
+	background-position: -49px -33px;
+	margin-left: 0;
+	margin-right: 10px;
+}
+
+#spec > .chapter > .content > .draft_warning
+{
+	width: 549px;
+	margin: 20px auto;
+	background-color: rgba(153,153,153,0.1);
+	padding: 20px;
+	border-radius: 15px
+}
+
+#spec > .chapter > .content > .draft_warning > .block_0
+{
+	width: 28px;
+	height: 26px;
+	float: left;
+	margin: 14px 20px;
+	background-image: url(../images/sprite32.png);
+	background-position: -66px -16px;
+}
+
+#spec > .chapter > .content > .draft_warning p
+{
+	margin: 5px 0;
+}
+
+#spec > .chapter > .content > .draft_warning strong
+{
+	color: red;
+}
+
+#spec > .chapter p.center
+{
+	text-align: center;
+}
+
+#spec > .chapter p > span
+{
+	background: #fef3c8;
+	padding: 0 2px;
+	border: 1px solid #dca992;
+	color: #b5471a;
+	border-radius: 2px;
+	font-family: monospace;
+}
+
+#spec > .chapter .inner .comment
+{
+	color: #95877e;
+}
+
+#spec > .chapter .inner .selector
+{
+	color: #fd2f7a;
+}
+
+#spec > .chapter .inner .property
+{
+	color: #1b8a93;
+}
+
+#spec > .chapter .inner .filter
+{
+	color: #199013;
+}
+
+#spec > .chapter .inner .combinator
+{
+	color: #1e97f4;
+}
+
+#spec > .chapter .inner .object
+{
+	color: #933492;
+}
+
+#spec > .chapter .inner .number
+{
+	color: #2146fa;
+}
+
+#spec > .chapter .inner .string
+{
+	color: #fd2716;
+}
+
+#spec > .chapter .inner pre .highlighted
+{
+	background-color: #fefefe;
+}
+
+#spec > .chapter .inner table
+{
+	width: 100%;
+	border: 1px solid #CCC;
+}
+
+#spec > .chapter .inner table th
+{
+	background-color: #CCC;
+	padding: 10px;
+}
+
+#spec > .chapter .inner table td
+{
+	border: 1px solid #CCC;
+	text-align: left;
+	padding: 10px;
+}
+
+#spec pre.xml
+{
+	background-color: #d6fcd0;
+	border-color: #5bac80;
+	color: #498e68;
+}
+
+#spec ul, #spec ol
+{
+	list-style: inside;
+	line-height: 1.4;
+	margin: 10px;
+}
+
+#spec ul li, #spec ol li
+{
+	color: #666666;
+}
+
+#spec.spec_item .join_list
+{
+	float: right;
+	width: 520px;
+	padding: 30px;
+	margin-right: 52px;
+	margin-top: 30px;
+	background-color: rgba(153,153,153,0.1);
+	border-radius: 15px
+}
+
+#spec.spec_item .join_list h4
+{
+	margin: 0;
+	padding: 0 0 20px 0;
+}
