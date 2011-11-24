@@ -1,30 +1,30 @@
 (function($) {
 	$(function(){
+	
 		beautifyTweet = function(tweet) {
+			parseURL = function(tweet) {
+				return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/, function(url) {
+					return url.link(url);
+				});
+			};
+			
+			parseUsername = function(tweet) {
+				return tweet.replace(/[@]+[A-Za-z0-9-_]+/, function(u) {
+					return u.link("http://twitter.com/"+u.replace("@",""));
+				});
+			};
+			
+			parseHashtag = function(tweet) {
+				return tweet.replace(/[#]+[A-Za-z0-9-_]+/, function(t) {
+					return t.link("http://search.twitter.com/search?q="+t.replace("#","%23"));
+				});
+			};
 		
-			tweet= this.parseURL(tweet);
-			tweet= this.parseUsername(tweet);
-			tweet= this.parseHashtag(tweet);
+			tweet= parseURL(tweet);
+			tweet= parseUsername(tweet);
+			tweet= parseHashtag(tweet);
 			
 			return tweet; 
-		}
-			
-		beautifyTweet.prototype.parseURL = function(tweet) {
-			return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/, function(url) {
-				return url.link(url);
-			});
-		};
-
-		beautifyTweet.prototype.parseUsername = function(tweet) {
-			return tweet.replace(/[@]+[A-Za-z0-9-_]+/, function(u) {
-				return u.link("http://twitter.com/"+u.replace("@",""));
-			});
-		};
-
-		beautifyTweet.prototype.parseHashtag = function(tweet) {
-			return tweet.replace(/[#]+[A-Za-z0-9-_]+/, function(t) {
-				return t.link("http://search.twitter.com/search?q="+t.replace("#","%23"));
-			});
 		};
 		
 		$.getJSON("http://api.twitter.com/1/statuses/user_timeline.json?count=1&include_rts=t&screen_name=axrproject&callback=?",
