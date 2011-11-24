@@ -24,21 +24,17 @@
             MM,
 
 /* TEAM */
-	Founder, Design & Development: Miro Keller
+	Proect leader and the brainz: Miro Keller
 	Contact: veosotano@gmail.com
 	Twitter: @veosotano
 	Dribbble: http://dribbble.com/veosotano/
 	Site: http://www.veo-design.com/
 	From: Madrid, Spain
 
-	Development: Guilllermo Pascual
-	Contact: akira.space@gmail.com
-	Twitter: @pasku1
-	From: Madrid, Spain
+	Thanks:  Mohammed Ameen (@amxn), Funcod, Zisu Andrei (@matzipan), Thomas Eitler, Guillermo Pascual (@pasku1) and all the other great guys on the list, IRC and twitter!
 
-	Hosting graciously provided by: Mr. Bohnke
-	Twitter: @mrbohnke
-	From: La Palma, Spain
+	Hosting graciously provided by: Go Commercial Group
+	Twitter: @gocommercialgroup
 
 /* SITE */
 	Last update:2011/05/01
