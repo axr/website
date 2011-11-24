@@ -195,7 +195,11 @@ table { border-collapse: collapse; border-spacing: 0; }
    Author: Andrei Zisu & Miro Keller
    ========================================================================== */
 
-
+body { background: url('../images/body_bg.png') repeat-x #e3e3e3; }
+header { width: 960px; margin: 0px auto; }
+header .logo { display: block; height: 200px; width: 310px; background: url('../images/sprite.png') no-repeat; text-indent: -10000px; }
+.fork_github { position: absolute; top: 0; right: 0;  }
+.fork_github a { display: block; height: 113px; width: 140px; background: url('../images/fork_github.png') no-repeat; text-indent: -10000px; }
 
 
 

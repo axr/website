@@ -34,7 +34,7 @@
 		);
 	
 		var $manifiesto = $("#manifiesto");
-		var $manifiestoButton = $("#intro .manifiesto");
+		var $manifiestoButton = $("#main .manifesto.button");
 		
 		$manifiestoButton .click(function() {
 			$manifiesto.slideDown();
