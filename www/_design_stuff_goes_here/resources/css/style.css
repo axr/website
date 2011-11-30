@@ -192,17 +192,20 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 /* =============================================================================
    Primary styles
-   Author: Andrei Zisu & Miro Keller
+   Author: Andrei Zisu, Miro Keller, Marc G
    ========================================================================== */
 
-body { background: url('../images/body_bg.png') repeat-x #e3e3e3; }
+body { background: url('../images/body_bg.png') repeat-x #e3e3e3; font-family: "Century Gothic", Futura, Arial, sans-serif; }
+
 header { position: relative; width: 960px; height: 200px; margin: 0px auto;  }
 header .logo { display: block; position: absolute; left: 0; top: 0; height: 200px; width: 310px; background: url('../images/sprite.jpg') no-repeat; text-indent: -10000px; }
 header nav { position: absolute; top: 0; right: 0; }
 header .secondary { position: absolute; top: 0; right: 0; }
+
 .fork_github { position: absolute; top: 0; right: 0;  }
 .fork_github a { display: block; height: 113px; width: 140px; background: url('../images/fork_github.png') no-repeat; text-indent: -10000px; }
 .share { position: absolute; top: 400px; right: 0; }
+
 #main { width: 960px; margin: 0px auto; }
 .above_fold { overflow: hidden;  }
 .above_fold .intro { float: left; width: 50%; }
@@ -211,8 +214,44 @@ header .secondary { position: absolute; top: 0; right: 0; }
 .the_cool_stuff .download.buttons { float: left; width: 50%; }
 .the_cool_stuff .download.info { float: right; width: 50%; }
 
-
-
+footer { background-image: url("../images/footer_repeat.jpg"); background-position: center 115px; background-repeat: repeat-x; position: relative; width: 100%; }
+footer > a { background-image: url("../images/sprite.jpg"); background-position: -636px -562px; display: block; height: 116px; margin: 0 auto; overflow: hidden; position: relative; text-indent: -9999px; width: 365px; z-index: 1; }
+footer > a:hover { background-position: -636px -678px; }
+footer > ul { height: 95px; list-style: none outside none; margin: -95px auto 0; position: relative; width: 748px; }
+footer > ul.technologies_used > li { float: left; margin-right: 8px; position: absolute; z-index: 1; }
+footer > ul.technologies_used > li > a { background-image: url("../images/sprite.jpg"); display: block; overflow: hidden; text-indent: -9999px; }
+footer > ul.technologies_used > li.html5 { left: 0; top: 20px; }
+footer > ul.technologies_used > li.html5 > a { background-position: -346px -691px; height: 53px; width: 116px; }
+footer > ul.technologies_used > li.html5 > a:hover { background-position: -346px -744px; }
+footer > ul.technologies_used > li.humanstxt { left: 145px; top: 30px; }
+footer > ul.technologies_used > li.humanstxt > a { background-position: -209px -691px; height: 37px; width: 137px; }
+footer > ul.technologies_used > li.humanstxt > a:hover { background-position: -209px -728px; }
+footer > ul.technologies_used > li.github { left: 510px; top: 30px; }
+footer > ul.technologies_used > li.github > a { background-position: -90px -691px; height: 43px; width: 119px; }
+footer > ul.technologies_used > li.github > a:hover { background-position: -90px -734px; }
+footer > ul.technologies_used > li.google_groups { left: 665px; top: 35px; }
+footer > ul.technologies_used > li.google_groups > a { background-position: 0 -691px; height: 48px; width: 90px; }
+footer > ul.technologies_used > li.google_groups > a:hover { background-position: 0 -739px; }
+footer > .activity { height: 201px; margin: 0 auto; position: relative; width: 810px; }
+footer > .activity > form > a { background-image: url("../images/sprite.jpg"); background-position: -357px -797px; display: block; height: 43px; overflow: hidden; position: absolute; text-indent: -9999px; top: 45px; width: 105px; }
+footer > .activity > form > a:hover { background-position: -241px -765px; }
+footer > .activity > .follow_us { background-image: url("../images/sprite.jpg"); background-position: 0 -787px; height: 77px; left: -25px; list-style: none outside none; margin: 0; padding: 11px 0 0 29px; position: absolute; top: 100px; width: 178px; z-index: 1; }
+footer > .activity > .follow_us > li { display: block; float: left; height: 26px; margin-right: 13px; width: 24px; }
+footer > .activity > .follow_us > li > a { display: block; height: 100%; overflow: hidden; text-indent: -999px; width: 100%; }
+footer > .activity > .follow_us > li > a:hover { background-image: url("../images/sprite.jpg"); }
+footer > .activity > .follow_us > li.twitter > a:hover { background-position: -285px -808px; }
+footer > .activity > .follow_us > li.facebook > a:hover { background-position: -309px -808px; }
+footer > .activity > .follow_us > li.vimeo > a:hover { background-position: -333px -808px; }
+footer > .activity > .last_tweet { background-image: url("../images/sprite.jpg"); background-position: 0 -562px; height: 129px; left: 180px; position: absolute; top: 25px; width: 346px; }
+footer > .activity > .last_tweet > p { color: #939393; font-size: 0.9em; margin: 14px 0 0 90px; text-shadow: 0 1px 0 #EBEBEB; width: 233px; }
+footer > .activity > .last_tweet > p.follow_us { bottom: 16px; font-weight: bold; left: 0; position: absolute; text-align: center; }
+footer > .activity > .last_tweet > p > a { color: #D09610; text-decoration: none; font-weight: bold; }
+footer > .activity > .participate { background-image: url("../images/sprite.jpg"); background-position: -369px -562px; height: 126px; left: 550px; position: absolute; top: 25px; width: 267px; font-weight: bold; }
+footer > .activity > .participate > h2 { color: white; font-weight: bold; margin: 10px 0 0 20px; text-shadow: 0 1px 0 #666666; width: 72px; }
+footer > .activity > .participate > p { color: white; font-size: 0.89em; margin: 16px 0 0 20px; text-shadow: 0 1px 0 #666666; width: 230px; }
+footer > .activity > .participate > p > a { color: #FFD519; text-decoration: none; text-shadow: 0 1px 0 #666666; }
+footer > .activity > .copy { bottom: 5px; position: absolute; text-align: center; text-shadow: 0 1px 0 white; width: 100%; }
+footer > .activity > .copy > p > a { color: #666666; font-weight: bold; text-decoration: none; }
 
 /* =============================================================================
    Non-semantic helper classes
