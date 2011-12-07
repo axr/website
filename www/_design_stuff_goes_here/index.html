@@ -27,6 +27,7 @@
 	<!-- unleash the beast-->
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="stylesheet" href="resources/css/style.css">
+	<link rel="stylesheet" href="resources/css/home.css">
 </head>
 <body>
 
@@ -36,12 +37,12 @@
 		<div class="secondary">Login | search</div>
 		<nav>
 			<ul>
-				<li>Home</li>
-				<li>Specification</li>
-				<li>Community</li>
-				<li>Wiki</li>
-				<li>Blog</li>
-				<li>Roadmap</li>
+				<li class="home selected"><a href="index.html">Home</a></li>
+				<li class="specification"><a href="specification.html">Specification</a></li>
+				<li class="community"><a href="community.html">Community</a></li>
+				<li class="wiki"><a href="wiki.html">Wiki</a></li>
+				<li class="blog"><a href="blog.html">Blog</a></li>
+				<li class="roadmap"><a href="roadmap.html">Roadmap</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -54,12 +55,23 @@
 	</div>
 	<div id="main" role="main">
 		<div class="above_fold">
-			<div class="intro">
-				AXR stands for Arbitrary XML Rendering. It's aim is to provide a better alternative to HTML+CSS
-				It uses XML for the content and HSS for the design and simple behavior of the interface. HSS  is a language based on CSS, but offers many more advanced features, such as object orientation, rule nesting, expressions, references to other objects, modularization (code reuse), etc. JavaScript will be used as well for advanced behavior.
-				<a href="" class="join button">Join the revolution</a><a href="" class="manifesto button">Read the manifesto</a>
+			<div class="nested_0 clearfix">
+				<div class="intro">
+					<h2>AXR stands for Arbitrary XML Rendering. It's aim is to provide a better alternative to HTML+CSS</h2>
+					<p>It uses XML for the content and HSS for the design and simple behavior of the interface. HSS  is a language based on CSS, but offers many more advanced features, such as object orientation, rule nesting, expressions, references to other objects, modularization (code reuse), etc. JavaScript will be used as well for advanced behavior.</p>
+					<a href="join.html" class="join button_std">
+						<span class="header"></span>
+						<span class="content"><span class="block_0"></span>Join the revolution</span>
+						<span class="footer"></span>
+					</a>
+					<a href="manifiesto.html" class="manifesto button_std gray">
+						<span class="header"></span>
+						<span class="content"><span class="block_0"></span>Read the manifesto</span>
+						<span class="footer"></span>
+					</a>
+				</div>
+				<div class="slides"><!--<iframe src="http://www.slideshare.net/slideshow/embed_code/6829398?rel=0" width="346" height="278" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>--></div>
 			</div>
-			<div class="slides">Slides 'n' stuff</div>
 		</div>
 		<div class="the_cool_stuff"> 
 			<div>
@@ -137,6 +149,5 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
 	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
 <![endif]-->
-<!-- test -->
 </body>
 </html>

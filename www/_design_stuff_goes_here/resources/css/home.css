@@ -1,0 +1,58 @@
+#main > .above_fold
+{
+	border-bottom: 1px solid #C2C2C2;
+}
+
+#main > .above_fold > .nested_0
+{
+	width: 855px;
+	padding: 50px 0 55px 105px;
+	margin: 0px auto;
+}
+
+#main > .above_fold > .nested_0 > .intro
+{
+	width: 356px;
+	float: left;
+}
+
+#main > .above_fold > .nested_0 > .intro > .button_std
+{
+	width: 155px;
+	float: left;
+	margin-top: 25px;
+}
+
+#main > .above_fold > .nested_0 > .intro > .manifesto
+{
+	margin-left: 27px;
+	margin-right: 0;
+}
+
+#main > .above_fold > .nested_0 > .intro > .manifesto > .content > .block_0
+{
+	background-position: -88px -1px;
+	margin-top: 9px;
+	margin-left: 4px;
+}
+
+#main > .above_fold > .nested_0 > .slides
+{
+	width: 421px;
+	height: 297px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -1px -280px;
+	margin-top: -8px;
+	margin-left: -20px;
+	position: relative;
+	left: 40px;
+	padding: 21px 0 0 85px;
+	float: left;
+}
+
+#main > .the_cool_stuff
+{
+	padding: 50px 0 50px 105px;
+	border-top: 1px solid #F2F2F2;
+}
+
