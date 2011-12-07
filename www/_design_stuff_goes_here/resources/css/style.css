@@ -228,11 +228,6 @@ header .secondary { position: absolute; top: 0; right: 0; }
 .fork_github a { display: block; height: 113px; width: 140px; background: url('../images/fork_github.png') no-repeat; text-indent: -10000px; }
 .share { position: absolute; top: 400px; right: 0; }
 
-.above_fold .intro { float: left; width: 50%; }
-.above_fold .slides { float: right; width: 50%; }
-.the_cool_stuff { overflow: hidden; } 
-.the_cool_stuff .download.buttons { float: left; width: 50%; }
-.the_cool_stuff .download.info { float: right; width: 50%; }
 
 footer { background-image: url("../images/footer_repeat.jpg"); background-position: center 115px; background-repeat: repeat-x; position: relative; width: 100%; }
 footer > a { background-image: url("../images/sprite.jpg"); background-position: -508px -353px; display: block; height: 116px; margin: 0 auto; overflow: hidden; position: relative; text-indent: -9999px; width: 365px; z-index: 1; }
