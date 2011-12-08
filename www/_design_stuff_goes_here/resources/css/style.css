@@ -194,39 +194,135 @@ table { border-collapse: collapse; border-spacing: 0; }
    Primary styles
    Author: Andrei Zisu, Miro Keller, Marc G
    ========================================================================== */
-
-body { background: url('../images/body_bg.png') repeat-x #e3e3e3; color: #666666; font-family: 'Century Gothic',Futura,sans-serif; line-height: 1.38; font-size: 0.75em; }
-
-h2
-{
-	font-size: 1.5em;
-}
-
+html, body { min-width: 960px; }
+body { background: url('../images/body_bg.png') repeat-x #e5e5e5; color: #666666; font-family: 'Century Gothic',Futura,sans-serif; line-height: 1.38; font-size: 0.75em; }
+#container { overflow: hidden; position: relative; }
+h2 { font-size: 1.5em; }
 
 header { position: relative; width: 960px; height: 200px; margin: 0px auto;  }
-header > .logo { display: block; height: 200px; width: 310px; background: url('../images/sprite.jpg') no-repeat; text-indent: -10000px; float: left; }
-header > nav { width: 639px; height: 49px; float: left; margin: 97px 0 0 11px; background:  url('../images/sprite.jpg'); background-position: -311px 0; }
+header > .logo { display: block; height: 250px; width: 310px; background: url('../images/sprite.jpg') no-repeat; text-indent: -10000px; float: left; }
+header > nav { width: 647px; height: 49px; float: left; margin: 97px 0 0 3px; background:  url('../images/sprite.jpg'); background-position: -312px 0; }
 header > nav > ul { height: 100%; }
-header > nav > ul > li { float: left; height: 100%; }
+header > nav > ul > li { float: left; height: 100%; position: relative; }
 header > nav > ul > li > a { display: block; width: 100%; height: 100%; text-indent: -999px; overflow: hidden; }
-header > nav > ul > li > a:hover { background: url('../images/sprite.jpg'); padding-right: 1px; }
-header > nav > ul > li.home { width: 104px; }
-header > nav > ul > li.specification { width: 133px; }
-header > nav > ul > li.community { width: 137px; }
-header > nav > ul > li.wiki { width: 85px; }
-header > nav > ul > li.blog { width: 71px; }
-header > nav > ul > li.roadmap { width: 109px; }
-header > nav > ul > li.home > a:hover { background-position: -311px -49px; }
-header > nav > ul > li.specification > a:hover { background-position: -416px -49px; }
-header > nav > ul > li.community > a:hover { background-position: -550px -49px; }
-header > nav > ul > li.wiki > a:hover { background-position: -688px -49px; }
-header > nav > ul > li.blog > a:hover { background-position: -774px -49px; }
-header > nav > ul > li.roadmap > a:hover { background-position: -846px -49px; }
-header .secondary { position: absolute; top: 0; right: 0; }
+header > nav > ul > li > a:hover,
+header > nav > ul > li.hover > a
+{
+	background: url('../images/sprite.jpg');
+	padding-right: 1px;
+}
+header > nav > ul > li.about { width: 97px; }
+header > nav > ul > li.specification { width: 129px; }
+header > nav > ul > li.resources { width: 136px; }
+header > nav > ul > li.community { width: 131px; }
+header > nav > ul > li.wiki { width: 88px; }
+header > nav > ul > li.blog { width: 66px; }
+header > nav > ul > li.about > a:hover, header > nav > ul > li.about.hover > a { background-position: -312px -49px; }
+header > nav > ul > li.specification > a:hover, header > nav > ul > li.specification.hover > a { background-position: -410px -49px; }
+header > nav > ul > li.resources > a:hover,
+header > nav > ul > li.resources.hover > a { background-position: -540px -49px; }
+header > nav > ul > li.community > a:hover,
+header > nav > ul > li.community.hover > a { background-position: -677px -49px; }
+header > nav > ul > li.wiki > a:hover,
+header > nav > ul > li.wiki.hover > a { background-position: -809px -49px; }
+header > nav > ul > li.blog > a:hover,
+header > nav > ul > li.blog.hover > a { background-position: -898px -49px; }
 
-.fork_github { position: absolute; top: 0; right: 0;  }
-.fork_github a { display: block; height: 113px; width: 140px; background: url('../images/fork_github.png') no-repeat; text-indent: -10000px; }
-.share { position: absolute; top: 400px; right: 0; }
+header > nav > ul > li > .sections
+{
+	width: 191px;
+	position: absolute;
+	top: 32px;
+	margin: 83px 0 69px;
+	z-index: 999;
+	background-image: url(../images/dropdown_bg.png);
+}
+
+header > nav > ul > li.about > .sections { left: -45px; }
+header > nav > ul > li.resources > .sections { left: -28px; }
+header > nav > ul > li.community > .sections { left: -32px; }
+header > nav > ul > li.wiki > .sections { left: -48px; }
+
+header > nav > ul > li > .sections > .header
+{
+	width: 100%;
+	height: 83px;
+	background-image: url(../images/sprite32.png);
+	background-position: -1px -38px;
+	position: absolute;
+	top: -83px;
+}
+
+header > nav > ul > li > .sections > .content
+{
+	margin-top: -120px;
+	position: relative;
+	z-index: 1;
+	top: 55px;
+}
+
+header > nav > ul > li > .sections > .content > li
+{
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	margin: 0 8px;
+	border-bottom: 1px solid #555555;
+	border-top: 1px solid #7F7F7F;
+}
+
+header > nav > ul > li > .sections > .content > li.first
+{
+	border-top: none;
+}
+
+header > nav > ul > li > .sections > .content > li.last
+{
+	border-bottom: none;
+}
+
+header > nav > ul > li > .sections > .content > li > a
+{
+	display: block;
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+	text-shadow: #333333 0 1px 0;
+}
+
+header > nav > ul > li > .sections > .content > li > a:hover
+{
+	color: #313131;
+	text-shadow: #959595 0 1px 0;
+}
+
+header > nav > ul > li > .sections > .footer
+{
+	width: 100%;
+	height: 69px;
+	background-image: url(../images/sprite32.png);
+	background-position: -1px -121px;
+	position: absolute;
+	bottom: -69px;
+}
+
+header .secondary { position: absolute; top: 60px; right: 0; }
+
+
+#container > .fork_github { position: absolute; top: 0; right: 0;  }
+#container > .fork_github a { display: block; height: 113px; width: 140px; background: url('../images/fork_github.png') no-repeat; text-indent: -10000px; }
+
+#container > .share { position: absolute; top: 315px; right: 0; z-index: 999;}
+#container > .share > .label { width: 60px; height: 60px; margin: 0; position: absolute; bottom: -70px; right: 3px; background-image: url(../images/sprite.jpg); background-position: -924px -470px; text-indent: -999px; overflow: hidden;}
+#container > .share > ul { display: block; width: 48px; height: 159px; margin: 0; background-image: url(../images/sprite.jpg); background-position: -874px -469px; padding: 0; list-style: none;}
+#container > .share > ul > li { padding: 19px 0 1px 15px; }
+#container > .share > ul > li > a { display: block; width: 28px; height: 27px; text-indent: -999px; overflow: hidden; background-image: url(../images/sprite32.png); }
+#container > .share > ul > li.twitter > a { background-position: -108px -1px; }
+#container > .share > ul > li.twitter > a:hover { background-position: -137px -1px; }
+#container > .share > ul > li.facebook > a { background-position: -166px -1px; }
+#container > .share > ul > li.facebook > a:hover { background-position: -195px -1px; }
+#container > .share > ul > li.delicious > a { background-position: -224px -1px; }
+#container > .share > ul > li.delicious > a:hover { background-position: -253px -1px; }
 
 
 footer { background-image: url("../images/footer_repeat.jpg"); background-position: center 115px; background-repeat: repeat-x; position: relative; width: 100%; }
@@ -247,7 +343,7 @@ footer > ul.technologies_used > li.github > a:hover { background-position: -873p
 footer > ul.technologies_used > li.google_groups { left: 665px; top: 35px; }
 footer > ul.technologies_used > li.google_groups > a { background-position: -311px -228px; height: 48px; width: 90px; }
 footer > ul.technologies_used > li.google_groups > a:hover { background-position: -401px -228px; }
-footer > .activity { height: 201px; margin: 0 auto; position: relative; width: 810px; }
+footer > .activity { height: 201px; margin: 20px auto; position: relative; width: 810px; }
 footer > .activity > form > a { background-image: url("../images/sprite.jpg"); background-position: -831px -228px; display: block; height: 43px; overflow: hidden; position: absolute; text-indent: -9999px; top: 45px; width: 105px; }
 footer > .activity > form > a:hover { background-position: -831px -271px; }
 footer > .activity > .follow_us { background-image: url("../images/sprite.jpg"); background-position: -624px -228px; height: 77px; left: -25px; list-style: none outside none; margin: 0; padding: 11px 0 0 29px; position: absolute; top: 100px; width: 178px; z-index: 1; }
@@ -258,14 +354,14 @@ footer > .activity > .follow_us > li.twitter > a:hover { background-position: -8
 footer > .activity > .follow_us > li.facebook > a:hover { background-position: -897px -353px; }
 footer > .activity > .follow_us > li.vimeo > a:hover { background-position: -921px -353px; }
 footer > .activity > .last_tweet { background-image: url("../images/sprite.jpg"); background-position: -311px -99px; height: 129px; left: 180px; position: absolute; top: 25px; width: 346px; }
-footer > .activity > .last_tweet > p { color: #939393; font-size: 0.9em; margin: 14px 0 0 90px; text-shadow: 0 1px 0 #EBEBEB; width: 233px; }
-footer > .activity > .last_tweet > p.follow_us { bottom: 16px; font-weight: bold; left: 0; position: absolute; text-align: center; }
+footer > .activity > .last_tweet > p { margin: 14px 0 0 90px; text-shadow: 0 1px 0 #EBEBEB; width: 233px; }
+footer > .activity > .last_tweet > p.follow_us { color: #939393; bottom: 16px; font-weight: bold; left: 0; position: absolute; text-align: center; }
 footer > .activity > .last_tweet > p > a { color: #D09610; text-decoration: none; font-weight: bold; }
 footer > .activity > .participate { background-image: url("../images/sprite.jpg"); background-position: -680px -99px; height: 126px; left: 550px; position: absolute; top: 25px; width: 267px; font-weight: bold; }
 footer > .activity > .participate > h2 { color: white; font-weight: bold; margin: 10px 0 0 20px; text-shadow: 0 1px 0 #666666; width: 72px; }
 footer > .activity > .participate > p { color: white; font-size: 0.89em; margin: 16px 0 0 20px; text-shadow: 0 1px 0 #666666; width: 230px; }
 footer > .activity > .participate > p > a { color: #FFD519; text-decoration: none; text-shadow: 0 1px 0 #666666; }
-footer > .activity > .copy { bottom: 5px; position: absolute; text-align: center; text-shadow: 0 1px 0 white; width: 100%; }
+footer > .activity > .copy { bottom: 0px; position: absolute; text-align: center; text-shadow: 0 1px 0 white; width: 100%; }
 footer > .activity > .copy > p > a { color: #666666; font-weight: bold; text-decoration: none; }
 
 /* =============================================================================

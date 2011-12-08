@@ -33,16 +33,13 @@
 				}
 		);
 	
-		var $manifiesto = $("#manifiesto");
-		var $manifiestoButton = $("#main .manifesto.button");
 		
-		$manifiestoButton .click(function() {
-			$manifiesto.slideDown();
+		$("#container > header > nav > ul > li").hover(function(){
+		    $(this).closest('li').addClass('hover').find(".sections").removeClass('hidden');
+		}, function(){
+		    $(this).closest('li').removeClass('hover').find(".sections").addClass('hidden');
 		});
 		
-		if (location.hash === "#!/manifiesto") {
-			$manifiestoButton.click();
-		}
 		
 		$("#container > #intro > ul.social > li > a").click(function(event) {
 			event.preventDefault();

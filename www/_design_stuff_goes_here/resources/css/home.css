@@ -14,6 +14,8 @@
 {
 	width: 356px;
 	float: left;
+	position: relative;
+	z-index: 1;
 }
 
 #main > .above_fold > .nested_0 > .intro > .button_std
@@ -48,6 +50,20 @@
 	left: 40px;
 	padding: 21px 0 0 85px;
 	float: left;
+}
+
+@media (max-width: 1050px) {
+  #main > .above_fold > .nested_0 > .slides
+  {
+	left: 20px;
+  }
+}
+
+@media (max-width: 990px) {
+  #main > .above_fold > .nested_0 > .slides
+  {
+	left: 10px;
+  }
 }
 
 #main > .the_cool_stuff
@@ -124,9 +140,12 @@
 	background-position: -1px -643px;
 	text-decoration: none;
 	font-weight: bold;
-	/* remove this */
-	text-indent: -999px;
-	overflow: hidden;
+}
+
+#main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.older:hover
+{
+	color: white;
+	text-shadow: #BC910E 0 1px 0;
 }
 
 #main > .the_cool_stuff > .nested_0 > .downloads > .download.info
@@ -173,19 +192,19 @@
 	margin: 0 10px 0 0;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > .examples
+#main > .the_cool_stuff > .nested_0 > .advantages > .features
 {
 	width: 170px;
 	margin-top: 20px;
 	margin-left: 38px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > .examples > .content
+#main > .the_cool_stuff > .nested_0 > .advantages > .features > .content
 {
 	text-indent: 20px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > .examples > .content > .block_0
+#main > .the_cool_stuff > .nested_0 > .advantages > .features > .content > .block_0
 {
 	float: right;
 	background-position: -89px -21px;
