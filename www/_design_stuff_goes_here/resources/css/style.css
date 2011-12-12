@@ -332,18 +332,33 @@ header .secondary > a.login > .extra_1 {
 	text-shadow: -1px 1px #efefef;
 	vertical-align: top;
 }
-header .secondary  input.search {
+header .secondary > .search {
 	background-image: url(../images/sprite.jpg);
 	background-position: -314px -602px;
+	display: inline-block;
+	margin: 0 0 0 20px;
+	height: 30px;
+	width: 156px;
+}
+header .secondary > .search > input[type="text"] {
+	background: transparent;
 	border: 0;
 	color: #a3a3a3;
 	font-weight: bold;
-	margin: 0 0 0 20px;
 	outline: none;
-	padding: 0 35px 0 10px;
+	padding: 0 0 0 10px;
 	height: 30px;
 	text-align: center;
-	width: 111px;
+	width: 118px;
+}
+
+header .secondary > .search > input[type="submit"] {
+	background: transparent;
+	border: 0;
+	outline: none;
+	height: 30px;
+	text-indent: -9999px;
+	width: 24px;
 }
 
 
