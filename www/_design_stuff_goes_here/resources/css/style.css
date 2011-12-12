@@ -331,13 +331,13 @@ footer > a:hover { background-position: -508px -469px; }
 footer > ul { height: 95px; list-style: none outside none; margin: -95px auto 0; position: relative; width: 748px; }
 footer > ul.technologies_used > li { float: left; margin-right: 8px; position: absolute; z-index: 1; }
 footer > ul.technologies_used > li > a { background-image: url("../images/sprite.jpg"); display: block; overflow: hidden; text-indent: -9999px; }
-footer > ul.technologies_used > li.html5 { left: 0; top: 20px; }
+footer > ul.technologies_used > li.html5 { left: 520px; top: 20px; }
 footer > ul.technologies_used > li.html5 > a { background-position: -508px -228px; height: 53px; width: 116px; }
 footer > ul.technologies_used > li.html5 > a:hover { background-position: -508px -281px; }
 footer > ul.technologies_used > li.humanstxt { left: 145px; top: 30px; }
 footer > ul.technologies_used > li.humanstxt > a { background-position: -624px -316px; height: 37px; width: 137px; }
 footer > ul.technologies_used > li.humanstxt > a:hover { background-position: -761px -316px; }
-footer > ul.technologies_used > li.github { left: 510px; top: 30px; }
+footer > ul.technologies_used > li.github { left: 0px; top: 30px; }
 footer > ul.technologies_used > li.github > a { background-position: -873px -383px; height: 43px; width: 119px; }
 footer > ul.technologies_used > li.github > a:hover { background-position: -873px -426px; }
 footer > ul.technologies_used > li.google_groups { left: 665px; top: 35px; }
