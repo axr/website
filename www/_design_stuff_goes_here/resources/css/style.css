@@ -306,7 +306,45 @@ header > nav > ul > li > .sections > .footer
 	bottom: -69px;
 }
 
-header .secondary { position: absolute; top: 60px; right: 0; }
+header .secondary { position: absolute; top: 40px; right: 0; }
+header .secondary a.login {
+	background: url(../images/);
+	display: inline-block;
+	font-size: 0;
+	margin: 5px 0 0 0;
+	vertical-align: top;
+}
+header .secondary > a.login > .extra_0 {
+	background-image: url(../images/sprite.jpg);
+	background-position: -945px -354px;
+	display: inline-block;
+	height: 18px;
+	width: 19px;
+}
+header .secondary > a.login > .extra_1 {
+	color: #999;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 0 0 7px;
+	padding: 1px 0 0 0;
+	height: 18px;
+	text-decoration: underline;
+	text-shadow: -1px 1px #efefef;
+	vertical-align: top;
+}
+header .secondary  input.search {
+	background-image: url(../images/sprite.jpg);
+	background-position: -314px -602px;
+	border: 0;
+	color: #a3a3a3;
+	font-weight: bold;
+	margin: 0 0 0 20px;
+	outline: none;
+	padding: 0 35px 0 10px;
+	height: 30px;
+	text-align: center;
+	width: 111px;
+}
 
 
 #container > .fork_github { position: absolute; top: 0; right: 0;  }
