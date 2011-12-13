@@ -57,4 +57,14 @@
 			$('html, body').animate({ scrollTop: 0 }, 800);
 		});
 	});
+
+	$('#container > header > .secondary > .search > input[type=text]').bind('focus', function(e){
+		if($(this).val() == 'Search'){
+			$(this).val('');
+		}
+	}).bind('blur', function(e){
+		if($(this).val() == ''){
+			$(this).val('Search');
+		}
+	});
 })(jQuery);
