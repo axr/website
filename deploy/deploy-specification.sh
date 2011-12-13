@@ -3,6 +3,10 @@
 #change to working directoryy
 cd ../clone-specification/
 
+#clean the repo
+git reset --hard HEAD
+git clean -f
+
 #update the clone
 git pull
 
