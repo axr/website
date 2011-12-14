@@ -313,24 +313,31 @@ header .secondary a.login {
 	font-size: 0;
 	margin: 5px 0 0 0;
 	vertical-align: top;
+	border-bottom: #efefef 1px solid;
+	position: relative;
+	line-height: 1.6;
 }
 header .secondary > a.login > .extra_0 {
 	background-image: url(../images/sprite.jpg);
 	background-position: -945px -354px;
-	display: inline-block;
+	display: block;
 	height: 18px;
 	width: 19px;
+	position: absolute;
+	left: -26px;
+	top: 2px;
 }
 header .secondary > a.login > .extra_1 {
 	color: #999;
 	display: inline-block;
 	font-size: 12px;
-	margin: 0 0 0 7px;
+	margin: 0;
 	padding: 1px 0 0 0;
+	font-weight: bold;
 	height: 18px;
-	text-decoration: underline;
 	text-shadow: -1px 1px #efefef;
 	vertical-align: top;
+	border-bottom: 1px solid;
 }
 header .secondary > .search {
 	background-image: url(../images/sprite.jpg);
@@ -344,7 +351,7 @@ header .secondary > .search > input[type="text"] {
 	background: transparent;
 	border: 0;
 	color: #a3a3a3;
-	font-weight: bold;
+	
 	outline: none;
 	padding: 0 0 0 10px;
 	height: 30px;
@@ -381,19 +388,19 @@ header .secondary > .search > input[type="submit"] {
 footer { background-image: url("../images/footer_repeat.jpg"); background-position: center 115px; background-repeat: repeat-x; position: relative; width: 100%; }
 footer > a { background-image: url("../images/sprite.jpg"); background-position: -508px -353px; display: block; height: 116px; margin: 0 auto; overflow: hidden; position: relative; text-indent: -9999px; width: 365px; z-index: 1; }
 footer > a:hover { background-position: -508px -469px; }
-footer > ul { height: 95px; list-style: none outside none; margin: -95px auto 0; position: relative; width: 748px; }
+footer > ul { height: 95px; list-style: none outside none; margin: -95px auto 0; position: relative; width: 780px; }
 footer > ul.technologies_used > li { float: left; margin-right: 8px; position: absolute; z-index: 1; }
 footer > ul.technologies_used > li > a { background-image: url("../images/sprite.jpg"); display: block; overflow: hidden; text-indent: -9999px; }
-footer > ul.technologies_used > li.html5 { left: 520px; top: 20px; }
+footer > ul.technologies_used > li.html5 { left: 560px; top: 20px; }
 footer > ul.technologies_used > li.html5 > a { background-position: -508px -228px; height: 53px; width: 116px; }
 footer > ul.technologies_used > li.html5 > a:hover { background-position: -508px -281px; }
-footer > ul.technologies_used > li.humanstxt { left: 145px; top: 30px; }
+footer > ul.technologies_used > li.humanstxt { left: 175px; top: 30px; }
 footer > ul.technologies_used > li.humanstxt > a { background-position: -624px -316px; height: 37px; width: 137px; }
 footer > ul.technologies_used > li.humanstxt > a:hover { background-position: -761px -316px; }
 footer > ul.technologies_used > li.github { left: 0px; top: 30px; }
 footer > ul.technologies_used > li.github > a { background-position: -873px -383px; height: 43px; width: 119px; }
 footer > ul.technologies_used > li.github > a:hover { background-position: -873px -426px; }
-footer > ul.technologies_used > li.google_groups { left: 665px; top: 35px; }
+footer > ul.technologies_used > li.google_groups { left: 725px; top: 35px; }
 footer > ul.technologies_used > li.google_groups > a { background-position: -311px -228px; height: 48px; width: 90px; }
 footer > ul.technologies_used > li.google_groups > a:hover { background-position: -401px -228px; }
 footer > .activity { height: 201px; margin: 20px auto; position: relative; width: 810px; }
