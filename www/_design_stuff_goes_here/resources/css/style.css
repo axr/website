@@ -195,7 +195,7 @@ table { border-collapse: collapse; border-spacing: 0; }
    Author: Andrei Zisu, Miro Keller, Marc G
    ========================================================================== */
 html, body { min-width: 960px; }
-body { background: url('../images/body_bg.png') repeat-x #e5e5e5; color: #666666; font-family: 'Century Gothic',Futura,sans-serif; line-height: 1.38; font-size: 0.75em; }
+body { background: url('../images/body_bg.png') repeat-x #e5e5e5; color: #666666; font-family: 'Century Gothic',Futura,Arial,sans-serif; line-height: 1.38; font-size: 0.75em; }
 #container { overflow: hidden; position: relative; }
 h2 { font-size: 1.5em; }
 
