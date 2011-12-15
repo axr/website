@@ -192,41 +192,130 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 /* =============================================================================
    Primary styles
-   Author: Andrei Zisu, Miro Keller, Marc G
+   Authors: Andrei Zisu, Miro Keller, Marc G, Ragnis Armus, Valerij Primachenko
    ========================================================================== */
-html, body { min-width: 960px; }
-body { background: url('../images/body_bg.png') repeat-x #e5e5e5; color: #666666; font-family: 'Century Gothic',Futura,Arial,sans-serif; line-height: 1.38; font-size: 0.75em; }
-#container { overflow: hidden; position: relative; }
-h2 { font-size: 1.5em; }
+html, body 
+{ 
+	min-width: 960px; 
+}
+body { 
+	background: url('../images/body_bg.png') repeat-x #e5e5e5; 
+	color: #666666; 
+	font-family: 'Century Gothic',Futura,Arial,sans-serif; 
+	line-height: 1.38; 
+	font-size: 0.75em; 
+}
+#container 
+{ 
+	overflow: hidden; 
+	position: relative; 
+}
+h2 
+{ 
+	font-size: 1.5em; 
+}
 
-header { position: relative; width: 960px; height: 200px; margin: 0px auto;  }
-header > .logo { display: block; height: 250px; width: 310px; background: url('../images/sprite.jpg') no-repeat; text-indent: -10000px; float: left; }
-header > nav { width: 647px; height: 49px; float: left; margin: 97px 0 0 3px; background:  url('../images/sprite.jpg'); background-position: -312px 0; }
-header > nav > ul { height: 100%; }
-header > nav > ul > li { float: left; height: 100%; position: relative; }
-header > nav > ul > li > a { display: block; width: 100%; height: 100%; text-indent: -999px; overflow: hidden; }
+header 
+{ 
+	position: relative; 
+	width: 960px; 
+	height: 200px; 
+	margin: 0px auto;  
+}
+header > .logo 
+{ 
+	display: block; 
+	height: 250px; 
+	width: 310px; 
+	background: url('../images/sprite.jpg') no-repeat; 
+	text-indent: -10000px; 
+	float: left; 
+}
+header > nav 
+{ 
+	width: 647px; 
+	height: 49px; 
+	float: left; 
+	margin: 97px 0 0 3px; 
+	background:  url('../images/sprite.jpg'); 
+	background-position: -312px 0; 
+}
+header > nav > ul 
+{ 
+	height: 100%; 
+}
+header > nav > ul > li 
+{ 
+	float: left; 
+	height: 100%; 
+	position: relative; 
+}
+header > nav > ul > li > a 
+{ 
+	display: block; 
+	width: 100%; 
+	height: 100%; 
+	text-indent: -999px; 
+	overflow: hidden; 
+}
 header > nav > ul > li > a:hover,
-header > nav > ul > li.hover > a
+header > nav > ul > li.hover > a 
 {
 	background: url('../images/sprite.jpg');
 	padding-right: 1px;
 }
-header > nav > ul > li.about { width: 97px; }
-header > nav > ul > li.specification { width: 129px; }
-header > nav > ul > li.resources { width: 136px; }
-header > nav > ul > li.community { width: 131px; }
-header > nav > ul > li.wiki { width: 88px; }
-header > nav > ul > li.blog { width: 66px; }
-header > nav > ul > li.about > a:hover, header > nav > ul > li.about.hover > a { background-position: -312px -49px; }
-header > nav > ul > li.specification > a:hover, header > nav > ul > li.specification.hover > a { background-position: -410px -49px; }
+header > nav > ul > li.about 
+{ 
+	width: 97px; 
+}
+header > nav > ul > li.specification 
+{ 
+	width: 129px; 
+}
+header > nav > ul > li.resources 
+{ 
+	width: 136px; 
+}
+header > nav > ul > li.community 
+{ 
+	width: 131px; 
+}
+header > nav > ul > li.wiki 
+{ 
+	width: 88px; 
+}
+header > nav > ul > li.blog 
+{ 
+	width: 66px; 
+}
+header > nav > ul > li.about > a:hover, header > nav > ul > li.about.hover > a 
+{ 
+background-position: -312px -49px; 
+}
+header > nav > ul > li.specification > a:hover, header > nav > ul > li.specification.hover > a 
+{ 
+background-position: -410px -49px; 
+}
 header > nav > ul > li.resources > a:hover,
-header > nav > ul > li.resources.hover > a { background-position: -540px -49px; }
+header > nav > ul > li.resources.hover > a 
+{ 
+background-position: -540px -49px; 
+}
 header > nav > ul > li.community > a:hover,
-header > nav > ul > li.community.hover > a { background-position: -677px -49px; }
+header > nav > ul > li.community.hover > a 
+{ 
+background-position: -677px -49px; 
+}
 header > nav > ul > li.wiki > a:hover,
-header > nav > ul > li.wiki.hover > a { background-position: -809px -49px; }
+header > nav > ul > li.wiki.hover > a 
+{ 
+background-position: -809px -49px; 
+}
 header > nav > ul > li.blog > a:hover,
-header > nav > ul > li.blog.hover > a { background-position: -898px -49px; }
+header > nav > ul > li.blog.hover > a 
+{ 
+background-position: -898px -49px; 
+}
 
 header > nav > ul > li > .sections
 {
@@ -238,11 +327,22 @@ header > nav > ul > li > .sections
 	background-image: url(../images/dropdown_bg.png);
 }
 
-header > nav > ul > li.about > .sections { left: -45px; }
-header > nav > ul > li.resources > .sections { left: -28px; }
-header > nav > ul > li.community > .sections { left: -32px; }
-header > nav > ul > li.wiki > .sections { left: -48px; }
-
+header > nav > ul > li.about > .sections 
+{ 
+	left: -45px; 
+}
+header > nav > ul > li.resources > .sections 
+{ 
+	left: -28px; 
+}
+header > nav > ul > li.community > .sections 
+{ 
+	left: -32px; 
+}
+header > nav > ul > li.wiki > .sections 
+{ 
+	left: -48px; 
+}
 header > nav > ul > li > .sections > .header
 {
 	width: 100%;
@@ -306,8 +406,14 @@ header > nav > ul > li > .sections > .footer
 	bottom: -69px;
 }
 
-header .secondary { position: absolute; top: 40px; right: 0; }
-header .secondary a.login {
+header .secondary 
+{ 
+	position: absolute; 
+	top: 40px; 
+	right: 0; 
+}
+header .secondary a.login 
+{
 	background: url(../images/);
 	display: inline-block;
 	font-size: 0;
@@ -317,7 +423,8 @@ header .secondary a.login {
 	position: relative;
 	line-height: 1.6;
 }
-header .secondary > a.login > .extra_0 {
+header .secondary > a.login > .extra_0 
+{
 	background-image: url(../images/sprite.jpg);
 	background-position: -945px -354px;
 	display: block;
@@ -327,7 +434,8 @@ header .secondary > a.login > .extra_0 {
 	left: -26px;
 	top: 2px;
 }
-header .secondary > a.login > .extra_1 {
+header .secondary > a.login > .extra_1 
+{
 	color: #999;
 	display: inline-block;
 	font-size: 12px;
@@ -339,7 +447,8 @@ header .secondary > a.login > .extra_1 {
 	vertical-align: top;
 	border-bottom: 1px solid;
 }
-header .secondary > .search {
+header .secondary > .search 
+{
 	background-image: url(../images/sprite.jpg);
 	background-position: -314px -602px;
 	display: inline-block;
@@ -347,7 +456,8 @@ header .secondary > .search {
 	height: 30px;
 	width: 156px;
 }
-header .secondary > .search > input[type="text"] {
+header .secondary > .search > input[type="text"] 
+{
 	background: transparent;
 	border: 0;
 	color: #a3a3a3;
@@ -359,7 +469,8 @@ header .secondary > .search > input[type="text"] {
 	width: 118px;
 }
 
-header .secondary > .search > input[type="submit"] {
+header .secondary > .search > input[type="submit"] 
+{
 	background: transparent;
 	border: 0;
 	outline: none;
@@ -369,88 +480,89 @@ header .secondary > .search > input[type="submit"] {
 }
 
 
-#container > .fork_github { position: absolute; top: 0; right: 0;  }
-#container > .fork_github a { display: block; height: 113px; width: 140px; background: url('../images/fork_github.png') no-repeat; text-indent: -10000px; }
+#container > .fork_github 
+{ 
+	position: absolute; 
+	top: 0; 
+	right: 0;  
+}
+#container > .fork_github a 
+{ 
+	display: block; 
+	height: 113px; 
+	width: 140px; 
+	background: url('../images/fork_github.png') no-repeat; 
+	text-indent: -10000px; 
+}
 
-#container > .share { position: absolute; top: 315px; right: 0; z-index: 999;}
-#container > .share > .label { width: 60px; height: 60px; margin: 0; position: absolute; bottom: -70px; right: 3px; background-image: url(../images/sprite.jpg); background-position: -924px -470px; text-indent: -999px; overflow: hidden;}
-#container > .share > ul { display: block; width: 48px; height: 159px; margin: 0; background-image: url(../images/sprite.jpg); background-position: -874px -469px; padding: 0; list-style: none;}
-#container > .share > ul > li { padding: 19px 0 1px 15px; }
-#container > .share > ul > li > a { display: block; width: 28px; height: 27px; text-indent: -999px; overflow: hidden; background-image: url(../images/sprite32.png); }
-#container > .share > ul > li.twitter > a { background-position: -108px -1px; }
-#container > .share > ul > li.twitter > a:hover { background-position: -137px -1px; }
-#container > .share > ul > li.facebook > a { background-position: -166px -1px; }
-#container > .share > ul > li.facebook > a:hover { background-position: -195px -1px; }
-#container > .share > ul > li.delicious > a { background-position: -224px -1px; }
-#container > .share > ul > li.delicious > a:hover { background-position: -253px -1px; }
-
-
-footer { background-image: url("../images/footer_repeat.jpg"); background-position: center 115px; background-repeat: repeat-x; position: relative; width: 100%; }
-footer > a { background-image: url("../images/sprite.jpg"); background-position: -508px -353px; display: block; height: 116px; margin: 0 auto; overflow: hidden; position: relative; text-indent: -9999px; width: 365px; z-index: 1; }
-footer > a:hover { background-position: -508px -469px; }
-footer > ul { height: 95px; list-style: none outside none; margin: -95px auto 0; position: relative; width: 780px; }
-footer > ul.technologies_used > li { float: left; margin-right: 8px; position: absolute; z-index: 1; }
-footer > ul.technologies_used > li > a { background-image: url("../images/sprite.jpg"); display: block; overflow: hidden; text-indent: -9999px; }
-footer > ul.technologies_used > li.html5 { left: 560px; top: 20px; }
-footer > ul.technologies_used > li.html5 > a { background-position: -508px -228px; height: 53px; width: 116px; }
-footer > ul.technologies_used > li.html5 > a:hover { background-position: -508px -281px; }
-footer > ul.technologies_used > li.humanstxt { left: 175px; top: 30px; }
-footer > ul.technologies_used > li.humanstxt > a { background-position: -624px -316px; height: 37px; width: 137px; }
-footer > ul.technologies_used > li.humanstxt > a:hover { background-position: -761px -316px; }
-footer > ul.technologies_used > li.github { left: 0px; top: 30px; }
-footer > ul.technologies_used > li.github > a { background-position: -873px -383px; height: 43px; width: 119px; }
-footer > ul.technologies_used > li.github > a:hover { background-position: -873px -426px; }
-footer > ul.technologies_used > li.google_groups { left: 725px; top: 35px; }
-footer > ul.technologies_used > li.google_groups > a { background-position: -311px -228px; height: 48px; width: 90px; }
-footer > ul.technologies_used > li.google_groups > a:hover { background-position: -401px -228px; }
-footer > .activity { height: 201px; margin: 20px auto; position: relative; width: 810px; }
-footer > .activity > form > a { background-image: url("../images/sprite.jpg"); background-position: -831px -228px; display: block; height: 43px; overflow: hidden; position: absolute; text-indent: -9999px; top: 45px; width: 105px; }
-footer > .activity > form > a:hover { background-position: -831px -271px; }
-footer > .activity > .follow_us { background-image: url("../images/sprite.jpg"); background-position: -624px -228px; height: 77px; left: -25px; list-style: none outside none; margin: 0; padding: 11px 0 0 29px; position: absolute; top: 100px; width: 178px; z-index: 1; }
-footer > .activity > .follow_us > li { display: block; float: left; height: 26px; margin-right: 13px; width: 24px; }
-footer > .activity > .follow_us > li > a { display: block; height: 100%; overflow: hidden; text-indent: -999px; width: 100%; }
-footer > .activity > .follow_us > li > a:hover { background-image: url("../images/sprite.jpg"); }
-footer > .activity > .follow_us > li.twitter > a:hover { background-position: -873px -353px; }
-footer > .activity > .follow_us > li.facebook > a:hover { background-position: -897px -353px; }
-footer > .activity > .follow_us > li.vimeo > a:hover { background-position: -921px -353px; }
-footer > .activity > .last_tweet { background-image: url("../images/sprite.jpg"); background-position: -311px -99px; height: 129px; left: 180px; position: absolute; top: 25px; width: 346px; }
-footer > .activity > .last_tweet > p { margin: 14px 0 0 90px; text-shadow: 0 1px 0 #EBEBEB; width: 233px; }
-footer > .activity > .last_tweet > p.follow_us { color: #939393; bottom: 16px; font-weight: bold; left: 0; position: absolute; text-align: center; }
-footer > .activity > .last_tweet > p > a { color: #D09610; text-decoration: none; font-weight: bold; }
-footer > .activity > .participate { background-image: url("../images/sprite.jpg"); background-position: -680px -99px; height: 126px; left: 550px; position: absolute; top: 25px; width: 267px; font-weight: bold; }
-footer > .activity > .participate > h2 { color: white; font-weight: bold; margin: 10px 0 0 20px; text-shadow: 0 1px 0 #666666; width: 72px; }
-footer > .activity > .participate > p { color: white; font-size: 0.89em; margin: 16px 0 0 20px; text-shadow: 0 1px 0 #666666; width: 230px; }
-footer > .activity > .participate > p > a { color: #FFD519; text-decoration: none; text-shadow: 0 1px 0 #666666; }
-footer > .activity > .copy { bottom: 0px; position: absolute; text-align: center; text-shadow: 0 1px 0 white; width: 100%; }
-footer > .activity > .copy > p > a { color: #666666; font-weight: bold; text-decoration: none; }
-
-/* =============================================================================
-   Non-semantic helper classes
-   Please define your styles before this section.
-   ========================================================================== */
-
-/* For image replacement */
-.ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
-.ir br { display: none; }
-
-/* Hide for both screenreaders and browsers:
-   css-discuss.incutio.com/wiki/Screenreader_Visibility */
-.hidden { display: none; visibility: hidden; }
-
-/* Hide only visually, but have it available for screenreaders: by Jon Neal.
-  www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
-.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
-
-/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
-.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
-
-/* Hide visually and from screenreaders, but maintain layout */
-.invisible { visibility: hidden; }
-
-/* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */ 
-.clearfix:before, .clearfix:after { content: ""; display: table; }
-.clearfix:after { clear: both; }
-.clearfix { zoom: 1; }
+#container > .share 
+{ 
+	position: absolute; 
+	top: 315px; 
+	right: 0; 
+	z-index: 999;
+}
+#container > .share > .label 
+{ 
+	width: 60px; 
+	height: 60px; 
+	margin: 0; 
+	position: absolute; 
+	bottom: -70px; 
+	right: 3px; 
+	background-image: url(../images/sprite.jpg);
+	background-position: -924px -470px; 
+	text-indent: -999px; 
+	overflow: hidden;
+}
+#container > .share > ul 
+{ 
+	display: block; 
+	width: 48px; 
+	height: 159px; 
+	margin: 0; 
+	background-image: url(../images/sprite.jpg); 
+	background-position: -874px -469px; 
+	padding: 0; 
+	list-style: none;
+}
+#container > .share > ul > li 
+{ 
+	padding: 19px 0 1px 15px; 
+}
+#container > .share > ul > li > a 
+{ 
+	display: block; 
+	width: 28px; 
+	height: 27px; 
+	text-indent: -999px; 
+	overflow: hidden; 
+	background-image: url(../images/sprite32.png); 
+}
+#container > .share > ul > li.twitter > a 
+{ 
+	background-position: -108px -1px;
+}
+#container > .share > ul > li.twitter > a:hover 
+{ 
+	background-position: -137px -1px; 
+}
+#container > .share > ul > li.facebook > a 
+{ 
+	background-position: -166px -1px; 
+}
+#container > .share > ul > li.facebook > a:hover 
+{ 
+	background-position: -195px -1px; 
+}
+#container > .share > ul > li.delicious > a 
+{ 
+	background-position: -224px -1px; 
+}
+#container > .share > ul > li.delicious > a:hover 
+{ 
+	background-position: -253px -1px; 
+}
 
 .button_std
 {
@@ -504,16 +616,328 @@ footer > .activity > .copy > p > a { color: #666666; font-weight: bold; text-dec
 	background-position: -9px -1px;
 }
 
-.button_std:hover > .header { background-position: -18px -1px; }
-.button_std:hover > .content { background-position: 0 -39px; }
-.button_std:hover > .footer { background-position: -26px -1px; }
-.button_std.gray { color: #7A7A7A; text-shadow: #E3E3E3 0 1px 0; }
-.button_std.gray > .header { background-position: -35px -1px; }
-.button_std.gray > .content { background-position: 0 -77px; }
-.button_std.gray > .footer { background-position: -43px -1px; }
-.button_std.gray:hover > .header { background-position: -52px -1px; }
-.button_std.gray:hover > .content { background-position: 0 -115px; }
-.button_std.gray:hover > .footer { background-position: -60px -1px; }
+.button_std:hover > .header 
+{ 
+	background-position: -18px -1px; 
+}
+.button_std:hover > .content 
+{ 
+	background-position: 0 -39px; 
+}
+.button_std:hover > .footer 
+{ 
+	background-position: -26px -1px; 
+}
+.button_std.gray 
+{ 
+	color: #7A7A7A; 
+	text-shadow: #E3E3E3 0 1px 0; 
+}
+.button_std.gray > .header 
+{ 
+	background-position: -35px -1px; 
+}
+.button_std.gray > .content 
+{ 
+	background-position: 0 -77px; 
+}
+.button_std.gray > .footer 
+{ 
+	background-position: -43px -1px; 
+}
+.button_std.gray:hover > .header 
+{ 
+	background-position: -52px -1px; 
+}
+.button_std.gray:hover > .content 
+{ 
+	background-position: 0 -115px; 
+}
+.button_std.gray:hover > .footer 
+{ 
+	background-position: -60px -1px; 
+}
+
+
+footer 
+{ 
+	background-image: url("../images/footer_repeat.jpg"); 
+	background-position: center 115px; 
+	background-repeat: repeat-x; 
+	position: relative; 
+	width: 100%; 
+}
+footer > a 
+{ 
+	background-image: url("../images/sprite.jpg"); 
+	background-position: -508px -353px; 
+	display: block; 
+	height: 116px; 
+	margin: 0 auto; 
+	overflow: hidden; 
+	position: relative; 
+	text-indent: -9999px; 
+	width: 365px; 
+	z-index: 1; 
+}
+footer > a:hover 
+{ 
+	background-position: -508px -469px; 
+}
+footer > ul 
+{ 
+	height: 95px; 
+	list-style: none outside none; 
+	margin: -95px auto 0; 
+	position: relative; 
+	width: 780px; 
+}
+footer > ul.technologies_used > li 
+{ 
+	float: left; 
+	margin-right: 8px; 
+	position: absolute; 
+	z-index: 1; 
+}
+footer > ul.technologies_used > li > a 
+{ 
+	background-image: url("../images/sprite.jpg"); 
+	display: block; 
+	overflow: hidden; 
+	text-indent: -9999px; 
+}
+footer > ul.technologies_used > li.html5 
+{ 
+	left: 560px; 
+	top: 20px; 
+}
+footer > ul.technologies_used > li.html5 > a 
+{ 
+	background-position: -508px -228px; 
+	height: 53px; 
+	width: 116px; 
+}
+footer > ul.technologies_used > li.html5 > a:hover 
+{ 
+	background-position: -508px -281px; 
+}
+footer > ul.technologies_used > li.humanstxt 
+{ 
+	left: 175px; 
+	top: 30px; 
+}
+footer > ul.technologies_used > li.humanstxt > a 
+{ 
+	background-position: -624px -316px; 
+	height: 37px; 
+	width: 137px; 
+}
+footer > ul.technologies_used > li.humanstxt > a:hover 
+{ 
+	background-position: -761px -316px; 
+}
+footer > ul.technologies_used > li.github 
+{ 
+	left: 0px; 
+	top: 30px; 
+}
+footer > ul.technologies_used > li.github > a 
+{ 
+	background-position: -873px -383px; 
+	height: 43px; 
+	width: 119px;
+}
+footer > ul.technologies_used > li.github > a:hover 
+{ 
+	background-position: -873px -426px; 
+}
+footer > ul.technologies_used > li.google_groups 
+{ 
+	left: 725px; 
+	top: 35px; 
+}
+footer > ul.technologies_used > li.google_groups > a 
+{ 
+	background-position: -311px -228px; 
+	height: 48px; 
+	width: 90px; 
+}
+footer > ul.technologies_used > li.google_groups > a:hover 
+{ 
+	background-position: -401px -228px; 
+}
+footer > .activity 
+{ 
+	height: 201px; 
+	margin: 20px auto; 
+	position: relative; 
+	width: 810px; 
+}
+footer > .activity > form > a 
+{ 
+	background-image: url("../images/sprite.jpg");
+	background-position: -831px -228px; 
+	display: block; 
+	height: 43px; 
+	overflow: hidden; 
+	position: absolute; 
+	text-indent: -9999px; 
+	top: 45px; 
+	width: 105px; 
+}
+footer > .activity > form > a:hover 
+{ 
+	background-position: -831px -271px; 
+}
+footer > .activity > .follow_us 
+{ 
+	background-image: url("../images/sprite.jpg"); 
+	background-position: -624px -228px; 
+	height: 77px; 
+	left: -25px; 
+	list-style: none outside none; 
+	margin: 0; 
+	padding: 11px 0 0 29px; 
+	position: absolute; 
+	top: 100px; 
+	width: 178px; 
+	z-index: 1; 
+}
+footer > .activity > .follow_us > li 
+{ 
+	display: block; 
+	float: left; 
+	height: 26px; 
+	margin-right: 13px; 
+	width: 24px; 
+}
+footer > .activity > .follow_us > li > a 
+{ 
+	display: block; 
+	height: 100%; 
+	overflow: hidden; 
+	text-indent: -999px; 
+	width: 100%; 
+}
+footer > .activity > .follow_us > li > a:hover 
+{ 
+	background-image: url("../images/sprite.jpg"); 
+}
+footer > .activity > .follow_us > li.twitter > a:hover 
+{ 
+	background-position: -873px -353px; 
+}
+footer > .activity > .follow_us > li.facebook > a:hover 
+{ 
+	background-position: -897px -353px; 
+}
+footer > .activity > .follow_us > li.vimeo > a:hover 
+{ 
+	background-position: -921px -353px; 
+}
+footer > .activity > .last_tweet 
+{ 
+	background-image: url("../images/sprite.jpg"); 
+	background-position: -311px -99px; 
+	height: 129px; 
+	left: 180px; 
+	position: absolute; 
+	top: 25px; 
+	width: 346px; 
+}
+footer > .activity > .last_tweet > p 
+{ 
+	margin: 14px 0 0 90px; 
+	text-shadow: 0 1px 0 #EBEBEB; 
+	width: 233px; 
+}
+footer > .activity > .last_tweet > p.follow_us 
+{ 
+	color: #939393; 
+	bottom: 16px; 
+	font-weight: bold; 
+	left: 0; 
+	position: absolute; 
+	text-align: center; 
+}
+footer > .activity > .last_tweet > p > a 
+{ 
+	color: #D09610; 
+	text-decoration: none; 
+	font-weight: bold; 
+}
+footer > .activity > .participate 
+{ 
+	background-image: url("../images/sprite.jpg"); 
+	background-position: -680px -99px; 
+	height: 126px; left: 550px; 
+	position: absolute; 
+	top: 25px; 
+	width: 267px; 
+	font-weight: bold; 
+}
+footer > .activity > .participate > h2 { 
+	color: white; 
+	font-weight: bold; 
+	margin: 10px 0 0 20px; 
+	text-shadow: 0 1px 0 #666666; 
+	width: 72px; 
+}
+footer > .activity > .participate > p { 
+	color: white; 
+	font-size: 0.89em; 
+	margin: 16px 0 0 20px; 
+	text-shadow: 0 1px 0 #666666;
+	width: 230px; 
+}
+footer > .activity > .participate > p > a 
+{ 
+	color: #FFD519; 
+	text-decoration: none; 
+	text-shadow: 0 1px 0 #666666; 
+}
+footer > .activity > .copy 
+{ 
+	bottom: 0px; 
+	position: absolute; 
+	text-align: center; 
+	text-shadow: 0 1px 0 white; 
+	width: 100%; 
+}
+footer > .activity > .copy > p > a 
+{ 
+	color: #666666; 
+	font-weight: bold; 
+	text-decoration: none; 
+}
+
+/* =============================================================================
+   Non-semantic helper classes
+   Please define your styles before this section.
+   ========================================================================== */
+
+/* For image replacement */
+.ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+
+/* Hide for both screenreaders and browsers:
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden { display: none; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders: by Jon Neal.
+  www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */ 
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
 
 /* =============================================================================
    PLACEHOLDER Media Queries for Responsive Design.
