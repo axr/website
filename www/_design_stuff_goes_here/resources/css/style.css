@@ -434,6 +434,12 @@ header .secondary > a.login > .extra_0
 	left: -26px;
 	top: 2px;
 }
+
+header .secondary > a.login:hover > .extra_0 
+{
+	background-position: -964px -354px;
+}
+
 header .secondary > a.login > .extra_1 
 {
 	color: #999;
@@ -450,7 +456,7 @@ header .secondary > a.login > .extra_1
 header .secondary > .search 
 {
 	background-image: url(../images/sprite.jpg);
-	background-position: -314px -602px;
+	background-position: -605px -600px;
 	display: inline-block;
 	margin: 0 0 0 20px;
 	height: 30px;

@@ -106,8 +106,7 @@
 
 #main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest:hover
 {
-	color: #BF8300;
-	text-shadow: #F7DE77 0 1px 0;
+	background-position: -303px -599px;
 }
 
 #main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest > .label
@@ -144,8 +143,7 @@
 
 #main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.older:hover
 {
-	color: white;
-	text-shadow: #BC910E 0 1px 0;
+	background-position: -303px -643px;
 }
 
 #main > .the_cool_stuff > .nested_0 > .downloads > .download.info
