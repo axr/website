@@ -26,10 +26,33 @@
 			
 			return tweet; 
 		};
+
+		var format_date_ago = function (timestamp)
+		{
+			var diff = Math.floor((new Date()).getTime() / 1000) - timestamp;
+
+			if (diff == 0)
+			{
+				return 'just now';
+			}
+
+			var unit = 'year', divide = 31556926;
+			if (diff < 31556926) { unit = 'month', divide = 2628000; }
+			if (diff < 2629744) { unit = 'week', divide = 604800; }
+			if (diff < 604800) { unit = 'day', divide = 86400; }
+			if (diff < 86400) { unit = 'hour', divide = 3600; }
+			if (diff < 3600) { unit = 'minute', divide = 60; }
+			if (diff < 60) { unit = 'second', divide = 1; }
+
+			var value = Math.floor(diff / divide);
+
+			return value + ' ' + unit + (value > 1 ? 's' : '') + ' ago';
+		};
 		
 		$.getJSON("http://api.twitter.com/1/statuses/user_timeline.json?count=1&include_rts=t&screen_name=axrproject&callback=?",
 				function(tweet){
-					$("#container > footer > .activity > .last_tweet > p:first").html(beautifyTweet(tweet[0].text));
+					var time = format_date_ago(Math.floor((new Date(tweet[0].created_at)).getTime() / 1000));
+					$("#container > footer > .activity > .last_tweet > p:first").html(beautifyTweet(tweet[0].text) + ' &mdash; ' + time);
 				}
 		);
 	
