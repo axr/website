@@ -485,6 +485,9 @@ header .secondary > .search > input[type="submit"]
 	width: 24px;
 }
 
+#main > .above_fold > .nested_0 > .intro > p {
+	text-align: justify;
+}
 
 #container > .fork_github 
 { 
