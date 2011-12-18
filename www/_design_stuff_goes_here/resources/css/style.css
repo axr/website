@@ -574,7 +574,7 @@ header .secondary > .search > input[type="submit"]
 	background-position: -253px -1px; 
 }
 
-.button_std
+.button_std, .button_std:visited, .button_std:active
 {
 	display: block;
 	margin: 0 8px;
