@@ -90,4 +90,29 @@
 			$(this).val('Search');
 		}
 	});
+
+	(function(){
+		var $modal = $('.modal').hide().removeClass('hidden');
+		$modal.bind('show',function(){
+			$(this).fadeIn('slow');
+		});
+		$modal.bind('hide',function(){
+			$(this).fadeOut('fast');
+		});
+		$modal.find('.modal_inner').click(function(){
+			return false;
+		});
+		$modal.find('.modal_close').click(function(){
+			$(this).closest('.modal').trigger('hide');
+			return false;
+		});
+		$modal.click(function(){
+			$(this).trigger('hide');
+			return false;
+		});
+		$('#action_button').click(function(){
+			$('#joining').trigger('show');
+			return false;
+		});
+	})();
 })(jQuery);
