@@ -56,14 +56,15 @@
 #main > .get_involved > .community > .forums
 {
 	float: left;
+	padding: 0 0 40px 0;
 	width: 200px;
 }
 #main > .get_involved > .community > .forums > ul
 {
 	list-style-type: none;
 	margin: 0 0 0 -87px;
+	min-height: 250px;
 	padding: 0;
-	/*height: 240px;/*Not sure about this*/
 }
 #main > .get_involved > .community > .forums > ul > li
 {
@@ -88,6 +89,10 @@
 	font-size: 1.1em;
 	font-style: italic;
 	margin: 7px 0 0 0;
+}
+#main > .get_involved > .community > .forums > .enter
+{
+	width: 175px;
 }
 #main > .get_involved > .community > .chat
 {
@@ -126,7 +131,7 @@
 }
 #main > .get_involved > .community > .chat > .nested_0 > .nested_1
 {
-	/*height: 240px;/*Not sure about this*/
+	min-height: 250px;
 }
 #main > .get_involved > .community > .chat > .nested_0 > .nested_1 > p
 {
@@ -171,6 +176,10 @@
 	text-align: center;
 	width: 26px;
 }
+#main > .get_involved > .community > .chat > .enter
+{
+	width: 180px;
+}
 #main > .sidebar
 {
 	background: url(../images/separator_big_repeat.png) repeat-y top left;
@@ -209,16 +218,250 @@
 	margin: 0 0 0 26px;
 	width: 344px;
 }
-#main > .sidebar > .boxes > .box > .extra_0
+#main > .sidebar > .boxes > .box
+{
+	margin: 0 0 30px 0;
+}
+#main > .sidebar > .boxes > .box > .icon
 {
 	float: left;
+	position: relative;
 	width: 75px;
+}
+#main > .sidebar > .boxes > .box > .icon > .extra_0
+{
+	background: url(../images/get_involved_sprite.png) no-repeat;
+	height: 47px;
+	width: 55px;
+}
+#main > .sidebar > .boxes > .box > .icon > .extra_1
+{
+	background: url(../images/get_involved_sprite.png) no-repeat;
+	background-position: -100px -125px;
+	height: 15px;
+	margin: 0 -2px 0 0;
+	position: absolute;
+	top: 15px;
+	right: 0;
+	width: 10px;
 }
 #main > .sidebar > .boxes > .box > .nested_0
 {
+	background: url(../images/side_box_light_repeat_v.png) repeat-y;
 	float: left;
-	width: 260px;
+	min-height: 49px;
+	width: 262px;
 }
-
-
+#main > .sidebar > .boxes > .box > .nested_0 > .extra_0
+{
+	background: url(../images/get_involved_sprite.png) no-repeat;
+	background-position: -1px -51px;
+	height: 11px;
+	width: 262px;
+}
+#main > .sidebar > .boxes > .box > .nested_0 > .extra_1
+{
+	background: url(../images/get_involved_sprite.png) no-repeat;
+	background-position: -1px -62px;
+	height: 38px;
+	margin: -25px 0 0 0;
+	width: 262px;
+}
+#main > .sidebar > .boxes > .box > .nested_0 > .title
+{
+	color: #fff;
+	font-size: 1.2em;
+	font-weight: bold;
+	padding: 0 0 3px 20px;
+	text-shadow: #666 1px 1px 2px;
+}
+#main > .sidebar > .boxes > .box > .nested_0 > .inner
+{
+	color: #949494;
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 0 20px;
+	text-shadow: #ededed 1px 1px 1px;
+}
+#main > .sidebar > .boxes > .box > .nested_0 > hr
+{
+	border: 0;
+	border-top: 1px solid #bebebe;
+	border-bottom: 1px solid #e1e1e1;
+	height: 0;
+	margin: 5px 2px;
+}
+#main > .sidebar > .boxes > .box.newsletter > .icon > .extra_0
+{
+	background-position: -97px -101px;
+	height: 23px;
+	margin: 12px 4px;
+	width: 47px;
+}
+#main > .sidebar > .boxes > .box.newsletter > .icon > .extra_1
+{
+	background-position: -114px -125px;
+}
+#main > .sidebar > .boxes > .box.newsletter > .nested_0
+{
+	background: url(../images/side_box_dark_repeat_v.png) repeat-y;
+}
+#main > .sidebar > .boxes > .box.newsletter > .nested_0 > .extra_0
+{
+	background-position: -1px -1px;
+}
+#main > .sidebar > .boxes > .box.newsletter > .nested_0 > .extra_1
+{
+	background-position: -1px -12px;
+}
+#main > .sidebar > .boxes > .box.newsletter > .nested_0 > .inner
+{
+	color: #fff;
+	text-shadow: #666 1px 1px 3px;	
+}
+#main > .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > input.subscribe
+{
+	background: url(../images/get_involved_sprite.png) no-repeat;
+	background-position: -1px -154px;
+	border: 0;
+	color: #999;
+	height: 31px;
+	margin: 5px 0 0 0;
+	outline: none;
+	padding: 0 15px 0 15px;
+	width: 192px;
+}
+#main > .sidebar > .boxes > .box.newsletter > .nested_0 > hr
+{
+	border-top-color: #939393;
+	border-bottom-color: #cbcbcb;
+}
+#main > .sidebar > .boxes > .box.twitter > .icon > .extra_0
+{
+	background-position: -143px -101px;
+	height: 38px;
+	margin: 4px 0;
+	width: 55px;
+}
+#main > .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow
+{
+	color: #7c7c7c;
+	text-align: center;
+}
+#main > .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow > a
+{
+	color: #b5790b;
+	text-decoration: none;
+	text-shadow: #ededed 1px 1px 3px;
+}
+#main > .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow > a:hover
+{
+	text-decoration: underline;
+}
+#main > .sidebar > .boxes > .box.facebook > .icon > .extra_0
+{
+	background-position: -3px -105px;
+	height: 45px;
+	margin: 1px 5px;
+	width: 44px;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0
+{
+	position: relative;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_0
+{
+	margin-bottom: -6px;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_1
+{
+	margin-top: -33px;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_2,
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_3,
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_4,
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_5
+{
+	background: url(../images/fb_box_corners.png) no-repeat;
+	background-position: 0 0;
+	height: 12px;
+	position: absolute;
+	width: 12px;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_2
+{
+	left: 0;
+	top: 0;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_3
+{
+	background-position: -12px 0;
+	right: 0;
+	top: 0;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_4
+{
+	background-position: 0 -12px;
+	bottom: 0;
+	left: 0;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .extra_5
+{
+	background-position: -12px -12px;
+	bottom: 0;
+	right: 0;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .inner
+{
+	padding: 0 5px;
+}
+#main > .sidebar > .boxes > .box.facebook > .nested_0 > .inner > iframe
+{
+	display: block !important;
+	visibility: visible !important;
+}
+#main > .sidebar > .boxes > .box.github > .icon > .extra_0
+{
+	background-position: -50px -102px;
+	height: 47px;
+	margin: 0 5px;
+	width: 47px;
+}
+#main > .sidebar > .boxes > .box.github > .nested_0 > ul
+{
+	margin: 0 2px;
+	padding: 0;
+	list-style-type: none;
+}
+#main > .sidebar > .boxes > .box.github > .nested_0 > ul > li
+{
+	border-bottom: 1px solid #e1e1e1;
+}
+#main > .sidebar > .boxes > .box.github > .nested_0 > ul > li:last-child
+{
+	border-bottom: 0;
+}
+#main > .sidebar > .boxes > .box.github > .nested_0 > ul > li:last-child .inner
+{
+	border-bottom: 0;
+}
+#main > .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner
+{
+	border-bottom: 1px solid #bebebe;
+	color: #6b6b6b;
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 5px 20px 7px 20px;
+	text-shadow: #ededed 1px 1px 1px;
+}
+#main > .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner > span
+{
+	color: #979797;
+	text-shadow: #efefef 1px 1px 2px;
+}
+#main > .sidebar > .boxes > .box.github > .nested_0 > .inner > a.see_all
+{
+	margin: 10px auto 0 auto;
+	width: 200px;
+}
 
