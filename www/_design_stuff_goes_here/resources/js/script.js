@@ -52,7 +52,7 @@
 		$.getJSON("http://api.twitter.com/1/statuses/user_timeline.json?count=1&include_rts=t&screen_name=axrproject&callback=?",
 				function(tweet){
 					var time = format_date_ago(Math.floor((new Date(tweet[0].created_at)).getTime() / 1000));
-					$("#container > footer > .activity > .last_tweet > p:first").html(beautifyTweet(tweet[0].text) + ' &mdash; ' + time);
+					$(".last_tweet > .tweet_container").html(beautifyTweet(tweet[0].text) + ' &mdash; ' + time);
 				}
 		);
 	
