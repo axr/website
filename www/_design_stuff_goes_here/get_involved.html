@@ -223,11 +223,15 @@
 					</div>
 					<div class="nested_0">
 						<div class="extra_0"></div>
-						<div class="title">Newsletter</div>
+						<div class="title">Join the mailing list</div>
 						<hr />
 						<div class="inner">
-							Sign up for our newsletter to get news from us directly to your mailbox!
-							<input type="text" class="subscribe" value="" />
+							<label for="email">Enter your email address below to participate in discussions and receive announcements.</label>
+							<form class="clearfix" name="google_groups_subscribe_form" action="http://groups.google.com/group/axr-main/boxsubscribe">
+							  <input type="hidden" name="hl" value="en" />
+							  <input type="text" class="subscribe" name="email" />
+							  <a href="javascript:" onclick="document.google_groups_subscribe_form.submit()">Submit</a>
+							</form>
 						</div>
 						<div class="extra_1"></div>
 					</div>

@@ -320,7 +320,7 @@
 	color: #fff;
 	text-shadow: #666 1px 1px 3px;	
 }
-#main > .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > input.subscribe
+#main > .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > form > input.subscribe
 {
 	background: url(../images/get_involved_sprite.png) no-repeat;
 	background-position: -1px -154px;
@@ -330,8 +330,24 @@
 	margin: 5px 0 0 0;
 	outline: none;
 	padding: 0 15px 0 15px;
-	width: 192px;
+	width: 162px;
+	float: left;
 }
+
+#main > .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > form >
+a
+{
+	display: block;
+	width: 25px;
+	height: 32px;
+	float: left;
+	text-indent: -999px;
+	overflow: hidden;
+	background-image: url(../images/get_involved_sprite.png);
+	background-position: -197px -154px;
+	margin-top: 5px;
+}
+
 #main > .sidebar > .boxes > .box.newsletter > .nested_0 > hr
 {
 	border-top-color: #939393;
