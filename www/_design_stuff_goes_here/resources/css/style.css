@@ -210,6 +210,7 @@ body {
 	overflow: hidden; 
 	position: relative; 
 }
+
 h2 
 { 
 	font-size: 1.5em; 
@@ -573,7 +574,7 @@ header .secondary > .search > input[type="submit"]
 	background-position: -253px -1px; 
 }
 
-.button_std
+.button_std, .button_std:visited, .button_std:active
 {
 	display: block;
 	margin: 0 8px;
@@ -710,6 +711,42 @@ header .secondary > .search > input[type="submit"]
 .button_std.go:hover > .footer
 { 
 	background-position: -218px -29px; 
+}
+
+nav#breadcrumbs > a
+{
+	color: #666;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-decoration: none;
+}
+nav#breadcrumbs > a:hover
+{
+	text-decoration: underline;
+}
+nav#breadcrumbs > .inactive
+{
+	color: #8c8c8c;
+	font-size: 1.2em;
+}
+nav#breadcrumbs > .extra_0
+{
+	background: url(../images/sprite32.png) no-repeat;
+	background-position: -223px -77px;
+	display: inline-block;
+	height: 7px;
+	margin: 0 10px 0 10px;
+	width: 5px;
+}
+#container .last_tweet  a
+{ 
+	color: #D09610; 
+	text-decoration: none; 
+	font-weight: bold; 
+}
+#container .last_tweet a:hover
+{
+	text-decoration: underline;
 }
 
 footer 
@@ -912,16 +949,6 @@ footer > .activity > .last_tweet > p.follow_us
 	left: 0; 
 	position: absolute; 
 	text-align: center; 
-}
-footer > .activity > .last_tweet > p > a 
-{ 
-	color: #D09610; 
-	text-decoration: none; 
-	font-weight: bold; 
-}
-footer > .activity > .last_tweet > p > a:hover
-{
-	text-decoration: underline;
 }
 footer > .activity > .participate 
 { 
