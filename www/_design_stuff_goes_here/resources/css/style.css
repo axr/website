@@ -434,6 +434,12 @@ header .secondary > a.login > .extra_0
 	left: -26px;
 	top: 2px;
 }
+
+header .secondary > a.login:hover > .extra_0 
+{
+	background-position: -964px -354px;
+}
+
 header .secondary > a.login > .extra_1 
 {
 	color: #999;
@@ -450,7 +456,7 @@ header .secondary > a.login > .extra_1
 header .secondary > .search 
 {
 	background-image: url(../images/sprite.jpg);
-	background-position: -314px -602px;
+	background-position: -605px -600px;
 	display: inline-block;
 	margin: 0 0 0 20px;
 	height: 30px;
@@ -479,6 +485,9 @@ header .secondary > .search > input[type="submit"]
 	width: 24px;
 }
 
+#main > .above_fold > .nested_0 > .intro > p {
+	text-align: justify;
+}
 
 #container > .fork_github 
 { 
@@ -639,7 +648,7 @@ header .secondary > .search > input[type="submit"]
 }
 .button_std.gray > .content 
 { 
-	background-position: 0 -77px; 
+	background-position: 0 -77px;
 }
 .button_std.gray > .footer 
 { 
@@ -657,7 +666,51 @@ header .secondary > .search > input[type="submit"]
 { 
 	background-position: -60px -1px; 
 }
-
+.button_std.go
+{ 
+	color: #7A7A7A; 
+	height: 31px;
+	text-shadow: #E3E3E3 0 1px 0; 
+}
+.button_std.go > .header
+{ 
+	background-position: -193px -29px; 
+	height: 31px;
+}
+.button_std.go > .content
+{ 
+	background-position: 0 -153px; 
+	height: 31px;
+	line-height: 30px;
+	text-align: center;
+}
+.button_std.go > .content > .block_0
+{
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	margin: 10px 2px 0 8px;
+	background-image: url(../images/sprite32.png);
+	background-position: -220px -62px;
+}
+.button_std.go > .footer
+{ 
+	background-position: -201px -29px; 
+	height: 31px;
+}
+.button_std.go:hover > .header
+{ 
+	background-position: -210px -29px; 
+}
+.button_std.go:hover > .content
+{ 
+	background-position: 0 -185px; 
+}
+.button_std.go:hover > .footer
+{ 
+	background-position: -218px -29px; 
+}
 
 footer 
 { 
@@ -866,6 +919,10 @@ footer > .activity > .last_tweet > p > a
 	text-decoration: none; 
 	font-weight: bold; 
 }
+footer > .activity > .last_tweet > p > a:hover
+{
+	text-decoration: underline;
+}
 footer > .activity > .participate 
 { 
 	background-image: url("../images/sprite.jpg"); 
@@ -896,6 +953,10 @@ footer > .activity > .participate > p > a
 	text-decoration: none; 
 	text-shadow: 0 1px 0 #666666; 
 }
+footer > .activity > .participate > p > a:hover
+{
+	text-decoration: underline;
+}
 footer > .activity > .copy 
 { 
 	bottom: 0px; 
@@ -909,6 +970,10 @@ footer > .activity > .copy > p > a
 	color: #666666; 
 	font-weight: bold; 
 	text-decoration: none; 
+}
+footer > .activity > .copy > p > a:hover
+{ 
+	text-decoration: underline;
 }
 
 /* =============================================================================
