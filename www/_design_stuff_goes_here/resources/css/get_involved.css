@@ -281,9 +281,9 @@
 }
 #main > .sidebar > .boxes > .box > .nested_0 > .inner
 {
-	color: #949494;
-	font-size: 1.1em;
-	font-weight: bold;
+	color: #606060;
+	font-weight:bold;
+	font-size: 1em;
 	padding: 0 20px;
 	text-shadow: #ededed 0 1px 0;
 }
