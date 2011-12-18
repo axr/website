@@ -1,0 +1,61 @@
+#main
+{
+	margin: auto;
+	padding: 50px 0 55px 60px;
+	width: 900px;
+}
+#main > .get_involved
+{
+	float: left;
+	margin: 50px 0 0 0;
+	width: 525px;
+}
+#main > .get_involved > .join_us > p
+{
+	font-size: 1.2em;
+}
+#main > .get_involved > .join_us > a.join
+{
+	margin: 30px 0 0 0;
+	text-align: center;
+	width: 300px;
+}
+#main > .sidebar
+{
+	background: url(../images/separator_big_repeat.png) repeat-y top left;
+	float: right;
+	margin: 30px 0 0 0;
+	min-height: 293px;
+	position: relative;
+	width: 370px;
+}
+#main > .sidebar > .nested_0
+{
+	bottom: 0;
+	float: left;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 26px;
+}
+#main > .sidebar > .nested_0 > .extra_0
+{
+	background: url(../images/separator_big_top.png) no-repeat;
+	height: 82px;
+	width: 26px;
+}
+#main > .sidebar > .nested_0 > .extra_1
+{
+	background: url(../images/separator_big_bottom.png) no-repeat;
+	bottom: 0;
+	position: absolute;
+	height: 211px;
+	width: 26px;
+}
+#main > .sidebar > .nested_1
+{
+	float: left;
+	width: 344px;
+}
+
+
