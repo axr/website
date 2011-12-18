@@ -7,8 +7,8 @@
 #main > .get_involved
 {
 	float: left;
-	margin: 50px 0 0 0;
-	width: 525px;
+	margin: 30px 0 0 0;
+	width: 515px;
 }
 #main > .get_involved > .join_us > p
 {
@@ -16,9 +16,160 @@
 }
 #main > .get_involved > .join_us > a.join
 {
-	margin: 30px 0 0 0;
+	margin: 30px 0 40px 8px;
 	text-align: center;
 	width: 300px;
+}
+#main > .get_involved > .join_us > ul.we_need
+{
+	float: left;
+	list-style: none;
+	margin: 0;
+	min-width: 200px;
+	padding: 0;
+}
+#main > .get_involved > .join_us > ul.we_need > li
+{
+	margin: 20px 0;
+	clear: both;
+	overflow: hidden;
+	font-size: 1.2em;
+}
+
+#main > .get_involved > .join_us > ul.we_need > li > span
+{
+	display: block;
+	float: left;
+}
+#main > .get_involved > .join_us > ul.we_need > li > span.block_0
+{
+	width: 18px;
+	height: 18px;
+	background-image: url(../images/sprite32.png);
+	background-position: -69px -20px;
+	margin: 0 10px 0 0;
+}
+#main > .get_involved > .community
+{
+	margin: 50px 0 0 0;
+}
+#main > .get_involved > .community > .forums
+{
+	float: left;
+	width: 200px;
+}
+#main > .get_involved > .community > .forums > ul
+{
+	list-style-type: none;
+	margin: 0 0 0 -87px;
+	padding: 0;
+	/*height: 240px;/*Not sure about this*/
+}
+#main > .get_involved > .community > .forums > ul > li
+{
+	background: url(../images/small_separator_fade_to_right.png) no-repeat bottom right;
+	margin: 15px 0 0 0;
+	padding: 0 15px 15px 87px;
+}
+#main > .get_involved > .community > .forums > ul > li:last-child
+{
+	background: none;
+}
+#main > .get_involved > .community > .forums > ul > li > a
+{
+	color: #8d8d8d;
+	font-size: 1.1em;
+	font-weight: bold;
+	text-decoration: none;
+}
+#main > .get_involved > .community > .forums > ul > li > .info
+{
+	color: #7e7e7e;
+	font-size: 1.1em;
+	font-style: italic;
+	margin: 7px 0 0 0;
+}
+#main > .get_involved > .community > .chat
+{
+	float: left;
+	min-height: 113px;
+	padding: 0 0 40px 0;
+	position: relative;
+	width: 250px;
+}
+#main > .get_involved > .community > .chat > .separator
+{
+	background: url(../images/separator_small_repeat.png) repeat-y top left;
+	bottom: 0;
+	float: left;
+	position: absolute;
+	top: 0;
+	width: 15px;
+}
+#main > .get_involved > .community > .chat > .separator > .extra_0
+{
+	background: url(../images/separator_small_top.png) no-repeat top left;
+	height: 30px;
+	width: 15px;
+}
+#main > .get_involved > .community > .chat > .separator > .extra_1
+{
+	background: url(../images/separator_small_bottom.png) no-repeat top left;
+	bottom: 0;
+	height: 83px;
+	position: absolute;
+	width: 15px;
+}
+#main > .get_involved > .community > .chat > .nested_0
+{
+	margin: 0 0 0 50px;
+}
+#main > .get_involved > .community > .chat > .nested_0 > .nested_1
+{
+	/*height: 240px;/*Not sure about this*/
+}
+#main > .get_involved > .community > .chat > .nested_0 > .nested_1 > p
+{
+	font-size: 1.1em;
+}
+#main > .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo
+{
+	background: #ccc;
+	font-size: 1.2em;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	margin: 5px 0 30px 0;
+	padding: 10px;
+}
+#main > .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo > hr
+{
+	border-top: 1px solid #e4e4e4;
+	height: 0;
+	margin: 10px -10px;
+}
+#main > .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo > span
+{
+	font-size: 1em;
+	font-weight: bold;
+}
+#main > .get_involved > .community > .chat > .nested_0 > .nested_1 > .status
+{
+	font-size: 1.2em;
+}
+#main > .get_involved > .community > .chat > .nested_0 > .nested_1 > .status > span
+{
+	background: url(../images/sprite32.png) no-repeat;
+	background-position: -193px -61px;
+	color: #36cd06;
+	display: inline-block;
+	font-size: 1em;
+	font-weight: bold;
+	height: 26px;
+	margin: 0 10px 0 10px;
+	padding: 2px 0 0 0;
+	text-align: center;
+	width: 26px;
 }
 #main > .sidebar
 {
@@ -29,7 +180,7 @@
 	position: relative;
 	width: 370px;
 }
-#main > .sidebar > .nested_0
+#main > .sidebar > .separator
 {
 	bottom: 0;
 	float: left;
@@ -38,13 +189,13 @@
 	top: 0;
 	width: 26px;
 }
-#main > .sidebar > .nested_0 > .extra_0
+#main > .sidebar > .separator > .extra_0
 {
 	background: url(../images/separator_big_top.png) no-repeat;
 	height: 82px;
 	width: 26px;
 }
-#main > .sidebar > .nested_0 > .extra_1
+#main > .sidebar > .separator > .extra_1
 {
 	background: url(../images/separator_big_bottom.png) no-repeat;
 	bottom: 0;
@@ -52,10 +203,22 @@
 	height: 211px;
 	width: 26px;
 }
-#main > .sidebar > .nested_1
+#main > .sidebar > .boxes
 {
 	float: left;
+	margin: 0 0 0 26px;
 	width: 344px;
 }
+#main > .sidebar > .boxes > .box > .extra_0
+{
+	float: left;
+	width: 75px;
+}
+#main > .sidebar > .boxes > .box > .nested_0
+{
+	float: left;
+	width: 260px;
+}
+
 
 
