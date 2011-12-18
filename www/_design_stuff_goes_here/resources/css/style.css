@@ -945,13 +945,13 @@ footer > .activity > .last_tweet > p.follow_us
 	position: absolute; 
 	text-align: center; 
 }
-footer > .activity > .last_tweet > p > a 
+#container > .last_tweet > .tweet_container > a
 { 
 	color: #D09610; 
 	text-decoration: none; 
 	font-weight: bold; 
 }
-footer > .activity > .last_tweet > p > a:hover
+#container > .last_tweet > .tweet_container > a:hover
 {
 	text-decoration: underline;
 }
