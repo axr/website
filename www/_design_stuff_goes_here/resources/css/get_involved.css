@@ -244,6 +244,7 @@
 	top: 15px;
 	right: 0;
 	width: 10px;
+	z-index:900;
 }
 #main > .sidebar > .boxes > .box > .nested_0
 {
