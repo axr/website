@@ -13,6 +13,7 @@
 #main > .get_involved > .join_us > p
 {
 	font-size: 1.2em;
+	width: 450px;
 }
 #main > .get_involved > .join_us > a.join
 {
@@ -57,7 +58,7 @@
 {
 	float: left;
 	padding: 0 0 40px 0;
-	width: 200px;
+	width: 210px;
 }
 #main > .get_involved > .community > .forums > ul
 {
@@ -127,11 +128,11 @@
 }
 #main > .get_involved > .community > .chat > .nested_0
 {
-	margin: 0 0 0 50px;
+	margin: 0 0 0 40px;
 }
 #main > .get_involved > .community > .chat > .nested_0 > .nested_1
 {
-	min-height: 250px;
+	min-height: 251px;
 }
 #main > .get_involved > .community > .chat > .nested_0 > .nested_1 > p
 {
@@ -145,7 +146,7 @@
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	margin: 5px 0 30px 0;
-	padding: 10px;
+	padding: 10px 10px 10px 15px;
 }
 #main > .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo > hr
 {
@@ -180,14 +181,16 @@
 {
 	width: 180px;
 }
+
 #main > .sidebar
 {
 	background: url(../images/separator_big_repeat.png) repeat-y top left;
 	float: right;
-	margin: 30px 0 0 0;
-	min-height: 293px;
+	min-height: 1000px;
 	position: relative;
 	width: 370px;
+	padding-top: 48px;
+	margin-top: 25px;
 }
 #main > .sidebar > .separator
 {
@@ -370,13 +373,13 @@ a:hover
 #main > .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow
 {
 	color: #7c7c7c;
-	text-align: center;
+	padding: 0 20px;
 }
 #main > .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow > a
 {
 	color: #b5790b;
 	text-decoration: none;
-	text-shadow: #ededed 1px 1px 3px;
+	text-shadow: #ededed 0 1px 0;
 }
 #main > .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow > a:hover
 {
