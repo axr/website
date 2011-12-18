@@ -738,6 +738,16 @@ nav#breadcrumbs > .extra_0
 	margin: 0 10px 0 10px;
 	width: 5px;
 }
+#container .last_tweet  a
+{ 
+	color: #D09610; 
+	text-decoration: none; 
+	font-weight: bold; 
+}
+#container .last_tweet a:hover
+{
+	text-decoration: underline;
+}
 
 footer 
 { 
@@ -939,16 +949,6 @@ footer > .activity > .last_tweet > p.follow_us
 	left: 0; 
 	position: absolute; 
 	text-align: center; 
-}
-#container .last_tweet > .tweet_container > a
-{ 
-	color: #D09610; 
-	text-decoration: none; 
-	font-weight: bold; 
-}
-#container .last_tweet > .tweet_container > a:hover
-{
-	text-decoration: underline;
 }
 footer > .activity > .participate 
 { 

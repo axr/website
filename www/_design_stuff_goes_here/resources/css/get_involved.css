@@ -375,16 +375,7 @@ a:hover
 	color: #7c7c7c;
 	padding: 0 20px;
 }
-#main > .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow > a
-{
-	color: #b5790b;
-	text-decoration: none;
-	text-shadow: #ededed 0 1px 0;
-}
-#main > .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow > a:hover
-{
-	text-decoration: underline;
-}
+
 #main > .sidebar > .boxes > .box.facebook > .icon > .extra_0
 {
 	background-position: -3px -105px;
