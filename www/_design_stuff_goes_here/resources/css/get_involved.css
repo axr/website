@@ -86,13 +86,13 @@
 #main > .get_involved > .community > .forums > ul > li > .info
 {
 	color: #7e7e7e;
-	font-size: 1.1em;
+	font-size: 0.9em;
 	font-style: italic;
 	margin: 7px 0 0 0;
 }
 #main > .get_involved > .community > .forums > .enter
 {
-	width: 175px;
+	width: 160px;
 }
 #main > .get_involved > .community > .chat
 {
@@ -274,7 +274,7 @@
 	font-size: 1.2em;
 	font-weight: bold;
 	padding: 0 0 3px 20px;
-	text-shadow: #666 1px 1px 2px;
+	text-shadow: #666 0 1px 0;
 }
 #main > .sidebar > .boxes > .box > .nested_0 > .inner
 {
@@ -282,7 +282,7 @@
 	font-size: 1.1em;
 	font-weight: bold;
 	padding: 0 20px;
-	text-shadow: #ededed 1px 1px 1px;
+	text-shadow: #ededed 0 1px 0;
 }
 #main > .sidebar > .boxes > .box > .nested_0 > hr
 {
@@ -318,7 +318,8 @@
 #main > .sidebar > .boxes > .box.newsletter > .nested_0 > .inner
 {
 	color: #fff;
-	text-shadow: #666 1px 1px 3px;	
+	text-shadow: #666 0 1px 0;
+	font-size: 1em;
 }
 #main > .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > form > input.subscribe
 {
@@ -338,7 +339,7 @@
 a
 {
 	display: block;
-	width: 25px;
+	width: 30px;
 	height: 32px;
 	float: left;
 	text-indent: -999px;
@@ -346,6 +347,12 @@ a
 	background-image: url(../images/get_involved_sprite.png);
 	background-position: -197px -154px;
 	margin-top: 5px;
+}
+
+#main > .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > form >
+a:hover
+{
+	background-position: -228px -154px;
 }
 
 #main > .sidebar > .boxes > .box.newsletter > .nested_0 > hr
@@ -466,15 +473,16 @@ a
 {
 	border-bottom: 1px solid #bebebe;
 	color: #6b6b6b;
-	font-size: 1.1em;
+	font-size: 1em;
 	font-weight: bold;
-	padding: 5px 20px 7px 20px;
-	text-shadow: #ededed 1px 1px 1px;
+	padding: 5px 20px 7px 22px;
+	text-shadow: #ededed 0 1px 0;
+	font-style: italic;
 }
 #main > .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner > span
 {
 	color: #979797;
-	text-shadow: #efefef 1px 1px 2px;
+	text-shadow: #ededed 0 1px 0;
 }
 #main > .sidebar > .boxes > .box.github > .nested_0 > .inner > a.see_all
 {
