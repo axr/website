@@ -718,6 +718,32 @@ header .secondary > .search > input[type="submit"]
 	background-position: -218px -29px; 
 }
 
+nav#breadcrumbs > a
+{
+	color: #666;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-decoration: none;
+}
+nav#breadcrumbs > a:hover
+{
+	text-decoration: underline;
+}
+nav#breadcrumbs > .inactive
+{
+	color: #8c8c8c;
+	font-size: 1.2em;
+}
+nav#breadcrumbs > .extra_0
+{
+	background: url(../images/sprite32.png) no-repeat;
+	background-position: -223px -77px;
+	display: inline-block;
+	height: 7px;
+	margin: 0 10px 0 10px;
+	width: 5px;
+}
+
 footer 
 { 
 	background-image: url("../images/footer_repeat.jpg"); 
