@@ -221,8 +221,10 @@ header
 	position: relative; 
 	width: 960px; 
 	height: 200px; 
-	margin: 0px auto;  
+	margin: 0px auto;
+	left:-37px 
 }
+
 header > .logo 
 { 
 	display: block; 
@@ -415,7 +417,6 @@ header .secondary
 }
 header .secondary a.login 
 {
-	background: url(../images/);
 	display: inline-block;
 	font-size: 0;
 	margin: 5px 0 0 0;
@@ -711,6 +712,72 @@ header .secondary > .search > input[type="submit"]
 .button_std.go:hover > .footer
 { 
 	background-position: -218px -29px; 
+}
+
+
+
+.button_big, .button_big:visited, .button_big:active
+{
+	display: block;
+	margin: 0 8px;
+	height: 67px;
+	position: relative;
+	color: white;
+	text-decoration: none;
+	text-shadow: #BC910E 0 1px 0;
+	font-weight: bold;
+}
+
+.button_big > .header,
+.button_big > .footer
+{
+	display: block;
+	width: 8px;
+	height: 67px;
+	background-image: url(../images/sprite32.png);
+	background-position: -193px -109px;
+	position: absolute;
+	left: -8px;
+	top: 0;
+}
+
+.button_big > .content
+{
+	display: block;
+	height: 67px;
+	background-image: url(../images/sprite_repeat_h.png);
+	background-position: 0 -240px;
+}
+
+.button_big > .content > .block_0
+{
+	display: block;
+	width: 26px;
+	height: 24px;
+	float: left;
+	margin: 19px 0 0 20px;
+	background-image: url(../images/sprite32.png);
+	background-position: -227px -29px;
+}
+
+.button_big > .footer
+{
+	left: auto;
+	right: -8px;
+	background-position: -201px -109px;
+}
+
+.button_big:hover > .header 
+{ 
+	background-position: -210px -109px; 
+}
+.button_big:hover > .content 
+{ 
+	background-position: 0 -308px; 
+}
+.button_big:hover > .footer 
+{ 
+	background-position: -218px -109px; 
 }
 
 nav#breadcrumbs > a

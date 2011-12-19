@@ -1,7 +1,7 @@
 #main
 {
 	margin: auto;
-	padding: 50px 0 55px 60px;
+	padding: 50px 0 55px 0;
 	width: 900px;
 }
 #main > .get_involved
@@ -58,7 +58,7 @@
 {
 	float: left;
 	padding: 0 0 40px 0;
-	width: 210px;
+	width: 240px;
 }
 #main > .get_involved > .community > .forums > ul
 {
@@ -71,7 +71,7 @@
 {
 	background: url(../images/small_separator_fade_to_right.png) no-repeat bottom right;
 	margin: 15px 0 0 0;
-	padding: 0 15px 15px 87px;
+	padding: 0 30px 15px 87px;
 }
 #main > .get_involved > .community > .forums > ul > li:last-child
 {
@@ -93,7 +93,7 @@
 }
 #main > .get_involved > .community > .forums > .enter
 {
-	width: 160px;
+	width: 192px;
 }
 #main > .get_involved > .community > .chat
 {
@@ -499,7 +499,7 @@ a:hover
 }
 .modal_inner {
 	width:640px;
-	height:600px;	
+	height:550px;	
 	margin:0 auto;
 	background: #cecece;
 	background: -moz-linear-gradient(top,  #dcdcdc 0%, #cecece 50%, #dcdcdc 100%);
@@ -513,7 +513,7 @@ a:hover
 	border-radius:5px;
 	box-shadow:0 0 10px rgba(80,80,80,.9);
 	position:absolute;
-	bottom:-300px;
+	bottom:-275px;
 	right:-320px;
 }
 .modal_close {
@@ -523,7 +523,7 @@ a:hover
 	height:18px;
 	background:url("../images/sprite32.png") -193px -90px;
 	position: absolute;
-	top:15px;
+	top:12px;
 	right:11px;
 	cursor:pointer;
 }
