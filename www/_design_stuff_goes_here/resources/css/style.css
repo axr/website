@@ -221,8 +221,10 @@ header
 	position: relative; 
 	width: 960px; 
 	height: 200px; 
-	margin: 0px auto;  
+	margin: 0px auto;
+	left:-37px 
 }
+
 header > .logo 
 { 
 	display: block; 

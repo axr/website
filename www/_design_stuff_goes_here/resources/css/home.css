@@ -6,7 +6,7 @@
 #main > .above_fold > .nested_0
 {
 	width: 855px;
-	padding: 50px 0 55px 105px;
+	padding: 50px 0 55px 20px;
 	margin: 0px auto;
 }
 
@@ -93,7 +93,7 @@
 #main > .the_cool_stuff > .nested_0
 {
 	width: 855px;
-	padding: 50px 0 55px 105px;
+	padding: 50px 0 55px 20px;
 	margin: 0px auto;
 	overflow: hidden;
 }
