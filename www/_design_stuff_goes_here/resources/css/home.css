@@ -18,11 +18,30 @@
 	z-index: 1;
 }
 
-#main > .above_fold > .nested_0 > .intro > .button_std
+#main > .above_fold > .nested_0 > .intro > .button_big
 {
-	width: 155px;
+	width: 285px;
 	float: left;
 	margin-top: 25px;
+}
+
+#main > .above_fold > .nested_0 > .intro > .button_big > .content > .big
+{
+	display: block;
+	font-size: 1.65em;
+	line-height: 1.8;
+	text-align: center;
+	text-indent: 0;
+	padding-top: 3px;
+}
+
+#main > .above_fold > .nested_0 > .intro > .button_big > .content > .small
+{
+	display: block;
+	font-size: 1em;
+	color: #BF8300;
+	text-shadow: #F7DE77 0 1px 0;
+	text-align: center;
 }
 
 #main > .above_fold > .nested_0 > .intro > .manifesto
