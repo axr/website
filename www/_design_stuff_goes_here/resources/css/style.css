@@ -510,7 +510,7 @@ header .secondary > .search > input[type="submit"]
 	position: absolute; 
 	top: 315px; 
 	right: 0; 
-	z-index: 999;
+	z-index: 9;
 }
 #container > .share > .label 
 { 
