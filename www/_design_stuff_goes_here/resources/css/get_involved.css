@@ -499,7 +499,7 @@ a:hover
 }
 .modal_inner {
 	width:640px;
-	height:600px;	
+	height:550px;	
 	margin:0 auto;
 	background: #cecece;
 	background: -moz-linear-gradient(top,  #dcdcdc 0%, #cecece 50%, #dcdcdc 100%);
@@ -513,7 +513,7 @@ a:hover
 	border-radius:5px;
 	box-shadow:0 0 10px rgba(80,80,80,.9);
 	position:absolute;
-	bottom:-300px;
+	bottom:-275px;
 	right:-320px;
 }
 .modal_close {
@@ -523,7 +523,7 @@ a:hover
 	height:18px;
 	background:url("../images/sprite32.png") -193px -90px;
 	position: absolute;
-	top:15px;
+	top:12px;
 	right:11px;
 	cursor:pointer;
 }
