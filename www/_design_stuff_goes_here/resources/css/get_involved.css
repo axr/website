@@ -58,7 +58,7 @@
 {
 	float: left;
 	padding: 0 0 40px 0;
-	width: 210px;
+	width: 240px;
 }
 #main > .get_involved > .community > .forums > ul
 {
@@ -71,7 +71,7 @@
 {
 	background: url(../images/small_separator_fade_to_right.png) no-repeat bottom right;
 	margin: 15px 0 0 0;
-	padding: 0 15px 15px 87px;
+	padding: 0 30px 15px 87px;
 }
 #main > .get_involved > .community > .forums > ul > li:last-child
 {
@@ -93,7 +93,7 @@
 }
 #main > .get_involved > .community > .forums > .enter
 {
-	width: 160px;
+	width: 192px;
 }
 #main > .get_involved > .community > .chat
 {
