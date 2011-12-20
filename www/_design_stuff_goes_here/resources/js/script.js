@@ -99,16 +99,14 @@
 		$modal.bind('hide',function(){
 			$(this).fadeOut('fast');
 		});
-		$modal.find('.modal_inner').click(function(){
-			return false;
-		});
 		$modal.find('.modal_close').click(function(){
 			$(this).closest('.modal').trigger('hide');
 			return false;
 		});
-		$modal.click(function(){
+		$modal.click(function(e){
+			if(e.target != this) 
+				return;
 			$(this).trigger('hide');
-			return false;
 		});
 		$('#action_button').click(function(){
 			$('#joining').trigger('show');
