@@ -22,6 +22,7 @@
 	<meta property="og:description" content="AXR is a new standard for making web sites and apps, replacing HTML with XML and CSS with HSS. A unified platform independent of browsers, possible to install as plug-in." />
 	<meta property="og:site_name" content="AXR: Arbitrary XML Rendering" />
 	<!-- google +snippet metadata-->
+	<link href="https://plus.google.com/105865857923622443169" rel="publisher" />
 	<meta itemprop="name" content="AXR: The web, done right #axr">
 	<meta itemprop="description" content="AXR is a new standard for making web sites and apps, replacing HTML with XML and CSS with HSS. A unified platform independent of browsers, possible to install as plug-in.">
 	<meta itemprop="image" content="http://axr.vg/resources/images/logo_small.jpg">
