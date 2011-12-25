@@ -272,23 +272,23 @@ header > nav > ul > li:hover > a
 	background: url('../images/sprite.jpg');
 	padding-right: 1px;
 }
-header > nav > ul > li#about 
+header > nav > ul > li.about 
 { 
 	width: 97px; 
 }
-header > nav > ul > li#specification 
+header > nav > ul > li.specification 
 { 
 	width: 129px; 
 }
-header > nav > ul > li#resources 
+header > nav > ul > li.resources 
 { 
 	width: 136px; 
 }
-header > nav > ul > li#community 
+header > nav > ul > li.community 
 { 
 	width: 131px; 
 }
-header > nav > ul > li#wiki 
+header > nav > ul > li.wiki 
 { 
 	width: 88px; 
 }
@@ -296,28 +296,28 @@ header > nav > ul > li.blog
 { 
 	width: 66px; 
 }
-header > nav > ul > li#about > a:hover,
-header > nav > ul > li#about:hover > a
+header > nav > ul > li.about > a:hover,
+header > nav > ul > li.about:hover > a
 { 
 background-position: -312px -49px; 
 }
-header > nav > ul > li#specification > a:hover,
-header > nav > ul > li#specification:hover > a 
+header > nav > ul > li.specification > a:hover,
+header > nav > ul > li.specification:hover > a 
 { 
 background-position: -410px -49px; 
 }
-header > nav > ul > li#resources > a:hover,
-header > nav > ul > li#resources:hover > a 
+header > nav > ul > li.resources > a:hover,
+header > nav > ul > li.resources:hover > a 
 { 
 background-position: -540px -49px; 
 }
-header > nav > ul > li#community > a:hover,
-header > nav > ul > li#community:hover > a 
+header > nav > ul > li.community > a:hover,
+header > nav > ul > li.community:hover > a 
 { 
 background-position: -677px -49px; 
 }
-header > nav > ul > li#wiki > a:hover,
-header > nav > ul > li#wiki:hover > a 
+header > nav > ul > li.wiki > a:hover,
+header > nav > ul > li.wiki:hover > a 
 { 
 background-position: -809px -49px; 
 }
