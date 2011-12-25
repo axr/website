@@ -222,7 +222,9 @@ header
 	width: 960px; 
 	height: 200px; 
 	margin: 0px auto;
-	left:-37px 
+	left:-37px;
+	_left:0;     /* IE6 */
+	*z-index:10; /* IE7 */
 }
 
 header > .logo 
@@ -234,13 +236,16 @@ header > .logo
 	text-indent: -10000px; 
 	float: left; 
 }
+
+/* == NAV == */
+
 header > nav 
 { 
 	width: 647px; 
 	height: 49px; 
 	float: left; 
 	margin: 97px 0 0 3px; 
-	background:  url('../images/sprite.jpg'); 
+	background: url('../images/sprite.jpg');
 	background-position: -312px 0; 
 }
 header > nav > ul 
@@ -262,7 +267,7 @@ header > nav > ul > li > a
 	overflow: hidden; 
 }
 header > nav > ul > li > a:hover,
-header > nav > ul > li.hover > a 
+header > nav > ul > li:hover > a 
 {
 	background: url('../images/sprite.jpg');
 	padding-right: 1px;
@@ -291,123 +296,140 @@ header > nav > ul > li.blog
 { 
 	width: 66px; 
 }
-header > nav > ul > li.about > a:hover, header > nav > ul > li.about.hover > a 
+header > nav > ul > li.about > a:hover,
+header > nav > ul > li.about:hover > a
 { 
 background-position: -312px -49px; 
 }
-header > nav > ul > li.specification > a:hover, header > nav > ul > li.specification.hover > a 
+header > nav > ul > li.specification > a:hover,
+header > nav > ul > li.specification:hover > a 
 { 
 background-position: -410px -49px; 
 }
 header > nav > ul > li.resources > a:hover,
-header > nav > ul > li.resources.hover > a 
+header > nav > ul > li.resources:hover > a 
 { 
 background-position: -540px -49px; 
 }
 header > nav > ul > li.community > a:hover,
-header > nav > ul > li.community.hover > a 
+header > nav > ul > li.community:hover > a 
 { 
 background-position: -677px -49px; 
 }
 header > nav > ul > li.wiki > a:hover,
-header > nav > ul > li.wiki.hover > a 
+header > nav > ul > li.wiki:hover > a 
 { 
 background-position: -809px -49px; 
 }
 header > nav > ul > li.blog > a:hover,
-header > nav > ul > li.blog.hover > a 
+header > nav > ul > li.blog:hover > a 
 { 
 background-position: -898px -49px; 
 }
-
-header > nav > ul > li > .sections
+#menu li:focus {outline:none}
+#menu div a {display:none}
+#menu li:hover div, #menu div:hover, #menu a:focus ~ div  {display:block}
+#menu li div, #menu div a:focus, #menu div a:focus ~ a
 {
-	width: 191px;
-	position: absolute;
-	top: 32px;
-	margin: 83px 0 69px;
-	z-index: 999;
-	background-image: url(../images/dropdown_bg.png);
+	width: 174px;
+        z-index:15;
+        left:50%;
+        margin-left:-87px;
+        position:relative;
+	background:#717171;
 }
-
-header > nav > ul > li.about > .sections 
-{ 
-	left: -45px; 
-}
-header > nav > ul > li.resources > .sections 
-{ 
-	left: -28px; 
-}
-header > nav > ul > li.community > .sections 
-{ 
-	left: -32px; 
-}
-header > nav > ul > li.wiki > .sections 
-{ 
-	left: -48px; 
-}
-header > nav > ul > li > .sections > .header
+#menu li div
 {
-	width: 100%;
-	height: 83px;
-	background-image: url(../images/sprite32.png);
-	background-position: -1px -38px;
-	position: absolute;
-	top: -83px;
+        top:-4px;
+        -webkit-border-radius:8px;
+        -moz-border-radius:8px;
+        border-radius:8px;
+   -moz-box-shadow: 0 0 8px #575757;
+-webkit-box-shadow: 0 0 8px #575757;
+        box-shadow: 0 0 8px #575757;
 }
-
-header > nav > ul > li > .sections > .content
+#menu li:hover div
 {
-	margin-top: -120px;
-	position: relative;
-	z-index: 1;
-	top: 55px;
+	border:1px solid #7D7D7D;
+	background-image: linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -o-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -moz-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -webkit-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #747474), color-stop(0.37, #636363));
 }
-
-header > nav > ul > li > .sections > .content > li
+#menu li:hover div a, #menu a:focus ~ div a, #menu div a:focus, #menu div a:focus ~ a
 {
+	display:block;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	margin: 0 8px;
 	border-bottom: 1px solid #555555;
 	border-top: 1px solid #7F7F7F;
+	outline:none;
 }
-
-header > nav > ul > li > .sections > .content > li.first
+#menu div a
 {
-	border-top: none;
-}
-
-header > nav > ul > li > .sections > .content > li.last
-{
-	border-bottom: none;
-}
-
-header > nav > ul > li > .sections > .content > li > a
-{
-	display: block;
 	color: white;
 	text-decoration: none;
 	font-weight: bold;
 	text-shadow: #333333 0 1px 0;
 }
-
-header > nav > ul > li > .sections > .content > li > a:hover
+#menu div a:hover, #menu div a:focus
 {
 	color: #313131;
 	text-shadow: #959595 0 1px 0;
 }
-
-header > nav > ul > li > .sections > .footer
+#menu div a:focus
 {
-	width: 100%;
-	height: 69px;
-	background-image: url(../images/sprite32.png);
-	background-position: -1px -121px;
-	position: absolute;
-	bottom: -69px;
+	border-top:none;
+        -webkit-border-top-left-radius:8px;
+	-webkit-border-top-right-radius:8px;
+        -moz-border-radius-topleft:8px;
+	-moz-border-radius-topright:8px;
+        border-top-left-radius:8px;
+	border-top-right-radius:8px;
 }
+#menu div .first {border-top:none !important}
+#menu div .last {border-bottom:none !important}
+#menu div a:focus ~ .last, #menu div .last:focus
+{
+        -webkit-border-bottom-left-radius:8px;
+	-webkit-border-bottom-right-radius:8px;
+        -moz-border-radius-bottomleft:8px;
+	-moz-border-radius-bottomright:8px;
+        border-bottom-left-radius:8px;
+	border-bottom-right-radius:8px;	
+}
+#menu li .arrow
+{
+	border-color: transparent transparent #737373 transparent;
+	border-style: solid;
+	border-width: 0px 8px 8px 8px;
+	height:0;
+	width:0;
+	position:absolute;
+	z-index:20;
+	margin-top:39px;
+	left:50%;
+	margin-left:-8px;
+	display:none;
+}
+#menu li:hover .arrow {display:block}
+/* Gecko */
+body:-moz-last-node #menu li:hover div
+{
+	border-width:2px;
+	-moz-border-top-colors: #575757 #7D7D7D;
+	-moz-border-bottom-colors: #575757 #7D7D7D;
+	-moz-border-right-colors: #575757 #7D7D7D;
+	-moz-border-left-colors: #575757 #7D7D7D;
+}
+/* WebKit */
+body { -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from { padding: 0; } to { padding: 0; } }
+
+/* == NAV END == */
 
 header .secondary 
 { 
