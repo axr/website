@@ -223,9 +223,10 @@
 
 #main > .the_cool_stuff > .nested_0 > .advantages > .features > .content > .block_0
 {
-	float: right;
 	background-position: -89px -21px;
-	margin-top: 10px;
+	position:absolute;
+	right:0;
+	bottom:10px;
 }
 
 
