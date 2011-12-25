@@ -24,10 +24,10 @@ function axr_breadcrumb($data) {
  * As the name says: Preprocess html
  */
 function axr_preprocess_html(&$variables) {
-	drupal_add_js('https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js', 'theme');
-	// Here should be `<script>window.jQuery || document.write('<script src="resources/js/libs/jquery-1.6.2.min.js"><\/script>')</script>`, but I'm not sure how to do it the right way.
-	drupal_add_js(drupal_get_path('theme', 'axr') . '/js/script.js', 'theme');
+	$options = array(
+		'group' => JS_THEME,
+	);
 
-	$variables['scripts'] = drupal_get_js();
+	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/script.js', $options);
 }
 
