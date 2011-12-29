@@ -2,7 +2,8 @@
 
 <project name="axr" default="build">
 
-	<target name="verify" depends="init, clean, lint-php-custom, lint-js-custom, lint-css-custom, check-php-debug, check-js-debug"/>
+	<target name="build" depends="init, verify" />
+	<target name="verify" depends="init, lint-php-custom, lint-js-custom, lint-css-custom"/>
 
 	<target name="lint-php-custom" description="Check custom PHP files for syntax errors using PHPLint" depends="init">
 		<phplint haltonfailure="true">
@@ -219,203 +220,183 @@
 		</if>
 	</target>
   
-  <target name="setup-dirs"
-          depends="load-properties">
-    <if>
-      <isset property="drupal.make.dir"/>
-      <then>
-        <property name="project.drupal.dir"
-                value="${project.basedir}/${drupal.make.dir}" />
-      </then>
-      <else>
-        <property name="project.drupal.dir"
-                value="${project.basedir}" />
-      </else>
-    </if>
+	<target name="setup-dirs" depends="load-properties">
+		<if>
+			<isset property="drupal.make.dir"/>
+			<then>
+				<property name="project.drupal.dir" value="${project.basedir}/${drupal.make.dir}" />
+			</then>
+			<else>
+				<property name="project.drupal.dir" value="${project.basedir}" />
+			</else>
+		</if>
 
-    <property name="project.sitesdir"
-              value="${project.drupal.dir}/${project.code.dir}" />
-    <property name="project.builddir"
-              value="${project.basedir}/build" />
-    <property name="project.toolsdir"
-              value="${project.builddir}/tools" />
-    <property name="project.coveragedir"
-              value="${project.builddir}/coverage" />
-    <property name="project.logdir"
-              value="${project.builddir}/logs" />
-    <property name="project.testdir"
-              value="${project.builddir}/tests" />
-  </target>
+		<property name="project.sitesdir" value="${project.drupal.dir}/${project.code.dir}" />
+		<property name="project.builddir" value="${project.basedir}/build" />
+		<property name="project.toolsdir" value="${project.builddir}/tools" />
+		<property name="project.logdir" value="${project.builddir}/logs" />
+	</target>
 
-<!-- ### Drush Make
+	<!-- Download and install the source code for the site using Drush Make.  This target is only executed if the project uses make files as configured in the `build.properties` file. Execution can also be skipped by setting the 
+	`project.make.skip` property from the command line or in other targets. This is part of the initialization of the build. This target should only be called from `init` target. --> 
+	<target name="make" depends="load-properties, setup-phing-drush" if="drupal.make.file">
+		<if>
+			<or>
+				<not>
+					<isset property="project.make.skip"/>
+				</not>
+				<not>
+					<istrue value="${project.make.skip}"/>
+				</not>
+			</or>
+			<then>
+				<!-- Delete any prexisting builds -->
+				<delete dir="${project.drupal.dir}"/>
 
-Download and install the source code for the site using Drush Make.
+				<!-- If the make file does not include a core Drupal project we need to download one separately. This should be defined in `build.properties`. -->
+				<if>
+					<and>
+						<isset property="drupal.make.nocore"/>
+						<istrue value="${drupal.make.nocore}"/>
+					</and>
+					<then>
+						<!-- Download the appropriate version of Drupal -->
+						<drush command="dl" assume="yes">
+							<param>drupal-${drupal.version}</param>
+							<option name="drupal-project-rename">${drupal.make.dir}</option>
+						</drush>
 
-This target is only executed if the project uses make files as configured
-in the `build.properties` file. Execution can also be skipped by setting the
-`project.make.skip` property from the command line or in other targets.
+						<!-- Make the project in the project code directory. If using a directory inside the `sites` folder modules can be tested  faster and easier when using the minimal profile. -->
+						<drush command="make" assume="yes">
+							<param>${drupal.make.file}</param>
+							<option name="contrib-destination">${drupal.make.dir}/${project.code.dir}</option>
+							<option name="no-core"/>
+						</drush>
 
-This is part of the initialization of the build. This target should only be
-called from `init` target. -->
-  <target name="make"
-          depends="load-properties, setup-phing-drush"
-          if="drupal.make.file">
-    <if>
-      <or>
-        <not><isset property="project.make.skip"/></not>
-        <not><istrue value="${project.make.skip}"/></not>
-      </or>
-      <then>
-        <!-- Delete any prexisting builds -->
-        <delete dir="${project.drupal.dir}"/>
+						<!-- Copy the install profile bundled with the make file to the appropriate directory. -->
+						<copy todir="${project.drupal.dir}/profiles/${drupal.profile}/">
+							<fileset dir="${project.basedir}">
+								<include name="${drupal.profile}.*" />
+							</fileset>
+						</copy>
+					</then>
+					<else>
+						<drush command="make" assume="yes">
+							<param>${drupal.make.file}</param>
+							<option name="contrib-destination">${drupal.make.dir}/${project.code.dir}</option>
+						</drush>
+					</else>
+				</if>
+			</then>
+			<else>
+				<echo>
+					Skipping drush make.${line.separator} . rupal.make.skip has been set to ${drupal.make.skip}.
+				</echo>
+			</else>
+		</if>
+	</target>
 
-        <!-- If the make file does not include a core Drupal project we need
-             to download one separately. This should be defined in
-             `build.properties`. -->
-        <if>
-          <and>
-            <isset property="drupal.make.nocore"/>
-            <istrue value="${drupal.make.nocore}"/>
-          </and>
-          <then>
-            <!-- Download the appropriate version of Drupal -->
-            <drush command="dl" assume="yes">
-              <param>drupal-${drupal.version}</param>
-              <option name="drupal-project-rename">${drupal.make.dir}</option>
-            </drush>
-
-            <!-- Make the project in the project code directory. If using
-                 a directory inside the `sites` folder modules can be tested
-                 faster and easier when using the minimal profile. -->
-            <drush command="make" assume="yes">
-              <param>${drupal.make.file}</param>
-              <option name="contrib-destination">${drupal.make.dir}/${project.code.dir}</option>
-              <option name="no-core"/>
-            </drush>
-
-            <!-- Copy the install profile bundled with the make file to the
-                 appropriate directory. -->
-            <copy todir="${project.drupal.dir}/profiles/${drupal.profile}/">
-              <fileset dir="${project.basedir}">
-                <include name="${drupal.profile}.*" />
-              </fileset>
-            </copy>
-          </then>
-          <else>
-            <drush command="make" assume="yes">
-              <param>${drupal.make.file}</param>
-              <option name="contrib-destination">${drupal.make.dir}/${project.code.dir}</option>
-            </drush>
-          </else>
-        </if>
-      </then>
-      <else>
-        <echo>
-          Skipping drush make.${line.separator}
-          drupal.make.skip has been set to ${drupal.make.skip}.
-        </echo>
-      </else>
-    </if>
-  </target>
-
-<!-- ### Setup file sets
-
-Setup file sets - patterns for different aspects of the source code.
-These are used in other targets.
-
-This is part of the initialization of the build. This target should only be
-called from `init` target. -->
-  <target name="setup-filesets"
-          depends="load-properties">
+	<!-- ### Setup file sets - patterns for different aspects of the source code. These are used in other targets. This is part of the initialization of the build. This target should only be called from `init` target. -->
+	<target name="setup-filesets" depends="load-properties">
     <!-- Define pattern sets for future reference -->
 
-    <!-- PHP files -->
-    <patternset id="php">
-      <include name="**/*.php" />
-      <include name="**/*.module" />
-      <include name="**/*.install" />
-      <include name="**/*.inc" />
-      <include name="**/*.profile" />
-      <include name="**/*.test" />
-    </patternset>
+		<!-- PHP files -->
+		<patternset id="php">
+			<include name="**/*.php" />
+			<include name="**/*.module" />
+			<include name="**/*.install" />
+			<include name="**/*.inc" />
+			<include name="**/*.profile" />
+			<include name="**/*.test" />
+		</patternset>
 
-    <!-- Javascript files -->
-    <patternset id="js">
-      <include name="**/*.js" />
-      <!-- Minimized JavaScript files should not be analyzed.
-           In their optimized state they can not be expexted
-           to conform to coding standards. -->
-      <exclude name="**/*.min.js" />
-    </patternset>
+		<!-- Javascript files -->
+		<patternset id="js">
+			<include name="**/*.js" />
+			<!-- Minimized JavaScript files should not be analyzed. In their optimized state they can not be expexted to conform to coding standards. -->
+			<exclude name="**/*.min.js" />
+		</patternset>
 
-    <!-- CSS files -->
-    <patternset id="css">
-      <include name="**/*.css" />
-    </patternset>
+		<!-- CSS files -->
+		<patternset id="css">
+			<include name="**/*.css" />
+		</patternset>
 
-    <!-- Directories for community contributed code. We exclude these from
-         code analysis as we cannot be held responsible for any problems
-         here. -->
-    <patternset id="contrib">
-      <exclude name="**/contrib/**/*.*" />
-      <exclude name="**/libraries/**/*.*" />
-    </patternset>
+		<!-- Directories for community contributed code. We exclude these from code analysis as we cannot be held responsible for any problems here. -->
+		<patternset id="contrib">
+			<exclude name="**/contrib/**/*.*" />
+			<exclude name="**/libraries/**/*.*" />
+		</patternset>
 
-    <!-- We exclude generated files from We exclude these from code analysis
-         as we cannot be held responsible for any problems here. -->
-    <patternset id="generated">
-      <exclude name="**/*.features.*" />
-      <exclude name="**/*.field_group.inc" />
-      <exclude name="**/*.layouts.inc" />
-      <exclude name="**/*.pages_default.inc" />
-      <exclude name="**/*.panels_default.inc" />
-      <exclude name="**/*.strongarm.inc" />
-      <exclude name="**/*.views_default.inc" />
-    </patternset>
+		<!-- We exclude generated files from We exclude these from code analysis as we cannot be held responsible for any problems here. -->
+		<patternset id="generated">
+			<exclude name="**/*.features.*" />
+			<exclude name="**/*.field_group.inc" />
+			<exclude name="**/*.layouts.inc" />
+			<exclude name="**/*.pages_default.inc" />
+			<exclude name="**/*.panels_default.inc" />
+			<exclude name="**/*.strongarm.inc" />
+			<exclude name="**/*.views_default.inc" />
+		</patternset>
 
-    <!-- Define file sets for future reference -->
+		<!-- Define file sets for future reference -->
 
-    <!-- All PHP files -->
-    <fileset id="src.php" dir="${project.drupal.dir}">
-      <patternset refid="php"/>
-    </fileset>
+		<!-- All PHP files -->
+		<fileset id="src.php" dir="${project.drupal.dir}">
+			<patternset refid="php"/>
+		</fileset>
 
-    <!-- Custom PHP files -->
-    <fileset id="src.php.custom" dir="${project.sitesdir}">
-      <patternset refid="php"/>
-      <patternset refid="contrib"/>
-      <patternset refid="generated"/>
-    </fileset>
+		<!-- Custom PHP files -->
+		<fileset id="src.php.custom" dir="${project.sitesdir}">
+			<patternset refid="php"/>
+			<patternset refid="contrib"/>
+			<patternset refid="generated"/>
+		</fileset>
 
-    <!-- All Javascript files -->
-    <fileset id="src.js" dir="${project.drupal.dir}">
-      <patternset refid="js" />
-    </fileset>
+		<!-- All Javascript files -->
+		<fileset id="src.js" dir="${project.drupal.dir}">
+			<patternset refid="js" />
+		</fileset>
 
-    <!-- Custom Javascript files -->
-    <fileset id="src.js.custom" dir="${project.sitesdir}">
-      <patternset refid="js" />
-      <patternset refid="contrib" />
-    </fileset>
+		<!-- Custom Javascript files -->
+		<fileset id="src.js.custom" dir="${project.sitesdir}">
+			<patternset refid="js" />
+			<patternset refid="contrib" />
+		</fileset>
 
-    <!-- All CSS files -->
-    <fileset id="src.css" dir="${project.basedir}">
-      <patternset refid="css" />
-    </fileset>
+		<!-- All CSS files -->
+		<fileset id="src.css" dir="${project.basedir}">
+			<patternset refid="css" />
+		</fileset>
 
-    <!-- Custom CSS files -->
-    <fileset id="src.css.custom" dir="${project.sitesdir}">
-      <patternset refid="css" />
-      <patternset refid="contrib" />
-    </fileset>
-
-  </target>
+		<!-- Custom CSS files -->
+		<fileset id="src.css.custom" dir="${project.sitesdir}">
+			<patternset refid="css" />
+			<patternset refid="contrib" />
+		</fileset>
+	</target>
   
 	<target name="site-install" depends="init, setup-phing-drush" unless="project.installed">
 		<drush command="site-install" assume="yes">
 			<option name="db-url">${drupal.db.url}</option>
+			<option name="db-prefix">${drupal.db.prefix}</option>
+			<option name="account-name">${drupal.account.name}</option>
+			<option name="account-pass">${drupal.account.pass}</option>
+			<option name="account-mail">${drupal.account.mail}</option>
+			<option name="site-name">${drupal.site.name}</option>
+			<option name="site-mail">${drupal.site.mail}</option>
 			<param>${drupal.profile}</param>
 		</drush>
+		
+		<drush command="pm-enable" assume="yes">
+			<param>${drupal.theme.name}</param>
+		</drush>
+		
+		<drush command="vset" assume="yes">
+			<param>theme_default</param>
+			<param>${drupal.theme.name}</param>
+		</drush>
+		
 		
 		<!-- Fix permissions for the default site directory and settings. The owner must be able to delete the directories during subsequent builds. -->
 		<chmod file="${project.drupal.dir}/sites/default/" mode="0755" failonerror="true"/>
@@ -478,24 +459,23 @@ called from `init` target. -->
 		</if>
 	</target>
 
-  <!-- ### Download and apply a patch -->
-  <target name="apply-http-patch">
-    <php function="basename" returnProperty="patch.file">
-      <param>${patch.url}</param>
-    </php>
+	<!-- ### Download and apply a patch -->
+	<target name="apply-http-patch">
+		<php function="basename" returnProperty="patch.file">
+			<param>${patch.url}</param>
+		</php>
 
-    <!-- If patch has already been downloaded then we assume it has also been
-         applied -->
-    <if>
-      <not><available file="${project.toolsdir}/${patch.file}"/></not>
-      <then>
-        <httpget url="${patch.url}"
-                 dir="${project.toolsdir}"/>
-        <patch patchfile="${project.toolsdir}/${patch.file}"
-               dir="${patch.dir}" haltonfailure="true"/>
-      </then>
-    </if>
-  </target>
+		<!-- If patch has already been downloaded then we assume it has also been applied -->
+		<if>
+			<not>
+				<available file="${project.toolsdir}/${patch.file}"/>
+			</not>
+			<then>
+				<httpget url="${patch.url}" dir="${project.toolsdir}"/>
+				<patch patchfile="${project.toolsdir}/${patch.file}" dir="${patch.dir}" haltonfailure="true"/>
+			</then>
+		</if>
+	</target>
 
 	<!-- ### Setup Phing Drush integration -->
 	<target name="setup-phing-drush" depends="setup-dirs" >
@@ -512,33 +492,6 @@ called from `init` target. -->
 		<!-- Run drush from the project Drupal directory -->
 		<property name="drush.root" value="${project.drupal.dir}"/>
 	</target>
-
-
-	<!-- ### Clean working environment  -->
-	<target name="clean" description="Clean up and create artifact directories" depends="setup-dirs" unless="project.cleaned">
-		<!-- Delete any existing artifacts from a previous build. Do not delete builddir. It may contain the build file! -->
-		<delete dir="${project.toolsdir}"/>
-		<delete dir="${project.coveragedir}"/>
-		<delete dir="${project.logdir}"/>
-		<delete dir="${project.testdir}"/>
-		<!-- Verbose. We need to make sure any database is deleted. Reinstalling the site with an existing database causes the build to fail. -->
-    <delete file="${project.drupal.dir}/database.sqlite" verbose="true" />
-    <!-- Remove leftover Drupal simpletest databases -->
-    <delete>
-      <fileset dir="${project.basedir}">
-        <include name="database.sqlite-simpletest*"/>
-      </fileset>
-    </delete>
-
-    <!-- Recreate directories for artifacts -->
-    <mkdir dir="${project.toolsdir}"/>
-    <mkdir dir="${project.coveragedir}"/>
-    <mkdir dir="${project.logdir}"/>
-    <mkdir dir="${project.testdir}"/>
-
-    <!-- Set property to prevent target from being executed multiple times -->
-    <property name="project.cleaned" value="true"/>
-  </target>
 
 
 </project>
