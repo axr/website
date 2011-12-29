@@ -1,0 +1,25 @@
+-classpath
+'/Users/hdm/work/jslint4java/target/checkout/target/classes:/Users/hdm/work/jslint4java/target/checkout/jslint4java/target/classes:/Users/hdm/work/jslint4java/target/checkout/jslint4java-ant/target/classes:/Users/hdm/work/jslint4java/target/checkout/jslint4java-docs/target/classes:/Users/hdm/work/jslint4java/target/checkout/jslint4java-dist/target/classes:/Users/hdm/work/jslint4java/target/checkout/jslint4java-maven-plugin/target/classes:/Users/hdm/.m2/repository/rhino/js/1.7R2/js-1.7R2.jar:/Users/hdm/.m2/repository/org/codehaus/plexus/plexus-classworlds/2.4/plexus-classworlds-2.4.jar:/Users/hdm/.m2/repository/org/apache/ant/ant-launcher/1.8.2/ant-launcher-1.8.2.jar:/Users/hdm/.m2/repository/org/apache/ant/ant/1.8.2/ant-1.8.2.jar:/Users/hdm/.m2/repository/org/sonatype/sisu/sisu-inject-bean/2.1.1/sisu-inject-bean-2.1.1.jar:/Users/hdm/.m2/repository/org/apache/maven/maven-plugin-api/3.0.3/maven-plugin-api-3.0.3.jar:/Users/hdm/.m2/repository/org/apache/maven/maven-artifact/3.0.3/maven-artifact-3.0.3.jar:/Users/hdm/.m2/repository/org/sonatype/sisu/sisu-inject-plexus/2.1.1/sisu-inject-plexus-2.1.1.jar:/Users/hdm/.m2/repository/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar:/Users/hdm/.m2/repository/com/beust/jcommander/1.15/jcommander-1.15.jar:/Users/hdm/.m2/repository/org/codehaus/plexus/plexus-utils/2.0.7/plexus-utils-2.0.7.jar:/Users/hdm/.m2/repository/org/apache/maven/maven-model/3.0.3/maven-model-3.0.3.jar:/Users/hdm/.m2/repository/org/sonatype/sisu/sisu-guice/2.9.4/sisu-guice-2.9.4-no_aop.jar:/Users/hdm/.m2/repository/com/googlecode/jslint4java/jslint4java/2.0.0/jslint4java-2.0.0.jar'
+-encoding
+'UTF-8'
+-protected
+-quiet
+-sourcepath
+'/Users/hdm/work/jslint4java/target/checkout/jslint4java/src/main/java:/Users/hdm/work/jslint4java/target/checkout/jslint4java-ant/src/main/java:/Users/hdm/work/jslint4java/target/checkout/jslint4java-maven-plugin/src/main/java:/Users/hdm/work/jslint4java/target/checkout/jslint4java-maven-plugin/target/generated-sources/plugin'
+-author
+-bottom
+'Copyright &#169; 2007-2011. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/hdm/work/jslint4java/target/checkout/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'jslint4java parent 2.0.0 API'
+-link
+'http://java.sun.com/j2se/1.5.0/docs/api'
+-use
+-version
+-windowtitle
+'jslint4java parent 2.0.0 API'

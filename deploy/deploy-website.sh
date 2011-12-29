@@ -9,4 +9,8 @@ git pull
 #move files to www
 cp -rf www/* ../www/
 
+cd ../deploy/
+
+phing build.xml
+
 echo "Operation successful"

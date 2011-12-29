@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="axr" default="deploy" basedir="../">
+
+	<target name="deploy">
+	
+	</target>
+
+<project>
+
+
+<project name="cityblitz" default="deploy" basedir="../">
+    <!-- get environment -->
+    <target name="get-env" description="get the environment for an action">
+       <tstamp/>
+       <property file="scripts/${phing.project.name}.config"/>
+       <taskdef name="dbdeploy" classname="phing.tasks.ext.dbdeploy.DbDeployTask"/>
+       
+       <if>
+            <equals arg1="{$cli}" arg2="true" />
+            <then>
+              <!-- <input propertyname="source" validargs="admin,client,mobile,www" defaultvalue="www">Enter site name</input>-->
+               <property name="data.source" value="www" override="true"/>
+               <property name="data.dir.source" value="www" override="true"/> 
+
+               <input propertyname="destination" validargs="www,staging,demo" defaultvalue="staging">Enter destination phase</input>
+               <property name="data.destination" value="${destination}" override="true"/>
+               <property name="data.dir.public" value="${destination}" override="true"/>
+
+               <input propertyname="target" validargs="source,database,all" defaultvalue="all">Enter target</input>
+               <property name="data.target" value="${target}" override="true"/>
+
+               <input propertyname="demo" validargs="yes,no" defaultvalue="no">Insert demo data</input>
+               <property name="data.demo" value="${demo}" override="true"/>
+            </then>
+       </if>
+    </target>
+
+    <!-- deploy the applications files to the specific environment -->
+    <target name="deploy" depends="get-env" description="update the application files in a specific environment">
+        <phingcall target="deploy-prepare" />
+        <if>
+            <equals arg1="${data.source}" arg2="www" />
+            <then>
+                <if>
+                    <equals arg1="${data.target}" arg2="source" />
+                    <then>
+                        <phingcall target="deploy-source" />
+						<phingcall target="deploy-data" />
+                    </then>
+                    <elseif>
+                        <equals arg1="${data.target}" arg2="database" />
+                        <then>
+                            <phingcall target="deploy-database" />
+                        </then>
+                    </elseif>
+                    <else>
+                        <phingcall target="deploy-database" />
+                        <phingcall target="deploy-source" />
+                        <phingcall target="deploy-data" />
+                        <if>
+                                <equals arg1="${data.demo}" arg2="1" />
+                                <then>
+                                        <phingcall target="deploy-demo" />
+                                </then>
+                        </if>
+                    </else>
+                </if>
+                <phingcall target="deploy-clean" />
+             </then>
+             <else>
+               <echo message="Options other than www are currently unavailable for source folder" />
+             </else>
+        </if>
+    </target>
+    
+    <target name="deploy-prepare">
+        <copy file="scripts/configurations/${data.destination}.php" tofile="${data.dir.source}/includes/config.php" overwrite="true"/>
+    </target>
+    
+    <target name="deploy-source">
+        <!-- define a fileset for PHP Web sources -->
+        <fileset dir="${data.dir.source}" id="cb.sources">
+            <include name="**"/>
+			
+            <exclude name="**/.gitignore"/>
+			<exclude name="includes/error.log"/>
+
+
+            <exclude name="temp/cache/**"/>
+
+            <exclude name="temp/smarty/admin/cache/*" />
+            <exclude name="temp/smarty/admin/compiled/*" />
+            <exclude name="temp/smarty/admin/configs/*" />
+
+            <exclude name="temp/smarty/client/cache/*" />
+            <exclude name="temp/smarty/client/compiled/*" />
+            <exclude name="temp/smarty/client/configs/*" />
+
+            <exclude name="temp/smarty/user/cache/*" />
+            <exclude name="temp/smarty/user/compiled/*" />
+            <exclude name="temp/smarty/user/configs/*" />
+        </fileset>
+		
+        <ftpdeploy host="${ftp.server}" port="${ftp.port}" username="${ftp.user}" password="${ftp.pass}" dir="${data.dir.public}" mode="binary" clearfirst="true" level="info">
+                <fileset refid="cb.sources"/>
+        </ftpdeploy>
+    </target>
+    
+    <target name="deploy-database">
+        <!-- these two filenames will contain the generated SQL to do the deploy and roll it back-->
+        <property name="data.dbdeploy.deployfile" value="${DSTAMP}${TSTAMP}-deploy.sql" />
+        <property name="data.dbdeploy.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
+
+        <!-- generate the deployment scripts -->
+        <dbdeploy url="mysql:host=${db.host};dbname=${db.nameprefix}site" userid="${db.user}" password="${db.pass}" dir="scripts/db/deltas" outputfile="scripts/db/deploys/${data.dbdeploy.deployfile}" undooutputfile="scripts/db/deploys/${data.dbdeploy.undofile}" />
+        
+        <!-- execute the SQL - Use mysql command line to avoid trouble with large files or many statements and PDO -->
+        <exec command="${db.mysqldumppath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}site | ${db.mysqlpath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}${destination}" checkreturn="true" />
+        
+        <exec command="${db.mysqlpath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}${destination} &lt; scripts/db/deploys/${data.dbdeploy.deployfile}" checkreturn="true" />
+        
+        <fileset dir="scripts/db/deploys/" id="cb.dbdeploy">
+            <include name="${data.dbdeploy.deployfile}" />
+            <include name="${data.dbdeploy.undofile}" />
+        </fileset>
+
+        <ftpdeploy host="${ftp.server}" port="${ftp.port}" username="${ftp.user}" password="${ftp.pass}" dir="scripts/db/deploys/" mode="binary" level="info">
+                <fileset refid="cb.dbdeploy"/>
+        </ftpdeploy>
+
+    </target>
+	
+	<target name="deploy-data">
+		<fileset dir="data/staging/" id="cb.data">
+			<include name="*"/>
+			<!--  <include name="carousel/" />
+			<exclude name="carousel/*" />-->
+
+			<!-- <exclude name="galleries/*" />-->
+			<include name="galleries/bp/" />
+			<include name="galleries/new/bp/" />
+
+			<!--<exclude name="locations/*" />-->
+			<include name="locations/bp/" />
+
+			<!-- <exclude name="movies/*" />-->
+			<include name="movies/thumbs/" />
+			<exclude name="movies/thumbs/*" />            
+
+			<!-- <exclude name="news/*" />-->
+			<include name="news/thumbs" />
+			<exclude name="news/thumbs/*" />
+			<include name="news/bp" />
+			<include name="news/new/bp" />
+
+			<!--<exclude name="poster/*" />-->
+			<include name="poster/thumbs" />
+			<exclude name="poster/thumbs/*" />
+
+			<exclude name="**/.gitignore"/>
+
+		</fileset>
+		
+		<ftpdeploy host="${ftp.server}" port="${ftp.port}" username="${ftp.user}" password="${ftp.pass}" dir="data/${data.dir.public}" mode="binary" clearfirst="true" level="info">
+                <fileset refid="cb.data"/>
+        </ftpdeploy>
+    </target>
+	
+    <target name="deploy-demo">
+            <fileset dir="demo/data/demo/" id="cb.data">
+                    <include name="**"/>
+
+                    <exclude name="**/.gitignore"/>
+            </fileset>
+
+            <ftpdeploy host="${ftp.server}" port="${ftp.port}" username="${ftp.user}" password="${ftp.pass}" dir="data/${data.dir.public}/" mode="binary" level="info">
+                <fileset refid="cb.data"/>
+            </ftpdeploy>
+
+            <exec command="${db.mysqlpath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}${destination} &lt; demo/scripts/db/demo-data.sql" checkreturn="true" />
+    </target>
+    
+    <target name="deploy-clean">
+        <copy file="scripts/configurations/local.php" tofile="${data.dir.source}/includes/config.php" overwrite="true"/>
+    </target>
+</project>
