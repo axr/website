@@ -223,11 +223,11 @@ header
 	height: 200px; 
 	margin: 0px auto;
 	left:-37px;
+	z-index:10;
 	_left:0;     /* IE6 */
-	*z-index:10; /* IE7 */
 }
 
-header > .logo 
+header > #logo 
 { 
 	display: block; 
 	height: 250px; 
@@ -358,9 +358,9 @@ background-position: -898px -49px;
 	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #747474), color-stop(0.37, #636363));
 }
-#menu li:hover div a, #menu a:focus ~ div a, #menu div a:focus, #menu div a:focus ~ a
+#menu li:hover div a, #menu a:focus ~ div a, #menu div a:focus, #menu div a:focus ~ a, .afocus
 {
-	display:block;
+	display:block !important;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
@@ -374,6 +374,7 @@ background-position: -898px -49px;
 	text-decoration: none;
 	font-weight: bold;
 	text-shadow: #333333 0 1px 0;
+	cursor: pointer;
 }
 #menu div a:hover, #menu div a:focus
 {
