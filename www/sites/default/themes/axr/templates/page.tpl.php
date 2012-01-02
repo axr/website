@@ -1,6 +1,6 @@
 <div id="container">
 	<header>
-		<a href="index.html" class="logo">AXR Project</a>
+		<a href="index.html" id="logo">AXR Project</a>
 		<div class="secondary">
 			<!--<a class="login" href="#"><span class="extra_0"></span><span class="extra_1">Login</span></a>
 			<span class="search">
@@ -9,60 +9,46 @@
 			</span>-->
 		</div>
 		<nav>
-			<ul>
+			<ul id="menu">
 				<li class="about">
-					<a href="under_construction.html">About</a>
-					<div class="sections hidden">
-						<div class="header"></div>
-						<ul class="content">
-							<li class="features first"><a href="under_construction.html">Features</a></li>
-							<li class="manifiesto"><a href="under_construction.html">Manifiesto</a></li>
-							<li class="medi_kit"><a href="under_construction.html">Media Kit</a></li>
-							<li class="history last"><a href="under_construction.html">History</a></li>
-						</ul>
-						<div class="footer"></div>
-					</div>
+					<span class="arrow"></span><a href="under_construction.html">About</a>
+						<div>
+							<a class="features first" href="under_construction.html">Features</a>
+							<a class="manifesto" href="under_construction.html">Manifesto</a>
+							<a class="medi_kit" href="under_construction.html">Media Kit</a>
+							<a class="history last" href="under_construction.html">History</a>
+						</div>
 				</li>
 				<li class="specification"><a href="http://spec.axr.vg/specification.html">Specification</a></li>
 				<li class="resources">
-					<a href="under_construction.html">Resources</a>
-					<div class="sections hidden">
-						<div class="header"></div>
-						<ul class="content">
-							<li class="downloads first"><a href="index.html">Downloads</a></li>
-							<li class="examples"><a href="under_construction.html">Examples</a></li>
-							<li class="tutorials"><a href="under_construction.html">Tutorials</a></li>
-							<li class="documentation last"><a href="under_construction.html">Documentation</a></li>
-						</ul>
-						<div class="footer"></div>
-					</div>
+					<span class="arrow"></span><a href="under_construction.html">Resources</a>
+						<div>
+							<a class="downloads first" href="index.html">Downloads</a>
+							<a class="examples" href="under_construction.html">Examples</a>
+							<a class="tutorials" href="under_construction.html">Tutorials</a>
+							<a class="documentation last" href="under_construction.html">Documentation</a>
+						</div>
+					
 				</li>
 				<li class="community">
-					<a href="get_involved.html">Community</a>
-					<div class="sections hidden">
-						<div class="header"></div>
-						<ul class="content">
-							<li class="get_involved first"><a href="get_involved.html">Get involved</a></li>
-							<li class="chat"><a href="http://webchat.freenode.net/?channels=axr">Chat</a></li>
-							<li class="forum"><a href="under_construction.html">Forum</a></li>
-							<li class="github last"><a href="https://github.com/AXR">GitHub</a></li>
-						</ul>
-						<div class="footer"></div>
-					</div>
+					<span class="arrow"></span><a href="get_involved.html">Community</a>
+						<div>
+							<a class="get_involved first" href="get_involved.html">Get involved</a>
+							<a class="chat" href="http://webchat.freenode.net/?channels=axr">Chat</a>
+							<a class="forum" href="under_construction.html">Forum</a>
+							<a class="github last" href="https://github.com/AXR">GitHub</a>
+						</div>
+					
 				</li>
 				<li class="wiki">
-					<a href="under_construction.html">Wiki</a>
-					<div class="sections hidden">
-						<div class="header"></div>
-						<ul class="content">
-							<li class="faq first"><a href="under_construction.html">FAQ</a></li>
-							<li class="roadmap"><a href="under_construction.html">Roadmap</a></li>
-							<li class="changelog last"><a href="under_construction.html">Changelog</a></li>
-						</ul>
-						<div class="footer"></div>
-					</div>
+					<span class="arrow"></span><a href="under_construction.html">Wiki</a>
+						<div>
+							<a class="faq first" href="under_construction.html">FAQ</a>
+							<a class="roadmap" href="under_construction.html">Roadmap</a>
+							<a class="changelog last" href="under_construction.html">Changelog</a>
+						</div>
 				</li>
-				<li class="blog"><a href="http://axr.vg/blog">Blog</a></li>
+				<li class="blog"><a href="/blog">Blog</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -121,19 +107,4 @@
 		</div>
 	</footer>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="resources/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-<script src="resources/js/script.js"></script>
-<script>
-	var _gaq=[['_setAccount','UA-20384487-1'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
-	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-	g.src=('https:'==location.protocol?'https://ssl':'https://www')+'.google-analytics.com/ga.js';
-	s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
-
-<!--[if lt IE 7 ]>
-	<script src="https://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
-	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-<![endif]-->
 
