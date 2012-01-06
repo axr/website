@@ -813,23 +813,29 @@ nav#breadcrumb a
 	font-size: 1.2em;
 	font-weight: bold;
 	text-decoration: none;
-	cursor:default;
 }
-nav#breadcrumb a span:hover
+nav#breadcrumb a:hover
 {
 	text-decoration: underline;
-	cursor:pointer;
 }
 nav#breadcrumb .current
 {
 	color: #8c8c8c;
 	font-size: 1.2em;
 }
-nav#breadcrumb a:after
+nav#breadcrumb .extra_0
 {
-	content: url(../images/b_arrow.png);
+	background: url(../images/sprite32.png) no-repeat;
+	background-position: -223px -77px;
+	height: 7px;
+	width: 5px;
 	margin:0 10px;
-	cursor:default;
+	vertical-align:middle;
+	display: inline-block;
+}
+nav#breadcrumb .extra_0
+{
+	*display: inline;	/* IE7 */
 }
 #container .last_tweet  a
 { 
