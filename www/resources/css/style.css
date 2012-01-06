@@ -803,30 +803,33 @@ header .secondary > .search > input[type="submit"]
 	background-position: -218px -109px; 
 }
 
-nav#breadcrumbs > a
+nav#breadcrumb div
+{
+	display:inline;
+}
+nav#breadcrumb a
 {
 	color: #666;
 	font-size: 1.2em;
 	font-weight: bold;
 	text-decoration: none;
+	cursor:default;
 }
-nav#breadcrumbs > a:hover
+nav#breadcrumb a span:hover
 {
 	text-decoration: underline;
+	cursor:pointer;
 }
-nav#breadcrumbs > .inactive
+nav#breadcrumb .current
 {
 	color: #8c8c8c;
 	font-size: 1.2em;
 }
-nav#breadcrumbs > .extra_0
+nav#breadcrumb a:after
 {
-	background: url(../images/sprite32.png) no-repeat;
-	background-position: -223px -77px;
-	display: inline-block;
-	height: 7px;
-	margin: 0 10px 0 10px;
-	width: 5px;
+	content: url(../images/b_arrow.png);
+	margin:0 10px;
+	cursor:default;
 }
 #container .last_tweet  a
 { 
