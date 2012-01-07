@@ -9,12 +9,25 @@ function axr_breadcrumb($data) {
 	if (!empty($data['breadcrumb'])) {
 		$lastitem = count($data['breadcrumb']);
 
-		foreach($data['breadcrumb'] as $value) {
-			$html .= '<a href="#">'.$value.'</a>';
+		foreach ($data['breadcrumb'] as $value) {
+			// I don't think there are any better ways to do this
+			preg_match('/^<a.* href="(.+)".*>(.+)<\/a>$/', $value, $match);
+
+			if ($match === null || $match === false) {
+				continue;
+			}
+
+			$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
+			$html .= '<a href="'.$match[1].'" itemprop="url">';
+			$html .= '<span itemprop="title">'.$match[2].'</span>';
+			$html .= '</a>';
+			$html .= '</div>';
 			$html .= '<span class="extra_0"></span>';
 		}
 
-		$html .= '<span class="inactive">'.drupal_get_title().'</span>';
+		$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
+		$html .= '<span class="current" itemprop="title">'.drupal_get_title().'</span>';
+		$html .= '</div>';
 	}
 
 	return $html;
