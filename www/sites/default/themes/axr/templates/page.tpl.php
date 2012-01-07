@@ -63,7 +63,7 @@
 	</div>
 	<div id="main" role="main">
 		<?php if (!$is_front && $breadcrumb): ?>
-			<nav id="breadcrumbs">
+			<nav id="breadcrumb">
 				<?php print $breadcrumb; ?>
 			</nav>
     	<?php endif; ?>
