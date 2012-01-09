@@ -5,6 +5,7 @@
 	<target name="init" depends="load-properties, setup-dirs, setup-filesets" unless="project.initialized">
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.initialized" value="true"/>
+		<tstamp/>
 	</target>
 		<target name="setup-dirs" depends="load-properties">
 		<if>
@@ -20,7 +21,11 @@
 		<property name="project.sitesdir" value="${project.drupal.dir}/${project.code.dir}" />
 		<property name="project.builddir" value="${project.basedir}/build" />
 		<property name="project.toolsdir" value="${project.builddir}/tools" />
-		<property name="project.logdir" value="${project.builddir}/logs" />
+		<property name="project.dbdir" value="${project.builddir}/db" />
+		<property name="project.dbscriptsdir" value="${project.basedir}/db/scripts" />
+		<property name="project.deltasdir" value="${project.basedir}/db/deltas" />
+		
+		<mkdir dir="${project.dbdir}">
 	</target>
 	<target name="load-properties">
 		<php function="dirname" returnProperty="phing.dir">
@@ -70,7 +75,7 @@
 	</target>
 	<target name="site-install" depends="init, setup-phing-drush" unless="project.installed">
 		<drush command="site-install" assume="yes">
-			<option name="db-url">${drupal.db.url}</option>
+			<option name="db-url">mysql://${drupal.db.username}:${drupal.db.password}@${drupal.db.host}/${drupal.db.name}</option>
 			<option name="db-prefix">${drupal.db.prefix}</option>
 			<option name="account-name">${drupal.account.name}</option>
 			<option name="account-pass">${drupal.account.pass}</option>
@@ -96,6 +101,19 @@
 
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.installed" value="true"/>
+		
+		<exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.destination} &lt; ${project.dbscriptsdir}/initial.sql" checkreturn="true" />
+
+		<property name="db.deployfile" value="${DSTAMP}${TSTAMP}-deploy.sql" />
+        <property name="db.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
+		
+		<!--TODO: move in a different targer so you can just generate and execute dbdeploys without reinstalling-->
+		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.name}" userid="${drupal.db.username}" password="${drupal.db.password}" dir=" ${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
+	
+	   <!--TODO: execute on the server to copy the production database to staging <exec command="${db.mysqldumppath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}site | ${db.mysqlpath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}${destination}" checkreturn="true" />-->
+        
+        <exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.destination} &lt;  ${project.dbscriptsdir}/${db.deployfile}" checkreturn="true" />
+		<!--TODO: end  -->
 	</target>
 
 
