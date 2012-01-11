@@ -1,7 +1,0 @@
-
-name = AXR
-description = AXR theme
-core = 7.x
-
-stylesheets[all][] = css/style.css
-
