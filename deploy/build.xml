@@ -25,7 +25,7 @@
 		<property name="project.dbscriptsdir" value="${project.basedir}/db/scripts" />
 		<property name="project.deltasdir" value="${project.basedir}/db/deltas" />
 		
-		<mkdir dir="${project.dbdir}">
+		<mkdir dir="${project.dbdir}" />
 	</target>
 	<target name="load-properties">
 		<php function="dirname" returnProperty="phing.dir">
@@ -102,17 +102,17 @@
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.installed" value="true"/>
 		
-		<exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.destination} &lt; ${project.dbscriptsdir}/initial.sql" checkreturn="true" />
+		<exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.name} &lt; ${project.dbscriptsdir}/initial.sql" checkreturn="true" />
 
 		<property name="db.deployfile" value="${DSTAMP}${TSTAMP}-deploy.sql" />
         <property name="db.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
 		
 		<!--TODO: move in a different targer so you can just generate and execute dbdeploys without reinstalling-->
-		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.name}" userid="${drupal.db.username}" password="${drupal.db.password}" dir=" ${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
+		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.name}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
 	
 	   <!--TODO: execute on the server to copy the production database to staging <exec command="${db.mysqldumppath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}site | ${db.mysqlpath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}${destination}" checkreturn="true" />-->
-        
-        <exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.destination} &lt;  ${project.dbscriptsdir}/${db.deployfile}" checkreturn="true" />
+		
+        <exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.name} &lt;  ${project.dbscriptsdir}/${db.deployfile}" checkreturn="true" />
 		<!--TODO: end  -->
 	</target>
 

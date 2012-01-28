@@ -7,4 +7,4 @@ CREATE TABLE changelog (
   description VARCHAR(500) NOT NULL
 );
 
-ALTER TABLE changelog ADD CONSTRAINT Pkchangelog PRIMARY KEY (change_number, delta_set);       
+-- ALTER TABLE changelog ADD CONSTRAINT Pkchangelog PRIMARY KEY (change_number, delta_set);        
