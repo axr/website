@@ -873,19 +873,22 @@ footer > a:hover
 { 
 	background-position: -508px -469px; 
 }
-footer > ul 
+footer > ul.technologies_used
 { 
 	height: 95px; 
 	list-style: none outside none; 
 	margin: -95px auto 0; 
+	pointer-events: none;
 	position: relative; 
 	width: 780px; 
+	z-index: 2;
 }
 footer > ul.technologies_used > li 
 { 
 	float: left; 
 	margin-right: 8px; 
 	position: absolute; 
+	pointer-events: auto;
 	z-index: 1; 
 }
 footer > ul.technologies_used > li > a 
