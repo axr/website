@@ -1,1 +1,3 @@
 */.DS_Store
+/deploy/db/scripts
+!/deploy/db/scripts/initial.sql
