@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="axr" default="site-install">
-								 
+
 	<target name="init" depends="load-properties, setup-dirs, setup-filesets" unless="project.initialized">
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.initialized" value="true"/>
@@ -24,7 +24,7 @@
 		<property name="project.dbdir" value="${project.builddir}/db" />
 		<property name="project.dbscriptsdir" value="${project.basedir}/db/scripts" />
 		<property name="project.deltasdir" value="${project.basedir}/db/deltas" />
-		
+
 		<mkdir dir="${project.dbdir}" />
 	</target>
 	<target name="load-properties">
@@ -84,34 +84,34 @@
 			<option name="site-mail">${drupal.site.mail}</option>
 			<param>${drupal.profile}</param>
 		</drush>
-		
+
 		<drush command="pm-enable" assume="yes">
 			<param>${drupal.theme.name}</param>
 		</drush>
-		
+
 		<drush command="vset" assume="yes">
 			<param>theme_default</param>
 			<param>${drupal.theme.name}</param>
 		</drush>
-		
-		
+
+
 		<!-- Fix permissions for the default site directory and settings. The owner must be able to delete the directories during subsequent builds. -->
 		<chmod file="${project.drupal.dir}/sites/default/" mode="0755" failonerror="true"/>
 		<chmod file="${project.drupal.dir}/sites/default/default.settings.php" mode="0755" failonerror="true"/>
 
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.installed" value="true"/>
-		
+
 		<exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.name} &lt; ${project.dbscriptsdir}/initial.sql" checkreturn="true" />
 
 		<property name="db.deployfile" value="${DSTAMP}${TSTAMP}-deploy.sql" />
         <property name="db.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
-		
+
 		<!--TODO: move in a different targer so you can just generate and execute dbdeploys without reinstalling-->
 		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.name}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
-	
+
 	   <!--TODO: execute on the server to copy the production database to staging <exec command="${db.mysqldumppath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}site | ${db.mysqlpath} -h${db.host} -u${db.user} -p${db.pass} ${db.nameprefix}${destination}" checkreturn="true" />-->
-		
+
         <exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.name} &lt;  ${project.dbscriptsdir}/${db.deployfile}" checkreturn="true" />
 		<!--TODO: end  -->
 	</target>

@@ -499,7 +499,7 @@ a:hover
 }
 .modal_inner {
 	width:640px;
-	height:550px;	
+	height:550px;
 	margin:0 auto;
 	background: #cecece;
 	background: -moz-linear-gradient(top,  #dcdcdc 0%, #cecece 50%, #dcdcdc 100%);
@@ -549,15 +549,15 @@ a:hover
 	position:relative;
 }
 .modal_inner ol li,
-.modal_inner ol li *{ 
+.modal_inner ol li *{
 	-background:red;
 	line-height:5em;
 	vertical-align:top;
 	}
-.modal_inner ol li:before { 
+.modal_inner ol li:before {
 	color:#b9b9b9;
 	font-weight:bold;
-    content: counter(item) "  "; 
+    content: counter(item) "  ";
     counter-increment: item;
 	font-size:6em;
 /*	line-height:0.4em;*/
