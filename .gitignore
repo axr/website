@@ -1,3 +1,5 @@
 */.DS_Store
+/deploy/build.properties
+/deploy/server.properties
 /deploy/db/scripts
 !/deploy/db/scripts/initial.sql
