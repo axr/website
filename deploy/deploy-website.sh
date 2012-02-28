@@ -1,16 +1,35 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
-#change to working directoryy
-cd ../clone-website/
+REPODIR=/path/to/git/repo/root
+WWWDIR=/path/to/production/www
 
-#update the clone
+cd "$REPODIR"
+
+echo "Updating GIT repo"
 git pull
 
-#move files to www
-cp -rf www/* ../www/
+cd "$REPODIR/deploy"
 
-cd ../deploy/
+echo "Running phing"
+phing -f server.xml
 
-phing build.xml
+if [ $? -ne 0 ]; then
+	echo -e "\033[1;31mBuild script failed.\033[m"
+	exit 1
+fi
 
-echo "Operation successful"
+echo "Replacing production files"
+
+if [ -d "$WWWDIR" ]; then
+	mv "$WWWDIR" "$WWWDIR.bak-$(date +%y%m%d%H%M%S)"
+fi
+
+mkdir -p "$WWWDIR"
+echo "Down for maintenance" > "$WWWDIR/index.html"
+
+cp -r "$REPODIR/www"/* "$WWWDIR"
+
+rm "$WWWDIR/index.html"
+
+echo "Done"
+

@@ -1,39 +1,60 @@
 <?php
 
-    error_reporting(0);
-	ini_set("display_errors", "off");
+define('STATEFILE', 'state.json');
+define('DEPLOYCMD', '"/path/to/deploy-website.sh"');
 
-	try {
-			// Decode the payload json string
-			$payload = json_decode($_REQUEST['payload']);
+if (!isset($_GET['pw']) || $_GET['pw'] !== 'abc')
+{
+	//die();
+}
+
+if (!isset($_POST['payload']))
+{
+	die('Payload missing');
+}
+
+$payload = json_decode($_POST['payload']);
+
+if ($payload === false || $payload === null)
+{
+	die('Payload invalid');
+}
+
+$payloadTS = null;
+foreach ($payload->commits as $commit)
+{
+	if ($commit->id == $payload->after)
+	{
+		$payloadTS = $commit->timestamp;
+		break;
 	}
-	catch(Exception $e) {
-			exit(0);
+}
+
+if ($payloadTS === null)
+{
+	die('Can\'t find timestamp for `'.$payload->after.'`');
+}
+
+$deployedCommit = file_get_contents(STATEFILE);
+$deployedCommit = json_decode($deployedCommit);
+
+if ($deployedCommit !== false && $deployedCommit !== null)
+{
+	if (strtotime($deployedCommit->ts) >= strtotime($payloadTS) ||
+		$deployedCommit->sha == $payload->after)
+	{
+		die('Already deployed');
 	}
+}
 
-	// Log the payload object
+$fp = fopen(STATEFILE, 'w');
+fwrite($fp, json_encode(array(
+	'sha' => $payload->after,
+	'ts' => $payloadTS
+)));
+fclose($fp);
 
-	// Pushed to master?
-	if ($payload->ref === 'refs/heads/master') {
+system(DEPLOYCMD);
 
-			// Prep the URL - replace https protocol with git protocol to prevent 'update-server-info' errors
-			$url = str_replace('https://', 'git://', $payload->repository->url);
+echo 'Done';
 
-			// Run the build script
-			exec("./deploy-".strtolower($payload->repository->name).".sh {$url} {$payload->respository->name}", $output);
-
-		$output = implode("\n", $output);
-
-	$email = "Deployment execution at timestamp ". time() ."\n\nHere are the execution logs:\n\n";
-	$email .= $output;
-	
-	//Email group
-	mail("axr-web-team@googlegroups.com", "Deployment execution ". time(), $email);
-	
-	//Log stuff
-	$output = time() ."\n--------\n";
-	file_put_contents('../logs/deploy/github.txt', $output, FILE_APPEND);
-	
-
-	}
-?>

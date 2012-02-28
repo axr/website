@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="axr" default="site-install">
+	<target name="init" depends="load-properties, setup-dirs, setup-filesets" unless="project.initialized">
+		<!-- Set property to prevent target from being executed multiple times -->
+		<property name="project.initialized" value="true"/>
+		<tstamp/>
+	</target>
+
+	<target name="setup-dirs" depends="load-properties">
+		<if>
+			<isset property="drupal.make.dir"/>
+			<then>
+				<property name="project.drupal.dir" value="${project.basedir}/${drupal.make.dir}" />
+			</then>
+			<else>
+				<property name="project.drupal.dir" value="${project.basedir}" />
+			</else>
+		</if>
+
+		<property name="project.sitesdir" value="${project.drupal.dir}/${project.code.dir}" />
+		<property name="project.builddir" value="${project.basedir}/build" />
+		<property name="project.toolsdir" value="${project.builddir}/tools" />
+		<property name="project.dbdir" value="${project.builddir}/db" />
+		<property name="project.dbscriptsdir" value="${project.basedir}/db/scripts" />
+		<property name="project.deltasdir" value="${project.basedir}/db/deltas" />
+
+		<mkdir dir="${project.dbdir}" />
+	</target>
+
+	<target name="load-properties">
+		<php function="dirname" returnProperty="phing.dir">
+			<param value="${phing.file}"/>
+		</php>
+
+		<property name="project.basedir" value="${phing.dir}" />
+
+		<!-- Use condition instead of unless property as we cannot unset properties in Phing -->
+		<if>
+			<or>
+				<!-- `istrue` evaluates to true is value is not set we need to check `isset` as well -->
+				<not>
+					<istrue value="${project.properties.loaded}" />
+				</not>
+				<not>
+					<isset property="project.properties.loaded" />
+				</not>
+			</or>
+			<then>
+				<!-- By default Jenkins runs Phing from the directory containing the build file.  If this file is located in a subdirectory - e.g. when using Phing Drupal as a submodule - we need to reset the project basedir and reload properties. NB: This only works if the subdirectory is directly within the Drupal root directory. -->
+				<if>
+					<!-- If `build.properties` exists then assume we have a project root directory -->
+					<available file="${project.basedir}/../server.properties"/>
+					<then>
+						<resolvepath propertyName="project.basedir" file="${project.basedir}/../"/>
+					</then>
+				</if>
+
+				<!-- By default use default properties file `server.default.properties` -->
+				<property name="project.properties.file" value="${phing.dir}/server.default.properties" />
+				<!-- Load the default properties.Override in case `load-properties` are called multiple times. -->
+				<property file="${project.properties.file}" override="true" />
+
+				<!-- Allow override using `server.properties` in build file directory -->
+				<available file="${phing.dir}/server.properties" property="project.properties.file" value="${phing.dir}/server.properties" />
+				<!-- Allow override using `server.properties` in project base directory -->
+				<available file="${project.basedir}/build.properties" property="project.properties.file" value="${project.basedir}/server.properties" />
+
+				<!-- Load the overriding properties. -->
+				<property file="${project.properties.file}" override="true" />
+
+				<!-- Set property to prevent unnecessary additional invocations of this target -->
+				<property name="project.properties.loaded" value="true" />
+			</then>
+		</if>
+	</target>
+
+	<target name="site-install" depends="init, setup-phing-drush" unless="project.installed">
+		<drush command="pm-enable" assume="yes">
+			<param>${drupal.theme.name}</param>
+		</drush>
+
+		<drush command="vset" assume="yes">
+			<param>theme_default</param>
+			<param>${drupal.theme.name}</param>
+		</drush>
+
+		<!-- Fix permissions for the default site directory and settings. The owner must be able to delete the directories during subsequent builds. -->
+		<chmod file="${project.drupal.dir}/sites/default/" mode="0755" failonerror="true"/>
+		<chmod file="${project.drupal.dir}/sites/default/default.settings.php" mode="0755" failonerror="true"/>
+
+		<!-- Set property to prevent target from being executed multiple times -->
+		<property name="project.installed" value="true"/>
+
+		<property name="db.deployfile" value="${DSTAMP}${TSTAMP}-deploy.sql" />
+		<property name="db.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
+
+		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.name}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
+
+		<!-- Copy the production database to staging -->
+		<exec command="${db.mysqldumppath} -h ${db.host} -u ${db.username} -p${db.password} ${db.nameprefix}site | ${db.mysqlpath} -h ${db.host} -u ${db.username} -p${db.password} ${db.nameprefix}${destination}" checkreturn="true" />
+
+		<exec command="${db.mysqlpath} -h ${drupal.db.host} -u ${drupal.db.username} -p${drupal.db.password} ${drupal.db.name} &lt; ${project.dbscriptsdir}/${db.deployfile}" checkreturn="true" />
+	</target>
+
+	<!-- ### Setup Phing Drush integration -->
+	<target name="setup-phing-drush" depends="setup-dirs" >
+		<property name="repo.dir" value="${project.toolsdir}/phing-drush"/>
+		<property name="repo.url" value="${phing.drush.repository.url}" />
+		<property name="repo.revision" value="${phing.drush.repository.revision}" />
+
+		<!-- Register as custom Phing task -->
+		<taskdef name="drush" classname="DrushTask" classpath="${project.toolsdir}/phing-drush" />
+
+		<!-- Run drush from the project Drupal directory -->
+		<property name="drush.root" value="${project.drupal.dir}"/>
+	</target>
+
+	<!-- ### Setup file sets - patterns for different aspects of the source code. These are used in other targets. This is part of the initialization of the build. This target should only be called from `init` target. -->
+	<target name="setup-filesets" depends="load-properties">
+		<!-- Define pattern sets for future reference -->
+
+		<!-- PHP files -->
+		<patternset id="php">
+			<include name="**/*.php" />
+			<include name="**/*.module" />
+			<include name="**/*.install" />
+			<include name="**/*.inc" />
+			<include name="**/*.profile" />
+			<include name="**/*.test" />
+		</patternset>
+
+		<!-- Javascript files -->
+		<patternset id="js">
+			<include name="**/*.js" />
+			<!-- Minimized JavaScript files should not be analyzed. In their optimized state they can not be expexted to conform to coding standards. -->
+			<exclude name="**/*.min.js" />
+		</patternset>
+
+		<!-- CSS files -->
+		<patternset id="css">
+			<include name="**/*.css" />
+		</patternset>
+
+		<!-- Directories for community contributed code. We exclude these from code analysis as we cannot be held responsible for any problems here. -->
+		<patternset id="contrib">
+			<exclude name="**/contrib/**/*.*" />
+			<exclude name="**/libraries/**/*.*" />
+		</patternset>
+
+		<!-- We exclude generated files from We exclude these from code analysis as we cannot be held responsible for any problems here. -->
+		<patternset id="generated">
+			<exclude name="**/*.features.*" />
+			<exclude name="**/*.field_group.inc" />
+			<exclude name="**/*.layouts.inc" />
+			<exclude name="**/*.pages_default.inc" />
+			<exclude name="**/*.panels_default.inc" />
+			<exclude name="**/*.strongarm.inc" />
+			<exclude name="**/*.views_default.inc" />
+		</patternset>
+
+		<!-- Define file sets for future reference -->
+
+		<!-- All PHP files -->
+		<fileset id="src.php" dir="${project.drupal.dir}">
+			<patternset refid="php"/>
+		</fileset>
+
+		<!-- Custom PHP files -->
+		<fileset id="src.php.custom" dir="${project.sitesdir}">
+			<patternset refid="php"/>
+			<patternset refid="contrib"/>
+			<patternset refid="generated"/>
+		</fileset>
+
+		<!-- All Javascript files -->
+		<fileset id="src.js" dir="${project.drupal.dir}">
+			<patternset refid="js" />
+		</fileset>
+
+		<!-- Custom Javascript files -->
+		<fileset id="src.js.custom" dir="${project.sitesdir}">
+			<patternset refid="js" />
+			<patternset refid="contrib" />
+		</fileset>
+
+		<!-- All CSS files -->
+		<fileset id="src.css" dir="${project.basedir}">
+			<patternset refid="css" />
+		</fileset>
+
+		<!-- Custom CSS files -->
+		<fileset id="src.css.custom" dir="${project.sitesdir}">
+			<patternset refid="css" />
+			<patternset refid="contrib" />
+		</fileset>
+	</target>
+</project>
