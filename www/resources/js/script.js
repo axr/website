@@ -61,6 +61,23 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 				}
 		);
 
+		$.getJSON("/activity.php", function (data)
+		{
+			$('#ghactivity').empty();
+
+			for (var i = 0; i < 5; i++)
+			{
+				if (data.activity[i] === undefined)
+				{
+					break;
+				}
+
+				var item = data.activity[i];
+
+				$('#ghactivity')
+					.append('<li><div class="inner">' + item.title + '</div></li>');
+			}
+		});
 
 		$("#container > header > nav > ul > li").hover(function(){
 		    $(this).closest('li').addClass('hover').find(".sections").removeClass('hidden');
