@@ -89,7 +89,7 @@
         <property name="db.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
 
 		<!--TODO: move in a different targer so you can just generate and execute dbdeploys without reinstalling-->
-		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.destinationdb}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
+		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.productiondb}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
 
 		<exec command="${db.mysqlpath} -h${drupal.db.host} -u${drupal.db.username} -p${drupal.db.password} ${drupal.db.destinationdb} &lt; ${project.dbscriptsdir}/initial.sql" checkreturn="true" />
 

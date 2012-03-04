@@ -91,7 +91,7 @@
 		<property name="db.deployfile" value="${DSTAMP}${TSTAMP}-deploy.sql" />
 		<property name="db.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
 
-		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.destinationdb}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
+		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.productiondb}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
 
 		<!-- Copy the production database to staging -->
 		<exec command="${db.mysqldumppath} -h ${drupal.db.host} -u ${drupal.db.username} -p${drupal.db.password} ${drupal.db.productiondb} | ${db.mysqlpath} -h ${drupal.db.host} -u ${drupal.db.username} -p${drupal.db.password} ${drupal.db.destinationdb}" checkreturn="true" />
