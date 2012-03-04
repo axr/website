@@ -1,12 +1,16 @@
 <?php
 
 define('STATEFILE', 'state.json');
-define('DEPLOYCMD', '"/path/to/deploy-website.sh"');
 
-if (!isset($_GET['pw']) || $_GET['pw'] !== 'abc')
-{
-	//die();
-}
+$config = array(
+	'website' => array(
+		'deploycmd' => '/path/to/deploy-website.sh',
+		'log_email' => 'axr-web-team@googlegroups.com'
+	),
+	'specification' => array(
+		'deploycmd' => '/path/to/deploy-specification.sh'
+	)
+);
 
 if (!isset($_POST['payload']))
 {
@@ -20,6 +24,7 @@ if ($payload === false || $payload === null)
 	die('Payload invalid');
 }
 
+// Find timestamp for the latest commit
 $payloadTS = null;
 foreach ($payload->commits as $commit)
 {
@@ -30,31 +35,59 @@ foreach ($payload->commits as $commit)
 	}
 }
 
+// Payload invalid
 if ($payloadTS === null)
 {
 	die('Can\'t find timestamp for `'.$payload->after.'`');
 }
 
-$deployedCommit = file_get_contents(STATEFILE);
-$deployedCommit = json_decode($deployedCommit);
+$stateFile = json_decode(file_get_contents(STATEFILE));
+$repoName = strtolower($payload->repository->name);
 
-if ($deployedCommit !== false && $deployedCommit !== null)
+if (!isset($config[$repoName]))
 {
-	if (strtotime($deployedCommit->ts) >= strtotime($payloadTS) ||
-		$deployedCommit->sha == $payload->after)
+	die('Invalid repository');
+}
+
+// State file empty/inexistent/invalid
+if ($stateFile === false || $stateFile === null)
+{
+	$stateFile = new StdClass;
+}
+
+if (isset($stateFile->$repoName))
+{
+	if (strtotime($stateFile->$repoName->ts) >= strtotime($payloadTS) ||
+		$stateFile->$repoName->sha == $payload->after)
 	{
 		die('Already deployed');
 	}
 }
 
-$fp = fopen(STATEFILE, 'w');
-fwrite($fp, json_encode(array(
+// Update state file
+$stateFile->$repoName = array(
 	'sha' => $payload->after,
 	'ts' => $payloadTS
-)));
+);
+
+$fp = fopen(STATEFILE, 'w');
+fwrite($fp, json_encode($stateFile));
 fclose($fp);
 
-system(DEPLOYCMD);
+$output = array();
+exec($config[$repoName]['deploycmd'], $output);
+
+if (isset($config[$repoName]['log_email']))
+{
+	// Construct email message
+	$email = 'Deployment execution at timestamp '.time().
+		'\n\nHere are the execution logs:\n\n'.
+		$output;
+
+	// Send the email
+	mail($config[$repoName]['log_email'],
+		'Deployment execution '.gmdate('D, d M Y H:i:s', time()).' GMT', $email);
+}
 
 echo 'Done';
 
