@@ -472,6 +472,12 @@ a:hover
 	padding: 5px 20px 7px 22px;
 	text-shadow: #ededed 0 1px 0;
 }
+#main > .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner a
+{
+	color: #D09610;
+	text-decoration: underline;
+	text-shadow: #ededed 0 1px 0;
+}
 #main > .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner > span
 {
 	color: #979797;
