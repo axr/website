@@ -76,6 +76,30 @@
 	</target>
 
 	<target name="site-install" depends="init, setup-phing-drush" unless="project.installed">
+		<drush command="site-install" assume="yes">
+			<option name="db-url">mysql://${drupal.db.username}:${drupal.db.password}@${drupal.db.host}/${drupal.db.destinationdb}</option>
+			<option name="db-prefix">${drupal.db.tablesprefix}</option>
+			<option name="account-name">${drupal.account.name}</option>
+			<option name="account-pass">${drupal.account.pass}</option>
+			<option name="account-mail">${drupal.account.mail}</option>
+			<option name="site-name">${drupal.site.name}</option>
+			<option name="site-mail">${drupal.site.mail}</option>
+			<param>${drupal.profile}</param>
+		</drush>
+
+
+		<property name="db.deployfile" value="${DSTAMP}${TSTAMP}-deploy.sql" />
+		<property name="db.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
+
+		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.destinationdb}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
+
+		<!-- Copy the production database to staging -->
+		<exec command="${db.mysqldumppath} -h ${drupal.db.host} -u ${drupal.db.username} -p${drupal.db.password} ${drupal.db.productiondb} | ${db.mysqlpath} -h ${drupal.db.host} -u ${drupal.db.username} -p${drupal.db.password} ${drupal.db.destinationdb}" checkreturn="true" />
+
+		<exec command="${db.mysqlpath} -h ${drupal.db.host} -u ${drupal.db.username} -p${drupal.db.password} ${drupal.db.destinationdb} &lt; ${project.dbscriptsdir}/${db.deployfile}" checkreturn="true" />
+
+
+		<!-- enable template-->
 		<drush command="pm-enable" assume="yes">
 			<param>${drupal.theme.name}</param>
 		</drush>
@@ -91,16 +115,6 @@
 
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.installed" value="true"/>
-
-		<property name="db.deployfile" value="${DSTAMP}${TSTAMP}-deploy.sql" />
-		<property name="db.undofile" value="${DSTAMP}${TSTAMP}-undo.sql" />
-
-		<dbdeploy url="mysql:host=${drupal.db.host};dbname=${drupal.db.name}" userid="${drupal.db.username}" password="${drupal.db.password}" dir="${project.deltasdir}" outputfile="${project.dbscriptsdir}/${db.deployfile}" undooutputfile="${project.dbscriptsdir}/${db.undofile}" />
-
-		<!-- Copy the production database to staging -->
-		<exec command="${db.mysqldumppath} -h ${db.host} -u ${db.username} -p${db.password} ${db.nameprefix}site | ${db.mysqlpath} -h ${db.host} -u ${db.username} -p${db.password} ${db.nameprefix}${destination}" checkreturn="true" />
-
-		<exec command="${db.mysqlpath} -h ${drupal.db.host} -u ${drupal.db.username} -p${drupal.db.password} ${drupal.db.name} &lt; ${project.dbscriptsdir}/${db.deployfile}" checkreturn="true" />
 	</target>
 
 	<!-- ### Setup Phing Drush integration -->
