@@ -79,14 +79,15 @@ exec($config[$repoName]['deploycmd'], $output);
 
 if (isset($config[$repoName]['log_email']))
 {
+	$time = gmdate('D, d M Y H:i:s', time()).' GMT';
+
 	// Construct email message
-	$email = 'Deployment execution at timestamp '.time().
-		'\n\nHere are the execution logs:\n\n'.
-		$output;
+	$email = "Deployment execution at ".$time.
+		"\n\nHere are the execution logs:\n\n".
+		implode("\n", $output);
 
 	// Send the email
-	mail($config[$repoName]['log_email'],
-		'Deployment execution '.gmdate('D, d M Y H:i:s', time()).' GMT', $email);
+	mail($config[$repoName]['log_email'], 'Deployment execution at '. $time, $email);
 }
 
 echo 'Done';
