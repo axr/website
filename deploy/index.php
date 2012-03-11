@@ -4,8 +4,7 @@ define('STATEFILE', 'state.json');
 
 $config = array(
 	'website' => array(
-		'deploycmd' => '/path/to/deploy-website.sh',
-		'log_email' => 'axr-web-team@googlegroups.com'
+		'deploycmd' => '/path/to/deploy-website.sh'
 	),
 	'specification' => array(
 		'deploycmd' => '/path/to/deploy-specification.sh'
