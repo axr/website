@@ -34,6 +34,18 @@ function axr_breadcrumb($data) {
 }
 
 /**
+ * Preprocess node
+ */
+function axr_preprocess_node(&$variables) {
+	$node = $variables['node'];
+
+	if (!$node->teaser) {
+		// Load node-specific css files
+		drupal_add_css(path_to_theme() . '/css/' . $node->type . '.css');
+	}
+}
+
+/**
  * As the name says: Preprocess html
  */
 function axr_preprocess_html(&$variables) {

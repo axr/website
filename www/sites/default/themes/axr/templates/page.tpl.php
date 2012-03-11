@@ -1,6 +1,6 @@
 <div id="container">
 	<header>
-		<a href="index.html" id="logo">AXR Project</a>
+		<a href="/" id="logo">AXR Project</a>
 		<div class="secondary">
 			<!--<a class="login" href="#"><span class="extra_0"></span><span class="extra_1">Login</span></a>
 			<span class="search">
@@ -33,7 +33,7 @@
 				<li class="community">
 					<span class="arrow"></span><a href="get_involved.html">Community</a>
 						<div>
-							<a class="get_involved first" href="get_involved.html">Get involved</a>
+							<a class="get_involved first" href="/get-involved">Get involved</a>
 							<a class="chat" href="http://webchat.freenode.net/?channels=axr">Chat</a>
 							<a class="forum" href="under_construction.html">Forum</a>
 							<a class="github last" href="https://github.com/AXR">GitHub</a>
@@ -66,7 +66,7 @@
 			<nav id="breadcrumb">
 				<?php print $breadcrumb; ?>
 			</nav>
-    	<?php endif; ?>
+		<?php endif; ?>
 
 		<?php print render($page['content']); ?>
 	</div>

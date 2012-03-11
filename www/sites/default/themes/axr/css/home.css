@@ -1,16 +1,16 @@
-#main > .above_fold
+#main .above_fold
 {
 	border-bottom: 1px solid #C2C2C2;
 }
 
-#main > .above_fold > .nested_0
+#main .above_fold > .nested_0
 {
 	width: 855px;
 	padding: 50px 0 55px 20px;
 	margin: 0px auto;
 }
 
-#main > .above_fold > .nested_0 > .intro
+#main .above_fold > .nested_0 > .intro
 {
 	width: 356px;
 	float: left;
@@ -18,14 +18,14 @@
 	z-index: 1;
 }
 
-#main > .above_fold > .nested_0 > .intro > .button_big
+#main .above_fold > .nested_0 > .intro > .button_big
 {
 	width: 285px;
 	float: left;
 	margin-top: 25px;
 }
 
-#main > .above_fold > .nested_0 > .intro > .button_big > .content > .big
+#main .above_fold > .nested_0 > .intro > .button_big > .content > .big
 {
 	display: block;
 	font-size: 1.65em;
@@ -35,7 +35,7 @@
 	padding-top: 3px;
 }
 
-#main > .above_fold > .nested_0 > .intro > .button_big > .content > .small
+#main .above_fold > .nested_0 > .intro > .button_big > .content > .small
 {
 	display: block;
 	font-size: 1em;
@@ -44,20 +44,20 @@
 	text-align: center;
 }
 
-#main > .above_fold > .nested_0 > .intro > .manifesto
+#main .above_fold > .nested_0 > .intro > .manifesto
 {
 	margin-left: 27px;
 	margin-right: 0;
 }
 
-#main > .above_fold > .nested_0 > .intro > .manifesto > .content > .block_0
+#main .above_fold > .nested_0 > .intro > .manifesto > .content > .block_0
 {
 	background-position: -88px -1px;
 	margin-top: 9px;
 	margin-left: 4px;
 }
 
-#main > .above_fold > .nested_0 > .slides
+#main .above_fold > .nested_0 > .slides
 {
 	width: 421px;
 	height: 297px;
@@ -85,12 +85,12 @@
   }
 }
 
-#main > .the_cool_stuff
+#main .the_cool_stuff
 {
 	border-top: 1px solid #F2F2F2;
 }
 
-#main > .the_cool_stuff > .nested_0
+#main .the_cool_stuff > .nested_0
 {
 	width: 855px;
 	padding: 50px 0 55px 20px;
@@ -98,19 +98,19 @@
 	overflow: hidden;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads
+#main .the_cool_stuff > .nested_0 > .downloads
 {
 	width: 460px;
 	float: left;
 	padding-top: 20px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons
+#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons
 {
 	width: 301px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest
+#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest
 {
 	display: block;
 	height: 34px;
@@ -123,19 +123,19 @@
 	background-position: -1px -599px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest:hover
+#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest:hover
 {
 	background-position: -303px -599px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest > .label
+#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest > .label
 {
 	display: block;
 	font-size: 1.6em;
 	float: left;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest > .version
+#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.latest > .version
 {
 	display: block;
 	font-size: 1em;
@@ -144,7 +144,7 @@
 	margin-left: 15px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.older
+#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.older
 {
 	display: block;
 	height: 43px;
@@ -160,12 +160,12 @@
 	font-weight: bold;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.older:hover
+#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.older:hover
 {
 	background-position: -303px -643px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .downloads > .download.info
+#main .the_cool_stuff > .nested_0 > .downloads > .download.info
 {
 	width: 300px;
 	clear: both;
@@ -174,19 +174,19 @@
 }
 
 
-#main > .the_cool_stuff > .nested_0 > .advantages
+#main .the_cool_stuff > .nested_0 > .advantages
 {
 	float: left;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > ul
+#main .the_cool_stuff > .nested_0 > .advantages > ul
 {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > ul > li
+#main .the_cool_stuff > .nested_0 > .advantages > ul > li
 {
 	margin: 20px 0;
 	clear: both;
@@ -194,13 +194,13 @@
 	font-size: 1.2em;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > ul > li > span
+#main .the_cool_stuff > .nested_0 > .advantages > ul > li > span
 {
 	display: block;
 	float: left;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > ul > li > span.block_0
+#main .the_cool_stuff > .nested_0 > .advantages > ul > li > span.block_0
 {
 	width: 18px;
 	height: 18px;
@@ -209,19 +209,19 @@
 	margin: 0 10px 0 0;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > .features
+#main .the_cool_stuff > .nested_0 > .advantages > .features
 {
 	width: 170px;
 	margin-top: 20px;
 	margin-left: 38px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > .features > .content
+#main .the_cool_stuff > .nested_0 > .advantages > .features > .content
 {
 	text-indent: 20px;
 }
 
-#main > .the_cool_stuff > .nested_0 > .advantages > .features > .content > .block_0
+#main .the_cool_stuff > .nested_0 > .advantages > .features > .content > .block_0
 {
 	background-position: -89px -21px;
 	position:absolute;
