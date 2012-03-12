@@ -75,6 +75,11 @@ fclose($fp);
 
 $output = array();
 exec($config[$repoName]['deploycmd'], $output);
+$output = implode("\n", $output);
+
+// Remove escape sequences
+$output = str_replace(0x1b, '\\033', $output);
+$output = preg_replace('/\\033\[([a-z0-9]{1,2};)?[a-z0-9]{1,3}/', '', $output);
 
 if (isset($config[$repoName]['log_email']))
 {
@@ -82,8 +87,7 @@ if (isset($config[$repoName]['log_email']))
 
 	// Construct email message
 	$email = "Deployment execution at ".$time.
-		"\n\nHere are the execution logs:\n\n".
-		implode("\n", $output);
+		"\n\nHere are the execution logs:\n\n".$output;
 
 	// Send the email
 	mail($config[$repoName]['log_email'], 'Deployment execution at '. $time, $email);
