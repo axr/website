@@ -34,18 +34,6 @@ function axr_breadcrumb($data) {
 }
 
 /**
- * Preprocess node
- */
-function axr_preprocess_node(&$variables) {
-	$node = $variables['node'];
-
-	if (!$node->teaser) {
-		// Load node-specific css files
-		drupal_add_css(path_to_theme() . '/css/' . $node->type . '.css');
-	}
-}
-
-/**
  * As the name says: Preprocess html
  */
 function axr_preprocess_html(&$variables) {
@@ -54,5 +42,38 @@ function axr_preprocess_html(&$variables) {
 	);
 
 	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/script.js', $options);
+}
+
+/**
+ * Preprocess node
+ */
+function axr_preprocess_node(&$variables) {
+	$node = $variables['node'];
+
+	// Load node-specific css files
+	drupal_add_css(path_to_theme() . '/css/' . $node->type . '.css');
+}
+
+/**
+ * Load newer jQuery.
+ */
+function axr_js_alter(&$javascript) {
+	// Loading from a widely-used CDN is good for performance
+	$javascript['misc/jquery.js']['data'] = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+}
+
+/**
+ * Remove unwanted CSS.
+ */
+function axr_css_alter(&$css) { 
+	unset($css[drupal_get_path('module','system').'/system.menus.css']); 
+	unset($css[drupal_get_path('module','system').'/system.messages.css']);
+	unset($css[drupal_get_path('module','system').'/system.theme.css']);
+
+	unset($css[drupal_get_path('module','comment').'/comment.css']);
+	unset($css[drupal_get_path('module','field').'/theme/field.css']);
+	unset($css[drupal_get_path('module','node').'/node.css']);
+	unset($css[drupal_get_path('module','search').'/search.css']);
+	unset($css[drupal_get_path('module','user').'/user.css']);
 }
 
