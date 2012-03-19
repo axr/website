@@ -2,8 +2,10 @@
 	<header>
 		<a href="/" id="logo">AXR Project</a>
 		<div class="secondary">
-			<!--<a class="login" href="#"><span class="extra_0"></span><span class="extra_1">Login</span></a>
-			<span class="search">
+			<?php if ($user->uid == 0): ?>
+				<a class="login" href="/user/login"><span class="extra_0"></span><span class="extra_1">Login</span></a>
+			<?php endif; ?>
+			<!--<span class="search">
 				<input type="text" value="Search" />
 				<input type="submit" value="Search" />
 			</span>-->
