@@ -38,6 +38,3 @@
 	Doctype: HTML5 with CSS3
 	Tools: PHP, MySQL
 	Apps: TextMate, CSSEdit, Transmit, WebKit Inspector
-
-
-//this is a test to see if the deployment system works
