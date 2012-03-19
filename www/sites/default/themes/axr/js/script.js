@@ -121,7 +121,7 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	/**
 	 * Auto show/hide searchbox inline label
 	 */
-	$('#container > header > .secondary > .search > input[type=text]').bind('focus', function (e) {
+	$('#container > header > .secondary .search > input[type=text]').bind('focus', function (e) {
 		if ($(this).attr('data-value') == undefined)
 		{
 			$(this).attr('data-value', $(this).val());

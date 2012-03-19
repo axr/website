@@ -45,6 +45,12 @@ function axr_preprocess_html(&$variables) {
 }
 
 /**
+ * Preprocess page
+ */
+function axr_preprocess_page(&$variables) {
+}
+
+/**
  * Preprocess node
  */
 function axr_preprocess_node(&$variables) {

@@ -478,7 +478,7 @@ header .secondary > a.login > .extra_1
 	vertical-align: top;
 	border-bottom: 1px solid;
 }
-header .secondary > .search
+header .secondary .search
 {
 	background-image: url(../images/sprite.jpg);
 	background-position: -605px -600px;
@@ -487,7 +487,7 @@ header .secondary > .search
 	height: 30px;
 	width: 156px;
 }
-header .secondary > .search > input[type="text"]
+header .secondary .search > input[type="text"]
 {
 	background: transparent;
 	border: 0;
@@ -500,7 +500,7 @@ header .secondary > .search > input[type="text"]
 	width: 118px;
 }
 
-header .secondary > .search > input[type="submit"]
+header .secondary .search > input[type="submit"]
 {
 	background: transparent;
 	border: 0;
