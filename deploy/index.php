@@ -1,6 +1,7 @@
 <?php
 
 define('STATEFILE', 'state.json');
+define('LOGPATH', '/tmp/deploylogs'); // Must be writeable
 
 $config = array(
 	'website' => array(
@@ -92,6 +93,13 @@ if (isset($config[$repoName]['log_email']))
 	// Send the email
 	mail($config[$repoName]['log_email'], 'Deployment execution at '. $time, $email);
 }
+
+$logpath = LOGPATH.'/'.$repoName;
+mkdir($logpath, 0777, true);
+
+$fh = fopen($logpath.'/'.time().'.log', 'w');
+fwrite($fh, $output);
+fclose($fh);
 
 echo 'Done';
 
