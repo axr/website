@@ -1,0 +1,6 @@
+Options +FollowSymLinks
+ 
+RewriteEngine On
+RewriteBase /downloads
+RewriteCond ${SCRIPT_FILENAME} !^index\.php
+RewriteRule ^(.*)$ index.php?file=$1 [L,NC,QSA]
