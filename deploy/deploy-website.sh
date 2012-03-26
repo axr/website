@@ -18,7 +18,7 @@ fi
 mkdir -p "$WWWDIR"
 echo "Down for maintenance" > "$WWWDIR/index.html"
 
-cp -r "$REPODIR/www/" "$WWWDIR/"
+cp -r "$REPODIR/www/" "$WWWDIR/../"
 
 rm "$WWWDIR/index.html"
 
