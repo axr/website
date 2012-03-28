@@ -478,6 +478,10 @@ header .secondary > a.login > .extra_1
 	vertical-align: top;
 	border-bottom: 1px solid;
 }
+header .secondary > form
+{
+	display: inline-block;
+}
 header .secondary .search
 {
 	background-image: url(../images/sprite.jpg);
