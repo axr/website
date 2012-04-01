@@ -109,6 +109,11 @@
 			<param>${drupal.theme.name}</param>
 		</drush>
 
+		<!-- Fix permissions for the default site directory and settings. The owner must be able to delete the directories during subsequent builds. -->
+		<chmod file="${project.drupal.dir}/sites/default/" mode="0755" failonerror="true"/>
+		<chmod file="${project.drupal.dir}/sites/default/files" mode="0755" failonerror="true"/>
+		<chmod file="${project.drupal.dir}/sites/default/default.settings.php" mode="0755" failonerror="true"/>
+
 		<!-- Enable JavaScript aggregation -->
 		<drush command="vset" assume="yes">
 			<param>preprocess_js</param>
@@ -120,11 +125,6 @@
 			<param>preprocess_css</param>
 			<param>1</param>
 		</drush>
-
-		<!-- Fix permissions for the default site directory and settings. The owner must be able to delete the directories during subsequent builds. -->
-		<chmod file="${project.drupal.dir}/sites/default/" mode="0755" failonerror="true"/>
-		<chmod file="${project.drupal.dir}/sites/default/files" mode="0755" failonerror="true"/>
-		<chmod file="${project.drupal.dir}/sites/default/default.settings.php" mode="0755" failonerror="true"/>
 
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.installed" value="true"/>
