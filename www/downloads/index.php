@@ -15,23 +15,12 @@ function sanity($filename) {
 }
 
 $file = $_GET['file'];
-if(!empty($file) && $file != 'index.php') {
-
-	if (sanity($file) && file_exists(filesfolder.$file)) { //add propper check for misusage
-		//add mysql connect here
-		mysql_query('INSERT INTO downloads (filename,ip) VALUES ("'.mysql_real_escape_string($file).'","'.mysql_real_escape_string($_SERVER["REMOTE_ADDR"]).'")');
-		header('Content-Length: '.filesize(filesfolder.$file)); 
-		header('Content-Type: application/octet-stream'); 
-		readfile(filesfolder.$file);
-	} else {
-		echo '404';
-	}
-} else { //very simple listing
-	$files = array_filter(glob(filesfolder.'*'),function($var){
-		return !is_dir($var);
-	});
-	foreach($files as $file) {
-		$filename = substr($file,3);
-		echo "<a href='downloads/$filename'>$filename</a><br/>";
-	}
+if (sanity($file) && file_exists(filesfolder.$file)) {
+	//add mysql connect here
+	mysql_query('INSERT INTO downloads (filename,ip) VALUES ("'.mysql_real_escape_string($file).'","'.mysql_real_escape_string($_SERVER["REMOTE_ADDR"]).'")');
+	header('Content-Length: '.filesize(filesfolder.$file)); 
+	header('Content-Type: application/octet-stream'); 
+	readfile(filesfolder.$file);
+} else {
+	//a request to not existing file, should not happen as this file is only accessible via .htaccess
 }
