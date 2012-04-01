@@ -11,7 +11,7 @@ PRIMARY KEY (  `id` )
 define('filesfolder', '../../downloads');
 
 function sanity($filename) {
-	return strpos($file,'/')===false && strpos($file,'\\')===false;
+	return !preg_match('%(^|/)[.]+/%', $filename);
 }
 
 $file = $_GET['file'];
