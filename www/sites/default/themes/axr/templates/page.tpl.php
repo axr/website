@@ -70,7 +70,7 @@
 		</ul>
 	</div>
 	<div id="main" role="main">
-		<?php if (!$is_front && $node->type != 404 && $breadcrumb): ?>
+		<?php if (!$is_front && $breadcrumb): ?>
 			<nav id="breadcrumb">
 				<?php echo $breadcrumb; ?>
 			</nav>
