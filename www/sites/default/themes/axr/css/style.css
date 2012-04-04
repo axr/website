@@ -482,36 +482,41 @@ header .secondary > form
 {
 	display: inline-block;
 }
-header .secondary .search
+header .secondary input[type="search"]
 {
-	background-image: url(../images/sprite.jpg);
-	background-position: -605px -600px;
-	display: inline-block;
-	margin: 0 0 0 20px;
-	height: 30px;
-	width: 156px;
-}
-header .secondary .search > input[type="text"]
-{
-	background: transparent;
-	border: 0;
-	color: #a3a3a3;
-
-	outline: none;
-	padding: 0 0 0 10px;
-	height: 30px;
+	width: 154px;
+	height: 16px;
+	padding:5px 0;
+	margin: 1px 0 0 20px;
+	-webkit-border-radius: 13px;
+	-moz-border-radius: 13px;
+	border-radius: 13px;
+	-webkit-appearance: none;
+	border: solid 1px #B3B3B3;
 	text-align: center;
-	width: 118px;
-}
-
-header .secondary .search > input[type="submit"]
-{
-	background: transparent;
-	border: 0;
+	color: #a3a3a3;
 	outline: none;
-	height: 30px;
-	text-indent: -9999px;
-	width: 24px;
+	background: #FFF url(../images/glass.png) 130px center no-repeat;
+}
+header .secondary input[type="search"]:focus
+{
+	background-image:none;
+}
+header .secondary input[type="search"]::-webkit-search-cancel-button
+{
+	-webkit-appearance:none
+}
+header .secondary input[type="search"]:focus::-webkit-search-cancel-button
+{
+	-webkit-appearance:searchfield-cancel-button
+}
+body:-moz-last-node header input[type="search"]
+{
+	border-width:2px;
+	-moz-border-top-colors: #EDEDED #B3B3B3;
+	-moz-border-bottom-colors: #EDEDED #B3B3B3;
+	-moz-border-right-colors: #EDEDED #B3B3B3;
+	-moz-border-left-colors: #EDEDED #B3B3B3;
 }
 
 #main > .above_fold > .nested_0 > .intro > p {
