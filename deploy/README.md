@@ -14,13 +14,13 @@ Installing Drupal locally
 1. Create a properties file `/deploy/local.properties` with the following
 contents:
 
-	drupal.db.host = localhost
-	drupal.db.database = axr
-	drupal.db.username = root
-	drupal.db.password = yourpassword
+		drupal.db.host = localhost
+		drupal.db.database = axr
+		drupal.db.username = root
+		drupal.db.password = yourpassword
 
-	drupal.account.name = admin
-	drupal.account.pass = drupalpassword
+		drupal.account.name = admin
+		drupal.account.pass = drupalpassword
 
 2. Cd into /deploy directory: `cd deploy`
 3. Run `phing -f local.xml site-install`
