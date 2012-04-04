@@ -18,9 +18,7 @@ fi
 mkdir -p "$WWWDIR"
 echo "Down for maintenance" > "$WWWDIR/index.html"
 
-cp -r "$REPODIR/www/" "$WWWDIR/"
-
-rm "$WWWDIR/index.html"
+cp -r "$REPODIR/www/" "$WWWDIR/../"
 
 cd "$REPODIR/../deploy"
 
@@ -32,6 +30,7 @@ if [ $? -ne 0 ]; then
         exit 1
 fi
 
+rm "$WWWDIR/index.html"
 
 echo "Done"
 

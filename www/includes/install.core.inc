@@ -411,9 +411,7 @@ function install_run_task($task, &$install_state) {
         // which requires that referenced variables be passed explicitly.
         'build_info' => array('args' => array(&$install_state)),
       );
-
       drupal_form_submit($function, $form_state);
-
       $errors = form_get_errors();
       if (!empty($errors)) {
         throw new Exception(implode("\n", $errors));
@@ -572,6 +570,12 @@ function install_tasks($install_state) {
 
   // Now add any tasks defined by the installation profile.
   if (!empty($install_state['parameters']['profile'])) {
+    // Load the profile install file, because it is not always loaded when
+    // hook_install_tasks() is invoked (e.g. batch processing).
+    $profile_install_file = DRUPAL_ROOT . '/profiles/' . $install_state['parameters']['profile'] . '/' . $install_state['parameters']['profile'] . '.install';
+    if (file_exists($profile_install_file)) {
+      include_once $profile_install_file;
+    }
     $function = $install_state['parameters']['profile'] . '_install_tasks';
     if (function_exists($function)) {
       $result = $function($install_state);
@@ -597,7 +601,7 @@ function install_tasks($install_state) {
   // Allow the installation profile to modify the full list of tasks.
   if (!empty($install_state['parameters']['profile'])) {
     $profile_file = DRUPAL_ROOT . '/profiles/' . $install_state['parameters']['profile'] . '/' . $install_state['parameters']['profile'] . '.profile';
-    if (is_file($profile_file)) {
+    if (file_exists($profile_file)) {
       include_once $profile_file;
       $function = $install_state['parameters']['profile'] . '_install_tasks_alter';
       if (function_exists($function)) {
@@ -712,8 +716,10 @@ function install_display_output($output, $install_state) {
  *
  * @return
  *   A themed status report, or an exception if there are requirement errors.
- *   Otherwise, no output is returned, so that the next task can be run
- *   in the same page request.
+ *   If there are only requirement warnings, a themed status report is shown
+ *   initially, but the user is allowed to bypass it by providing 'continue=1'
+ *   in the URL. Otherwise, no output is returned, so that the next task can be
+ *   run in the same page request.
  */
 function install_verify_requirements(&$install_state) {
   // Check the installation requirements for Drupal and this profile.
@@ -725,22 +731,30 @@ function install_verify_requirements(&$install_state) {
   // Check the severity of the requirements reported.
   $severity = drupal_requirements_severity($requirements);
 
-  if ($severity == REQUIREMENT_ERROR) {
+  // If there are errors, always display them. If there are only warnings, skip
+  // them if the user has provided a URL parameter acknowledging the warnings
+  // and indicating a desire to continue anyway. See drupal_requirements_url().
+  if ($severity == REQUIREMENT_ERROR || ($severity == REQUIREMENT_WARNING && empty($install_state['parameters']['continue']))) {
     if ($install_state['interactive']) {
       drupal_set_title(st('Requirements problem'));
       $status_report = theme('status_report', array('requirements' => $requirements));
-      $status_report .= st('Check the error messages and <a href="!url">proceed with the installation</a>.', array('!url' => check_url(request_uri())));
+      $status_report .= st('Check the error messages and <a href="!url">proceed with the installation</a>.', array('!url' => check_url(drupal_requirements_url($severity))));
       return $status_report;
     }
     else {
-      // Throw an exception showing all unmet requirements.
+      // Throw an exception showing any unmet requirements.
       $failures = array();
       foreach ($requirements as $requirement) {
+        // Skip warnings altogether for non-interactive installations; these
+        // proceed in a single request so there is no good opportunity (and no
+        // good method) to warn the user anyway.
         if (isset($requirement['severity']) && $requirement['severity'] == REQUIREMENT_ERROR) {
           $failures[] = $requirement['title'] . ': ' . $requirement['value'] . "\n\n" . $requirement['description'];
         }
       }
-      throw new Exception(implode("\n\n", $failures));
+      if (!empty($failures)) {
+        throw new Exception(implode("\n\n", $failures));
+      }
     }
   }
 }
@@ -807,7 +821,6 @@ function install_verify_settings() {
     $database = $databases['default']['default'];
     drupal_static_reset('conf_path');
     $settings_file = './' . conf_path(FALSE) . '/settings.php';
-
     $errors = install_database_errors($database, $settings_file);
     if (empty($errors)) {
       return TRUE;
@@ -841,19 +854,14 @@ function install_verify_pdo() {
  */
 function install_settings_form($form, &$form_state, &$install_state) {
   global $databases;
-
   $profile = $install_state['parameters']['profile'];
   $install_locale = $install_state['parameters']['locale'];
 
   drupal_static_reset('conf_path');
   $conf_path = './' . conf_path(FALSE);
   $settings_file = $conf_path . '/settings.php';
+  $database = isset($databases['default']['default']) ? $databases['default']['default'] : array();
 
-  
- /* @MODIFIED BY AXR TEAM */
-  //$database = isset($databases['default']['default']) ? $databases['default']['default'] : array();
-	$database = $form_state['values'];
-  
   drupal_set_title(st('Database configuration'));
 
   $drivers = drupal_get_database_types();
@@ -918,7 +926,6 @@ function install_settings_form_validate($form, &$form_state) {
   unset($database['db_prefix']);
 
   $form_state['storage']['database'] = $database;
-
   $errors = install_database_errors($database, $form_state['values']['settings_file']);
   foreach ($errors as $name => $message) {
     form_set_error($name, $message);
@@ -931,23 +938,24 @@ function install_settings_form_validate($form, &$form_state) {
 function install_database_errors($database, $settings_file) {
   global $databases;
   $errors = array();
+
   // Check database type.
   $database_types = drupal_get_database_types();
   $driver = $database['driver'];
-
   if (!isset($database_types[$driver])) {
     $errors['driver'] = st("In your %settings_file file you have configured @drupal to use a %driver server, however your PHP installation currently does not support this database type.", array('%settings_file' => $settings_file, '@drupal' => drupal_install_profile_distribution_name(), '%driver' => $driver));
   }
   else {
     // Run driver specific validation
     $errors += $database_types[$driver]->validateDatabaseSettings($database);
+
     // Run tasks associated with the database type. Any errors are caught in the
     // calling function.
     $databases['default']['default'] = $database;
     // Just changing the global doesn't get the new information processed.
     // We tell tell the Database class to re-parse $databases.
     Database::parseConnectionInfo();
-	
+
     try {
       db_run_tasks($driver);
     }
@@ -1298,7 +1306,7 @@ function install_already_done_error() {
  */
 function install_load_profile(&$install_state) {
   $profile_file = DRUPAL_ROOT . '/profiles/' . $install_state['parameters']['profile'] . '/' . $install_state['parameters']['profile'] . '.profile';
-  if (is_file($profile_file)) {
+  if (file_exists($profile_file)) {
     include_once $profile_file;
     $install_state['profile_info'] = install_profile_info($install_state['parameters']['profile'], $install_state['parameters']['locale']);
   }
@@ -1416,13 +1424,6 @@ function install_import_locales(&$install_state) {
  *   The form API definition for the site configuration form.
  */
 function install_configure_form($form, &$form_state, &$install_state) {
-  if (variable_get('site_name', FALSE) || variable_get('site_mail', FALSE)) {
-    // Site already configured: This should never happen, means re-running the
-    // installer, possibly by an attacker after the 'install_task' variable got
-    // accidentally blown somewhere. Stop it now.
-    throw new Exception(install_already_done_error());
-  }
-
   drupal_set_title(st('Configure site'));
 
   // Warn about settings.php permissions risk
@@ -1824,7 +1825,7 @@ function install_configure_form_submit($form, &$form_state) {
 
   // We precreated user 1 with placeholder values. Let's save the real values.
   $account = user_load(1);
-  $merge_data = array('init' => $form_state['values']['account']['mail'], 'roles' => !empty($account->roles) ? $account->roles : array(), 'status' => 1);
+  $merge_data = array('init' => $form_state['values']['account']['mail'], 'roles' => !empty($account->roles) ? $account->roles : array(), 'status' => 1, 'timezone' => $form_state['values']['date_default_timezone']);
   user_save($account, array_merge($form_state['values']['account'], $merge_data));
   // Load global $user and perform final login tasks.
   $user = user_load(1);

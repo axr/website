@@ -230,7 +230,7 @@ header
 header > #logo
 {
 	display: block;
-	height: 250px;
+	height: 230px;
 	width: 310px;
 	background: url('../images/sprite.jpg') no-repeat;
 	text-indent: -10000px;
@@ -477,6 +477,10 @@ header .secondary > a.login > .extra_1
 	text-shadow: -1px 1px #efefef;
 	vertical-align: top;
 	border-bottom: 1px solid;
+}
+header .secondary > form
+{
+	display: inline-block;
 }
 header .secondary .search
 {
