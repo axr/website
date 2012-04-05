@@ -6,10 +6,7 @@
 				<a class="login" href="/user/login"><span class="extra_0"></span><span class="extra_1">Login</span></a>
 			<?php endif; ?>
 			<form action="/search/node" method="post" accept-charset="UTF-8">
-				<span class="search">
-					<input type="text" name="keys" value="Search" />
-					<input type="submit" value="Search" />
-				</span>
+				<input type="search" placeholder="Search" />
 			</form>
 		</div>
 		<nav>
