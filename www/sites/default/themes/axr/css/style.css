@@ -511,6 +511,10 @@ body:-moz-last-node header input[type="search"]
 	-moz-border-right-colors: #EDEDED #B3B3B3;
 	-moz-border-left-colors: #EDEDED #B3B3B3;
 }
+header .secondary input:focus::-webkit-input-placeholder
+{
+	color:transparent
+}
 /* Saf 5 CSS hack needed
 input::-webkit-input-placeholder
 {
