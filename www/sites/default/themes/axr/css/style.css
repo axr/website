@@ -515,6 +515,10 @@ header .secondary input:focus::-webkit-input-placeholder
 {
 	color:transparent
 }
+header .secondary input::-webkit-search-cancel-button
+{
+	margin-right:8px
+}
 /* Saf 5 CSS hack needed
 input::-webkit-input-placeholder
 {
