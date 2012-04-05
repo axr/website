@@ -492,6 +492,7 @@ header .secondary input[type="search"]
 	-moz-border-radius: 13px;
 	border-radius: 13px;
 	-webkit-appearance: none;
+	-webkit-box-sizing: content-box;
 	border: solid 1px #B3B3B3;
 	text-align: center;
 	color: #a3a3a3;
@@ -502,14 +503,6 @@ header .secondary input[type="search"]:focus
 {
 	background-image:none;
 }
-header .secondary input[type="search"]::-webkit-search-cancel-button
-{
-	-webkit-appearance:none
-}
-header .secondary input[type="search"]:focus::-webkit-search-cancel-button
-{
-	-webkit-appearance:searchfield-cancel-button
-}
 body:-moz-last-node header input[type="search"]
 {
 	border-width:2px;
@@ -518,6 +511,12 @@ body:-moz-last-node header input[type="search"]
 	-moz-border-right-colors: #EDEDED #B3B3B3;
 	-moz-border-left-colors: #EDEDED #B3B3B3;
 }
+/* Saf 5 CSS hack needed
+input::-webkit-input-placeholder
+{
+	text-indent:54px;
+}
+*/
 
 #main > .above_fold > .nested_0 > .intro > p {
 	text-align: justify;
