@@ -678,6 +678,21 @@ input::-webkit-input-placeholder
 {
 	background-position: -26px -1px;
 }
+.button_std.go > .content
+{
+	padding: 0 0 0 10px;
+}
+.button_std.go > .content > .block_0
+{
+	display: block;
+	width: 17px;
+	height: 17px;
+	float: right;
+	margin: 10px 2px 0 8px;
+	background-image: url(../images/sprite32.png);
+	background-position: -90px -21px;
+}
+
 .button_std.gray
 {
 	color: #7A7A7A;
@@ -707,25 +722,25 @@ input::-webkit-input-placeholder
 {
 	background-position: -60px -1px;
 }
-.button_std.go
+.button_std.gray2.go
 {
 	color: #7A7A7A;
 	height: 31px;
 	text-shadow: #E3E3E3 0 1px 0;
 }
-.button_std.go > .header
+.button_std.gray2.go > .header
 {
 	background-position: -193px -29px;
 	height: 31px;
 }
-.button_std.go > .content
+.button_std.gray2.go > .content
 {
 	background-position: 0 -153px;
 	height: 31px;
 	line-height: 30px;
 	text-align: center;
 }
-.button_std.go > .content > .block_0
+.button_std.gray2.go > .content > .block_0
 {
 	display: block;
 	width: 13px;
@@ -735,25 +750,23 @@ input::-webkit-input-placeholder
 	background-image: url(../images/sprite32.png);
 	background-position: -220px -62px;
 }
-.button_std.go > .footer
+.button_std.gray2.go > .footer
 {
 	background-position: -201px -29px;
 	height: 31px;
 }
-.button_std.go:hover > .header
+.button_std.gray2.go:hover > .header
 {
 	background-position: -210px -29px;
 }
-.button_std.go:hover > .content
+.button_std.gray2.go:hover > .content
 {
 	background-position: 0 -185px;
 }
-.button_std.go:hover > .footer
+.button_std.gray2.go:hover > .footer
 {
 	background-position: -218px -29px;
 }
-
-
 
 .button_big, .button_big:visited, .button_big:active
 {

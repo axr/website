@@ -3,12 +3,20 @@
 		<div class="intro">
 			<h2>AXR stands for Arbitrary XML Rendering. It's aim is to provide a better alternative to HTML+CSS</h2>
 			<p>It uses XML for the content and HSS for the design and simple behavior of the interface. HSS  is a language based on CSS, but offers many more advanced features, such as object orientation, rule nesting, expressions, references to other objects, modularization (code reuse), etc. JavaScript will be used as well for advanced behavior.</p>
-			<a href="get_involved.html" class="join button_big">
+			<a href="get_involved.html" class="join button_std">
 				<span class="header"></span>
 				<span class="content">
 					<span class="block_0"></span>
-					<span class="big">volunteers needed</span>
+					<span class="big">become a volunteer</span>
 					<span class="small">join the revolution</span>
+				</span>
+				<span class="footer"></span>
+			</a>
+			<a href="get_involved.html" class="manifesto button_std gray">
+				<span class="header"></span>
+				<span class="content">
+					<span class="block_0"></span>
+					<span>read the manifesto</span>
 				</span>
 				<span class="footer"></span>
 			</a>
@@ -16,7 +24,93 @@
 		<div class="slides"><iframe src="http://www.slideshare.net/slideshow/embed_code/6829398?rel=0" width="346" height="278" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
 	</div>
 </div>
-<div class="the_cool_stuff">
+
+<div class="advantages clearfix">
+	<div class="nested_0">
+		<h2>Advantages:</h2>
+		<ul class="clearfix">
+			<li>
+				<span class="block_0"></span>
+				<span class="text">Build websites faster and easier</span>
+			</li>
+			<li>
+				<span class="block_0"></span>
+				<span class="text">Separate content from presentation</span>
+			</li>
+			<li>
+				<span class="block_0"></span>
+				<span class="text">Modularize and reuse your styling objects</span>
+			</li>
+		</ul>
+		<ul class="clearfix">
+			<li>
+				<span class="block_0"></span>
+				<span class="text">Exactly the same rendering across all browsers</span>
+			</li>
+			<li>
+				<span class="block_0"></span>
+				<span class="text">Vector graphics, powerful effects, textures, etc</span>
+			</li>
+			<li>
+				<span class="block_0"></span>
+				<span class="text">True semantic content</span>
+			</li>
+		</ul>
+		<a href="/about/features" class="learn_more button_std go">
+			<span class="header"></span>
+			<span class="content">Learn more<span class="block_0"></span></span>
+			<span class="footer"></span>
+		</a>
+	</div>
+</div>
+
+<div class="getit">
+	<div class="nested_0">
+		<div class="releases">
+			<h2>download</h2>
+			<div class="nested_0">
+				<a href="#" class="download button_big">
+					<span class="header"></span>
+					<span class="content">
+						<span class="big">Latest version:</span>
+						<span class="version">0.46 prototype</span>
+						<span class="for">for OSX</span>
+						<span class="block_0"></span>
+					</span>
+					<span class="footer"></span>
+				</a>
+
+				<div class="olds">older releases</div>
+				<ul>
+					<li>
+						<span class="version">v 0.45</span>
+						<span class="date">2012/03/21</span>
+						<a class="download" href="#">Download</a>
+					</li>
+					<li>
+						<span class="version">v 0.441</span>
+						<span class="date">2012/02/15</span>
+						<a class="download" href="#">Download</a>
+					</li>
+					<li>
+						<span class="version">v 0.44</span>
+						<span class="date">2012/01/01</span>
+						<a class="download" href="#">Download</a>
+					</li>
+				</ul>
+			</div>
+			<a class="altos" href="/resources/downloads">need other operating system?</a>
+			<div class="block_0"></div>
+			<div class="block_1"></div>
+			<div class="block_2"></div>
+			<div class="block_3"></div>
+		</div>
+		<div class="changes">
+		</div>
+	</div>
+</div>
+
+<!--<div class="the_cool_stuff">
 	<div class="nested_0">
 		<div class="downloads">
 			<div class="download buttons">
@@ -45,5 +139,5 @@
 			</a>
 		</div>
 	</div>
-</div>
+</div>-->
 

@@ -1,12 +1,11 @@
-#main .above_fold
-{
-	border-bottom: 1px solid #C2C2C2;
+#main {
+	padding: 0 0 55px 0px;
 }
 
 #main .above_fold > .nested_0
 {
 	width: 855px;
-	padding: 50px 0 55px 20px;
+	padding: 50px 0 20px 20px;
 	margin: 0px auto;
 }
 
@@ -18,27 +17,31 @@
 	z-index: 1;
 }
 
-#main .above_fold > .nested_0 > .intro > .button_big
+#main .above_fold > .nested_0 > .intro > .button_std
 {
-	width: 285px;
-	float: left;
+	display: inline-block;
 	margin-top: 25px;
+	width: 150px;
 }
 
-#main .above_fold > .nested_0 > .intro > .button_big > .content > .big
+#main .above_fold > .nested_0 > .intro > .join > .content
+{
+	line-height: 1.2;
+}
+
+#main .above_fold > .nested_0 > .intro > .join > .content > .big
 {
 	display: block;
-	font-size: 1.65em;
-	line-height: 1.8;
+	font-size: 12px;
 	text-align: center;
 	text-indent: 0;
 	padding-top: 3px;
 }
 
-#main .above_fold > .nested_0 > .intro > .button_big > .content > .small
+#main .above_fold > .nested_0 > .intro > .join > .content > .small
 {
 	display: block;
-	font-size: 1em;
+	font-size: 11px;
 	color: #BF8300;
 	text-shadow: #F7DE77 0 1px 0;
 	text-align: center;
@@ -46,8 +49,7 @@
 
 #main .above_fold > .nested_0 > .intro > .manifesto
 {
-	margin-left: 27px;
-	margin-right: 0;
+	margin-left: 20px;
 }
 
 #main .above_fold > .nested_0 > .intro > .manifesto > .content > .block_0
@@ -160,48 +162,44 @@
 	font-weight: bold;
 }
 
-#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.older:hover
-{
+#main .the_cool_stuff > .nested_0 > .downloads > .download.buttons > a.older:hover {
 	background-position: -303px -643px;
 }
 
-#main .the_cool_stuff > .nested_0 > .downloads > .download.info
-{
+#main .the_cool_stuff > .nested_0 > .downloads > .download.info {
 	width: 300px;
 	clear: both;
 	float: left;
 	padding-top: 20px;
 }
 
-
-#main .the_cool_stuff > .nested_0 > .advantages
-{
-	float: left;
+#main .advantages {
+	border-bottom: 1px solid #C2C2C2;
+	padding: 20px 0 35px 20px;
 }
 
-#main .the_cool_stuff > .nested_0 > .advantages > ul
-{
-	margin: 0;
+#main .advantages > .nested_0 {
+	margin: 0 auto;
+	position: relative;
+	width: 855px;
+}
+
+#main .advantages > .nested_0 > ul {
+	margin: 0 0 20px 0;
 	padding: 0;
 	list-style: none;
 }
 
-#main .the_cool_stuff > .nested_0 > .advantages > ul > li
-{
-	margin: 20px 0;
-	clear: both;
+#main .advantages > .nested_0 > ul > li {
+	margin: 0;
+	float: left;
 	overflow: hidden;
 	font-size: 1.2em;
+	width: 200px;
 }
 
-#main .the_cool_stuff > .nested_0 > .advantages > ul > li > span
-{
+#main .advantages > .nested_0 > ul > li > span.block_0 {
 	display: block;
-	float: left;
-}
-
-#main .the_cool_stuff > .nested_0 > .advantages > ul > li > span.block_0
-{
 	width: 18px;
 	height: 18px;
 	background-image: url(../images/sprite32.png);
@@ -209,25 +207,193 @@
 	margin: 0 10px 0 0;
 }
 
-#main .the_cool_stuff > .nested_0 > .advantages > .features
-{
-	width: 170px;
-	margin-top: 20px;
-	margin-left: 38px;
+#main .advantages > .nested_0 > ul > li > span.text {
+	display: block;
+	float: left;
+	font-size: 13px;
+	margin: -18px 0 0 30px;
 }
 
-#main .the_cool_stuff > .nested_0 > .advantages > .features > .content
-{
+#main .advantages > .nested_0 > .learn_more {
+	float: right;
+	margin: 0 55px 0 0;
+	position: absolute;
+	right: 0;
+	top: 45%;
+	width: 140px;
+}
+
+#main .advantages > .nested_0 > .learn_more > .content {
 	text-indent: 20px;
 }
 
-#main .the_cool_stuff > .nested_0 > .advantages > .features > .content > .block_0
-{
-	background-position: -89px -21px;
-	position:absolute;
-	right:0;
-	bottom:10px;
+#main .getit {
+	border-top: 1px solid #F2F2F2;
 }
 
+#main .getit > .nested_0 {
+	margin: 0 auto;
+	padding: 50px 0 55px 20px;
+	position: relative;
+	width: 855px;
+}
 
+#main .getit > .nested_0 > .releases {
+	background: url(../images/download_box_repeat_y.png) repeat-y;
+	position: relative;
+	text-align: center;
+	width: 301px;
+}
+
+#main .getit > .nested_0 > .releases > h2 {
+	background: url(../images/sprite_repeat_h.png) repeat-x 0 -442px;
+	color: #ffffff;
+	font-size: 20px;
+	height: 31px;
+	margin: 0;
+	padding: 9px 0 0 0;
+	position: relative;
+	text-align: center;
+	text-shadow: #9b9b9b 0 1px 0;
+}
+
+#main .getit > .nested_0 > .releases > a.altos {
+	border-bottom: 1px solid #b5b5b5;
+	color: #666666;
+	display: block;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 7px 0;
+	text-decoration: none;
+	text-shadow: #e4e4e4 0 1px 0;
+}
+
+#main .getit > .nested_0 > .releases > a.altos:hover {
+	text-decoration: underline;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 {
+	background: #ffffff;
+	-webkit-background-clip: padding-box;
+	border: 1px solid #b6b6b6;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	margin: 0 8px;
+	padding: 15px 0 10px 0;
+	text-align: left;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > .download {
+	margin: 0 20px;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > .download .content {
+	padding: 0 0 0 10px;
+	position: relative;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > .download .block_0 {
+	background-position: -233px -54px;
+	height: 23px;
+	position: absolute;
+	right: 10px;
+	top: 0;
+	width: 37px;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > .download .big {
+	display: block;
+	font-size: 20px;
+	padding: 9px 0 3px 0;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > .download .version {
+	color: #ffffff;
+	font-size: 12px;
+	text-shadow: #BC910E 0 1px 0;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > .download .for {
+	color: #bf8300;
+	font-size: 11px;
+	padding: 0 0 0 5px;
+	text-shadow: #fae480 0 1px 0;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > div.olds {
+	color: #666666;
+	font-size: 11px;
+	font-weight: bold;
+	margin: 20px 0 5px 0;
+	text-align: center;
+	text-shadow: #e4e4e4 0 1px 0;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > ul > li {
+	border-top: 1px solid #e2e2e2;
+	padding: 8px 20px;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > ul > li > .version {
+	color: #666666;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: bold;
+	text-shadow: #e4e4e4 0 1px 0;
+	width: 85px;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > ul > li > a.download {
+	background: url(../images/sprite.jpg) -227px -644px;
+	display: inline-block;
+	float: right;
+	height: 20px;
+	text-indent: -9999px;
+	width: 20px;
+}
+
+#main .getit > .nested_0 > .releases > .block_0,
+#main .getit > .nested_0 > .releases > .block_1,
+#main .getit > .nested_0 > .releases > .block_2,
+#main .getit > .nested_0 > .releases > .block_3 {
+	background: url(../images/sprite.jpg);
+	position: absolute;
+	width: 6px;
+}
+
+#main .getit > .nested_0 > .releases > .block_0 {
+	background-position: -255px -601px;
+	height: 40px;
+	left: 0;
+	top: 0;
+}
+
+#main .getit > .nested_0 > .releases > .block_1 {
+	background-position: -261px -601px;
+	height: 40px;
+	right: 0;
+	top: 0;
+}
+
+#main .getit > .nested_0 > .releases > .block_2 {
+	background-position: -261px -641px;
+	bottom: 0;
+	height: 5px;
+	right: 0;
+}
+
+#main .getit > .nested_0 > .releases > .block_3 {
+	background-position: -255px -641px;
+	bottom: 0;
+	height: 5px;
+	left: 0;
+}
 

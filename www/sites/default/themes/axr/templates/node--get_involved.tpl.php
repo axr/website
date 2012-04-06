@@ -48,7 +48,7 @@
 				</li>
 			</ul>
 
-			<a href="under_construction.html" class="enter button_std go">
+			<a href="under_construction.html" class="enter button_std gray2 go">
 				<span class="header"></span>
 				<span class="content">enter forums<span class="block_0"></span></span>
 				<span class="footer"></span>
@@ -75,7 +75,7 @@
 						Right now: <span>43</span> online
 					</div>
 				</div>
-				<a href="http://webchat.freenode.net/?channels=axr" class="enter button_std go">
+				<a href="http://webchat.freenode.net/?channels=axr" class="enter button_std gray2 go">
 					<span class="header"></span>
 					<span class="content">enter webchat<span class="block_0"></span></span>
 					<span class="footer"></span>
