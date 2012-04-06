@@ -128,24 +128,6 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	});
 
 	/**
-	 * Auto show/hide searchbox inline label
-	 */
-	$('#container > header > .secondary .search > input[type=text]').bind('focus', function (e) {
-		if ($(this).attr('data-value') == undefined)
-		{
-			$(this).attr('data-value', $(this).val());
-		}
-
-		if ($(this).val() == $(this).attr('data-value')) {
-			$(this).val('');
-		}
-	}).bind('blur', function (e) {
-		if ($(this).val() == '') {
-			$(this).val($(this).attr('data-value'));
-		}
-	});
-
-	/**
 	 * Event handlers for madal boxes
 	 */
 	{
