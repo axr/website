@@ -1,5 +1,5 @@
 #main {
-	padding: 0 0 55px 0px;
+	padding: 0 0 35px 0px;
 }
 
 #main .above_fold > .nested_0
@@ -233,13 +233,14 @@
 
 #main .getit > .nested_0 {
 	margin: 0 auto;
-	padding: 50px 0 55px 20px;
+	padding: 50px 0 0 20px;
 	position: relative;
 	width: 855px;
 }
 
 #main .getit > .nested_0 > .releases {
 	background: url(../images/download_box_repeat_y.png) repeat-y;
+	float: left;
 	position: relative;
 	text-align: center;
 	width: 301px;
@@ -328,7 +329,6 @@
 	font-weight: bold;
 	margin: 20px 0 5px 0;
 	text-align: center;
-	text-shadow: #e4e4e4 0 1px 0;
 }
 
 #main .getit > .nested_0 > .releases > .nested_0 > ul {
@@ -396,4 +396,60 @@
 	height: 5px;
 	left: 0;
 }
+
+#main .getit > .nested_0 > .changes {
+	float: right;
+	width: 500px;
+}
+
+#main .getit > .nested_0 > .changes > h2 {
+	margin: 0 0 14px 0;
+}
+
+#main .getit > .nested_0 > .changes > .verinfo {
+	color: #666666;
+	font-size: 14px;
+}
+
+#main .getit > .nested_0 > .changes > .verinfo .version {
+	font-weight: bold;
+}
+
+#main .getit > .nested_0 > .changes > ul {
+	list-style: none;
+	margin: 10px 0 0 0;
+	padding: 0;
+}
+
+#main .getit > .nested_0 > .changes > ul > li {
+	clear: both;
+	padding: 5px 0;
+}
+
+#main .getit > .nested_0 > .changes > ul > li.clear {
+	clear: both;
+	height: 0;
+	overflow: hidden;
+}
+
+#main .getit > .nested_0 > .changes > ul > li > .block_0 {
+	background: url(../images/sprite32.png) -69px -20px;
+	display: block;
+	height: 18px;
+	margin: 0 15px 0 0;
+	width: 18px;
+}
+
+#main .getit > .nested_0 > .changes > ul > li > .text {
+	display: block;
+	float: left;
+	margin: -18px 0 0 33px;
+	padding: 3px 0 0 0;
+}
+
+#main .getit > .nested_0 > .changes > .see_all {
+	display: inline-block;
+	margin: 10px 0 0 43px;
+}
+
 

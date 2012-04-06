@@ -65,7 +65,7 @@
 </div>
 
 <div class="getit">
-	<div class="nested_0">
+	<div class="nested_0 clearfix">
 		<div class="releases">
 			<h2>download</h2>
 			<div class="nested_0">
@@ -106,6 +106,44 @@
 			<div class="block_3"></div>
 		</div>
 		<div class="changes">
+			<h2>Latest changes:</h2>
+			<div class="verinfo">
+				<span class="version">v 0.46</span>
+				Released: 2012/04/02
+			</div>
+			<ul>
+				<li>
+					<span class="block_0"></span>
+					<span class="text">Fix toggleFlag()</span>
+				</li>
+				<li>
+					<span class="block_0"></span>
+					<span class="text">Add @click event (as a clone of mouseUp, for now)</span>
+				</li>
+				<li>
+					<span class="block_0"></span>
+					<span class="text">Various small fixes</span>
+				</li>
+				<li>
+					<span class="block_0"></span>
+					<span class="text">Add tree change notification</span>
+				</li>
+				<li>
+					<span class="block_0"></span>
+					<span class="text">Add tree change notification and some other stuff that will make this line very long</span>
+				</li>
+				<li>
+					<span class="block_0"></span>
+					<span class="text">Various small fixes</span>
+				</li>
+				<li class="clear"></li>
+			</ul>
+
+			<a href="#" class="see_all button_std go">
+				<span class="header"></span>
+				<span class="content"><span class="block_0"></span>See all</span>
+				<span class="footer"></span>
+			</a>
 		</div>
 	</div>
 </div>
