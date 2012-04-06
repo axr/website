@@ -59,12 +59,21 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	/**
 	 * Load a tweet for the latest tweet box
 	 */
-	$.getJSON('http://api.twitter.com/1/statuses/user_timeline.json?count=1&include_rts=t&screen_name=axrproject&callback=?', function (tweet) {
-		var timestamp = Math.floor((new Date(tweet[0].created_at)).getTime() / 1000);
-		var time = formatDateAgo(timestamp);
+	$.getJSON('http://api.twitter.com/1/statuses/user_timeline.json?count=10&include_rts=t&screen_name=axrproject&callback=?', function (tweets) {
+		for (var i = 0, c = tweets.length; i < c; i++) {
+			if (tweets[i].text[0] == '@')
+			{
+				continue;
+			}
 
-		$(".last_tweet > .tweet_container")
-			.html(beautifyTweet(tweet[0].text) + ' &mdash; ' + time);
+			var timestamp = Math.floor((new Date(tweets[i].created_at)).getTime() / 1000);
+			var time = formatDateAgo(timestamp);
+
+			$(".last_tweet > .tweet_container")
+				.html(beautifyTweet(tweets[i].text) + ' &mdash; ' + time);
+
+			break;
+		}
 	});
 
 	/**
