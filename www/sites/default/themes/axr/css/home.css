@@ -1,4 +1,5 @@
-#main {
+#main
+{
 	padding: 0 0 35px 0px;
 }
 
@@ -73,38 +74,44 @@
 	float: left;
 }
 
-@media (max-width: 1050px) {
-  #main > .above_fold > .nested_0 > .slides
-  {
-	left: 20px;
-  }
+@media (max-width: 1050px)
+{
+	#main > .above_fold > .nested_0 > .slides
+	{
+		left: 20px;
+  	}
 }
 
-@media (max-width: 990px) {
-  #main > .above_fold > .nested_0 > .slides
-  {
-	left: 10px;
-  }
+@media (max-width: 990px)
+{
+	#main > .above_fold > .nested_0 > .slides
+	{
+		left: 10px;
+  	}
 }
 
-#main .advantages {
+#main .advantages
+{
 	border-bottom: 1px solid #C2C2C2;
 	padding: 0 0 35px 20px;
 }
 
-#main .advantages > .nested_0 {
+#main .advantages > .nested_0
+{
 	margin: 0 auto;
 	position: relative;
 	width: 855px;
 }
 
-#main .advantages > .nested_0 > ul {
+#main .advantages > .nested_0 > ul
+{
 	margin: 0 0 20px 0;
 	padding: 0;
 	list-style: none;
 }
 
-#main .advantages > .nested_0 > ul > li {
+#main .advantages > .nested_0 > ul > li
+{
 	margin: 0;
 	float: left;
 	overflow: hidden;
@@ -112,7 +119,8 @@
 	width: 200px;
 }
 
-#main .advantages > .nested_0 > ul > li > span.block_0 {
+#main .advantages > .nested_0 > ul > li > span.block_0
+{
 	display: block;
 	width: 18px;
 	height: 18px;
@@ -121,14 +129,16 @@
 	margin: 0 10px 0 0;
 }
 
-#main .advantages > .nested_0 > ul > li > span.text {
+#main .advantages > .nested_0 > ul > li > span.text
+{
 	display: block;
 	float: left;
 	font-size: 13px;
 	margin: -18px 0 0 30px;
 }
 
-#main .advantages > .nested_0 > .learn_more {
+#main .advantages > .nested_0 > .learn_more
+{
 	float: right;
 	margin: 0 55px 0 0;
 	position: absolute;
@@ -137,22 +147,26 @@
 	width: 140px;
 }
 
-#main .advantages > .nested_0 > .learn_more > .content {
+#main .advantages > .nested_0 > .learn_more > .content
+{
 	text-indent: 20px;
 }
 
-#main .getit {
+#main .getit
+{
 	border-top: 1px solid #F2F2F2;
 }
 
-#main .getit > .nested_0 {
+#main .getit > .nested_0
+{
 	margin: 0 auto;
 	padding: 50px 0 0 20px;
 	position: relative;
 	width: 855px;
 }
 
-#main .getit > .nested_0 > .releases {
+#main .getit > .nested_0 > .releases
+{
 	background: url(../images/download_box_repeat_y.png) repeat-y;
 	float: left;
 	position: relative;
@@ -160,7 +174,8 @@
 	width: 301px;
 }
 
-#main .getit > .nested_0 > .releases > h2 {
+#main .getit > .nested_0 > .releases > h2
+{
 	background: url(../images/sprite_repeat_h.png) repeat-x 0 -442px;
 	color: #ffffff;
 	font-size: 20px;
@@ -172,7 +187,8 @@
 	text-shadow: #9b9b9b 0 1px 0;
 }
 
-#main .getit > .nested_0 > .releases > a.altos {
+#main .getit > .nested_0 > .releases > a.altos
+{
 	border-bottom: 1px solid #b5b5b5;
 	color: #666666;
 	display: block;
@@ -183,11 +199,13 @@
 	text-shadow: #e4e4e4 0 1px 0;
 }
 
-#main .getit > .nested_0 > .releases > a.altos:hover {
+#main .getit > .nested_0 > .releases > a.altos:hover
+{
 	text-decoration: underline;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 {
+#main .getit > .nested_0 > .releases > .nested_0
+{
 	background: #ffffff;
 	-webkit-background-clip: padding-box;
 	border: 1px solid #b6b6b6;
@@ -213,16 +231,19 @@
 	margin: 0 20px 5px 20px;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > .download {
+#main .getit > .nested_0 > .releases > .nested_0 > .download
+{
 	margin: 0 20px;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > .download .content {
+#main .getit > .nested_0 > .releases > .nested_0 > .download .content
+{
 	padding: 0 0 0 10px;
 	position: relative;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > .download .block_0 {
+#main .getit > .nested_0 > .releases > .nested_0 > .download .block_0
+{
 	background-position: -233px -54px;
 	height: 23px;
 	position: absolute;
@@ -231,26 +252,30 @@
 	width: 37px;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > .download .big {
+#main .getit > .nested_0 > .releases > .nested_0 > .download .big
+{
 	display: block;
 	font-size: 20px;
 	padding: 9px 0 3px 0;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > .download .version {
+#main .getit > .nested_0 > .releases > .nested_0 > .download .version
+{
 	color: #ffffff;
 	font-size: 12px;
 	text-shadow: #BC910E 0 1px 0;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > .download .for {
+#main .getit > .nested_0 > .releases > .nested_0 > .download .for
+{
 	color: #bf8300;
 	font-size: 11px;
 	padding: 0 0 0 5px;
 	text-shadow: #fae480 0 1px 0;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > a.older {
+#main .getit > .nested_0 > .releases > .nested_0 > a.older
+{
 	color: #999;
 	display: block;
 	font-size: 11px;
@@ -259,83 +284,97 @@
 	text-decoration: none;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > a.older:hover {
+#main .getit > .nested_0 > .releases > .nested_0 > a.older:hover
+{
 	text-decoration: underline;
 }
 
 #main .getit > .nested_0 > .releases > .block_0,
 #main .getit > .nested_0 > .releases > .block_1,
 #main .getit > .nested_0 > .releases > .block_2,
-#main .getit > .nested_0 > .releases > .block_3 {
+#main .getit > .nested_0 > .releases > .block_3
+{
 	background: url(../images/sprite.jpg);
 	position: absolute;
 	width: 6px;
 }
 
-#main .getit > .nested_0 > .releases > .block_0 {
+#main .getit > .nested_0 > .releases > .block_0
+{
 	background-position: -255px -601px;
 	height: 40px;
 	left: 0;
 	top: 0;
 }
 
-#main .getit > .nested_0 > .releases > .block_1 {
+#main .getit > .nested_0 > .releases > .block_1
+{
 	background-position: -261px -601px;
 	height: 40px;
 	right: 0;
 	top: 0;
 }
 
-#main .getit > .nested_0 > .releases > .block_2 {
+#main .getit > .nested_0 > .releases > .block_2
+{
 	background-position: -261px -641px;
 	bottom: 0;
 	height: 5px;
 	right: 0;
 }
 
-#main .getit > .nested_0 > .releases > .block_3 {
+#main .getit > .nested_0 > .releases > .block_3
+{
 	background-position: -255px -641px;
 	bottom: 0;
 	height: 5px;
 	left: 0;
 }
 
-#main .getit > .nested_0 > .changes {
+#main .getit > .nested_0 > .changes
+{
 	float: right;
 	width: 500px;
 }
 
-#main .getit > .nested_0 > .changes > h2 {
+#main .getit > .nested_0 > .changes > h2
+{
 	margin: 0 0 14px 0;
 }
 
-#main .getit > .nested_0 > .changes > .verinfo {
+#main .getit > .nested_0 > .changes > .verinfo
+{
 	color: #666666;
 	font-size: 14px;
 }
 
-#main .getit > .nested_0 > .changes > .verinfo .version {
+#main .getit > .nested_0 > .changes > .verinfo .version
+{
 	font-weight: bold;
 }
 
-#main .getit > .nested_0 > .changes > ul {
+#main .getit > .nested_0 > .changes > ul
+{
 	list-style: none;
 	margin: 10px 0 0 0;
 	padding: 0;
 }
 
-#main .getit > .nested_0 > .changes > ul > li {
+#main .getit > .nested_0 > .changes > ul > li
+{
 	clear: both;
 	padding: 5px 0;
 }
 
-#main .getit > .nested_0 > .changes > ul > li.clear {
+#main .getit > .nested_0 > .changes > ul > li.clear
+{
 	clear: both;
 	height: 0;
 	overflow: hidden;
 }
 
-#main .getit > .nested_0 > .changes > ul > li > .block_0 {
+#main .getit > .nested_0 > .changes > ul > li > .block_0
+{
 	background: url(../images/sprite32.png) -69px -20px;
 	display: block;
 	height: 18px;
@@ -343,14 +382,16 @@
 	width: 18px;
 }
 
-#main .getit > .nested_0 > .changes > ul > li > .text {
+#main .getit > .nested_0 > .changes > ul > li > .text
+{
 	display: block;
 	float: left;
 	margin: -18px 0 0 33px;
 	padding: 3px 0 0 0;
 }
 
-#main .getit > .nested_0 > .changes > .see_all {
+#main .getit > .nested_0 > .changes > .see_all
+{
 	display: inline-block;
 	margin: 10px 0 0 43px;
 }
