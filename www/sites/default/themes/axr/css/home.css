@@ -49,7 +49,7 @@
 
 #main .above_fold > .nested_0 > .intro > .manifesto
 {
-	margin-left: 20px;
+	float: right;
 }
 
 #main .above_fold > .nested_0 > .intro > .manifesto > .content > .block_0
@@ -89,7 +89,7 @@
 
 #main .advantages {
 	border-bottom: 1px solid #C2C2C2;
-	padding: 20px 0 35px 20px;
+	padding: 0 0 35px 20px;
 }
 
 #main .advantages > .nested_0 {

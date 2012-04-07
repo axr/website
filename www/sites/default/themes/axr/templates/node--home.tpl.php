@@ -3,7 +3,7 @@
 		<div class="intro">
 			<h2>AXR stands for Arbitrary XML Rendering. It's aim is to provide a better alternative to HTML+CSS</h2>
 			<p>It uses XML for the content and HSS for the design and simple behavior of the interface. HSS  is a language based on CSS, but offers many more advanced features, such as object orientation, rule nesting, expressions, references to other objects, modularization (code reuse), etc. JavaScript will be used as well for advanced behavior.</p>
-			<a href="get_involved.html" class="join button_std">
+			<a href="/get-involved" class="join button_std">
 				<span class="header"></span>
 				<span class="content">
 					<span class="block_0"></span>
@@ -12,7 +12,7 @@
 				</span>
 				<span class="footer"></span>
 			</a>
-			<a href="get_involved.html" class="manifesto button_std gray">
+			<a href="/about/manifesto" class="manifesto button_std gray">
 				<span class="header"></span>
 				<span class="content">
 					<span class="block_0"></span>
