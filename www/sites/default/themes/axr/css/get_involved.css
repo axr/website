@@ -26,7 +26,7 @@
 	float: left;
 	list-style: none;
 	margin: 0;
-	min-width: 200px;
+	min-width: 257px;
 	padding: 0;
 }
 #main .get_involved > .join_us > ul.we_need > li
@@ -52,7 +52,7 @@
 }
 #main .get_involved > .community
 {
-	margin: 50px 0 0 0;
+	margin: 25px 0 0 0;
 }
 #main .get_involved > .community > .forums
 {
