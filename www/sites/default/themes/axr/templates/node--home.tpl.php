@@ -103,7 +103,7 @@
 		</div>
 		<div class="changes">
 			<h2>Latest changes:</h2>
-			<?php $changelog = axr_get_changelog_short('2368d33f1ae0fd15a9866da0b32dd98ebab49e67'); ?>
+			<?php $changelog = axr_get_changelog_short(); ?>
 			<?php if ($latest !== null && $changelog !== null): ?>
 				<div class="verinfo">
 					<span class="version">v <?php echo $latest->version; ?></span>
