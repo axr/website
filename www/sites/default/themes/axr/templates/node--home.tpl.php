@@ -86,22 +86,13 @@
 						</span>
 						<span class="footer"></span>
 					</a>
+					<a class="older" href="http://files.axr.vg/prototype">looking for an older version?</a>
+					<h3>What am I downloading?</h3>
+					<p>This is a test app that runs on your computer, and
+					already does many of the cool features of HSS! It
+					includes tests and tutorials you can try out.</p>
 				<?php else: ?>
 					<strong>No downloads available for your operating system</strong>
-				<?php endif; ?>
-
-				<?php $olds = axr_get_releases(1, 3); ?>
-				<?php if (count($olds) > 0): ?>
-					<div class="olds">older releases</div>
-					<ul>
-						<?php foreach ($olds as $release): ?>
-							<li>
-								<span class="version">v <?php echo $release->version; ?></span>
-								<span class="date"><?php echo $release->date; ?></span>
-								<a class="download" href="<?php echo $release->url; ?>">Download</a>
-							</li>
-						<?php endforeach; ?>
-					</ul>
 				<?php endif; ?>
 			</div>
 			<a class="altos" href="/resources/downloads">need other operating system?</a>

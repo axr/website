@@ -200,6 +200,19 @@
 	text-align: left;
 }
 
+#main .getit > .nested_0 > .releases > .nested_0 > h3
+{
+	color: #666;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 10px 20px 10px 20px;
+}
+
+#main .getit > .nested_0 > .releases > .nested_0 > p
+{
+	margin: 0 20px 5px 20px;
+}
+
 #main .getit > .nested_0 > .releases > .nested_0 > .download {
 	margin: 0 20px;
 }
@@ -237,41 +250,17 @@
 	text-shadow: #fae480 0 1px 0;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > div.olds {
-	color: #666666;
+#main .getit > .nested_0 > .releases > .nested_0 > a.older {
+	color: #999;
+	display: block;
 	font-size: 11px;
-	font-weight: bold;
-	margin: 20px 0 5px 0;
+	padding: 5px 0;
 	text-align: center;
+	text-decoration: none;
 }
 
-#main .getit > .nested_0 > .releases > .nested_0 > ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-#main .getit > .nested_0 > .releases > .nested_0 > ul > li {
-	border-top: 1px solid #e2e2e2;
-	padding: 8px 20px;
-}
-
-#main .getit > .nested_0 > .releases > .nested_0 > ul > li > .version {
-	color: #666666;
-	display: inline-block;
-	font-size: 12px;
-	font-weight: bold;
-	text-shadow: #e4e4e4 0 1px 0;
-	width: 85px;
-}
-
-#main .getit > .nested_0 > .releases > .nested_0 > ul > li > a.download {
-	background: url(../images/sprite.jpg) -227px -644px;
-	display: inline-block;
-	float: right;
-	height: 20px;
-	text-indent: -9999px;
-	width: 20px;
+#main .getit > .nested_0 > .releases > .nested_0 > a.older:hover {
+	text-decoration: underline;
 }
 
 #main .getit > .nested_0 > .releases > .block_0,
