@@ -69,35 +69,40 @@
 		<div class="releases">
 			<h2>download</h2>
 			<div class="nested_0">
-				<a href="#" class="download button_big">
-					<span class="header"></span>
-					<span class="content">
-						<span class="big">Latest version:</span>
-						<span class="version">0.46 prototype</span>
-						<span class="for">for OSX</span>
-						<span class="block_0"></span>
-					</span>
-					<span class="footer"></span>
-				</a>
+				<?php
+					$releases = axr_get_releases(0, 1);
+					$latest = count($releases) > 0 ? $releases[0] : null;
+				?>
+				<?php if ($latest !== null): ?>
+					<a href="<?php echo $latest->url; ?>" class="download button_big">
+						<span class="header"></span>
+						<span class="content">
+							<span class="big">Latest version:</span>
+							<span class="version">
+								<?php echo $latest->version; ?> prototype
+							</span>
+							<span class="for">for <?php echo $latest->os_str; ?></span>
+							<span class="block_0"></span>
+						</span>
+						<span class="footer"></span>
+					</a>
+				<?php else: ?>
+					<strong>No downloads available for your operating system</strong>
+				<?php endif; ?>
 
-				<div class="olds">older releases</div>
-				<ul>
-					<li>
-						<span class="version">v 0.45</span>
-						<span class="date">2012/03/21</span>
-						<a class="download" href="#">Download</a>
-					</li>
-					<li>
-						<span class="version">v 0.441</span>
-						<span class="date">2012/02/15</span>
-						<a class="download" href="#">Download</a>
-					</li>
-					<li>
-						<span class="version">v 0.44</span>
-						<span class="date">2012/01/01</span>
-						<a class="download" href="#">Download</a>
-					</li>
-				</ul>
+				<?php $olds = axr_get_releases(1, 3); ?>
+				<?php if (count($olds) > 0): ?>
+					<div class="olds">older releases</div>
+					<ul>
+						<?php foreach ($olds as $release): ?>
+							<li>
+								<span class="version">v <?php echo $release->version; ?></span>
+								<span class="date"><?php echo $release->date; ?></span>
+								<a class="download" href="<?php echo $release->url; ?>">Download</a>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
 			</div>
 			<a class="altos" href="/resources/downloads">need other operating system?</a>
 			<div class="block_0"></div>
@@ -107,43 +112,32 @@
 		</div>
 		<div class="changes">
 			<h2>Latest changes:</h2>
-			<div class="verinfo">
-				<span class="version">v 0.46</span>
-				Released: 2012/04/02
-			</div>
-			<ul>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Fix toggleFlag()</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Add @click event (as a clone of mouseUp, for now)</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Various small fixes</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Add tree change notification</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Add tree change notification and some other stuff that will make this line very long</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Various small fixes</span>
-				</li>
-				<li class="clear"></li>
-			</ul>
+			<?php $changelog = axr_get_changelog_short('2368d33f1ae0fd15a9866da0b32dd98ebab49e67'); ?>
+			<?php if ($latest !== null && $changelog !== null): ?>
+				<div class="verinfo">
+					<span class="version">v <?php echo $latest->version; ?></span>
+					Released: <?php echo $latest->date; ?>
+				</div>
+				<ul>
+					<?php foreach ($changelog as $change): ?>
+						<li>
+							<span class="block_0"></span>
+							<span class="text"><?php echo $change; ?></span>
+						</li>
+					<?php endforeach; ?>
+					<li class="clear"></li>
+				</ul>
 
-			<a href="#" class="see_all button_std go">
-				<span class="header"></span>
-				<span class="content"><span class="block_0"></span>See all</span>
-				<span class="footer"></span>
-			</a>
+				<a href="/wiki/changelog" class="see_all button_std go">
+					<span class="header"></span>
+					<span class="content"><span class="block_0"></span>See all</span>
+					<span class="footer"></span>
+				</a>
+			<?php else: ?>
+				<div class="verinfo">
+					No changelog is currently available
+				</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>
