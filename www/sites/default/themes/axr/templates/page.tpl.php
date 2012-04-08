@@ -46,11 +46,11 @@
 				</li>
 				<li class="wiki">
 					<span class="arrow"></span>
-					<a href="/under-construction">Wiki</a>
+					<a href="/wiki">Wiki</a>
 					<div>
-						<a class="faq first" href="/under-construction">FAQ</a>
-						<a class="roadmap" href="/under-construction">Roadmap</a>
-						<a class="changelog last" href="/under-construction">Changelog</a>
+						<a class="faq first" href="/wiki/FAQ">FAQ</a>
+						<a class="roadmap" href="/wiki/Roadmap">Roadmap</a>
+						<a class="changelog last" href="/wiki/Changelog">Changelog</a>
 					</div>
 				</li>
 				<li class="blog"><a href="/blog">Blog</a></li>
