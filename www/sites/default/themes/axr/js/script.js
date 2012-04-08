@@ -134,7 +134,7 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 		$('.modal').hide().removeClass('hidden');
 
 		$('.modal').bind('show',function () {
-			$(this).fadeIn('slow');
+			$(this).fadeIn('fast');
 		});
 
 		$('.modal').bind('hide',function () {

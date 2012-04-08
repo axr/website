@@ -17,7 +17,7 @@
 					<div>
 						<a class="features first" href="/under-construction">Features</a>
 						<a class="manifesto" href="/under-construction">Manifesto</a>
-						<a class="medi_kit" href="/under-construction">Media Kit</a>
+						<a class="media_kit" href="/under-construction">Media Kit</a>
 						<a class="history last" href="/under-construction">History</a>
 					</div>
 				</li>
