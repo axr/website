@@ -35,7 +35,7 @@ function axr_get_os() {
  */
 function axr_get_arch() {
 	if (preg_match('/WOW64|x86_64|x64/', $_SERVER['HTTP_USER_AGENT'])) {
-		return 'x86_64';
+		return 'x86-64';
 	}
 
 	return 'x86';
@@ -85,7 +85,7 @@ function axr_get_releases($start = 0, $count = 1,
 			'date' => 'n/a',
 			'version' => $version,
 			'url' => 'http://files.axr.vg/prototype/'.$version.'-stable/'.
-				'axr_'.$os.'_'.$version.'_'.$arch.'.'.$ext[$os]
+				'axr_'.$version.'_'.$os.'_'.$arch.'.'.$ext[$os]
 ,
 			'os_str' => isset($oses[$os]) ? $oses[$os] : $os,
 			'sha' => $releases[$i]->sha
@@ -100,9 +100,10 @@ function axr_get_releases($start = 0, $count = 1,
 		$got++;
 	}
 
-	if (count($data) == 0 && $force_arch === null && $arch == 'x86-64')
+	if (count($data) == 0 && $force_arch === null)
 	{
-		$data = axr_get_releases($start, $count, $os, 'x86');
+		$data = axr_get_releases($start, $count, $os,
+			($arch == 'x86' ? 'x86-64' : 'x86'));
 	}
 	else if (count($data) == 0 && $os != 'win')
 	{
