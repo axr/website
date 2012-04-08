@@ -8,19 +8,28 @@ CREATE TABLE  `axr`.`downloads` (
 PRIMARY KEY (  `id` )
 ) ENGINE = MYISAM
 */
-define('filesfolder', '../../downloads');
+define('filesfolder', './');
 
-function sanity($filename) {
+mysql_connect('', '', '');
+mysql_select_db('');
+
+function sanity ($filename) {
 	return !preg_match('%(^|/)[.]+/%', $filename);
 }
 
 $file = $_GET['file'];
 if (sanity($file) && file_exists(filesfolder.$file)) {
-	//add mysql connect here
-	mysql_query('INSERT INTO downloads (filename,ip) VALUES ("'.mysql_real_escape_string($file).'","'.mysql_real_escape_string($_SERVER["REMOTE_ADDR"]).'")');
+	mysql_query('INSERT INTO downloads (filename,ip) VALUES ("'.
+		mysql_real_escape_string($file).'","'.
+		mysql_real_escape_string($_SERVER["REMOTE_ADDR"]).'")');
+
+	$finfo = finfo_open(FILEINFO_MIME_TYPE);
+
 	header('Content-Length: '.filesize(filesfolder.$file)); 
-	header('Content-Type: application/octet-stream'); 
+	header('Content-Type: '.finfo_file($finfo, filesfolder.$file)); 
 	readfile(filesfolder.$file);
 } else {
-	//a request to not existing file, should not happen as this file is only accessible via .htaccess
+	// A request to not existing file, should not happen as this file is only
+	// accessible via .htaccess
 }
+

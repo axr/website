@@ -3,3 +3,4 @@
 /deploy/server.properties
 /deploy/db/scripts
 !/deploy/db/scripts/initial.sql
+/www/wiki/LocalSettings.php

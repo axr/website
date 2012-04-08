@@ -1,6 +1,136 @@
 <?php
 
 /**
+ * Check, if release file exists
+ *
+ * @param string $url
+ */
+function axr_get_release_exists ($url)
+{
+	$url = str_replace('http://files.axr.vg/', '/var/dev/files/', $url);
+	return file_exists($url);
+}
+
+/**
+ * Detect user's OS.
+ *
+ * @return string osx|linux|win
+ */
+function axr_get_os() {
+	if (preg_match('/Mac/', $_SERVER['HTTP_USER_AGENT'])) {
+		return 'osx';
+	}
+
+	if (preg_match('/Linux/', $_SERVER['HTTP_USER_AGENT'])) {
+		return 'linux';
+	}
+
+	return 'win';
+}
+
+/**
+ * Get user's system architecture.
+ *
+ * @return string x86|x86-64
+ */
+function axr_get_arch() {
+	if (preg_match('/WOW64|x86_64|x64/', $_SERVER['HTTP_USER_AGENT'])) {
+		return 'x86_64';
+	}
+
+	return 'x86';
+}
+
+/**
+ * Get list of releases to display in the template.
+ *
+ * @param int $start
+ * @param int $count
+ * @param string $force_os
+ * @param string $force_arch
+ * @return mixed
+ */
+function axr_get_releases($start = 0, $count = 1,
+	$force_os = null, $force_arch = null) {
+	$oses = array(
+		'osx' => 'OSX',
+		'linux' => 'Linux',
+		'win' => 'Windows'
+	);
+
+	$ext = array(
+		'osx' => 'dmg',
+		'linux' => 'tar.gz',
+		'win' => 'zip'
+	);
+
+	$os = ($force_os !== null) ? $force_os : axr_get_os();
+	$arch = ($dorce_arch !== null) ? $force_arch : axr_get_arch();
+	$releases = unserialize(cache_get('axr:releases:raw')->data);
+	$data = array();
+
+	if ($releases === false) {
+		return array();
+	}
+
+	for ($i = $start; true; $i++)
+	{
+		if (!isset($releases[$i]) || $got >= $count)
+		{
+			break;
+		}
+
+		$version = $releases[$i]->version;
+		$release = (object) array(
+			'date' => 'n/a',
+			'version' => $version,
+			'url' => 'http://files.axr.vg/prototype/'.$version.'-stable/'.
+				'axr_'.$os.'_'.$version.'_'.$arch.'.'.$ext[$os]
+,
+			'os_str' => isset($oses[$os]) ? $oses[$os] : $os,
+			'sha' => $releases[$i]->sha
+		);
+
+		if (!axr_get_release_exists($release->url))
+		{
+			continue;
+		}
+
+		$data[] = $release;
+		$got++;
+	}
+
+	if (count($data) == 0 && $os != 'win')
+	{
+		$data = axr_get_releases($start, $count, 'win');
+	}
+
+	return $data;
+}
+
+/**
+ * Get short changelog
+ *
+ * @param string $sha
+ * @return string[]
+ */
+function axr_get_changelog_short($sha = null) {
+	if ($sha === null) {
+		$latest = axr_get_releases(0, 1);
+		
+		if (count($latest) == 0) {
+			return null;
+		}
+
+		$sha = $latest[0]->sha;
+	}
+
+	$changelog = unserialize(cache_get('axr:changelog_short:'.$sha)->data);
+
+	return ($changelog === false) ? null : $changelog;
+}
+
+/**
  * Allow themable breadcrumbs
  */
 function axr_breadcrumb($data) {

@@ -17,7 +17,7 @@
 					<div>
 						<a class="features first" href="/under-construction">Features</a>
 						<a class="manifesto" href="/under-construction">Manifesto</a>
-						<a class="medi_kit" href="/under-construction">Media Kit</a>
+						<a class="media_kit" href="/under-construction">Media Kit</a>
 						<a class="history last" href="/under-construction">History</a>
 					</div>
 				</li>
@@ -46,11 +46,11 @@
 				</li>
 				<li class="wiki">
 					<span class="arrow"></span>
-					<a href="/under-construction">Wiki</a>
+					<a href="/wiki">Wiki</a>
 					<div>
-						<a class="faq first" href="/under-construction">FAQ</a>
-						<a class="roadmap" href="/under-construction">Roadmap</a>
-						<a class="changelog last" href="/under-construction">Changelog</a>
+						<a class="faq first" href="/wiki/FAQ">FAQ</a>
+						<a class="roadmap" href="/wiki/Roadmap">Roadmap</a>
+						<a class="changelog last" href="/wiki/Changelog">Changelog</a>
 					</div>
 				</li>
 				<li class="blog"><a href="/blog">Blog</a></li>

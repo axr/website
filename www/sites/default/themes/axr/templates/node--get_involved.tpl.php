@@ -48,7 +48,7 @@
 				</li>
 			</ul>
 
-			<a href="under_construction.html" class="enter button_std gray2 go">
+			<a href="/under-construction" class="enter button_std gray2 go">
 				<span class="header"></span>
 				<span class="content">enter forums<span class="block_0"></span></span>
 				<span class="footer"></span>

@@ -3,7 +3,7 @@
 		<div class="intro">
 			<h2>AXR stands for Arbitrary XML Rendering. It's aim is to provide a better alternative to HTML+CSS</h2>
 			<p>It uses XML for the content and HSS for the design and simple behavior of the interface. HSS  is a language based on CSS, but offers many more advanced features, such as object orientation, rule nesting, expressions, references to other objects, modularization (code reuse), etc. JavaScript will be used as well for advanced behavior.</p>
-			<a href="get_involved.html" class="join button_std">
+			<a href="/get-involved" class="join button_std">
 				<span class="header"></span>
 				<span class="content">
 					<span class="block_0"></span>
@@ -12,7 +12,7 @@
 				</span>
 				<span class="footer"></span>
 			</a>
-			<a href="get_involved.html" class="manifesto button_std gray">
+			<a href="/about/manifesto" class="manifesto button_std gray">
 				<span class="header"></span>
 				<span class="content">
 					<span class="block_0"></span>
@@ -676,35 +676,31 @@
 		<div class="releases">
 			<h2>download</h2>
 			<div class="nested_0">
-				<a href="#" class="download button_big">
-					<span class="header"></span>
-					<span class="content">
-						<span class="big">Latest version:</span>
-						<span class="version">0.46 prototype</span>
-						<span class="for">for OSX</span>
-						<span class="block_0"></span>
-					</span>
-					<span class="footer"></span>
-				</a>
-
-				<div class="olds">older releases</div>
-				<ul>
-					<li>
-						<span class="version">v 0.45</span>
-						<span class="date">2012/03/21</span>
-						<a class="download" href="#">Download</a>
-					</li>
-					<li>
-						<span class="version">v 0.441</span>
-						<span class="date">2012/02/15</span>
-						<a class="download" href="#">Download</a>
-					</li>
-					<li>
-						<span class="version">v 0.44</span>
-						<span class="date">2012/01/01</span>
-						<a class="download" href="#">Download</a>
-					</li>
-				</ul>
+				<?php
+					$releases = axr_get_releases(0, 1);
+					$latest = count($releases) > 0 ? $releases[0] : null;
+				?>
+				<?php if ($latest !== null): ?>
+					<a href="<?php echo $latest->url; ?>" class="download button_big">
+						<span class="header"></span>
+						<span class="content">
+							<span class="big">Latest version:</span>
+							<span class="version">
+								<?php echo $latest->version; ?> prototype
+							</span>
+							<span class="for">for <?php echo $latest->os_str; ?></span>
+							<span class="block_0"></span>
+						</span>
+						<span class="footer"></span>
+					</a>
+					<a class="older" href="http://files.axr.vg/prototype">looking for an older version?</a>
+					<h3>What am I downloading?</h3>
+					<p>This is a test app that runs on your computer, and
+					already does many of the cool features of HSS! It
+					includes tests and tutorials you can try out.</p>
+				<?php else: ?>
+					<strong>No downloads available for your operating system</strong>
+				<?php endif; ?>
 			</div>
 			<a class="altos" href="/resources/downloads">need other operating system?</a>
 			<div class="block_0"></div>
@@ -714,43 +710,32 @@
 		</div>
 		<div class="changes">
 			<h2>Latest changes:</h2>
-			<div class="verinfo">
-				<span class="version">v 0.46</span>
-				Released: 2012/04/02
-			</div>
-			<ul>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Fix toggleFlag()</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Add @click event (as a clone of mouseUp, for now)</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Various small fixes</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Add tree change notification</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Add tree change notification and some other stuff that will make this line very long</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Various small fixes</span>
-				</li>
-				<li class="clear"></li>
-			</ul>
+			<?php $changelog = axr_get_changelog_short(); ?>
+			<?php if ($latest !== null && $changelog !== null): ?>
+				<div class="verinfo">
+					<span class="version">v <?php echo $latest->version; ?></span>
+					Released: <?php echo $latest->date; ?>
+				</div>
+				<ul>
+					<?php foreach ($changelog as $change): ?>
+						<li>
+							<span class="block_0"></span>
+							<span class="text"><?php echo $change; ?></span>
+						</li>
+					<?php endforeach; ?>
+					<li class="clear"></li>
+				</ul>
 
-			<a href="#" class="see_all button_std go">
-				<span class="header"></span>
-				<span class="content"><span class="block_0"></span>See all</span>
-				<span class="footer"></span>
-			</a>
+				<a href="/wiki/changelog" class="see_all button_std go">
+					<span class="header"></span>
+					<span class="content"><span class="block_0"></span>See all</span>
+					<span class="footer"></span>
+				</a>
+			<?php else: ?>
+				<div class="verinfo">
+					No changelog is currently available
+				</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>
