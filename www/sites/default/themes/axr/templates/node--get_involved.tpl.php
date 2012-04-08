@@ -72,7 +72,7 @@
 					</div>
 
 					<div class="ircstatus">
-						Right now: <span>43</span> online
+						Right now: <span>x</span> online
 					</div>
 				</div>
 				<a href="http://webchat.freenode.net/?channels=axr" class="enter button_std gray2 go">
