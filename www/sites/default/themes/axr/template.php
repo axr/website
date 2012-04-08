@@ -65,7 +65,7 @@ function axr_get_releases($start = 0, $count = 1,
 	);
 
 	$os = ($force_os !== null) ? $force_os : axr_get_os();
-	$arch = ($dorce_arch !== null) ? $force_arch : axr_get_arch();
+	$arch = ($force_arch !== null) ? $force_arch : axr_get_arch();
 	$releases = unserialize(cache_get('axr:releases:raw')->data);
 	$data = array();
 
@@ -100,7 +100,11 @@ function axr_get_releases($start = 0, $count = 1,
 		$got++;
 	}
 
-	if (count($data) == 0 && $os != 'win')
+	if (count($data) == 0 && $force_arch === null && $arch == 'x86-64')
+	{
+		$data = axr_get_releases($start, $count, $os, 'x86');
+	}
+	else if (count($data) == 0 && $os != 'win')
 	{
 		$data = axr_get_releases($start, $count, 'win');
 	}
