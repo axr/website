@@ -188,6 +188,7 @@ function axr_preprocess_node(&$variables) {
 
 	// Load node-specific css files
 	drupal_add_css(path_to_theme() . '/css/' . $node->type . '.css');
+	drupal_add_js(path_to_theme() . '/js/' . $node->type . '.js');
 }
 
 /**
