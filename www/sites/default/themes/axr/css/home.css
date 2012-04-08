@@ -1,3 +1,194 @@
+/* @override http://axr.dev/sites/default/themes/axr/css/home.css?m0qmeg */
+
+.code_frame
+{
+	
+}
+
+.code_frame > h3
+{
+	margin-bottom: 0;
+}
+
+.code_frame > .wrapper
+{
+	margin-left: -6px;
+}
+
+.code_frame > .wrapper > .header
+{
+	height: 45px;
+	padding: 0 18px 0 59px;
+	position: relative;
+	margin-bottom: -35px;
+}
+
+.code_frame > .wrapper > .header > .header
+{
+	width: 59px;
+	height: 45px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -269px -600px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.code_frame > .wrapper > .header > .content
+{
+	height: 45px;
+	background-image: url(../images/sprite_repeat_h.png);
+	background-position: 0 -376px;
+}
+
+.code_frame > .wrapper > .header > .footer
+{
+	width: 18px;
+	height: 45px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -328px -600px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.code_frame > .wrapper > .content
+{
+	background: #272727;
+	background-image: url(../images/code_frame_left_repeat_y.png);
+	background-repeat: repeat-y;
+}
+
+.code_frame > .wrapper > .content > .nested_0
+{
+	background-image: url(../images/code_frame_right_repeat_y.png);
+	background-repeat: repeat-y;
+	background-position: right top;
+	overflow: hidden;
+}
+
+.code_frame .numbers
+{
+	float: left;
+	width: 50px;
+	padding: 10px;
+	line-height: 18px;
+	font-family: "Monaco", monospace;
+	position: relative;
+}
+
+.code_frame .numbers > span
+{
+	display: block;
+	margin-left: 20px;
+	margin-right: 20px;
+	text-align: right;
+}
+
+.code_frame code
+{
+	float: left;
+	white-space: pre;
+	padding: 10px;
+	line-height: 18px;
+	color: #abdaba;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: black 0 1px 0;
+	position: relative;
+}
+
+.code_frame code .selector
+{
+	color: white;
+}
+
+.code_frame code .comment
+{
+	color: #999999;
+}
+
+.code_frame code .property_name
+{
+	color: #72A1CE;
+}
+
+.code_frame code .numeric_value
+{
+	color: white;
+}
+
+.code_frame code .keyword
+{
+	color: #fda062;
+}
+
+.code_frame code .object_type
+{
+	color: #fd6c8e;
+}
+
+.code_frame code .object_name
+{
+	color: #B68CB2;
+}
+
+.code_frame code .function_name
+{
+	color: #fde22d;
+}
+
+.code_frame code .filter
+{
+	color: #6adb25;
+}
+
+.code_frame code .string
+{
+	color: #F44;
+}
+
+.code_frame code .instruction
+{
+	color: #1afafd;
+}
+
+.code_frame > .wrapper > .footer
+{
+	height: 19px;
+	padding: 0 18px 0 59px;
+	position: relative;
+	margin-top: -10px;
+}
+
+.code_frame > .wrapper > .footer > .header
+{
+	width: 59px;
+	height: 19px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -269px -645px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.code_frame > .wrapper > .footer > .content
+{
+	height: 19px;
+	background-image: url(../images/sprite_repeat_h.png);
+	background-position: 0 -421px;
+}
+
+.code_frame > .wrapper > .footer > .footer
+{
+	width: 18px;
+	height: 19px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -328px -645px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
 #main {
 	padding: 0 0 35px 0px;
 }
@@ -109,7 +300,11 @@
 	float: left;
 	overflow: hidden;
 	font-size: 1.2em;
-	width: 200px;
+	width: 230px;
+}
+
+#main .advantages > .nested_0 > ul > li.first {
+	width: 180px;
 }
 
 #main .advantages > .nested_0 > ul > li > span.block_0 {
@@ -128,6 +323,10 @@
 	margin: -18px 0 0 30px;
 }
 
+#main .advantages > .nested_0 > ul > li.first > span.text {
+	margin-right: 20px;
+}
+
 #main .advantages > .nested_0 > .learn_more {
 	float: right;
 	margin: 0 55px 0 0;
@@ -139,6 +338,160 @@
 
 #main .advantages > .nested_0 > .learn_more > .content {
 	text-indent: 20px;
+}
+
+#main .hss_features {
+	border-top: 1px solid #F2F2F2;
+	border-bottom: 1px solid #C2C2C2;
+	padding: 20px 0 35px 20px;
+}
+
+#main .hss_features > .nested_0 {
+	margin: 0 auto;
+	padding: 0 0 0 20px;
+	position: relative;
+	width: 855px;
+	overflow: hidden;
+}
+
+#main .hss_features > .nested_0 > .features_menu {
+	width: 225px;
+	float: left;
+	margin-left: -22px;
+	margin-right: 20px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > h2
+{
+	margin-left: 12px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .header {
+	height: 25px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -1px -600px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content {
+	background-image: url(../images/features_menu_repeat_y.png);
+	padding: 1px 0;
+	margin: 0;
+	list-style: none;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .footer {
+	height: 25px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -1px -640px;
+	margin-top: -10px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li {
+	margin: 0;
+	padding: 0 2px 0 20px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li:not(:last-child):not(.selected) > a:after {
+	display: block;
+	content: "";
+	height: 15px;
+	line-height: 30px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -1px -624px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li > a {
+	display: block;
+	color: #666666;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 1.1em;
+	margin-top: -7px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li > a:hover
+{
+	color: #BF8300;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li > a > .content {
+	display: block;
+	padding: 5px 0 10px 15px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a
+{
+	position: relative;
+	color: white;
+	text-shadow: #363636 0 -1px 0;
+	line-height: 43px;
+	margin: -13px 0 10px 0;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected:last-child > a
+{
+	margin-bottom: -5px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > span {
+	display: block;
+	height: 43px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .header {
+	width: 7px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -227px -600px;
+	position: absolute;
+	left: -7px;
+	top: -3px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .content {
+	background-image: url(../images/sprite_repeat_h.png);
+	background-position: 0 -490px;
+	background-repeat: repeat-x;
+	padding-top: 0;
+	padding-bottom: 0;
+	line-height: 45px;
+	position: relative;
+	top: -3px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .footer {
+	width: 19px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -234px -600px;
+	position: absolute;
+	right: -19px;
+	top: -3px;
+}
+
+#main .hss_features > .nested_0 > .features_menu > .content > h2 {
+	margin: 0;
+}
+
+#main .hss_features > .nested_0 > .features_content {
+	width: 520px;
+	float: left;
+	padding: 35px 50px 0 60px;
+}
+
+#main .hss_features > .nested_0 > .features_content > div {
+	visibility: hidden;
+	height: 0;
+	overflow: hidden;
+}
+
+#main .hss_features > .nested_0 > .features_content > .selected
+{
+	visibility: visible;
+	height: auto;
+	overflow: visible;
+}
+
+#main .hss_features > .nested_0 > .features_content > div > p {
+	font-size: 1.2em;
 }
 
 #main .getit {
