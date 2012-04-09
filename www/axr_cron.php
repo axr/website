@@ -66,10 +66,28 @@ function axr_cron_releases_raw() {
 
 		if (preg_match('/^refs\/tags\/(v([0-9.]+)\-stable)$/',
 				$response[$i]->ref, $match)) {
+
+			$ch = curl_init();
+
+			curl_setopt($ch, CURLOPT_URL,
+				'https://api.github.com/repos/AXR/Prototype/git/tags/'.
+				$response[$i]->object->sha);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+			$tag = json_decode(curl_exec($ch));
+			curl_close($ch);
+
+			if ($tag === null || $tag === false) {
+				$date = 0;
+			} else {
+				$date = strtotime($tag->tagger->date);
+			}
+
 			$tags[] = (object) array(
 				'version' => $match[2],
 				'tag' => $match[1],
 				'sha' => $response[$i]->object->sha,
+				'date' => $date
 			);
 
 			// Prepare the changelog

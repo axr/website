@@ -8,7 +8,7 @@
 function axr_get_release_exists ($url)
 {
 	$url = str_replace('http://files.axr.vg/', '/var/dev/files/', $url);
-	return file_exists($url);
+	return !file_exists($url);
 }
 
 /**
@@ -81,8 +81,11 @@ function axr_get_releases($start = 0, $count = 1,
 		}
 
 		$version = $releases[$i]->version;
+		$timestamp = $releases[$i]->date;
+
 		$release = (object) array(
-			'date' => 'n/a',
+			'date' => ((int) $timestamp == 0) ? 'n/a' :
+				gmdate('Y/m/d', $timestamp),
 			'version' => $version,
 			'url' => 'http://files.axr.vg/prototype/'.$version.'-stable/'.
 				'axr_'.$version.'_'.$os.'_'.$arch.'.'.$ext[$os]
