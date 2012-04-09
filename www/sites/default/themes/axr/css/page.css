@@ -1,0 +1,13 @@
+#main
+{
+	margin: auto;
+	padding: 30px 0 0 0;
+	width: 900px;
+}
+
+#main .node .content p {
+	font-size: 13px;
+	line-height: 1.7;
+	margin: 0 0 12px 0;
+}
+
