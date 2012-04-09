@@ -295,9 +295,13 @@ function axr_preprocess_page(&$variables) {
 function axr_preprocess_node(&$variables) {
 	$node = $variables['node'];
 
-	// Load node-specific css files
-	drupal_add_css(path_to_theme() . '/css/' . $node->type . '.css');
-	drupal_add_js(path_to_theme() . '/js/' . $node->type . '.js');
+	if (file_exists(path_to_theme() . '/css/' . $node->type . '.css')) {
+		drupal_add_css(path_to_theme() . '/css/' . $node->type . '.css');
+	}
+
+	if (file_exists(path_to_theme() . '/js/' . $node->type . '.js')) {
+		drupal_add_css(path_to_theme() . '/js/' . $node->type . '.js');
+	}
 }
 
 /**
