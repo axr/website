@@ -102,7 +102,7 @@ function axr_cron_releases_raw() {
 function axr_get_release_exists ($url)
 {
 	$url = str_replace('http://files.axr.vg/', '/var/dev/files/', $url);
-	return !file_exists($url);
+	return file_exists($url);
 }
 
 /**
