@@ -1,0 +1,4 @@
+<?php
+
+setcookie('drupal_sid', session_id(), 0, '/', null, false, true);
+
