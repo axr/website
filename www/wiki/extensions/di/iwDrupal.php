@@ -185,7 +185,9 @@ class IwDrupal {
 	public static function hook_UserLoadFromSession($user, &$result) {
 		$du = self::getDrupalUser();
 
-		if ($user->getID() == 0 && is_object($du)) {
+		if (is_object($du) && $user->getName() != $du->name) {
+			self::doLogin($du);
+		} else if ($user->getID() == 0 && is_object($du)) {
 			self::doLogin($du);
 		} else {
 			$user->doLogout();
