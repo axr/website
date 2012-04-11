@@ -199,7 +199,7 @@ function axr_preprocess_node(&$variables) {
 	}
 
 	if (file_exists(path_to_theme() . '/js/' . $node->type . '.js')) {
-		drupal_add_css(path_to_theme() . '/js/' . $node->type . '.js');
+		drupal_add_js(path_to_theme() . '/js/' . $node->type . '.js');
 	}
 }
 
