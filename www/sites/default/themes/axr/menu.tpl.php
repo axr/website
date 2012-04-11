@@ -27,9 +27,9 @@
 		<a href="/get-involved">Community</a>
 		<div>
 			<a class="get_involved first" href="/get-involved">Get involved</a>
-			<a class="chat" href="http://webchat.freenode.net/?channels=axr">Chat</a>
+			<a class="chat" href="http://webchat.freenode.net/?channels=axr" target="_blank">Chat</a>
 			<!-- <a class="forum" href="/under-construction">Forum</a> -->
-			<a class="github last" href="https://github.com/AXR">GitHub</a>
+			<a class="github last" href="https://github.com/AXR" target="_blank">GitHub</a>
 		</div>
 	</li>
 	<li class="wiki">
