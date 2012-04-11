@@ -48,7 +48,7 @@ class AxrBookTemplate extends MonoBookTemplate {
 	 * @access private
 	 */
 	public function execute() {
-		global $wgUser;
+		global $IP, $wgUser;
 
 		$this->skin = $this->data['skin'];
 
