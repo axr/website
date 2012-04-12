@@ -1,35 +1,35 @@
+<?php if (!defined('MEDIAWIKI')) { die('NO!'); } ?>
+
 <div id="container">
 	<header>
 		<a href="/" id="logo">AXR Project</a>
 		<div class="secondary">
-			<?php if ($user->uid == 0): ?>
-				<a class="login" href="/user/login"><span class="extra_0"></span><span class="extra_1">Login</span></a>
+			<?php if (!is_object($wgUser) || $wgUser->getID() == 0): ?>
+				<a class="login" href="<?php echo $this->getLinkLogin(); ?>">
+					<span class="extra_0"></span>
+					<span class="extra_1">Login</span>
+				</a>
+			<?php else: ?>
+				<a class="login" href="<?php echo $this->getLinkLogout(); ?>">
+					<span class="extra_0"></span>
+					<span class="extra_1">Logout</span>
+				</a>
 			<?php endif; ?>
-			<form action="/search/node" method="post" accept-charset="UTF-8">
-				<input type="search" placeholder="Search site" />
+			<form action="<?php $this->text('wgScript') ?>" method="post">
+				<input type='hidden' name="title" value="<?php $this->text('searchtitle') ?>"/>
+				<?php echo $this->makeSearchInput(array(
+					'type' => 'search',
+					'placeholder' => 'Search wiki')); ?>
 			</form>
 		</div>
 		<nav>
-			<?php include(drupal_get_path('theme', 'axr') . '/menu.tpl.php'); ?>
+			<?php include($IP.'/../sites/default/themes/axr/menu.tpl.php'); ?>
 		</nav>
 	</header>
 	<div class="fork_github"><a href="https://github.com/AXR/Prototype" target="_blank">Fork me on GitHub</a></div>
-	<div class="share">
-		<p class="label">Share me</p>
-		<ul>
-			<li class="twitter"><a href="https://twitter.com/intent/tweet?text=AXR%3A%20The%20web%2C%20done%20right%20%23axr%20%7C%20http%3A%2F%2Faxr.vg%20by%20%40AXRProject" title="Share this project on Twitter!">Twitter</a></li>
-			<li class="facebook"><a href="https://facebook.com/sharer.php?u=http%3A%2F%2Faxr.vg" title="Share this project on Facebook!">Facebook</a></li>
-			<li class="delicious"><a href="https://del.icio.us/posts/add?url=http%3A%2F%2Faxr.vg%2F&description=AXR%3A%20The%20web%2C%20done%20right" target='_blank' title="Delicious">Delicious</a></li>
-		</ul>
-	</div>
-	<div id="main" role="main">
-		<?php if (!$is_front && $breadcrumb): ?>
-			<nav id="breadcrumb">
-				<?php echo $breadcrumb; ?>
-			</nav>
-		<?php endif; ?>
 
-		<?php print render($page['content']); ?>
+	<div id="main" role="main">
+		<?php echo $this->content(); ?>
 	</div>
 
 	<footer>
@@ -68,4 +68,5 @@
 		</div>
 	</footer>
 </div>
+<script src="/sites/default/themes/axr/js/script.js"></script>
 
