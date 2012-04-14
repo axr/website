@@ -124,7 +124,7 @@ function axr_get_releases($start = 0, $count = 1,
 		{
 			if (!axr_get_release_exists($urls->{'x86-64'}))
 			{
-				unset($release->urls->$os{'x86-64'});
+				unset($release->urls->$os->{'x86-64'});
 			}
 
 			if (!axr_get_release_exists($urls->x86))
