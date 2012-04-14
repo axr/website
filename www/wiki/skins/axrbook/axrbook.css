@@ -6,12 +6,6 @@
 	width: 940px;
 }
 
-#container > footer h2 {
-	border-bottom: 0;
-	padding-bottom: 0;
-	padding-top: 0;
-}
-
 div#globalWrapper {
 	font-size: 13px;
 	position: relative;
@@ -19,40 +13,6 @@ div#globalWrapper {
 
 div#column-one {
 	padding-top: 0;
-}
-
-div#p-personal {
-	font-size: 13px;
-}
-
-div#content {
-	margin-top: 17px;
-}
-
-div#p-cactions {
-	top: -10px;
-	z-index: 12;
-}
-
-div#p-personal {
-	position: absolute;
-	right: 0;
-	top: -23px;
-}
-
-div#p-personal ul {
-	padding: 0;
-}
-
-div#p-personal ul li a:hover {
-	background: none;
-	text-decoration: underline;
-}
-
-
-div#p-navigation ul,
-div#p-tb ul {
-	padding-left: 20px;
 }
 
 div#footer {

@@ -14,7 +14,7 @@ require_once('MonoBook.php');
 /**
  * Inherit main code from SkinTemplate, set the CSS and template filter.
  */
-class SkinAxrBook extends SkinMonoBook {
+class SkinAxrBook extends SkinTemplate {
 	public $skinname = 'axrbook';
 	public $stylename = 'axrbook';
 	public $template = 'AxrBookTemplate';
@@ -23,8 +23,16 @@ class SkinAxrBook extends SkinMonoBook {
 	function setupSkinUserCss(OutputPage $out) {
 		parent::setupSkinUserCss($out);
 
+		$out->addStyle('axrbook/monobook.css', 'screen');
+
 		$out->addStyle('/sites/default/themes/axr/css/style.css', 'screen');
-		$out->addStyle('axrbook/axrbook.css', 'screen');	
+		$out->addStyle('axrbook/axrbook.css', 'screen');
+		
+		$out->addStyle('monobook/IE50Fixes.css', 'screen', 'lt IE 5.5000');
+		$out->addStyle('monobook/IE55Fixes.css', 'screen', 'IE 5.5000');
+		$out->addStyle('monobook/IE60Fixes.css', 'screen', 'IE 6');
+		$out->addStyle('monobook/IE70Fixes.css', 'screen', 'IE 7');
+
 	}
 }
 
