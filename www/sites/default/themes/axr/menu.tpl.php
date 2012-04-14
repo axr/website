@@ -37,7 +37,7 @@
 		<a href="/wiki">Wiki</a>
 		<div>
 		    <a class="main first" href="/wiki">Main page</a>
-			<a class="faq" href="/wiki/FAQ">FAQ</a>
+			<a class="faq" href="/wiki/Faq">FAQ</a>
 			<a class="roadmap" href="/wiki/Roadmap">Roadmap</a>
 			<a class="changelog last" href="/wiki/Changelog">Changelog</a>
 		</div>
