@@ -66,8 +66,15 @@ function axr_get_releases($start = 0, $count = 1,
 
 	$os = ($force_os !== null) ? $force_os : axr_get_os();
 	$arch = ($force_arch !== null) ? $force_arch : axr_get_arch();
-	$releases = unserialize(cache_get('axr:releases:raw')->data);
 	$data = array();
+
+	$releases = cache_get('axr:releases:raw');
+
+	if (!is_object($releases)) {
+		return array();
+	}
+
+	$releases = unserialize($releases->data);
 
 	if ($releases === false) {
 		return array();
@@ -83,13 +90,27 @@ function axr_get_releases($start = 0, $count = 1,
 		$version = $releases[$i]->version;
 		$timestamp = $releases[$i]->date;
 
+		$url = 'http://files.axr.vg/prototype/'.$version.'-stable/axr_'.$version.'_';
+
 		$release = (object) array(
 			'date' => ((int) $timestamp == 0) ? 'n/a' :
 				gmdate('Y/m/d', $timestamp),
 			'version' => $version,
-			'url' => 'http://files.axr.vg/prototype/'.$version.'-stable/'.
-				'axr_'.$version.'_'.$os.'_'.$arch.'.'.$ext[$os]
-,
+			'url' => $url.$os.'_'.$arch.'.'.$ext[$os],
+			'urls' => (object) array(
+				'linux' => (object) array(
+					'x86-64' => $url.'linux_x86-64.'.$ext['linux'],
+					'x86' => $url.'linux_x86.'.$ext['linux']
+				),
+				'osx' => (object) array(
+					'x86-64' => $url.'osx_x86-64.'.$ext['osx'],
+					'x86' => $url.'osx_x86.'.$ext['osx']
+				),
+				'win' => (object) array(
+					'x86-64' => $url.'win_x86-64.'.$ext['win'],
+					'x86' => $url.'win_x86.'.$ext['win']
+				),
+			),
 			'os_str' => isset($oses[$os]) ? $oses[$os] : $os,
 			'sha' => $releases[$i]->sha
 		);
@@ -97,6 +118,19 @@ function axr_get_releases($start = 0, $count = 1,
 		if (!axr_get_release_exists($release->url))
 		{
 			continue;
+		}
+
+		foreach ($release->urls as $os => $urls)
+		{
+			if (!axr_get_release_exists($urls->{'x86-64'}))
+			{
+				unset($release->urls->$os->{'x86-64'});
+			}
+
+			if (!axr_get_release_exists($urls->x86))
+			{
+				unset($release->urls->$os->x86);
+			}
 		}
 
 		$data[] = $release;
