@@ -26,9 +26,14 @@
 							<li>
 								<a href="#"><span class="block_0 <?php echo $os; ?>"></span>download</a>
 								<ul class="archmenu">
+									<?php $count = 0; ?>
 									<?php foreach ($release->urls->$os as $arch => $url): ?>
+										<?php $count++; ?>
 										<li><a href="<?php echo $url; ?>"><?php echo isset($arches[$arch]) ? $arches[$arch] : $arch; ?></a></li>
 									<?php endforeach; ?>
+									<?php if ($count === 0): ?>
+										<li class="na">Not available</li>
+									<?php endif; ?>
 								</ul>
 							</li>
 						<?php endforeach; ?>

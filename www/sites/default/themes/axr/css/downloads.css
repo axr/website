@@ -126,6 +126,10 @@
 	padding: 0;
 }
 
+#main .downloads > .dtable > li > ul > li > .archmenu > li.na {
+	padding: 8px 20px;
+}
+
 #main .downloads > .dtable > li > ul > li > .archmenu > li > a {
 	color: #666;
 	display: block;
