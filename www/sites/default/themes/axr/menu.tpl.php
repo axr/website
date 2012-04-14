@@ -1,7 +1,7 @@
 <ul id="menu">
 	<li class="about">
 		<span class="arrow"></span>
-		<a href="/under-construction">About</a>
+		<a href="/about/features">About</a>
 		<div>
 			<a class="features first" href="/about/features">Features</a>
 			<a class="manifesto last" href="/about/manifesto">Manifesto</a>
@@ -14,7 +14,7 @@
 		</li>
 	<li class="resources">
 		<span class="arrow"></span>
-		<a href="/under-construction">Resources</a>
+		<a href="/downloads">Resources</a>
 		<div>
 			<a class="downloads first" href="/downloads">Downloads</a>
 			<!-- <a class="examples" href="/under-construction">Examples</a> -->
@@ -36,7 +36,8 @@
 		<span class="arrow"></span>
 		<a href="/wiki">Wiki</a>
 		<div>
-			<a class="faq first" href="/wiki/FAQ">FAQ</a>
+		    <a class="main first" href="/wiki">Main page</a>
+			<a class="faq" href="/wiki/FAQ">FAQ</a>
 			<a class="roadmap" href="/wiki/Roadmap">Roadmap</a>
 			<a class="changelog last" href="/wiki/Changelog">Changelog</a>
 		</div>
