@@ -678,6 +678,21 @@ input::-webkit-input-placeholder
 {
 	background-position: -26px -1px;
 }
+.button_std.go > .content
+{
+	padding: 0 0 0 10px;
+}
+.button_std.go > .content > .block_0
+{
+	display: block;
+	width: 17px;
+	height: 17px;
+	float: right;
+	margin: 10px 2px 0 8px;
+	background-image: url(../images/sprite32.png);
+	background-position: -90px -21px;
+}
+
 .button_std.gray
 {
 	color: #7A7A7A;
@@ -707,25 +722,25 @@ input::-webkit-input-placeholder
 {
 	background-position: -60px -1px;
 }
-.button_std.go
+.button_std.gray2.go
 {
 	color: #7A7A7A;
 	height: 31px;
 	text-shadow: #E3E3E3 0 1px 0;
 }
-.button_std.go > .header
+.button_std.gray2.go > .header
 {
 	background-position: -193px -29px;
 	height: 31px;
 }
-.button_std.go > .content
+.button_std.gray2.go > .content
 {
 	background-position: 0 -153px;
 	height: 31px;
 	line-height: 30px;
 	text-align: center;
 }
-.button_std.go > .content > .block_0
+.button_std.gray2.go > .content > .block_0
 {
 	display: block;
 	width: 13px;
@@ -735,25 +750,23 @@ input::-webkit-input-placeholder
 	background-image: url(../images/sprite32.png);
 	background-position: -220px -62px;
 }
-.button_std.go > .footer
+.button_std.gray2.go > .footer
 {
 	background-position: -201px -29px;
 	height: 31px;
 }
-.button_std.go:hover > .header
+.button_std.gray2.go:hover > .header
 {
 	background-position: -210px -29px;
 }
-.button_std.go:hover > .content
+.button_std.gray2.go:hover > .content
 {
 	background-position: 0 -185px;
 }
-.button_std.go:hover > .footer
+.button_std.gray2.go:hover > .footer
 {
 	background-position: -218px -29px;
 }
-
-
 
 .button_big, .button_big:visited, .button_big:active
 {
@@ -1045,28 +1058,60 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 }
 footer > .activity > .last_tweet
 {
-	background-image: url("../images/sprite.jpg");
-	background-position: -311px -99px;
-	height: 129px;
-	left: 180px;
-	position: absolute;
-	top: 25px;
-	width: 346px;
+	padding:0;
+	margin:0
 }
-footer > .activity > .last_tweet > p
+.last_tweet li
 {
-	margin: 14px 0 0 90px;
+	list-style-type:none;
+	position:absolute;
 	text-shadow: 0 1px 0 #EBEBEB;
-	width: 233px;
 }
-footer > .activity > .last_tweet > p.follow_us
+.last_tweet .tweet_container
 {
-	color: #939393;
-	bottom: 16px;
+	z-index:1;
+	margin:1px 0 0 75px;
+	height:59px;
+	width:223px;
+	padding:12px 118px;
+	color: #606060;
 	font-weight: bold;
-	left: 0;
-	position: absolute;
-	text-align: center;
+	font-size: 0.89em;
+	word-wrap:break-word;
+	overflow:hidden;
+	text-overflow: -o-ellipsis-lastline;
+	border:1px solid;
+	border-color: #E1E1E1 #E1E1E1 #BEBEBE #E1E1E1;
+	-moz-border-radius: 8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+}
+.last_tweet .follow_us {
+        width:261px;
+        margin-left:74px;
+        text-align:center;
+	color: #939393;
+	font-weight: bold;
+        background:#D3D3D3;
+        border:1px solid #BEBEBE;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;      
+}
+.last_tweet .follow_us span {
+        margin-top:85px;
+        display:block;
+        height:36px;
+        line-height:36px;
+        border:1px solid #E1E1E1;
+        -moz-border-radius: 0 0 8px 8px;
+        -webkit-border-radius: 0 0 8px 8px;
+        border-radius: 0 0 8px 8px;      
+}
+.last_tweet img {
+        position:absolute;
+        z-index:2;
+        margin-top:12px;
 }
 footer > .activity > .participate
 {
@@ -1119,6 +1164,93 @@ footer > .activity > .copy > p > a
 footer > .activity > .copy > p > a:hover
 {
 	text-decoration: underline;
+}
+
+body.page-user-login #breadcrumb
+{
+	clear: both;
+	width:  900px;
+	margin: 0 auto;
+}
+
+body.page-user-login #user-login > div
+{
+	width:  540px;
+	margin: 40px auto 40px;
+	padding: 40px;
+	background-color: #D9D9D9;
+	border-radius: 10px
+}
+
+body.page-user-login #user-login > div
+{
+	width:  540px;
+	margin: 40px auto 40px;
+	padding: 40px;
+	background-color: #D9D9D9;
+	border-radius: 10px;
+	text-shadow: white 0 1px 0;
+}
+
+body.page-user-login #user-login > div > .form-item-name
+{
+	padding-bottom: 30px;
+}
+
+body.page-user-login #user-login > div > div > label
+{
+	display: block;
+	width:  250px;
+	height: 1.5em;
+	font-size: 1.1em;
+	margin-right: 30px;
+	text-align: right;
+	font-weight: bold;
+	color: #8C8C8C;
+}
+
+body.page-user-login #user-login > div > div > label .form-required
+{
+	color: #F00;
+}
+
+body.page-user-login #user-login > div > .form-type-textfield > input,
+body.page-user-login #user-login > div > .form-type-password > input
+{
+	float: right;
+	width: 240px;
+	height: 30px;
+	margin-top: -1em;
+	display: block;
+	border: 1px solid #B3B3B3;
+	border-radius: 4px;
+	box-shadow: #ECECEC 0 1px 0, #ECECEC 0 -1px 0;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+body.page-user-login #user-login > div > #edit-actions
+{
+	padding: 20px 0 5px;
+}
+
+body.page-user-login #user-login > div > #edit-actions > input
+{
+	float: right;
+	width: 100px;
+	margin-right: 2px;
+	
+}
+
+body.page-user-login #user-login > div > div > .description
+{
+	display: block;
+	width:  250px;
+	height: 30px;
+	font-size: 1.1em;
+	margin-right: 30px;
+	text-align: right;
+	color: #8C8C8C;
 }
 
 /* =============================================================================

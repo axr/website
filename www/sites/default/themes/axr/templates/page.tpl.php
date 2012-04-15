@@ -6,55 +6,11 @@
 				<a class="login" href="/user/login"><span class="extra_0"></span><span class="extra_1">Login</span></a>
 			<?php endif; ?>
 			<form action="/search/node" method="post" accept-charset="UTF-8">
-				<input type="search" placeholder="Search" />
+				<input type="search" placeholder="Search site" />
 			</form>
 		</div>
 		<nav>
-			<ul id="menu">
-				<li class="about">
-					<span class="arrow"></span>
-					<a href="/under-construction">About</a>
-					<div>
-						<a class="features first" href="/under-construction">Features</a>
-						<a class="manifesto" href="/under-construction">Manifesto</a>
-						<a class="medi_kit" href="/under-construction">Media Kit</a>
-						<a class="history last" href="/under-construction">History</a>
-					</div>
-				</li>
-				<li class="specification">
-					<a href="http://spec.axr.vg/specification.html">Specification</a>
-					</li>
-				<li class="resources">
-					<span class="arrow"></span>
-					<a href="/under-construction">Resources</a>
-					<div>
-						<a class="downloads first" href="/">Downloads</a>
-						<a class="examples" href="/under-construction">Examples</a>
-						<a class="tutorials" href="/under-construction">Tutorials</a>
-						<a class="documentation last" href="/under-construction">Documentation</a>
-					</div>
-				</li>
-				<li class="community">
-					<span class="arrow"></span>
-					<a href="/get-involved">Community</a>
-					<div>
-						<a class="get_involved first" href="/get-involved">Get involved</a>
-						<a class="chat" href="http://webchat.freenode.net/?channels=axr">Chat</a>
-						<a class="forum" href="/under-construction">Forum</a>
-						<a class="github last" href="https://github.com/AXR">GitHub</a>
-					</div>
-				</li>
-				<li class="wiki">
-					<span class="arrow"></span>
-					<a href="/under-construction">Wiki</a>
-					<div>
-						<a class="faq first" href="/under-construction">FAQ</a>
-						<a class="roadmap" href="/under-construction">Roadmap</a>
-						<a class="changelog last" href="/under-construction">Changelog</a>
-					</div>
-				</li>
-				<li class="blog"><a href="/blog">Blog</a></li>
-			</ul>
+			<?php include(drupal_get_path('theme', 'axr') . '/menu.tpl.php'); ?>
 		</nav>
 	</header>
 	<div class="fork_github"><a href="https://github.com/AXR/Prototype" target="_blank">Fork me on GitHub</a></div>
@@ -98,11 +54,12 @@
 					<li class="vimeo"><a href="https://vimeo.com/AXRProject/" title="Watch our videos on Vimeo" target="_blank">Vimeo</a></li>
 				 </ul>
 
-				 <div class="last_tweet">
-					<p class="tweet_container">Loading last tweet...</p>
-					<p class="follow_us">Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></p>
-				 </div>
-
+				 <ul class="last_tweet">
+					<li class="tweet_container">Loading last tweet...</li>
+					<li class="follow_us"><span>Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></span></p>
+					<img src="sites/default/themes/axr/images/bird.png" height="47" width="76">
+				 </ul>
+				 
 				 <div class="participate">
 					<h2>Participate</h2>
 					<p>AXR is an open source project, for everyone to benefit from. If you want to help, please join the <a href="https://groups.google.com/group/axr-main/">mailing list</a> and tell us what you think should happen next.</p>
@@ -112,4 +69,3 @@
 		</div>
 	</footer>
 </div>
-
