@@ -1064,28 +1064,60 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 }
 footer > .activity > .last_tweet
 {
-	background-image: url("../images/sprite.jpg");
-	background-position: -311px -99px;
-	height: 129px;
-	left: 180px;
-	position: absolute;
-	top: 25px;
-	width: 346px;
+	padding:0;
+	margin:0
 }
-footer > .activity > .last_tweet > p
+.last_tweet li
 {
-	margin: 14px 0 0 90px;
+	list-style-type:none;
+	position:absolute;
 	text-shadow: 0 1px 0 #EBEBEB;
-	width: 233px;
 }
-footer > .activity > .last_tweet > p.follow_us
+.last_tweet .tweet_container
 {
-	color: #939393;
-	bottom: 16px;
+	z-index:1;
+	margin:1px 0 0 75px;
+	height:59px;
+	width:223px;
+	padding:12px 118px;
+	color: #606060;
 	font-weight: bold;
-	left: 0;
-	position: absolute;
-	text-align: center;
+	font-size: 0.89em;
+	word-wrap:break-word;
+	overflow:hidden;
+	text-overflow: -o-ellipsis-lastline;
+	border:1px solid;
+	border-color: #E1E1E1 #E1E1E1 #BEBEBE #E1E1E1;
+	-moz-border-radius: 8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+}
+.last_tweet .follow_us {
+        width:261px;
+        margin-left:74px;
+        text-align:center;
+	color: #939393;
+	font-weight: bold;
+        background:#D3D3D3;
+        border:1px solid #BEBEBE;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;      
+}
+.last_tweet .follow_us span {
+        margin-top:85px;
+        display:block;
+        height:36px;
+        line-height:36px;
+        border:1px solid #E1E1E1;
+        -moz-border-radius: 0 0 8px 8px;
+        -webkit-border-radius: 0 0 8px 8px;
+        border-radius: 0 0 8px 8px;      
+}
+.last_tweet img {
+        position:absolute;
+        z-index:2;
+        margin-top:12px;
 }
 footer > .activity > .participate
 {
