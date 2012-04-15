@@ -526,6 +526,13 @@ input::-webkit-input-placeholder
 }
 */
 
+#main
+{
+	margin: auto;
+	padding: 30px 0 0 0;
+	width: 900px;
+}
+
 #main > .above_fold > .nested_0 > .intro > p {
 	text-align: justify;
 }
