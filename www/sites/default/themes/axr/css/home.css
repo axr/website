@@ -17,6 +17,11 @@
 	z-index: 1;
 }
 
+#main .above_fold > .nested_0 > .intro > p
+{
+	text-align: justify;
+}
+
 #main .above_fold > .nested_0 > .intro > .button_std
 {
 	display: inline-block;
