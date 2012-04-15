@@ -1221,6 +1221,195 @@ body.page-user-login #user-login > div > div > .description
 	color: #8C8C8C;
 }
 
+.code_frame
+{
+	
+}
+
+.code_frame > h3
+{
+	margin-bottom: 0;
+}
+
+.code_frame > .wrapper
+{
+	margin-left: -6px;
+}
+
+.code_frame > .wrapper > .header
+{
+	height: 45px;
+	padding: 0 18px 0 59px;
+	position: relative;
+	margin-bottom: -35px;
+}
+
+.code_frame > .wrapper > .header > .header
+{
+	width: 59px;
+	height: 45px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -269px -600px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.code_frame > .wrapper > .header > .content
+{
+	height: 45px;
+	background-image: url(../images/sprite_repeat_h.png);
+	background-position: 0 -376px;
+}
+
+.code_frame > .wrapper > .header > .footer
+{
+	width: 18px;
+	height: 45px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -328px -600px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.code_frame > .wrapper > .content
+{
+	background: #272727;
+	background-image: url(../images/code_frame_left_repeat_y.png);
+	background-repeat: repeat-y;
+}
+
+.code_frame > .wrapper > .content > .nested_0
+{
+	background-image: url(../images/code_frame_right_repeat_y.png);
+	background-repeat: repeat-y;
+	background-position: right top;
+	overflow: hidden;
+}
+
+.code_frame .numbers
+{
+	float: left;
+	width: 50px;
+	padding: 10px;
+	line-height: 18px;
+	font-family: "Monaco", monospace;
+	position: relative;
+}
+
+.code_frame .numbers > span
+{
+	display: block;
+	margin-left: 20px;
+	margin-right: 20px;
+	text-align: right;
+}
+
+.code_frame code
+{
+	float: left;
+	white-space: pre;
+	padding: 10px;
+	line-height: 18px;
+	color: #abdaba;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: black 0 1px 0;
+	position: relative;
+}
+
+.code_frame code .selector
+{
+	color: white;
+}
+
+.code_frame code .comment
+{
+	color: #999999;
+}
+
+.code_frame code .property_name
+{
+	color: #72A1CE;
+}
+
+.code_frame code .numeric_value
+{
+	color: white;
+}
+
+.code_frame code .keyword
+{
+	color: #fda062;
+}
+
+.code_frame code .object_type
+{
+	color: #fd6c8e;
+}
+
+.code_frame code .object_name
+{
+	color: #B68CB2;
+}
+
+.code_frame code .function_name
+{
+	color: #fde22d;
+}
+
+.code_frame code .filter
+{
+	color: #6adb25;
+}
+
+.code_frame code .string
+{
+	color: #F44;
+}
+
+.code_frame code .instruction
+{
+	color: #1afafd;
+}
+
+.code_frame > .wrapper > .footer
+{
+	height: 19px;
+	padding: 0 18px 0 59px;
+	position: relative;
+	margin-top: -10px;
+}
+
+.code_frame > .wrapper > .footer > .header
+{
+	width: 59px;
+	height: 19px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -269px -645px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.code_frame > .wrapper > .footer > .content
+{
+	height: 19px;
+	background-image: url(../images/sprite_repeat_h.png);
+	background-position: 0 -421px;
+}
+
+.code_frame > .wrapper > .footer > .footer
+{
+	width: 18px;
+	height: 19px;
+	background-image: url(../images/sprite.jpg);
+	background-position: -328px -645px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
 /* =============================================================================
    Non-semantic helper classes
    Please define your styles before this section.
