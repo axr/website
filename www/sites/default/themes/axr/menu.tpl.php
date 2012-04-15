@@ -10,7 +10,7 @@
 		</div>
 	</li>
 	<li class="specification">
-		<a href="http://spec.axr.vg/specification.html">Specification</a>
+		<a href="/spec">Specification</a>
 		</li>
 	<li class="resources">
 		<span class="arrow"></span>
