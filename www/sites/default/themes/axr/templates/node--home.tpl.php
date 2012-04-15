@@ -702,7 +702,7 @@
 					<strong>No downloads available for your operating system</strong>
 				<?php endif; ?>
 			</div>
-			<a class="altos" href="/resources/downloads">need other operating system?</a>
+			<a class="altos" href="/downloads">need other operating system?</a>
 			<div class="block_0"></div>
 			<div class="block_1"></div>
 			<div class="block_2"></div>

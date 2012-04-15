@@ -4,6 +4,8 @@
 		<div class="secondary">
 			<?php if ($user->uid == 0): ?>
 				<a class="login" href="/user/login"><span class="extra_0"></span><span class="extra_1">Login</span></a>
+			<?php else: ?>
+				<a class="login" href="/user/logout"><span class="extra_0"></span><span class="extra_1">Logout</span></a>
 			<?php endif; ?>
 			<form action="/search/node" method="post" accept-charset="UTF-8">
 				<input type="search" placeholder="Search site" />

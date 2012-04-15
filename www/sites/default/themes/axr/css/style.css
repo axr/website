@@ -526,6 +526,13 @@ input::-webkit-input-placeholder
 }
 */
 
+#main
+{
+	margin: auto;
+	padding: 30px 0 0 0;
+	width: 900px;
+}
+
 #main > .above_fold > .nested_0 > .intro > p {
 	text-align: justify;
 }
@@ -1134,23 +1141,16 @@ footer > .activity > .copy > p > a:hover
 	text-decoration: underline;
 }
 
-body.page-user-login #breadcrumb
+body.page-user #breadcrumb
 {
 	clear: both;
-	width:  940px;
+	width:  900px;
 	margin: 0 auto;
 }
 
-body.page-user-login #user-login > div
-{
-	width:  540px;
-	margin: 40px auto 40px;
-	padding: 40px;
-	background-color: #D9D9D9;
-	border-radius: 10px
-}
-
-body.page-user-login #user-login > div
+body.page-user #user-login > div,
+body.page-user #user-pass > div,
+body.page-user #user-register-form > div
 {
 	width:  540px;
 	margin: 40px auto 40px;
@@ -1160,12 +1160,21 @@ body.page-user-login #user-login > div
 	text-shadow: white 0 1px 0;
 }
 
-body.page-user-login #user-login > div > .form-item-name
+body.page-user #user-register-form > div
+{
+	width: 700px;
+}
+
+body.page-user #user-login > div > .form-item-name,
+body.page-user #user-pass > div > .form-item-name,
+body.page-user #user-register-form > div > div > .form-item-name
 {
 	padding-bottom: 30px;
 }
 
-body.page-user-login #user-login > div > div > label
+body.page-user #user-login > div > div > label,
+body.page-user #user-pass > div > div > label,
+body.page-user #user-register-form > div > div > div > label
 {
 	display: block;
 	width:  250px;
@@ -1177,13 +1186,23 @@ body.page-user-login #user-login > div > div > label
 	color: #8C8C8C;
 }
 
-body.page-user-login #user-login > div > div > label .form-required
+body.page-user #user-register-form > div > div > div > label
+{
+	display: block;
+	width:  410px;
+}
+
+body.page-user #user-login > div > div > label .form-required,
+body.page-user #user-pass > div > div > label .form-required,
+body.page-user #user-register-form > div > div > div > label .form-required
 {
 	color: #F00;
 }
 
-body.page-user-login #user-login > div > .form-type-textfield > input,
-body.page-user-login #user-login > div > .form-type-password > input
+body.page-user #user-login > div > .form-type-textfield > input,
+body.page-user #user-login > div > .form-type-password > input,
+body.page-user #user-pass > div > .form-type-textfield > input,
+body.page-user #user-register-form > div > div > .form-type-textfield > input
 {
 	float: right;
 	width: 240px;
@@ -1197,23 +1216,28 @@ body.page-user-login #user-login > div > .form-type-password > input
 	padding-right: 5px;
 }
 
-body.page-user-login #user-login > div > #edit-actions
+body.page-user #user-login > div > #edit-actions,
+body.page-user #user-pass > div > #edit-actions,
+body.page-user #user-register-form > div > #edit-actions
 {
 	padding: 20px 0 5px;
 }
 
-body.page-user-login #user-login > div > #edit-actions > input
+body.page-user #user-login > div > #edit-actions > input,
+body.page-user #user-pass > div > #edit-actions > input,
+body.page-user #user-register-form > div > #edit-actions > input
 {
 	float: right;
-	width: 100px;
 	margin-right: 2px;
 	
 }
 
-body.page-user-login #user-login > div > div > .description
+body.page-user #user-login > div > div > .description,
+body.page-user #user-pass > div > div > .description,
+body.page-user #user-register-form > div > div > div > .description
 {
 	display: block;
-	width:  250px;
+	width: 250px;
 	height: 30px;
 	font-size: 1.1em;
 	margin-right: 30px;
@@ -1408,6 +1432,12 @@ body.page-user-login #user-login > div > div > .description
 	position: absolute;
 	right: 0;
 	top: 0;
+
+
+body.page-user #user-register-form > div > div > div > .description
+{
+	display: block;
+	width: 410px;
 }
 
 /* =============================================================================
