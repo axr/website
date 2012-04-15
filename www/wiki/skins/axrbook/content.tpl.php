@@ -61,7 +61,7 @@
 				</div>
 			<?php endif; ?>
 
-			<img src="http://axrvg.sygise.aragnis.com/wiki/skins/common/images/poweredby_mediawiki_88x31.png" class="poweredby" />
+			<img src="/wiki/skins/common/images/poweredby_mediawiki_88x31.png" class="poweredby" />
 			<br style="clear: both" />
 		</div>
 	</div>
