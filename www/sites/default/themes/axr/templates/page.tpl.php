@@ -56,12 +56,11 @@
 					<li class="vimeo"><a href="https://vimeo.com/AXRProject/" title="Watch our videos on Vimeo" target="_blank">Vimeo</a></li>
 				 </ul>
 
-				 <ul class="last_tweet">
-					<li class="tweet_container">Loading last tweet...</li>
-					<li class="follow_us"><span>Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></span></p>
-					<img src="sites/default/themes/axr/images/bird.png" height="47" width="76">
-				 </ul>
-				 
+				 <div class="last_tweet">
+					<p class="tweet_container">Loading last tweet...</p>
+					<p class="follow_us">Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></p>
+				 </div>
+
 				 <div class="participate">
 					<h2>Participate</h2>
 					<p>AXR is an open source project, for everyone to benefit from. If you want to help, please join the <a href="https://groups.google.com/group/axr-main/">mailing list</a> and tell us what you think should happen next.</p>
@@ -71,3 +70,4 @@
 		</div>
 	</footer>
 </div>
+
