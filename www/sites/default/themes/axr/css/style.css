@@ -1325,6 +1325,7 @@ body.page-user #user-profile-form .form-item .description
 body.page-user #user-profile-form .password-suggestions,
 body.page-user #user-profile-form .password-strength,
 body.page-user #user-profile-form .form-item div.password-confirm,
+body.page-user #user-profile-form #edit-picture,
 body.page-user #user-profile-form fieldset legend
 {
 	display: none !important;
