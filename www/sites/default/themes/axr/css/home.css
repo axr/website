@@ -1,4 +1,6 @@
-#main {
+#main
+{
+
 	padding: 50px 0 35px 0px;
 }
 
@@ -123,7 +125,9 @@
 	width: 230px;
 }
 
-#main .advantages > .nested_0 > ul > li.first {
+#main .advantages > .nested_0 > ul > li.first
+{
+
 	width: 180px;
 }
 
@@ -145,7 +149,9 @@
 	margin: -18px 0 0 30px;
 }
 
-#main .advantages > .nested_0 > ul > li.first > span.text {
+#main .advantages > .nested_0 > ul > li.first > span.text
+{
+
 	margin-right: 20px;
 }
 
@@ -164,13 +170,17 @@
 	text-indent: 20px;
 }
 
-#main .hss_features {
+#main .hss_features
+{
+
 	border-top: 1px solid #F2F2F2;
 	border-bottom: 1px solid #C2C2C2;
 	padding: 20px 0 35px 20px;
 }
 
-#main .hss_features > .nested_0 {
+#main .hss_features > .nested_0
+{
+
 	margin: 0 auto;
 	padding: 0 0 0 20px;
 	position: relative;
@@ -178,7 +188,9 @@
 	overflow: hidden;
 }
 
-#main .hss_features > .nested_0 > .features_menu {
+#main .hss_features > .nested_0 > .features_menu
+{
+
 	width: 225px;
 	float: left;
 	margin-left: -22px;
@@ -190,32 +202,42 @@
 	margin-left: 12px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .header {
+#main .hss_features > .nested_0 > .features_menu > .header
+{
+
 	height: 25px;
 	background-image: url(../images/sprite.jpg);
 	background-position: -1px -600px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content {
+#main .hss_features > .nested_0 > .features_menu > .content
+{
+
 	background-image: url(../images/features_menu_repeat_y.png);
 	padding: 1px 0;
 	margin: 0;
 	list-style: none;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .footer {
+#main .hss_features > .nested_0 > .features_menu > .footer
+{
+
 	height: 25px;
 	background-image: url(../images/sprite.jpg);
 	background-position: -1px -640px;
 	margin-top: -10px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > li {
+#main .hss_features > .nested_0 > .features_menu > .content > li
+{
+
 	margin: 0;
 	padding: 0 2px 0 20px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > li:not(:last-child):not(.selected) > a:after {
+#main .hss_features > .nested_0 > .features_menu > .content > li:not(:last-child):not(.selected) > a:after
+{
+
 	display: block;
 	content: "";
 	height: 15px;
@@ -224,7 +246,9 @@
 	background-position: -1px -624px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > li > a {
+#main .hss_features > .nested_0 > .features_menu > .content > li > a
+{
+
 	display: block;
 	color: #666666;
 	font-weight: bold;
@@ -238,7 +262,9 @@
 	color: #BF8300;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > li > a > .content {
+#main .hss_features > .nested_0 > .features_menu > .content > li > a > .content
+{
+
 	display: block;
 	padding: 5px 0 10px 15px;
 }
@@ -257,12 +283,16 @@
 	margin-bottom: -5px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > span {
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > span
+{
+
 	display: block;
 	height: 43px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .header {
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .header
+{
+
 	width: 7px;
 	background-image: url(../images/sprite.jpg);
 	background-position: -227px -600px;
@@ -271,7 +301,9 @@
 	top: -3px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .content {
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .content
+{
+
 	background-image: url(../images/sprite_repeat_h.png);
 	background-position: 0 -490px;
 	background-repeat: repeat-x;
@@ -282,7 +314,9 @@
 	top: -3px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .footer {
+#main .hss_features > .nested_0 > .features_menu > .content > li.selected > a > .footer
+{
+
 	width: 19px;
 	background-image: url(../images/sprite.jpg);
 	background-position: -234px -600px;
@@ -291,17 +325,23 @@
 	top: -3px;
 }
 
-#main .hss_features > .nested_0 > .features_menu > .content > h2 {
+#main .hss_features > .nested_0 > .features_menu > .content > h2
+{
+
 	margin: 0;
 }
 
-#main .hss_features > .nested_0 > .features_content {
+#main .hss_features > .nested_0 > .features_content
+{
+
 	width: 520px;
 	float: left;
 	padding: 35px 50px 0 60px;
 }
 
-#main .hss_features > .nested_0 > .features_content > div {
+#main .hss_features > .nested_0 > .features_content > div
+{
+
 	visibility: hidden;
 	height: 0;
 	overflow: hidden;
@@ -314,11 +354,15 @@
 	overflow: visible;
 }
 
-#main .hss_features > .nested_0 > .features_content > div > p {
+#main .hss_features > .nested_0 > .features_content > div > p
+{
+
 	font-size: 1.2em;
 }
 
-#main .getit {
+#main .getit
+{
+
 	border-top: 1px solid #F2F2F2;
 }
 

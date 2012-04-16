@@ -5,13 +5,17 @@
 	width: 900px;
 }
 
-#main .downloads {
+#main .downloads
+{
+
 	margin: auto;
 	padding: 20px 0 0 0;
 	width: 806px;
 }
 
-#main .downloads > h2 {
+#main .downloads > h2
+{
+
 	border-bottom: 1px solid #d8d8d8;
 	color: #666;
 	font-size: 14px;
@@ -20,18 +24,24 @@
 	padding: 5px;
 }
 
-#main .downloads > .none {
+#main .downloads > .none
+{
+
 	padding: 10px 5px;
 }
 
-#main .downloads > .dtable {
+#main .downloads > .dtable
+{
+
 	font-size: 0;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-#main .downloads > .dtable > li {
+#main .downloads > .dtable > li
+{
+
 	background: #d8d8d8;
 	font-size: 13px;
 	height: 37px;
@@ -39,16 +49,22 @@
 	padding: 0;
 }
 
-#main .downloads > .dtable > li.head {
+#main .downloads > .dtable > li.head
+{
+
 	background: none;
 }
 
-#main .downloads > .dtable > li > .version {
+#main .downloads > .dtable > li > .version
+{
+
 	display: inline-block;
 	padding: 10px 20px;
 }
 
-#main .downloads > .dtable > li > ul {
+#main .downloads > .dtable > li > ul
+{
+
 	float: right;
 	font-size: 0;
 	list-style: none;
@@ -56,7 +72,9 @@
 	padding: 0;
 }
 
-#main .downloads > .dtable > li > ul > li {
+#main .downloads > .dtable > li > ul > li
+{
+
 	border-left: 1px solid #e5e5e5;
 	display: inline-block;
 	font-size: 13px;
@@ -66,13 +84,17 @@
 	z-index: auto;
 }
 
-#main .downloads > .dtable > li.head > ul > li {
+#main .downloads > .dtable > li.head > ul > li
+{
+
 	height: 27px;
 	padding: 10px 20px 0 20px;
 	width: 100px;
 }
 
-#main .downloads > .dtable > li > ul > li > a {
+#main .downloads > .dtable > li > ul > li > a
+{
+
 	color: #666;
 	display: block;
 	height: 27px;
@@ -80,11 +102,15 @@
 	text-decoration: none;
 }
 
-#main .downloads > .dtable > li > ul > li > a:hover {
+#main .downloads > .dtable > li > ul > li > a:hover
+{
+
 	text-decoration: underline;
 }
 
-#main .downloads > .dtable > li > ul > li > a > .block_0 {
+#main .downloads > .dtable > li > ul > li > a > .block_0
+{
+
 	background: url(../images/sprite32.png) no-repeat;
 	display: inline-block;
 	height: 16px;
@@ -92,23 +118,33 @@
 	width: 16px;
 }
 
-#main .downloads > .dtable > li > ul > li > a > .block_0.win {
+#main .downloads > .dtable > li > ul > li > a > .block_0.win
+{
+
 	background-position: -213px -90px;
 }
 
-#main .downloads > .dtable > li > ul > li > a > .block_0.osx {
+#main .downloads > .dtable > li > ul > li > a > .block_0.osx
+{
+
 	background-position: -231px -90px;
 }
 
-#main .downloads > .dtable > li > ul > li > a > .block_0.linux {
+#main .downloads > .dtable > li > ul > li > a > .block_0.linux
+{
+
 	background-position: -247px -90px;
 }
 
-#main .downloads > .dtable > li > ul > li:hover .archmenu {
+#main .downloads > .dtable > li > ul > li:hover .archmenu
+{
+
 	display: block;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu {
+#main .downloads > .dtable > li > ul > li > .archmenu
+{
+
 	background: #d8d8d8;
 	display: none;
 	left: 0;
@@ -121,16 +157,22 @@
 	z-index: 11;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu > li {
+#main .downloads > .dtable > li > ul > li > .archmenu > li
+{
+
 	margin: 0;
 	padding: 0;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu > li.na {
+#main .downloads > .dtable > li > ul > li > .archmenu > li.na
+{
+
 	padding: 8px 20px;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu > li > a {
+#main .downloads > .dtable > li > ul > li > .archmenu > li > a
+{
+
 	color: #666;
 	display: block;
 	padding: 8px 20px;
@@ -138,7 +180,9 @@
 	z-index: 11;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu > li > a:hover {
+#main .downloads > .dtable > li > ul > li > .archmenu > li > a:hover
+{
+
 	text-decoration: underline;
 }
 

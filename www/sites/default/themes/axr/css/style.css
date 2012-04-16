@@ -198,7 +198,9 @@ html, body
 {
 	min-width: 960px;
 }
-body {
+body
+{
+
 	background: url('../images/body_bg.png') repeat-x #e5e5e5;
 	color: #666666;
 	font-family: 'Century Gothic',Futura,Arial,sans-serif;
@@ -532,7 +534,9 @@ input::-webkit-input-placeholder
 	width: 900px;
 }
 
-#main > .above_fold > .nested_0 > .intro > p {
+#main > .above_fold > .nested_0 > .intro > p
+{
+
 	text-align: justify;
 }
 
@@ -1095,7 +1099,9 @@ footer > .activity > .last_tweet > .tweet_container
 	-webkit-border-radius: 8px 8px 0 0;
 	border-radius: 8px 8px 0 0;
 }
-footer > .activity > .last_tweet > .follow_us {
+footer > .activity > .last_tweet > .follow_us
+{
+
 	width: 261px;
 	margin-left: 74px;
 	text-align: center;
@@ -1117,7 +1123,9 @@ footer > .activity > .last_tweet .follow_us span {
 	-webkit-border-radius: 0 0 8px 8px;
 	border-radius: 0 0 8px 8px;
 }
-footer > .activity > .last_tweet img {
+footer > .activity > .last_tweet img
+{
+
 	position: absolute;
 	z-index: 2;
 	margin-top: 12px;
@@ -1132,14 +1140,18 @@ footer > .activity > .participate
 	width: 267px;
 	font-weight: bold;
 }
-footer > .activity > .participate > h2 {
+footer > .activity > .participate > h2
+{
+
 	color: white;
 	font-weight: bold;
 	margin: 10px 0 0 20px;
 	text-shadow: 0 1px 0 #666666;
 	width: 72px;
 }
-footer > .activity > .participate > p {
+footer > .activity > .participate > p
+{
+
 	color: white;
 	font-size: 0.89em;
 	margin: 16px 0 0 20px;
@@ -1178,7 +1190,7 @@ footer > .activity > .copy > p > a:hover
 body.page-user #breadcrumb
 {
 	clear: both;
-	width:  900px;
+	width: 900px;
 	margin: 0 auto;
 }
 
@@ -1186,7 +1198,7 @@ body.page-user #user-login > div,
 body.page-user #user-pass > div,
 body.page-user #user-register-form > div
 {
-	width:  540px;
+	width: 540px;
 	margin: 40px auto 40px;
 	padding: 40px;
 	background-color: #D9D9D9;
@@ -1211,7 +1223,7 @@ body.page-user #user-pass > div > div > label,
 body.page-user #user-register-form > div > div > div > label
 {
 	display: block;
-	width:  250px;
+	width: 250px;
 	height: 1.5em;
 	font-size: 1.1em;
 	margin-right: 30px;
@@ -1223,7 +1235,7 @@ body.page-user #user-register-form > div > div > div > label
 body.page-user #user-register-form > div > div > div > label
 {
 	display: block;
-	width:  410px;
+	width: 410px;
 }
 
 body.page-user #user-login > div > div > label .form-required,
@@ -1271,12 +1283,17 @@ body.page-user #user-pass > div > div > .description,
 body.page-user #user-register-form > div > div > div > .description
 {
 	display: block;
-	width: 410px;
+	width: 250px;
 	height: 30px;
 	font-size: 1.1em;
 	margin-right: 30px;
 	text-align: right;
 	color: #8C8C8C;
+}
+
+body.page-user #user-register-form > div > div > div > .description
+{
+	width: 410px;
 }
 
 .code_frame
@@ -1508,12 +1525,16 @@ body.page-user #user-register-form > div > div > div > .description
    Modify as content requires.
    ========================================================================== */
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 480px)
+{
+
   /* Style adjustments for viewports 480px and over go here */
 
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px)
+{
+
   /* Style adjustments for viewports 768px and over go here */
 
 }
@@ -1524,7 +1545,9 @@ body.page-user #user-register-form > div > div > div > .description
    Inlined to avoid required HTTP connection: www.phpied.com/delay-loading-your-print-css/
    ========================================================================== */
 
-@media print {
+@media print
+{
+
   * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: sanbeiji.com/archives/953 */
   a, a:visited { color: #444 !important; text-decoration: underline; }
   a[href]:after { content: " (" attr(href) ")"; }
