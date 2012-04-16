@@ -1330,6 +1330,23 @@ body.page-user #user-profile-form .form-item .description
 	color: #8C8C8C;
 }
 
+body.page-user #user-login .form-item .description a,
+body.page-user #user-pass .form-item .description a,
+body.page-user #user-register-form .form-item .description a,
+body.page-user #user-profile-form .form-item .description a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+body.page-user #user-login .form-item .description a:hover,
+body.page-user #user-pass .form-item .description a:hover,
+body.page-user #user-register-form .form-item .description a:hover,
+body.page-user #user-profile-form .form-item .description a:hover
+{
+	text-decoration: underline;
+}
+
 body.page-user #user-register-form .form-item .description,
 body.page-user #user-profile-form .form-item .description
 {
