@@ -228,12 +228,32 @@ function axr_preprocess_page(&$variables) {
 function axr_preprocess_node(&$variables) {
 	$node = $variables['node'];
 
-	if (file_exists(path_to_theme() . '/css/' . $node->type . '.css')) {
-		drupal_add_css(path_to_theme() . '/css/' . $node->type . '.css');
+	// Get URL alias
+	$alias = drupal_get_path_alias($_GET['q']);
+	$alias = str_replace('/', '_', $alias);
+	$alias = str_replace('-', '_', $alias);
+
+	// Construct suggestion
+	$variables['theme_hook_suggestions'][] = 'node__bp__'.$alias;
+
+	// Node type specific CSS
+	if (file_exists(path_to_theme() . '/css/node--' . $node->type . '.css')) {
+		drupal_add_css(path_to_theme() . '/css/node--' . $node->type . '.css');
 	}
 
-	if (file_exists(path_to_theme() . '/js/' . $node->type . '.js')) {
-		drupal_add_js(path_to_theme() . '/js/' . $node->type . '.js');
+	// Node type specific JS
+	if (file_exists(path_to_theme() . '/js/node--' . $node->type . '.js')) {
+		drupal_add_js(path_to_theme() . '/js/node--' . $node->type . '.js');
+	}
+	
+	// URL alias specific CSS
+	if (file_exists(path_to_theme() . '/css/node--bp--' . $alias . '.css')) {
+		drupal_add_css(path_to_theme() . '/css/node--bp--' . $alias . '.css');
+	}
+
+	// URL alias specific JS
+	if (file_exists(path_to_theme() . '/js/node--bp--' . $alias . '.js')) {
+		drupal_add_css(path_to_theme() . '/js/node--bp--' . $alias . '.js');
 	}
 }
 
