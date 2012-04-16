@@ -1279,6 +1279,14 @@ body.page-user #user-profile-form .form-item > select
 	padding-right: 5px;
 }
 
+body.page-user #user-login .form-item input.error,
+body.page-user #user-pass .form-item input.error,
+body.page-user #user-register .form-item input.error,
+body.page-user #user-profile-form .form-item input.error
+{
+	border-color: #8C2E0B;
+}
+
 body.page-user #user-profile-form .form-item > select
 {
 	width: 250px;

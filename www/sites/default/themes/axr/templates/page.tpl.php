@@ -31,6 +31,7 @@
 			</nav>
 		<?php endif; ?>
 
+		<?php echo isset($messages) ? $messages : ''; ?>
 		<?php print render($page['content']); ?>
 	</div>
 
