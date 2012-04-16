@@ -35,7 +35,7 @@
 			<h2>Forums</h2>
 			<ul>
 				<li>
-					<a>This is where forum titles will appear when implemented</a>
+					<a>This is where forums titles will appear when implemented</a>
 					<div class="info">by veosotano on 2011/12/17</div>
 				</li>
 				<li>

@@ -654,7 +654,7 @@
 <span class="comment">//to right</span>
 <span class="selector">qux</span>
 {
-   <span class="property_name">ontentAlignY</span>: <span class="keyword">middle</span>;
+   <span class="property_name">contentAlignY</span>: <span class="keyword">middle</span>;
    <span class="property_name">directionPrimary</span>: <span class="keyword">topToBottom</span>;
 }</code>
                             </div>
