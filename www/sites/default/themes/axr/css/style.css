@@ -1070,13 +1070,13 @@ footer > .activity > .last_tweet
 	left: 180px;
 	top: 26px;
 }
-footer > .activity > .last_tweet > p
+footer > .activity > .last_tweet > li
 {
-	margin: 14px 0 0 90px;
+	list-style-type: none;
+	position: absolute;
 	text-shadow: 0 1px 0 #EBEBEB;
-	width: 233px;
 }
-footer > .activity > .last_tweet > p.follow_us
+footer > .activity > .last_tweet > .tweet_container
 {
 	z-index:1;
 	margin:1px 0 0 75px;
@@ -1095,33 +1095,32 @@ footer > .activity > .last_tweet > p.follow_us
 	-webkit-border-radius: 8px 8px 0 0;
 	border-radius: 8px 8px 0 0;
 }
-footer > .activity > .last_tweet .follow_us {
+footer > .activity > .last_tweet > .follow_us {
 	width:261px;
 	margin-left:74px;
 	text-align:center;
 	color: #939393;
-	bottom: 16px;
 	font-weight: bold;
 	background:#D3D3D3;
 	border:1px solid #BEBEBE;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	border-radius: 8px;      
+	border-radius: 8px;     
 }
-footer > .activity > .last_tweet .follow_us span {
-        margin-top:85px;
-        display:block;
-        height:36px;
-        line-height:36px;
-        border:1px solid #E1E1E1;
-        -moz-border-radius: 0 0 8px 8px;
-        -webkit-border-radius: 0 0 8px 8px;
-        border-radius: 0 0 8px 8px;      
+footer > .activity > .last_tweet .follow_us span {  
+	margin-top:85px;
+	display:block;
+	height:36px;
+	line-height:36px;
+	border:1px solid #E1E1E1;
+	-moz-border-radius: 0 0 8px 8px;
+	-webkit-border-radius: 0 0 8px 8px;
+	border-radius: 0 0 8px 8px;
 }
 footer > .activity > .last_tweet img {
-        position:absolute;
-        z-index:2;
-        margin-top:12px;
+	position:absolute;
+	z-index:2;
+	margin-top:12px;
 }
 footer > .activity > .participate
 {
