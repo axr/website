@@ -617,3 +617,8 @@ a:hover
 	color: #666666;
 	text-decoration: none;
 }
+
+.modal_inner a:visited
+{
+	color: #765;
+}
