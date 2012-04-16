@@ -1196,7 +1196,8 @@ body.page-user #breadcrumb
 
 body.page-user #user-login > div,
 body.page-user #user-pass > div,
-body.page-user #user-register-form > div
+body.page-user #user-register-form > div,
+body.page-user #user-profile-form > div
 {
 	width: 540px;
 	margin: 40px auto 40px;
@@ -1206,21 +1207,26 @@ body.page-user #user-register-form > div
 	text-shadow: white 0 1px 0;
 }
 
-body.page-user #user-register-form > div
+body.page-user #user-register-form > div,
+body.page-user #user-profile-form > div
 {
 	width: 700px;
 }
 
-body.page-user #user-login > div > .form-item-name,
-body.page-user #user-pass > div > .form-item-name,
-body.page-user #user-register-form > div > div > .form-item-name
+body.page-user #user-login .form-item,
+body.page-user #user-pass .form-item,
+body.page-user #user-register-form .form-item,
+body.page-user #user-profile-form .form-item
 {
-	padding-bottom: 30px;
+	min-height: 34px;
+	margin: 0 0 1px 0;
+	padding-bottom: 6px;
 }
 
-body.page-user #user-login > div > div > label,
-body.page-user #user-pass > div > div > label,
-body.page-user #user-register-form > div > div > div > label
+body.page-user #user-login .form-item label,
+body.page-user #user-pass .form-item label,
+body.page-user #user-register-form .form-item label,
+body.page-user #user-profile-form .form-item label
 {
 	display: block;
 	width: 250px;
@@ -1232,24 +1238,29 @@ body.page-user #user-register-form > div > div > div > label
 	color: #8C8C8C;
 }
 
-body.page-user #user-register-form > div > div > div > label
+body.page-user #user-register-form .form-item label,
+body.page-user #user-profile-form .form-item label
 {
 	display: block;
 	width: 410px;
 }
 
-body.page-user #user-login > div > div > label .form-required,
-body.page-user #user-pass > div > div > label .form-required,
-body.page-user #user-register-form > div > div > div > label .form-required
+body.page-user #user-login .form-item label .form-required,
+body.page-user #user-pass .form-item label .form-required,
+body.page-user #user-register-form .form-item label .form-required,
+body.page-user #user-profile-form .form-item label .form-required
 {
 	color: #F00;
 }
 
-body.page-user #user-login > div > .form-type-textfield > input,
-body.page-user #user-login > div > .form-type-password > input,
-body.page-user #user-pass > div > .form-type-textfield > input,
-body.page-user #user-register-form > div > div > .form-type-textfield > input
+body.page-user #user-login .form-item > input,
+body.page-user #user-login .form-item > input,
+body.page-user #user-pass .form-item > input,
+body.page-user #user-register-form .form-item > input,
+body.page-user #user-profile-form .form-item > input,
+body.page-user #user-profile-form .form-item > select
 {
+	background: #fff;
 	float: right;
 	width: 240px;
 	height: 30px;
@@ -1262,38 +1273,66 @@ body.page-user #user-register-form > div > div > .form-type-textfield > input
 	padding-right: 5px;
 }
 
-body.page-user #user-login > div > #edit-actions,
-body.page-user #user-pass > div > #edit-actions,
-body.page-user #user-register-form > div > #edit-actions
+body.page-user #user-profile-form .form-item > select
 {
-	padding: 20px 0 5px;
+	width: 250px;
 }
 
-body.page-user #user-login > div > #edit-actions > input,
-body.page-user #user-pass > div > #edit-actions > input,
-body.page-user #user-register-form > div > #edit-actions > input
+body.page-user #user-profile-form .form-item > input[type=file]
+{
+	height: 26px;
+	padding-top: 4px;
+}
+
+body.page-user #user-login #edit-actions,
+body.page-user #user-pass #edit-actions,
+body.page-user #user-register-form #edit-actions,
+body.page-user #user-profile-form #edit-actions
 {
 	float: right;
+	padding: 5px 0 5px 0;
+}
+
+body.page-user #user-login #edit-actions > input,
+body.page-user #user-pass #edit-actions > input,
+body.page-user #user-register-form #edit-actions > input,
+body.page-user #user-profile-form #edit-actions > input,
+{
 	margin-right: 2px;
 	
 }
 
-body.page-user #user-login > div > div > .description,
-body.page-user #user-pass > div > div > .description,
-body.page-user #user-register-form > div > div > div > .description
+body.page-user #user-login .form-item .description,
+body.page-user #user-pass .form-item .description,
+body.page-user #user-register-form .form-item .description,
+body.page-user #user-profile-form .form-item .description
 {
 	display: block;
 	width: 250px;
-	height: 30px;
 	font-size: 1.1em;
 	margin-right: 30px;
+	padding: 0 0 20px 0;
 	text-align: right;
 	color: #8C8C8C;
 }
 
-body.page-user #user-register-form > div > div > div > .description
+body.page-user #user-register-form .form-item .description,
+body.page-user #user-profile-form .form-item .description
 {
 	width: 410px;
+}
+
+body.page-user #user-profile-form .password-suggestions,
+body.page-user #user-profile-form .password-strength,
+body.page-user #user-profile-form .form-item div.password-confirm,
+body.page-user #user-profile-form fieldset legend
+{
+	display: none !important;
+}
+
+body.page-user #user-profile-form .form-item-pass > .description
+{
+	margin-top: -20px;
 }
 
 .code_frame
