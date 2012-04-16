@@ -198,7 +198,9 @@ html, body
 {
 	min-width: 960px;
 }
-body {
+body
+{
+
 	background: url('../images/body_bg.png') repeat-x #e5e5e5;
 	color: #666666;
 	font-family: 'Century Gothic',Futura,Arial,sans-serif;
@@ -538,7 +540,9 @@ input::-webkit-input-placeholder
 	width: 900px;
 }
 
-#main > .above_fold > .nested_0 > .intro > p {
+#main > .above_fold > .nested_0 > .intro > p
+{
+
 	text-align: justify;
 }
 
@@ -1070,28 +1074,67 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 }
 footer > .activity > .last_tweet
 {
-	background-image: url("../images/sprite.jpg");
-	background-position: -311px -99px;
-	height: 129px;
+	padding: 0;
+	margin: 0;
+	position: absolute;
 	left: 180px;
-	position: absolute;
-	top: 25px;
-	width: 346px;
+	top: 26px;
 }
-footer > .activity > .last_tweet > p
+footer > .activity > .last_tweet > li
 {
-	margin: 14px 0 0 90px;
+	list-style-type: none;
+	position: absolute;
 	text-shadow: 0 1px 0 #EBEBEB;
-	width: 233px;
 }
-footer > .activity > .last_tweet > p.follow_us
+footer > .activity > .last_tweet > .tweet_container
 {
-	color: #939393;
-	bottom: 16px;
+	z-index: 1;
+	margin: 1px 0 0 75px;
+	height: 47px;
+	width: 223px;
+	padding: 18px;
+	color: #606060;
 	font-weight: bold;
-	left: 0;
-	position: absolute;
+	font-size: 0.9em;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: -o-ellipsis-lastline;
+	border: 1px solid;
+	border-color: #E1E1E1 #E1E1E1 #BEBEBE #E1E1E1;
+	-moz-border-radius: 8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+}
+footer > .activity > .last_tweet > .follow_us
+{
+
+	width: 261px;
+	margin-left: 74px;
 	text-align: center;
+	color: #939393;
+	font-weight: bold;
+	background: #D3D3D3;
+	border: 1px solid #BEBEBE;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;     
+}
+footer > .activity > .last_tweet .follow_us span {  
+	margin-top: 85px;
+	display: block;
+	height: 36px;
+	line-height: 36px;
+	border: 1px solid #E1E1E1;
+	-moz-border-radius: 0 0 8px 8px;
+	-webkit-border-radius: 0 0 8px 8px;
+	border-radius: 0 0 8px 8px;
+}
+footer > .activity > .last_tweet img
+{
+
+	position: absolute;
+	z-index: 2;
+	margin-top: 12px;
 }
 footer > .activity > .participate
 {
@@ -1103,14 +1146,18 @@ footer > .activity > .participate
 	width: 267px;
 	font-weight: bold;
 }
-footer > .activity > .participate > h2 {
+footer > .activity > .participate > h2
+{
+
 	color: white;
 	font-weight: bold;
 	margin: 10px 0 0 20px;
 	text-shadow: 0 1px 0 #666666;
 	width: 72px;
 }
-footer > .activity > .participate > p {
+footer > .activity > .participate > p
+{
+
 	color: white;
 	font-size: 0.89em;
 	margin: 16px 0 0 20px;
@@ -1149,15 +1196,16 @@ footer > .activity > .copy > p > a:hover
 body.page-user #breadcrumb
 {
 	clear: both;
-	width:  900px;
+	width: 900px;
 	margin: 0 auto;
 }
 
 body.page-user #user-login > div,
 body.page-user #user-pass > div,
-body.page-user #user-register-form > div
+body.page-user #user-register-form > div,
+body.page-user #user-profile-form > div
 {
-	width:  540px;
+	width: 540px;
 	margin: 40px auto 40px;
 	padding: 40px;
 	background-color: #D9D9D9;
@@ -1165,24 +1213,29 @@ body.page-user #user-register-form > div
 	text-shadow: white 0 1px 0;
 }
 
-body.page-user #user-register-form > div
+body.page-user #user-register-form > div,
+body.page-user #user-profile-form > div
 {
 	width: 700px;
 }
 
-body.page-user #user-login > div > .form-item-name,
-body.page-user #user-pass > div > .form-item-name,
-body.page-user #user-register-form > div > div > .form-item-name
+body.page-user #user-login .form-item,
+body.page-user #user-pass .form-item,
+body.page-user #user-register-form .form-item,
+body.page-user #user-profile-form .form-item
 {
-	padding-bottom: 30px;
+	min-height: 34px;
+	margin: 0 0 1px 0;
+	padding-bottom: 6px;
 }
 
-body.page-user #user-login > div > div > label,
-body.page-user #user-pass > div > div > label,
-body.page-user #user-register-form > div > div > div > label
+body.page-user #user-login .form-item label,
+body.page-user #user-pass .form-item label,
+body.page-user #user-register-form .form-item label,
+body.page-user #user-profile-form .form-item label
 {
 	display: block;
-	width:  250px;
+	width: 250px;
 	height: 1.5em;
 	font-size: 1.1em;
 	margin-right: 30px;
@@ -1191,24 +1244,29 @@ body.page-user #user-register-form > div > div > div > label
 	color: #8C8C8C;
 }
 
-body.page-user #user-register-form > div > div > div > label
+body.page-user #user-register-form .form-item label,
+body.page-user #user-profile-form .form-item label
 {
 	display: block;
-	width:  410px;
+	width: 410px;
 }
 
-body.page-user #user-login > div > div > label .form-required,
-body.page-user #user-pass > div > div > label .form-required,
-body.page-user #user-register-form > div > div > div > label .form-required
+body.page-user #user-login .form-item label .form-required,
+body.page-user #user-pass .form-item label .form-required,
+body.page-user #user-register-form .form-item label .form-required,
+body.page-user #user-profile-form .form-item label .form-required
 {
 	color: #F00;
 }
 
-body.page-user #user-login > div > .form-type-textfield > input,
-body.page-user #user-login > div > .form-type-password > input,
-body.page-user #user-pass > div > .form-type-textfield > input,
-body.page-user #user-register-form > div > div > .form-type-textfield > input
+body.page-user #user-login .form-item > input,
+body.page-user #user-login .form-item > input,
+body.page-user #user-pass .form-item > input,
+body.page-user #user-register-form .form-item > input,
+body.page-user #user-profile-form .form-item > input,
+body.page-user #user-profile-form .form-item > select
 {
+	background: #fff;
 	float: right;
 	width: 240px;
 	height: 30px;
@@ -1221,33 +1279,67 @@ body.page-user #user-register-form > div > div > .form-type-textfield > input
 	padding-right: 5px;
 }
 
-body.page-user #user-login > div > #edit-actions,
-body.page-user #user-pass > div > #edit-actions,
-body.page-user #user-register-form > div > #edit-actions
+body.page-user #user-profile-form .form-item > select
 {
-	padding: 20px 0 5px;
+	width: 250px;
 }
 
-body.page-user #user-login > div > #edit-actions > input,
-body.page-user #user-pass > div > #edit-actions > input,
-body.page-user #user-register-form > div > #edit-actions > input
+body.page-user #user-profile-form .form-item > input[type=file]
+{
+	height: 26px;
+	padding-top: 4px;
+}
+
+body.page-user #user-login #edit-actions,
+body.page-user #user-pass #edit-actions,
+body.page-user #user-register-form #edit-actions,
+body.page-user #user-profile-form #edit-actions
 {
 	float: right;
+	padding: 5px 0 5px 0;
+}
+
+body.page-user #user-login #edit-actions > input,
+body.page-user #user-pass #edit-actions > input,
+body.page-user #user-register-form #edit-actions > input,
+body.page-user #user-profile-form #edit-actions > input,
+{
 	margin-right: 2px;
 	
 }
 
-body.page-user #user-login > div > div > .description,
-body.page-user #user-pass > div > div > .description,
-body.page-user #user-register-form > div > div > div > .description
+body.page-user #user-login .form-item .description,
+body.page-user #user-pass .form-item .description,
+body.page-user #user-register-form .form-item .description,
+body.page-user #user-profile-form .form-item .description
 {
 	display: block;
 	width: 250px;
-	height: 30px;
 	font-size: 1.1em;
 	margin-right: 30px;
+	padding: 0 0 20px 0;
 	text-align: right;
 	color: #8C8C8C;
+}
+
+body.page-user #user-register-form .form-item .description,
+body.page-user #user-profile-form .form-item .description
+{
+	width: 410px;
+}
+
+body.page-user #user-profile-form .password-suggestions,
+body.page-user #user-profile-form .password-strength,
+body.page-user #user-profile-form .form-item div.password-confirm,
+body.page-user #user-profile-form #edit-picture,
+body.page-user #user-profile-form fieldset legend
+{
+	display: none !important;
+}
+
+body.page-user #user-profile-form .form-item-pass > .description
+{
+	margin-top: -20px;
 }
 
 .code_frame
@@ -1479,12 +1571,16 @@ body.page-user #user-register-form > div > div > div > .description
    Modify as content requires.
    ========================================================================== */
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 480px)
+{
+
   /* Style adjustments for viewports 480px and over go here */
 
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px)
+{
+
   /* Style adjustments for viewports 768px and over go here */
 
 }
@@ -1495,7 +1591,9 @@ body.page-user #user-register-form > div > div > div > .description
    Inlined to avoid required HTTP connection: www.phpied.com/delay-loading-your-print-css/
    ========================================================================== */
 
-@media print {
+@media print
+{
+
   * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: sanbeiji.com/archives/953 */
   a, a:visited { color: #444 !important; text-decoration: underline; }
   a[href]:after { content: " (" attr(href) ")"; }
