@@ -119,7 +119,7 @@
 		<ul class="last_tweet">
 			<li class="tweet_container">Loading last tweet...</li>
 			<li class="follow_us"><span>Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></span></li>
-			<img src="sites/default/themes/axr/images/bird.png" height="47" width="76">
+			<li class="bird"></li>
 		</ul>
 
 		<div class="box facebook">

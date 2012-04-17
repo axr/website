@@ -70,7 +70,7 @@
 {
 	width: 421px;
 	height: 297px;
-	background-image: url(../images/sprite.jpg);
+	background-image: url(../images/sprite.png);
 	background-position: -1px -280px;
 	margin-top: -8px;
 	margin-left: -20px;
@@ -206,7 +206,7 @@
 {
 
 	height: 25px;
-	background-image: url(../images/sprite.jpg);
+	background-image: url(../images/sprite.png);
 	background-position: -1px -600px;
 }
 
@@ -223,7 +223,7 @@
 {
 
 	height: 25px;
-	background-image: url(../images/sprite.jpg);
+	background-image: url(../images/sprite.png);
 	background-position: -1px -640px;
 	margin-top: -10px;
 }
@@ -242,7 +242,7 @@
 	content: "";
 	height: 15px;
 	line-height: 30px;
-	background-image: url(../images/sprite.jpg);
+	background-image: url(../images/sprite.png);
 	background-position: -1px -624px;
 }
 
@@ -294,7 +294,7 @@
 {
 
 	width: 7px;
-	background-image: url(../images/sprite.jpg);
+	background-image: url(../images/sprite.png);
 	background-position: -227px -600px;
 	position: absolute;
 	left: -7px;
@@ -318,7 +318,7 @@
 {
 
 	width: 19px;
-	background-image: url(../images/sprite.jpg);
+	background-image: url(../images/sprite.png);
 	background-position: -234px -600px;
 	position: absolute;
 	right: -19px;
@@ -503,7 +503,7 @@
 #main .getit > .nested_0 > .releases > .block_2,
 #main .getit > .nested_0 > .releases > .block_3
 {
-	background: url(../images/sprite.jpg);
+	background: url(../images/sprite.png);
 	position: absolute;
 	width: 6px;
 }
