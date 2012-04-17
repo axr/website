@@ -54,10 +54,11 @@
 					<li class="vimeo"><a href="https://vimeo.com/AXRProject/" title="Watch our videos on Vimeo" target="_blank">Vimeo</a></li>
 				 </ul>
 
-				 <div class="last_tweet">
-					<p class="tweet_container">Loading last tweet...</p>
-					<p class="follow_us">Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></p>
-				 </div>
+				 <ul class="last_tweet">
+					<li class="tweet_container">Loading last tweet...</li>
+					<li class="follow_us"><span>Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></span></li>
+					<img src="/sites/default/themes/axr/images/bird.png" height="47" width="76">
+				 </ul>
 
 				 <div class="participate">
 					<h2>Participate</h2>

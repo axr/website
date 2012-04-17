@@ -1,0 +1,224 @@
+.spec_in
+{
+	
+	font-family: "Century Gothic", "Futura", "Verdana", sans-serif;
+	margin: 30px auto;
+	color: #666;
+}
+
+.spec_in a[href^="#"],.spec_in  :local-link
+{
+	-moz-text-decoration-line: underline;
+	-moz-text-underline-style: dotted;
+}
+
+.spec_in .notice
+{
+	margin: 20px auto;
+	background-color: rgba(153,153,153,0.1);
+	padding: 20px;
+	border-radius: 15px
+}
+
+.spec_in .notice p
+{
+	margin: 5px 0;
+}
+
+.spec_in .notice strong
+{
+	color: red;
+}
+
+.spec_in p.center, .spec_in h1
+{
+	text-align: center;
+}
+
+.spec_in p > span
+{
+	background: #fef3c8;
+	padding: 0 2px;
+	border: 1px solid #dca992;
+	color: #b5471a;
+	border-radius: 2px;
+	font-family: monospace;
+}
+
+.spec_in code,.spec_in  pre
+{
+	background: #FEF3C8;
+	padding: 20px;
+	border: 1px solid #DCA992;
+	color: #B5471A;
+	border-radius: 2px;
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;
+}
+
+.spec_in p code
+{
+	padding: 0 2px;
+}
+
+.spec_in .comment
+{
+	color: #95877e;
+}
+
+.spec_in .selector
+{
+	color: #fd2f7a;
+}
+
+.spec_in .property
+{
+	color: #1b8a93;
+}
+
+.spec_in .filter
+{
+	color: #199013;
+}
+
+.spec_in .combinator
+{
+	color: #1e97f4;
+}
+
+.spec_in .object
+{
+	color: #933492;
+}
+
+.spec_in .number
+{
+	color: #2146fa;
+}
+
+.spec_in .string
+{
+	color: #fd2716;
+}
+
+.spec_in .value
+{
+}
+
+.spec_in .modifier
+{
+}
+
+.spec_in .instruction
+{
+}
+
+.spec_in .expression
+{
+}
+
+.spec_in .flag
+{
+}
+
+.spec_in pre .highlighted
+{
+	background-color: #fefefe;
+}
+
+.spec_in table
+{
+	width: 100%;
+	border: 1px solid #CCC;
+}
+
+.spec_in table th
+{
+	background-color: #CCC;
+	padding: 10px;
+}
+
+
+.spec_in table th:first-child
+{
+}
+
+.spec_in table td
+{
+	border: 1px solid #CCC;
+	text-align: left;
+	padding: 10px;
+}
+
+.spec_in pre.xml
+{
+	background-color: #d6fcd0;
+	border-color: #5bac80;
+	color: #498e68;
+}
+
+.spec_in ul,.spec_in  #spec ol
+{
+	list-style: inside;
+	line-height: 1.4;
+	margin: 10px;
+}
+
+.spec_in ul li,.spec_in  ol li
+{
+	color: #666666;
+}
+
+.spec_in nav li
+{
+	list-style: none;
+	font-size: small
+}
+
+.spec_in nav li li
+{
+	font-size: smaller
+}
+
+.spec_in nav > ul
+{
+	counter-reset: section;
+	background-color: #f5f7f6;
+	margin: 0 auto;
+	padding: 20px;
+	-moz-column-count: 2;
+	-moz-column-gap: 1em;
+	-webkit-column-count: 2;
+	-webkit-column-gap: 1em;
+	column-count: 2;
+	column-gap: 1em;
+	height: 565px;
+}
+
+.spec_in nav > ul > li
+{
+	counter-reset: subsection;
+}
+
+.spec_in nav > ul > li:before
+{
+	counter-increment:section;
+	content: "1." counter(section) " ";
+}
+
+.spec_in nav ul ul > li:before
+{
+	counter-increment: subsection;
+	content: "1." counter(section) "." counter(subsection) " ";
+}
+
+#btt {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	font-size: xx-small;
+}
+

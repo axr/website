@@ -60,7 +60,7 @@ function axr_cron_releases_raw() {
 	$tags = array();
 
 	for ($i = count($response), $got = 0; $i >= 0; $i--) {
-		if ($got >= 15) {
+		if ($got >= 15 || !isset($response[$i])) {
 			break;
 		}
 
