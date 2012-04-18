@@ -1072,7 +1072,8 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 {
 	background-position: -921px -353px;
 }
-footer > .activity > .last_tweet
+/* == LAST TWEET == */
+.last_tweet
 {
 	padding: 0;
 	margin: 0;
@@ -1080,13 +1081,13 @@ footer > .activity > .last_tweet
 	left: 180px;
 	top: 26px;
 }
-footer > .activity > .last_tweet > li
+.last_tweet > li
 {
 	list-style-type: none;
 	position: absolute;
 	text-shadow: 0 1px 0 #EBEBEB;
 }
-footer > .activity > .last_tweet > .tweet_container
+.last_tweet > .tweet_container
 {
 	z-index: 1;
 	margin: 1px 0 0 75px;
@@ -1105,7 +1106,7 @@ footer > .activity > .last_tweet > .tweet_container
 	-webkit-border-radius: 8px 8px 0 0;
 	border-radius: 8px 8px 0 0;
 }
-footer > .activity > .last_tweet > .follow_us
+.last_tweet > .follow_us
 {
 
 	width: 261px;
@@ -1119,7 +1120,8 @@ footer > .activity > .last_tweet > .follow_us
 	-webkit-border-radius: 8px;
 	border-radius: 8px;     
 }
-footer > .activity > .last_tweet .follow_us span {  
+.last_tweet > .follow_us > span
+{  
 	margin-top: 85px;
 	display: block;
 	height: 36px;
@@ -1129,13 +1131,15 @@ footer > .activity > .last_tweet .follow_us span {
 	-webkit-border-radius: 0 0 8px 8px;
 	border-radius: 0 0 8px 8px;
 }
-footer > .activity > .last_tweet img
+.last_tweet > .bird
 {
-
-	position: absolute;
-	z-index: 2;
-	margin-top: 12px;
+	background: url("../images/sprite32.png") no-repeat 0 -144px;
+	height: 47px;
+	width: 76px;
+	margin-top:12px;
+	z-index:2;
 }
+/* == LAST TWEET END == */
 footer > .activity > .participate
 {
 	background-image: url("../images/sprite.jpg");

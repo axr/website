@@ -116,24 +116,11 @@
 			<br style="clear: both" />
 		</div>
 
-		<div class="box twitter">
-			<div class="icon">
-				<div class="extra_0"></div>
-				<div class="extra_1"></div>
-			</div>
-			<div class="nested_0 last_tweet">
-				<div class="extra_0"></div>
-				<div class="inner tweet_container">
-					Loading last tweet...
-				</div>
-				<hr />
-				<div class="inner follow">
-					Follow us on Twitter: <a href="https://twitter.com/AXRProject">@AXRProject</a>
-				</div>
-				<div class="extra_1"></div>
-			</div>
-			<br style="clear: both" />
-		</div>
+		<ul class="last_tweet">
+			<li class="tweet_container">Loading last tweet...</li>
+			<li class="follow_us"><span>Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></span></li>
+			<li class="bird"></li>
+		</ul>
 
 		<div class="box facebook">
 			<div class="icon">
