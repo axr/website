@@ -1,0 +1,47 @@
+<?php
+
+function ajaxutil_menu () {
+	$items['search/json'] = array(
+		'page callback' => 'ajaxmenu_handle_search',
+		'access arguments' => array('search content'),
+	);
+
+	return $items;
+}
+
+function ajaxutil_handle_search () {
+	$response = array(
+		'status' => 0, // 0 = good | 1 = bad
+		'error' => null,
+		'error_msg' => null,
+		'payload' => null
+	);
+
+	try {
+		if (!isset($_GET['keys'])) {
+			$response['error'] = 'invalid_request';
+			throw new Exception();
+		}
+
+		$response['payload'] = array();
+		$results_raw = module_invoke('node', 'search_execute',
+			$_GET['keys'], 'intro');
+
+		foreach ($results_raw as $result) {
+			$response['payload'][] = array(
+				'link' => $result['link'],
+				'type' => $result['type'],
+				'score' => $result['score'],
+				'snippet' => $result['snippet'],
+				'node' => array(
+					'title' => $result['node']->title
+				)
+			);
+		}
+	} catch (Exception $e) {
+		$response['status'] = 1;
+	}
+
+	echo json_encode($response);
+}
+

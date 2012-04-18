@@ -1,0 +1,7 @@
+; $Id: $
+name = Ajax utilities
+description = AJAX API
+package = axr_ajax
+core = 7.x
+version = 1
+
