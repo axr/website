@@ -363,19 +363,11 @@ a:hover
 	border-top-color: #939393;
 	border-bottom-color: #cbcbcb;
 }
-#main .sidebar > .boxes > .box.twitter > .icon > .extra_0
+#main .sidebar > .boxes > .last_tweet
 {
-	background-position: -143px -101px;
-	height: 38px;
-	margin: 4px 0;
-	width: 55px;
+	position: static;
+	height: 153px;
 }
-#main .sidebar > .boxes > .box.twitter > .nested_0 > .inner.follow
-{
-	color: #7c7c7c;
-	padding: 0 20px;
-}
-
 #main .sidebar > .boxes > .box.facebook > .icon > .extra_0
 {
 	background-position: -3px -105px;
