@@ -234,7 +234,7 @@ header > #logo
 	display: block;
 	height: 230px;
 	width: 310px;
-	background: url('../images/sprite.png') no-repeat;
+	background: url('../images/sprite.jpg') no-repeat;
 	text-indent: -10000px;
 	float: left;
 }
@@ -247,7 +247,7 @@ header > nav
 	height: 49px;
 	float: left;
 	margin: 97px 0 0 3px;
-	background: url('../images/sprite.png');
+	background: url('../images/sprite.jpg');
 	background-position: -312px 0;
 }
 header > nav > ul
@@ -271,7 +271,7 @@ header > nav > ul > li > a
 header > nav > ul > li > a:hover,
 header > nav > ul > li:hover > a
 {
-	background: url('../images/sprite.png');
+	background: url('../images/sprite.jpg');
 	padding-right: 1px;
 }
 header > nav > ul > li.about
@@ -452,7 +452,7 @@ header .secondary a.login
 }
 header .secondary > a.login > .extra_0
 {
-	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.jpg);
 	background-position: -945px -354px;
 	display: block;
 	height: 18px;
@@ -576,7 +576,7 @@ input::-webkit-input-placeholder
 	position: absolute;
 	bottom: -70px;
 	right: 3px;
-	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.jpg);
 	background-position: -924px -470px;
 	text-indent: -999px;
 	overflow: hidden;
@@ -587,7 +587,7 @@ input::-webkit-input-placeholder
 	width: 48px;
 	height: 159px;
 	margin: 0;
-	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.jpg);
 	background-position: -874px -469px;
 	padding: 0;
 	list-style: none;
@@ -903,7 +903,7 @@ footer
 }
 footer > a
 {
-	background-image: url("../images/sprite.png");
+	background-image: url("../images/sprite.jpg");
 	background-position: -508px -353px;
 	display: block;
 	height: 116px;
@@ -938,7 +938,7 @@ footer > ul.technologies_used > li
 }
 footer > ul.technologies_used > li > a
 {
-	background-image: url("../images/sprite.png");
+	background-image: url("../images/sprite.jpg");
 	display: block;
 	overflow: hidden;
 	text-indent: -9999px;
@@ -1012,7 +1012,7 @@ footer > .activity
 }
 footer > .activity > form > a
 {
-	background-image: url("../images/sprite.png");
+	background-image: url("../images/sprite.jpg");
 	background-position: -831px -228px;
 	display: block;
 	height: 43px;
@@ -1028,7 +1028,7 @@ footer > .activity > form > a:hover
 }
 footer > .activity > .follow_us
 {
-	background-image: url("../images/sprite.png");
+	background-image: url("../images/sprite.jpg");
 	background-position: -624px -228px;
 	height: 77px;
 	left: -25px;
@@ -1058,7 +1058,7 @@ footer > .activity > .follow_us > li > a
 }
 footer > .activity > .follow_us > li > a:hover
 {
-	background-image: url("../images/sprite.png");
+	background-image: url("../images/sprite.jpg");
 }
 footer > .activity > .follow_us > li.twitter > a:hover
 {
@@ -1133,7 +1133,7 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 }
 .last_tweet > .bird
 {
-	background: url("../images/sprite.png") no-repeat -311px -99px;
+	background: url("../images/sprite32.png") no-repeat 0 -144px;
 	height: 47px;
 	width: 76px;
 	margin-top:12px;
@@ -1142,7 +1142,7 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 /* == LAST TWEET END == */
 footer > .activity > .participate
 {
-	background-image: url("../images/sprite.png");
+	background-image: url("../images/sprite.jpg");
 	background-position: -680px -99px;
 	height: 126px; left: 550px;
 	position: absolute;
@@ -1398,7 +1398,7 @@ body.page-user #user-profile-form .form-item-pass > .description
 {
 	width: 59px;
 	height: 45px;
-	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.jpg);
 	background-position: -269px -600px;
 	position: absolute;
 	left: 0;
@@ -1416,7 +1416,7 @@ body.page-user #user-profile-form .form-item-pass > .description
 {
 	width: 18px;
 	height: 45px;
-	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.jpg);
 	background-position: -328px -600px;
 	position: absolute;
 	right: 0;
@@ -1535,7 +1535,7 @@ body.page-user #user-profile-form .form-item-pass > .description
 {
 	width: 59px;
 	height: 19px;
-	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.jpg);
 	background-position: -269px -645px;
 	position: absolute;
 	left: 0;
@@ -1553,7 +1553,7 @@ body.page-user #user-profile-form .form-item-pass > .description
 {
 	width: 18px;
 	height: 19px;
-	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.jpg);
 	background-position: -328px -645px;
 	position: absolute;
 	right: 0;
