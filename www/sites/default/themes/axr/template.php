@@ -209,11 +209,10 @@ function axr_breadcrumb($data) {
  * As the name says: Preprocess html
  */
 function axr_preprocess_html(&$variables) {
-	$options = array(
-		'group' => JS_THEME,
-	);
+	$path = drupal_get_path('theme', 'axr');
 
-	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/script.js', $options);
+	drupal_add_js('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'external');
+	drupal_add_js($path.'/js/script.js', array('group' => JS_THEME));
 }
 
 /**
@@ -236,33 +235,35 @@ function axr_preprocess_node(&$variables) {
 	// Construct suggestion
 	$variables['theme_hook_suggestions'][] = 'node__bp__'.$alias;
 
+	$path = drupal_get_path('theme', 'axr');
+
 	// Node type specific CSS
-	if (file_exists(path_to_theme() . '/css/node--' . $node->type . '.css')) {
-		drupal_add_css(path_to_theme() . '/css/node--' . $node->type . '.css');
+	if (file_exists($path.'/css/node--'.$node->type.'.css')) {
+		drupal_add_css($path.'/css/node--'.$node->type.'.css', array(
+			'group' => CSS_THEME
+		));
 	}
 
 	// Node type specific JS
-	if (file_exists(path_to_theme() . '/js/node--' . $node->type . '.js')) {
-		drupal_add_js(path_to_theme() . '/js/node--' . $node->type . '.js');
+	if (file_exists($path.'/js/node--'.$node->type.'.js')) {
+		drupal_add_js($path.'/js/node--'.$node->type.'.js', array(
+			'group' => JS_THEME
+		));
 	}
 	
 	// URL alias specific CSS
-	if (file_exists(path_to_theme() . '/css/node--bp--' . $alias . '.css')) {
-		drupal_add_css(path_to_theme() . '/css/node--bp--' . $alias . '.css');
+	if (file_exists($path.'/css/node--bp--'.$alias.'.css')) {
+		drupal_add_css($path.'/css/node--bp--'.$alias.'.css', array(
+			'group' => CSS_THEME
+		));
 	}
 
 	// URL alias specific JS
-	if (file_exists(path_to_theme() . '/js/node--bp--' . $alias . '.js')) {
-		drupal_add_css(path_to_theme() . '/js/node--bp--' . $alias . '.js');
+	if (file_exists($path.'/js/node--bp--'.$alias.'.js')) {
+		drupal_add_js($path.'/js/node--bp--'.$alias.'.js', array(
+			'group' => JS_THEME
+		));
 	}
-}
-
-/**
- * Load newer jQuery.
- */
-function axr_js_alter(&$javascript) {
-	// Loading from a widely-used CDN is good for performance
-	$javascript['misc/jquery.js']['data'] = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
 }
 
 /**
