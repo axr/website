@@ -1,7 +1,7 @@
 <div class="search_results">
 	{{#results}}
 		<a class="title" href="{{link}}">{{node.title}}</a>
-		<p>{{snippet}}</p>
+		<p>{{{snippet}}}</p>
 	{{/results}}
 	{{#no_results}}
 		<p>There were no matches for query "{{query}}".</p>
