@@ -205,14 +205,6 @@ function axr_breadcrumb($data) {
 	return $html;
 }
 
-function axr_preprocess_search_results(&$variables) {
-	if (preg_match('/^\/search\/node[\?\/$]/', request_uri())) {
-		//drupal_add_js(drupal_get_path('theme', 'axr'). '/js/search.js');
-		//$variables['theme_hook_suggestions'][] = 'search_results';
-		//var_dump($variables['theme_hook_suggestions']);
-	}
-}
-
 /**
  * As the name says: Preprocess html
  */
@@ -222,6 +214,8 @@ function axr_preprocess_html(&$variables) {
 	);
 
 	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/script.js', $options);	
+	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/mustache.js', $options);
+	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/native.history.js', $options);
 	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/ajaxsite.js', $options);
 }
 

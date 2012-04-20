@@ -1,11 +1,8 @@
-window.Ajaxsite = {};
+window.Ajaxsite = window.Ajaxsite || {};
 
 (function (Ajaxsite)
 {
 	Ajaxsite = Ajaxsite || {};
-
-	Ajaxsite.autoloadPaths = Ajaxsite.autoloadPaths || [];
-	Ajaxsite.autoloadPaths.push(/^\/search\/node[\/\?$]/);
 
 	/**
 	 * The element where AJAX page will be loaded into
@@ -19,22 +16,31 @@ window.Ajaxsite = {};
 	{
 		Ajaxsite.$content = jQuery('#main');
 
-		var url = window.location.pathname.replace(/^\//, '');
+		History.Adapter.bind(window, 'statechange', function ()
+		{
+			Ajaxsite.url(History.getState().url, false);
+		});
+
+		jQuery('a').on('click', function (e)
+		{
+			var url = $(this).attr('href');
+
+			if (/^\/admin\//.test(url))
+			{
+				return;
+			}
+
+			e.preventDefault();
+
+			if (Ajaxsite.url(url) === false)
+			{
+				window.location = url;
+			}
+		});
 
 		if (Ajaxsite.autoloadWhenReady === true)
 		{
-			Ajaxsite.url(url);
-		}
-		else if (Object.prototype.toString.call(Ajaxsite.autoloadPaths) === '[object Array]')
-		{
-			for (var i = 0, c = Ajaxsite.autoloadPaths.length; i < c; i++)
-			{
-				if (Ajaxsite.autoloadPaths[i].test(url))
-				{
-					Ajaxsite.url(url);
-					break;
-				}
-			}
+			Ajaxsite.url(window.location.pathname, false, true);
 		}
 	};
 
@@ -43,10 +49,21 @@ window.Ajaxsite = {};
 	 *
 	 * @param string url
 	 */
-	Ajaxsite.url = function (url)
+	Ajaxsite.url = function (url, update_history, force)
 	{
-		console.log('URL');
-		// TODO: Use a history plugin
+		url = url.replace(/^https?:\/\/[^\/]+\/(.*)$/, '$1')
+			.replace(/^\//, '');
+
+		if ('/' + url === window.location.pathname && force !== true)
+		{
+			return;
+		}
+
+		if (update_history !== false)
+		{
+			History.pushState(null, null, '/' + url);
+		}
+
 		return Ajaxsite.load(url);
 	};
 
@@ -78,6 +95,12 @@ window.Ajaxsite = {};
 			{
 				// TODO: Handle this more nicely
 				alert('An error occurred');
+
+				if (typeof callback == 'function')
+				{
+					callback(null);
+				}
+
 				return;
 			}
 
@@ -148,10 +171,96 @@ window.Ajaxsite = {};
 	Ajaxsite.handlers.search = {
 		node: function (url)
 		{
-			Ajaxsite.template('search_results', function (template)
+			var that = this;
+
+			/**
+			 * Render the page
+			 */
+			this.render = function (view)
 			{
-				Ajaxsite.$content.html(template);
+				Ajaxsite.template('search_results', function (template)
+				{
+					var html = Mustache.render(template, view);
+					Ajaxsite.$content.html(html);
+				});
+			};
+
+			/**
+			 * Get search results from Drupal
+			 *
+			 * @param string keys
+			 * @param function callback
+			 */
+			this.query_drupal = function (keys, callback)
+			{
+				jQuery.ajax({
+					url: '/_ajax/search',
+					data: {
+						keys: keys
+					},
+					dataType: 'json'
+				}).success(function (data)
+				{
+					if (typeof callback === 'function')
+					{
+						callback(data.payload);
+					}
+				}).error(function ()
+				{
+					if (typeof callback === 'function')
+					{
+						callback([]);
+					}
+				});
+			};
+
+			/**
+			 * Get search results from wiki
+			 *
+			 * @param string query
+			 * @param function callback
+			 */
+			this.query_mw = function (query, callback)
+			{
+				if (typeof callback === 'function')
+				{
+					callback([]);
+				}
+			};
+
+			var keys = window.location.pathname
+				.replace(/^\/search\/node\/(.*)$/, '$1');
+			var finished = 0;
+			var results = [];
+
+			this.query_drupal(keys, function (data)
+			{
+				results = results.concat(data);
+				finished++;
 			});
+
+			this.query_mw(keys, function (data)
+			{
+				results = results.concat(data);
+				finished++;
+			});
+
+			// This weirdness allows the code to look better
+			var interval = setInterval(function ()
+			{
+				if (finished < 2)
+				{
+					return;
+				}
+
+				clearInterval(interval);
+
+				this.render({
+					results: results,
+					query: keys,
+					no_results: results.length === 0
+				});
+			}, 50);
 		}
 	};
 
