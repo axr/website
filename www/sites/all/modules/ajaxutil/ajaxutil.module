@@ -1,14 +1,26 @@
 <?php
 
+/**
+ * Setup custom urls
+ */
 function ajaxutil_menu () {
-	$items['search/json'] = array(
-		'page callback' => 'ajaxmenu_handle_search',
+	$items['_ajax/search'] = array(
+		'page callback' => 'ajaxutil_handle_search',
 		'access arguments' => array('search content'),
+	);
+
+	$items['_ajax/template'] = array(
+		'page callback' => 'ajaxutil_handle_template',
+		//'page arguments' => array(2),
+		'access arguments' => array('access content'),
 	);
 
 	return $items;
 }
 
+/**
+ * Handle requests to /search/json
+ */
 function ajaxutil_handle_search () {
 	$response = array(
 		'status' => 0, // 0 = good | 1 = bad
@@ -40,6 +52,42 @@ function ajaxutil_handle_search () {
 		}
 	} catch (Exception $e) {
 		$response['status'] = 1;
+	}
+
+	echo json_encode($response);
+}
+
+/**
+ * Handle requests to /_ajax/template
+ * Returns a template file
+ */
+function ajaxutil_handle_template () {
+	$response = array(
+		'status' => 0, // 0 = good | 1 = bad
+		'error' => null,
+		'error_msg' => null,
+		'payload' => null
+	);
+
+	try {
+		if (!isset($_GET['name'])) {
+			$response['error'] = 'invalid_request';
+			throw new Exception();
+		}
+
+		$name = preg_replace('/[^a-zA-z0-9-_]/', '', $_GET['name']);
+		$file = path_to_theme().'/ajaxtemplates/'.$name.'.tpl';
+
+		if (!file_exists($file)) {
+			$response['error'] = 'template_not_found';
+			throw new Exception();
+		}
+
+		$response['payload'] = array(
+			'name' => $name,
+			'template' => file_get_contents($file)
+		);
+	} catch (Exception $e) {
 	}
 
 	echo json_encode($response);

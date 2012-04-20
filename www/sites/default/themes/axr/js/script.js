@@ -162,5 +162,33 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 		$('#joining').trigger('show');
 		return false;
 	});
+
+	$('header > .secondary > form').on('submit', function (e)
+	{
+		if ($(this).attr('data-fallback') != '1')
+		{
+			e.preventDefault();
+
+			var keys = encodeURIComponent($(this).find('input[type=search]').val());
+
+			if (Ajaxsite.url('search/node/' + keys) === false)
+			{
+				$(this).attr('data-fallback', '1');
+				$(this).submit();
+			}
+		}
+	});
+
+	$('a').on('click', function (e)
+	{
+		e.preventDefault();
+
+		var url = $(this).attr('href');
+
+		if (Ajaxsite.url(url) === false)
+		{
+			window.location = url;
+		}
+	});
 })(jQuery);
 
