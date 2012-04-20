@@ -211,11 +211,10 @@ function axr_breadcrumb($data) {
 function axr_preprocess_html(&$variables) {
 	$path = drupal_get_path('theme', 'axr');
 
-	drupal_add_js('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'external');
 	drupal_add_js($path.'/js/script.js', array('group' => JS_THEME));
-	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/mustache.js', $options);
-	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/native.history.js', $options);
-	drupal_add_js(drupal_get_path('theme', 'axr'). '/js/ajaxsite.js', $options);
+	drupal_add_js($path.'/js/mustache.js', array('group' => JS_THEME));
+	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
+	drupal_add_js($path.'/js/ajaxsite.js', array('group' => JS_THEME));
 }
 
 /**
@@ -273,17 +272,17 @@ function axr_preprocess_node(&$variables) {
 	}
 }
 
+function axr_js_alter(&$js) {
+	$js['misc/jquery.js']['data'] = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+	$js['misc/jquery.js']['type'] = 'external';
+}
+
 /**
  * Remove unwanted CSS.
  */
 function axr_css_alter(&$css) { 
 	unset($css[drupal_get_path('module','system').'/system.menus.css']); 
-	//unset($css[drupal_get_path('module','system').'/system.messages.css']);
 	unset($css[drupal_get_path('module','system').'/system.theme.css']);
-
-	//unset($css[drupal_get_path('module','field').'/theme/field.css']);
-	//unset($css[drupal_get_path('module','node').'/node.css']);
-	//unset($css[drupal_get_path('module','search').'/search.css']);
 	unset($css[drupal_get_path('module','user').'/user.css']);
 }
 

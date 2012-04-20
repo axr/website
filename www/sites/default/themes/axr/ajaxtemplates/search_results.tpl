@@ -1,6 +1,6 @@
 <div class="search_results">
 	{{#results}}
-		<a class="title" href="{{link}}">{{node.title}}</a>
+		<a class="title" href="{{link}}">{{title}}</a>
 		<p>{{{snippet}}}</p>
 	{{/results}}
 	{{#no_results}}

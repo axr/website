@@ -23,7 +23,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 		jQuery('a').on('click', function (e)
 		{
-			var url = $(this).attr('href');
+			var url = jQuery(this).attr('href');
 
 			if (/^\/admin\//.test(url))
 			{
@@ -113,10 +113,100 @@ window.Ajaxsite = window.Ajaxsite || {};
 	};
 
 	/**
-	 * Prepare a url to be loaded
+	 * Get info for an url
 	 */
-	Ajaxsite.prepare = function (url)
+	Ajaxsite.urlInfo = function (url, callback)
 	{
+		var that = this;
+		this.cache = this.cache || {};
+
+		if (this.cache[url] === undefined)
+		{
+			jQuery.ajax({
+				url: '/_ajax/info',
+				data: {
+					url: url
+				},
+				dataType: 'json'
+			}).success(function (data)
+			{
+				that.cache[url] = data.payload;
+
+				if (typeof callback === 'function')
+				{
+					callback(that.cache[url]);
+				}
+			}).error(function (data)
+			{
+				that.cache[url] = null;
+
+				if (typeof callback === 'function')
+				{
+					callback(that.cache[url]);
+				}
+			});
+		}
+		else
+		{
+			if (typeof callback === 'function')
+			{
+				callback(this.cache[url]);
+			}
+		}
+	};
+
+	/**
+	 * Load dependencies for the page
+	 */
+	Ajaxsite.prepare = function (info, callback)
+	{
+		if (typeof info === 'string')
+		{
+			Ajaxsite.urlInfo(info, function (info)
+			{
+				Ajaxsite.prepare(info, callback);
+			});
+
+			return;
+		}
+
+		if (this.loadedCssEl !== undefined)
+		{
+			// Unload previously loaded CSS
+			for (var i = 0, c = this.loadedCssEl.length; i < c; i++)
+			{
+				this.loadedCssEl[i].remove();
+			}
+		}
+
+		// In future there will be a way to unload JS, too
+		// But right now I don't want to over complicate things
+
+		// Loaded CSS elements go there so they can be removed later
+		this.loadedCssEl = [];
+
+		// Load CSS
+		for (var i = 0, c = info.css.length; i < c; i++)
+		{
+			var link = jQuery('<link>')
+				.attr('type', 'text/css')
+				.attr('rel', 'stylesheet')
+				.attr('href', info.css[i]);
+
+			jQuery('head').append(link);
+			this.loadedCssEl.push(link);
+		}
+
+		// Load JS
+		for (var i = 0, c = info.js.length; i < c; i++)
+		{
+			var script = jQuery('<script>').attr('src', info.js[i]);
+		}
+
+		if (typeof callback === 'function')
+		{
+			callback();
+		}
 	};
 
 	/**
@@ -132,7 +222,10 @@ window.Ajaxsite = window.Ajaxsite || {};
 			return false;
 		}
 
-		handler(url);
+		Ajaxsite.prepare(url, function ()
+		{
+			handler(url);
+		});
 	};
 
 	/**
@@ -161,6 +254,14 @@ window.Ajaxsite = window.Ajaxsite || {};
 	};
 
 	/**
+	 * Render a loading page
+	 */
+	Ajaxsite.renderLoading = function ()
+	{
+		return 'Loading';
+	};
+
+	/**
 	 * Page handlers
 	 */
 	Ajaxsite.handlers = {};
@@ -186,6 +287,58 @@ window.Ajaxsite = window.Ajaxsite || {};
 			};
 
 			/**
+			 * Calculate string relevance
+			 *
+			 * @param string keys
+			 * @param string str
+			 * @return float
+			 */
+			this.get_relevance = function (keys, str)
+			{
+				keys = keys.replace(/[ ]+/, ' ').split(' ');
+				var kwp = 100 / keys.length;
+				var relevance = 0;
+
+				for (var i = 0, c = keys.length; i < c; i++)
+				{
+					var kw_safe = keys[i].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+					var match = str.match(new RegExp(kw_safe, 'g'));
+					var count = match ? match.length : 0;
+					relevance += count * kwp / 100;
+				}
+
+				return relevance;
+			};
+
+			/**
+			 * Reorder results by relevance
+			 *
+			 * @param mixed[] results
+			 * @return mixed[]
+			 */
+			this.reorder = function (results)
+			{
+				results.sort(function (a, b)
+				{
+					if (a.relevance == b.relevance)
+					{
+						return 0;
+					}
+
+					if (a.relevance > b.relevance)
+					{
+						return -1;
+					}
+					else
+					{
+						return 1;
+					}
+				});
+
+				return results;
+			};
+
+			/**
 			 * Get search results from Drupal
 			 *
 			 * @param string keys
@@ -199,11 +352,23 @@ window.Ajaxsite = window.Ajaxsite || {};
 						keys: keys
 					},
 					dataType: 'json'
-				}).success(function (data)
+				}).success(function (data_raw)
 				{
+					var data = [];
+
+					for (var i = 0, c = data_raw.payload.length; i < c; i++)
+					{
+						var result = data_raw.payload[i];
+						var relevance = that.get_relevance(keys, result.title) +
+							that.get_relevance(keys, result.snippet);
+
+						result.relevance = relevance;
+						data.push(result);
+					}
+
 					if (typeof callback === 'function')
 					{
-						callback(data.payload);
+						callback(data);
 					}
 				}).error(function ()
 				{
@@ -222,10 +387,49 @@ window.Ajaxsite = window.Ajaxsite || {};
 			 */
 			this.query_mw = function (query, callback)
 			{
-				if (typeof callback === 'function')
+				jQuery.ajax({
+					url: '/wiki/api.php',
+					data: {
+						action: 'query',
+						list: 'search',
+						format: 'json',
+						srprop: 'snippet',
+						srwhat: 'text',
+						srsearch: query
+					},
+					dataType: 'json'
+				}).success(function (data_raw)
 				{
-					callback([]);
-				}
+					var data = [];
+
+					for (var i = 0, c = data_raw.query.search.length;
+						i < c; i++)
+					{
+						var result = data_raw.query.search[i];
+						var relevance = that.get_relevance(query, result.title) +
+							that.get_relevance(query, result.snippet);
+
+						data.push({
+							source: 'mw',
+							title: result.title,
+							link: '/wiki/' + result.title.replace(' ', '_'),
+							type: 'wiki_page',
+							snippet: result.snippet,
+							relevance: relevance
+						});
+					}
+
+					if (typeof callback === 'function')
+					{
+						callback(data);
+					}
+				}).error(function ()
+				{
+					if (typeof callback === 'function')
+					{
+						callback([]);
+					}
+				});
 			};
 
 			var keys = window.location.pathname
@@ -255,12 +459,14 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 				clearInterval(interval);
 
-				this.render({
-					results: results,
+				that.render({
+					results: that.reorder(results),
 					query: keys,
 					no_results: results.length === 0
 				});
-			}, 50);
+			}, 200);
+
+			Ajaxsite.$content.html(Ajaxsite.renderLoading());
 		}
 	};
 
