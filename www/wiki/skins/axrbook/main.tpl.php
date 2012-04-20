@@ -29,6 +29,23 @@
 	<div class="fork_github"><a href="https://github.com/AXR/Prototype" target="_blank">Fork me on GitHub</a></div>
 
 	<div id="main" role="main">
+		<nav id="breadcrumb">
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="/" itemprop="url">
+					<span itemprop="title">Home</span>
+				</a>
+			</div>
+			<span class="extra_0"></span>
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="/wiki" itemprop="url">
+					<span itemprop="title">Wiki</span>
+				</a>
+			</div>
+			<span class="extra_0"></span>
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<span class="current" itemprop="title"><?php echo $this->html('title'); ?></span>
+			</div>
+		</nav>
 		<?php echo $this->content(); ?>
 	</div>
 
