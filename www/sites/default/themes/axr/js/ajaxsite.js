@@ -432,8 +432,8 @@ window.Ajaxsite = window.Ajaxsite || {};
 				});
 			};
 
-			var keys = window.location.pathname
-				.replace(/^\/search\/node\/(.*)$/, '$1');
+			var keys = decodeURIComponent(window.location.pathname
+				.replace(/^\/search\/node\/(.*)$/, '$1'));
 			var finished = 0;
 			var results = [];
 
