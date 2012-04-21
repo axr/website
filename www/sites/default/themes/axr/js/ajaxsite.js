@@ -18,7 +18,12 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 		History.Adapter.bind(window, 'statechange', function ()
 		{
-			Ajaxsite.url(History.getState().url, false);
+			var url = History.getState().url;
+
+			if (Ajaxsite.load_url(url) === false)
+			{
+				window.location = url;
+			}
 		});
 
 		jQuery('a').on('click', function (e)
@@ -32,10 +37,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 			e.preventDefault();
 
-			if (Ajaxsite.url(url) === false)
-			{
-				window.location = url;
-			}
+			Ajaxsite.url(url);
 		});
 
 		if (Ajaxsite.autoloadWhenReady === true)
@@ -49,7 +51,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 *
 	 * @param string url
 	 */
-	Ajaxsite.url = function (url, update_history, force)
+	Ajaxsite.url = function (url, force)
 	{
 		url = url.replace(/^https?:\/\/[^\/]+\/(.*)$/, '$1')
 			.replace(/^\//, '');
@@ -59,12 +61,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 			return;
 		}
 
-		if (update_history !== false)
-		{
-			History.pushState(null, null, '/' + url);
-		}
-
-		return Ajaxsite.load(url);
+		History.pushState(null, null, '/' + url);
 	};
 
 	/**
@@ -207,6 +204,19 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			callback();
 		}
+	};
+
+	/**
+	 * Load an URL
+	 *
+	 * @param string url
+	 */
+	Ajaxsite.load_url = function (url)
+	{
+		url = url.replace(/^https?:\/\/[^\/]+\/(.*)$/, '$1')
+			.replace(/^\//, '');
+
+		return Ajaxsite.load(url);
 	};
 
 	/**
