@@ -5,7 +5,7 @@
 		$releases = axr_get_releases(0, 5);
 		$arches = array(
 			'x86-64' => '64-bit (x86-64)',
-			'x86' => '32-bit (x64)'
+			'x86' => '32-bit (x86)'
 		);
 	?>
 	<?php if (count($releases) > 0): ?>
