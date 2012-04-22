@@ -178,9 +178,9 @@
 			<ol>
 				<li>subscribe to the <a href="https://groups.google.com/forum/#!forum/axr-main" target="_blank">mailing list</a> to be involved directly</li>
 				<li>join the <a href="http://webchat.freenode.net/?channels=axr" target="_blank">irc channel</a> to discuss ideas</li>
-				<li>follow the updates on <a href="http://twitter.com/#!/AXRProject" target="_blank">twitter</a> and <a href="https://www.facebook.com/AXRProject">facebook</a></li>
+				<li>follow our progress on <a href="http://twitter.com/#!/AXRProject" target="_blank">twitter</a> and <a href="https://www.facebook.com/AXRProject" target="_blank">facebook</a></li>
 				<li>fork us on <a href="http://www.github.com/axr" target="_blank">github</a></li>
-				<li>join the <a href="under_construction.html" target="_blank">forums</a> and give a helping hand</li>
+				<li>take part in the discussions and contribute to the <a href="under_construction.html">forum</a></li>
 				<li>celebrate!</li>
 		</div>
 	</div>

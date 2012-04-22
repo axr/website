@@ -211,6 +211,7 @@ function axr_breadcrumb($data) {
 function axr_preprocess_html(&$variables) {
 	$path = drupal_get_path('theme', 'axr');
 
+	drupal_add_js('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'external');
 	drupal_add_js($path.'/js/script.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/mustache.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
@@ -270,11 +271,6 @@ function axr_preprocess_node(&$variables) {
 			'group' => JS_THEME
 		));
 	}
-}
-
-function axr_js_alter(&$js) {
-	$js['misc/jquery.js']['data'] = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
-	$js['misc/jquery.js']['type'] = 'external';
 }
 
 /**

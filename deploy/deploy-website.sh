@@ -9,6 +9,8 @@ cd "$REPODIR"
 echo "Updating GIT repo"
 git pull origin master
 
+HASH=$(git rev-parse HEAD)
+
 echo "Replacing production files"
 
 if [ -d "$WWWDIR" ]; then
@@ -31,7 +33,10 @@ if [ $? -ne 0 ]; then
 fi
 
 # Restore wiki config file
-cp "$BAKDIR/wiki/LocalSettings.php" "$WWWDIR/wiki/"
+cp "/var/dev/deploy/LocalSettings.php" "$WWWDIR/wiki/"
+
+# Put current commit hash into git_head
+echo "$HASH" > "$WWWDIR/git_head"
 
 rm "$WWWDIR/index.html"
 

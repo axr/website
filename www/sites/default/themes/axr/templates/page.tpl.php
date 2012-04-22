@@ -8,7 +8,7 @@
 				<a class="login" href="/user/logout"><span class="extra_0"></span><span class="extra_1">Logout</span></a>
 			<?php endif; ?>
 			<form action="/search/node" method="post" accept-charset="UTF-8">
-				<input type="search" name="keys" placeholder="Search site" />
+				<input type="search" name="keys" placeholder="Search" autocomplete="off" />
 				<input type="hidden" name="form_id" value="search_form" />
 				<input type="hidden" name="form_token" value="<?php print drupal_get_token('search_form'); ?>" />
 			</form>
