@@ -71,7 +71,7 @@
             <div class="header"></div>
             <ul class="content">
                 <li class="selected" data-section-name="hierarchical">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             Hierarchical
@@ -80,7 +80,7 @@
                     </a>
                 </li>
                 <li data-section-name="object_oriented">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             Object oriented
@@ -89,7 +89,7 @@
                     </a>
                 </li>
                 <li data-section-name="modular">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             Modular
@@ -98,7 +98,7 @@
                     </a>
                 </li>
                 <li data-section-name="expressions">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             Expressions
@@ -107,7 +107,7 @@
                     </a>
                 </li>
                 <li data-section-name="functions">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             Functions
@@ -116,7 +116,7 @@
                     </a>
                 </li>
                 <li data-section-name="references">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             References
@@ -125,7 +125,7 @@
                     </a>
                 </li>
                 <li data-section-name="filters">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             Filters
@@ -134,7 +134,7 @@
                     </a>
                 </li>
                 <li data-section-name="structural_independence">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             Structural Independence
@@ -143,7 +143,7 @@
                     </a>
                 </li>
                 <li data-section-name="layout">
-                    <a href="javascript:">
+                    <a href="#">
                         <span class="header"></span>
                         <span class="content">
                             Layout
