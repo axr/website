@@ -1,5 +1,3 @@
-/* @override http://axr.dev/sites/default/themes/axr/css/style.css?m2ldwh */
-
 /*
  * HTML5 Boilerplate
  *
@@ -555,22 +553,22 @@ header .secondary > div.user_menu:hover div.dropdown, header .secondary > div.us
 header .secondary > div.user_menu div.dropdown, header .secondary > div.user_menu div.dropdown a:focus, header .secondary > div.user_menu div.dropdown a:focus ~ a
 {
 	width: 134px;
-        z-index:15;
-        left:50%;
-        margin-left:-70px;
-        margin-right: -17px;
-        position:relative;
+	z-index:15;
+	left:50%;
+	margin-left:-70px;
+	margin-right: -17px;
+	position:relative;
 	background:#717171;
 }
 header .secondary > div.user_menu div.dropdown
 {
-        top:5px;
-        -webkit-border-radius:8px;
-        -moz-border-radius:8px;
-        border-radius:8px;
-   -moz-box-shadow: 0 0 8px #575757;
--webkit-box-shadow: 0 0 8px #575757;
-        box-shadow: 0 0 8px #575757;
+	top:5px;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	border-radius:8px;
+	-moz-box-shadow: 0 0 8px #575757;
+	-webkit-box-shadow: 0 0 8px #575757;
+	box-shadow: 0 0 8px #575757;
 }
 header .secondary > div.user_menu:hover div.dropdown
 {
@@ -608,22 +606,22 @@ header .secondary > div.user_menu div.dropdown a:hover, header .secondary > div.
 header .secondary > div.user_menu div.dropdown a:focus
 {
 	border-top:none;
-        -webkit-border-top-left-radius:8px;
+	-webkit-border-top-left-radius:8px;
 	-webkit-border-top-right-radius:8px;
-        -moz-border-radius-topleft:8px;
+	-moz-border-radius-topleft:8px;
 	-moz-border-radius-topright:8px;
-        border-top-left-radius:8px;
+	border-top-left-radius:8px;
 	border-top-right-radius:8px;
 }
 header .secondary > div.user_menu div.dropdown .first {border-top:none !important}
 header .secondary > div.user_menu div.dropdown .last {border-bottom:none !important}
 header .secondary > div.user_menu div.dropdown a:focus ~ .last, header .secondary > div.user_menu div.dropdown .last:focus
 {
-        -webkit-border-bottom-left-radius:8px;
+	-webkit-border-bottom-left-radius:8px;
 	-webkit-border-bottom-right-radius:8px;
-        -moz-border-radius-bottomleft:8px;
+	-moz-border-radius-bottomleft:8px;
 	-moz-border-radius-bottomright:8px;
-        border-bottom-left-radius:8px;
+	border-bottom-left-radius:8px;
 	border-bottom-right-radius:8px;
 }
 header .secondary > div.user_menu .arrow
@@ -641,12 +639,6 @@ header .secondary > div.user_menu .arrow
 }
 
 header .secondary > div.user_menu:hover .arrow {display:block}
-
-
-
-
-
-
 
 
 header .secondary > form

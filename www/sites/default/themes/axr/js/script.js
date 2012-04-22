@@ -105,8 +105,8 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	});
 	
 	/**
-	 * Dropdown for user menu
-	 */
+	* Dropdown for user menu
+	*/
 	$("#container > header > .secondary > div.user_menu").hover(function () {
 		$(this).addClass('hover').find(".dropdown").removeClass('hidden');
 	}, function () {
