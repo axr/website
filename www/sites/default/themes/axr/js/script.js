@@ -103,6 +103,15 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	}, function () {
 		$(this).closest('li').removeClass('hover').find(".sections").addClass('hidden');
 	});
+	
+	/**
+	 * Dropdown for user menu
+	 */
+	$("#container > header > .secondary > div.user_menu").hover(function () {
+		$(this).addClass('hover').find(".dropdown").removeClass('hidden');
+	}, function () {
+		$(this).removeClass('hover').find(".dropdown").addClass('hidden');
+	});
 
 	/**
 	 * Show popup for the flaoting social buttons

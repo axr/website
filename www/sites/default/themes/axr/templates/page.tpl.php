@@ -5,7 +5,15 @@
 			<?php if ($user->uid == 0): ?>
 				<a class="login" href="/user/login"><span class="extra_0"></span><span class="extra_1">Login</span></a>
 			<?php else: ?>
-				<a class="login" href="/user/logout"><span class="extra_0"></span><span class="extra_1">Logout</span></a>
+			    <div class="user_menu">
+            		<span class="arrow"></span>
+			        <a class="menu_link" href="javascript:;"><span class="extra_0"></span><span class="extra_1">User</span><span class="extra_2"></span></a>
+			        <div class="dropdown">
+            			<a class="edit_account first" href="/user/<?php echo $user->uid; ?>/edit/">Edit account</a>
+            			<a class="wiki_profile" href="/wiki/user_edit_placeholder">Wiki profile</a>
+            			<a class="logout last" href="/user/logout">Logout</a>
+            		</div>
+			    </div>
 			<?php endif; ?>
 			<form action="/search/node" method="post" accept-charset="UTF-8">
 				<input type="search" name="keys" placeholder="Search" autocomplete="off" />

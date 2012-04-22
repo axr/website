@@ -1,3 +1,5 @@
+/* @override http://axr.dev/sites/default/themes/axr/css/style.css?m2ldwh */
+
 /*
  * HTML5 Boilerplate
  *
@@ -418,6 +420,7 @@ background-position: -898px -49px;
 	margin-left:-8px;
 	display:none;
 }
+
 #menu li:hover .arrow {display:block}
 /* Gecko */
 body:-moz-last-node #menu li:hover div
@@ -440,6 +443,7 @@ header .secondary
 	top: 40px;
 	right: 0;
 }
+
 header .secondary a.login
 {
 	display: inline-block;
@@ -480,6 +484,171 @@ header .secondary > a.login > .extra_1
 	vertical-align: top;
 	border-bottom: 1px solid;
 }
+
+header .secondary div.user_menu
+{
+	display: inline-block;
+	margin: 5px 0 0 0;
+	vertical-align: top;
+	position: relative;
+	line-height: 1.6;
+	padding-left: 26px;
+}
+
+header .secondary > div.user_menu > a
+{
+	display: block;
+	text-decoration: none;
+	border-bottom: #efefef 1px solid;
+}
+
+header .secondary > div.user_menu > a > .extra_0
+{
+	background-image: url(../images/sprite32.png);
+	background-position: -228px -109px;
+	display: block;
+	height: 18px;
+	width: 19px;
+	position: absolute;
+	left: 0px;
+	top: 2px;
+}
+
+header .secondary > div.user_menu:hover > a > .extra_0
+{
+	background-position: -248px -109px;
+}
+
+header .secondary > div.user_menu > a > .extra_1
+{
+	color: #999;
+	display: block;
+	font-size: 12px;
+	margin: 0;
+	padding: 1px 0 0 0;
+	font-weight: bold;
+	height: 18px;
+	text-shadow: -1px 1px #efefef;
+	vertical-align: top;
+	border-bottom: 1px solid;
+}
+
+header .secondary > div.user_menu > a > .extra_2
+{
+	background-image: url(../images/sprite32.png);
+	background-position: -232px -78px;
+	display: block;
+	height: 11px;
+	width: 11px;
+	position: absolute;
+	right: 6px;
+	top: 6px;
+}
+
+header .secondary > div.user_menu:hover > a > .extra_2
+{
+	background-position: -244px -78px;
+}
+
+header .secondary > div.user_menu div.dropdown a {display:none}
+header .secondary > div.user_menu:hover div.dropdown, header .secondary > div.user_menu div.dropdown:hover, header .secondary > div.user_menu div.dropdown a:focus ~ div  {display:block}
+header .secondary > div.user_menu div.dropdown, header .secondary > div.user_menu div.dropdown a:focus, header .secondary > div.user_menu div.dropdown a:focus ~ a
+{
+	width: 134px;
+        z-index:15;
+        left:50%;
+        margin-left:-70px;
+        margin-right: -17px;
+        position:relative;
+	background:#717171;
+}
+header .secondary > div.user_menu div.dropdown
+{
+        top:5px;
+        -webkit-border-radius:8px;
+        -moz-border-radius:8px;
+        border-radius:8px;
+   -moz-box-shadow: 0 0 8px #575757;
+-webkit-box-shadow: 0 0 8px #575757;
+        box-shadow: 0 0 8px #575757;
+}
+header .secondary > div.user_menu:hover div.dropdown
+{
+	border:1px solid #7D7D7D;
+	background-image: linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -o-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -moz-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -webkit-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #747474), color-stop(0.37, #636363));
+}
+header .secondary > div.user_menu:hover div.dropdown a, header .secondary > div.user_menu div.dropdown a:focus ~ div a, header .secondary > div.user_menu div.dropdown a:focus, header .secondary > div.user_menu div.dropdown a:focus ~ a, .afocus
+{
+	display:block !important;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #555555;
+	border-top: 1px solid #7F7F7F;
+	outline:none;
+}
+header .secondary > div.user_menu div.dropdown a
+{
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+	text-shadow: #333333 0 1px 0;
+	cursor: pointer;
+}
+header .secondary > div.user_menu div.dropdown a:hover, header .secondary > div.user_menu div.dropdown a:focus
+{
+	color: #313131;
+	text-shadow: #959595 0 1px 0;
+}
+header .secondary > div.user_menu div.dropdown a:focus
+{
+	border-top:none;
+        -webkit-border-top-left-radius:8px;
+	-webkit-border-top-right-radius:8px;
+        -moz-border-radius-topleft:8px;
+	-moz-border-radius-topright:8px;
+        border-top-left-radius:8px;
+	border-top-right-radius:8px;
+}
+header .secondary > div.user_menu div.dropdown .first {border-top:none !important}
+header .secondary > div.user_menu div.dropdown .last {border-bottom:none !important}
+header .secondary > div.user_menu div.dropdown a:focus ~ .last, header .secondary > div.user_menu div.dropdown .last:focus
+{
+        -webkit-border-bottom-left-radius:8px;
+	-webkit-border-bottom-right-radius:8px;
+        -moz-border-radius-bottomleft:8px;
+	-moz-border-radius-bottomright:8px;
+        border-bottom-left-radius:8px;
+	border-bottom-right-radius:8px;
+}
+header .secondary > div.user_menu .arrow
+{
+	border-color: transparent transparent #737373 transparent;
+	border-style: solid;
+	border-width: 0px 8px 8px 8px;
+	height:0;
+	width:0;
+	position:absolute;
+	z-index:20;
+	margin-top:20px;
+	margin-left: 15px;
+	display:none;
+}
+
+header .secondary > div.user_menu:hover .arrow {display:block}
+
+
+
+
+
+
+
+
 header .secondary > form
 {
 	display: inline-block;
