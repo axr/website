@@ -116,24 +116,11 @@
 			<br style="clear: both" />
 		</div>
 
-		<div class="box twitter">
-			<div class="icon">
-				<div class="extra_0"></div>
-				<div class="extra_1"></div>
-			</div>
-			<div class="nested_0 last_tweet">
-				<div class="extra_0"></div>
-				<div class="inner tweet_container">
-					Loading last tweet...
-				</div>
-				<hr />
-				<div class="inner follow">
-					Follow us on Twitter: <a href="https://twitter.com/AXRProject">@AXRProject</a>
-				</div>
-				<div class="extra_1"></div>
-			</div>
-			<br style="clear: both" />
-		</div>
+		<ul class="last_tweet">
+			<li class="tweet_container">Loading last tweet...</li>
+			<li class="follow_us"><span>Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></span></li>
+			<li class="bird"></li>
+		</ul>
 
 		<div class="box facebook">
 			<div class="icon">
@@ -191,9 +178,9 @@
 			<ol>
 				<li>subscribe to the <a href="https://groups.google.com/forum/#!forum/axr-main" target="_blank">mailing list</a> to be involved directly</li>
 				<li>join the <a href="http://webchat.freenode.net/?channels=axr" target="_blank">irc channel</a> to discuss ideas</li>
-				<li>follow the updates on <a href="http://twitter.com/#!/AXRProject" target="_blank">twitter</a> and <a href="https://www.facebook.com/AXRProject">facebook</a></li>
+				<li>follow our progress on <a href="http://twitter.com/#!/AXRProject" target="_blank">twitter</a> and <a href="https://www.facebook.com/AXRProject" target="_blank">facebook</a></li>
 				<li>fork us on <a href="http://www.github.com/axr" target="_blank">github</a></li>
-				<li>join the <a href="under_construction.html" target="_blank">forums</a> and give a helping hand</li>
+				<li>take part in the discussions and contribute to the <a href="under_construction.html">forum</a></li>
 				<li>celebrate!</li>
 		</div>
 	</div>

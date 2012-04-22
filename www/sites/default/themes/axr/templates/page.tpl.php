@@ -8,7 +8,7 @@
 				<a class="login" href="/user/logout"><span class="extra_0"></span><span class="extra_1">Logout</span></a>
 			<?php endif; ?>
 			<form action="/search/node" method="post" accept-charset="UTF-8">
-				<input type="search" name="keys" placeholder="Search site" />
+				<input type="search" name="keys" placeholder="Search" autocomplete="off" />
 				<input type="hidden" name="form_id" value="search_form" />
 				<input type="hidden" name="form_token" value="<?php print drupal_get_token('search_form'); ?>" />
 			</form>
@@ -62,7 +62,7 @@
 				 <ul class="last_tweet">
 					<li class="tweet_container">Loading last tweet...</li>
 					<li class="follow_us"><span>Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></span></li>
-					<img src="/sites/default/themes/axr/images/bird.png" height="47" width="76">
+					<li class="bird"></li>
 				 </ul>
 
 				 <div class="participate">

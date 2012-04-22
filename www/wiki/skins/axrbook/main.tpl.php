@@ -29,6 +29,23 @@
 	<div class="fork_github"><a href="https://github.com/AXR/Prototype" target="_blank">Fork me on GitHub</a></div>
 
 	<div id="main" role="main">
+		<nav id="breadcrumb">
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="/" itemprop="url">
+					<span itemprop="title">Home</span>
+				</a>
+			</div>
+			<span class="extra_0"></span>
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="/wiki" itemprop="url">
+					<span itemprop="title">Wiki</span>
+				</a>
+			</div>
+			<span class="extra_0"></span>
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<span class="current" itemprop="title"><?php echo $this->html('title'); ?></span>
+			</div>
+		</nav>
 		<?php echo $this->content(); ?>
 	</div>
 
@@ -48,22 +65,22 @@
 			        <a href="javascript:donation_form.submit()" title="If you'd like to see this project become a reality, please consider making a donation">Donate</a>
 			     </form>
 
-				 <ul class="follow_us">
+				<ul class="follow_us">
 					<li class="twitter"><a href="https://twitter.com/AXRProject/" title="Follow us on Twitter" target="_blank">Twitter</a></li>
 					<li class="facebook"><a href="https://www.facebook.com/pages/AXRProject/120456481367465?sk=info" title="Friend us on Facebook" target="_blank">Facebook</a></li>
 					<li class="vimeo"><a href="https://vimeo.com/AXRProject/" title="Watch our videos on Vimeo" target="_blank">Vimeo</a></li>
-				 </ul>
+				</ul>
 
-				 <ul class="last_tweet">
+				<ul class="last_tweet">
 					<li class="tweet_container">Loading last tweet...</li>
 					<li class="follow_us"><span>Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></span></li>
-					<img src="/sites/default/themes/axr/images/bird.png" height="47" width="76">
-				 </ul>
+					<li class="bird"></li>
+				</ul>
 
-				 <div class="participate">
+				<div class="participate">
 					<h2>Participate</h2>
 					<p>AXR is an open source project, for everyone to benefit from. If you want to help, please join the <a href="https://groups.google.com/group/axr-main/">mailing list</a> and tell us what you think should happen next.</p>
-				 </div>
+				</div>
 
 				<div class="copy"><p>The AXR Project | <a href="mailto:team@axr.vg">team@axr.vg</a> | &copy; 2010 - <?php echo date("Y"); ?></p></div>
 		</div>
