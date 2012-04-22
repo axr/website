@@ -1294,7 +1294,7 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 }
 .last_tweet > .bird
 {
-	background: url("../images/sprite32.png") no-repeat 0 -144px;
+	background: url("../images/sprite32.png") no-repeat -116px -29px;
 	height: 47px;
 	width: 76px;
 	margin-top:12px;
