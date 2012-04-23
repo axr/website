@@ -272,6 +272,11 @@ function axr_preprocess_node(&$variables) {
 	}
 }
 
+/**
+ * Implement hook_js_alter
+ *
+ * @param mixed[] $js
+ */
 function axr_js_alter(&$js) {
 	$js['misc/jquery.js']['data'] = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
 	$js['misc/jquery.js']['type'] = 'external';
