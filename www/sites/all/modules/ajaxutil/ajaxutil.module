@@ -34,8 +34,15 @@ function ajaxutil_handle_search () {
 	);
 
 	try {
-		if (!isset($_GET['keys'])) {
+		if (!isset($_GET['keys']) ||
+			!isset($_GET['type'])) {
 			$response['error'] = 'invalid_request';
+			throw new Exception();
+		}
+
+		// There will be more types
+		if (!in_array($_GET['type'], array('mixed'))) {
+			$response['error'] = 'invalid_type';
 			throw new Exception();
 		}
 
@@ -44,7 +51,10 @@ function ajaxutil_handle_search () {
 			throw new Exception();
 		}
 
-		$response['payload'] = axrsearch_get_combined($_GET['keys']);
+		if ($_GET['type'] == 'mixed')
+		{
+			$response['payload'] = axrsearch_get_combined($_GET['keys']);
+		}
 	} catch (Exception $e) {
 		$response['status'] = 1;
 	}

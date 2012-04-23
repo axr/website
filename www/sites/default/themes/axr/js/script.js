@@ -167,7 +167,7 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	{
 			e.preventDefault();
 
-			var url = '/search/node/' + encodeURIComponent($(this).find('input[type=search]').val());
+			var url = '/search/mixed/' + encodeURIComponent($(this).find('input[type=search]').val());
 			Ajaxsite.url(url);
 	});
 })(jQuery);

@@ -86,7 +86,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			if (typeof callback === 'function')
 			{
-				callback(Ajaxsite.template.cache[name].template);
+				callback(Ajaxsite.template.cache[name].template, false);
 			}
 
 			return;
@@ -103,7 +103,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 					if (typeof callback === 'function')
 					{
-						callback(Ajaxsite.template.cache[name].template);
+						callback(Ajaxsite.template.cache[name].template, false);
 					}
 				}
 			}, 100);
@@ -122,12 +122,9 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			if (data === null || data.status !== 0)
 			{
-				// TODO: Handle this more nicely
-				alert('An error occurred');
-
 				if (typeof callback == 'function')
 				{
-					callback(null);
+					callback('Error loading template', true);
 				}
 
 				return;
@@ -138,7 +135,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 			if (typeof callback === 'function')
 			{
-				callback(data.payload.template);
+				callback(data.payload.template, false);
 			}
 		}).error(function ()
 		{
@@ -296,8 +293,17 @@ window.Ajaxsite = window.Ajaxsite || {};
 			last_handler = last_handler[segments[i]];
 		}
 
-		return (last_handler === this.handlers ||
-			typeof last_handler != 'function') ? undefined : last_handler;
+		if (typeof last_handler === 'object' &&
+			typeof last_handler._default === 'function')
+		{
+			return last_handler._default;
+		}
+		else if (typeof last_handler === 'function')
+		{
+			return last_handler;
+		}
+
+		return undefined;
 	};
 
 	/**
@@ -305,7 +311,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 */
 	Ajaxsite.renderLoading = function ()
 	{
-		return 'Loading';
+		return 'Loading...';
 	};
 
 	/**
@@ -348,6 +354,16 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 			return jQuery('<div>').append($el).html();
 		};
+
+		/**
+		 * Count how many placeholders there are currently in the DOM
+		 *
+		 * @return int
+		 */
+		this.count = function ()
+		{
+			return jQuery('.as_block_' + this.id).length;
+		};
 	};
 
 	/**
@@ -355,13 +371,38 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 */
 	Ajaxsite.handlers = {};
 
+	Ajaxsite.handlers['404'] = function (url)
+	{
+		Ajaxsite.$content.html('404 Not found');
+	};
+
 	/**
 	 * Implement search module
 	 */
 	Ajaxsite.handlers.search = {
-		node: function (url)
+		_default: function (url)
 		{
 			var that = this;
+
+			/**
+			 * Search result items' type names
+			 */
+			this.typeNames = {
+				blog: 'blog post',
+				page: 'site page',
+				wiki: 'wiki page',
+				user: 'user'
+			};
+
+			/**
+			 * What type of content is being searched for
+			 */
+			this.type = null;
+
+			/**
+			 * Search keywords
+			 */
+			this.keys = null;
 
 			/**
 			 * Get search results
@@ -369,16 +410,23 @@ window.Ajaxsite = window.Ajaxsite || {};
 			 * @param string keys
 			 * @param function callback
 			 */
-			this.query = function (keys, callback)
+			this.query = function (callback)
 			{
 				jQuery.ajax({
 					url: '/_ajax/search',
 					data: {
-						keys: keys
+						keys: this.keys,
+						type: this.type
 					},
 					dataType: 'json'
 				}).success(function (data_raw)
 				{
+					if (data_raw.status != 0)
+					{
+						callback([]);
+						return;
+					}
+
 					var data = [];
 
 					for (var i = 0, c = data_raw.payload.length; i < c; i++)
@@ -386,6 +434,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 						var result = data_raw.payload[i];
 						var date = new Date(parseInt(result.changed) * 1000);
 
+						result.type_str = that.typeNames[result.type] || result.type;
 						result.date = date.getFullYear() + '/' +
 							date.getMonth() + '/' + date.getDate();
 						result.time = date.getHours() + ':' + date.getMinutes();
@@ -406,31 +455,58 @@ window.Ajaxsite = window.Ajaxsite || {};
 				});
 			};
 
-			var keys = decodeURIComponent(window.location.pathname
-				.replace(/^\/search\/node\/(.*)$/, '$1'));
-			var results_block = new Ajaxsite.Block();
-			var advanced_block = new Ajaxsite.Block();
+			var match = window.location.pathname
+				.match(/^\/search\/([a-z]+)\/(.*)$/);
 
-			// Preload the template
+			if (match === null)
+			{
+				Ajaxsite.load_url('404');
+				return;
+			}
+
+			this.type = match[1];
+			this.keys = match[2];
+
+			// Create blocks
+			var layout_block = new Ajaxsite.Block();
+			var options_block = new Ajaxsite.Block();
+			var results_block = new Ajaxsite.Block();
+
+			// Insert loading indicators
+			layout_block.html(Ajaxsite.renderLoading());
+			options_block.html(Ajaxsite.renderLoading());
+			results_block.html(Ajaxsite.renderLoading());
+
+			// Preload the results template
 			Ajaxsite.template('search_results');
 
-			// Load advanced options block
-			Ajaxsite.template('search_advanced_block', function (template)
+			// Render the main layout
+			Ajaxsite.template('search', function (template)
+			{
+				var html = Mustache.render(template, {
+					//options_block: options_block.placeholder(),
+					results_block: results_block.placeholder(),
+					query: that.keys
+				});
+
+				layout_block.html(html);
+			});
+
+			// Load options block
+			Ajaxsite.template('search_options', function (template)
 			{
 				var html = Mustache.render(template);
-				advanced_block.html(html);
+				options_block.html(html);
 			});
 
 			// Load search results
-			this.query(keys, function (results)
+			this.query(function (results)
 			{
 				// Get search results page template
 				Ajaxsite.template('search_results', function (template)
 				{
 					var html = Mustache.render(template, {
-						advanced_block: advanced_block.placeholder(),
 						results: results,
-						query: keys,
 						no_results: results.length === 0
 					});
 
@@ -438,11 +514,8 @@ window.Ajaxsite = window.Ajaxsite || {};
 				});
 			});
 
-			// Insert loading indicator into results_block
-			results_block.html(Ajaxsite.renderLoading());
-
-			// Insert results_block placeholder into #main
-			Ajaxsite.$content.html(results_block.placeholder());
+			// Insert layout_block placeholder into #main
+			Ajaxsite.$content.html(layout_block.placeholder());
 		}
 	};
 

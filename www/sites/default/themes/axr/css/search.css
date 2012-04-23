@@ -11,66 +11,50 @@
 	display: none !important;
 }
 
-#search.search_results
+#search
 {
-	padding: 45px 0 0 0;
-}
-
-#search.search_results > .sidebar
-{
-	float: left;
-	height: 100%;
-	position: relative;
-	width: 266px;
-}
-
-#search.search_results > .sidebar > .separator
-{
-	background: url(../images/separator_big_repeat.png) repeat-y;
-	height: 100%;
 	min-height: 293px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 26px;
+	padding: 35px 0 0 0;
 }
 
-#search.search_results > .sidebar > .separator > .extra_0
-{
-	background: url(../images/separator_big_top.png);
-	height: 82px;
-	left: 0;
-	position: absolute;
-	top: 0;
-	width: 26px;
-}
-
-#search.search_results > .sidebar > .separator > .extra_1
-{
-	background: url(../images/separator_big_bottom.png);
-	bottom: 0;
-	height: 211px;
-	left: 0;
-	position: absolute;
-	width: 26px;
-}
-
-#search.search_results > .results
-{
-	padding: 0 0 0 280px;
-}
-
-#search.search_results > .results > h2
+#search > .results h2
 {
 	margin: 0 0 20px 0;
 }
 
-#search.search_results > .results > .item
+#search > .results .item
 {
 	margin: 0 0 25px 0;
 }
 
-#search.search_results > .results > .item > a.title
+#search > .results .item > .left
+{
+	float: left;
+	width: 120px;
+}
+
+#search > .results .item > .left > .type
+{
+	color: #666;
+	display: block;
+	font-size: 10px;
+	padding: 5px 0 3px 0;
+	text-transform: uppercase;
+}
+
+#search > .results .item > .left > .date
+{
+	color: #999;
+	display: block;
+	font-size: 11px;
+}
+
+#search > .results .item > .right
+{
+	padding: 0 0 0 130px;
+}
+
+#search > .results .item > .right > a.title
 {
 	color: #666;
 	font-size: 16px;
@@ -80,19 +64,12 @@
 	text-decoration: none;
 }
 
-#search.search_results > .results > .item > a.title:hover
+#search > .results .item > .right > a.title:hover
 {
 	text-decoration: underline;
 }
 
-#search.search_results > .results > .item > .info
-{
-	font-size: 12px;
-	color: #999;
-	padding: 3px 0;
-}
-
-#search.search_results > .results > .item > p
+#search > .results .item > .right > p
 {
 	font-size: 13px;
 	color: #666;

@@ -72,7 +72,7 @@ function axrsearch_get_mw ($keys) {
 			'source' => 'mw',
 			'title' => $result->title,
 			'link' => '/wiki/'.str_replace(' ', '_', $result->title),
-			'type' => 'wiki_page',
+			'type' => 'wiki',
 			'snippet' => $result->snippet,
 			'changed' => strtotime($result->timestamp),
 			'relevance' => $relevance
@@ -101,7 +101,7 @@ function axrsearch_get_drupal ($keys) {
 			'source' => 'drupal',
 			'title' => $result['node']->title,
 			'link' => $result['link'],
-			'type' => $result['type'],
+			'type' => $result['node']->type,
 			'snippet' => $result['snippet'],
 			'changed' => $result['node']->changed,
 			'relevance' => $relevance
@@ -124,5 +124,15 @@ function axrsearch_get_combined ($keys) {
 	usort($results, 'axrsearch_cmp_relevance');
 
 	return $results;
+}
+
+/**
+ * Implement hook_search_info
+ */
+function axrsearch_search_info () {
+	return array(
+		'title' => 'Mixed', 
+		'path' => 'mixed',
+	);
 }
 

@@ -27,14 +27,23 @@
 		</ul>
 	</div>
 	<div id="main" role="main">
-		<?php if (!$is_front && $breadcrumb): ?>
-			<nav id="breadcrumb">
-				<?php echo $breadcrumb; ?>
-			</nav>
-		<?php endif; ?>
+		<?php if ($ajaxsite_page): ?>
+			<noscript>Please enable JavaScript</noscript>
+			<script>
+				window.Ajaxsite = window.Ajaxsite || {};
+				try { window.Ajaxsite.load_url(window.location.pathname); }
+				catch (e) { window.Ajaxsite.autoloadWhenReady = true; }
+			</script>
+		<?php else: ?>
+			<?php if (!$is_front && $breadcrumb && !$no_breadcrumb): ?>
+				<nav id="breadcrumb">
+					<?php echo $breadcrumb; ?>
+				</nav>
+			<?php endif; ?>
 
-		<?php echo isset($messages) ? $messages : ''; ?>
-		<?php print render($page['content']); ?>
+			<?php echo isset($messages) ? $messages : ''; ?>
+			<?php print render($page['content']); ?>
+		<?php endif; ?>
 	</div>
 
 	<footer>
