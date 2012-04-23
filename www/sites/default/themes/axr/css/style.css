@@ -457,7 +457,8 @@ header .secondary .login:hover
 {
 	background-position: -964px -354px;
 }
-header .secondary .login a {
+header .secondary .login a
+{
 	color: #999;
 	font-size: 12px;
 	font-weight: bold;
@@ -466,8 +467,9 @@ header .secondary .login a {
 	border-bottom: 1px dotted;
 	line-height: 18px;
 }
-header .secondary .login a:hover {
-	border-bottom-style:solid;
+header .secondary .login a:hover
+{
+	border-bottom-style: solid;
 }
 
 header .secondary div.user_menu
