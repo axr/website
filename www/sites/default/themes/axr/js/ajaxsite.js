@@ -270,6 +270,8 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			handler(url);
 		});
+
+		Ajaxsite.$content.html(Ajaxsite.renderLoading());
 	};
 
 	/**
@@ -373,7 +375,21 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 	Ajaxsite.handlers['404'] = function (url)
 	{
-		Ajaxsite.$content.html('404 Not found');
+		var le404_block = new Ajaxsite.Block();
+		le404_block.html(Ajaxsite.renderLoading());
+
+		Ajaxsite.template('404', function (template, error)
+		{
+			if (error)
+			{
+				le404_block.html('404 Not found');
+				return;
+			}
+
+			le404_block.html(template);
+		});
+
+		Ajaxsite.$content.html(le404_block.placeholder());
 	};
 
 	/**

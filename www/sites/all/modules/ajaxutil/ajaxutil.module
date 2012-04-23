@@ -123,35 +123,35 @@ function ajaxutil_handle_info () {
 		$alias = str_replace('/', '_', $alias);
 		$alias = str_replace('-', '_', $alias);
 
-		$path = '/'.path_to_theme();
+		$path = path_to_theme();
 		$js = array();
 		$css = array();
 	
 		// Node type specific CSS
 		if ($node !== null &&
 			file_exists($path.'/css/node--'.$node->type.'.css')) {
-			$css[] = $path.'/css/node--'.$node->type.'.css';
+			$css[] = '/'.$path.'/css/node--'.$node->type.'.css';
 		}
 
 		// Node type specific JS
 		if ($node !== null &&
 			file_exists($path.'/js/node--'.$node->type.'.js')) {
-			$js[] = $path.'/js/node--'.$node->type.'.js';
+			$js[] = '/'.$path.'/js/node--'.$node->type.'.js';
 		}
 		
 		// URL alias specific CSS
 		if (file_exists($path.'/css/node--bp--'.$alias.'.css')) {
-			$css[] = $path.'/css/node--bp--'.$alias.'.css';
+			$css[] = '/'.$path.'/css/node--bp--'.$alias.'.css';
 		}
 
 		// URL alias specific JS
 		if (file_exists($path.'/js/node--bp--'.$alias.'.js')) {
-			$js[] = $path.'/js/node--bp--'.$alias.'.js';
+			$js[] = '/'.$path.'/js/node--bp--'.$alias.'.js';
 		}
 
 		// Hardcoded CSS
 		if (substr($url, 0, 7) == 'search/') {
-			$css[] = $path.'/css/search.css';
+			$css[] = '/'.$path.'/css/search.css';
 		}
 
 		$response['payload'] = array(
