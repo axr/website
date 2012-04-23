@@ -46,11 +46,6 @@ function ajaxutil_handle_search () {
 			throw new Exception();
 		}
 
-		if (!function_exists('axrsearch_get_combined')) {
-			$response['error'] = 'internal_no_axrsearch';
-			throw new Exception();
-		}
-
 		if ($_GET['type'] == 'mixed')
 		{
 			$response['payload'] = axrsearch_get_combined($_GET['keys']);
