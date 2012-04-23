@@ -42,7 +42,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 		if (Ajaxsite.autoloadWhenReady === true)
 		{
-			Ajaxsite.url(window.location.pathname, false, true);
+			Ajaxsite.load_url(window.location.pathname);
 		}
 	};
 
@@ -74,7 +74,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 	{
 		Ajaxsite.template.cache = Ajaxsite.template.cache || {};
 
-		if (Ajaxsite.template.cache[name] !== undefined)
+		if (false && Ajaxsite.template.cache[name] !== undefined)
 		{
 			callback(Ajaxsite.template.cache[name].template);
 			return;
@@ -297,64 +297,12 @@ window.Ajaxsite = window.Ajaxsite || {};
 			};
 
 			/**
-			 * Calculate string relevance
-			 *
-			 * @param string keys
-			 * @param string str
-			 * @return float
-			 */
-			this.get_relevance = function (keys, str)
-			{
-				keys = keys.replace(/[ ]+/, ' ').split(' ');
-				var kwp = 100 / keys.length;
-				var relevance = 0;
-
-				for (var i = 0, c = keys.length; i < c; i++)
-				{
-					var kw_safe = keys[i].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-					var match = str.match(new RegExp(kw_safe, 'g'));
-					var count = match ? match.length : 0;
-					relevance += count * kwp / 100;
-				}
-
-				return relevance;
-			};
-
-			/**
-			 * Reorder results by relevance
-			 *
-			 * @param mixed[] results
-			 * @return mixed[]
-			 */
-			this.reorder = function (results)
-			{
-				results.sort(function (a, b)
-				{
-					if (a.relevance == b.relevance)
-					{
-						return 0;
-					}
-
-					if (a.relevance > b.relevance)
-					{
-						return -1;
-					}
-					else
-					{
-						return 1;
-					}
-				});
-
-				return results;
-			};
-
-			/**
-			 * Get search results from Drupal
+			 * Get search results
 			 *
 			 * @param string keys
 			 * @param function callback
 			 */
-			this.query_drupal = function (keys, callback)
+			this.query = function (keys, callback)
 			{
 				jQuery.ajax({
 					url: '/_ajax/search',
@@ -369,64 +317,13 @@ window.Ajaxsite = window.Ajaxsite || {};
 					for (var i = 0, c = data_raw.payload.length; i < c; i++)
 					{
 						var result = data_raw.payload[i];
-						var relevance = that.get_relevance(keys, result.title) +
-							that.get_relevance(keys, result.snippet);
+						var date = new Date(parseInt(result.changed) * 1000);
 
-						result.relevance = relevance;
+						result.date = date.getFullYear() + '/' +
+							date.getMonth() + '/' + date.getDate();
+						result.time = date.getHours() + ':' + date.getMinutes();
+
 						data.push(result);
-					}
-
-					if (typeof callback === 'function')
-					{
-						callback(data);
-					}
-				}).error(function ()
-				{
-					if (typeof callback === 'function')
-					{
-						callback([]);
-					}
-				});
-			};
-
-			/**
-			 * Get search results from wiki
-			 *
-			 * @param string query
-			 * @param function callback
-			 */
-			this.query_mw = function (query, callback)
-			{
-				jQuery.ajax({
-					url: '/wiki/api.php',
-					data: {
-						action: 'query',
-						list: 'search',
-						format: 'json',
-						srprop: 'snippet',
-						srwhat: 'text',
-						srsearch: query
-					},
-					dataType: 'json'
-				}).success(function (data_raw)
-				{
-					var data = [];
-
-					for (var i = 0, c = data_raw.query.search.length;
-						i < c; i++)
-					{
-						var result = data_raw.query.search[i];
-						var relevance = that.get_relevance(query, result.title) +
-							that.get_relevance(query, result.snippet);
-
-						data.push({
-							source: 'mw',
-							title: result.title,
-							link: '/wiki/' + result.title.replace(' ', '_'),
-							type: 'wiki_page',
-							snippet: result.snippet,
-							relevance: relevance
-						});
 					}
 
 					if (typeof callback === 'function')
@@ -444,37 +341,15 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 			var keys = decodeURIComponent(window.location.pathname
 				.replace(/^\/search\/node\/(.*)$/, '$1'));
-			var finished = 0;
-			var results = [];
 
-			this.query_drupal(keys, function (data)
+			this.query(keys, function (results)
 			{
-				results = results.concat(data);
-				finished++;
-			});
-
-			this.query_mw(keys, function (data)
-			{
-				results = results.concat(data);
-				finished++;
-			});
-
-			// This weirdness allows the code to look better
-			var interval = setInterval(function ()
-			{
-				if (finished < 2)
-				{
-					return;
-				}
-
-				clearInterval(interval);
-
 				that.render({
-					results: that.reorder(results),
+					results: results,
 					query: keys,
 					no_results: results.length === 0
 				});
-			}, 200);
+			});
 
 			Ajaxsite.$content.html(Ajaxsite.renderLoading());
 		}

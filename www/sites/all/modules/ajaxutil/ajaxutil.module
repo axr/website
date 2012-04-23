@@ -39,19 +39,12 @@ function ajaxutil_handle_search () {
 			throw new Exception();
 		}
 
-		$response['payload'] = array();
-		$results_raw = module_invoke('node', 'search_execute',
-			$_GET['keys'], 'intro');
-
-		foreach ($results_raw as $result) {
-			$response['payload'][] = array(
-				'source' => 'drupal',
-				'title' => $result['node']->title,
-				'link' => $result['link'],
-				'type' => $result['type'],
-				'snippet' => $result['snippet']
-			);
+		if (!function_exists('axrsearch_get_combined')) {
+			$response['error'] = 'internal_no_axrsearch';
+			throw new Exception();
 		}
+
+		$response['payload'] = axrsearch_get_combined($_GET['keys']);
 	} catch (Exception $e) {
 		$response['status'] = 1;
 	}
@@ -124,7 +117,7 @@ function ajaxutil_handle_info () {
 		$alias = str_replace('/', '_', $alias);
 		$alias = str_replace('-', '_', $alias);
 
-		$path = path_to_theme();
+		$path = '/'.path_to_theme();
 		$js = array();
 		$css = array();
 	

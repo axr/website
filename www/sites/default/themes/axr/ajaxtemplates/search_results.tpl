@@ -15,13 +15,34 @@
 	</div>
 </nav>
 
-<div class="search_results">
-	{{#results}}
-		<a class="title" href="{{link}}">{{title}}</a>
-		<p>{{{snippet}}}</p>
-	{{/results}}
-	{{#no_results}}
-		<p>There were no matches for query "{{query}}".</p>
-	{{/no_results}}
+<div id="search" class="search_results">
+	<div class="sidebar">
+		<div class="advanced">{{{advanced_search}}}</div>
+		<div class="separator">
+			<div class="extra_0"></div>
+			<div class="extra_1"></div>
+		</div>
+	</div>
+	<div class="results">
+		<h2>Search results:</h2>
+		{{#results}}
+			<div class="item">
+				<a class="title" href="{{link}}">{{title}}</a>
+				<div class="info">
+					{{#author}}
+						<a class="author" href="{{author_link}}">{{author}}</a> -
+					{{/author}}
+					<span class="date">{{date}}</span> -
+					<span class="time">{{time}}</span>
+				</div>
+				<p>{{{snippet}}}</p>
+			</div>
+		{{/results}}
+		{{#no_results}}
+			<div class="nothing">
+				<p>There were no matches for query "{{query}}".</p>
+			</div>
+		{{/no_results}}
+	</div>
 </div>
 
