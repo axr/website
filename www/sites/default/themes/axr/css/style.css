@@ -442,45 +442,32 @@ header .secondary
 	right: 0;
 }
 
-header .secondary a.login
+header .secondary .login
 {
-	display: inline-block;
-	font-size: 0;
-	margin: 5px 0 0 0;
-	vertical-align: top;
-	border-bottom: #efefef 1px solid;
-	position: relative;
-	line-height: 1.6;
-}
-header .secondary > a.login > .extra_0
-{
-	background-image: url(../images/sprite.jpg);
-	background-position: -945px -354px;
-	display: block;
+	background: url("../images/sprite.jpg") -945px -354px;
 	height: 18px;
-	width: 19px;
+	width: 0;
+	left: -60px;
+	padding-left: 19px;
 	position: absolute;
-	left: -26px;
-	top: 2px;
+	text-indent: 7px;
+	top: 6px;
 }
-
-header .secondary > a.login:hover > .extra_0
+header .secondary .login:hover
 {
 	background-position: -964px -354px;
 }
-
-header .secondary > a.login > .extra_1
-{
+header .secondary .login a {
 	color: #999;
-	display: inline-block;
 	font-size: 12px;
-	margin: 0;
-	padding: 1px 0 0 0;
 	font-weight: bold;
-	height: 18px;
-	text-shadow: -1px 1px #efefef;
-	vertical-align: top;
-	border-bottom: 1px solid;
+	text-shadow: -1px 1px #EFEFEF;
+	text-decoration: none;
+	border-bottom: 1px dotted;
+	line-height: 18px;
+}
+header .secondary .login a:hover {
+	border-bottom-style:solid;
 }
 
 header .secondary div.user_menu
