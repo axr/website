@@ -83,6 +83,7 @@ function ajaxutil_handle_template () {
 			'template' => file_get_contents($file)
 		);
 	} catch (Exception $e) {
+		$response['status'] = 1;
 	}
 
 	echo json_encode($response);

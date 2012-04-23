@@ -17,7 +17,7 @@
 
 <div id="search" class="search_results">
 	<div class="sidebar">
-		<div class="advanced">{{{advanced_search}}}</div>
+		<div class="advanced">{{{advanced_block}}}</div>
 		<div class="separator">
 			<div class="extra_0"></div>
 			<div class="extra_1"></div>

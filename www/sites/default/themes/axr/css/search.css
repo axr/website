@@ -5,6 +5,12 @@
 	width: 900px;
 }
 
+#search-form
+{
+	/* Because Drupal sucks. Even people at #drupal-support think so. */
+	display: none !important;
+}
+
 #search.search_results
 {
 	padding: 45px 0 0 0;

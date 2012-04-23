@@ -2,6 +2,12 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 (function (Ajaxsite)
 {
+	if (typeof console === 'undefined')
+	{
+		//var console = {}
+		//console.log = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function () {};
+	}
+
 	Ajaxsite = Ajaxsite || {};
 
 	/**
@@ -73,12 +79,38 @@ window.Ajaxsite = window.Ajaxsite || {};
 	Ajaxsite.template = function (name, callback)
 	{
 		Ajaxsite.template.cache = Ajaxsite.template.cache || {};
+		Ajaxsite.template.loading = Ajaxsite.template.loading || {};
 
-		if (false && Ajaxsite.template.cache[name] !== undefined)
+		// We already have the template in cache
+		if (Ajaxsite.template.cache[name] !== undefined)
 		{
-			callback(Ajaxsite.template.cache[name].template);
+			if (typeof callback === 'function')
+			{
+				callback(Ajaxsite.template.cache[name].template);
+			}
+
 			return;
 		}
+
+		// The template is currently being requested
+		if (Ajaxsite.template.loading[name] === true)
+		{
+			var interval = setInterval(function ()
+			{
+				if (Ajaxsite.template.cache[name] !== undefined)
+				{
+					clearInterval(interval);
+
+					if (typeof callback === 'function')
+					{
+						callback(Ajaxsite.template.cache[name].template);
+					}
+				}
+			}, 100);
+			return;
+		}
+
+		Ajaxsite.template.loading[name] = true;
 
 		jQuery.ajax({
 			url: '/_ajax/template',
@@ -101,11 +133,16 @@ window.Ajaxsite = window.Ajaxsite || {};
 				return;
 			}
 
-			if (typeof callback == 'function')
+			Ajaxsite.template.cache[name] = data.payload;
+			Ajaxsite.template.loading[name] = false;
+
+			if (typeof callback === 'function')
 			{
-				Ajaxsite.template.cache[name] = data.payload;
 				callback(data.payload.template);
 			}
+		}).error(function ()
+		{
+			console.error('Error while loading template ' + name);
 		});
 	};
 
@@ -228,7 +265,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 		if (handler === undefined)
 		{
-			console.log('Page ' + url + ' cannot be loaded');
+			console.error('Page ' + url + ' cannot be loaded');
 			return false;
 		}
 
@@ -272,6 +309,48 @@ window.Ajaxsite = window.Ajaxsite || {};
 	};
 
 	/**
+	 * A block class
+	 */
+	Ajaxsite.Block = function ()
+	{
+		var that = this;
+
+		/**
+		 * Generate a random id
+		 */
+		this.id = ((Math.random()*0xFFFFFF).toString(32) + (Math.random()*0xFFFFFF).toString(32)).replace(/\./g, '');
+
+		/**
+		 * HTML for the block
+		 */
+		this._html = null;
+
+		/**
+		 * Replace the placeholder
+		 */
+		this.html = function (html)
+		{
+			this._html = html;
+			jQuery('.as_block_' + this.id).html(html);
+		};
+
+		/**
+		 * Return a placeholder
+		 */
+		this.placeholder = function ()
+		{
+			var $el = jQuery('<div>').attr('class', 'as_block_' + this.id);
+
+			if (this._html !== null)
+			{
+				$el.html(this._html);
+			}
+
+			return jQuery('<div>').append($el).html();
+		};
+	};
+
+	/**
 	 * Page handlers
 	 */
 	Ajaxsite.handlers = {};
@@ -283,18 +362,6 @@ window.Ajaxsite = window.Ajaxsite || {};
 		node: function (url)
 		{
 			var that = this;
-
-			/**
-			 * Render the page
-			 */
-			this.render = function (view)
-			{
-				Ajaxsite.template('search_results', function (template)
-				{
-					var html = Mustache.render(template, view);
-					Ajaxsite.$content.html(html);
-				});
-			};
 
 			/**
 			 * Get search results
@@ -341,17 +408,41 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 			var keys = decodeURIComponent(window.location.pathname
 				.replace(/^\/search\/node\/(.*)$/, '$1'));
+			var results_block = new Ajaxsite.Block();
+			var advanced_block = new Ajaxsite.Block();
 
+			// Preload the template
+			Ajaxsite.template('search_results');
+
+			// Load advanced options block
+			Ajaxsite.template('search_advanced_block', function (template)
+			{
+				var html = Mustache.render(template);
+				advanced_block.html(html);
+			});
+
+			// Load search results
 			this.query(keys, function (results)
 			{
-				that.render({
-					results: results,
-					query: keys,
-					no_results: results.length === 0
+				// Get search results page template
+				Ajaxsite.template('search_results', function (template)
+				{
+					var html = Mustache.render(template, {
+						advanced_block: advanced_block.placeholder(),
+						results: results,
+						query: keys,
+						no_results: results.length === 0
+					});
+
+					results_block.html(html);
 				});
 			});
 
-			Ajaxsite.$content.html(Ajaxsite.renderLoading());
+			// Insert loading indicator into results_block
+			results_block.html(Ajaxsite.renderLoading());
+
+			// Insert results_block placeholder into #main
+			Ajaxsite.$content.html(results_block.placeholder());
 		}
 	};
 

@@ -222,8 +222,9 @@ function axr_preprocess_html(&$variables) {
  */
 function axr_preprocess_page(&$variables) {
 	if (preg_match('/^\/search\/node[\?\/$]/', request_uri())) {
-		//drupal_add_js(drupal_get_path('theme', 'axr'). '/js/search.js', $options);
-		//$variables['theme_hook_suggestions'][] = 'search_results';
+		drupal_add_css(drupal_get_path('theme', 'axr'). '/css/search.css', array(
+			'group' => CSS_THEME
+		));
 	}
 }
 
@@ -269,14 +270,9 @@ function axr_preprocess_node(&$variables) {
 		drupal_add_js($path.'/js/node--bp--'.$alias.'.js', array(
 			'group' => JS_THEME
 		));
-	}
+	}	
 }
 
-/**
- * Implement hook_js_alter
- *
- * @param mixed[] $js
- */
 function axr_js_alter(&$js) {
 	$js['misc/jquery.js']['data'] = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
 	$js['misc/jquery.js']['type'] = 'external';
