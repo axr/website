@@ -12,6 +12,11 @@ nav#breadcrumb {
 	width: auto;
 }
 
+nav#breadcrumb > div {
+	position: relative;
+	z-index: 8;
+}
+
 div#globalWrapper {
 	font-size: 13px;
 	position: relative;
