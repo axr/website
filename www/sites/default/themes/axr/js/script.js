@@ -103,7 +103,7 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	}, function () {
 		$(this).closest('li').removeClass('hover').find(".sections").addClass('hidden');
 	});
-	
+
 	/**
 	* Dropdown for user menu
 	*/

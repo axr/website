@@ -30,6 +30,11 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			var url = jQuery(this).attr('href');
 
+			if (/^(#|javascript:)/.test(url))
+			{
+				return;
+			}
+
 			e.preventDefault();
 
 			Ajaxsite.url(url);

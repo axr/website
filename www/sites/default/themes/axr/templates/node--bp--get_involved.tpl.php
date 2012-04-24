@@ -6,7 +6,7 @@
 		<h2>Get involved</h2>
 		<p>If you have ever thought that the current web standards are just not good enough, you can help us make a change!</p>
 
-		<a href="javascript:" id="action_button" class="join button_std">
+		<a href="#" id="action_button" class="join button_std">
 			<span class="header"></span>
 			<span class="content"><span class="block_0"></span>Get started right now!</span>
 			<span class="footer"></span>
