@@ -1250,6 +1250,10 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 	-webkit-border-radius: 8px 8px 0 0;
 	border-radius: 8px 8px 0 0;
 }
+.last_tweet > .tweet_container:hover
+{
+	text-overflow:clip;
+}
 .last_tweet > .follow_us
 {
 
