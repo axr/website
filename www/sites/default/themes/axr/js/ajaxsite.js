@@ -2,12 +2,6 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 (function (Ajaxsite)
 {
-	if (typeof console === 'undefined')
-	{
-		//var console = {}
-		//console.log = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function () {};
-	}
-
 	Ajaxsite = Ajaxsite || {};
 
 	/**
@@ -35,11 +29,6 @@ window.Ajaxsite = window.Ajaxsite || {};
 		jQuery('a').on('click', function (e)
 		{
 			var url = jQuery(this).attr('href');
-
-			if (/^\/admin\//.test(url))
-			{
-				return;
-			}
 
 			e.preventDefault();
 
