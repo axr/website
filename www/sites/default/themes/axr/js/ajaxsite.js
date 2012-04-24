@@ -53,6 +53,11 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 */
 	Ajaxsite.url = function (url, force)
 	{
+		if (typeof url !== 'string')
+		{
+			return;
+		}
+
 		url = url.replace(/^https?:\/\/[^\/]+\/(.*)$/, '$1')
 			.replace(/^\//, '');
 
@@ -144,6 +149,11 @@ window.Ajaxsite = window.Ajaxsite || {};
 	{
 		var that = this;
 		this.cache = this.cache || {};
+
+		if (typeof url !== 'string')
+		{
+			return;
+		}
 
 		if (this.cache[url] === undefined)
 		{
@@ -241,6 +251,11 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 */
 	Ajaxsite.load_url = function (url)
 	{
+		if (typeof url !== 'string')
+		{
+			return false;
+		}
+
 		url = url.replace(/^https?:\/\/[^\/]+\/(.*)$/, '$1')
 			.replace(/^\//, '');
 
