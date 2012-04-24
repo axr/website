@@ -681,13 +681,7 @@ input::-webkit-input-placeholder
 #main
 {
 	margin: auto;
-}
-
-#breadcrumb
-{
-	margin: auto;
-	padding: 30px 0 0 0;
-	width: 900px;
+	min-height: 70px;
 }
 
 #main > .above_fold > .nested_0 > .intro > p

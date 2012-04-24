@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * Setup custom urls
+ */
+function ajaxutil_menu () {
+	$items['_ajax/search'] = array(
+		'page callback' => 'ajaxutil_handle_search',
+		'access arguments' => array('search content'),
+	);
+
+	$items['_ajax/template'] = array(
+		'page callback' => 'ajaxutil_handle_template',
+		'access arguments' => array('access content'),
+	);
+
+	$items['_ajax/info'] = array(
+		'page callback' => 'ajaxutil_handle_info',
+		'access arguments' => array('access content'),
+	);
+
+	return $items;
+}
+
+/**
+ * Handle requests to /search/json
+ */
+function ajaxutil_handle_search () {
+	$response = array(
+		'status' => 0, // 0 = good | 1 = bad
+		'error' => null,
+		'error_msg' => null,
+		'payload' => null
+	);
+
+	try {
+		if (!isset($_GET['keys']) ||
+			!isset($_GET['type'])) {
+			$response['error'] = 'invalid_request';
+			throw new Exception();
+		}
+
+		// There will be more types
+		if (!in_array($_GET['type'], array('mixed'))) {
+			$response['error'] = 'invalid_type';
+			throw new Exception();
+		}
+
+		if ($_GET['type'] == 'mixed')
+		{
+			$response['payload'] = axrsearch_get_combined($_GET['keys']);
+		}
+	} catch (Exception $e) {
+		$response['status'] = 1;
+	}
+
+	echo json_encode($response);
+}
+
+/**
+ * Handle requests to /_ajax/template
+ * Returns a template file
+ */
+function ajaxutil_handle_template () {
+	$response = array(
+		'status' => 0, // 0 = good | 1 = bad
+		'error' => null,
+		'error_msg' => null,
+		'payload' => null
+	);
+
+	try {
+		if (!isset($_GET['name'])) {
+			$response['error'] = 'invalid_request';
+			throw new Exception();
+		}
+
+		$name = preg_replace('/[^a-zA-z0-9-_]/', '', $_GET['name']);
+		$file = path_to_theme().'/ajaxtemplates/'.$name.'.tpl';
+
+		if (!file_exists($file)) {
+			$response['error'] = 'template_not_found';
+			throw new Exception();
+		}
+
+		$response['payload'] = array(
+			'name' => $name,
+			'template' => file_get_contents($file)
+		);
+	} catch (Exception $e) {
+		$response['status'] = 1;
+	}
+
+	echo json_encode($response);
+}
+
+/**
+ * Handle requests to /_ajax/info
+ */
+function ajaxutil_handle_info () {
+	$response = array(
+		'status' => 0,
+		'error' => null,
+		'error_msg' => null,
+		'payload' => null
+	);
+
+	try {
+		if (!isset($_GET['url'])) {
+			$response['error'] = 'invalid_request';
+			throw new Exception();
+		}
+
+		$url = preg_replace('/(^\/|\/$)/', '', $_GET['url']);
+
+		// Get node
+		$source = drupal_lookup_path('source', $url);
+		$nid = preg_replace('/^\/node\/([0-9]+)$/', '$1', $source);
+		$node = ($source === $nid) ? null : node_load($nid);
+
+		// Get path alias
+		$alias = drupal_get_path_alias($url);
+		$alias = str_replace('/', '_', $alias);
+		$alias = str_replace('-', '_', $alias);
+
+		$path = path_to_theme();
+		$js = array();
+		$css = array();
+	
+		// Node type specific CSS
+		if ($node !== null &&
+			file_exists($path.'/css/node--'.$node->type.'.css')) {
+			$css[] = '/'.$path.'/css/node--'.$node->type.'.css';
+		}
+
+		// Node type specific JS
+		if ($node !== null &&
+			file_exists($path.'/js/node--'.$node->type.'.js')) {
+			$js[] = '/'.$path.'/js/node--'.$node->type.'.js';
+		}
+		
+		// URL alias specific CSS
+		if (file_exists($path.'/css/node--bp--'.$alias.'.css')) {
+			$css[] = '/'.$path.'/css/node--bp--'.$alias.'.css';
+		}
+
+		// URL alias specific JS
+		if (file_exists($path.'/js/node--bp--'.$alias.'.js')) {
+			$js[] = '/'.$path.'/js/node--bp--'.$alias.'.js';
+		}
+
+		// Hardcoded CSS
+		if (substr($url, 0, 7) == 'search/') {
+			$css[] = '/'.$path.'/css/search.css';
+		}
+
+		$response['payload'] = array(
+			'url' => $url,
+			'js' => $js,
+			'css' => $css
+		);
+	} catch (Exception $e) {
+	}
+
+	echo json_encode($response);
+}
+

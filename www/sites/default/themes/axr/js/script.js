@@ -171,5 +171,13 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 		$('#joining').trigger('show');
 		return false;
 	});
+
+	$('header > .secondary > form').on('submit', function (e)
+	{
+			e.preventDefault();
+
+			var url = '/search/mixed/' + encodeURIComponent($(this).find('input[type=search]').val());
+			Ajaxsite.url(url);
+	});
 })(jQuery);
 
