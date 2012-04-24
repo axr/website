@@ -221,6 +221,8 @@ function axr_preprocess_html(&$variables) {
  * Preprocess page
  */
 function axr_preprocess_page(&$variables) {
+	$variables['ajaxsite_page'] = false;
+
 	if (preg_match('/^\/search[\?\/$]/', request_uri())) {
 		drupal_add_css(drupal_get_path('theme', 'axr'). '/css/search.css', array(
 			'group' => CSS_THEME

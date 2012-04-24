@@ -35,7 +35,7 @@
 				catch (e) { window.Ajaxsite.autoloadWhenReady = true; }
 			</script>
 		<?php else: ?>
-			<?php if (!$is_front && $breadcrumb && !$no_breadcrumb): ?>
+			<?php if (!$is_front && $breadcrumb): ?>
 				<nav id="breadcrumb">
 					<?php echo $breadcrumb; ?>
 				</nav>
