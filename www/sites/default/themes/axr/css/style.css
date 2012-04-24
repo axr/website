@@ -440,6 +440,7 @@ header .secondary
 	position: absolute;
 	top: 40px;
 	right: 0;
+	z-index:1;
 }
 
 header .secondary .login
@@ -475,83 +476,68 @@ header .secondary .login a:hover
 header .secondary div.user_menu
 {
 	display: inline-block;
-	margin: 5px 0 0 0;
-	vertical-align: top;
+	margin-top: 7px;
 	position: relative;
-	line-height: 1.6;
-	padding-left: 26px;
+	width:75px;
 }
-
 header .secondary > div.user_menu > a
 {
-	display: block;
+	display: inline-block;
 	text-decoration: none;
-	border-bottom: #efefef 1px solid;
-}
-
-header .secondary > div.user_menu > a > .extra_0
-{
-	background-image: url(../images/sprite32.png);
+	background: url('../images/sprite32.png');
 	background-position: -228px -109px;
 	display: block;
 	height: 18px;
-	width: 19px;
 	position: absolute;
-	left: 0px;
-	top: 2px;
+	padding-left: 19px;
+	outline:none;
 }
-
-header .secondary > div.user_menu:hover > a > .extra_0
+header .secondary > div.user_menu > a:focus,
+header .secondary > div.user_menu:hover > a
 {
 	background-position: -248px -109px;
 }
-
-header .secondary > div.user_menu > a > .extra_1
+header .secondary > div.user_menu > a span
 {
 	color: #999;
-	display: block;
 	font-size: 12px;
-	margin: 0;
-	padding: 1px 0 0 0;
 	font-weight: bold;
 	height: 18px;
+	line-height:8px;
 	text-shadow: -1px 1px #efefef;
-	vertical-align: top;
-	border-bottom: 1px solid;
-}
-
-header .secondary > div.user_menu > a > .extra_2
-{
-	background-image: url(../images/sprite32.png);
+	text-decoration-style:dotted;
+	background: url('../images/sprite32.png');
 	background-position: -232px -78px;
 	display: block;
 	height: 11px;
 	width: 11px;
 	position: absolute;
-	right: 6px;
-	top: 6px;
+	text-indent:-28px;
+	right: -46px;
+	top:6px
 }
-
-header .secondary > div.user_menu:hover > a > .extra_2
+header .secondary > div.user_menu > a:focus span,
+header .secondary > div.user_menu:hover > a span
 {
 	background-position: -244px -78px;
 }
-
 header .secondary > div.user_menu div.dropdown a {display:none}
-header .secondary > div.user_menu:hover div.dropdown, header .secondary > div.user_menu div.dropdown:hover, header .secondary > div.user_menu div.dropdown a:focus ~ div  {display:block}
-header .secondary > div.user_menu div.dropdown, header .secondary > div.user_menu div.dropdown a:focus, header .secondary > div.user_menu div.dropdown a:focus ~ a
+header .secondary > div.user_menu:hover div.dropdown,
+header .secondary > div.user_menu div.dropdown:hover,
+header .secondary > div.user_menu div.dropdown a:focus ~ div  {display:block}
+header .secondary > div.user_menu div.dropdown,
+header .secondary > div.user_menu div.dropdown a:focus,
+header .secondary > div.user_menu div.dropdown a:focus ~ a
 {
-	width: 134px;
+	width: 138px;
 	z-index:15;
-	left:50%;
-	margin-left:-70px;
-	margin-right: -17px;
+	margin-left:-69px;
 	position:relative;
 	background:#717171;
 }
 header .secondary > div.user_menu div.dropdown
 {
-	top:5px;
+	top:26px;
 	-webkit-border-radius:8px;
 	-moz-border-radius:8px;
 	border-radius:8px;
@@ -569,7 +555,11 @@ header .secondary > div.user_menu:hover div.dropdown
 	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #747474), color-stop(0.37, #636363));
 }
-header .secondary > div.user_menu:hover div.dropdown a, header .secondary > div.user_menu div.dropdown a:focus ~ div a, header .secondary > div.user_menu div.dropdown a:focus, header .secondary > div.user_menu div.dropdown a:focus ~ a, .afocus
+header .secondary > div.user_menu:hover div.dropdown a,
+header .secondary > div.user_menu a:focus ~ div.dropdown a,
+header .secondary > div.user_menu div.dropdown a:focus,
+header .secondary > div.user_menu div.dropdown a:focus ~ a,
+.afocus
 {
 	display:block !important;
 	height: 40px;
@@ -587,7 +577,8 @@ header .secondary > div.user_menu div.dropdown a
 	text-shadow: #333333 0 1px 0;
 	cursor: pointer;
 }
-header .secondary > div.user_menu div.dropdown a:hover, header .secondary > div.user_menu div.dropdown a:focus
+header .secondary > div.user_menu div.dropdown a:hover,
+header .secondary > div.user_menu div.dropdown a:focus
 {
 	color: #313131;
 	text-shadow: #959595 0 1px 0;
@@ -604,7 +595,8 @@ header .secondary > div.user_menu div.dropdown a:focus
 }
 header .secondary > div.user_menu div.dropdown .first {border-top:none !important}
 header .secondary > div.user_menu div.dropdown .last {border-bottom:none !important}
-header .secondary > div.user_menu div.dropdown a:focus ~ .last, header .secondary > div.user_menu div.dropdown .last:focus
+header .secondary > div.user_menu div.dropdown a:focus ~ .last,
+header .secondary > div.user_menu div.dropdown .last:focus
 {
 	-webkit-border-bottom-left-radius:8px;
 	-webkit-border-bottom-right-radius:8px;
@@ -622,11 +614,9 @@ header .secondary > div.user_menu .arrow
 	width:0;
 	position:absolute;
 	z-index:20;
-	margin-top:20px;
-	margin-left: 15px;
+	margin:20px 0 0 30px;
 	display:none;
 }
-
 header .secondary > div.user_menu:hover .arrow {display:block}
 
 

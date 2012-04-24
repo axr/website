@@ -7,7 +7,7 @@
 			<?php else: ?>
 				<div class="user_menu">
 					<span class="arrow"></span>
-					<a class="menu_link" href="javascript:;"><span class="extra_0"></span><span class="extra_1">User</span><span class="extra_2"></span></a>
+					<a class="user_link" href="/user/<?php echo $user->uid; ?>/"><span class="menu_title">User</span></a>
 					<div class="dropdown">
 						<a class="edit_account first" href="/user/<?php echo $user->uid; ?>/edit/">Edit account</a>
 						<a class="wiki_profile" href="/wiki/user_edit_placeholder">Wiki profile</a>
