@@ -484,6 +484,7 @@ a:hover
 .modal
 {
 	background: rgba(80,80,80,.3);
+	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
