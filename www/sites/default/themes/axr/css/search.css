@@ -14,26 +14,84 @@
 #search
 {
 	min-height: 293px;
-	padding: 35px 0 0 0;
+	padding: 25px 0 0 0;
 }
 
-#search > .results h2
+#search .search_options_ghost
+{
+	height: 33px;
+	margin: 0 0 20px 0;
+}
+
+#search .search_options
+{
+	background: #d9d9d9;
+	border-radius: 5px;
+	height: 23px;
+	padding: 5px;
+	width: 890px;
+}
+
+#search .search_options.stick
+{
+	position: fixed;
+	top: 7px;
+	z-index: 700;
+}
+
+#search .search_options.stick.stickLess
+{
+	top: 40px !important;
+}
+
+#search .search_options > form
+{
+	float: left;
+}
+
+#search .search_options > form > input[type=search]
+{
+	background: #fff;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	font-size: 12px;
+	padding: 3px 6px;
+	outline: none;
+	width: 270px;
+}
+
+#search .search_options > .options
+{
+	float: right;
+}
+
+#search .search_options > .options > select.type
+{
+	background: #fff;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	font-size: 12px;
+	padding: 2px 6px;
+	outline: none;
+}
+
+#search .search_results h2
 {
 	margin: 0 0 20px 0;
 }
 
-#search > .results .item
+#search .search_results .item
 {
 	margin: 0 0 25px 0;
 }
 
-#search > .results .item > .left
+#search .search_results .item > .left
 {
 	float: left;
 	width: 120px;
 }
 
-#search > .results .item > .left > .type
+#search .search_results .item > .left > .type
 {
 	color: #666;
 	display: block;
@@ -42,19 +100,19 @@
 	text-transform: uppercase;
 }
 
-#search > .results .item > .left > .date
+#search .search_results .item > .left > .date
 {
 	color: #999;
 	display: block;
 	font-size: 11px;
 }
 
-#search > .results .item > .right
+#search .search_results .item > .right
 {
 	padding: 0 0 0 130px;
 }
 
-#search > .results .item > .right > a.title
+#search .search_results .item > .right > a.title
 {
 	color: #666;
 	font-size: 16px;
@@ -64,12 +122,12 @@
 	text-decoration: none;
 }
 
-#search > .results .item > .right > a.title:hover
+#search .search_results .item > .right > a.title:hover
 {
 	text-decoration: underline;
 }
 
-#search > .results .item > .right > p
+#search .search_results .item > .right > p
 {
 	font-size: 13px;
 	color: #666;

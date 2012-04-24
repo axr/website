@@ -18,11 +18,11 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 		History.Adapter.bind(window, 'statechange', function ()
 		{
-			var url = History.getState().url;
+			var state = History.getState();
 
-			if (Ajaxsite.load_url(url) === false)
+			if (Ajaxsite.load_url(state.url, state.data) === false)
 			{
-				window.location = url;
+				window.location = state.url;
 			}
 		});
 
@@ -50,8 +50,10 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 * Open url
 	 *
 	 * @param string url
+	 * @param bool force
+	 * @param Object data
 	 */
-	Ajaxsite.url = function (url, force)
+	Ajaxsite.url = function (url, force, data)
 	{
 		if (typeof url !== 'string')
 		{
@@ -66,7 +68,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 			return;
 		}
 
-		History.pushState(null, null, '/' + url);
+		History.pushState(data || null, null, '/' + url);
 	};
 
 	/**
@@ -248,8 +250,9 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 * Load an URL
 	 *
 	 * @param string url
+	 * @param Object data
 	 */
-	Ajaxsite.load_url = function (url)
+	Ajaxsite.load_url = function (url, data)
 	{
 		if (typeof url !== 'string')
 		{
@@ -259,13 +262,13 @@ window.Ajaxsite = window.Ajaxsite || {};
 		url = url.replace(/^https?:\/\/[^\/]+\/(.*)$/, '$1')
 			.replace(/^\//, '');
 
-		return Ajaxsite.load(url);
+		return Ajaxsite.load(url, data || undefined);
 	};
 
 	/**
 	 * Load a page
 	 */
-	Ajaxsite.load = function (url)
+	Ajaxsite.load = function (url, data)
 	{
 		var handler = this._find_handler(url);
 
@@ -277,7 +280,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 		Ajaxsite.prepare(url, function ()
 		{
-			handler(url);
+			handler(url, data || undefined);
 		});
 
 		Ajaxsite.$content.html(Ajaxsite.renderLoading());
@@ -328,14 +331,14 @@ window.Ajaxsite = window.Ajaxsite || {};
 	/**
 	 * A block class
 	 */
-	Ajaxsite.Block = function ()
+	Ajaxsite.Block = function (id)
 	{
 		var that = this;
 
 		/**
 		 * Generate a random id
 		 */
-		this.id = ((Math.random()*0xFFFFFF).toString(32) + (Math.random()*0xFFFFFF).toString(32)).replace(/\./g, '');
+		this.id = (id !== undefined) ? id : ((Math.random()*0xFFFFFF).toString(32) + (Math.random()*0xFFFFFF).toString(32)).replace(/\./g, '');
 
 		/**
 		 * HTML for the block
@@ -348,7 +351,15 @@ window.Ajaxsite = window.Ajaxsite || {};
 		this.html = function (html)
 		{
 			this._html = html;
-			jQuery('.as_block_' + this.id).html(html);
+			var el = jQuery('.as_block_' + this.id).html(html);
+		};
+
+		/**
+		 * Get HTML
+		 */
+		this.getHtml = function ()
+		{
+			return this._html;
 		};
 
 		/**
@@ -356,12 +367,9 @@ window.Ajaxsite = window.Ajaxsite || {};
 		 */
 		this.placeholder = function ()
 		{
-			var $el = jQuery('<div>').attr('class', 'as_block_' + this.id);
-
-			if (this._html !== null)
-			{
-				$el.html(this._html);
-			}
+			var $el = jQuery('<div>')
+				.attr('class', 'as_block_' + this.id)
+				.html(this._html);
 
 			return jQuery('<div>').append($el).html();
 		};
@@ -375,6 +383,16 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			return jQuery('.as_block_' + this.id).length;
 		};
+
+		// Wait for element to be created
+		var interval = setInterval(function ()
+		{
+			if (jQuery('.as_block_' + that.id).length > 0)
+			{
+				clearInterval(interval);
+				jQuery('.as_block_' + that.id).html(that._html);
+			}
+		}, 80);
 	};
 
 	/**
@@ -405,7 +423,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 * Implement search module
 	 */
 	Ajaxsite.handlers.search = {
-		_default: function (url)
+		_default: function (url, data)
 		{
 			var that = this;
 
@@ -418,6 +436,16 @@ window.Ajaxsite = window.Ajaxsite || {};
 				wiki: 'wiki page',
 				user: 'user'
 			};
+
+			/**
+			 * Is initialized
+			 */
+			this.isInitialized = this.isInitialized || false;
+
+			/**
+			 * History data
+			 */
+			this.data = data || {};
 
 			/**
 			 * What type of content is being searched for
@@ -509,7 +537,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 			Ajaxsite.template('search', function (template)
 			{
 				var html = Mustache.render(template, {
-					//options_block: options_block.placeholder(),
+					options_block: options_block.placeholder(),
 					results_block: results_block.placeholder(),
 					query: that.keys
 				});
@@ -539,8 +567,68 @@ window.Ajaxsite = window.Ajaxsite || {};
 				});
 			});
 
+			if (!this.isInitialized)
+			{
+				var $bar = undefined;
+				var barOffset = undefined;
+				var barOffsetDiff = 7;
+
+				jQuery(window).scroll(function (e)
+				{
+					$bar = $bar || jQuery('#search .search_options');
+
+					if ($bar.length == 0)
+					{
+						$bar = undefined;
+						return;
+					}
+
+					barOffset = barOffset || $bar.offset().top;
+
+					if (jQuery(window).scrollTop() > barOffset - barOffsetDiff)
+					{
+						$bar.addClass('stick');
+
+						if (jQuery('#toolbar').length > 0)
+						{
+							barOffsetDiff = 40;
+							$bar.addClass('stickLess');
+						}
+					}
+					else
+					{
+						$bar.removeClass('stick stickLess');
+					}
+				});
+
+				jQuery('#main').on('change',
+					'#search .search_options select[name=type]',
+					function (e)
+				{
+					e.preventDefault();
+
+					var type = jQuery(this).val();
+				});
+
+				jQuery('#main').on('submit',
+					'#search .search_options form.search',
+					function (e)
+				{
+					e.preventDefault();
+
+					var keys = jQuery(this).find('input[type=search]').val();
+					var url = '/search/' + that.type + '/' +
+						encodeURIComponent(keys);
+
+					Ajaxsite.url(url, false, {
+						partialReload: true
+					});
+				});
+			}
+
 			// Insert layout_block placeholder into #main
 			Ajaxsite.$content.html(layout_block.placeholder());
+			this.isInitialized = true;
 		}
 	};
 

@@ -16,7 +16,7 @@
 </nav>
 
 <div id="search">
-	<div class="options">{{{options_block}}}</div>
-	<div class="results">{{{results_block}}}</div>
+	{{{options_block}}}
+	{{{results_block}}}
 </div>
 
