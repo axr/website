@@ -10,10 +10,15 @@
 					<span class="extra_1">Login</span>
 				</a>
 			<?php else: ?>
-				<a class="login" href="<?php echo $this->getLinkLogout(); ?>">
-					<span class="extra_0"></span>
-					<span class="extra_1">Logout</span>
-				</a>
+				<div class="user_menu">
+					<span class="arrow"></span>
+					<a class="menu_link" href="#" onClick="return false;"><span class="extra_0"></span><span class="extra_1">User</span><span class="extra_2"></span></a>
+					<div class="dropdown">
+						<a class="edit_account first" href="/user/<?php echo IwDrupal::getDrupalUID(); ?>/edit/">Edit account</a>
+						<a class="wiki_profile" href="/wiki/User:<?php echo $wgUser->getName(); ?>">Wiki profile</a>
+						<a class="logout last" href="<?php echo $this->getLinkLogout(); ?>">Logout</a>
+					</div>
+				</div>
 			<?php endif; ?>
 			<form action="<?php $this->text('wgScript') ?>" method="post">
 				<input type='hidden' name="title" value="<?php $this->text('searchtitle') ?>"/>
