@@ -10,7 +10,7 @@
 					<a class="menu_link" href="javascript:;"><span class="extra_0"></span><span class="extra_1">User</span><span class="extra_2"></span></a>
 					<div class="dropdown">
 						<a class="edit_account first" href="/user/<?php echo $user->uid; ?>/edit/">Edit account</a>
-						<a class="wiki_profile" href="/wiki/user_edit_placeholder">Wiki profile</a>
+						<a class="wiki_profile" href="/wiki/User:<?php echo $user->name; ?>">Wiki profile</a>
 						<a class="logout last" href="/user/logout">Logout</a>
 					</div>
 				</div>
