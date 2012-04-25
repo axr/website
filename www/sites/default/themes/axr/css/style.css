@@ -1226,9 +1226,9 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 {
 	z-index: 1;
 	margin: 1px 0 0 75px;
-	height: 47px;
+	height: 50px;
 	width: 223px;
-	padding: 18px;
+	padding: 15px 18px 18px 18px;
 	color: #606060;
 	font-weight: bold;
 	font-size: 0.9em;

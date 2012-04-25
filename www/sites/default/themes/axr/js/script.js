@@ -6,20 +6,21 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 (function ($) {
 	var beautifyTweet = function (tweet) {
 		parseURL = function (tweet) {
-			return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/, function(url) {
+			return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/, function (url) {
 				return url.link(url);
 			});
 		};
 
 		parseUsername = function (tweet) {
 			return tweet.replace(/[@]+[A-Za-z0-9-_]+/, function (u) {
-				return u.link("http://twitter.com/"+u.replace("@",""));
+				return u.link('https://twitter.com/#!/' + u.replace('@', ''));
 			});
 		};
 
 		parseHashtag = function (tweet) {
 			return tweet.replace(/[#]+[A-Za-z0-9-_]+/, function (t) {
-				return t.link("http://search.twitter.com/search?q="+t.replace("#","%23"));
+				return t.link('http://search.twitter.com/search?q=' +
+					t.replace('#', '%23'));
 			});
 		};
 
