@@ -120,6 +120,10 @@ function axrsearch_get_drupal ($keys, $type = 'node') {
 			);
 		}
 	}
+
+	ob_start();
+	theme('status_messages');
+	ob_end_clean();
 	
 	return $data;
 }
