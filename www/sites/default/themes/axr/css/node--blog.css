@@ -17,3 +17,104 @@
 	line-height: 1.4;
 	margin: 0 0 20px 0;
 }
+
+#main .node .content a {
+	color: #666;
+}
+
+#main .node .content a:hover
+{
+	color: #000;
+}
+
+#main .content ul.links
+{
+	list-style: none;
+	margin: 10px 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#main .content ul.links > li
+{
+	float: left;
+	display: block;
+}
+
+#main .content ul.links > li.first a
+{
+	color: #666;
+}
+
+#main .content ul.links > li a
+{
+	display: block;
+	padding: 8px 12px;
+	background-color: #D8D8D8;
+	margin-right: 15px;
+	color: #999;
+	font-weight: bold;
+	text-decoration: none;
+	border-radius: 8px;
+}
+
+#main .content ul.links > li a:hover
+{
+	color: #666;
+}
+
+#main .content ul.links > li.first a:hover
+{
+	color: #000;
+}
+
+#comment-form
+{
+	padding: 20px;
+	background-color: #D8D8D8;
+	border-radius: 8px;
+	margin-top: 30px;
+}
+
+#comment-form .form-item
+{
+	padding: 10px 0;
+}
+
+#comment-form .form-item a
+{
+	color: #666;
+}
+
+#comment-form .form-item a:hover
+{
+	color: #000;
+}
+
+#comment-form .form-item-subject label,
+#comment-form .form-type-textarea label
+{
+	display: block;
+	font-weight: bold;
+	padding-bottom: 4px;
+}
+
+#comment-form .form-item input[type=text]
+{
+	width: 773px;
+	display: block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#comment-form .form-item textarea
+{
+	max-width: 780px;
+}
+
+#comment-form .form-actions input
+{
+	width: 200px;
+	margin-right: 25px;
+}
+

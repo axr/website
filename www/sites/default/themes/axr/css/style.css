@@ -673,6 +673,8 @@ input::-webkit-input-placeholder
 {
 	margin: auto;
 	min-height: 70px;
+	width: 820px;
+	padding-top: 30px;
 }
 
 #main > .above_fold > .nested_0 > .intro > p
