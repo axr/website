@@ -3,6 +3,7 @@
 		<a href="/" id="logo">AXR Project</a>
 		<div class="secondary">
 			<?php if ($user->uid == 0): ?>
+				<span class="register"><a href="/user/register">Register</a></span>
 				<span class="login"><a href="/user/login">Login</a></span>
 			<?php else: ?>
 				<div class="user_menu">

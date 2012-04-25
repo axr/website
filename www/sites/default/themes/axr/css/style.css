@@ -443,9 +443,10 @@ header .secondary
 	z-index:1;
 }
 
+header .secondary .register,
 header .secondary .login
 {
-	background: url("../images/sprite.jpg") -945px -354px;
+	background: url("../images/sprite32.png") -228px -147px;
 	height: 18px;
 	width: 0;
 	left: -60px;
@@ -456,8 +457,9 @@ header .secondary .login
 }
 header .secondary .login:hover
 {
-	background-position: -964px -354px;
+	background-position: -248px -147px;
 }
+header .secondary .register a,
 header .secondary .login a
 {
 	color: #999;
@@ -468,10 +470,24 @@ header .secondary .login a
 	border-bottom: 1px dotted;
 	line-height: 18px;
 }
+
+header .secondary .register a:hover,
 header .secondary .login a:hover
 {
 	border-bottom-style: solid;
 }
+
+header .secondary .register
+{
+	background: url("../images/sprite32.png") -228px -128px;
+	left: -155px;
+}
+header .secondary .register:hover
+{
+	background-position: -248px -128px;
+}
+
+
 
 header .secondary div.user_menu
 {
