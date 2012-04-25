@@ -4,3 +4,5 @@
 /deploy/db/scripts
 !/deploy/db/scripts/initial.sql
 /www/wiki/LocalSettings.php
+/www/sites/default/files
+/www/sites/default/images
