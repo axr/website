@@ -12,11 +12,6 @@
 	padding-bottom: 20px;
 }
 
-#main .node > h1
-{
-	display: none;
-}
-
 #main .node .content p {
 	font-size: 1.2em;
 	line-height: 1.4;
