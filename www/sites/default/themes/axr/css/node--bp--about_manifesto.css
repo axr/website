@@ -1,7 +1,14 @@
+#main
+{
+	padding-top: 30px;
+	width: 820px;
+	margin: 0 auto;
+}
+
 #manifesto
 {
 	width: 920px;
-	margin: 0 auto;
+	margin-left: -50px;
 }
 
 #manifesto > p
