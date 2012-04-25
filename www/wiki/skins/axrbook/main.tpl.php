@@ -5,10 +5,8 @@
 		<a href="/" id="logo">AXR Project</a>
 		<div class="secondary">
 			<?php if (!is_object($wgUser) || $wgUser->getID() == 0): ?>
-				<a class="login" href="<?php echo $this->getLinkLogin(); ?>">
-					<span class="extra_0"></span>
-					<span class="extra_1">Login</span>
-				</a>
+				<span class="register"><a href="/user/register">Register</a></span>
+				<span class="login"><a href="<?php echo $this->getLinkLogin(); ?>">Login</a></span>
 			<?php else: ?>
 				<div class="user_menu">
 					<span class="arrow"></span>
