@@ -3,11 +3,11 @@
 		<div class="item">
 			<div class="left">
 				<span class="type">{{type_str}}</span>
-				<span class="date">{{date}} - {{time}}</span>
+				{{#date}}<span class="date">{{date}}</span>{{/date}}
 			</div>
 			<div class="right">
 				<a class="title" href="{{link}}">{{title}}</a>
-				<p>{{{snippet}}}</p>
+				{{#snippet}}<p>{{{snippet}}}</p>{{/snippet}}
 			</div>
 		</div>
 	{{/results}}

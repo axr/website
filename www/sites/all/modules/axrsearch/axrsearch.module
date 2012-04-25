@@ -88,24 +88,37 @@ function axrsearch_get_mw ($keys) {
  * @param string $keys
  * @return mixed[]
  */
-function axrsearch_get_drupal ($keys) {
-	$results = module_invoke('node', 'search_execute', $keys, 'intro');
+function axrsearch_get_drupal ($keys, $type = 'node') {
+	$results = module_invoke($type, 'search_execute', $keys);
 	$data = array();
 
 	foreach ($results as $result) {
-		$relevance = 0;
-		$relevance += axrsearch_calc_relevance($keys, $result['node']->title) * 0.6;
-		$relevance += axrsearch_calc_relevance($keys, $result['node']->body['und'][0]['value']) * 0.4;
+		if ($type == 'user')
+		{
+			$data[] = array(
+				'source' => 'drupal',
+				'title' => $result['title'],
+				'link' => $result['link'],
+				'type' => 'user',
+				'relevance' => 1
+			);
+		}
+		else
+		{
+			$relevance = 0;
+			$relevance += axrsearch_calc_relevance($keys, $result['node']->title) * 0.6;
+			$relevance += axrsearch_calc_relevance($keys, $result['node']->body['und'][0]['value']) * 0.4;
 
-		$data[] = array(
-			'source' => 'drupal',
-			'title' => $result['node']->title,
-			'link' => $result['link'],
-			'type' => $result['node']->type,
-			'snippet' => $result['snippet'],
-			'changed' => $result['node']->changed,
-			'relevance' => $relevance
-		);
+			$data[] = array(
+				'source' => 'drupal',
+				'title' => $result['node']->title,
+				'link' => $result['link'],
+				'type' => $result['node']->type,
+				'snippet' => $result['snippet'],
+				'changed' => $result['node']->changed,
+				'relevance' => $relevance
+			);
+		}
 	}
 	
 	return $data;
@@ -118,7 +131,8 @@ function axrsearch_get_drupal ($keys) {
  * @return mixed
  */
 function axrsearch_get_combined ($keys) {
-	$results = array_merge(axrsearch_get_drupal($keys),
+	$results = array_merge(axrsearch_get_drupal($keys, 'node'),
+		axrsearch_get_drupal($keys, 'user'),
 		axrsearch_get_mw($keys));
 
 	usort($results, 'axrsearch_cmp_relevance');

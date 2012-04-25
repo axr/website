@@ -432,9 +432,19 @@ window.Ajaxsite = window.Ajaxsite || {};
 			 */
 			this.typeNames = {
 				blog: 'blog post',
-				page: 'site page',
+				node: 'site page',
 				wiki: 'wiki page',
 				user: 'user'
+			};
+
+			/**
+			 * Search types
+			 */
+			this.searchTypes = {
+				'mixed': {name: 'Everything'},
+				'node': {name: 'Site pages'},
+				'wiki': {name: 'Wiki pages'},
+				'user': {name: 'Users'}
 			};
 
 			/**
@@ -485,12 +495,17 @@ window.Ajaxsite = window.Ajaxsite || {};
 					for (var i = 0, c = data_raw.payload.length; i < c; i++)
 					{
 						var result = data_raw.payload[i];
-						var date = new Date(parseInt(result.changed) * 1000);
 
-						result.type_str = that.typeNames[result.type] || result.type;
-						result.date = date.getFullYear() + '/' +
-							date.getMonth() + '/' + date.getDate();
-						result.time = date.getHours() + ':' + date.getMinutes();
+						if (!isNaN(result.changed))
+						{
+							var date = new Date(parseInt(result.changed) * 1000);
+							result.date = date.getFullYear() + '/' +
+								date.getMonth() + '/' + date.getDate() +
+								'-' + date.getHours() + ':' + date.getMinutes();
+						}
+
+						result.type_str = that.typeNames[result.type] ||
+							result.type;
 
 						data.push(result);
 					}
@@ -548,7 +563,22 @@ window.Ajaxsite = window.Ajaxsite || {};
 			// Load options block
 			Ajaxsite.template('search_options', function (template)
 			{
-				var html = Mustache.render(template);
+				var types = [];
+
+				for (var type in that.searchTypes)
+				{
+					types.push({
+						type: type,
+						name: that.searchTypes[type].name,
+						selected: type === that.type
+					});
+				}
+
+				var html = Mustache.render(template, {
+					types: types,
+					query: that.keys
+				});
+
 				options_block.html(html);
 			});
 
@@ -608,6 +638,11 @@ window.Ajaxsite = window.Ajaxsite || {};
 					e.preventDefault();
 
 					var type = jQuery(this).val();
+
+					Ajaxsite.url('search/' + type + '/' +
+						encodeURIComponent(that.keys), {
+						paritalReload: true
+					});
 				});
 
 				jQuery('#main').on('submit',

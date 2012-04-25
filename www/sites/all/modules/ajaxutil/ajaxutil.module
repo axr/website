@@ -41,7 +41,7 @@ function ajaxutil_handle_search () {
 		}
 
 		// There will be more types
-		if (!in_array($_GET['type'], array('mixed'))) {
+		if (!in_array($_GET['type'], array('mixed', 'user', 'wiki'))) {
 			$response['error'] = 'invalid_type';
 			throw new Exception();
 		}
@@ -49,6 +49,14 @@ function ajaxutil_handle_search () {
 		if ($_GET['type'] == 'mixed')
 		{
 			$response['payload'] = axrsearch_get_combined($_GET['keys']);
+		}
+		else if ($_GET['type'] == 'wiki')
+		{
+			$response['payload'] = axrsearch_get_mw($_GET['keys']);
+		}
+		else
+		{
+			$response['payload'] = axrsearch_get_drupal($_GET['keys'], $_GET['type']);
 		}
 	} catch (Exception $e) {
 		$response['status'] = 1;
