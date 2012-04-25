@@ -12,6 +12,11 @@
 	padding-bottom: 20px;
 }
 
+#main .node-teaser
+{
+	margin-bottom: 30px;
+}
+
 #main .node .content p {
 	font-size: 1.2em;
 	line-height: 1.4;
