@@ -346,12 +346,34 @@ window.Ajaxsite = window.Ajaxsite || {};
 		this._html = null;
 
 		/**
+		 * Fields
+		 */
+		this._fields = {};
+
+		/**
 		 * Replace the placeholder
 		 */
 		this.html = function (html)
 		{
 			this._html = html;
-			var el = jQuery('.as_block_' + this.id).html(html);
+			jQuery('.as_block_' + this.id).html(html);
+		};
+
+		/**
+		 * Set value for a field
+		 *
+		 * @param string name
+		 * @param string value
+		 */
+		this.setField = function (name, value)
+		{
+			value = value
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/"/g, '&quot;');
+
+			this._fields[name] = value;
+			jQuery('.as_field_' + this.id + '_' + name).html(value);
 		};
 
 		/**
@@ -370,6 +392,22 @@ window.Ajaxsite = window.Ajaxsite || {};
 			var $el = jQuery('<div>')
 				.attr('class', 'as_block_' + this.id)
 				.html(this._html);
+
+			return jQuery('<div>').append($el).html();
+		};
+
+		/**
+		 * Return placeholder for a field
+		 *
+		 * @param string name
+		 * @param string value default value
+		 * @return string
+		 */
+		this.field = function (name, value)
+		{
+			var $el = jQuery('<span>')
+				.attr('class', 'as_field_' + this.id + '_' + name)
+				.html(this._fields[name] || value || '');
 
 			return jQuery('<div>').append($el).html();
 		};
@@ -432,7 +470,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 			 */
 			this.typeNames = {
 				blog: 'blog post',
-				node: 'site page',
+				page: 'site page',
 				wiki: 'wiki page',
 				user: 'user'
 			};
@@ -554,7 +592,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 				var html = Mustache.render(template, {
 					options_block: options_block.placeholder(),
 					results_block: results_block.placeholder(),
-					query: that.keys
+					query_field: layout_block.field('query', that.keys)
 				});
 
 				layout_block.html(html);
@@ -640,9 +678,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 					var type = jQuery(this).val();
 
 					Ajaxsite.url('search/' + type + '/' +
-						encodeURIComponent(that.keys), {
-						paritalReload: true
-					});
+						encodeURIComponent(that.keys));
 				});
 
 				jQuery('#main').on('submit',
@@ -655,14 +691,13 @@ window.Ajaxsite = window.Ajaxsite || {};
 					var url = '/search/' + that.type + '/' +
 						encodeURIComponent(keys);
 
-					Ajaxsite.url(url, false, {
-						partialReload: true
-					});
+					Ajaxsite.url(url, false);
 				});
 			}
 
 			// Insert layout_block placeholder into #main
 			Ajaxsite.$content.html(layout_block.placeholder());
+
 			this.isInitialized = true;
 		}
 	};

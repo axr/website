@@ -11,7 +11,7 @@
 	</div>
 	<span class="extra_0"></span>
 	<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-		<span class="current" itemprop="title">Results for "{{query}}"</span>
+		<span class="current" itemprop="title">Results for "{{{query_field}}}"</span>
 	</div>
 </nav>
 
