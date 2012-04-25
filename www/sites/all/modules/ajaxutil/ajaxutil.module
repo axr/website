@@ -41,7 +41,7 @@ function ajaxutil_handle_search () {
 		}
 
 		// There will be more types
-		if (!in_array($_GET['type'], array('mixed', 'user', 'wiki'))) {
+		if (!in_array($_GET['type'], array('mixed', 'node', 'user', 'wiki'))) {
 			$response['error'] = 'invalid_type';
 			throw new Exception();
 		}
