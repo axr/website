@@ -478,7 +478,8 @@ header .secondary div.user_menu
 	display: inline-block;
 	margin-top: 7px;
 	position: relative;
-	width:75px;
+	width: 75px;
+	vertical-align: top;
 }
 header .secondary > div.user_menu > a
 {
@@ -531,13 +532,13 @@ header .secondary > div.user_menu div.dropdown a:focus ~ a
 {
 	width: 138px;
 	z-index:15;
-	margin-left:-69px;
 	position:relative;
 	background:#717171;
 }
 header .secondary > div.user_menu div.dropdown
 {
 	top:26px;
+	margin-left:-32px;
 	-webkit-border-radius:8px;
 	-moz-border-radius:8px;
 	border-radius:8px;
