@@ -59,21 +59,32 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	/**
 	 * Load a tweet for the latest tweet box
 	 */
-	$.getJSON('http://api.twitter.com/1/statuses/user_timeline.json?count=10&include_rts=t&screen_name=axrproject&callback=?', function (tweets) {
-		for (var i = 0, c = tweets.length; i < c; i++) {
-			if (tweets[i].text[0] == '@')
-			{
-				continue;
-			}
-
-			var timestamp = Math.floor((new Date(tweets[i].created_at)).getTime() / 1000);
-			var time = formatDateAgo(timestamp);
-
-			$(".last_tweet > .tweet_container")
-				.html(beautifyTweet(tweets[i].text) + ' &mdash; ' + time);
-
-			break;
+	$.ajax({
+		url: 'https://api.twitter.com/1/statuses/user_timeline.json?callback=?',
+		method: 'get',
+		data: {
+			screen_name: 'axrproject',
+			include_rts: 'true',
+			include_entities: 'false',
+			exclude_replies: 'true',
+			trim_user: 'true',
+			count: 10
+		},
+		dataType: 'jsonp'
+	}).success(function (data) {
+		if (typeof data[0] !== 'object') {
+			$('.last_tweet > .tweet_container').html('Error loading the tweet');
+			return;
 		}
+
+		var tweet = data[0];
+		var timestamp = (new Date(tweet.created_at)).getTime();
+		var time = formatDateAgo(Math.floor(timestamp / 1000));
+
+		$('.last_tweet > .tweet_container')
+			.html(beautifyTweet(tweet.text) + ' &mdash; ' + time);
+	}).error(function () {
+		$('.last_tweet > .tweet_container').html('Error loading the tweet');
 	});
 
 	/**
