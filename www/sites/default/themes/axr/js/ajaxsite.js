@@ -20,6 +20,12 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			var state = History.getState();
 
+			if (state.url.indexOf('#') >= 0)
+			{
+				// Leave URLs with hashes alone
+				return;
+			}
+
 			if (Ajaxsite.load_url(state.url, state.data) === false)
 			{
 				window.location = state.url;
