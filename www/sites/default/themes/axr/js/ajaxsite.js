@@ -278,12 +278,12 @@ window.Ajaxsite = window.Ajaxsite || {};
 			return false;
 		}
 
+		Ajaxsite.$content.html(Ajaxsite.renderLoading());
+
 		Ajaxsite.prepare(url, function ()
 		{
 			handler(url, data || undefined);
 		});
-
-		Ajaxsite.$content.html(Ajaxsite.renderLoading());
 	};
 
 	/**
