@@ -60,33 +60,47 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	/**
 	 * Load a tweet for the latest tweet box
 	 */
-	$.ajax({
-		url: 'https://api.twitter.com/1/statuses/user_timeline.json?callback=?',
-		method: 'get',
-		data: {
-			screen_name: 'axrproject',
-			include_rts: 'true',
-			include_entities: 'false',
-			exclude_replies: 'true',
-			trim_user: 'true',
-			count: 10
-		},
-		dataType: 'jsonp'
-	}).success(function (data) {
-		if (typeof data[0] !== 'object') {
+	var loadTweet = function (page) {
+		var page = parseInt(page || 1);
+		page = isNaN(page) ? 1 : page;
+
+		$.ajax({
+			url: 'https://api.twitter.com/1/statuses/user_timeline.json?callback=?',
+			method: 'get',
+			data: {
+				screen_name: 'axrproject',
+				include_rts: 'true',
+				include_entities: 'false',
+				exclude_replies: 'true',
+				trim_user: 'true',
+				count: 10,
+				page: page
+			},
+			dataType: 'jsonp'
+		}).success(function (data) {
+			if (typeof data[0] !== 'object') {
+				if (page < 4)
+				{
+					loadTweet(page + 1);
+				}
+				else
+				{
+					$('.last_tweet > .tweet_container').html('Error loading the tweet');
+				}
+
+				return;
+			}
+
+			var tweet = data[0];
+			var timestamp = (new Date(tweet.created_at)).getTime();
+			var time = formatDateAgo(Math.floor(timestamp / 1000));
+
+			$('.last_tweet > .tweet_container')
+				.html(beautifyTweet(tweet.text) + ' &mdash; ' + time);
+		}).error(function () {
 			$('.last_tweet > .tweet_container').html('Error loading the tweet');
-			return;
-		}
-
-		var tweet = data[0];
-		var timestamp = (new Date(tweet.created_at)).getTime();
-		var time = formatDateAgo(Math.floor(timestamp / 1000));
-
-		$('.last_tweet > .tweet_container')
-			.html(beautifyTweet(tweet.text) + ' &mdash; ' + time);
-	}).error(function () {
-		$('.last_tweet > .tweet_container').html('Error loading the tweet');
-	});
+		});
+	};
 
 	/**
 	 * Load GitHub activity for the activity box
@@ -184,12 +198,22 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 		return false;
 	});
 
+	/**
+	 * Handle search form
+	 */
 	$('header > .secondary > form').on('submit', function (e)
 	{
-			e.preventDefault();
+		e.preventDefault();
 
-			var url = '/search/mixed/' + encodeURIComponent($(this).find('input[type=search]').val());
-			Ajaxsite.url(url);
+		var keys = $(this).find('input[type=search]').val();
+		var url = '/search/mixed/' + encodeURIComponent(keys);
+
+		Ajaxsite.url(url);
+	});
+
+	$(document).ready(function ()
+	{
+		loadTweet();
 	});
 })(jQuery);
 
