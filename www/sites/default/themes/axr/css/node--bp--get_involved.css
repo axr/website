@@ -142,22 +142,29 @@
 {
 	background: #ccc;
 	font-size: 1.2em;
-	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
-	margin: 5px 0 30px 0;
-	padding: 10px 10px 10px 15px;
+	border-radius: 10px;
+	margin: 5px 0 30px;
 }
 #main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo > hr
 {
-	border-top: 1px solid #e4e4e4;
-	height: 0;
-	margin: 10px -10px;
+	margin: 0;
+	height: 1px;
+	color: #E4E4E4;
+	background: #E4E4E4;
+	border: none;
+	background-image: -webkit-linear-gradient(left, rgba(204,204,204,0.5), rgba(229,229,229,1), rgba(204,204,204,0.5));
+	background-image:    -moz-linear-gradient(left, rgba(204,204,204,0.5), rgba(229,229,229,1), rgba(204,204,204,0.5));
+	background-image:     -ms-linear-gradient(left, rgba(204,204,204,0.5), rgba(229,229,229,1), rgba(204,204,204,0.5));
+	background-image:      -o-linear-gradient(left, rgba(204,204,204,0.5), rgba(229,229,229,1), rgba(204,204,204,0.5));
+	background-image:	  linear-gradient(left, rgba(204,204,204,0.5), rgba(229,229,229,1), rgba(204,204,204,0.5));
 }
-#main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo > span
+#main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo > p
 {
-	font-size: 1em;
-	font-weight: bold;
+	line-height: 39px;
+	margin: 0;
+	padding: 0 15px;
 }
 #main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircstatus
 {
