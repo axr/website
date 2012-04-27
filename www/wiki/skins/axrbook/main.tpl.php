@@ -34,15 +34,11 @@
 	<div id="main" role="main">
 		<nav id="breadcrumb">
 			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-				<a href="/" itemprop="url">
-					<span itemprop="title">Home</span>
-				</a>
+				<a href="/" itemprop="url"><span itemprop="title">Home</span></a>
 			</div>
 			<span class="extra_0"></span>
 			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-				<a href="/wiki" itemprop="url">
-					<span itemprop="title">Wiki</span>
-				</a>
+				<a href="/wiki" itemprop="url"><span itemprop="title">Wiki</span></a>
 			</div>
 			<span class="extra_0"></span>
 			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
