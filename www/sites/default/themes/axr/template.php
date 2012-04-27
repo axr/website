@@ -191,8 +191,7 @@ function axr_breadcrumb($data) {
 
 			$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
 			$html .= '<a href="'.$match[1].'" itemprop="url">';
-			$html .= '<span itemprop="title">'.$match[2].'</span>';
-			$html .= '</a>';
+			$html .= '<span itemprop="title">'.$match[2].'</span></a>';
 			$html .= '</div>';
 			$html .= '<span class="extra_0"></span>';
 		}

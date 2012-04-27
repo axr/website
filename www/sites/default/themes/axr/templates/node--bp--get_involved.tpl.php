@@ -66,9 +66,9 @@
 					<p>We are almost always online on the IRC channel. You can use your favorite IRC client or our web chat.</p>
 
 					<div class="ircinfo">
-						Server: <span>irc.freenode.net</span>
+						<p>Server: <strong>irc.freenode.net</strong></p>
 						<hr />
-						Channel: <span>#AXR</span>
+						<p>Channel: <strong>#AXR</strong></p>
 					</div>
 
 					<div class="ircstatus">
