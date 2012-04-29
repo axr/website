@@ -23,6 +23,12 @@ We are more than welcome to file any issue you find with the website here:
 https://github.com/axr/website/issues. A voluteer will answer as soon as
 possible.
 
+When creating an issue, make sure to
+- Use a short but describing title
+- Explain the problem
+- If needed include screenshots
+- Make sure everything is grammatically correct
+
 Repository manager
 ===================
 This repository is managed by Ragnis Armus (ragnis.armus@gmail.com). Please
