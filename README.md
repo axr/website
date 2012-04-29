@@ -75,30 +75,31 @@ These rules apply everywhere:
 - Always use tabs for indentation
 - No trailing whitespace in the end of lines
 - You should never omit braces
-        // Wrong
-        if (condition) do_stuff();
+		// Wrong
+		if (condition) do_stuff();
 
-        // Wrong
-        if (condition)
-            do_stuff();
+		// Wrong
+		if (condition)
+			do_stuff();
 
-        // Right
-        if (condition)
-        {
-            do_stuff();
-        }
+		// Right
+		if (condition)
+		{
+			do_stuff();
+		}
+
 - Do not indent array/object values (This applies to JS, too)
-        // Wrong
-        array(
-            'key'        => 'value',
-            'anotherkey' => 'value'
-        )
-        
-        // Correct
-        array(
-            'key' => 'value',
-            'anotherkey => 'value' // <- No comma in the end of the last element
-        )
+		// Wrong
+		array(
+			'key'		=> 'value',
+			'anotherkey' => 'value'
+		)
+
+		// Correct
+		array(
+			'key' => 'value',
+			'anotherkey => 'value' // <- No comma in the end of the last element
+		)
 
 PHP standards
 -------------
@@ -117,10 +118,10 @@ subsection. Another example: id `blog` class `categories`.
 
 - To avoid conflicts in CSS, always start your selectors with an id:
 
-        #home.index
-        {
-            //styles go here
-        }
+		#home.index
+		{
+			//styles go here
+		}
 
 - Only tabs should be used for indentation.
 - Avoid using the descendants selector (whitespace). Instead, use the children
@@ -132,19 +133,19 @@ subsection. Another example: id `blog` class `categories`.
 	`extra_0`, `extra_1`, `extra_n`... for empty elements for decoration
 	purposes (icons, horizontal rules, etc), and `nested_0`, `nested_1`,
 	`nested_n`... for wrappers. Also, for titles, use the class `title`.
-    For example:
+	For example:
 
-        <div class="element">
-            <div class="nested_0">
-                <div class="nested_1">
-                <header><h3 class="title">Advantages</h3></header>
-                    <div class="content">
-                        <!-- etc -->
-                    </div>
-                    <footer></footer>
-                </div>
-            </div>
-        </div>
+		<div class="element">
+			<div class="nested_0">
+				<div class="nested_1">
+				<header><h3 class="title">Advantages</h3></header>
+					<div class="content">
+						<!-- etc -->
+					</div>
+					<footer></footer>
+				</div>
+			</div>
+		</div>
 
 Git Standards
 -------------
