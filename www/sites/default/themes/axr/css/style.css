@@ -234,8 +234,6 @@ header > #logo
 	display: block;
 	height: 230px;
 	width: 310px;
-	background: url('../images/sprite.jpg') no-repeat;
-	text-indent: -10000px;
 	float: left;
 }
 
