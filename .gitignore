@@ -3,6 +3,6 @@
 /deploy/server.properties
 /deploy/db/scripts
 !/deploy/db/scripts/initial.sql
-/www/wiki/LocalSettings.php
+/www/wiki/LocalSettings.2.php
 /www/sites/default/files
 /www/sites/default/images
