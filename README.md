@@ -109,6 +109,9 @@ These rules apply everywhere:
 			'anotherkey => 'value' // <- No comma in the end of the last element
 		)
 
+- No lines should be longer than 80 characters
+- Use `===` instead of `==` whenever possible
+
 PHP standards
 -------------
 http://area51.phpbb.com/docs/30x/coding-guidelines.html
