@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * Get an array of assets
+ *
+ * $options:
+ * - string nodeType: content type for the node. Default: false
+ * - string theme: theme name. Default: false
+ *
+ * @param string $url URL for the current page
+ * @param mixed[] $options
+ * @retrn mixed[]
+ */
+function assetmagic_find ($url, $options)
+{
+	// TODO Create a hook for this
+	$regex_rules = array(
+		'/^search[\?\/$]/' => 'search'
+	);
+
+	$options = array_merge(array(
+		'nodeType' => null,
+		'theme' => null
+	), $options);
+
+	$assets = array();
+
+	// Get URL alias
+	$alias = drupal_get_path_alias($url);
+	$alias = str_replace('/', '_', $alias);
+	$alias = str_replace('-', '_', $alias);
+
+	if ($options['nodeType'] !== null)
+	{
+		// Node type specific CSS
+		$assets[] = array(
+			'type' => 'css',
+			'name' => 'node--' . $options['nodeType'],
+			'group' => CSS_THEME
+		);
+
+		// Node type specific JS
+		$assets[] = array(
+			'type' => 'js',
+			'name' => 'node--' . $options['nodeType'],
+			'group' => JS_THEME
+		);
+	}
+
+	// URL alias specific CSS
+	$assets[] = array(
+		'type' => 'css',
+		'name' => 'node--bp--' . $alias,
+		'group' => CSS_THEME
+	);
+
+	// URL alias specific JS
+	$assets[] = array(
+		'type' => 'js',
+		'name' => 'node--bp--' . $alias,
+		'group' => JS_THEME
+	);
+
+	foreach ($regex_rules as $regex => $name)
+	{
+		if (preg_match($regex, $url))
+		{
+			$assets[] = array(
+				'type' => 'css',
+				'name' => $name,
+				'group' => CSS_THEME
+			);
+
+			$assets[] = array(
+				'type' => 'js',
+				'name' => $name,
+				'group' => JS_THEME
+			);
+		}
+	}
+
+	if ($options['theme'] !== null)
+	{
+		$base = drupal_get_path('theme', $options['theme']);
+
+		for ($i = 0, $c = count($assets); $i < $c; $i++)
+		{
+			$type = $assets[$i]['type'];
+			$name = $assets[$i]['name'];
+
+			$assets[$i]['path'] = "{$base}/{$type}/{$name}.{$type}";
+
+			if (!file_exists($assets[$i]['path']))
+			{
+				$assets[$i] = null;
+			}
+		}
+
+		// Remove null values
+		$assets = array_filter($assets,
+			create_function('$a', 'return $a !== null;'));
+	}
+
+	return $assets;
+}
+
+/**
+ * Implement hook_preprocess_node()
+ *
+ * @param mixed $variables
+ */
+function assetmagic_preprocess_node (&$variables)
+{
+	global $theme_key;
+
+	$assets = assetmagic_find($_GET['q'], array(
+		'nodeType' => $variables['node']->type,
+		'theme' => $theme_key
+	));
+
+	foreach ($assets as $asset)
+	{
+		if ($asset['type'] === 'css')
+		{
+			drupal_add_css($asset['path'], array(
+				'group' => $asset['group']
+			));
+		}
+		else
+		{
+			drupal_add_js($asset['path'], array(
+				'group' => $asset['group']
+			));
+		}
+	}
+}
+

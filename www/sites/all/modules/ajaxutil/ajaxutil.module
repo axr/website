@@ -106,6 +106,8 @@ function ajaxutil_handle_template () {
  * Handle requests to /_ajax/info
  */
 function ajaxutil_handle_info () {
+	global $theme_key;
+
 	$response = array(
 		'status' => 0,
 		'error' => null,
@@ -126,40 +128,24 @@ function ajaxutil_handle_info () {
 		$nid = preg_replace('/^\/node\/([0-9]+)$/', '$1', $source);
 		$node = ($source === $nid) ? null : node_load($nid);
 
-		// Get path alias
-		$alias = drupal_get_path_alias($url);
-		$alias = str_replace('/', '_', $alias);
-		$alias = str_replace('-', '_', $alias);
+		$assets = assetmagic_find($url, array(
+			'nodeType' => $node->type,
+			'theme' => $theme_key
+		));
 
-		$path = path_to_theme();
-		$js = array();
 		$css = array();
-	
-		// Node type specific CSS
-		if ($node !== null &&
-			file_exists($path.'/css/node--'.$node->type.'.css')) {
-			$css[] = '/'.$path.'/css/node--'.$node->type.'.css';
-		}
+		$js = array();
 
-		// Node type specific JS
-		if ($node !== null &&
-			file_exists($path.'/js/node--'.$node->type.'.js')) {
-			$js[] = '/'.$path.'/js/node--'.$node->type.'.js';
-		}
-		
-		// URL alias specific CSS
-		if (file_exists($path.'/css/node--bp--'.$alias.'.css')) {
-			$css[] = '/'.$path.'/css/node--bp--'.$alias.'.css';
-		}
-
-		// URL alias specific JS
-		if (file_exists($path.'/js/node--bp--'.$alias.'.js')) {
-			$js[] = '/'.$path.'/js/node--bp--'.$alias.'.js';
-		}
-
-		// Hardcoded CSS
-		if (substr($url, 0, 7) == 'search/') {
-			$css[] = '/'.$path.'/css/search.css';
+		foreach ($assets as $asset)
+		{
+			if ($asset['type'] === 'css')
+			{
+				$css[] = '/'. $asset['path'];
+			}
+			else if ($asset['type'] === 'js')
+			{
+				$js[] = '/' . $asset['path'];
+			}
 		}
 
 		$response['payload'] = array(
