@@ -4,23 +4,27 @@
 	padding: 30px 0 0 0;
 	width: 900px;
 }
+
 #main .get_involved
 {
 	float: left;
 	margin: 10px 0 0 0;
 	width: 515px;
 }
+
 #main .get_involved > .join_us > p
 {
 	font-size: 1.2em;
 	width: 450px;
 }
+
 #main .get_involved > .join_us > a.join
 {
 	margin: 30px 0 40px 8px;
 	text-align: center;
 	width: 300px;
 }
+
 #main .get_involved > .join_us > ul.we_need
 {
 	float: left;
@@ -29,6 +33,7 @@
 	min-width: 257px;
 	padding: 0;
 }
+
 #main .get_involved > .join_us > ul.we_need > li
 {
 	margin: 20px 0;
@@ -42,6 +47,7 @@
 	display: block;
 	float: left;
 }
+
 #main .get_involved > .join_us > ul.we_need > li > span.block_0
 {
 	width: 18px;
@@ -50,16 +56,19 @@
 	background-position: -69px -20px;
 	margin: 0 10px 0 0;
 }
+
 #main .get_involved > .community
 {
 	margin: 25px 0 0 0;
 }
+
 #main .get_involved > .community > .forums
 {
 	float: left;
 	padding: 0 0 40px 0;
 	width: 240px;
 }
+
 #main .get_involved > .community > .forums > ul
 {
 	list-style-type: none;
@@ -67,16 +76,19 @@
 	min-height: 250px;
 	padding: 0;
 }
+
 #main .get_involved > .community > .forums > ul > li
 {
 	background: url(../images/small_separator_fade_to_right.png) no-repeat bottom right;
 	margin: 15px 0 0 0;
 	padding: 0 30px 15px 87px;
 }
+
 #main .get_involved > .community > .forums > ul > li:last-child
 {
 	background: none;
 }
+
 #main .get_involved > .community > .forums > ul > li > a
 {
 	color: #8d8d8d;
@@ -84,6 +96,7 @@
 	font-weight: bold;
 	text-decoration: none;
 }
+
 #main .get_involved > .community > .forums > ul > li > .info
 {
 	color: #7e7e7e;
@@ -91,10 +104,12 @@
 	font-style: italic;
 	margin: 7px 0 0 0;
 }
+
 #main .get_involved > .community > .forums > .enter
 {
 	width: 192px;
 }
+
 #main .get_involved > .community > .chat
 {
 	float: left;
@@ -103,6 +118,7 @@
 	position: relative;
 	width: 250px;
 }
+
 #main .get_involved > .community > .chat > .separator
 {
 	background: url(../images/separator_small_repeat.png) repeat-y top left;
@@ -112,12 +128,14 @@
 	top: 0;
 	width: 15px;
 }
+
 #main .get_involved > .community > .chat > .separator > .extra_0
 {
 	background: url(../images/separator_small_top.png) no-repeat top left;
 	height: 30px;
 	width: 15px;
 }
+
 #main .get_involved > .community > .chat > .separator > .extra_1
 {
 	background: url(../images/separator_small_bottom.png) no-repeat top left;
@@ -126,18 +144,22 @@
 	position: absolute;
 	width: 15px;
 }
+
 #main .get_involved > .community > .chat > .nested_0
 {
 	margin: 0 0 0 40px;
 }
+
 #main .get_involved > .community > .chat > .nested_0 > .nested_1
 {
 	min-height: 251px;
 }
+
 #main .get_involved > .community > .chat > .nested_0 > .nested_1 > p
 {
 	font-size: 1.1em;
 }
+
 #main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo
 {
 	background: #ccc;
@@ -147,6 +169,7 @@
 	border-radius: 10px;
 	margin: 5px 0 30px;
 }
+
 #main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo > hr
 {
 	margin: 0;
@@ -160,16 +183,19 @@
 	background-image:      -o-linear-gradient(left, rgba(204,204,204,0.5), rgba(229,229,229,1), rgba(204,204,204,0.5));
 	background-image:	  linear-gradient(left, rgba(204,204,204,0.5), rgba(229,229,229,1), rgba(204,204,204,0.5));
 }
+
 #main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircinfo > p
 {
 	line-height: 39px;
 	margin: 0;
 	padding: 0 15px;
 }
+
 #main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircstatus
 {
 	font-size: 1.2em;
 }
+
 #main .get_involved > .community > .chat > .nested_0 > .nested_1 > .ircstatus > span
 {
 	background: url(../images/sprite32.png) no-repeat;
@@ -184,6 +210,7 @@
 	text-align: center;
 	width: 26px;
 }
+
 #main .get_involved > .community > .chat > .enter
 {
 	width: 180px;
@@ -199,6 +226,7 @@
 	padding-top: 38px;
 	margin-top: 25px;
 }
+
 #main .sidebar > .separator
 {
 	bottom: 0;
@@ -208,12 +236,14 @@
 	top: 0;
 	width: 26px;
 }
+
 #main .sidebar > .separator > .extra_0
 {
 	background: url(../images/separator_big_top.png) no-repeat;
 	height: 82px;
 	width: 26px;
 }
+
 #main .sidebar > .separator > .extra_1
 {
 	background: url(../images/separator_big_bottom.png) no-repeat;
@@ -222,28 +252,33 @@
 	height: 211px;
 	width: 26px;
 }
+
 #main .sidebar > .boxes
 {
 	float: left;
 	margin: 0 0 0 26px;
 	width: 344px;
 }
+
 #main .sidebar > .boxes > .box
 {
 	margin: 0 0 30px 0;
 }
+
 #main .sidebar > .boxes > .box > .icon
 {
 	float: left;
 	position: relative;
 	width: 75px;
 }
+
 #main .sidebar > .boxes > .box > .icon > .extra_0
 {
 	background: url(../images/get_involved_sprite.png) no-repeat;
 	height: 47px;
 	width: 55px;
 }
+
 #main .sidebar > .boxes > .box > .icon > .extra_1
 {
 	background: url(../images/get_involved_sprite.png) no-repeat;
@@ -256,6 +291,7 @@
 	width: 10px;
 	z-index:900;
 }
+
 #main .sidebar > .boxes > .box > .nested_0
 {
 	background: url(../images/side_box_light_repeat_v.png) repeat-y;
@@ -263,6 +299,7 @@
 	min-height: 49px;
 	width: 262px;
 }
+
 #main .sidebar > .boxes > .box > .nested_0 > .extra_0
 {
 	background: url(../images/get_involved_sprite.png) no-repeat;
@@ -270,6 +307,7 @@
 	height: 11px;
 	width: 262px;
 }
+
 #main .sidebar > .boxes > .box > .nested_0 > .extra_1
 {
 	background: url(../images/get_involved_sprite.png) no-repeat;
@@ -278,6 +316,7 @@
 	margin: -25px 0 0 0;
 	width: 262px;
 }
+
 #main .sidebar > .boxes > .box > .nested_0 > .title
 {
 	color: #fff;
@@ -286,6 +325,7 @@
 	padding: 0 0 3px 20px;
 	text-shadow: #666 0 1px 0;
 }
+
 #main .sidebar > .boxes > .box > .nested_0 > .inner
 {
 	color: #606060;
@@ -294,6 +334,7 @@
 	padding: 0 20px;
 	text-shadow: #ededed 0 1px 0;
 }
+
 #main .sidebar > .boxes > .box > .nested_0 > hr
 {
 	border: 0;
@@ -302,6 +343,7 @@
 	height: 0;
 	margin: 5px 2px;
 }
+
 #main .sidebar > .boxes > .box.newsletter > .icon > .extra_0
 {
 	background-position: -97px -101px;
@@ -309,28 +351,34 @@
 	margin: 12px 4px;
 	width: 47px;
 }
+
 #main .sidebar > .boxes > .box.newsletter > .icon > .extra_1
 {
 	background-position: -114px -125px;
 }
+
 #main .sidebar > .boxes > .box.newsletter > .nested_0
 {
 	background: url(../images/side_box_dark_repeat_v.png) repeat-y;
 }
+
 #main .sidebar > .boxes > .box.newsletter > .nested_0 > .extra_0
 {
 	background-position: -1px -1px;
 }
+
 #main .sidebar > .boxes > .box.newsletter > .nested_0 > .extra_1
 {
 	background-position: -1px -12px;
 }
+
 #main .sidebar > .boxes > .box.newsletter > .nested_0 > .inner
 {
 	color: #fff;
 	text-shadow: #666 0 1px 0;
 	font-size: 1em;
 }
+
 #main .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > form > input.subscribe
 {
 	background: url(../images/get_involved_sprite.png) no-repeat;
@@ -370,11 +418,13 @@ a:hover
 	border-top-color: #939393;
 	border-bottom-color: #cbcbcb;
 }
+
 #main .sidebar > .boxes > .last_tweet
 {
 	position: static;
 	height: 153px;
 }
+
 #main .sidebar > .boxes > .box.facebook > .icon > .extra_0
 {
 	background-position: -3px -105px;
@@ -382,18 +432,22 @@ a:hover
 	margin: 1px 5px;
 	width: 44px;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0
 {
 	position: relative;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_0
 {
 	margin-bottom: -6px;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_1
 {
 	margin-top: -33px;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_2,
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_3,
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_4,
@@ -405,38 +459,45 @@ a:hover
 	position: absolute;
 	width: 12px;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_2
 {
 	left: 0;
 	top: 0;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_3
 {
 	background-position: -12px 0;
 	right: 0;
 	top: 0;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_4
 {
 	background-position: 0 -12px;
 	bottom: 0;
 	left: 0;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .extra_5
 {
 	background-position: -12px -12px;
 	bottom: 0;
 	right: 0;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .inner
 {
 	padding: 0 5px;
 }
+
 #main .sidebar > .boxes > .box.facebook > .nested_0 > .inner > iframe
 {
 	display: block !important;
 	visibility: visible !important;
 }
+
 #main .sidebar > .boxes > .box.github > .icon > .extra_0
 {
 	background-position: -50px -102px;
@@ -444,24 +505,29 @@ a:hover
 	margin: 0 5px;
 	width: 47px;
 }
+
 #main .sidebar > .boxes > .box.github > .nested_0 > ul
 {
 	margin: 0 2px;
 	padding: 0;
 	list-style-type: none;
 }
+
 #main .sidebar > .boxes > .box.github > .nested_0 > ul > li
 {
 	border-bottom: 1px solid #e1e1e1;
 }
+
 #main .sidebar > .boxes > .box.github > .nested_0 > ul > li:last-child
 {
 	border-bottom: 0;
 }
+
 #main .sidebar > .boxes > .box.github > .nested_0 > ul > li:last-child .inner
 {
 	border-bottom: 0;
 }
+
 #main .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner
 {
 	border-bottom: 1px solid #bebebe;
@@ -471,17 +537,20 @@ a:hover
 	padding: 5px 20px 7px 22px;
 	text-shadow: #ededed 0 1px 0;
 }
+
 #main .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner a
 {
 	color: #D09610;
 	text-decoration: underline;
 	text-shadow: #ededed 0 1px 0;
 }
+
 #main .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner > span
 {
 	color: #979797;
 	text-shadow: #ededed 0 1px 0;
 }
+
 #main .sidebar > .boxes > .box.github > .nested_0 > .inner > a.see_all
 {
 	margin: 10px auto 0 auto;
@@ -499,12 +568,14 @@ a:hover
 	bottom: 0;
 	z-index: 900;
 }
+
 .modal_wrap
 {
 	width: 50%;
 	height: 50%;
 	position: absolute;
 }
+
 .modal_inner
 {
 	width: 640px;
@@ -525,6 +596,7 @@ a:hover
 	bottom: -275px;
 	right: -320px;
 }
+
 .modal_close
 {
 	text-indent: -9999px;
@@ -545,12 +617,14 @@ a:hover
 	margin: 0;
 	padding: 10px 0;
 }
+
 .modal_inner ol
 {
 	border-top: 1px solid #eaeaea;
 	margin: 0;
 	padding: 20px 20px 0 80px;
 }
+
 .modal_inner ol
 {
 	vertical-align: middle;
@@ -562,6 +636,7 @@ a:hover
 {
 	position: relative;
 }
+
 .modal_inner ol li,
 .modal_inner ol li *
 {
@@ -569,6 +644,7 @@ a:hover
 	line-height: 5em;
 	vertical-align: top;
 }
+
 .modal_inner ol li:before
 {
 	color: #b9b9b9;
@@ -582,22 +658,27 @@ a:hover
 	text-shadow: none;
 	filter: none;
 }
+
 .modal_inner ol li + li
 {
 	margin-left: 045px;
 }
+
 .modal_inner ol li + li + li
 {
 	margin-left: 090px;
 }
+
 .modal_inner ol li + li + li + li
 {
 	margin-left: 135px;
 }
+
 .modal_inner ol li + li+ li + li + li
 {
 	margin-left: 180px;
 }
+
 .modal_inner ol li + li + li + li + li + li
 {
 	margin-left: 225px;
@@ -611,6 +692,7 @@ a:hover
 	font-size: 1.3em;
 	font-weight: bold;
 }
+
 .modal_inner a
 {
 	color: #666666;
@@ -621,3 +703,4 @@ a:hover
 {
 	color: #765;
 }
+

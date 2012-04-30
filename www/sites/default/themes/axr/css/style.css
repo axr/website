@@ -11,9 +11,28 @@
    HTML5 element display
    ========================================================================== */
 
-article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
-audio[controls], canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section
+{
+	display: block;
+}
 
+audio[controls],
+canvas,
+video
+{
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
 
 /* =============================================================================
    Base
@@ -29,11 +48,32 @@ audio[controls], canvas, video { display: inline-block; *display: inline; *zoom:
  *    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
  */
 
-html { font-size: 100%; overflow-y: scroll; -webkit-overflow-scrolling: touch; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+html
+{
+	font-size: 100%;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
 
-body { margin: 0; font-size: 13px; line-height: 1.231; }
+body
+{
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.231;
+}
 
-body, button, input, select, textarea { font-family: sans-serif; color: #222; }
+body,
+button,
+input,
+select,
+textarea
+{
+	font-family: sans-serif;
+	color: #222;
+}
 
 /*
  * These selection declarations have to be separate
@@ -41,163 +81,348 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
  * Also: hot pink!
  */
 
-::-moz-selection{ background: #EFC442; color:#fff; text-shadow: none; }
-::selection { background:#EFC442; color:#fff; text-shadow: none; }
+::-moz-selection
+{
+	background: #EFC442;
+	color: #fff;
+	text-shadow: none;
+}
+
+::selection
+{
+	background: #EFC442;
+	color: #fff;
+	text-shadow: none;
+}
 
 
 /* =============================================================================
    Links
    ========================================================================== */
 
-a { color: #00e; }
-a:visited { color: #551a8b; }
-a:focus { outline: thin dotted; }
+a
+{
+	color: #00e;
+}
+
+a:visited
+{
+	color: #551a8b;
+}
+
+a:focus
+{
+	outline: thin dotted;
+}
 
 /* Improve readability when focused and hovered in all browsers: people.opera.com/patrickl/experiments/keyboard/test */
-a:hover, a:active { outline: 0; }
+a:hover,
+a:active {
+	outline: 0;
+}
 
 
 /* =============================================================================
    Typography
    ========================================================================== */
 
-abbr[title] { border-bottom: 1px dotted; }
+abbr[title]
+{
+	border-bottom: 1px dotted;
+}
 
-b, strong { font-weight: bold; }
+b,
+strong
+{
+	font-weight: bold;
+}
 
-blockquote { margin: 1em 40px; }
+blockquote
+{
+	margin: 1em 40px;
+}
 
-dfn { font-style: italic; }
+dfn
+{
+	font-style: italic;
+}
 
-hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+hr
+{
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
+}
 
-ins { background: #ff9; color: #000; text-decoration: none; }
+ins
+{
+	background: #ff9;
+	color: #000;
+	text-decoration: none;
+}
 
-mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+mark
+{
+	background: #ff0;
+	color: #000;
+	font-style: italic;
+	font-weight: bold;
+}
 
 /* Redeclare monospace font family: en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
-pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 1em; }
+pre,
+code,
+kbd,
+samp
+{
+	font-family: monospace, monospace;
+	_font-family: 'courier new', monospace;
+	font-size: 1em;
+}
 
 /* Improve readability of pre-formatted text in all browsers */
-pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+pre
+{
+	white-space: pre;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
 
-q { quotes: none; }
-q:before, q:after { content: ""; content: none; }
+q
+{
+	quotes: none;
+}
 
-small { font-size: 85%; }
+q:before,
+q:after
+{
+	content: "";
+	content: none;
+}
+
+small
+{
+	font-size: 85%;
+}
 
 /* Position subscript and superscript content without affecting line-height: gist.github.com/413930 */
-sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
-sup { top: -0.5em; }
-sub { bottom: -0.25em; }
+sub,
+sup
+{
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup
+{
+	top: -0.5em;
+}
+
+sub
+{
+	bottom: -0.25em;
+}
 
 
 /* =============================================================================
    Lists
    ========================================================================== */
+ul,
+ol
+{
+	margin: 1em 0;
+	padding: 0 0 0 40px;
+}
 
-ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
-dd { margin: 0 0 0 40px; }
-nav ul, nav ol { list-style: none; margin: 0; padding: 0; }
+dd
+{
+	margin: 0 0 0 40px;
+}
 
+nav ul,
+nav ol
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
 
 /* =============================================================================
    Embedded content
    ========================================================================== */
 
-
-img { border: 0; -ms-interpolation-mode: bicubic; }
+img
+{
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+}
 
 /*
  * Correct overflow displayed oddly in IE9
  */
-
-svg:not(:root) { overflow: hidden; }
+svg:not(:root)
+{
+	overflow: hidden;
+}
 
 
 /* =============================================================================
    Figures
    ========================================================================== */
 
-figure { margin: 0; }
+figure
+{
+	margin: 0;
+}
 
 
 /* =============================================================================
    Forms
    ========================================================================== */
 
-form { margin: 0; }
-fieldset { border: 0; margin: 0; padding: 0; }
+form
+{
+	margin: 0;
+}
+
+fieldset
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
 
 /*
  * 1. Correct color not inheriting in IE6/7/8/9
  * 2. Correct alignment displayed oddly in IE6/7
  */
-
-legend { border: 0; *margin-left: -7px; padding: 0; }
+legend
+{
+	border: 0;
+	*margin-left: -7px;
+	padding: 0;
+}
 
 /* Indicate that 'label' will shift focus to the associated form element */
-label { cursor: pointer; }
+label
+{
+	cursor: pointer;
+}
 
 /*
  * 1. Correct font-size not inheriting in all browsers
  * 2. Remove margins in FF3/4 S5 Chrome
  * 3. Define consistent vertical alignment display in all browsers
  */
-
-button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+button,
+input,
+select,
+textarea
+{
+	font-size: 100%;
+	margin: 0;
+	vertical-align: baseline;
+	*vertical-align: middle;
+}
 
 /*
  * 1. Define line-height as normal to match FF3/4 (set using !important in the UA stylesheet)
  * 2. Correct inner spacing displayed oddly in IE6/7
  */
-
-button, input { line-height: normal; *overflow: visible; }
+button,
+input
+{
+	line-height: normal;
+	*overflow: visible;
+}
 
 /*
  * 1. Display hand cursor for clickable form elements
  * 2. Allow styling of clickable form elements in iOS
  */
-
-button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"]
+{
+	cursor: pointer;
+	-webkit-appearance: button;
+}
 
 /*
  * Consistent box sizing and appearance
  */
+input[type="checkbox"],
+input[type="radio"]
+{
+	box-sizing: border-box;
+}
 
-input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
-input[type="search"] { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+input[type="search"]
+{
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+}
 
 /*
  * Remove inner padding and border in FF3/4
  * www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/
  */
-
-button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+button::-moz-focus-inner,
+input::-moz-focus-inner
+{
+	border: 0;
+	padding: 0;
+}
 
 /* Remove default vertical scrollbar in IE6/7/8/9 */
-textarea { overflow: auto; vertical-align: top; }
+textarea
+{
+	overflow: auto;
+	vertical-align: top;
+}
 
 /* Colors for form validity */
-input:valid, textarea:valid {  }
-input:invalid, textarea:invalid { background-color: #f0dddd; }
+input:valid,
+textarea:valid
+{
+}
+
+input:invalid,
+textarea:invalid
+{
+	background-color: #f0dddd;
+}
 
 
 /* =============================================================================
    Tables
    ========================================================================== */
 
-table { border-collapse: collapse; border-spacing: 0; }
+table
+{
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
 
 /* =============================================================================
    Primary styles
    Authors: Andrei Zisu, Miro Keller, Marc G, Ragnis Armus, Valerij Primachenko
    ========================================================================== */
-html, body
+
+html,
+body
 {
 	min-width: 960px;
 }
+
 body
 {
 
@@ -207,6 +432,7 @@ body
 	line-height: 1.38;
 	font-size: 0.75em;
 }
+
 #container
 {
 	overflow: hidden;
@@ -237,8 +463,6 @@ header > #logo
 	float: left;
 }
 
-/* == NAV == */
-
 header > nav
 {
 	width: 647px;
@@ -248,16 +472,19 @@ header > nav
 	background: url('../images/sprite.jpg');
 	background-position: -312px 0;
 }
+
 header > nav > ul
 {
 	height: 100%;
 }
+
 header > nav > ul > li
 {
 	float: left;
 	height: 100%;
 	position: relative;
 }
+
 header > nav > ul > li > a
 {
 	display: block;
@@ -266,88 +493,120 @@ header > nav > ul > li > a
 	text-indent: -999px;
 	overflow: hidden;
 }
+
 header > nav > ul > li > a:hover,
 header > nav > ul > li:hover > a
 {
 	background: url('../images/sprite.jpg');
 	padding-right: 1px;
 }
+
 header > nav > ul > li.about
 {
 	width: 97px;
 }
+
 header > nav > ul > li.specification
 {
 	width: 129px;
 }
+
 header > nav > ul > li.resources
 {
 	width: 136px;
 }
+
 header > nav > ul > li.community
 {
 	width: 131px;
 }
+
 header > nav > ul > li.wiki
 {
 	width: 88px;
 }
+
 header > nav > ul > li.blog
 {
 	width: 66px;
 }
+
 header > nav > ul > li.about > a:hover,
 header > nav > ul > li.about:hover > a
 {
-background-position: -312px -49px;
+	background-position: -312px -49px;
 }
+
 header > nav > ul > li.specification > a:hover,
 header > nav > ul > li.specification:hover > a
 {
-background-position: -410px -49px;
+	background-position: -410px -49px;
 }
+
 header > nav > ul > li.resources > a:hover,
 header > nav > ul > li.resources:hover > a
 {
-background-position: -540px -49px;
+	background-position: -540px -49px;
 }
+
 header > nav > ul > li.community > a:hover,
 header > nav > ul > li.community:hover > a
 {
-background-position: -677px -49px;
+	background-position: -677px -49px;
 }
+
 header > nav > ul > li.wiki > a:hover,
 header > nav > ul > li.wiki:hover > a
 {
-background-position: -809px -49px;
+	background-position: -809px -49px;
 }
+
 header > nav > ul > li.blog > a:hover,
 header > nav > ul > li.blog:hover > a
 {
-background-position: -898px -49px;
+	background-position: -898px -49px;
 }
-#menu li:focus {outline:none}
-#menu div a {display:none}
-#menu li:hover div, #menu div:hover, #menu a:focus ~ div  {display:block}
-#menu li div, #menu div a:focus, #menu div a:focus ~ a
+
+#menu li:focus
+{
+	outline: none;
+}
+
+#menu div a
+{
+	display: none;
+}
+
+#menu li:hover div,
+#menu div:hover,
+#menu a:focus ~ div
+{
+	display: block;
+}
+
+#menu li div,
+#menu div a:focus,
+#menu div a:focus ~ a
 {
 	width: 174px;
-        z-index:15;
-        left:50%;
-        margin-left:-87px;
-        position:relative;
-	background:#717171;
+	z-index: 15;
+	left: 50%;
+	margin-left: -87px;
+	position: relative;
+	background: #717171;
 }
+
 #menu li div
 {
-        top:-4px;
-        -webkit-border-radius:8px;
-        -moz-border-radius:8px;
-        border-radius:8px;
-   -moz-box-shadow: 0 0 8px #575757;
--webkit-box-shadow: 0 0 8px #575757;
-        box-shadow: 0 0 8px #575757;
+	top:-4px;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	border-radius:8px;
+	-moz-box-shadow: 0 0 8px #575757;
+	-webkit-box-shadow: 0 0 8px #575757;
+	box-shadow: 0 0 8px #575757;
 }
+
 #menu li:hover div
 {
 	border:1px solid #7D7D7D;
@@ -358,7 +617,12 @@ background-position: -898px -49px;
 	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #747474), color-stop(0.37, #636363));
 }
-#menu li:hover div a, #menu a:focus ~ div a, #menu div a:focus, #menu div a:focus ~ a, .afocus
+
+#menu li:hover div a,
+#menu a:focus ~ div a,
+#menu div a:focus,
+#menu div a:focus ~ a,
+.afocus
 {
 	display:block !important;
 	height: 40px;
@@ -368,6 +632,7 @@ background-position: -898px -49px;
 	border-top: 1px solid #7F7F7F;
 	outline:none;
 }
+
 #menu div a
 {
 	color: white;
@@ -376,62 +641,91 @@ background-position: -898px -49px;
 	text-shadow: #333333 0 1px 0;
 	cursor: pointer;
 }
-#menu div a:hover, #menu div a:focus
+
+#menu div a:hover,
+#menu div a:focus
 {
 	color: #313131;
 	text-shadow: #959595 0 1px 0;
 }
+
 #menu div a:focus
 {
 	border-top:none;
-        -webkit-border-top-left-radius:8px;
-	-webkit-border-top-right-radius:8px;
-        -moz-border-radius-topleft:8px;
-	-moz-border-radius-topright:8px;
-        border-top-left-radius:8px;
-	border-top-right-radius:8px;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
 }
-#menu div .first {border-top:none !important}
-#menu div .last {border-bottom:none !important}
-#menu div a:focus ~ .last, #menu div .last:focus
+
+#menu div .first
 {
-        -webkit-border-bottom-left-radius:8px;
-	-webkit-border-bottom-right-radius:8px;
-        -moz-border-radius-bottomleft:8px;
-	-moz-border-radius-bottomright:8px;
-        border-bottom-left-radius:8px;
-	border-bottom-right-radius:8px;
+	border-top: none !important;
 }
+
+#menu div .last
+{
+	border-bottom: none !important;
+}
+
+#menu div a:focus ~ .last,
+#menu div .last:focus
+{
+	-webkit-border-bottom-left-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	-moz-border-radius-bottomright: 8px;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
 #menu li .arrow
 {
 	border-color: transparent transparent #737373 transparent;
 	border-style: solid;
 	border-width: 0px 8px 8px 8px;
-	height:0;
-	width:0;
-	position:absolute;
-	z-index:20;
-	margin-top:39px;
-	left:50%;
-	margin-left:-8px;
-	display:none;
+	height: 0;
+	width: 0;
+	position: absolute;
+	z-index: 20;
+	margin-top: 39px;
+	left: 50%;
+	margin-left: -8px;
+	display: none;
 }
 
-#menu li:hover .arrow {display:block}
+#menu li:hover .arrow
+{
+	display: block;
+}
+
 /* Gecko */
 body:-moz-last-node #menu li:hover div
 {
-	border-width:2px;
+	border-width: 2px;
 	-moz-border-top-colors: #575757 #7D7D7D;
 	-moz-border-bottom-colors: #575757 #7D7D7D;
 	-moz-border-right-colors: #575757 #7D7D7D;
 	-moz-border-left-colors: #575757 #7D7D7D;
 }
-/* WebKit */
-body { -webkit-animation: bugfix infinite 1s; }
-@-webkit-keyframes bugfix { from { padding: 0; } to { padding: 0; } }
 
-/* == NAV END == */
+/* WebKit */
+body
+{
+	-webkit-animation: bugfix infinite 1s;
+}
+@-webkit-keyframes bugfix {
+	from
+	{
+		padding: 0;
+	}
+	to
+	{
+		padding: 0;
+	}
+}
 
 header .secondary
 {
@@ -453,10 +747,12 @@ header .secondary .login
 	text-indent: 7px;
 	top: 6px;
 }
+
 header .secondary .login:hover
 {
 	background-position: -248px -147px;
 }
+
 header .secondary .register a,
 header .secondary .login a
 {
@@ -480,12 +776,11 @@ header .secondary .register
 	background: url("../images/sprite32.png") -228px -128px;
 	left: -155px;
 }
+
 header .secondary .register:hover
 {
 	background-position: -248px -128px;
 }
-
-
 
 header .secondary div.user_menu
 {
@@ -495,6 +790,7 @@ header .secondary div.user_menu
 	width: 75px;
 	vertical-align: top;
 }
+
 header .secondary > div.user_menu > a
 {
 	display: inline-block;
@@ -505,13 +801,15 @@ header .secondary > div.user_menu > a
 	height: 18px;
 	position: absolute;
 	padding-left: 19px;
-	outline:none;
+	outline: none;
 }
+
 header .secondary > div.user_menu > a:focus,
 header .secondary > div.user_menu:hover > a
 {
 	background-position: -248px -109px;
 }
+
 header .secondary > div.user_menu > a span
 {
 	color: #999;
@@ -529,47 +827,61 @@ header .secondary > div.user_menu > a span
 	position: absolute;
 	text-indent:-28px;
 	right: -46px;
-	top:6px
+	top: 6px
 }
+
 header .secondary > div.user_menu > a:focus span,
 header .secondary > div.user_menu:hover > a span
 {
 	background-position: -244px -78px;
 }
-header .secondary > div.user_menu div.dropdown a {display:none}
+
+header .secondary > div.user_menu div.dropdown a
+{
+	display: none;
+}
+
 header .secondary > div.user_menu:hover div.dropdown,
 header .secondary > div.user_menu div.dropdown:hover,
-header .secondary > div.user_menu div.dropdown a:focus ~ div  {display:block}
+header .secondary > div.user_menu div.dropdown a:focus ~ div
+{
+	display: block;
+}
+
 header .secondary > div.user_menu div.dropdown,
 header .secondary > div.user_menu div.dropdown a:focus,
 header .secondary > div.user_menu div.dropdown a:focus ~ a
 {
 	width: 138px;
-	z-index:15;
-	position:relative;
-	background:#717171;
+	z-index: 15;
+	position: relative;
+	background: #717171;
 }
+
 header .secondary > div.user_menu div.dropdown
 {
-	top:26px;
-	margin-left:-32px;
-	-webkit-border-radius:8px;
-	-moz-border-radius:8px;
-	border-radius:8px;
+	top: 26px;
+	margin-left: -32px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 	-moz-box-shadow: 0 0 8px #575757;
 	-webkit-box-shadow: 0 0 8px #575757;
 	box-shadow: 0 0 8px #575757;
 }
+
 header .secondary > div.user_menu:hover div.dropdown
 {
-	border:1px solid #7D7D7D;
+	border: 1px solid #7D7D7D;
 	background-image: linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -o-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -moz-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -webkit-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #747474), color-stop(0.37, #636363));
+	background-image: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0, #747474), color-stop(0.37, #636363));
 }
+
 header .secondary > div.user_menu:hover div.dropdown a,
 header .secondary > div.user_menu a:focus ~ div.dropdown a,
 header .secondary > div.user_menu div.dropdown a:focus,
@@ -582,8 +894,9 @@ header .secondary > div.user_menu div.dropdown a:focus ~ a,
 	text-align: center;
 	border-bottom: 1px solid #555555;
 	border-top: 1px solid #7F7F7F;
-	outline:none;
+	outline: none;
 }
+
 header .secondary > div.user_menu div.dropdown a
 {
 	color: white;
@@ -592,53 +905,69 @@ header .secondary > div.user_menu div.dropdown a
 	text-shadow: #333333 0 1px 0;
 	cursor: pointer;
 }
+
 header .secondary > div.user_menu div.dropdown a:hover,
 header .secondary > div.user_menu div.dropdown a:focus
 {
 	color: #313131;
 	text-shadow: #959595 0 1px 0;
 }
+
 header .secondary > div.user_menu div.dropdown a:focus
 {
-	border-top:none;
-	-webkit-border-top-left-radius:8px;
-	-webkit-border-top-right-radius:8px;
-	-moz-border-radius-topleft:8px;
-	-moz-border-radius-topright:8px;
-	border-top-left-radius:8px;
-	border-top-right-radius:8px;
+	border-top: none;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
 }
-header .secondary > div.user_menu div.dropdown .first {border-top:none !important}
-header .secondary > div.user_menu div.dropdown .last {border-bottom:none !important}
+
+header .secondary > div.user_menu div.dropdown .first
+{
+	border-top: none !important;
+}
+
+header .secondary > div.user_menu div.dropdown .last
+{
+	border-bottom: none !important;
+}
+
 header .secondary > div.user_menu div.dropdown a:focus ~ .last,
 header .secondary > div.user_menu div.dropdown .last:focus
 {
-	-webkit-border-bottom-left-radius:8px;
-	-webkit-border-bottom-right-radius:8px;
-	-moz-border-radius-bottomleft:8px;
-	-moz-border-radius-bottomright:8px;
-	border-bottom-left-radius:8px;
-	border-bottom-right-radius:8px;
+	-webkit-border-bottom-left-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	-moz-border-radius-bottomright: 8px;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
 }
+
 header .secondary > div.user_menu .arrow
 {
 	border-color: transparent transparent #737373 transparent;
 	border-style: solid;
 	border-width: 0px 8px 8px 8px;
-	height:0;
-	width:0;
-	position:absolute;
-	z-index:20;
-	margin:20px 0 0 30px;
-	display:none;
+	height: 0;
+	width: 0;
+	position: absolute;
+	z-index: 20;
+	margin: 20px 0 0 30px;
+	display: none;
 }
-header .secondary > div.user_menu:hover .arrow {display:block}
 
+header .secondary > div.user_menu:hover .arrow
+{
+	display: block;
+}
 
 header .secondary > form
 {
 	display: inline-block;
 }
+
 header .secondary input[type="search"]
 {
 	width: 154px;
@@ -656,30 +985,34 @@ header .secondary input[type="search"]
 	outline: none;
 	background: #FFF url(../images/glass.png) 130px center no-repeat;
 }
+
 header .secondary input[type="search"]:focus
 {
-	background-image:none;
+	background-image: none;
 }
+
 body:-moz-last-node header input[type="search"]
 {
-	border-width:2px;
+	border-width: 2px;
 	-moz-border-top-colors: #EDEDED #B3B3B3;
 	-moz-border-bottom-colors: #EDEDED #B3B3B3;
 	-moz-border-right-colors: #EDEDED #B3B3B3;
 	-moz-border-left-colors: #EDEDED #B3B3B3;
 }
+
 header .secondary input:focus::-webkit-input-placeholder
 {
-	color:transparent
+	color: transparent
 }
+
 header .secondary input::-webkit-search-cancel-button
 {
-	margin:0 8px 0 -8px
+	margin: 0 8px 0 -8px
 }
-/* Saf 5 CSS hack needed
+/* Safari 5 hack needed
 input::-webkit-input-placeholder
 {
-	text-indent:54px;
+	text-indent: 54px;
 }
 */
 
@@ -703,6 +1036,7 @@ input::-webkit-input-placeholder
 	top: 0;
 	right: 0;
 }
+
 #container > .fork_github a
 {
 	display: block;
@@ -719,6 +1053,7 @@ input::-webkit-input-placeholder
 	right: 0;
 	z-index: 9;
 }
+
 #container > .share > .label
 {
 	width: 60px;
@@ -732,6 +1067,7 @@ input::-webkit-input-placeholder
 	text-indent: -999px;
 	overflow: hidden;
 }
+
 #container > .share > ul
 {
 	display: block;
@@ -743,10 +1079,12 @@ input::-webkit-input-placeholder
 	padding: 0;
 	list-style: none;
 }
+
 #container > .share > ul > li
 {
 	padding: 19px 0 1px 15px;
 }
+
 #container > .share > ul > li > a
 {
 	display: block;
@@ -756,32 +1094,40 @@ input::-webkit-input-placeholder
 	overflow: hidden;
 	background-image: url(../images/sprite32.png);
 }
+
 #container > .share > ul > li.twitter > a
 {
 	background-position: -108px -1px;
 }
+
 #container > .share > ul > li.twitter > a:hover
 {
 	background-position: -137px -1px;
 }
+
 #container > .share > ul > li.facebook > a
 {
 	background-position: -166px -1px;
 }
+
 #container > .share > ul > li.facebook > a:hover
 {
 	background-position: -195px -1px;
 }
+
 #container > .share > ul > li.delicious > a
 {
 	background-position: -224px -1px;
 }
+
 #container > .share > ul > li.delicious > a:hover
 {
 	background-position: -253px -1px;
 }
 
-.button_std, .button_std:visited, .button_std:active
+.button_std,
+.button_std:visited,
+.button_std:active
 {
 	display: block;
 	margin: 0 8px;
@@ -837,18 +1183,22 @@ input::-webkit-input-placeholder
 {
 	background-position: -18px -1px;
 }
+
 .button_std:hover > .content
 {
 	background-position: 0 -39px;
 }
+
 .button_std:hover > .footer
 {
 	background-position: -26px -1px;
 }
+
 .button_std.go > .content
 {
 	padding: 0 0 0 10px;
 }
+
 .button_std.go > .content > .block_0
 {
 	display: block;
@@ -865,41 +1215,50 @@ input::-webkit-input-placeholder
 	color: #7A7A7A;
 	text-shadow: #E3E3E3 0 1px 0;
 }
+
 .button_std.gray > .header
 {
 	background-position: -35px -1px;
 }
+
 .button_std.gray > .content
 {
 	background-position: 0 -77px;
 }
+
 .button_std.gray > .footer
 {
 	background-position: -43px -1px;
 }
+
 .button_std.gray:hover > .header
 {
 	background-position: -52px -1px;
 }
+
 .button_std.gray:hover > .content
 {
 	background-position: 0 -115px;
 }
+
 .button_std.gray:hover > .footer
 {
 	background-position: -60px -1px;
 }
+
 .button_std.gray2.go
 {
 	color: #7A7A7A;
 	height: 31px;
 	text-shadow: #E3E3E3 0 1px 0;
 }
+
 .button_std.gray2.go > .header
 {
 	background-position: -193px -29px;
 	height: 31px;
 }
+
 .button_std.gray2.go > .content
 {
 	background-position: 0 -153px;
@@ -907,6 +1266,7 @@ input::-webkit-input-placeholder
 	line-height: 30px;
 	text-align: center;
 }
+
 .button_std.gray2.go > .content > .block_0
 {
 	display: block;
@@ -917,19 +1277,23 @@ input::-webkit-input-placeholder
 	background-image: url(../images/sprite32.png);
 	background-position: -220px -62px;
 }
+
 .button_std.gray2.go > .footer
 {
 	background-position: -201px -29px;
 	height: 31px;
 }
+
 .button_std.gray2.go:hover > .header
 {
 	background-position: -210px -29px;
 }
+
 .button_std.gray2.go:hover > .content
 {
 	background-position: 0 -185px;
 }
+
 .button_std.gray2.go:hover > .footer
 {
 	background-position: -218px -29px;
@@ -990,10 +1354,12 @@ input::-webkit-input-placeholder
 {
 	background-position: -210px -109px;
 }
+
 .button_big:hover > .content
 {
 	background-position: 0 -308px;
 }
+
 .button_big:hover > .footer
 {
 	background-position: -218px -109px;
@@ -1001,8 +1367,9 @@ input::-webkit-input-placeholder
 
 nav#breadcrumb div
 {
-	display:inline;
+	display: inline;
 }
+
 nav#breadcrumb a
 {
 	color: #666;
@@ -1010,15 +1377,18 @@ nav#breadcrumb a
 	font-weight: bold;
 	text-decoration: none;
 }
+
 nav#breadcrumb a:hover
 {
 	text-decoration: underline;
 }
+
 nav#breadcrumb .current
 {
 	color: #8c8c8c;
 	font-size: 1.2em;
 }
+
 nav#breadcrumb .extra_0
 {
 	background: url(../images/sprite32.png) no-repeat;
@@ -1029,16 +1399,19 @@ nav#breadcrumb .extra_0
 	vertical-align:middle;
 	display: inline-block;
 }
+
 nav#breadcrumb .extra_0
 {
-	*display: inline;	/* IE7 */
+	*display: inline; /* IE7 */
 }
+
 #container .last_tweet  a
 {
 	color: #D09610;
 	text-decoration: none;
 	font-weight: bold;
 }
+
 #container .last_tweet a:hover
 {
 	text-decoration: underline;
@@ -1052,6 +1425,7 @@ footer
 	position: relative;
 	width: 100%;
 }
+
 footer > a
 {
 	background-image: url("../images/sprite.jpg");
@@ -1065,10 +1439,12 @@ footer > a
 	width: 365px;
 	z-index: 1;
 }
+
 footer > a:hover
 {
 	background-position: -508px -469px;
 }
+
 footer > ul.technologies_used
 {
 	height: 95px;
@@ -1079,6 +1455,7 @@ footer > ul.technologies_used
 	width: 780px;
 	z-index: 2;
 }
+
 footer > ul.technologies_used > li
 {
 	float: left;
@@ -1087,6 +1464,7 @@ footer > ul.technologies_used > li
 	pointer-events: auto;
 	z-index: 1;
 }
+
 footer > ul.technologies_used > li > a
 {
 	background-image: url("../images/sprite.jpg");
@@ -1094,66 +1472,79 @@ footer > ul.technologies_used > li > a
 	overflow: hidden;
 	text-indent: -9999px;
 }
+
 footer > ul.technologies_used > li.html5
 {
 	left: 560px;
 	top: 20px;
 }
+
 footer > ul.technologies_used > li.html5 > a
 {
 	background-position: -508px -228px;
 	height: 53px;
 	width: 116px;
 }
+
 footer > ul.technologies_used > li.html5 > a:hover
 {
 	background-position: -508px -281px;
 }
+
 footer > ul.technologies_used > li.humanstxt
 {
 	left: 175px;
 	top: 30px;
 }
+
 footer > ul.technologies_used > li.humanstxt > a
 {
 	background-position: -624px -316px;
 	height: 37px;
 	width: 137px;
 }
+
 footer > ul.technologies_used > li.humanstxt > a:hover
 {
 	background-position: -761px -316px;
 }
+
 footer > ul.technologies_used > li.github
 {
 	left: 0px;
 	top: 30px;
 }
+
 footer > ul.technologies_used > li.github > a
 {
 	background-position: -873px -383px;
 	height: 43px;
 	width: 119px;
 }
+
 footer > ul.technologies_used > li.github > a:hover
 {
 	background-position: -873px -426px;
 }
+
 footer > ul.technologies_used > li.google_groups
 {
 	left: 725px;
 	top: 35px;
 }
+
 footer > ul.technologies_used > li.google_groups > a
 {
 	background-position: -311px -228px;
 	height: 48px;
 	width: 90px;
 }
+
 footer > ul.technologies_used > li.google_groups > a:hover
 {
 	background-position: -401px -228px;
 }
+
 footer > .activity
 {
 	height: 201px;
@@ -1161,6 +1552,7 @@ footer > .activity
 	position: relative;
 	width: 810px;
 }
+
 footer > .activity > form > a
 {
 	background-image: url("../images/sprite.jpg");
@@ -1173,10 +1565,12 @@ footer > .activity > form > a
 	top: 45px;
 	width: 105px;
 }
+
 footer > .activity > form > a:hover
 {
 	background-position: -831px -271px;
 }
+
 footer > .activity > .follow_us
 {
 	background-image: url("../images/sprite.jpg");
@@ -1191,6 +1585,7 @@ footer > .activity > .follow_us
 	width: 178px;
 	z-index: 1;
 }
+
 footer > .activity > .follow_us > li
 {
 	display: block;
@@ -1199,6 +1594,7 @@ footer > .activity > .follow_us > li
 	margin-right: 13px;
 	width: 24px;
 }
+
 footer > .activity > .follow_us > li > a
 {
 	display: block;
@@ -1207,23 +1603,27 @@ footer > .activity > .follow_us > li > a
 	text-indent: -999px;
 	width: 100%;
 }
+
 footer > .activity > .follow_us > li > a:hover
 {
 	background-image: url("../images/sprite.jpg");
 }
+
 footer > .activity > .follow_us > li.twitter > a:hover
 {
 	background-position: -873px -353px;
 }
+
 footer > .activity > .follow_us > li.facebook > a:hover
 {
 	background-position: -897px -353px;
 }
+
 footer > .activity > .follow_us > li.vimeo > a:hover
 {
 	background-position: -921px -353px;
 }
-/* == LAST TWEET == */
+
 .last_tweet
 {
 	padding: 0;
@@ -1232,12 +1632,14 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 	left: 180px;
 	top: 26px;
 }
+
 .last_tweet > li
 {
 	list-style-type: none;
 	position: absolute;
 	text-shadow: 0 1px 0 #EBEBEB;
 }
+
 .last_tweet > .tweet_container
 {
 	z-index: 1;
@@ -1257,10 +1659,12 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 	-webkit-border-radius: 8px 8px 0 0;
 	border-radius: 8px 8px 0 0;
 }
+
 .last_tweet > .tweet_container:hover
 {
 	text-overflow:clip;
 }
+
 .last_tweet > .follow_us
 {
 
@@ -1275,6 +1679,7 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 	-webkit-border-radius: 8px;
 	border-radius: 8px;     
 }
+
 .last_tweet > .follow_us > span
 {  
 	margin-top: 85px;
@@ -1286,15 +1691,16 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 	-webkit-border-radius: 0 0 8px 8px;
 	border-radius: 0 0 8px 8px;
 }
+
 .last_tweet > .bird
 {
 	background: url("../images/sprite32.png") no-repeat -116px -29px;
 	height: 47px;
 	width: 76px;
 	margin-top:12px;
-	z-index:2;
+	z-index: 2;
 }
-/* == LAST TWEET END == */
+
 footer > .activity > .participate
 {
 	background-image: url("../images/sprite.jpg");
@@ -1305,6 +1711,7 @@ footer > .activity > .participate
 	width: 267px;
 	font-weight: bold;
 }
+
 footer > .activity > .participate > h2
 {
 
@@ -1314,6 +1721,7 @@ footer > .activity > .participate > h2
 	text-shadow: 0 1px 0 #666666;
 	width: 72px;
 }
+
 footer > .activity > .participate > p
 {
 
@@ -1323,16 +1731,19 @@ footer > .activity > .participate > p
 	text-shadow: 0 1px 0 #666666;
 	width: 230px;
 }
+
 footer > .activity > .participate > p > a
 {
 	color: #FFD519;
 	text-decoration: none;
 	text-shadow: 0 1px 0 #666666;
 }
+
 footer > .activity > .participate > p > a:hover
 {
 	text-decoration: underline;
 }
+
 footer > .activity > .copy
 {
 	bottom: 0px;
@@ -1341,12 +1752,14 @@ footer > .activity > .copy
 	text-shadow: 0 1px 0 white;
 	width: 100%;
 }
+
 footer > .activity > .copy > p > a
 {
 	color: #666666;
 	font-weight: bold;
 	text-decoration: none;
 }
+
 footer > .activity > .copy > p > a:hover
 {
 	text-decoration: underline;
@@ -1757,16 +2170,12 @@ body.page-user #user-register-form > div > div > div > .description
 
 @media only screen and (min-width: 480px)
 {
-
   /* Style adjustments for viewports 480px and over go here */
-
 }
 
 @media only screen and (min-width: 768px)
 {
-
   /* Style adjustments for viewports 768px and over go here */
-
 }
 
 
@@ -1777,17 +2186,79 @@ body.page-user #user-register-form > div > div > div > .description
 
 @media print
 {
+	*
+	{
+		background: transparent !important;
+		color: black !important;
+		text-shadow: none !important;
+		filter:none !important;
+		-ms-filter: none !important;
+	} /* Black prints faster: sanbeiji.com/archives/953 */
 
-  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: sanbeiji.com/archives/953 */
-  a, a:visited { color: #444 !important; text-decoration: underline; }
-  a[href]:after { content: " (" attr(href) ")"; }
-  abbr[title]:after { content: " (" attr(title) ")"; }
-  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
-  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
-  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */
-  tr, img { page-break-inside: avoid; }
-  img { max-width: 100% !important; }
-  @page { margin: 0.5cm; }
-  p, h2, h3 { orphans: 3; widows: 3; }
-  h2, h3{ page-break-after: avoid; }
+	a,
+	a:visited
+	{
+		color: #444 !important;
+		text-decoration: underline;
+	}
+
+	a[href]:after
+	{
+		content: " (" attr(href) ")";
+	}
+
+	abbr[title]:after
+	{
+		content: " (" attr(title) ")";
+	}
+
+	.ir a:after,
+	a[href^="javascript:"]:after,
+	a[href^="#"]:after
+	{
+		content: "";
+	}  /* Don't show links for images, or javascript/internal links */
+
+	pre,
+	blockquote
+	{
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	}
+
+	thead
+	{
+		display: table-header-group;
+	} /* css-discuss.incutio.com/wiki/Printing_Tables */
+
+	tr,
+	img
+	{
+		page-break-inside: avoid;
+	}
+
+	img
+	{
+		max-width: 100% !important;
+	}
+
+	@page
+	{
+		margin: 0.5cm;
+	}
+
+	p,
+	h2,
+	h3
+	{
+		orphans: 3;
+		widows: 3;
+	}
+
+	h2,
+	h3
+	{
+		page-break-after: avoid;
+	}
 }
+

@@ -5,7 +5,8 @@
  * @ingroup Skins
  */
 
-if(!defined('MEDIAWIKI')) {
+if(!defined('MEDIAWIKI'))
+{
 	die('NO!');
 }
 
@@ -14,13 +15,15 @@ require_once('MonoBook.php');
 /**
  * Inherit main code from SkinTemplate, set the CSS and template filter.
  */
-class SkinAxrBook extends SkinTemplate {
+class SkinAxrBook extends SkinTemplate
+{
 	public $skinname = 'axrbook';
 	public $stylename = 'axrbook';
 	public $template = 'AxrBookTemplate';
 	public $useHeadElement = true;
 
-	function setupSkinUserCss(OutputPage $out) {
+	function setupSkinUserCss (OutputPage $out)
+	{
 		parent::setupSkinUserCss($out);
 
 		$out->addStyle('axrbook/monobook.css', 'screen');
@@ -40,7 +43,8 @@ class SkinAxrBook extends SkinTemplate {
  * @todo document
  * @ingroup Skins
  */
-class AxrBookTemplate extends MonoBookTemplate {
+class AxrBookTemplate extends MonoBookTemplate
+{
 
 	/**
 	 * @var Skin
@@ -55,7 +59,8 @@ class AxrBookTemplate extends MonoBookTemplate {
 	 *
 	 * @access private
 	 */
-	public function execute() {
+	public function execute ()
+	{
 		global $IP, $wgUser;
 
 		$this->skin = $this->data['skin'];
@@ -73,7 +78,8 @@ class AxrBookTemplate extends MonoBookTemplate {
 		wfRestoreWarnings();
 	}
 
-	public function content() {
+	public function content ()
+	{
 		include('axrbook/content.tpl.php');
 	}
 
@@ -81,10 +87,12 @@ class AxrBookTemplate extends MonoBookTemplate {
 	 * This function exists only to hide the default search box as we
 	 * use our own search box.
 	 */
-	public function searchBox() {
+	public function searchBox ()
+	{
 	}
 
-	public function getPersonalTools() {
+	public function getPersonalTools ()
+	{
 		$personal_tools = parent::getPersonalTools();
 
 		unset($personal_tools['anonlogin']);
@@ -94,12 +102,14 @@ class AxrBookTemplate extends MonoBookTemplate {
 		return $personal_tools;
 	}
 
-	public function getLinkLogin() {
+	public function getLinkLogin ()
+	{
 		$personal_tools = parent::getPersonalTools();
 		return $personal_tools['anonlogin']['links'][0]['href'];
 	}
 
-	public function getLinkLogout() {
+	public function getLinkLogout ()
+	{
 		$personal_tools = parent::getPersonalTools();
 		return $personal_tools['logout']['links'][0]['href'];
 	}

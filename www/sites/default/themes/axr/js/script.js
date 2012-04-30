@@ -3,22 +3,31 @@
 for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis.length;i++){lis[i].getElementsByTagName("a")[0].id="time"+(i+1);if(lis[i].getElementsByTagName("div").length>0){for(var anchors=lis[i].getElementsByTagName("div")[0].getElementsByTagName("a"),j=0;j<anchors.length;j++){var a=anchors[j],t="time";a.setAttribute("begin",t+(i+1)+".focus");a.setAttribute("end",t+(i+2)+".focus;"+t+i+".focus");a.setAttribute(t+"Action","class:afocus");a.addBehavior("#default#time2")}}};
 @end@*/
 
-(function ($) {
-	var beautifyTweet = function (tweet) {
-		parseURL = function (tweet) {
-			return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/g, function (url) {
+(function ($)
+{
+	var beautifyTweet = function (tweet)
+	{
+		parseURL = function (tweet)
+		{
+			return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/g,
+				function (url)
+			{
 				return url.link(url);
 			});
 		};
 
-		parseUsername = function (tweet) {
-			return tweet.replace(/[@]+[A-Za-z0-9-_]+/g, function (u) {
+		parseUsername = function (tweet)
+		{
+			return tweet.replace(/[@]+[A-Za-z0-9-_]+/g, function (u)
+			{
 				return u.link('https://twitter.com/#!/' + u.replace('@', ''));
 			});
 		};
 
-		parseHashtag = function (tweet) {
-			return tweet.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
+		parseHashtag = function (tweet)
+		{
+			return tweet.replace(/[#]+[A-Za-z0-9-_]+/g, function (t)
+			{
 				return t.link('http://search.twitter.com/search?q=' +
 					t.replace('#', '%23'));
 			});
@@ -37,7 +46,8 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	 * @param int timestamp
 	 * @return string
 	 */
-	var formatDateAgo = function (timestamp) {
+	var formatDateAgo = function (timestamp)
+	{
 		var diff = Math.floor((new Date()).getTime() / 1000) - timestamp;
 
 		if (diff == 0) {
@@ -60,7 +70,8 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	/**
 	 * Load a tweet for the latest tweet box
 	 */
-	var loadTweet = function (page) {
+	var loadTweet = function (page)
+	{
 		var page = parseInt(page || 1);
 		page = isNaN(page) ? 1 : page;
 
@@ -77,8 +88,10 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 				page: page
 			},
 			dataType: 'jsonp'
-		}).success(function (data) {
-			if (typeof data[0] !== 'object') {
+		}).success(function (data)
+		{
+			if (typeof data[0] !== 'object')
+			{
 				if (page < 4)
 				{
 					loadTweet(page + 1);
@@ -97,7 +110,8 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 
 			$('.last_tweet > .tweet_container')
 				.html(beautifyTweet(tweet.text) + ' &mdash; ' + time);
-		}).error(function () {
+		}).error(function ()
+		{
 			$('.last_tweet > .tweet_container').html('Error loading the tweet');
 		});
 	};
@@ -105,11 +119,14 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	/**
 	 * Load GitHub activity for the activity box
 	 */
-	$.getJSON("/activity.php", function (data) {
+	$.getJSON("/activity.php", function (data)
+	{
 		$('#ghactivity').empty();
 
-		for (var i = 0; i < 5; i++) {
-			if (data.activity[i] === undefined) {
+		for (var i = 0; i < 5; i++)
+		{
+			if (data.activity[i] === undefined)
+			{
 				break;
 			}
 
@@ -124,25 +141,32 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	 * Dropdown menu
 	 * @fixme Shouldn't this be implemented in CSS?
 	 */
-	$("#container > header > nav > ul > li").hover(function () {
-		$(this).closest('li').addClass('hover').find(".sections").removeClass('hidden');
-	}, function () {
-		$(this).closest('li').removeClass('hover').find(".sections").addClass('hidden');
+	$("#container > header > nav > ul > li").hover(function ()
+	{
+		$(this).closest('li').addClass('hover').find(".sections")
+			.removeClass('hidden');
+	}, function ()
+	{
+		$(this).closest('li').removeClass('hover').find(".sections")
+			.addClass('hidden');
 	});
 
 	/**
 	* Dropdown for user menu
 	*/
-	$("#container > header > .secondary > div.user_menu").hover(function () {
+	$("#container > header > .secondary > div.user_menu").hover(function ()
+	{
 		$(this).addClass('hover').find(".dropdown").removeClass('hidden');
-	}, function () {
+	}, function ()
+	{
 		$(this).removeClass('hover').find(".dropdown").addClass('hidden');
 	});
 
 	/**
 	 * Show popup for the flaoting social buttons
 	 */
-	$("#container > .share > ul > li > a").click(function (event) {
+	$("#container > .share > ul > li > a").click(function (event)
+	{
 		event.preventDefault();
 
 		var page = $(this).attr("href");
@@ -150,16 +174,22 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 		var popUpWidth = 730;
 		var top = ($(window).height() - popUpHeight) / 2;
 		var left = ($(window).width() - popUpWidth) / 2;
-		var options = 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=' + popUpWidth + ', height=' + popUpHeight + ', top=' + top + ', left=' + left;
+		var options = 'toolbar=no, location=no, directories=no, status=no, ' +
+			'menubar=no, scrollbars=no, resizable=yes, width=' + popUpWidth +
+			', height=' + popUpHeight + ', top=' + top + ', left=' + left;
 		window.open(page, "", options);
 	});
 
 	/**
 	 * Back to top link animation
 	 */
-	$("#container > footer > a").click(function (event) {
+	$("#container > footer > a").click(function (event)
+	{
 		event.preventDefault();
-		$('html, body').animate({ scrollTop: 0 }, 800);
+
+		$('html, body').animate({
+			scrollTop: 0
+		}, 800);
 	});
 
 	/**
@@ -168,21 +198,27 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	{
 		$('.modal').hide().removeClass('hidden');
 
-		$('.modal').bind('show',function () {
+		$('.modal').bind('show',function ()
+		{
 			$(this).fadeIn('fast');
 		});
 
-		$('.modal').bind('hide',function () {
+		$('.modal').bind('hide',function ()
+		{
 			$(this).fadeOut('fast');
 		});
 
-		$('.modal .modal_close').click(function () {
+		$('.modal .modal_close').click(function ()
+		{
 			$(this).closest('.modal').trigger('hide');
+
 			return false;
 		});
 
-		$('.modal').click(function (e) {
-			if (e.target != this) {
+		$('.modal').click(function (e)
+		{
+			if (e.target != this)
+			{
 				return;
 			}
 
@@ -193,7 +229,8 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	/**
 	 * Show "Join the revolution" modal box
 	 */
-	$('#action_button').click(function () {
+	$('#action_button').click(function ()
+	{
 		$('#joining').trigger('show');
 		return false;
 	});

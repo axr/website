@@ -3,11 +3,11 @@
  * iwDrupal.php
  *
  * @author Ragnis Armus <ragnis@myopera.com>
- * @todo Prevent manual user creation
  * @todo Prevent email from being manually changed
  */
 
-if (!defined('MEDIAWIKI')) {
+if (!defined('MEDIAWIKI'))
+{
 	echo 'NO!';
 	exit(1);
 }
@@ -27,7 +27,8 @@ $wgExtensionFunctions[] = 'wfDrupalIntegration';
 /**
  * Subscribes to needed hooks
  */
-function wfDrupalIntegration() {
+function wfDrupalIntegration ()
+{
 	global $wgHooks;
 
 	$wgHooks['UserLoadFromSession'][] = 'IwDrupal::hook_UserLoadFromSession';
@@ -37,13 +38,15 @@ function wfDrupalIntegration() {
 /**
  * Serves as a namespace for all extension's functions
  */
-class IwDrupal {
+class IwDrupal
+{
 	/**
 	 * Return connection handler for Drupal database
 	 *
 	 * @return PDO
 	 */
-	public static function getDrupalDBH() {
+	public static function getDrupalDBH ()
+	{
 		global $iwParameters;
 		static $dbh;
 
@@ -63,7 +66,8 @@ class IwDrupal {
 	 *
 	 * @return string
 	 */
-	public static function getDrupalSID() {
+	public static function getDrupalSID ()
+	{
 		return isset($_COOKIE['drupal_sid']) ? $_COOKIE['drupal_sid'] : null;
 	}
 
@@ -72,11 +76,13 @@ class IwDrupal {
 	 *
 	 * @return int
 	 */
-	public static function getDrupalUID() {
+	public static function getDrupalUID ()
+	{
 		global $iwParameters;
 		static $uid;
 
-		if ($uid === null) {
+		if ($uid === null)
+		{
 			$dbh = self::getDrupalDBH();
 			$sid = self::getDrupalSID();
 			$prefix = $iwParameters['DrupalDBPrefix'];
@@ -96,16 +102,19 @@ class IwDrupal {
 		return ($uid === null) ? 0 : $uid;
 	}
 
-	public static function getDrupalUser() {
+	public static function getDrupalUser ()
+	{
 		global $iwParameters;
 		static $user;
 
-		if ($user === null) {
+		if ($user === null)
+		{
 			$dbh = self::getDrupalDBH();
 			$uid = self::getDrupalUID();
 			$prefix = $iwParameters['DrupalDBPrefix'];
 			
-			if ($uid == 0) {
+			if ($uid === 0)
+			{
 				return null;
 			}
 
@@ -130,7 +139,8 @@ class IwDrupal {
 	 * @param StdClass $du Drupal user
 	 * @return bool
 	 */	
-	public static function doLogin($du) {
+	public static function doLogin ($du)
+	{
 		global $wgUser, $wgAuth, $wgContLang;
 
 		wfSetupSession();
@@ -140,7 +150,8 @@ class IwDrupal {
 
 		$user = User::newFromName($username);
 
-		if ($user->getId() == 0) {
+		if ($user->getId() == 0)
+		{
 			$user->setName($username);
 			$user->addToDatabase();
 
@@ -149,7 +160,8 @@ class IwDrupal {
 			$ssUpdate->doUpdate();
 		}
 
-		if ($user->getEmail() != $du->mail) {
+		if ($user->getEmail() != $du->mail)
+		{
 			$user->setEmail($du->mail);
 			$user->confirmEmail();
 			$user->saveSettings();
@@ -167,12 +179,14 @@ class IwDrupal {
 	/**
 	 * Initialize
 	 */
-	public static function initialize() {
+	public static function initialize ()
+	{
 		global $wgUser;
 
 		$du = self::getDrupalUser();
 
-		if (is_object($wgUser) && $wgUser->getID() != 0 && !is_object($du)) {
+		if (is_object($wgUser) && $wgUser->getID() != 0 && !is_object($du))
+		{
 			$wgUser->doLogout();
 		}
 	}
@@ -182,14 +196,20 @@ class IwDrupal {
 	 *
 	 * @return bool
 	 */
-	public static function hook_UserLoadFromSession($user, &$result) {
+	public static function hook_UserLoadFromSession ($user, &$result)
+	{
 		$du = self::getDrupalUser();
 
-		if (is_object($du) && $user->getName() != $du->name) {
+		if (is_object($du) && $user->getName() != $du->name)
+		{
 			self::doLogin($du);
-		} else if ($user->getID() == 0 && is_object($du)) {
+		}
+		else if ($user->getID() === 0 && is_object($du))
+		{
 			self::doLogin($du);
-		} else {
+		}
+		else
+		{
 			$user->doLogout();
 		}
 
@@ -201,20 +221,25 @@ class IwDrupal {
 	 *
 	 * @return bool
 	 */
-	public static function hook_PersonalUrls(&$personal_urls, &$title) {
+	public static function hook_PersonalUrls (&$personal_urls, &$title)
+	{
 		global $wgUser, $iwParameters;
 
-		$here = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/wiki';
+		$here = isset($_SERVER['REQUEST_URI']) ?
+			$_SERVER['REQUEST_URI'] : '/wiki';
 
 		unset($personal_urls['login']);
 
-		if (is_object($wgUser) & $wgUser->getID() != 0) {
+		if (is_object($wgUser) & $wgUser->getID() != 0)
+		{
 			$personal_urls['logout'] = array(
 				'text' => wfMsg('userlogout'),
 				'href' => $iwParameters['DrupalLogout'].
 					'?continue_to='.rawurlencode($here)
 			);
-		} else {
+		}
+		else
+		{
 			$personal_urls['anonlogin'] = array(
 				'text' => wfMsg('userlogin'),
 				'href' => $iwParameters['DrupalLogin'].
