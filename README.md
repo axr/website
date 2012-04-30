@@ -14,12 +14,13 @@ references (bindings between objects), and a very long etc.
 Website
 =======
 This repository is the place where we edit the development version of the AXR
-website. The devlopment version is automatically pulled and built on dev.axr.vg.
+website. The development version gets automatically deployed to dev.axr.vg
+when some new changes are made to it.
 When a milestone is hit, the release is deployed to http://axr.vg.
 
 File an issue
 =============
-We are more than welcome to file any issue you find with the website here:
+You are more than welcome to file any issue you find with the website at
 https://github.com/axr/website/issues. A voluteer will answer as soon as
 possible.
 
@@ -37,16 +38,16 @@ question.
 
 How the website works
 =====================
-The website is mainly drupal. The wiki is mediawiki whose accounts are linked to
-Srupal's with MediaWiki authbridge. There will be soon a vanilla forum
-installation with drupal Orchid Module.
+The website runs mainly on Drupal. For the wiki we use MediaWiki, whose accounts
+are linked to Drupal's through an authentication bridge. Soon there will be a
+Vanilla forum that will be connected to Drupal using the Orchid module.
 
 Find something to do
 ====================
 You can find work on the github issues tracker:
 https://github.com/axr/website/issues. If there is an unassigned or an old task,
 post a comment asking for assignment. Make sure you follow the coding standards
-and our workflow, which you can find below.
+and our workflow, which can be found below.
 
 The workflow
 ============
@@ -158,7 +159,7 @@ Git Standards
 - The `master` branch MUST be stable at ALL times. If you need to push some
 	unstable changes, create another branch
 - If you create a branch to work on an issue, the branch should be named as
-	`issue-NNN`
+	`issue-<issue number>`
 - Use "Close #<issue number>" in the commit message to automagically close the
 	issue
 - Use present tense in commit messages
