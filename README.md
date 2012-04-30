@@ -81,6 +81,7 @@ Coding standards
 These rules apply everywhere:
 - Always use tabs for indentation
 - No trailing whitespace in the end of lines
+- Use whitespace to divide your lines into logical blocks
 - You should never omit braces
 		// Wrong
 		if (condition) do_stuff();
