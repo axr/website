@@ -2,7 +2,7 @@
 	<h2>Prototype</h2>
 
 	<?php
-		$releases = axr_get_releases(0, 5);
+		$releases = axrreleases_get_releases(0, 5);
 		$arches = array(
 			'x86-64' => '64-bit (x86-64)',
 			'x86' => '32-bit (x86)'

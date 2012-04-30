@@ -1,7 +1,8 @@
-
 name = AXR
 description = AXR theme
 core = 7.x
+
+dependencies[] = axrreleases
 
 stylesheets[all][] = css/style.css
 

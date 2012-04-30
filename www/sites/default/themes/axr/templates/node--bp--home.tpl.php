@@ -677,7 +677,7 @@
 			<h2>download</h2>
 			<div class="nested_0">
 				<?php
-					$releases = axr_get_releases(0, 1);
+					$releases = axrreleases_get_releases(0, 1);
 					$latest = count($releases) > 0 ? $releases[0] : null;
 				?>
 				<?php if ($latest !== null): ?>
@@ -710,7 +710,7 @@
 		</div>
 		<div class="changes">
 			<h2>Latest changes:</h2>
-			<?php $changelog = axr_get_changelog_short(); ?>
+			<?php $changelog = axrreleases_get_changelog_short(); ?>
 			<?php if ($latest !== null && $changelog !== null): ?>
 				<div class="verinfo">
 					<span class="version">v <?php echo $latest->version; ?></span>

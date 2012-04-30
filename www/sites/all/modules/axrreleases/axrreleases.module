@@ -1,0 +1,185 @@
+<?php
+
+/**
+ * Detect user's OS.
+ *
+ * @return string osx|linux|win
+ */
+function axrreleases_get_os ()
+{
+	if (preg_match('/Mac/', $_SERVER['HTTP_USER_AGENT']))
+	{
+		return 'osx';
+	}
+
+	if (preg_match('/Linux/', $_SERVER['HTTP_USER_AGENT']))
+	{
+		return 'linux';
+	}
+
+	return 'win';
+}
+
+/**
+ * Get user's system architecture.
+ *
+ * @return string x86|x86-64
+ */
+function axrreleases_get_arch ()
+{
+	if (preg_match('/WOW64|x86_64|x64/', $_SERVER['HTTP_USER_AGENT']))
+	{
+		return 'x86-64';
+	}
+
+	return 'x86';
+}
+
+/**
+ * Check, if release file exists
+ *
+ * @param string $url
+ */
+function axrreleases_get_exists ($url)
+{
+	$url = str_replace('http://files.axr.vg/', '/var/dev/files/', $url);
+	return file_exists($url);
+}
+
+/**
+ * Get list of releases to display in the template.
+ *
+ * @param int $start
+ * @param int $count
+ * @param string $force_os
+ * @param string $force_arch
+ * @return mixed
+ */
+function axrreleases_get_releases ($start = 0, $count = 1,
+	$force_os = null, $force_arch = null)
+{
+	$oses = array(
+		'osx' => 'OSX',
+		'linux' => 'Linux',
+		'win' => 'Windows'
+	);
+
+	$ext = array(
+		'osx' => 'dmg',
+		'linux' => 'tar.gz',
+		'win' => 'zip'
+	);
+
+	$os = ($force_os !== null) ? $force_os : axrreleases_get_os();
+	$arch = ($force_arch !== null) ? $force_arch : axrreleases_get_arch();
+	$data = array();
+
+	$releases = cache_get('axr:releases:raw');
+
+	if (!is_object($releases))
+	{
+		return array();
+	}
+
+	$releases = unserialize($releases->data);
+
+	if ($releases === false)
+	{
+		return array();
+	}
+
+	for ($i = $start, $got = 0; true; $i++)
+	{
+		if (!isset($releases[$i]) || $got >= $count)
+		{
+			break;
+		}
+
+		$version = $releases[$i]->version;
+		$timestamp = $releases[$i]->date;
+
+		$url = 'http://files.axr.vg/prototype/'.$version.'-stable/axr_'.$version.'_';
+
+		$release = (object) array(
+			'date' => ((int) $timestamp == 0) ? 'n/a' :
+				gmdate('Y/m/d', $timestamp),
+			'version' => $version,
+			'url' => $url.$os.'_'.$arch.'.'.$ext[$os],
+			'urls' => (object) array(
+				'linux' => (object) array(
+					'x86-64' => $url.'linux_x86-64.'.$ext['linux'],
+					'x86' => $url.'linux_x86.'.$ext['linux']
+				),
+				'osx' => (object) array(
+					'x86-64' => $url.'osx_x86-64.'.$ext['osx'],
+					'x86' => $url.'osx_x86.'.$ext['osx']
+				),
+				'win' => (object) array(
+					'x86-64' => $url.'win_x86-64.'.$ext['win'],
+					'x86' => $url.'win_x86.'.$ext['win']
+				),
+			),
+			'os_str' => isset($oses[$os]) ? $oses[$os] : $os,
+			'sha' => $releases[$i]->sha
+		);
+
+		if (!axrreleases_get_exists($release->url))
+		{
+			continue;
+		}
+
+		foreach ($release->urls as $os => $urls)
+		{
+			if (!axrreleases_get_exists($urls->{'x86-64'}))
+			{
+				unset($release->urls->$os->{'x86-64'});
+			}
+
+			if (!axrreleases_get_exists($urls->x86))
+			{
+				unset($release->urls->$os->x86);
+			}
+		}
+
+		$data[] = $release;
+		$got++;
+	}
+
+	if (count($data) == 0 && $force_arch === null)
+	{
+		$data = axrreleases_get_releases($start, $count, $os,
+			($arch == 'x86' ? 'x86-64' : 'x86'));
+	}
+	else if (count($data) == 0 && $os != 'win')
+	{
+		$data = axrreleases_get_releases($start, $count, 'win');
+	}
+
+	return $data;
+}
+
+/**
+ * Get short changelog
+ *
+ * @param string $sha
+ * @return string[]
+ */
+function axrreleases_get_changelog_short ($sha = null)
+{
+	if ($sha === null)
+	{
+		$latest = axrreleases_get_releases(0, 1);
+		
+		if (count($latest) == 0)
+		{
+			return null;
+		}
+
+		$sha = $latest[0]->sha;
+	}
+
+	$changelog = unserialize(cache_get('axr:changelog_short:'.$sha)->data);
+
+	return ($changelog === false) ? null : $changelog;
+}
+
