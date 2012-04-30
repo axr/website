@@ -2,7 +2,7 @@
 
 <div id="container">
 	<header>
-		<a href="/" id="logo">AXR Project</a>
+		<a href="/" id="logo"><img src="/sites/default/themes/axr/images/logo.jpg" height="230" width="310" alt="AXR Logo" title="AXR Project" /></a>
 		<div class="secondary">
 			<?php if (!is_object($wgUser) || $wgUser->getID() == 0): ?>
 				<span class="register"><a href="/user/register">Register</a></span>
