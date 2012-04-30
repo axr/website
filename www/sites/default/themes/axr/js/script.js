@@ -206,9 +206,17 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 		e.preventDefault();
 
 		var keys = $(this).find('input[type=search]').val();
-		var url = '/search/mixed/' + encodeURIComponent(keys);
+		var type = /^\/wiki\//.test(window.location.pathname) ? 'wiki' : 'mixed';
+		var url = '/search/' + type + '/' + encodeURIComponent(keys);
 
-		Ajaxsite.url(url);
+		if (typeof Ajaxsite === 'undefined')
+		{
+			window.location = url;
+		}
+		else
+		{
+			Ajaxsite.url(url);
+		}
 	});
 
 	$(document).ready(function ()

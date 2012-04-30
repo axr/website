@@ -85,5 +85,6 @@
 		</div>
 	</footer>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="/sites/default/themes/axr/js/script.js"></script>
 
