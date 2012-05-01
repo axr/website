@@ -103,9 +103,19 @@
 			checkreturn="true" />
 		<phingcall target="dbdeploy" />
 
-		<!-- enable template-->
+		<!-- Enable theme -->
 		<drush command="pm-enable" assume="yes">
 			<param>${drupal.theme.name}</param>
+		</drush>
+
+		<!-- Enable modules -->
+		<drush command="pm-enable" assume="yes">
+			<param>axrreleases</param>
+			<param>axrsearch</param>
+			<param>ajaxutil</param>
+			<param>continueto</param>
+			<param>sessid</param>
+			<param>assetmagic</param>
 		</drush>
 
 		<drush command="vset" assume="yes">
