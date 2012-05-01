@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="axr" default="site-install">
-	<target name="init" depends="load-properties, setup-dirs, setup-filesets" unless="project.initialized">
+	<target name="init" depends="load-properties, setup-dirs" unless="project.initialized">
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.initialized" value="true"/>
 		<tstamp/>
