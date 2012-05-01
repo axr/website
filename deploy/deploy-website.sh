@@ -1,44 +1,37 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 REPODIR=/var/dev/clone-website
 WWWDIR=/var/dev/www
-BAKDIR="$WWWDIR.bak-$(date +%y%m%d%H%M%S)"
 
 cd "$REPODIR"
 
 echo "Updating GIT repo"
+git stash && git stash drop
 git pull origin master
 
-HASH=$(git rev-parse HEAD)
-
-echo "Replacing production files"
-
-if [ -d "$WWWDIR" ]; then
-	mv "$WWWDIR" "$BAKDIR"
-fi
-
-mkdir -p "$WWWDIR"
+# Show the maintenance message
 echo "Down for maintenance" > "$WWWDIR/index.html"
 
-cp -r "$REPODIR/www/" "$WWWDIR/../"
+# Copy server.properties config file to $REPODIR/deploy
+cp /var/dev/deploy/server.properties "$REPODIR/deploy/"
 
-cd "$REPODIR/../deploy"
-
+# Run Phing
+cd "$REPODIR/deploy"
 echo "Running phing"
 phing -f server.xml
 
 if [ $? -ne 0 ]; then
-        echo -e "\033[1;31mBuild script failed.\033[m"
+        echo "Deploy failed" > "$WWWDIR/index.html"
         exit 1
 fi
 
-# Restore wiki config file
-cp "/var/dev/deploy/LocalSettings.php" "$WWWDIR/wiki/"
-
 # Put current commit hash into git_head
-echo "$HASH" > "$WWWDIR/git_head"
+git rev-parse HEAD > "$REPODIR/www/git_head"
 
-rm "$WWWDIR/index.html"
+# Create symlink for images folder
+ln -s /var/www/www/sites/default/images/blog "$REPODIR/www/sites/default/images"
 
-echo "Done"
+# Make the new www public
+rm -rf "$WWWDIR"
+mv "$REPODIR/www" "$WWWDIR"
 
