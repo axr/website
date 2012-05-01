@@ -36,7 +36,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			var url = jQuery(this).attr('href');
 
-			if (/^(https?:|#|javascript:)/.test(url))
+			if (e.which !== 1 || /^(https?:|#|javascript:)/.test(url))
 			{
 				return;
 			}
