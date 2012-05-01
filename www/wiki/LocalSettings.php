@@ -14,8 +14,18 @@ $wgScriptPath = '/wiki';
 $wgScriptExtension = '.php';
 $wgArticlePath = $wgScriptPath . '/$1';
 
-// The protocol and server name to use in fully-qualified URLs
-$wgServer           = 'http://' . $_SERVER['SERVER_NAME'];
+if (isset($_SERVER['SERVER_NAME']))
+{
+	// The protocol and server name to use in fully-qualified URLs
+	$wgServer = 'http://' . $_SERVER['SERVER_NAME'];
+
+	if (isset($_SERVER['SERVER_PORT']) &&
+		$_SERVER['SERVER_PORT'] !== '80' &&
+		is_numeric($_SERVER['SERVER_PORT']))
+	{
+		$wgServer .= ':' . $_SERVER['SERVER_PORT'];
+	}
+}
 
 // The relative URL path to the skins directory
 $wgStylePath = $wgScriptPath . '/skins';
@@ -85,4 +95,6 @@ require_once($IP . '/extensions/di/iwDrupal.php');
 
 // Syntax highlighting
 require_once('extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php');
+
+$wgShowExceptionDetails = true;
 

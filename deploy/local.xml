@@ -114,11 +114,99 @@
 		</drush>
 
 		<!-- Fix permissions for the default site directory and settings. The owner must be able to delete the directories during subsequent builds. -->
-		<chmod file="${project.drupal.dir}/sites/default/" mode="0777" failonerror="true"/>
-		<chmod file="${project.drupal.dir}/sites/default/files" mode="0777" failonerror="true"/>
+		<chmod file="${project.drupal.dir}/sites/default/" mode="0777" failonerror="true" />
+		<chmod file="${project.drupal.dir}/sites/default/files" mode="0777" failonerror="true" />
 
 		<!-- Set property to prevent target from being executed multiple times -->
-		<property name="project.installed" value="true"/>
+		<property name="project.installed" value="true" />
+	</target>
+
+	<target name="mw-install" depends="init">
+		<copy
+			file="${mw.path}/maintenance/tables.sql"
+			tofile="db/scripts/mw-tables.proc.sql"
+			overwrite="true">
+			<filterchain>
+				<replaceregexp>
+					<regexp
+						pattern="/\*_\*/"
+						replace="${mw.db.prefix}" />
+				</replaceregexp>
+			</filterchain>
+		</copy>
+
+		<copy
+			file="db/scripts/mw-data.sql"
+			tofile="db/scripts/mw-data.proc.sql"
+			overwrite="true">
+			<filterchain>
+				<replaceregexp>
+					<regexp
+						pattern="/\*_\*/"
+						replace="${mw.db.prefix}" />
+					<regexp
+						pattern="/\*\[ADMIN_USER\]\*/"
+						replace="${drupal.account.name}" />
+				</replaceregexp>
+			</filterchain>
+		</copy>
+
+		<exec
+			command="mysql -h${mw.db.host} -u${mw.db.username} -p${mw.db.password} ${mw.db.database} &lt; ${project.dbscriptsdir}/mw-tables.proc.sql"
+			checkreturn="true" />
+
+		<exec
+			command="mysql -h${mw.db.host} -u${mw.db.username} -p${mw.db.password} ${mw.db.database} &lt; ${project.dbscriptsdir}/mw-data.proc.sql"
+			checkreturn="true" />
+
+		<phingcall target="mw-conf" />
+	</target>
+
+	<target name="mw-conf" depends="init">
+		<copy
+			file="${mw.path}/LocalSettings.2.sample.php"
+			tofile="${mw.path}/LocalSettings.2.php"
+			overwrite="true">
+
+			<filterchain>
+				<replaceregexp>
+					<regexp
+						pattern="(\$wgDBtype\s*=\s*')\.*(';)"
+						replace="\1${mw.db.type}\2" />
+					<regexp
+						pattern="(\$wgDBserver\s*=\s*')\.*(';)"
+						replace="\1${mw.db.host}\2" />
+					<regexp
+						pattern="(\$wgDBname\s*=\s*')\.*(';)"
+						replace="\1${mw.db.database}\2" />
+					<regexp
+						pattern="(\$wgDBuser\s*=\s*')\.*(';)"
+						replace="\1${mw.db.username}\2" />
+					<regexp
+						pattern="(\$wgDBpassword\s*=\s*')\.*(';)"
+						replace="\1${mw.db.password}\2" />
+					<regexp
+						pattern="(\$wgDBprefix\s*=\s*')\.*(';)"
+						replace="\1wiki_\2" />
+
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBServer'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.host}\2"/>
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBName'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.database}\2"/>
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBUser'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.username}\2"/>
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBPassword'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.password}\2"/>
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBPrefix'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.tablesprefix}\2"/>
+				</replaceregexp>
+			</filterchain>
+		</copy>
 	</target>
 
 	<target name="dbdeploy" depends="init">
