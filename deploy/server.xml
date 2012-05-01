@@ -164,7 +164,7 @@
 						replace="\1${drupal.db.host}\2"/>
 					<regexp
 						pattern="(\$iwParameters\['DrupalDBName'\]\s*=\s*')\.*(';)"
-						replace="\1${drupal.db.database}\2"/>
+						replace="\1${drupal.db.destinationdb}\2"/>
 					<regexp
 						pattern="(\$iwParameters\['DrupalDBUser'\]\s*=\s*')\.*(';)"
 						replace="\1${drupal.db.username}\2"/>
