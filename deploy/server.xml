@@ -126,11 +126,59 @@
 			<param>1</param>
 		</drush>
 
+		<phingcall target="mw-conf" />
+
 		<!-- Set property to prevent target from being executed multiple times -->
 		<property name="project.installed" value="true"/>
 	</target>
 
-	<!-- ### Setup Phing Drush integration -->
+	<target name="mw-conf" depends="init">
+		<copy
+			file="${mw.path}/LocalSettings.2.sample.php"
+			tofile="${mw.path}/LocalSettings.2.php"
+			overwrite="true">
+
+			<filterchain>
+				<replaceregexp>
+					<regexp
+						pattern="(\$wgDBtype\s*=\s*')\.*(';)"
+						replace="\1${mw.db.type}\2" />
+					<regexp
+						pattern="(\$wgDBserver\s*=\s*')\.*(';)"
+						replace="\1${mw.db.host}\2" />
+					<regexp
+						pattern="(\$wgDBname\s*=\s*')\.*(';)"
+						replace="\1${mw.db.database}\2" />
+					<regexp
+						pattern="(\$wgDBuser\s*=\s*')\.*(';)"
+						replace="\1${mw.db.username}\2" />
+					<regexp
+						pattern="(\$wgDBpassword\s*=\s*')\.*(';)"
+						replace="\1${mw.db.password}\2" />
+					<regexp
+						pattern="(\$wgDBprefix\s*=\s*')\.*(';)"
+						replace="\1wiki_\2" />
+
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBServer'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.host}\2"/>
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBName'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.database}\2"/>
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBUser'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.username}\2"/>
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBPassword'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.password}\2"/>
+					<regexp
+						pattern="(\$iwParameters\['DrupalDBPrefix'\]\s*=\s*')\.*(';)"
+						replace="\1${drupal.db.tablesprefix}\2"/>
+				</replaceregexp>
+			</filterchain>
+		</copy>
+	</target>
+
 	<target name="setup-phing-drush" depends="setup-dirs" >
 		<property name="repo.dir" value="${project.toolsdir}/phing-drush"/>
 		<property name="repo.url" value="${phing.drush.repository.url}" />
@@ -142,84 +190,5 @@
 		<!-- Run drush from the project Drupal directory -->
 		<property name="drush.root" value="${project.drupal.dir}"/>
 	</target>
-
-	<!-- ### Setup file sets - patterns for different aspects of the source code. These are used in other targets. This is part of the initialization of the build. This target should only be called from `init` target. -->
-	<target name="setup-filesets" depends="load-properties">
-		<!-- Define pattern sets for future reference -->
-
-		<!-- PHP files -->
-		<patternset id="php">
-			<include name="**/*.php" />
-			<include name="**/*.module" />
-			<include name="**/*.install" />
-			<include name="**/*.inc" />
-			<include name="**/*.profile" />
-			<include name="**/*.test" />
-		</patternset>
-
-		<!-- Javascript files -->
-		<patternset id="js">
-			<include name="**/*.js" />
-			<!-- Minimized JavaScript files should not be analyzed. In their optimized state they can not be expexted to conform to coding standards. -->
-			<exclude name="**/*.min.js" />
-		</patternset>
-
-		<!-- CSS files -->
-		<patternset id="css">
-			<include name="**/*.css" />
-		</patternset>
-
-		<!-- Directories for community contributed code. We exclude these from code analysis as we cannot be held responsible for any problems here. -->
-		<patternset id="contrib">
-			<exclude name="**/contrib/**/*.*" />
-			<exclude name="**/libraries/**/*.*" />
-		</patternset>
-
-		<!-- We exclude generated files from We exclude these from code analysis as we cannot be held responsible for any problems here. -->
-		<patternset id="generated">
-			<exclude name="**/*.features.*" />
-			<exclude name="**/*.field_group.inc" />
-			<exclude name="**/*.layouts.inc" />
-			<exclude name="**/*.pages_default.inc" />
-			<exclude name="**/*.panels_default.inc" />
-			<exclude name="**/*.strongarm.inc" />
-			<exclude name="**/*.views_default.inc" />
-		</patternset>
-
-		<!-- Define file sets for future reference -->
-
-		<!-- All PHP files -->
-		<fileset id="src.php" dir="${project.drupal.dir}">
-			<patternset refid="php"/>
-		</fileset>
-
-		<!-- Custom PHP files -->
-		<fileset id="src.php.custom" dir="${project.sitesdir}">
-			<patternset refid="php"/>
-			<patternset refid="contrib"/>
-			<patternset refid="generated"/>
-		</fileset>
-
-		<!-- All Javascript files -->
-		<fileset id="src.js" dir="${project.drupal.dir}">
-			<patternset refid="js" />
-		</fileset>
-
-		<!-- Custom Javascript files -->
-		<fileset id="src.js.custom" dir="${project.sitesdir}">
-			<patternset refid="js" />
-			<patternset refid="contrib" />
-		</fileset>
-
-		<!-- All CSS files -->
-		<fileset id="src.css" dir="${project.basedir}">
-			<patternset refid="css" />
-		</fileset>
-
-		<!-- Custom CSS files -->
-		<fileset id="src.css.custom" dir="${project.sitesdir}">
-			<patternset refid="css" />
-			<patternset refid="contrib" />
-		</fileset>
-	</target>
 </project>
+
