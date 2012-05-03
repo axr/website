@@ -1000,7 +1000,20 @@ body:-moz-last-node header input[type="search"]
 	-moz-border-left-colors: #EDEDED #B3B3B3;
 }
 
-header .secondary input:focus::-webkit-input-placeholder
+header .secondary input:focus::-webkit-input-placeholder,
+header .secondary input:hover::-webkit-input-placeholder
+{
+	color: transparent;
+}
+
+header .secondary input:focus:-moz-placeholder,
+header .secondary input:hover:-moz-placeholder
+{
+	color: transparent;
+}
+
+header .secondary input:focus:-ms-input-placeholder,
+header .secondary input:hover:-ms-input-placeholder
 {
 	color: transparent;
 }
