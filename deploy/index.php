@@ -1,5 +1,13 @@
 <?php
 
+function log($input) {
+	$fh = fopen($logpath.'/'.time().'.log', 'w');
+	fwrite($fh, $output);
+	fclose($fh);
+	
+	die($input);
+}
+
 define('STATEFILE', 'state.json');
 define('LOGPATH', '/tmp/deploylogs'); // Must be writeable
 
@@ -14,14 +22,14 @@ $config = array(
 
 if (!isset($_POST['payload']))
 {
-	die('Payload missing');
+	log('Payload missing');
 }
 
 $payload = json_decode($_POST['payload']);
 
 if ($payload === false || $payload === null)
 {
-	die('Payload invalid');
+	log('Payload invalid');
 }
 
 // Find timestamp for the latest commit
@@ -38,7 +46,7 @@ foreach ($payload->commits as $commit)
 // Payload invalid
 if ($payloadTS === null)
 {
-	die('Can\'t find timestamp for `'.$payload->after.'`');
+	log('Can\'t find timestamp for `'.$payload->after.'`');
 }
 
 $stateFile = json_decode(file_get_contents(STATEFILE));
@@ -46,7 +54,7 @@ $repoName = strtolower($payload->repository->name);
 
 if (!isset($config[$repoName]))
 {
-	die('Invalid repository');
+	log('Invalid repository');
 }
 
 // State file empty/inexistent/invalid
@@ -60,7 +68,7 @@ if (isset($stateFile->$repoName))
 	if (strtotime($stateFile->$repoName->ts) >= strtotime($payloadTS) ||
 		$stateFile->$repoName->sha == $payload->after)
 	{
-		die('Already deployed');
+		log('Already deployed');
 	}
 }
 
