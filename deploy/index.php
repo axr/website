@@ -1,8 +1,8 @@
 <?php
 
-function log($input) {
+function record($input) {
 	$fh = fopen($logpath.'/'.time().'.log', 'w');
-	fwrite($fh, $output);
+	fwrite($fh, $input);
 	fclose($fh);
 	
 	die($input);
@@ -22,14 +22,14 @@ $config = array(
 
 if (!isset($_POST['payload']))
 {
-	log('Payload missing');
+	record('Payload missing');
 }
 
 $payload = json_decode($_POST['payload']);
 
 if ($payload === false || $payload === null)
 {
-	log('Payload invalid');
+	record('Payload invalid');
 }
 
 // Find timestamp for the latest commit
@@ -46,7 +46,7 @@ foreach ($payload->commits as $commit)
 // Payload invalid
 if ($payloadTS === null)
 {
-	log('Can\'t find timestamp for `'.$payload->after.'`');
+	record('Can\'t find timestamp for `'.$payload->after.'`');
 }
 
 $stateFile = json_decode(file_get_contents(STATEFILE));
@@ -54,7 +54,7 @@ $repoName = strtolower($payload->repository->name);
 
 if (!isset($config[$repoName]))
 {
-	log('Invalid repository');
+	record('Invalid repository');
 }
 
 // State file empty/inexistent/invalid
@@ -68,7 +68,7 @@ if (isset($stateFile->$repoName))
 	if (strtotime($stateFile->$repoName->ts) >= strtotime($payloadTS) ||
 		$stateFile->$repoName->sha == $payload->after)
 	{
-		log('Already deployed');
+		record('Already deployed');
 	}
 }
 
