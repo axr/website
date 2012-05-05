@@ -1,111 +1,140 @@
 <?php
 
-function record($input) {
-	$fh = fopen($logpath.'/'.time().'.log', 'w');
-	fwrite($fh, $input);
+define('STATEFILE', '../state.json');
+define('LOGPATH', '/var/dev/logs/deploy');
+define('CLIENTLOGS', LOGPATH . '/client');
+
+// This can be used for local testing
+/*$_POST['payload'] = json_encode(array(
+	'after' => 'de8251ff97ee194a289832576287d6f8ad74e3d0',
+	'repository' => array(
+		'name' => 'website'
+	),
+	'commits' => array(
+		array(
+			'id' => 'de8251ff97ee194a289832576287d6f8ad74e3d0',
+			'timestamp' => '2008-02-15T14:57:17-08:00'
+		)
+	)
+));*/
+
+/**
+ * Record errors that were caused by the client and exit
+ *
+ * @param string $input message to record
+ */
+function record_and_exit ($input)
+{
+	!is_dir(CLIENTLOGS) && mkdir(CLIENTLOGS, 0700);
+
+	$fh = fopen(CLIENTLOGS . '/' . date('Ymd-His') . '.log', 'a+');
+	fwrite($fh, $input . "\n");
 	fclose($fh);
 	
-	die($input);
+	echo $input;
+	exit(1);
 }
-
-define('STATEFILE', 'state.json');
-define('LOGPATH', '/tmp/deploylogs'); // Must be writeable
 
 $config = array(
 	'website' => array(
-		'deploycmd' => '/path/to/deploy-website.sh'
+		'deploycmd' => '../deploy-website.sh'
 	),
 	'specification' => array(
-		'deploycmd' => '/path/to/deploy-specification.sh'
+		'deploycmd' => '../deploy-specification.sh'
 	)
 );
 
 if (!isset($_POST['payload']))
 {
-	record('Payload missing');
+	record_and_exit('Payload missing');
 }
 
 $payload = json_decode($_POST['payload']);
 
+// Error parsing the payload
 if ($payload === false || $payload === null)
 {
-	record('Payload invalid');
+	record_and_exit('Invalid payload: ' . $_POST['payload']);
 }
 
 // Find timestamp for the latest commit
-$payloadTS = null;
+$timestamp_up = null; // up means upstream
 foreach ($payload->commits as $commit)
 {
 	if ($commit->id == $payload->after)
 	{
-		$payloadTS = $commit->timestamp;
+		$timestamp_up = $commit->timestamp;
 		break;
 	}
 }
 
-// Payload invalid
-if ($payloadTS === null)
+// No timestamp found for latest commit
+if ($timestamp_up === null)
 {
-	record('Can\'t find timestamp for `'.$payload->after.'`');
+	record_and_exit('Can\'t find timestamp for `' . $payload->after . '`');
 }
 
-$stateFile = json_decode(file_get_contents(STATEFILE));
-$repoName = strtolower($payload->repository->name);
+$state_file = null;
+$repo_name = strtolower($payload->repository->name);
 
-if (!isset($config[$repoName]))
+if (file_exists(STATEFILE))
 {
-	record('Invalid repository');
+	$state_file = json_decode(file_get_contents(STATEFILE));
 }
 
 // State file empty/inexistent/invalid
-if ($stateFile === false || $stateFile === null)
+if ($state_file === false || $state_file === null)
 {
-	$stateFile = new StdClass;
+	$state_file = new StdClass;
 }
 
-if (isset($stateFile->$repoName))
+// No config entry for repository
+if (!isset($config[$repo_name]))
 {
-	if (strtotime($stateFile->$repoName->ts) >= strtotime($payloadTS) ||
-		$stateFile->$repoName->sha == $payload->after)
+	record_and_exit('Invalid repository `' . $repo_name . '`. No config entry');
+}
+
+if (isset($state_file->$repo_name))
+{
+	if (strtotime($state_file->$repo_name->ts) >= strtotime($timestamp_up) ||
+		$state_file->$repo_name->sha == $payload->after)
 	{
-		record('Already deployed');
+		record_and_exit('Already up-to-date at `' .
+			$state_file->$repo_name->sha . '`');
 	}
 }
 
 // Update state file
-$stateFile->$repoName = array(
+$state_file->$repo_name = array(
 	'sha' => $payload->after,
-	'ts' => $payloadTS
+	'ts' => $timestamp_up
 );
 
 $fp = fopen(STATEFILE, 'w');
-fwrite($fp, json_encode($stateFile));
+fwrite($fp, json_encode($state_file));
 fclose($fp);
 
 $output = array();
-exec($config[$repoName]['deploycmd'], $output);
+exec($config[$repo_name]['deploycmd'], $output);
 $output = implode("\n", $output);
 
 // Remove escape sequences
 $output = str_replace(0x1b, '\\033', $output);
 $output = preg_replace('/\\033\[([a-z0-9]{1,2};)?[a-z0-9]{1,3}/', '', $output);
 
-if (isset($config[$repoName]['log_email']))
+// Make sure log folder exists
+$logpath = LOGPATH . '/' . $repo_name;
+!is_dir($logpath) && mkdir($logpath, 0777, true);
+
+// Write the log
+$fh = fopen($logpath . '/' . date('Ymd-His') . '.log', 'w');
+
+if ($fh === false)
 {
-	$time = gmdate('D, d M Y H:i:s', time()).' GMT';
-
-	// Construct email message
-	$email = "Deployment execution at ".$time.
-		"\n\nHere are the execution logs:\n\n".$output;
-
-	// Send the email
-	mail($config[$repoName]['log_email'], 'Deployment execution at '. $time, $email);
+	record_and_exit('Failed to open log file `' .
+		$logpath . '/' . date('Ymd-His') . '.log' . '`');
 }
 
-$logpath = LOGPATH.'/'.$repoName;
-mkdir($logpath, 0777, true);
-
-$fh = fopen($logpath.'/'.time().'.log', 'w');
 fwrite($fh, $output);
 fclose($fh);
 
