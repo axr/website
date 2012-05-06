@@ -677,10 +677,15 @@
 			<h2>download</h2>
 			<div class="nested_0">
 				<?php
-					$releases = axrreleases_get_releases(0, 1);
-					$latest = count($releases) > 0 ? $releases[0] : null;
+					$latest = null;
+
+					if (function_exists('axrreleases_get_releases'))
+					{
+						$releases = axrreleases_get_releases(0, 1);
+						$latest = count($releases) > 0 ? $releases[0] : null;
+					}
 				?>
-				<?php if ($latest !== null): ?>
+				<?php if (is_object($latest)): ?>
 					<a href="<?php echo $latest->url; ?>" class="download button_big">
 						<span class="header"></span>
 						<span class="content">
@@ -710,8 +715,15 @@
 		</div>
 		<div class="changes">
 			<h2>Latest changes:</h2>
-			<?php $changelog = axrreleases_get_changelog_short(); ?>
-			<?php if ($latest !== null && $changelog !== null): ?>
+			<?php
+				$changelog = null;
+
+				if (function_exists('axrreleases_get_changelog_short'))
+				{
+					$changelog = axrreleases_get_changelog_short();
+				}
+			?>
+			<?php if (is_object($latest) && is_object($changelog)): ?>
 				<div class="verinfo">
 					<span class="version">v <?php echo $latest->version; ?></span>
 					Released: <?php echo $latest->date; ?>
