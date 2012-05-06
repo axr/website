@@ -38,7 +38,7 @@ fi
 git rev-parse HEAD > "$REPODIR/www/git_head"
 
 # Create symlink for images folder
-ln -s /var/www/www/sites/default/images/blog "$REPODIR/www/sites/default/images"
+ln -s /var/www-shared/images/blog "$REPODIR/www/sites/default/images"
 
 # Make the new www public
 rm -rf "$WWWDIR"
