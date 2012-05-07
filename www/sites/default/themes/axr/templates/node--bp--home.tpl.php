@@ -723,7 +723,7 @@
 					$changelog = axrreleases_get_changelog_short();
 				}
 			?>
-			<?php if (is_object($latest) && is_object($changelog)): ?>
+			<?php if (is_object($latest) && is_array($changelog)): ?>
 				<div class="verinfo">
 					<span class="version">v <?php echo $latest->version; ?></span>
 					Released: <?php echo $latest->date; ?>
