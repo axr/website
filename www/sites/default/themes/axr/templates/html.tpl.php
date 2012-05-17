@@ -12,7 +12,6 @@
 	<meta name="description" content="AXR stands for Arbitrary XML Rendering. Its aim is to provide a better alternative to HTML+CSS">
 	<meta name="author" content="Miro Keller">
 	<link rel="canonical" href="http://axr.vg">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
 
 	<!-- open graph metadata-->
 	<meta property="og:title" content="AXR: The web, done right #axr" />
