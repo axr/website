@@ -80,6 +80,9 @@ function axr_preprocess_html (&$variables)
 	drupal_add_js($path.'/js/mustache.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/ajaxsite.js', array('group' => JS_THEME));
+
+	// TODO: Find a way to include it only on pages that have comments
+	drupal_add_css($path . '/css/comments.css', array('group' => CSS_THEME));
 }
 
 /**
@@ -122,6 +125,7 @@ function axr_css_alter (&$css)
 { 
 	unset($css[drupal_get_path('module','system').'/system.menus.css']); 
 	unset($css[drupal_get_path('module','system').'/system.theme.css']);
+	unset($css[drupal_get_path('module','filter').'/filter.css']);
 	unset($css[drupal_get_path('module','user').'/user.css']);
 }
 
