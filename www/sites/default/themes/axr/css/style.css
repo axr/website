@@ -1002,7 +1002,7 @@ body:-moz-last-node header input[type="search"]
 
 header .secondary input:focus::-webkit-input-placeholder
 {
-	color: transparent
+	color: transparent;
 }
 
 header .secondary input::-webkit-search-cancel-button
