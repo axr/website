@@ -27,6 +27,10 @@ function axr_breadcrumb ($data)
 	{
 		$breadcrumb[2] = null;
 	}
+	else if (preg_match('/^\/comment\/[0-9]+/', request_uri()))
+	{
+		$breadcrumb[2] = null;
+	}
 	else if (preg_match('/^\/user\/(login|register)(\/|\?|$)/', request_uri(), $match))
 	{
 		if ($match[1] === 'login')
