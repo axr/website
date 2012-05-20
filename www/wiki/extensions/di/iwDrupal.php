@@ -227,6 +227,7 @@ class IwDrupal
 
 		$here = isset($_SERVER['REQUEST_URI']) ?
 			$_SERVER['REQUEST_URI'] : '/wiki';
+		$here = substr($here, 1);
 
 		unset($personal_urls['login']);
 
@@ -235,7 +236,7 @@ class IwDrupal
 			$personal_urls['logout'] = array(
 				'text' => wfMsg('userlogout'),
 				'href' => $iwParameters['DrupalLogout'].
-					'?continue_to='.rawurlencode($here)
+					'?destination='.rawurlencode($here)
 			);
 		}
 		else
@@ -243,7 +244,7 @@ class IwDrupal
 			$personal_urls['anonlogin'] = array(
 				'text' => wfMsg('userlogin'),
 				'href' => $iwParameters['DrupalLogin'].
-					'?continue_to='.rawurlencode($here)
+					'?destination='.rawurlencode($here)
 			);
 		}
 		

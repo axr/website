@@ -1,7 +1,0 @@
-; $Id: $
-name = Continue to
-description = Allow to specify redirect urls to login pages
-package = Continueto
-core = 7.x
-version = 1
-
