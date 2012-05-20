@@ -20,11 +20,15 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			var state = History.getState();
 
-			if (state.url.indexOf('#') >= 0)
+			state.url = state.url.replace(/^https?:\/\/[^\/]+(\/.*)$/, '$1');
+
+			if (!/^\/search\//.test(state.url) ||
+				/^(https?:|#|javascript:)/.test(state.url))
 			{
-				// Leave URLs with hashes alone
+				console.log('BLOCK2', state.url);
 				return;
 			}
+
 
 			if (Ajaxsite.load_url(state.url, state.data) === false)
 			{
@@ -36,7 +40,8 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			var url = jQuery(this).attr('href');
 
-			if (e.which !== 1 || /^(https?:|#|javascript:)/.test(url))
+			if (!/^\/search\//.test(url) ||
+				e.which !== 1 || /^(https?:|#|javascript:)/.test(url))
 			{
 				return;
 			}
@@ -66,15 +71,14 @@ window.Ajaxsite = window.Ajaxsite || {};
 			return;
 		}
 
-		url = url.replace(/^https?:\/\/[^\/]+\/(.*)$/, '$1')
-			.replace(/^\//, '');
+		url = url.replace(/^https?:\/\/[^\/]+(\/.*)$/, '$1');
 
-		if ('/' + url === window.location.pathname && force !== true)
+		if (url === window.location.pathname && force !== true)
 		{
 			return;
 		}
 
-		History.pushState(data || null, null, '/' + url);
+		History.pushState(data || null, null, url);
 	};
 
 	/**
