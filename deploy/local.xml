@@ -113,9 +113,9 @@
 			<param>axrreleases</param>
 			<param>axrsearch</param>
 			<param>ajaxutil</param>
-			<param>continueto</param>
 			<param>sessid</param>
 			<param>assetmagic</param>
+			<param>comments</param>
 		</drush>
 
 		<drush command="vset" assume="yes">
