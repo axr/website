@@ -6,32 +6,64 @@
 function axr_breadcrumb ($data)
 {
 	$html = '';
+	$breadcrumb = array();
 
-	if (!empty($data['breadcrumb']))
+	foreach ($data['breadcrumb'] as $link)
 	{
-		$lastitem = count($data['breadcrumb']);
+		preg_match('/^<a.* href="(.+)".*>(.+)<\/a>$/', $link, $match);
 
-		foreach ($data['breadcrumb'] as $value)
+		if (!is_array($match))
 		{
-			// I don't think there are any better ways to do this
-			preg_match('/^<a.* href="(.+)".*>(.+)<\/a>$/', $value, $match);
+			continue;
+		}
 
-			if ($match === null || $match === false)
-			{
-				continue;
-			}
+		$breadcrumb[] = array($match[2], $match[1]);
+	}
 
-			$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
-			$html .= '<a href="'.$match[1].'" itemprop="url">';
-			$html .= '<span itemprop="title">'.$match[2].'</span></a>';
-			$html .= '</div>';
-			$html .= '<span class="extra_0"></span>';
+	$breadcrumb[] = array(drupal_get_title(), null);
+
+	// I don't think there is a better way for doing this
+	if (preg_match('/^\/blog\/[0-9]+\/[0-9]+\/.+/', request_uri()))
+	{
+		$breadcrumb[2] = null;
+	}
+	else if (preg_match('/^\/user\/(login|register)(\/|\?|$)/', request_uri(), $match))
+	{
+		if ($match[1] === 'login')
+		{
+			$breadcrumb[1] = array('Login', null);
+			$breadcrumb[2] = null;
+		}
+		else
+		{
+			$breadcrumb[1] = array('Register', null);
+			$breadcrumb[2] = null;
+		}
+	}
+
+	foreach ($breadcrumb as $link)
+	{
+		if ($link === null)
+		{
+			continue;
 		}
 
 		$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
-		$html .= '<span class="current" itemprop="title">' .
-			drupal_get_title() . '</span>';
+
+		if ($link[1] === null)
+		{
+			$html .= '<span class="current" itemprop="title">' .
+				$link[0] . '</span>';
+		}
+		else
+		{
+			$html .= '<a href="' . $link[1] . '" itemprop="url">';
+			$html .= '<span itemprop="title">' . $link[0] . '</span>';
+			$html .= '</a>';
+		}
+
 		$html .= '</div>';
+		$html .= ($link[1] !== null) ? '<span class="extra_0"></span>' : '';
 	}
 
 	return $html;
