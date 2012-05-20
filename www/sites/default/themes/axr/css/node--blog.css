@@ -46,7 +46,8 @@
 	margin-right: 15px;
 }
 
-#main .content ul.links > li.comment_forbidden
+#main .content ul.links > li.comment_forbidden,
+#main .content ul.links > li.blog_usernames_blog
 {
 	display: none;
 }
