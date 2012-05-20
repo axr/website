@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implement hook_search_info
+ */
+function axrsearch_wiki_search_info () {
+	return array(
+		'title' => 'Wiki',
+		'path' => 'wiki',
+	);
+}
+
