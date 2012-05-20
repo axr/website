@@ -1772,6 +1772,130 @@ body.page-user #breadcrumb
 	margin: 0 auto;
 }
 
+form > div
+{
+	background-color: #D9D9D9;
+	border-radius: 10px;
+	padding: 20px 20px 40px 20px;
+	text-shadow: #fff 0 1px 0;
+}
+
+form > div .form-item
+{
+	min-height: 34px;
+	margin: 0 0 1px 0;
+	padding: 0 0 6px 0;
+}
+
+form > div .form-item a,
+form > div .filter-wrapper a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+form > div .form-item a:hover,
+form > div .filter-wrapper a:hover
+{
+	text-decoration: underline;
+}
+
+form > div .form-item label
+{
+	display: block;
+	height: 1.5em;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #8C8C8C;
+}
+
+form > div .form-item label .form-required
+{
+	color: #F00;
+}
+
+form > div .form-item > input,
+form > div .form-item > select,
+form > div .form-item textarea
+{
+	background: #fff;
+	display: block;
+	border: 1px solid #B3B3B3;
+	border-radius: 4px;
+	box-shadow: #ECECEC 0 1px 0, #ECECEC 0 -1px 0;
+	padding: 6px;
+}
+
+form > div .form-item > input
+{
+	max-width: 500px;
+	width: 90%;
+}
+
+form > div .form-item textarea
+{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	height: 120px;
+	width: 100%;
+}
+
+form > div .form-item > input[type=file]
+{
+	height: 26px;
+	padding-top: 4px;
+}
+
+form > div .form-item input.error
+{
+	border-color: #8C2E0B;
+}
+
+form > div .form-item .description
+{
+	display: block;
+	width: 250px;
+	font-size: 1.1em;
+	margin-right: 30px;
+	padding: 0 0 20px 0;
+	text-align: right;
+	color: #8C8C8C;
+}
+
+form > div .form-item .description a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+form > div .form-item .description a:hover
+{
+	text-decoration: underline;
+}
+
+form > div .form-item.form-type-textarea .grippie
+{
+	display: none;
+}
+
+form > div #edit-actions
+{
+	float: right;
+	padding: 5px 0 5px 0;
+}
+
+form > div #edit-actions > input
+{
+	margin-right: 2px;
+}
+
+form > div .filter-wrapper .filter-help
+{
+	float: right;
+}
+
 body.page-user #user-login > div,
 body.page-user #user-pass > div,
 body.page-user #user-register-form > div,
@@ -1779,10 +1903,6 @@ body.page-user #user-profile-form > div
 {
 	width: 540px;
 	margin: 40px auto 40px;
-	padding: 40px;
-	background-color: #D9D9D9;
-	border-radius: 10px;
-	text-shadow: white 0 1px 0;
 }
 
 body.page-user #user-register-form > div,
@@ -1806,20 +1926,13 @@ body.page-user #user-pass .form-item label,
 body.page-user #user-register-form .form-item label,
 body.page-user #user-profile-form .form-item label
 {
-	display: block;
-	width: 250px;
-	height: 1.5em;
-	font-size: 1.1em;
-	margin-right: 30px;
 	text-align: right;
-	font-weight: bold;
-	color: #8C8C8C;
+	width: 250px;
 }
 
 body.page-user #user-register-form .form-item label,
 body.page-user #user-profile-form .form-item label
 {
-	display: block;
 	width: 410px;
 }
 
@@ -1838,17 +1951,11 @@ body.page-user #user-register-form .form-item > input,
 body.page-user #user-profile-form .form-item > input,
 body.page-user #user-profile-form .form-item > select
 {
-	background: #fff;
 	float: right;
 	width: 240px;
 	height: 30px;
 	margin-top: -1em;
-	display: block;
-	border: 1px solid #B3B3B3;
-	border-radius: 4px;
-	box-shadow: #ECECEC 0 1px 0, #ECECEC 0 -1px 0;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding: 0 5px;
 }
 
 body.page-user #user-login .form-item input.error,
@@ -1885,7 +1992,6 @@ body.page-user #user-register-form #edit-actions > input,
 body.page-user #user-profile-form #edit-actions > input,
 {
 	margin-right: 2px;
-	
 }
 
 body.page-user #user-login .form-item .description,
@@ -1900,23 +2006,6 @@ body.page-user #user-profile-form .form-item .description
 	padding: 0 0 20px 0;
 	text-align: right;
 	color: #8C8C8C;
-}
-
-body.page-user #user-login .form-item .description a,
-body.page-user #user-pass .form-item .description a,
-body.page-user #user-register-form .form-item .description a,
-body.page-user #user-profile-form .form-item .description a
-{
-	color: #D09610;
-	text-decoration: none;
-}
-
-body.page-user #user-login .form-item .description a:hover,
-body.page-user #user-pass .form-item .description a:hover,
-body.page-user #user-register-form .form-item .description a:hover,
-body.page-user #user-profile-form .form-item .description a:hover
-{
-	text-decoration: underline;
 }
 
 body.page-user #user-register-form .form-item .description,
