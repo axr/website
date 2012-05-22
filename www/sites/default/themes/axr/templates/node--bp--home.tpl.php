@@ -273,7 +273,7 @@
                                 </div>
 <code><span class="selector">selector</span>
 {
-   <span class="property_name">border</span>: <span class="object_type">@lineBorder</span> {
+   <span class="property_name">border</span>: <span class="object_type">@line</span> {
       <span class="property_name">size</span>: <span class="numeric_value">1</span>;
       <span class="property_name">color</span>: <span class="instruction">#F00</span>;
    };
@@ -647,7 +647,7 @@
 {
    <span class="property_name">anchorX</span>: <span class="numeric_value">100%</span>;
    <span class="property_name">alignX</span>: <span class="numeric_value">50%</span> - <span class="numeric_value">30</span>;
-   <span class="property_name">flow</span>: <span class="keyword">no</span>;
+   <span class="property_name">flow</span>: <span class="keyword">false</span>;
 }
 <span class="comment">//align all elements *inside* qux at the middle vertically,</span>
 <span class="comment">//and lay them out from top to bottom instead of left</span>
@@ -655,7 +655,7 @@
 <span class="selector">qux</span>
 {
    <span class="property_name">contentAlignY</span>: <span class="keyword">middle</span>;
-   <span class="property_name">directionPrimary</span>: <span class="keyword">topToBottom</span>;
+   <span class="property_name">direction</span>: <span class="keyword">topToBottom</span>;
 }</code>
                             </div>
                         </div>
@@ -677,10 +677,15 @@
 			<h2>download</h2>
 			<div class="nested_0">
 				<?php
-					$releases = axrreleases_get_releases(0, 1);
-					$latest = count($releases) > 0 ? $releases[0] : null;
+					$latest = null;
+
+					if (function_exists('axrreleases_get_releases'))
+					{
+						$releases = axrreleases_get_releases(0, 1);
+						$latest = count($releases) > 0 ? $releases[0] : null;
+					}
 				?>
-				<?php if ($latest !== null): ?>
+				<?php if (is_object($latest)): ?>
 					<a href="<?php echo $latest->url; ?>" class="download button_big">
 						<span class="header"></span>
 						<span class="content">
@@ -710,8 +715,15 @@
 		</div>
 		<div class="changes">
 			<h2>Latest changes:</h2>
-			<?php $changelog = axrreleases_get_changelog_short(); ?>
-			<?php if ($latest !== null && $changelog !== null): ?>
+			<?php
+				$changelog = null;
+
+				if (function_exists('axrreleases_get_changelog_short'))
+				{
+					$changelog = axrreleases_get_changelog_short();
+				}
+			?>
+			<?php if (is_object($latest) && is_array($changelog)): ?>
 				<div class="verinfo">
 					<span class="version">v <?php echo $latest->version; ?></span>
 					Released: <?php echo $latest->date; ?>
