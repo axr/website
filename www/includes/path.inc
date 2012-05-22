@@ -431,27 +431,21 @@ function path_load($conditions) {
  *   - language: (optional) The language of the alias.
  */
 function path_save(&$path) {
-  $path += array('language' => LANGUAGE_NONE);
+  $path += array('pid' => NULL, 'language' => LANGUAGE_NONE);
 
-  // Load the stored alias, if any.
-  if (!empty($path['pid']) && !isset($path['original'])) {
-    $path['original'] = path_load($path['pid']);
+  // Insert or update the alias.
+  $status = drupal_write_record('url_alias', $path, (!empty($path['pid']) ? 'pid' : array()));
+
+  // Verify that a record was written.
+  if ($status) {
+    if ($status === SAVED_NEW) {
+      module_invoke_all('path_insert', $path);
+    }
+    else {
+      module_invoke_all('path_update', $path);
+    }
+    drupal_clear_path_cache($path['source']);
   }
-
-  if (empty($path['pid'])) {
-    drupal_write_record('url_alias', $path);
-    module_invoke_all('path_insert', $path);
-  }
-  else {
-    drupal_write_record('url_alias', $path, array('pid'));
-    module_invoke_all('path_update', $path);
-  }
-
-  // Clear internal properties.
-  unset($path['original']);
-
-  // Clear the static alias cache.
-  drupal_clear_path_cache($path['source']);
 }
 
 /**

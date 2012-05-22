@@ -253,14 +253,14 @@ function simpletest_script_init($server_software) {
   if (!empty($args['php'])) {
     $php = $args['php'];
   }
-  elseif ($php_env = getenv('_')) {
+  elseif (!empty($_ENV['_'])) {
     // '_' is an environment variable set by the shell. It contains the command that was executed.
-    $php = $php_env;
+    $php = $_ENV['_'];
   }
-  elseif ($sudo = getenv('SUDO_COMMAND')) {
+  elseif (!empty($_ENV['SUDO_COMMAND'])) {
     // 'SUDO_COMMAND' is an environment variable set by the sudo program.
     // Extract only the PHP interpreter, not the rest of the command.
-    list($php, ) = explode(' ', $sudo, 2);
+    list($php, ) = explode(' ', $_ENV['SUDO_COMMAND'], 2);
   }
   else {
     simpletest_script_print_error('Unable to automatically determine the path to the PHP interpreter. Supply the --php command line argument.');
@@ -597,9 +597,9 @@ function simpletest_script_reporter_display_results() {
           echo "\n\n---- $result->test_class ----\n\n\n";
           $test_class = $result->test_class;
 
-          // Print table header.
-          echo "Status    Group      Filename          Line Function                            \n";
-          echo "--------------------------------------------------------------------------------\n";
+  // Print table header.
+  echo "Status    Group      Filename          Line Function                            \n";
+  echo "--------------------------------------------------------------------------------\n";
         }
 
         simpletest_script_format_result($result);

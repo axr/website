@@ -42,14 +42,8 @@
 
 #main .content ul.links > li
 {
-	display: inline-block;
-	margin-right: 15px;
-}
-
-#main .content ul.links > li.comment_forbidden,
-#main .content ul.links > li.blog_usernames_blog
-{
-	display: none;
+	float: left;
+	display: block;
 }
 
 #main .content ul.links > li.first a
@@ -59,9 +53,10 @@
 
 #main .content ul.links > li a
 {
-	display: inline-block;
+	display: block;
 	padding: 8px 12px;
 	background-color: #D8D8D8;
+	margin-right: 15px;
 	color: #999;
 	font-weight: bold;
 	text-decoration: none;
@@ -76,5 +71,55 @@
 #main .content ul.links > li.first a:hover
 {
 	color: #000;
+}
+
+#comment-form
+{
+	padding: 20px;
+	background-color: #D8D8D8;
+	border-radius: 8px;
+	margin-top: 30px;
+}
+
+#comment-form .form-item
+{
+	padding: 10px 0;
+}
+
+#comment-form .form-item a
+{
+	color: #666;
+}
+
+#comment-form .form-item a:hover
+{
+	color: #000;
+}
+
+#comment-form .form-item-subject label,
+#comment-form .form-type-textarea label
+{
+	display: block;
+	font-weight: bold;
+	padding-bottom: 4px;
+}
+
+#comment-form .form-item input[type=text]
+{
+	width: 773px;
+	display: block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#comment-form .form-item textarea
+{
+	max-width: 780px;
+}
+
+#comment-form .form-actions input
+{
+	width: 200px;
+	margin-right: 25px;
 }
 

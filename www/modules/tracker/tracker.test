@@ -5,23 +5,8 @@
  * Tests for tracker.module.
  */
 
-/**
- * Defines a base class for testing tracker.module.
- */
 class TrackerTest extends DrupalWebTestCase {
-
-  /**
-   * The main user for testing.
-   *
-   * @var object
-   */
   protected $user;
-
-  /**
-   * A second user that will 'create' comments and nodes.
-   *
-   * @var object
-   */
   protected $other_user;
 
   public static function getInfo() {
@@ -44,13 +29,13 @@ class TrackerTest extends DrupalWebTestCase {
   }
 
   /**
-   * Tests for the presence of nodes on the global tracker listing.
+   * Test the presence of nodes on the global tracker listing.
    */
   function testTrackerAll() {
     $this->drupalLogin($this->user);
 
     $unpublished = $this->drupalCreateNode(array(
-      'title' => $this->randomName(8),
+      'title' =>$this->randomName(8),
       'status' => 0,
     ));
     $published = $this->drupalCreateNode(array(
@@ -70,7 +55,7 @@ class TrackerTest extends DrupalWebTestCase {
   }
 
   /**
-   * Tests for the presence of nodes on a user's tracker listing.
+   * Test the presence of nodes on a user's tracker listing.
    */
   function testTrackerUser() {
     $this->drupalLogin($this->user);
@@ -116,7 +101,7 @@ class TrackerTest extends DrupalWebTestCase {
   }
 
   /**
-   * Tests for the presence of the "new" flag for nodes.
+   * Test the presence of the "new" flag for nodes.
    */
   function testTrackerNewNodes() {
     $this->drupalLogin($this->user);
@@ -144,7 +129,7 @@ class TrackerTest extends DrupalWebTestCase {
   }
 
   /**
-   * Tests for comment counters on the tracker listing.
+   * Test comment counters on the tracker listing.
    */
   function testTrackerNewComments() {
     $this->drupalLogin($this->user);
@@ -159,8 +144,7 @@ class TrackerTest extends DrupalWebTestCase {
       'subject' => $this->randomName(),
       'comment_body[' . LANGUAGE_NONE . '][0][value]' => $this->randomName(20),
     );
-    // The new comment is automatically viewed by the current user.
-    $this->drupalPost('comment/reply/' . $node->nid, $comment, t('Save'));
+    $this->drupalPost('comment/reply/' . $node->nid, $comment, t('Save')); // The new comment is automatically viewed by the current user.
 
     $this->drupalLogin($this->other_user);
     $this->drupalGet('tracker');
@@ -173,7 +157,7 @@ class TrackerTest extends DrupalWebTestCase {
       'comment_body[' . LANGUAGE_NONE . '][0][value]' => $this->randomName(20),
     );
     // If the comment is posted in the same second as the last one then Drupal
-    // can't tell the difference, so we wait one second here.
+    // can't tell a difference, so wait one second here.
     sleep(1);
     $this->drupalPost('comment/reply/' . $node->nid, $comment, t('Save'));
 
@@ -183,7 +167,7 @@ class TrackerTest extends DrupalWebTestCase {
   }
 
   /**
-   * Tests that existing nodes are indexed by cron.
+   * Test that existing nodes are indexed by cron.
    */
   function testTrackerCronIndexing() {
     $this->drupalLogin($this->user);
@@ -229,6 +213,7 @@ class TrackerTest extends DrupalWebTestCase {
     $this->assertText('1 new', t('New comment is counted on the tracker listing pages.'));
     $this->assertText('updated', t('Node is listed as updated'));
 
+
     // Fetch the site-wide tracker.
     $this->drupalGet('tracker');
 
@@ -240,7 +225,7 @@ class TrackerTest extends DrupalWebTestCase {
   }
 
   /**
-   * Tests that publish/unpublish works at admin/content/node.
+   * Test that publish/unpublish works at admin/content/node
    */
   function testTrackerAdminUnpublish() {
     $admin_user = $this->drupalCreateUser(array('access content overview', 'administer nodes', 'bypass node access'));

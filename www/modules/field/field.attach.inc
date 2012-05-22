@@ -73,7 +73,7 @@ define('FIELD_STORAGE_INSERT', 'insert');
  * @{
  * Operate on Field API data attached to Drupal entities.
  *
- * Field Attach API functions load, store, display, generate Field API
+ * Field Attach API functions load, store, display, generate Form API
  * structures, and perform a variety of other functions for field data attached
  * to individual entities.
  *
@@ -1321,9 +1321,12 @@ function field_attach_rename_bundle($entity_type, $bundle_old, $bundle_new) {
   field_cache_clear();
 
   // Update bundle settings.
-  $settings = variable_get('field_bundle_settings_' . $entity_type . '__' . $bundle_old, array());
-  variable_set('field_bundle_settings_' . $entity_type . '__' . $bundle_new, $settings);
-  variable_del('field_bundle_settings_' . $entity_type . '__' . $bundle_old);
+  $settings = variable_get('field_bundle_settings', array());
+  if (isset($settings[$entity_type][$bundle_old])) {
+    $settings[$entity_type][$bundle_new] = $settings[$entity_type][$bundle_old];
+    unset($settings[$entity_type][$bundle_old]);
+    variable_set('field_bundle_settings', $settings);
+  }
 
   // Let other modules act on renaming the bundle.
   module_invoke_all('field_attach_rename_bundle', $entity_type, $bundle_old, $bundle_new);
@@ -1357,7 +1360,11 @@ function field_attach_delete_bundle($entity_type, $bundle) {
   field_cache_clear();
 
   // Clear bundle display settings.
-  variable_del('field_bundle_settings_' . $entity_type . '__' . $bundle);
+  $settings = variable_get('field_bundle_settings', array());
+  if (isset($settings[$entity_type][$bundle])) {
+    unset($settings[$entity_type][$bundle]);
+    variable_set('field_bundle_settings', $settings);
+  }
 
   // Let other modules act on deleting the bundle.
   module_invoke_all('field_attach_delete_bundle', $entity_type, $bundle, $instances);

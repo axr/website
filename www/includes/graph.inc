@@ -7,7 +7,7 @@
 
 
 /**
- * Performs a depth-first sort on a directed acyclic graph.
+ * Perform a depth first sort on a directed acyclic graph.
  *
  * @param $graph
  *   A three dimensional associated array, with the first keys being the names
@@ -72,7 +72,7 @@ function drupal_depth_first_search(&$graph) {
 }
 
 /**
- * Performs a depth-first sort on a graph.
+ * Helper function to perform a depth first sort.
  *
  * @param $graph
  *   A three dimensional associated graph array.

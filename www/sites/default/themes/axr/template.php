@@ -6,68 +6,32 @@
 function axr_breadcrumb ($data)
 {
 	$html = '';
-	$breadcrumb = array();
 
-	foreach ($data['breadcrumb'] as $link)
+	if (!empty($data['breadcrumb']))
 	{
-		preg_match('/^<a.* href="(.+)".*>(.+)<\/a>$/', $link, $match);
+		$lastitem = count($data['breadcrumb']);
 
-		if (!is_array($match))
+		foreach ($data['breadcrumb'] as $value)
 		{
-			continue;
-		}
+			// I don't think there are any better ways to do this
+			preg_match('/^<a.* href="(.+)".*>(.+)<\/a>$/', $value, $match);
 
-		$breadcrumb[] = array($match[2], $match[1]);
-	}
+			if ($match === null || $match === false)
+			{
+				continue;
+			}
 
-	$breadcrumb[] = array(drupal_get_title(), null);
-
-	// I don't think there is a better way for doing this
-	if (preg_match('/^\/blog\/[0-9]+\/[0-9]+\/.+/', request_uri()))
-	{
-		$breadcrumb[2] = null;
-	}
-	else if (preg_match('/^\/comment\/[0-9]+/', request_uri()))
-	{
-		$breadcrumb[2] = null;
-	}
-	else if (preg_match('/^\/user\/(login|register)(\/|\?|$)/', request_uri(), $match))
-	{
-		if ($match[1] === 'login')
-		{
-			$breadcrumb[1] = array('Login', null);
-			$breadcrumb[2] = null;
-		}
-		else
-		{
-			$breadcrumb[1] = array('Register', null);
-			$breadcrumb[2] = null;
-		}
-	}
-
-	foreach ($breadcrumb as $link)
-	{
-		if ($link === null)
-		{
-			continue;
+			$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
+			$html .= '<a href="'.$match[1].'" itemprop="url">';
+			$html .= '<span itemprop="title">'.$match[2].'</span></a>';
+			$html .= '</div>';
+			$html .= '<span class="extra_0"></span>';
 		}
 
 		$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
-
-		if ($link[1] === null)
-		{
-			$html .= '<span class="current" itemprop="title">' .
-				$link[0] . '</span>';
-		}
-		else
-		{
-			$html .= '<a href="' . $link[1] . '" itemprop="url">';
-			$html .= '<span itemprop="title">' . $link[0] . '</span>';
-			$html .= '</a>';
-		}
-
+		$html .= '<span class="current" itemprop="title">' .
+			drupal_get_title() . '</span>';
 		$html .= '</div>';
-		$html .= ($link[1] !== null) ? '<span class="extra_0"></span>' : '';
 	}
 
 	return $html;
@@ -84,9 +48,6 @@ function axr_preprocess_html (&$variables)
 	drupal_add_js($path.'/js/mustache.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/ajaxsite.js', array('group' => JS_THEME));
-
-	// TODO: Find a way to include it only on pages that have comments
-	drupal_add_css($path . '/css/comments.css', array('group' => CSS_THEME));
 }
 
 /**
@@ -129,7 +90,6 @@ function axr_css_alter (&$css)
 { 
 	unset($css[drupal_get_path('module','system').'/system.menus.css']); 
 	unset($css[drupal_get_path('module','system').'/system.theme.css']);
-	unset($css[drupal_get_path('module','filter').'/filter.css']);
 	unset($css[drupal_get_path('module','user').'/user.css']);
 }
 

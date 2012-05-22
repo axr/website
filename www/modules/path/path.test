@@ -2,12 +2,9 @@
 
 /**
  * @file
- * Tests for the Path module.
+ * Tests for path.module.
  */
 
-/**
- * Provides a base class for testing the Path module.
- */
 class PathTestCase extends DrupalWebTestCase {
   public static function getInfo() {
     return array(
@@ -26,7 +23,7 @@ class PathTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Tests the path cache.
+   * Test the path cache.
    */
   function testPathCache() {
     // Create test node.
@@ -51,7 +48,7 @@ class PathTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Tests alias functionality through the admin interfaces.
+   * Test alias functionality through the admin interfaces.
    */
   function testAdminAlias() {
     // Create test node.
@@ -110,7 +107,7 @@ class PathTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Tests alias functionality through the node interfaces.
+   * Test alias functionality through the node interfaces.
    */
   function testNodeAlias() {
     // Create test node.
@@ -162,39 +159,13 @@ class PathTestCase extends DrupalWebTestCase {
     $this->assertResponse(404);
   }
 
-  /**
-   * Returns the path ID.
-   *
-   * @param $alias
-   *   A string containing an aliased path.
-   *
-   * @return int
-   *   Integer representing the path ID.
-   */
   function getPID($alias) {
     return db_query("SELECT pid FROM {url_alias} WHERE alias = :alias", array(':alias' => $alias))->fetchField();
-  }
-
-  /**
-   * Tests that duplicate aliases fail validation.
-   */
-  function testDuplicateNodeAlias() {
-    // Create one node with a random alias.
-    $node_one = $this->drupalCreateNode();
-    $edit = array();
-    $edit['path[alias]'] = $this->randomName();
-    $this->drupalPost('node/' . $node_one->nid . '/edit', $edit, t('Save'));
-
-    // Now create another node and try to set the same alias.
-    $node_two = $this->drupalCreateNode();
-    $this->drupalPost('node/' . $node_two->nid . '/edit', $edit, t('Save'));
-    $this->assertText(t('The alias is already in use.'));
-    $this->assertFieldByXPath("//input[@name='path[alias]' and contains(@class, 'error')]", $edit['path[alias]'], 'Textfield exists and has the error class.');
   }
 }
 
 /**
- * Tests URL aliases for taxonomy terms.
+ * Test URL aliases for taxonomy terms.
  */
 class PathTaxonomyTermTestCase extends DrupalWebTestCase {
   public static function getInfo() {
@@ -214,7 +185,7 @@ class PathTaxonomyTermTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Tests alias functionality through the admin interfaces.
+   * Test alias functionality through the admin interfaces.
    */
   function testTermAlias() {
     // Create a term in the default 'Tags' vocabulary with URL alias.
@@ -257,9 +228,6 @@ class PathTaxonomyTermTestCase extends DrupalWebTestCase {
   }
 }
 
-/**
- * Tests URL aliases for translated nodes.
- */
 class PathLanguageTestCase extends DrupalWebTestCase {
   public static function getInfo() {
     return array(

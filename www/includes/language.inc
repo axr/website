@@ -349,10 +349,7 @@ function language_provider_invoke($provider_id, $provider = NULL) {
     $results[$provider_id] = isset($languages[$langcode]) ? $languages[$langcode] : FALSE;
   }
 
-  // Since objects are resources we need to return a clone to prevent the
-  // provider cache to be unintentionally altered. The same providers might be
-  // used with different language types based on configuration.
-  return !empty($results[$provider_id]) ? clone($results[$provider_id]) : $results[$provider_id];
+  return $results[$provider_id];
 }
 
 /**
@@ -383,18 +380,15 @@ function language_initialize($type) {
   // first valid language found.
   $negotiation = variable_get("language_negotiation_$type", array());
 
-  foreach ($negotiation as $provider_id => $provider) {
-    $language = language_provider_invoke($provider_id, $provider);
+  foreach ($negotiation as $id => $provider) {
+    $language = language_provider_invoke($id, $provider);
     if ($language) {
-      $language->provider = $provider_id;
       return $language;
     }
   }
 
   // If no other language was found use the default one.
-  $language = language_default();
-  $language->provider = LANGUAGE_NEGOTIATION_DEFAULT;
-  return $language;
+  return language_default();
 }
 
 /**

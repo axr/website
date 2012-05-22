@@ -76,12 +76,8 @@ $wgDiff3 = "/usr/bin/diff3";
 // Don't use MW's JS features
 $wgUseSiteJs = false;
 
-// *
+// Prevent account creation
 $wgGroupPermissions['*']['createaccount'] = false;
-$wgGroupPermissions['*']['edit'] = false;
-
-// `user` group
-$wgGroupPermissions['user']['edit'] = true;
 
 // Trusted user group
 $wgGroupPermissions['trusted'] = $wgGroupPermissions['user'];

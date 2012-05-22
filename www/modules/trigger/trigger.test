@@ -11,7 +11,7 @@
 class TriggerWebTestCase extends DrupalWebTestCase {
 
   /**
-   * Configures an advanced action.
+   * Configure an advanced action.
    *
    * @param $action
    *   The name of the action callback. For example: 'user_block_user_action'
@@ -344,7 +344,6 @@ class TriggerActionTestCase extends TriggerWebTestCase {
 
     $edit = array('aid' => drupal_hash_base64($aid));
     $this->drupalPost('admin/structure/trigger/user', $edit, t('Assign'), array(), array(), $form_html_id);
-    drupal_static_reset('trigger_get_asssigned_actions');
   }
 
 
@@ -373,7 +372,6 @@ class TriggerActionTestCase extends TriggerWebTestCase {
 
     $edit = array('aid' => drupal_hash_base64($aid));
     $this->drupalPost('admin/structure/trigger/user', $edit, t('Assign'), array(), array(), $form_html_id);
-    drupal_static_reset('trigger_get_assigned_actions');
   }
 
   /**

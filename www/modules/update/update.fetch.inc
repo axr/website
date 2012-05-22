@@ -237,22 +237,12 @@ function _update_create_fetch_task($project) {
   if (empty($fetch_tasks[$cid])) {
     $queue = DrupalQueue::get('update_fetch_tasks');
     $queue->createItem($project);
-    // Due to race conditions, it is possible that another process already
-    // inserted a row into the {cache_update} table and the following query will
-    // throw an exception.
-    // @todo: Remove the need for the manual check by relying on a queue that
-    // enforces unique items.
-    try {
-      db_insert('cache_update')
-        ->fields(array(
-          'cid' => $cid,
-          'created' => REQUEST_TIME,
-        ))
-        ->execute();
-    }
-    catch (Exception $e) {
-      // The exception can be ignored safely.
-    }
+    db_insert('cache_update')
+      ->fields(array(
+        'cid' => $cid,
+        'created' => REQUEST_TIME,
+      ))
+      ->execute();
     $fetch_tasks[$cid] = REQUEST_TIME;
   }
 }
@@ -281,7 +271,7 @@ function _update_build_fetch_url($project, $site_key = '') {
   // in the first place, and if this is not a disabled module or theme. We do
   // not want to record usage statistics for disabled code.
   if (!empty($site_key) && (strpos($project['project_type'], 'disabled') === FALSE)) {
-    $url .= (strpos($url, '?') !== FALSE) ? '&' : '?';
+    $url .= (strpos($url, '?') === TRUE) ? '&' : '?';
     $url .= 'site_key=';
     $url .= rawurlencode($site_key);
     if (!empty($project['info']['version'])) {

@@ -273,7 +273,7 @@
                                 </div>
 <code><span class="selector">selector</span>
 {
-   <span class="property_name">border</span>: <span class="object_type">@lineBorder</span> {
+   <span class="property_name">border</span>: <span class="object_type">@line</span> {
       <span class="property_name">size</span>: <span class="numeric_value">1</span>;
       <span class="property_name">color</span>: <span class="instruction">#F00</span>;
    };
@@ -647,7 +647,7 @@
 {
    <span class="property_name">anchorX</span>: <span class="numeric_value">100%</span>;
    <span class="property_name">alignX</span>: <span class="numeric_value">50%</span> - <span class="numeric_value">30</span>;
-   <span class="property_name">flow</span>: <span class="keyword">no</span>;
+   <span class="property_name">flow</span>: <span class="keyword">false</span>;
 }
 <span class="comment">//align all elements *inside* qux at the middle vertically,</span>
 <span class="comment">//and lay them out from top to bottom instead of left</span>
@@ -655,7 +655,7 @@
 <span class="selector">qux</span>
 {
    <span class="property_name">contentAlignY</span>: <span class="keyword">middle</span>;
-   <span class="property_name">directionPrimary</span>: <span class="keyword">topToBottom</span>;
+   <span class="property_name">direction</span>: <span class="keyword">topToBottom</span>;
 }</code>
                             </div>
                         </div>

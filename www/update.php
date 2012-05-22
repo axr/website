@@ -145,9 +145,7 @@ function update_helpful_links() {
   // NOTE: we can't use l() here because the URL would point to
   // 'update.php?q=admin'.
   $links[] = '<a href="' . base_path() . '">Front page</a>';
-  if (user_access('access administration pages')) {
-    $links[] = '<a href="' . base_path() . '?q=admin">Administration pages</a>';
-  }
+  $links[] = '<a href="' . base_path() . '?q=admin">Administration pages</a>';
   return $links;
 }
 
@@ -157,7 +155,7 @@ function update_results_page() {
 
   update_task_list();
   // Report end result.
-  if (module_exists('dblog') && user_access('access site reports')) {
+  if (module_exists('dblog')) {
     $log_message = ' All errors have been <a href="' . base_path() . '?q=admin/reports/dblog">logged</a>.';
   }
   else {
@@ -165,7 +163,7 @@ function update_results_page() {
   }
 
   if ($_SESSION['update_success']) {
-    $output = '<p>Updates were attempted. If you see no failures below, you may proceed happily back to your <a href="' . base_path() . '">site</a>. Otherwise, you may need to update your database manually.' . $log_message . '</p>';
+    $output = '<p>Updates were attempted. If you see no failures below, you may proceed happily to the <a href="' . base_path() . '?q=admin">administration pages</a>. Otherwise, you may need to update your database manually.' . $log_message . '</p>';
   }
   else {
     list($module, $version) = array_pop(reset($_SESSION['updates_remaining']));

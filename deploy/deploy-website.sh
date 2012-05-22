@@ -1,15 +1,7 @@
 #!/bin/bash
 
-LOCKFILE=/tmp/deploy-website.lock
 REPODIR=/var/dev/clone-website
 WWWDIR=/var/dev/www
-
-if [ -f "$LOCKFILE" ]; then
-	echo "The deploy script is already running"
-	exit 1
-fi
-
-touch "$LOCKFILE"
 
 cd "$REPODIR"
 
@@ -29,20 +21,17 @@ echo "Running phing"
 phing -f server.xml
 
 if [ $? -ne 0 ]; then
-	rm "$LOCKFILE"
-	echo "Deploy failed" > "$WWWDIR/index.html"
-	exit 1
+        echo "Deploy failed" > "$WWWDIR/index.html"
+        exit 1
 fi
 
 # Put current commit hash into git_head
 git rev-parse HEAD > "$REPODIR/www/git_head"
 
 # Create symlink for images folder
-ln -s /var/www-shared/images/blog "$REPODIR/www/sites/default/images"
+ln -s /var/www/www/sites/default/images/blog "$REPODIR/www/sites/default/images"
 
 # Make the new www public
 rm -rf "$WWWDIR"
 mv "$REPODIR/www" "$WWWDIR"
-
-rm "$LOCKFILE"
 

@@ -18,14 +18,12 @@ function node_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-      // Defaults to NULL in order to avoid a brief period of potential
-      // deadlocks on the index.
       'vid' => array(
         'description' => 'The current {node_revision}.vid version identifier.',
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => FALSE,
-        'default' => NULL,
+        'not null' => TRUE,
+        'default' => 0,
       ),
       'type' => array(
         'description' => 'The {node_type}.type of this node.',
@@ -899,19 +897,6 @@ function node_update_7012() {
 
     node_type_cache_reset();
   }
-}
-
-/**
- * Change {node}.vid default value from 0 to NULL to avoid deadlock issues on MySQL.
- */
-function node_update_7013() {
-  db_change_field('node', 'vid', 'vid', array(
-    'description' => 'The current {node_revision}.vid version identifier.',
-    'type' => 'int',
-    'unsigned' => TRUE,
-    'not null' => FALSE,
-    'default' => NULL,
-  ));
 }
 
 /**

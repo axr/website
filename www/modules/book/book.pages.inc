@@ -6,7 +6,7 @@
  */
 
 /**
- * Menu callback: Prints a listing of all books.
+ * Menu callback; prints a listing of all books.
  */
 function book_render() {
   $book_list = array();
@@ -18,24 +18,25 @@ function book_render() {
 }
 
 /**
- * Menu callback; Generates representations of a book page and its children.
+ * Menu callback; Generates various representation of a book page and its children.
  *
- * The function delegates the generation of output to helper functions. The
- * function name is derived by prepending 'book_export_' to the given output
- * type. So, e.g., a type of 'html' results in a call to the function
- * book_export_html().
+ * The function delegates the generation of output to helper functions.
+ * The function name is derived by prepending 'book_export_' to the
+ * given output type. So, e.g., a type of 'html' results in a call to
+ * the function book_export_html().
  *
  * @param $type
- *   A string encoding the type of output requested. The following types are
- *   currently supported in book module:
- *   - html: Printer-friendly HTML.
+ *   A string encoding the type of output requested. The following
+ *   types are currently supported in book module:
+ *
+ *   - html: HTML (printer friendly output)
+ *
  *   Other types may be supported in contributed modules.
  * @param $nid
  *   An integer representing the node id (nid) of the node to export
- *
  * @return
- *   A string representing the node and its children in the book hierarchy in a
- *   format determined by the $type parameter.
+ *   A string representing the node and its children in the book hierarchy
+ *   in a format determined by the $type parameter.
  */
 function book_export($type, $nid) {
   $type = drupal_strtolower($type);
@@ -52,18 +53,18 @@ function book_export($type, $nid) {
 }
 
 /**
- * Generates HTML for export when invoked by book_export().
+ * This function is called by book_export() to generate HTML for export.
  *
- * The given node is embedded to its absolute depth in a top level section. For
- * example, a child node with depth 2 in the hierarchy is contained in
- * (otherwise empty) <div> elements corresponding to depth 0 and depth 1.
- * This is intended to support WYSIWYG output - e.g., level 3 sections always
- * look like level 3 sections, no matter their depth relative to the node
- * selected to be exported as printer-friendly HTML.
+ * The given node is /embedded to its absolute depth in a top level
+ * section/. For example, a child node with depth 2 in the hierarchy
+ * is contained in (otherwise empty) &lt;div&gt; elements
+ * corresponding to depth 0 and depth 1. This is intended to support
+ * WYSIWYG output - e.g., level 3 sections always look like level 3
+ * sections, no matter their depth relative to the node selected to be
+ * exported as printer-friendly HTML.
  *
  * @param $nid
  *   An integer representing the node id (nid) of the node to export.
- *
  * @return
  *   A string containing HTML representing the node and its children in
  *   the book hierarchy.
@@ -87,10 +88,7 @@ function book_export_html($nid) {
 }
 
 /**
- * Menu callback: Shows the outline form for a single node.
- *
- * @param $node
- *   The book node for which to show the outline.
+ * Menu callback; show the outline form for a single node.
  */
 function book_outline($node) {
   drupal_set_title($node->title);
@@ -98,15 +96,11 @@ function book_outline($node) {
 }
 
 /**
- * Form constructor for the book outline form.
- *
- * Allows handling of all book outline operations via the outline tab.
- *
- * @param $node
- *   The book node for which to show the outline.
+ * Build the form to handle all book outline operations via the outline tab.
  *
  * @see book_outline_form_submit()
  * @see book_remove_button_submit()
+ *
  * @ingroup forms
  */
 function book_outline_form($form, &$form_state, $node) {
@@ -146,20 +140,18 @@ function book_outline_form($form, &$form_state, $node) {
 }
 
 /**
- * Form submission handler for book_outline_form().
+ * Button submit function to redirect to removal confirm form.
  *
- * Redirects to removal confirmation form.
- *
- * @see book_outline_form_submit()
+ * @see book_outline_form()
  */
 function book_remove_button_submit($form, &$form_state) {
   $form_state['redirect'] = 'node/' . $form['#node']->nid . '/outline/remove';
 }
 
 /**
- * Form submission handler for book_outline_form().
+ * Handles book outline form submissions from the outline tab.
  *
- * @see book_remove_button_submit()
+ * @see book_outline_form()
  */
 function book_outline_form_submit($form, &$form_state) {
   $node = $form['#node'];
@@ -189,12 +181,10 @@ function book_outline_form_submit($form, &$form_state) {
 }
 
 /**
- * Form constructor to confirm removal of a node from a book.
- *
- * @param $node
- *   The node to delete.
+ * Menu callback; builds a form to confirm removal of a node from the book.
  *
  * @see book_remove_form_submit()
+ *
  * @ingroup forms
  */
 function book_remove_form($form, &$form_state, $node) {
@@ -212,7 +202,9 @@ function book_remove_form($form, &$form_state, $node) {
 }
 
 /**
- * Form submission handler for book_remove_form().
+ * Confirm form submit function to remove a node from the book.
+ *
+ * @see book_remove_form()
  */
 function book_remove_form_submit($form, &$form_state) {
   $node = $form['#node'];
