@@ -21,7 +21,10 @@
 				<span class="footer"></span>
 			</a>
 		</div>
-		<div class="slides"><iframe src="http://www.slideshare.net/slideshow/embed_code/6829398?rel=0" width="346" height="278" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+		<div class="slides">
+			<iframe width="346" height="278" src="https://www.youtube.com/embed/QwLY2gYyTFE" frameborder="0" allowfullscreen></iframe>
+			<?php /*<iframe src="http://www.slideshare.net/slideshow/embed_code/6829398?rel=0" width="346" height="278" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>*/ ?>
+		</div>
 	</div>
 </div>
 
