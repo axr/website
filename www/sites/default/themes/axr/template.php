@@ -6,69 +6,30 @@
 function axr_breadcrumb ($data)
 {
 	$html = '';
-	$breadcrumb = array();
 
-	foreach ($data['breadcrumb'] as $link)
+	foreach ($data['breadcrumb'] as $item)
 	{
-		preg_match('/^<a.* href="(.+)".*>(.+)<\/a>$/', $link, $match);
+		preg_match('/^<a.* href="(.+)".*>(.+)<\/a>$/', $item, $match);
 
-		if (!is_array($match))
+		if (!is_array($match) || count($match) !== 3)
 		{
 			continue;
 		}
 
-		$breadcrumb[] = array($match[2], $match[1]);
-	}
-
-	$breadcrumb[] = array(drupal_get_title(), null);
-
-	// I don't think there is a better way for doing this
-	if (preg_match('/^\/blog\/[0-9]+\/[0-9]+\/.+/', request_uri()))
-	{
-		$breadcrumb[2] = null;
-	}
-	else if (preg_match('/^\/comment\/[0-9]+/', request_uri()))
-	{
-		$breadcrumb[2] = null;
-	}
-	else if (preg_match('/^\/user\/(login|register)(\/|\?|$)/', request_uri(), $match))
-	{
-		if ($match[1] === 'login')
-		{
-			$breadcrumb[1] = array('Login', null);
-			$breadcrumb[2] = null;
-		}
-		else
-		{
-			$breadcrumb[1] = array('Register', null);
-			$breadcrumb[2] = null;
-		}
-	}
-
-	foreach ($breadcrumb as $link)
-	{
-		if ($link === null)
-		{
-			continue;
-		}
+		list(, $link, $name) = $match;
 
 		$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
-
-		if ($link[1] === null)
-		{
-			$html .= '<span class="current" itemprop="title">' .
-				$link[0] . '</span>';
-		}
-		else
-		{
-			$html .= '<a href="' . $link[1] . '" itemprop="url">';
-			$html .= '<span itemprop="title">' . $link[0] . '</span>';
-			$html .= '</a>';
-		}
-
+		$html .= '<a href="' . $link . '" itemprop="url">';
+		$html .= '<span itemprop="title">' . $name . '</span>';
+		$html .= '</a>';
 		$html .= '</div>';
-		$html .= ($link[1] !== null) ? '<span class="extra_0"></span>' : '';
+		$html .= '<span class="extra_0"></span>';
 	}
+
+	$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
+	$html .= '<span class="current" itemprop="title">' .
+		drupal_get_title() . '</span>';
+	$html .= '</div>';
 
 	return $html;
 }
@@ -96,6 +57,29 @@ function axr_preprocess_page (&$variables)
 {
 	$variables['ajaxsite_page'] =
 		preg_match('/^\/search[\?\/$]/', request_uri());
+
+	// Overwrite the breadcrumb
+	if (isset($variables['node']) && $variables['node']->type === 'blog')
+	{
+		drupal_set_breadcrumb(array(
+			l('Home', '<front>'),
+			l('Blog', 'blog')
+		));
+	}
+	else if (preg_match('/^\/user\/(login|register)(\/|\?|$)/', request_uri()))
+	{
+		drupal_set_breadcrumb(array(
+			l('Home', '<front>')
+		));
+	}
+	else if (preg_match('/^\/user\/(login|register|[0-9]+)(\/|\?|$)/',
+			request_uri(), $match))
+	{
+		drupal_set_breadcrumb(array(
+			l('Home', '<front>'),
+			is_numeric($match[1]) ? l('User', 'user') : null
+		));
+	}
 }
 
 /**
