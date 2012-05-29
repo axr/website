@@ -51,6 +51,11 @@
 			<?php endif; ?>
 
 			<?php echo isset($messages) ? $messages : ''; ?>
+
+			<?php if (!$is_front): ?>
+				<?php print render($tabs); ?>
+			<?php endif; ?>
+
 			<?php print render($page['content']); ?>
 		<?php endif; ?>
 	</div>
