@@ -50,9 +50,35 @@ window.Ajaxsite = window.Ajaxsite || {};
 			Ajaxsite.url(url);
 		});
 
+		if (typeof Ajaxsite_onInit === 'object' &&
+			Ajaxsite_onInit instanceof Array)
+		{
+			for (var i = 0, c = Ajaxsite_onInit.length; i < c; i++)
+			{
+				if (typeof Ajaxsite_onInit[i] === 'function')
+				{
+					Ajaxsite_onInit[i].call(null);
+				}
+			}
+		}
+
 		if (Ajaxsite.autoloadWhenReady === true)
 		{
 			Ajaxsite.load_url(window.location.pathname);
+		}
+	};
+
+
+	/**
+	 * Call a callback when ajaxsite has initialized
+	 *
+	 * @param function callback
+	 */
+	Ajaxsite.on_init = function (callback)
+	{
+		if (typeof callback === 'function')
+		{
+			callback();
 		}
 	};
 
@@ -158,15 +184,14 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 */
 	Ajaxsite.urlInfo = function (url, callback)
 	{
-		var that = this;
-		this.cache = this.cache || {};
+		Ajaxsite.urlInfo.cache = Ajaxsite.urlInfo.cache || {};
 
 		if (typeof url !== 'string')
 		{
 			return;
 		}
 
-		if (this.cache[url] === undefined)
+		if (Ajaxsite.urlInfo.cache[url] === undefined)
 		{
 			jQuery.ajax({
 				url: '/_ajax/info',
@@ -176,19 +201,19 @@ window.Ajaxsite = window.Ajaxsite || {};
 				dataType: 'json'
 			}).success(function (data)
 			{
-				that.cache[url] = data.payload;
+				Ajaxsite.urlInfo.cache[url] = data.payload;
 
 				if (typeof callback === 'function')
 				{
-					callback(that.cache[url]);
+					callback(Ajaxsite.urlInfo.cache[url]);
 				}
 			}).error(function (data)
 			{
-				that.cache[url] = null;
+				Ajaxsite.urlInfo.cache[url] = null;
 
 				if (typeof callback === 'function')
 				{
-					callback(that.cache[url]);
+					callback(Ajaxsite.urlInfo.cache[url]);
 				}
 			});
 		}
@@ -196,7 +221,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 		{
 			if (typeof callback === 'function')
 			{
-				callback(this.cache[url]);
+				callback(Ajaxsite.urlInfo.cache[url]);
 			}
 		}
 	};

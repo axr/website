@@ -1,6 +1,85 @@
 <?php
 
 /**
+ * Get a template and replace an object with it's information. If the
+ * template cannot be loaded, null will be returned.
+ *
+ * Returned object:
+ * - string name: template name. Same as argument $name
+ * - string template: template data
+ *
+ * @param string $name
+ * @return stdClass
+ */
+function ajaxutil_get_template ($name)
+{
+	$name = preg_replace('/[^a-zA-z0-9-_]/', '', $name);
+	$file = path_to_theme().'/ajaxtemplates/'.$name.'.tpl';
+
+	if (!file_exists($file))
+	{
+		return null;
+	}
+
+	$template = new StdClass();
+	$template->name = $name;
+	$template->template = preg_replace('/[\n\t]/', '',
+		file_get_contents($file));
+
+	return $template->template === false ? null : $template;
+}
+
+/**
+ * Get information about an URL. This includes paths to required css and
+ * javascript files.
+ *
+ * Returned object:
+ * - string url: URL that the information is about. Same as argument $url
+ * - string[] css: array of paths to required css files
+ * - string[] js: array of paths to required javascript files
+ *
+ * @param string $url
+ * @return stdClass
+ */
+function ajaxutil_get_info ($url, $theme = null)
+{
+	global $theme_key;
+
+	$theme = ($theme === null) ? $theme_key : $theme;
+	$url = preg_replace('/(^\/|\/$)/', '', $url);
+
+	// Return object
+	$info = new StdClass();
+	$info->url = $url;
+	$info->css = array();
+	$info->js = array();
+
+	// Get node
+	$source = drupal_lookup_path('source', $url);
+	$nid = preg_replace('/^\/node\/([0-9]+)$/', '$1', $source);
+	$node = ($source === $nid) ? null : node_load($nid);
+
+	$assets = assetmagic_find($url, array(
+		'nodeType' => $node->type,
+		'theme' => $theme
+	));
+
+	foreach ($assets as $asset)
+	{
+		if ($asset['type'] === 'css')
+		{
+			$info->css[] = '/' . $asset['path'];
+		}
+		else if ($asset['type'] === 'js')
+		{
+			$info->js[] = '/' . $asset['path'];
+		}
+	}
+
+	return $info;
+}
+
+/**
  * Setup custom urls
  */
 function ajaxutil_menu () {
@@ -69,7 +148,8 @@ function ajaxutil_handle_search () {
  * Handle requests to /_ajax/template
  * Returns a template file
  */
-function ajaxutil_handle_template () {
+function ajaxutil_handle_template ()
+{
 	$response = array(
 		'status' => 0, // 0 = good | 1 = bad
 		'error' => null,
@@ -77,25 +157,26 @@ function ajaxutil_handle_template () {
 		'payload' => null
 	);
 
-	try {
-		if (!isset($_GET['name'])) {
+	try
+	{
+		if (!isset($_GET['name']))
+		{
 			$response['error'] = 'invalid_request';
 			throw new Exception();
 		}
 
-		$name = preg_replace('/[^a-zA-z0-9-_]/', '', $_GET['name']);
-		$file = path_to_theme().'/ajaxtemplates/'.$name.'.tpl';
+		$template = ajaxutil_get_template($_GET['name']);
 
-		if (!file_exists($file)) {
+		if ($template === null)
+		{
 			$response['error'] = 'template_not_found';
 			throw new Exception();
 		}
 
-		$response['payload'] = array(
-			'name' => $name,
-			'template' => file_get_contents($file)
-		);
-	} catch (Exception $e) {
+		$response['payload'] = $template;
+	}
+	catch (Exception $e)
+	{
 		$response['status'] = 1;
 	}
 
@@ -105,9 +186,8 @@ function ajaxutil_handle_template () {
 /**
  * Handle requests to /_ajax/info
  */
-function ajaxutil_handle_info () {
-	global $theme_key;
-
+function ajaxutil_handle_info ()
+{
 	$response = array(
 		'status' => 0,
 		'error' => null,
@@ -115,45 +195,18 @@ function ajaxutil_handle_info () {
 		'payload' => null
 	);
 
-	try {
-		if (!isset($_GET['url'])) {
+	try
+	{
+		if (!isset($_GET['url']))
+		{
 			$response['error'] = 'invalid_request';
 			throw new Exception();
 		}
 
-		$url = preg_replace('/(^\/|\/$)/', '', $_GET['url']);
-
-		// Get node
-		$source = drupal_lookup_path('source', $url);
-		$nid = preg_replace('/^\/node\/([0-9]+)$/', '$1', $source);
-		$node = ($source === $nid) ? null : node_load($nid);
-
-		$assets = assetmagic_find($url, array(
-			'nodeType' => $node->type,
-			'theme' => $theme_key
-		));
-
-		$css = array();
-		$js = array();
-
-		foreach ($assets as $asset)
-		{
-			if ($asset['type'] === 'css')
-			{
-				$css[] = '/'. $asset['path'];
-			}
-			else if ($asset['type'] === 'js')
-			{
-				$js[] = '/' . $asset['path'];
-			}
-		}
-
-		$response['payload'] = array(
-			'url' => $url,
-			'js' => $js,
-			'css' => $css
-		);
-	} catch (Exception $e) {
+		$response['payload'] = ajaxutil_get_info($_GET['url']);
+	}
+	catch (Exception $e)
+	{
 	}
 
 	echo json_encode($response);

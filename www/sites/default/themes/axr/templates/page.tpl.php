@@ -43,6 +43,15 @@
 				try { window.Ajaxsite.load_url(window.location.pathname); }
 				catch (e) { window.Ajaxsite.autoloadWhenReady = true; }
 			</script>
+			<script>
+				(function (callback)
+				{
+					window.Ajaxsite_onInit = window.Ajaxsite_onInit || []
+					try { window.Ajaxsite.on_init(callback); }
+					catch (e) { window.Ajaxsite_onInit.push(callback); }
+				})(function ()
+				{ <?php echo implode('', $ajaxsite_js); ?> });
+			</script>
 		<?php else: ?>
 			<?php if (!$is_front && $breadcrumb): ?>
 				<nav id="breadcrumb">

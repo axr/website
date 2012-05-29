@@ -55,8 +55,30 @@ function axr_preprocess_html (&$variables)
  */
 function axr_preprocess_page (&$variables)
 {
-	$variables['ajaxsite_page'] =
-		preg_match('/^\/search[\?\/$]/', request_uri());
+	// Initialize variables
+	$variables['ajaxsite_page'] = false;
+	$variables['ajaxsite_js'] = array();
+
+	// If we're on the search page
+	if (preg_match('/^\/search[\?\/$]/', request_uri()))
+	{
+		$tplSearch = json_encode(ajaxutil_get_template('search'));
+		$tplSearchOptions = json_encode(ajaxutil_get_template('search_options'));
+		$tplSearchResults = json_encode(ajaxutil_get_template('search_results'));
+
+		$info = ajaxutil_get_info(request_uri());
+		$infoJSON = json_encode($info);
+
+		$variables['ajaxsite_page'] = true;
+		$variables['ajaxsite_js'][] = <<<JS
+Ajaxsite.template.cache = Ajaxsite.template.cache || {};
+Ajaxsite.template.cache.search = {$tplSearch};
+Ajaxsite.template.cache.search_options = {$tplSearchOptions};
+Ajaxsite.template.cache.search_results = {$tplSearchResults};
+Ajaxsite.urlInfo.cache = Ajaxsite.urlInfo.cache || {};
+Ajaxsite.urlInfo.cache['{$info->url}'] = {$infoJSON};
+JS;
+	}
 
 	// Overwrite the breadcrumb
 	if (isset($variables['node']) && $variables['node']->type === 'blog')
