@@ -117,25 +117,31 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	};
 
 	/**
-	 * Load GitHub activity for the activity box
+	 * Load GitHub activity
 	 */
-	$.getJSON("/activity.php", function (data)
+	var loadGHActivity = function ()
 	{
-		$('#ghactivity').empty();
-
-		for (var i = 0; i < 5; i++)
+		/**
+		 * Load GitHub activity for the activity box
+		 */
+		$.getJSON('/activity.php', function (data)
 		{
-			if (data.activity[i] === undefined)
+			$('#ghactivity').empty();
+
+			for (var i = 0; i < 5; i++)
 			{
-				break;
+				if (data.activity[i] === undefined)
+				{
+					break;
+				}
+
+				var item = data.activity[i];
+
+				$('#ghactivity')
+					.append('<li><div class="inner">' + item.title + '</div></li>');
 			}
-
-			var item = data.activity[i];
-
-			$('#ghactivity')
-				.append('<li><div class="inner">' + item.title + '</div></li>');
-		}
-	});
+		});
+	};
 
 	/**
 	 * Dropdown menu
@@ -259,6 +265,11 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	$(document).ready(function ()
 	{
 		loadTweet();
+
+		if (/^\/get-involved(\/|$)/.test(window.location.pathname))
+		{
+			loadGHActivity();
+		}
 	});
 })(jQuery);
 
