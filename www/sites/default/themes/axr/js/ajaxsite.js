@@ -25,7 +25,6 @@ window.Ajaxsite = window.Ajaxsite || {};
 			if (!/^\/search\//.test(state.url) ||
 				/^(https?:|#|javascript:)/.test(state.url))
 			{
-				console.log('BLOCK2', state.url);
 				return;
 			}
 
