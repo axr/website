@@ -124,7 +124,7 @@ function axr_preprocess_node (&$variables)
 function axr_js_alter (&$js)
 {
 	$js['misc/jquery.js']['data'] =
-		'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+		'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
 	$js['misc/jquery.js']['type'] = 'external';
 }
 
