@@ -19,7 +19,7 @@
 			<a class="downloads first" href="/downloads">Downloads</a>
 			<!-- <a class="examples" href="/under-construction">Examples</a> -->
 			<!-- <a class="tutorials" href="/under-construction">Tutorials</a> -->
-			<a class="documentation last" href="/under-construction">Documentation</a>
+			<a class="documentation last" href="http://docs.axr.vg">Prototype documentation</a>
 		</div>
 	</li>
 	<li class="community">
