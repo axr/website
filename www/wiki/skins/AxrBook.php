@@ -28,14 +28,14 @@ class SkinAxrBook extends SkinTemplate
 
 		$out->addStyle('axrbook/monobook.css', 'screen');
 
-		$out->addStyle('/sites/default/themes/axr/css/style.css', 'screen');
+		$out->addStyle(Config::get('/shared/rsrc_url') .
+			'/css/style.css', 'screen');
 		$out->addStyle('axrbook/axrbook.css', 'screen');
 		
 		$out->addStyle('monobook/IE50Fixes.css', 'screen', 'lt IE 5.5000');
 		$out->addStyle('monobook/IE55Fixes.css', 'screen', 'IE 5.5000');
 		$out->addStyle('monobook/IE60Fixes.css', 'screen', 'IE 6');
 		$out->addStyle('monobook/IE70Fixes.css', 'screen', 'IE 7');
-
 	}
 }
 
@@ -65,22 +65,74 @@ class AxrBookTemplate extends MonoBookTemplate
 
 		$this->skin = $this->data['skin'];
 
-		// Suppress warnings to prevent notices about missing indexes in $this->data
+		$out = RequestContext::getMain()->getOutput();
+
+		// MW wants it here
 		wfSuppressWarnings();
 
-		$this->html('headelement');
+		require_once(SHARED . '/lib/mustache.php/Mustache.php');
+		require_once(SHARED . '/lib/axr/shared_view.php');
 
-		include('axrbook/main.tpl.php');
+		$mustache = new Mustache();
+		$view = new SharedView();
 
-		$this->printTrail();
-		echo Html::closeElement('body');
-		echo Html::closeElement('html');
+		// Basic stuff
+		$view->_title = $this->data['title'];
+		$view->_content = $this->content();
+
+		// Resources
+		$view->_rsrc_styles = $out->buildCssLinks($this->skin);
+		$view->_rsrc_scripts = 
+			'<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>' .
+			'<script src="' . $view->_rsrc_root . '/js/script.js"></script>';
+
+		// Additional HTML
+		$view->_html_head = $out->getHeadLinks($this->skin, true) .
+			$out->getHeadScripts($this->skin);
+			$out->getHeadItems();
+
+		if (!is_object($wgUser) || $wgUser->getID() == 0)
+		{
+			$view->_user = false;
+		}
+		else
+		{
+			$view->_user = new StdClass();
+			$view->_user->wiki_name = $wgUser->getName();
+		}
+
+		$view->_breadcrumb = array(
+			array(
+				'name' => 'Home',
+				'link' => Config::get('/shared/www_url')
+			),
+			array(
+				'name' => 'Wiki',
+				'link' => Config::get('/shared/wiki_url')
+			),
+			array(
+				'name' => $this->data['title'],
+				'current' => true
+			)
+		);
+
+		$html = $mustache->render(
+			file_get_contents(SHARED . '/views/layout.html'), $view);
+		$html = preg_replace("/\n([ \t\n]+)?/", '', $html);
+
+		echo $html;
+
 		wfRestoreWarnings();
 	}
 
 	public function content ()
 	{
+		ob_start();
 		include('axrbook/content.tpl.php');
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		return $output;
 	}
 
 	/**

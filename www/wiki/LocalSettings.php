@@ -8,6 +8,8 @@ if (!defined('MEDIAWIKI'))
 	exit;
 }
 
+require_once('../../shared/bootstrap.php');
+
 $wgSitename = 'AXR';
 
 $wgScriptPath = '/wiki';

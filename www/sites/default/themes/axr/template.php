@@ -1,11 +1,30 @@
 <?php
 
 /**
+ * Get the view object
+ *
+ * @return SharedView
+ */
+function axr_get_view ()
+{
+	static $view;
+
+	require_once(SHARED . '/lib/axr/shared_view.php');
+
+	if (!is_object($view))
+	{
+		$view = new SharedView();
+	}
+
+	return $view;
+}
+
+/**
  * Allow themable breadcrumbs
  */
 function axr_breadcrumb ($data)
 {
-	$html = '';
+	$output = '';
 
 	foreach ($data['breadcrumb'] as $item)
 	{
@@ -18,20 +37,12 @@ function axr_breadcrumb ($data)
 
 		list(, $link, $name) = $match;
 
-		$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
-		$html .= '<a href="' . $link . '" itemprop="url">';
-		$html .= '<span itemprop="title">' . $name . '</span>';
-		$html .= '</a>';
-		$html .= '</div>';
-		$html .= '<span class="extra_0"></span>';
+		$output = $name . "\x00" . $link . "\n";
 	}
 
-	$html .= '<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
-	$html .= '<span class="current" itemprop="title">' .
-		drupal_get_title() . '</span>';
-	$html .= '</div>';
+	$output .= drupal_get_title() . "\x00";
 
-	return $html;
+	return $output;
 }
 
 /**

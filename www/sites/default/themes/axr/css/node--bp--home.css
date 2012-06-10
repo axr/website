@@ -4,6 +4,11 @@
 	padding: 50px 0 35px 0px;
 }
 
+#main nav#breadcrumb
+{
+	display: none;
+}
+
 #main .above_fold > .nested_0
 {
 	width: 855px;
