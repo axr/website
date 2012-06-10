@@ -97,6 +97,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 		}
 
 		url = url.replace(/^https?:\/\/[^\/]+(\/.*)$/, '$1');
+		url = (url[0] !== '/') ? '/' + url : url;
 
 		if (url === window.location.pathname && force !== true)
 		{
