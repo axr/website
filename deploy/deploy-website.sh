@@ -13,9 +13,18 @@ touch "$LOCKFILE"
 
 cd "$REPODIR"
 
+# Get the SHA before pull
+SHA_BEFORE=$(git rev-parse HEAD)
+
 echo "Updating GIT repo"
 git stash && git stash drop
 git pull origin master
+
+if [ "$SHA_BEFORE" = $(git rev-parse HEAD) ]; then
+	rm "$LOCKFILE"
+	echo "No new changes received. Nothing new to deploy"
+	exit 0
+fi
 
 # Show the maintenance message
 echo "Down for maintenance" > "$WWWDIR/index.html"
@@ -39,6 +48,7 @@ git rev-parse HEAD > "$REPODIR/www/git_head"
 
 # Create symlink for images folder
 ln -s /var/www-shared/images/blog "$REPODIR/www/sites/default/images"
+ln -s /var/www-shared/images/spec "$REPODIR/www/sites/default/images"
 
 # Make the new www public
 rm -rf "$WWWDIR"
