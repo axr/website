@@ -1,6 +1,7 @@
 <?php
 
 require_once(SHARED . '/lib/mustache.php/Mustache.php');
+require_once(SHARED . '/lib/axr/minify.php');
 
 $mustache = new Mustache();
 $view = axr_get_view();
@@ -60,8 +61,5 @@ if (isset($view->_breadcrumb))
 $html = $mustache->render(
 	file_get_contents(SHARED . '/views/layout.html'), $view);
 
-// It started messing with the code boxes
-//$html = preg_replace("/\n([ \t\n]+)?/", '', $html);
-
-echo $html;
+echo Minify::html($html);
 

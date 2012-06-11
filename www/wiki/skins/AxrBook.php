@@ -71,6 +71,7 @@ class AxrBookTemplate extends MonoBookTemplate
 		wfSuppressWarnings();
 
 		require_once(SHARED . '/lib/mustache.php/Mustache.php');
+		require_once(SHARED . '/lib/axr/minify.php');
 		require_once(SHARED . '/lib/axr/shared_view.php');
 
 		$mustache = new Mustache();
@@ -120,7 +121,7 @@ class AxrBookTemplate extends MonoBookTemplate
 			file_get_contents(SHARED . '/views/layout.html'), $view);
 		$html = preg_replace("/\n([ \t\n]+)?/", '', $html);
 
-		echo $html;
+		echo Minify::html($html);
 
 		wfRestoreWarnings();
 	}
