@@ -119,7 +119,6 @@ class AxrBookTemplate extends MonoBookTemplate
 
 		$html = $mustache->render(
 			file_get_contents(SHARED . '/views/layout.html'), $view);
-		$html = preg_replace("/\n([ \t\n]+)?/", '', $html);
 
 		echo Minify::html($html);
 
