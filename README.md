@@ -58,8 +58,7 @@ http://help.github.com/send-pull-requests/.
 
 1. Go ahead and fork the AXR/Website repo. You will use that repository as your
 	working repo.
-2. You can do any git changes you like on the `deveplop` branch. (But make sure
-	to read the GIT standards at the end of this file before doing so)
+2. You can do any git changes you like to it.
 3. When you finish, go to your fork and make a pull request. We'll review it as
 	soon as possible. After it has been reviewed and accepted, we will merge it
 	into our repo.
@@ -76,6 +75,15 @@ http://help.github.com/send-pull-requests/.
 	`/deploy/local.default.properties` that'll contain your settings. Finally
 	you need to cd into `/deploy` and run `phing -f local.xml site-install`,
 	that will setup Drupal.
+
+GIT branching model
+===================
+We use this GIT branching model:
+http://nvie.com/posts/a-successful-git-branching-model/
+
+### The versioning system
+The version uses the following simple scheme: `<version>.<hotfix>`, where
+`<version>` is an increasing version number starting from 1.
 
 Coding standards
 ================
@@ -161,9 +169,7 @@ subsection. Another example: id `blog` class `categories`.
 
 Git Standards
 -------------
-- NO changes can be made directly on `master` branch. All  development is done
-	on the `develop` branch. The master represents the current production code
-- The `develop` branch MUST be stable at ALL times. If you need to push some
+- The `master` branch MUST be stable at ALL times. If you need to push some
 	unstable changes, create another branch
 - If you create a branch to work on an issue, the branch should be named as
 	`issue-<issue number>`
