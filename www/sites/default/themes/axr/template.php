@@ -57,6 +57,8 @@ function axr_preprocess_html (&$variables)
 	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/ajaxsite.js', array('group' => JS_THEME));
 
+	drupal_add_css($path . '/css/drupal.css', array('group' => CSS_THEME));
+
 	// TODO: Find a way to include it only on pages that have comments
 	drupal_add_css($path . '/css/comments.css', array('group' => CSS_THEME));
 }
