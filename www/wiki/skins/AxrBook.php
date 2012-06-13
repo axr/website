@@ -91,6 +91,7 @@ class AxrBookTemplate extends MonoBookTemplate
 		$view->_html_head = $out->getHeadLinks($this->skin, true) .
 			$out->getHeadScripts($this->skin);
 			$out->getHeadItems();
+		$view->_html_bottom = $this->getTrail();
 
 		if (!is_object($wgUser) || $wgUser->getID() == 0)
 		{
@@ -119,11 +120,20 @@ class AxrBookTemplate extends MonoBookTemplate
 
 		$html = $mustache->render(
 			file_get_contents(SHARED . '/views/layout.html'), $view);
-		$html = preg_replace("/\n([ \t\n]+)?/", '', $html);
 
 		echo Minify::html($html);
 
 		wfRestoreWarnings();
+	}
+
+	public function getTrail ()
+	{
+		ob_start();
+		$this->printTrail();
+		$trail = ob_get_contents();
+		ob_end_clean();
+
+		return $trail;
 	}
 
 	public function content ()
