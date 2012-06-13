@@ -58,7 +58,8 @@ http://help.github.com/send-pull-requests/.
 
 1. Go ahead and fork the AXR/Website repo. You will use that repository as your
 	working repo.
-2. You can do any git changes you like to it.
+2. You can do any git changes you like on the `deveplop` branch. (But make sure
+	to read the GIT standards at the end of this file before doing so)
 3. When you finish, go to your fork and make a pull request. We'll review it as
 	soon as possible. After it has been reviewed and accepted, we will merge it
 	into our repo.
@@ -160,7 +161,9 @@ subsection. Another example: id `blog` class `categories`.
 
 Git Standards
 -------------
-- The `master` branch MUST be stable at ALL times. If you need to push some
+- NO changes can be made directly on `master` branch. All  development is done
+	on the `develop` branch. The master represents the current production code
+- The `develop` branch MUST be stable at ALL times. If you need to push some
 	unstable changes, create another branch
 - If you create a branch to work on an issue, the branch should be named as
 	`issue-<issue number>`
