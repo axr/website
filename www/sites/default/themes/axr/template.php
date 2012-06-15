@@ -52,6 +52,7 @@ function axr_preprocess_html (&$variables)
 {
 	$path = drupal_get_path('theme', 'axr');
 
+	drupal_add_js($path.'/js/json2.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/script.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/mustache.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
