@@ -8,6 +8,7 @@ $view = axr_get_view();
 
 // Basic stuff
 $view->_title = $head_title;
+$view->_content = $page;
 
 // Resources
 $view->_rsrc_styles = $styles;

@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <?php if ($ajaxsite_page): ?>
 	<noscript>Please enable JavaScript</noscript>
 	<script>
@@ -26,11 +25,7 @@
 <?php endif; ?>
 <?php
 
-$page = ob_get_contents();
-ob_end_clean();
-
 $view = axr_get_view();
-$view->_content = $page;
 
 if (!$is_front)
 {
