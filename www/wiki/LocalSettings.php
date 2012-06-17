@@ -8,7 +8,7 @@ if (!defined('MEDIAWIKI'))
 	exit;
 }
 
-require_once('../../shared/bootstrap.php');
+require_once($IP . '/../../shared/bootstrap.php');
 
 $wgSitename = 'AXR';
 
@@ -91,16 +91,16 @@ $wgGroupPermissions['trusted']['autopatrol'] = true;
 $wgGroupPermissions['trusted']['minoredit'] = true;
 
 // Load passwords and stuff
-if (file_exists('LocalSettings.2.php'))
+if (file_exists($IP . '/LocalSettings.2.php'))
 {
-	include('LocalSettings.2.php');
+	include($IP . '/LocalSettings.2.php');
 }
 
 // Load Drupal intergation extension
 require_once($IP . '/extensions/di/iwDrupal.php');
 
 // Syntax highlighting
-require_once('extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php');
+require_once($IP . '/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php');
 
 // Parser functions
 require_once($IP . '/extensions/ParserFunctions/ParserFunctions.php');
