@@ -24,11 +24,21 @@ $view->_html_body_attrs = $attributes;
 if ($user->uid == 0)
 {
 	$view->_user = false;
+
+	$view->_url_login = Config::get('/shared/www_url') .
+		'/user/login';	
 }
 else
 {
 	$view->_user = new StdClass();
-	$view->_user->wiki_name = $user->name;
+
+	$view->_url_profile = Config::get('/shared/www_url') .
+		'/user/' . $user->uid;
+	$view->_url_account = Config::get('/shared/www_url') .
+		'/user/' . $user->uid . '/edit';
+	$view->_url_logout = Config::get('/shared/www_url') .
+		'/user/logout';
+
 }
 
 if (isset($view->_breadcrumb))
