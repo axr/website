@@ -102,8 +102,5 @@ require_once($IP . '/extensions/di/iwDrupal.php');
 // Syntax highlighting
 require_once($IP . '/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php');
 
-// Parser functions
-require_once($IP . '/extensions/ParserFunctions/ParserFunctions.php');
-
 $wgShowExceptionDetails = true;
 
