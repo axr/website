@@ -96,11 +96,20 @@ class AxrBookTemplate extends MonoBookTemplate
 		if (!is_object($wgUser) || $wgUser->getID() == 0)
 		{
 			$view->_user = false;
+
+			$view->_url_login = Config::get('/shared/wiki_url') .
+				'/Special:OpenIDLogin';	
 		}
 		else
 		{
 			$view->_user = new StdClass();
-			$view->_user->wiki_name = $wgUser->getName();
+
+			$view->_url_profile = Config::get('/shared/wiki_url') .
+				'/User:' . $wgUser->getName();
+			$view->_url_account = Config::get('/shared/wiki_url') .
+				'/Special:Preferences';
+			$view->_url_logout = Config::get('/shared/wiki_url') .
+				'/Special:UserLogout';
 		}
 
 		$view->_breadcrumb = array(
