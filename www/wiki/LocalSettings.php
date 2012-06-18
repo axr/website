@@ -79,7 +79,6 @@ $wgDiff3 = "/usr/bin/diff3";
 $wgUseSiteJs = false;
 
 // *
-$wgGroupPermissions['*']['createaccount'] = false;
 $wgGroupPermissions['*']['edit'] = false;
 
 // `user` group
@@ -96,14 +95,16 @@ if (file_exists($IP . '/LocalSettings.2.php'))
 	include($IP . '/LocalSettings.2.php');
 }
 
-// Load Drupal intergation extension
-require_once($IP . '/extensions/di/iwDrupal.php');
-
 // Syntax highlighting
 require_once($IP . '/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php');
 
 // Parser functions
 require_once($IP . '/extensions/ParserFunctions/ParserFunctions.php');
+
+// OpenID
+require_once($IP . '/extensions/OpenID/OpenID.php');
+$wgOpenIDOnly = true; // Disable username login
+$wgOpenIDAllowExistingAccountSelection = false;
 
 $wgShowExceptionDetails = true;
 
