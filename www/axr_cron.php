@@ -32,7 +32,8 @@ function axr_cron_ensure_changelog_short ($sha)
 	$changelog = str_replace("\r", "\n", "\n" . $response->message);
 	$changelog = preg_replace("/[\n]+/", "\n", $changelog);
 	$changelog = explode("\nChangelog:\n", $changelog);
-	$changelog = explode("\n", $changelog[1]);
+	$changelog = explode("\n-----BEGIN PGP SIGNATURE-----\n", $changelog[1]);
+	$changelog = explode("\n", $changelog[0]);
 	$changelog = array_filter($changelog);
 
 	cache_set('axr:changelog_short:' . $sha, serialize($changelog), 'cache',
