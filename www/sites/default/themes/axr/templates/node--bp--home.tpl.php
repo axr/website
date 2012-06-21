@@ -701,7 +701,7 @@
 						</span>
 						<span class="footer"></span>
 					</a>
-					<a class="older" href="http://files.axr.vg/prototype">looking for an older version?</a>
+					<a class="older" href="<?php echo Config::get('/shared/files_url'); ?>/prototype">looking for an older version?</a>
 					<h3>What am I downloading?</h3>
 					<p>This is a test app that runs on your computer, and
 					already does many of the cool features of HSS! It
