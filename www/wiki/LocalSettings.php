@@ -8,26 +8,18 @@ if (!defined('MEDIAWIKI'))
 	exit;
 }
 
-require_once('../../shared/bootstrap.php');
+require_once($IP . '/../../shared/bootstrap.php');
 
 $wgSitename = 'AXR';
 
-$wgScriptPath = '/wiki';
+preg_match('/(https?:\/\/[^\/]+)(\/.*)$/', Config::get('/shared/wiki_url'), $match);
+
+$wgScriptPath = $match[2];
 $wgScriptExtension = '.php';
 $wgArticlePath = $wgScriptPath . '/$1';
 
-if (isset($_SERVER['SERVER_NAME']))
-{
-	// The protocol and server name to use in fully-qualified URLs
-	$wgServer = 'http://' . $_SERVER['SERVER_NAME'];
-
-	if (isset($_SERVER['SERVER_PORT']) &&
-		$_SERVER['SERVER_PORT'] !== '80' &&
-		is_numeric($_SERVER['SERVER_PORT']))
-	{
-		$wgServer .= ':' . $_SERVER['SERVER_PORT'];
-	}
-}
+// The protocol and server name to use in fully-qualified URLs
+$wgServer = $match[1];
 
 // The relative URL path to the skins directory
 $wgStylePath = $wgScriptPath . '/skins';
@@ -91,16 +83,16 @@ $wgGroupPermissions['trusted']['autopatrol'] = true;
 $wgGroupPermissions['trusted']['minoredit'] = true;
 
 // Load passwords and stuff
-if (file_exists('LocalSettings.2.php'))
+if (file_exists($IP . '/LocalSettings.2.php'))
 {
-	include('LocalSettings.2.php');
+	include($IP . '/LocalSettings.2.php');
 }
 
 // Load Drupal intergation extension
 require_once($IP . '/extensions/di/iwDrupal.php');
 
 // Syntax highlighting
-require_once('extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php');
+require_once($IP . '/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php');
 
 $wgShowExceptionDetails = true;
 
