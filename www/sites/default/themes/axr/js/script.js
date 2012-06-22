@@ -143,6 +143,29 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 		});
 	};
 
+	var insertCodeFrame = function (block)
+	{
+		var language = $(block).attr('data-language');
+		var code = $(block).html().split('\n');
+		var lines = [];
+
+		for (var i = 0, c = code.length; i < c; i++)
+		{
+			lines.push({
+				number: i,
+				line: code[i].replace('\t', '    ') + '\n'
+			});
+		}
+
+		Ajaxsite.template('code_frame', function (template)
+		{
+			$(block).replaceWith(Mustache.render(template, {
+				language: language,
+				lines: lines
+			}));
+		});
+	}
+
 	/**
 	 * Dropdown menu
 	 * @fixme Shouldn't this be implemented in CSS?
@@ -265,6 +288,11 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	$(document).ready(function ()
 	{
 		loadTweet();
+
+		Rainbow.onHighlight(function (block)
+		{
+			insertCodeFrame(block);
+		});
 
 		if (/^\/get-involved(\/|$)/.test(window.location.pathname))
 		{

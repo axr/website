@@ -58,6 +58,11 @@ function axr_preprocess_html (&$variables)
 	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
 	drupal_add_js($path.'/js/ajaxsite.js', array('group' => JS_THEME));
 
+	drupal_add_js($path.'/js/rainbow/rainbow.js', array('group' => JS_THEME));
+	drupal_add_js($path.'/js/rainbow/css.js', array('group' => JS_THEME));
+	drupal_add_js($path.'/js/rainbow/hss.js', array('group' => JS_THEME));
+
+	drupal_add_css($path.'/css/rainbow.css', array('group' => CSS_THEME));
 	drupal_add_css($path . '/css/drupal.css', array('group' => CSS_THEME));
 
 	// TODO: Find a way to include it only on pages that have comments
