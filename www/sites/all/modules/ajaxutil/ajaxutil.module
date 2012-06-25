@@ -35,8 +35,6 @@ function ajaxutil_get_template ($name)
  *
  * Returned object:
  * - string url: URL that the information is about. Same as argument $url
- * - string[] css: array of paths to required css files
- * - string[] js: array of paths to required javascript files
  *
  * @param string $url
  * @return stdClass
@@ -51,30 +49,6 @@ function ajaxutil_get_info ($url, $theme = null)
 	// Return object
 	$info = new StdClass();
 	$info->url = $url;
-	$info->css = array();
-	$info->js = array();
-
-	// Get node
-	$source = drupal_lookup_path('source', $url);
-	$nid = preg_replace('/^\/node\/([0-9]+)$/', '$1', $source);
-	$node = ($source === $nid) ? null : node_load($nid);
-
-	$assets = assetmagic_find($url, array(
-		'nodeType' => $node->type,
-		'theme' => $theme
-	));
-
-	foreach ($assets as $asset)
-	{
-		if ($asset['type'] === 'css')
-		{
-			$info->css[] = '/' . $asset['path'];
-		}
-		else if ($asset['type'] === 'js')
-		{
-			$info->js[] = '/' . $asset['path'];
-		}
-	}
 
 	return $info;
 }
