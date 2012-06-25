@@ -18,7 +18,7 @@
     		</section>
     		<section class="goal">
     			<h2>The Goal</h2>
-    			<img src="<?php echo base_path().path_to_theme(); ?>/images/manifesto/goal.jpg" alt="Image of a runner reaching the goal" />
+    			<img src="http://static.axr.vg/images/manifesto/goal.jpg" alt="Image of a runner reaching the goal" />
     			<p>To completely rethink the way web documents and applications are created, from the languages used to create the content and presentation, to the rendering engine to display it. To create an open standard and a cross-platform library that provides browsers the ability to render documents written according to that standard, developed by the community. The standard will use text files: XML as a language to structure content and a new advanced CSS-like (but way more powerful) language to instruct the renderer how to display and interact your document.</p>
     			<p>The part of the various browsers we want to NOT be different, the rendering engine, would be shared among all of the browsers allowing you to focus on your cool project instead of dealing with statistics to decide if you can rely on each and every feature you use and figuring a way to create a ‘good enough’ fallback for older browsers.</p>
     				<p>I firmly believe in a complete separation of pure content from presentation and behavior. To achieve this, the visual presentation language needs to provide the ability to manipulate the hierarchy of the content structure, creating, reordering and repositioning elements, allowing the content to be structured according to its semantics, or even to ease reading to a screen reader for accessibility, instead for presentation.</p>
