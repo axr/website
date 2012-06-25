@@ -22,12 +22,14 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 			state.url = state.url.replace(/^https?:\/\/[^\/]+(\/.*)$/, '$1');
 
-			if (!/^\/search\//.test(state.url) ||
-				/^(https?:|#|javascript:)/.test(state.url))
+			console.log(state.url);
+
+			if (!/^\/search\//.test(state.url))
 			{
+				window.location = state.url;
+
 				return;
 			}
-
 
 			if (Ajaxsite.load_url(state.url, state.data) === false)
 			{
