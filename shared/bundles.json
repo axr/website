@@ -45,8 +45,7 @@
 			"{DRUPAL}/modules/toolbar/toolbar.css",
 			"{DRUPAL}/modules/system/system.messages.css",
 			"{DRUPAL}/modules/system/system.base.css",
-			"{DRUPAL}/modules/system/system.messages.css",
-			"{DRUPAL}/modules/system/system.theme.css"
+			"{DRUPAL}/modules/system/system.messages.css"
 		]
 	},
 	"js/bundle_drupal.js": {
