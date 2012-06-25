@@ -27,7 +27,7 @@
 
 $view = axr_get_view();
 
-if (!$is_front)
+if (!$is_front && !$is_404)
 {
 	// Yes, it's a really dirty way to do this, but that's what Drupal is
 	$view->_breadcrumb = $breadcrumb;

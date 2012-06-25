@@ -1,11 +1,4 @@
-#main
-{
-	margin: auto;
-	padding: 30px 0 55px 0;
-	width: 900px;
-}
-
-#main .downloads
+#downloads
 {
 
 	margin: auto;
@@ -13,7 +6,7 @@
 	width: 806px;
 }
 
-#main .downloads > h2
+#downloads > h2
 {
 
 	border-bottom: 1px solid #d8d8d8;
@@ -24,13 +17,13 @@
 	padding: 5px;
 }
 
-#main .downloads > .none
+#downloads > .none
 {
 
 	padding: 10px 5px;
 }
 
-#main .downloads > .dtable
+#downloads > .dtable
 {
 
 	font-size: 0;
@@ -39,7 +32,7 @@
 	padding: 0;
 }
 
-#main .downloads > .dtable > li
+#downloads > .dtable > li
 {
 
 	background: #d8d8d8;
@@ -49,20 +42,20 @@
 	padding: 0;
 }
 
-#main .downloads > .dtable > li.head
+#downloads > .dtable > li.head
 {
 
 	background: none;
 }
 
-#main .downloads > .dtable > li > .version
+#downloads > .dtable > li > .version
 {
 
 	display: inline-block;
 	padding: 10px 20px;
 }
 
-#main .downloads > .dtable > li > ul
+#downloads > .dtable > li > ul
 {
 
 	float: right;
@@ -72,7 +65,7 @@
 	padding: 0;
 }
 
-#main .downloads > .dtable > li > ul > li
+#downloads > .dtable > li > ul > li
 {
 
 	border-left: 1px solid #e5e5e5;
@@ -84,7 +77,7 @@
 	z-index: auto;
 }
 
-#main .downloads > .dtable > li.head > ul > li
+#downloads > .dtable > li.head > ul > li
 {
 
 	height: 27px;
@@ -92,7 +85,7 @@
 	width: 100px;
 }
 
-#main .downloads > .dtable > li > ul > li > a
+#downloads > .dtable > li > ul > li > a
 {
 
 	color: #666;
@@ -102,13 +95,13 @@
 	text-decoration: none;
 }
 
-#main .downloads > .dtable > li > ul > li > a:hover
+#downloads > .dtable > li > ul > li > a:hover
 {
 
 	text-decoration: underline;
 }
 
-#main .downloads > .dtable > li > ul > li > a > .block_0
+#downloads > .dtable > li > ul > li > a > .block_0
 {
 
 	background: url(../images/sprite32.png) no-repeat;
@@ -118,31 +111,31 @@
 	width: 16px;
 }
 
-#main .downloads > .dtable > li > ul > li > a > .block_0.win
+#downloads > .dtable > li > ul > li > a > .block_0.win
 {
 
 	background-position: -213px -90px;
 }
 
-#main .downloads > .dtable > li > ul > li > a > .block_0.osx
+#downloads > .dtable > li > ul > li > a > .block_0.osx
 {
 
 	background-position: -231px -90px;
 }
 
-#main .downloads > .dtable > li > ul > li > a > .block_0.linux
+#downloads > .dtable > li > ul > li > a > .block_0.linux
 {
 
 	background-position: -247px -90px;
 }
 
-#main .downloads > .dtable > li > ul > li:hover .archmenu
+#downloads > .dtable > li > ul > li:hover .archmenu
 {
 
 	display: block;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu
+#downloads > .dtable > li > ul > li > .archmenu
 {
 
 	background: #d8d8d8;
@@ -157,20 +150,20 @@
 	z-index: 11;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu > li
+#downloads > .dtable > li > ul > li > .archmenu > li
 {
 
 	margin: 0;
 	padding: 0;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu > li.na
+#downloads > .dtable > li > ul > li > .archmenu > li.na
 {
 
 	padding: 8px 20px;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu > li > a
+#downloads > .dtable > li > ul > li > .archmenu > li > a
 {
 
 	color: #666;
@@ -180,7 +173,7 @@
 	z-index: 11;
 }
 
-#main .downloads > .dtable > li > ul > li > .archmenu > li > a:hover
+#downloads > .dtable > li > ul > li > .archmenu > li > a:hover
 {
 
 	text-decoration: underline;

@@ -1,0 +1,65 @@
+{
+	"css/bundle_shared.css": {
+		"type": "css",
+		"files": [
+			"css/style.css"
+		]
+	},
+	"js/bundle_shared.js": {
+		"type": "js",
+		"files": [
+			"js/json2.js",
+			"js/script.js",
+			"js/mustache.js",
+			"js/native.history.js",
+			"js/ajaxsite.js"
+		]
+	},
+	"css/bundle_www.css": {
+		"type": "css",
+		"files": [
+			"css/drupal.css",
+			"css/search.css",
+			"css/comments.css",
+			"css/page.css",
+			"css/404.css",
+			"css/home.css",
+			"css/get_involved.css",
+			"css/downloads.css",
+			"css/manifesto.css",
+			"css/blog.css"
+		]
+	},
+	"js/bundle_www.js": {
+		"type": "js",
+		"files": [
+			"js/home.js"
+		]
+	},
+	"css/bundle_drupal.css": {
+		"type": "css",
+		"files": [
+			"{DRUPAL}/misc/ui/jquery.ui.core.css",
+			"{DRUPAL}/misc/ui/jquery.ui.theme.css",
+			"{DRUPAL}/modules/overlay/overlay-parent.css",
+			"{DRUPAL}/modules/toolbar/toolbar.css",
+			"{DRUPAL}/modules/system/system.messages.css",
+			"{DRUPAL}/modules/system/system.base.css",
+			"{DRUPAL}/modules/system/system.messages.css",
+			"{DRUPAL}/modules/system/system.theme.css"
+		]
+	},
+	"js/bundle_drupal.js": {
+		"type": "js",
+		"files": [
+			"{DRUPAL}/misc/drupal.js",
+			"{DRUPAL}/misc/jquery.once.js",
+			"{DRUPAL}/misc/ui/jquery.ui.core.min.js",
+			"{DRUPAL}/misc/jquery.ba-bbq.js",
+			"{DRUPAL}/modules/overlay/overlay-parent.js",
+			"{DRUPAL}/modules/toolbar/toolbar.js",
+			"{DRUPAL}/misc/jquery.cookie.js"
+		]
+	}
+}
+

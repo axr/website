@@ -1,4 +1,4 @@
-<div class="downloads">
+<div id="downloads">
 	<h2>Prototype</h2>
 
 	<?php
