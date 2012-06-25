@@ -32,9 +32,7 @@ class Minify
 		%Six';
 
 		$out = preg_replace($re, ' ', $html);
-		$out = ($out === null) ? $html : $out;
 
-		$out = preg_replace('/<!--[^\[>\/].*?-->/', '', $out);
 		return ($out === null) ? $html : $out;
 	}
 }
