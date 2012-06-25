@@ -1035,6 +1035,7 @@ input::-webkit-input-placeholder
 	min-height: 70px;
 	width: 900px;
 	padding-top: 30px;
+	position: relative;
 }
 
 #main > .above_fold > .nested_0 > .intro > p

@@ -1,3 +1,7 @@
+<?php if (!$is_front): ?>
+	<?php echo render($tabs); ?>
+<?php endif; ?>
+
 <?php if ($ajaxsite_page): ?>
 	<noscript>Please enable JavaScript</noscript>
 	<script>
@@ -16,11 +20,6 @@
 	</script>
 <?php else: ?>
 	<?php echo isset($messages) ? $messages : ''; ?>
-
-	<?php /*if (!$is_front): ?>
-		<?php print render($tabs); ?>
-	<?php endif;*/ ?>
-
 	<?php print render($page['content']); ?>
 <?php endif; ?>
 <?php

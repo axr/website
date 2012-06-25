@@ -5,6 +5,41 @@ body.page-user #breadcrumb
 	margin: 0 auto;
 }
 
+#main > ul.tabs
+{
+	display: block;
+	float: right;
+	list-style-type: none;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: -24px;
+}
+
+#main > ul.tabs > li
+{
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+#main > ul.tabs > li > a
+{
+	display: inline-block;
+	background: #e3e3e3;
+	border: 1px solid #c2c2c2;
+	border-radius: 0 0 5px 5px;
+	border-top: 0;
+	color: #888;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+
+#main > ul.tabs > li.active > a
+{
+	font-weight: bold;
+}
+
 form > div
 {
 	background-color: #D9D9D9;
