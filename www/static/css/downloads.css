@@ -57,9 +57,9 @@
 
 #downloads > .dtable > li > ul
 {
-
 	float: right;
 	font-size: 0;
+	height: 37px;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -69,12 +69,11 @@
 {
 
 	border-left: 1px solid #e5e5e5;
-	display: inline-block;
+	display: block;
+	float: left;
 	font-size: 13px;
 	height: 37px;
-	position: relative;
 	width: 140px;
-	z-index: auto;
 }
 
 #downloads > .dtable > li.head > ul > li
@@ -85,7 +84,8 @@
 	width: 100px;
 }
 
-#downloads > .dtable > li > ul > li > a
+#downloads > .dtable > li > ul > li > a,
+#downloads > .dtable > li > ul > li > span
 {
 
 	color: #666;
@@ -104,7 +104,7 @@
 #downloads > .dtable > li > ul > li > a > .block_0
 {
 
-	background: url(../images/sprite32.png) no-repeat;
+	background: url(../images/sprite32.png) no-repeat 9999px 9999px;
 	display: inline-block;
 	height: 16px;
 	margin: 0 10px 0 0;
@@ -129,53 +129,78 @@
 	background-position: -247px -90px;
 }
 
-#downloads > .dtable > li > ul > li:hover .archmenu
+#downloads__ask_arch
 {
-
-	display: block;
-}
-
-#downloads > .dtable > li > ul > li > .archmenu
-{
-
-	background: #d8d8d8;
 	display: none;
-	left: 0;
-	list-style: none;
-	margin: 0;
-	padding: 0;
+	left: 50%;
+	position: fixed;
+	top: 50%;
+	z-index: 900;
+}
+
+#downloads__ask_arch > .outer
+{
+	border: 1px solid #ccc;
+	border-radius: 7px;
+	background: rgba(100, 100, 100, 0.05);
+	margin: -55px 0 0 -170px;
+	padding: 3px;
+}
+
+#downloads__ask_arch > .outer > .inner
+{
+	background: #eee;
+	border-radius: 6px;	
+	height: 110px;
+	padding: 10px;
+	position: relative;
+	width: 340px;
+}
+
+#downloads__ask_arch > .outer > .inner a.close
+{
+	color: #999;
+	font-weight: bold;
 	position: absolute;
-	top: 37px;
-	width: 140px;
-	z-index: 11;
-}
-
-#downloads > .dtable > li > ul > li > .archmenu > li
-{
-
-	margin: 0;
-	padding: 0;
-}
-
-#downloads > .dtable > li > ul > li > .archmenu > li.na
-{
-
-	padding: 8px 20px;
-}
-
-#downloads > .dtable > li > ul > li > .archmenu > li > a
-{
-
-	color: #666;
-	display: block;
-	padding: 8px 20px;
+	right: 6px;
+	top: 3px;
 	text-decoration: none;
-	z-index: 11;
 }
 
-#downloads > .dtable > li > ul > li > .archmenu > li > a:hover
+#downloads__ask_arch > .outer > .inner h2
 {
+	border-bottom: 1px solid #ccc;
+	display: block;
+	margin: 0 0 4px 0;
+	padding: 0 0 4px 0;
+	text-align: left;
+}
 
+#downloads__ask_arch > .outer > .inner p
+{
+	line-height: 1.7;
+}
+
+#downloads__ask_arch > .outer > .inner p span
+{
+	font-weight: bold;
+}
+
+#downloads__ask_arch > .outer > .inner .options
+{
+	text-align: center;
+}
+
+#downloads__ask_arch > .outer > .inner .options a
+{
+	color: #D09610;
+	display: inline-block;
+	margin: 0 7px;
+	text-decoration: none;
+}
+
+#downloads__ask_arch > .outer > .inner .options a:hover
+{
 	text-decoration: underline;
 }
 

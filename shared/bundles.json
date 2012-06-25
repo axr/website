@@ -33,7 +33,8 @@
 	"js/bundle_www.js": {
 		"type": "js",
 		"files": [
-			"js/home.js"
+			"js/home.js",
+			"js/downloads.js"
 		]
 	},
 	"css/bundle_drupal.css": {
