@@ -62,7 +62,7 @@
 
 .code_frame .numbers
 {
-	float: left;
+	display: table-cell;
 	width: 50px;
 	padding: 10px;
 	line-height: 18px;
@@ -80,7 +80,7 @@
 
 .code_frame code
 {
-	float: left;
+	display: table-cell;
 	white-space: pre;
 	padding: 10px;
 	line-height: 18px;
