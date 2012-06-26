@@ -24,46 +24,45 @@ var general = [
 	},
 	{
 		'matches': {
+			1: 'hss-property'
+		},
+		'pattern': /(\w+):\s*/gi
+	},
+	{
+		'matches': {
+			1: 'hss-property',
+			2: 'hss-keyword'
+		},
+		'pattern': /(\w+):\s*([a-z]+)\s*;/gi
+	},
+	{
+		'matches': {
 			1: 'hss-object-type',
 			2: 'hss-object-name'
 		},
-		'pattern': /(@[a-zA-Z]+)(\s+([a-zA-Z0-9]+))?/g
-	},
-	{
-		'name': 'hss-property',
-		'pattern': /\w+:\s/g
+		'pattern': /(@[a-z]+)(\s+([a-z0-9]+))?/gi
 	},
 	{
 		'name': 'hss-instruction',
-		'pattern': /#(ensure|wrap|new|move|delete|filter|support)/g
+		'pattern': /#[a-z]+/gi
+	},
+	{
+		'matches': {
+			1: 'hss-instruction',
+			2: [
+				{
+					'name': 'hss-selector',
+					'pattern': /[a-z0-9_]+/gi
+				}
+			]
+		},
+		'pattern': /(#[a-z]+)\((.+?)\)/gi
 	},
 	{
 		'matches': {
 			1: 'hss-function'
 		},
 		'pattern': /(min|max|ref)\(/g
-	},
-	{
-		'matches': {
-			3: 'hss-selector',
-			4: [
-				{
-					'matches': {
-						1: 'hss-property',
-						2: 'constant.numeric'
-					},
-					'pattern': /\((\w+) > ([0-9]+)/g
-				},
-				/*{
-					'matches': {
-						1: 'hss-property'
-					},
-					'pattern': /\((\w+)/g
-				}*/
-			]
-		},
-		//'pattern': /(^\s*|\[\s*|([+\-=>]|\.\.)\s*|\s+)(\w+)/gm
-		'pattern': /(^\s*|\[\s*|([+\-=>]|\.\.)\s*|\s+)(\w+)(\(.+\))?/gm
 	}
 ];
 
@@ -82,7 +81,7 @@ Rainbow.extend('hss', [
 							},
 							{
 								'name': 'hss-selector',
-								'pattern': /(\w+|\*)/g
+								'pattern': /([a-z0-9_]+|\*)/gi
 							}
 						]
 					},
@@ -95,15 +94,39 @@ Rainbow.extend('hss', [
 			])
 		},
 		'pattern': /(min|max|ref)\((.+?)\)/g
+	},
+	{
+		'matches': {
+			3: 'hss-selector',
+			4: [
+				{
+					'matches': {
+						1: 'hss-property',
+						3: 'constant.numeric'
+					},
+					'pattern': /\((\w+)\s*(&lt;|&gt;|[=])\s*([0-9]+)/g
+				}
+			]
+		},
+		'pattern': /(^\s*|\[\s*|([+\-=>]|\.\.|)\s*)([a-z0-9_]+)(\(.+\))?(\s+|\s*\{|$)/gmi
 	}
+	/*{
+		'matches': {
+			1: 'hss-selector',
+			2: 'hss-property',
+			3: 'constant.numeric'
+		},
+		'pattern': /(\w+)\((\w+) +\> +(.+?)\)/g
+	}*/
 ], true);
 
 var filter = {
 	'name': 'hss-filter',
 	'matches': {
-		2: general
+		1: 'hss-selector',
+		3: general
 	},
-	'pattern': /:\w+(\((.+?)\))?/g
+	'pattern': /([a-z0-9_]+):\w+(\((.+?)\))?/gi
 };
 general.push(filter);
 
@@ -112,9 +135,11 @@ Rainbow.extend('hss', [
 	{
 		'name': 'hss-filter',
 		'matches': {
-			1: general
+			1: 'hss-selector',
+			2: 'hss-selector',
+			3: general
 		},
-		'pattern': /:\[(.+?)\]/g
+		'pattern': /([a-z0-9_]+):\[([a-z0-9_]+)(.+?)\]/gi
 	}
 ], true);
 
