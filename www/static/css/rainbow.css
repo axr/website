@@ -23,16 +23,21 @@ code .hss-combinator
 	color: #ABDABA;
 }
 
+code .entity.name.class,
+code .entity.name.id,
+code .entity.name.tag,
 code .hss-selector
 {
 	color: #FFF;
 }
 
+code .css-property,
 code .hss-property
 {
 	color: #72A1CE;
 }
 
+code .entity-name-pseudo,
 code .hss-filter
 {
 	color: #6ADB25;
