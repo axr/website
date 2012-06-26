@@ -26,6 +26,7 @@ code .hss-combinator
 code .entity.name.class,
 code .entity.name.id,
 code .entity.name.tag,
+code .support.tag,
 code .hss-selector
 {
 	color: #FFF;
@@ -64,6 +65,7 @@ code .hss-instruction
 	color: #1AFAFD;
 }
 
+code .css-value,
 code .hss-keyword
 {
 	color: #FDA062;
