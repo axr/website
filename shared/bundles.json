@@ -9,10 +9,13 @@
 		"type": "js",
 		"files": [
 			"js/json2.js",
-			"js/script.js",
 			"js/mustache.js",
 			"js/native.history.js",
-			"js/ajaxsite.js"
+			"js/ajaxsite.js",
+			"js/rainbow/rainbow.js",
+			"js/rainbow/css.js",
+			"js/rainbow/hss.js",
+			"js/script.js"
 		]
 	},
 	"css/bundle_www.css": {
@@ -21,6 +24,7 @@
 			"css/drupal.css",
 			"css/search.css",
 			"css/comments.css",
+			"css/rainbow.css",
 			"css/page.css",
 			"css/404.css",
 			"css/home.css",

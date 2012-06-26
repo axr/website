@@ -161,515 +161,165 @@
 			<div class="features_content" id="hss_features_content">
 				<div class="selected" data-section-name="hierarchical">
 					<p>Instead of writing longer and longer selector chains, the rules (the selectors + the block with the properties) can be nested inside each other. If the content in the XML file is a tree of elements, why not apply styles using a tree as well? It is both clearer and has better performance, since not all elements have to be matched against each selector.</p>
-					<div class="code_frame">
-						<h3>CSS:</h3>
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-									</div>
-	<code><span class="selector">books</span> { }
-	<span class="selector">books</span> > <span class="selector">book</span> { }
-	<span class="selector">books</span> > <span class="selector">book</span> > <span class="selector">cover</span> { }</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
-					<div class="code_frame">
-						<h3>HSS:</h3>
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-									</div>
-	<code><span class="selector">books</span> {
-	   <span class="selector">book</span> {
-		  <span class="selector">cover</span> { }
-	   }
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
-				
+					<h3>CSS:</h3>
+<code data-language="css">books { }
+books > book{ }
+books > book > cover { }</code>
+
+					<h3>HSS:</h3>
+<code data-language="hss">books {
+	book {
+		cover { }
+	}
+}</code>
 				</div>
 				<div data-section-name="object_oriented">
 					<p>Instead of dealing with an ever growing, plain list of properties, in HSS you use objects that encapsulate a group of related values, just as objects encapsulate related functionality in traditional object oriented programming languages.</p>
-					<div class="code_frame">
-						<h3>CSS:</h3>
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-									</div>
-	<code><span class="selector">selector</span>
-	{
-	   <span class="property_name">border-size</span>: <span class="numeric_value">1px</span>;
-	   <span class="property_name">border-color</span>: <span class="numeric_value">#F00</span>;
-	   <span class="property_name">border-style</span>: <span class="keyword">solid</span>;
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
-					<div class="code_frame">
-						<h3>HSS:</h3>
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-										<span>6</span>
-									</div>
-	<code><span class="selector">selector</span>
-	{
-	   <span class="property_name">border</span>: <span class="object_type">@line</span> {
-		  <span class="property_name">size</span>: <span class="numeric_value">1</span>;
-		  <span class="property_name">color</span>: <span class="instruction">#F00</span>;
-	   };
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
+					<h3>CSS:</h3>
+<code data-language="css">selector
+{
+	border-size: 1px;
+	border-color: #F00;
+	border-style: solid;
+}</code>
 
+					<h3>HSS:</h3>
+<code data-language="hss">selector
+{
+	border: @line {
+		size: 1;
+		color: #F00;
+	};
+}</code>
 				</div>
 				<div data-section-name="modular">
 					<p>You can give any HSS object a name, and reuse it as needed. You can make "presets" and apply them to the selected object(s) and then even override any property as needed.</p>
-					<div class="code_frame">
-						<p>For example:</p>
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-										<span>6</span>
-										<span>7</span>
-										<span>8</span>
-										<span>9</span>
-										<span>10</span>
-										<span>11</span>
-										<span>12</span>
-										<span>13</span>
-										<span>14</span>
-										<span>15</span>
-										<span>16</span>
-										<span>17</span>
-									</div>
-	<code><span class="object_type">@linearGradient</span> <span class="object_name">boxBg</span>
-	{
-	   <span class="property_name">startColor</span>: <span class="instruction">#F</span>;
-	   <span class="property_name">endColor</span>: <span class="instruction">#0</span>;
-	   <span class="property_name">endY</span>: <span class="numeric_value">100%</span>;
-	}
+					<p>For example:</p>
+<code data-language="hss">@linearGradient boxBg
+{
+	startColor: #F;
+	endColor: #0;
+	endY: 100%;
+}
 
-	<span class="object_type">@container</span> <span class="object_name">box</span>
-	{
-	   <span class="property_name">width</span>: <span class="numeric_value">150</span>;
-	   <span class="property_name">height</span>: <span class="numeric_value">100</span>;
-	   <span class="property_name">background</span>: <span class="object_name">boxBg</span>;
-	}
+@container box
+{
+	width: 150;
+	height: 100;
+	background: boxBg;
+}
 
-	<span class="selector">selector</span> <span class="selector">chain</span>
-	{
-	   <span class="property_name">isA</span>: <span class="object_name">box</span>;
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
+selector chain
+{
+	isA: box;
+}</code>
 				</div>
 				<div data-section-name="expressions">
 					<p>Anywhere a number is accepted as a value, you can also use an expression. This is especially useful when you want to mix fixed-width elements with fluid ones. For example, when you have a sidebar 150 point wide, how wide is the rest? Answer: 100% - 150.</p>
-					<div class="code_frame">
-						<p>For example:</p>
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-										<span>6</span>
-										<span>7</span>
-										<span>8</span>
-									</div>
-	<code><span class="selector">sidebar</span>
-	{
-	   <span class="property_name">width</span>: <span class="numeric_value">150</span>;
-	}
+					<p>For example:</p>
+<code data-language="hss">sidebar
+{
+	width: 150;
+}
 
-	<span class="selector">content</span>
-	{
-	   <span class="property_name">width</span>: <span class="numeric_value">100%</span> - <span class="numeric_value">150</span>;
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
-					
+content
+{
+	width: 100% - 150;
+}</code>
 				</div>
 				<div data-section-name="functions">
 					<p>Functions like min(), max() or avg() help you control the dimensions of your elements in fluid environments, without the need for countless properties such as min-width or max-height in CSS. The function will always return the appropriate value depending on the parameters.</p>
-					<div class="code_frame">
-						<p>For example:</p>
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-									</div>
-	<code><span class="selector">selector</span>
-	{
-	   <span class="comment">//make it 20% the width of the parent, but at</span>
-	   <span class="comment">//least 150 points wide and at most 400 points</span>
-	   <span class="property_name">width</span>: <span class="function_name">min</span>(<span class="numeric_value">150</span>, <span class="function_name">max</span>(<span class="numeric_value">400</span>, <span class="numeric_value">20%</span>));
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
-					<code>
-		
-					</code>
+					<p>For example:</p>
+<code data-language="hss">selector
+{
+	//make it 20% the width of the parent, but at
+	//least 150 points wide and at most 400 points
+	width: min(150, max(400, 20%));
+}</code>
 				</div>
 				<div data-section-name="references">
 					<p>Many times it is very useful to be able to refer to a property of another element to do some calculations, for example. Imagine a site with a sidebar and content area, for example. You want to make the content area as wide as the whole page minus the sidebar, which is flexible. So you'd do something like this:</p>
-					<div class="code_frame">
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-										<span>6</span>
-										<span>7</span>
-										<span>8</span>
-										<span>9</span>
-										<span>10</span>
-										<span>11</span>
-										<span>12</span>
-									</div>
-	<code><span class="selector">page</span>
+<code data-language="hss">page
+{
+	sidebar
 	{
-	   <span class="selector">sidebar</span>
-	   {
-		  <span class="comment">//like in the previous example</span>
-		  <span class="property_name">width</span>: <span class="function_name">min</span>(<span class="numeric_value">150</span>, <span class="function_name">max</span>(<span class="numeric_value">400</span>, <span class="numeric_value">20%</span>));
-	   }
+		//like in the previous example
+		width: min(150, max(400, 20%));
+	}
 
-	   <span class="selector">content</span>
-	   {
-		  <span class="property_name">width</span>: <span class="numeric_value">100%</span> - <span class="function_name">ref</span>(<span class="property_name">width</span> of <span class="selector">sidebar</span>);
-	   }
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
+	content
+	{
+		width: 100% - ref(width of sidebar);
+	}
+}</code>
 				</div>
 				<div data-section-name="filters">
 					<p>Filters are like pseudo-selectors in CSS but with a completely overhauled selection system. Since HSS has scope, the selectors are read from left to right. You select elements based on the name, for example, and then you filter that selection down to the elements you really want. There are a lot of them to cover all the different needs, so check out the docs.</p>
-					<div class="code_frame">
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-										<span>6</span>
-										<span>7</span>
-										<span>8</span>
-										<span>9</span>
-										<span>10</span>
-										<span>11</span>
-									</div>
-	<code><span class="comment">//selects the first of the elements named foo</span>
-	<span class="selector">foo</span><span class="filter">:first</span> { }
-	<span class="comment">//selects the elements named foo that are first inside</span>
-	<span class="comment">//their parent</span>
-	<span class="selector">foo</span><span class="filter">:firstChild</span> { }
-	<span class="comment">//selects bar elements, then return the 2nd, 4th, 6th, etc</span>
-	<span class="selector">bar</span><span class="filter">:even</span> { }
-	<span class="comment">//selects baz elements whose width is greater than 500</span>
-	<span class="selector">baz</span>(<span class="property_name">width</span> &gt; <span class="numeric_value">500</span>) { }
-	<span class="comment">//selects qux elements whose title attribute start</span>
-	<span class="comment">//with "Welcome"</span>
-	<span class="selector">qux</span><span class="filter">:[</span><span class="selector">title</span><span class="filter">:startsWith(</span><span class="string">"Welcome"</span><span class="filter">)]</span> { }</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
+<code data-language="hss">//selects the first of the elements named foo
+foo:first { }
+//selects the elements named foo that are first inside
+//their parent
+foo:firstChild { }
+//selects bar elements, then return the 2nd, 4th, 6th, etc
+bar:even { }
+//selects baz elements whose width is greater than 500
+baz(width > 500) { }
+//selects qux elements whose title attribute start
+//with "Welcome"
+qux:[title:startsWith("Welcome")] { }</code>
 				</div>
 				<div data-section-name="structural_independence">
 					<p>The structure of the content is intrinsic to its meaning, it should NEVER be altered just because of some stylistic requirements. Therefore, in HSS you can freely manipulate the content tree to fit whatever structure you need to achieve your visual layout.</p>
-					<div class="code_frame">
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-										<span>6</span>
-										<span>7</span>
-										<span>8</span>
-										<span>9</span>
-										<span>10</span>
-										<span>11</span>
-										<span>12</span>
-										<span>13</span>
-										<span>14</span>
-										<span>15</span>
-										<span>16</span>
-										<span>17</span>
-										<span>18</span>
-										<span>19</span>
-										<span>20</span>
-										<span>21</span>
-										<span>22</span>
-										<span>23</span>
-										<span>24</span>
-										<span>25</span>
-									</div>
-	<code><span class="selector">root</span>
+<code data-language="hss">root
+{
+	//wrap the element called "navigation" in a new
+	//"header" element
+	#wrap(navigation) header
 	{
-	   <span class="comment">//wrap the element called "navigation" in a new</span>
-	   <span class="comment">//"header" element</span>
-	   <span class="instruction">#wrap</span>(<span class="selector">navigation</span>) <span class="selector">header</span>
-	   {
-		  <span class="comment">//supposing myMenuPreset has been defined elsewhere</span>
-		  <span class="selector">navigation</span> { <span class="property_name">isA</span>: <span class="object_name">myMenuPreset</span>; }
-	   }
-	   <span class="comment">//wrap everything that is not "header" or "footer" in a</span>
-	   <span class="comment">//new "content" element</span>
-	   <span class="instruction">#wrap</span>(!(<span class="selector">header</span>, <span class="selector">footer</span>)) <span class="selector">content</span>
-	   {
-		  <span class="comment">//change the order of the items</span>
-		  <span class="instruction">#move</span> <span class="selector">element2</span> { <span class="comment">/*etc*/</span> }
-		  <span class="instruction">#move</span> <span class="selector">element1</span> { <span class="comment">/*etc*/</span> }
-		  <span class="instruction">#move</span> <span class="selector">element3</span> { <span class="comment">/*etc/*</span> }
-	   }
-	   <span class="comment">//create a new footer, if not already there</span>
-	   <span class="instruction">#ensure</span> <span class="selector">footer</span>
-	   {
-		  <span class="comment">//create a new search box, assuming the object has been</span>
-		  <span class="comment">//defined elsewhere</span>
-		  <span class="instruction">#new</span> <span class="selector">search</span> { <span class="property_name">isA</span>: <span class="object_name">searchBox</span>; }
-	   }
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
+		//supposing myMenuPreset has been defined elsewhere
+		navigation { isA: myMenuPreset; }
+	}
+	//wrap everything that is not "header" or "footer" in a
+	//new "content" element
+	#wrap(!(header, footer)) content
+	{
+		//change the order of the items
+		#move element2 { /*etc*/ }
+		#move element1 { /*etc*/ }
+		#move element3 { /*etc*/ }
+	}
+	//create a new footer, if not already there
+	#ensure footer
+	{
+		//create a new search box, assuming the object has been
+		//defined elsewhere
+		#new search { isA: searchBox; }
+	}
+}</code>
 				</div>
 				<div data-section-name="layout">
 					<p>A new box model, combined with most of the other features in this list, provide an awesome new way of doing layout, more suited to how designers think. Instead of floating, pushing and otherwise bang your head against the wall when laying out your elements on the page, you use alignX and alignY to set alignment points. These will determine the position of the elements in the page, which will flow inside of their parents, balancing themselves out when more than one tries to align itself on that specific point. It sounds more complicated than it really is, so here come some examples:</p>
-					<div class="code_frame">
-						<div class="wrapper">
-							<div class="header">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-							<div class="content">
-								<div class="nested_0">
-									<div class="numbers">
-										<span>0</span>
-										<span>1</span>
-										<span>2</span>
-										<span>3</span>
-										<span>4</span>
-										<span>5</span>
-										<span>6</span>
-										<span>7</span>
-										<span>8</span>
-										<span>9</span>
-										<span>10</span>
-										<span>11</span>
-										<span>12</span>
-										<span>13</span>
-										<span>14</span>
-										<span>15</span>
-										<span>16</span>
-										<span>17</span>
-										<span>18</span>
-										<span>19</span>
-										<span>20</span>
-									</div>
-	<code><span class="comment">//align foo to the right horizontally</span>
-	<span class="selector">foo</span> { <span class="property_name">alignX</span>: <span class="keyword">left</span>; }
-	<span class="comment">//align bar at the middle vertically</span>
-	<span class="selector">bar</span> { <span class="property_name">alignY</span>: <span class="keyword">middle</span>; }
-	<span class="comment">//place baz with it's right edge 30 points to the left</span>
-	<span class="comment">//of the center of its parent, without affecting other</span>
-	<span class="comment">//elements</span>
-	<span class="selector"></span><span class="selector">baz</span>
-	{
-	   <span class="property_name">anchorX</span>: <span class="numeric_value">100%</span>;
-	   <span class="property_name">alignX</span>: <span class="numeric_value">50%</span> - <span class="numeric_value">30</span>;
-	   <span class="property_name">flow</span>: <span class="keyword">false</span>;
-	}
-	<span class="comment">//align all elements *inside* qux at the middle vertically,</span>
-	<span class="comment">//and lay them out from top to bottom instead of left</span>
-	<span class="comment">//to right</span>
-	<span class="selector">qux</span>
-	{
-	   <span class="property_name">contentAlignY</span>: <span class="keyword">middle</span>;
-	   <span class="property_name">direction</span>: <span class="keyword">topToBottom</span>;
-	}</code>
-								</div>
-							</div>
-							<div class="footer">
-								<div class="header"></div>
-								<div class="content"></div>
-								<div class="footer"></div>
-							</div>
-						</div>
-					</div>
+<code data-language="hss">//align foo to the right horizontally
+foo { alignX: left; }
+//align bar at the middle vertically
+bar { alignY: middle; }
+//place baz with it's right edge 30 points to the left
+//of the center of its parent, without affecting other
+//elements
+baz
+{
+	anchorX: 100%;
+	alignX: 50% - 30;
+	flow: false;
+}
+//align all elements *inside* qux at the middle vertically,
+//and lay them out from top to bottom instead of left
+//to right
+qux
+{
+	contentAlignY: middle;
+	direction: topToBottom;
+}</code>
 				</div>
 			</div>
 		</div>

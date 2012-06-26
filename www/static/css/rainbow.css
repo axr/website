@@ -1,0 +1,73 @@
+code
+{
+	color: #ABDABA;
+}
+
+code .comment
+{
+	color: #999;
+}
+
+code .string
+{
+	color: #F44;
+}
+
+code .constant.numeric
+{
+	color: #FFF;
+}
+
+code .hss-combinator
+{
+	color: #ABDABA;
+}
+
+code .entity.name.class,
+code .entity.name.id,
+code .entity.name.tag,
+code .support.tag,
+code .hss-selector
+{
+	color: #FFF;
+}
+
+code .css-property,
+code .hss-property
+{
+	color: #72A1CE;
+}
+
+code .entity-name-pseudo,
+code .hss-filter
+{
+	color: #6ADB25;
+}
+
+code .hss-object-type
+{
+	color: #FD6C8E;
+}
+
+code .hss-object-name
+{
+	color: #B68CB2;
+}
+
+code .hss-function
+{
+	color: #FDE22D;
+}
+
+code .constant.hex-color,
+code .hss-instruction
+{
+	color: #1AFAFD;
+}
+
+code .css-value,
+code .hss-keyword
+{
+	color: #FDA062;
+}
+
