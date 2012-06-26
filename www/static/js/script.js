@@ -105,7 +105,10 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 			}
 
 			var tweet = data[0];
-			var timestamp = (new Date(tweet.created_at)).getTime();
+			var fuckIE = tweet.created_at.split(' ');
+			var date = Date.parse(fuckIE[1] + ' ' + fuckIE[2] + ', ' +
+				fuckIE[5] + ' ' + fuckIE[3] + ' UTC');
+			var timestamp = (new Date(date)).getTime();
 			var time = formatDateAgo(Math.floor(timestamp / 1000));
 
 			$('.last_tweet > .tweet_container')

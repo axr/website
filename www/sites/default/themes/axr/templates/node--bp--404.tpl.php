@@ -1,4 +1,4 @@
-<div class="not_found">
+<div id="not_found">
 	<h1>Ooops... it seems there is a crack in our interwebz!</h1>
 	<p>Please make sure that you typed the right address. If you followed a broken link, as soon as possible. Please consider contributing.</p>
 	<a href="/get-involved" class="join button_std">

@@ -1,8 +1,10 @@
 */.DS_Store
+__pycache__
 /deploy/local.properties
 /deploy/server.properties
 /deploy/db/scripts
 !/deploy/db/scripts/initial.sql
+/util/bundles
 /www/wiki/LocalSettings.2.php
 /www/sites/default/files
 /www/sites/default/images

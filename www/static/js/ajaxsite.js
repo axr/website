@@ -22,12 +22,14 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 			state.url = state.url.replace(/^https?:\/\/[^\/]+(\/.*)$/, '$1');
 
-			if (!/^\/search\//.test(state.url) ||
-				/^(https?:|#|javascript:)/.test(state.url))
+			console.log(state.url);
+
+			if (!/^\/search\//.test(state.url))
 			{
+				window.location = state.url;
+
 				return;
 			}
-
 
 			if (Ajaxsite.load_url(state.url, state.data) === false)
 			{
@@ -228,60 +230,6 @@ window.Ajaxsite = window.Ajaxsite || {};
 	};
 
 	/**
-	 * Load dependencies for the page
-	 */
-	Ajaxsite.prepare = function (info, callback)
-	{
-		if (typeof info === 'string')
-		{
-			Ajaxsite.urlInfo(info, function (info)
-			{
-				Ajaxsite.prepare(info, callback);
-			});
-
-			return;
-		}
-
-		if (this.loadedCssEl !== undefined)
-		{
-			// Unload previously loaded CSS
-			for (var i = 0, c = this.loadedCssEl.length; i < c; i++)
-			{
-				this.loadedCssEl[i].remove();
-			}
-		}
-
-		// In future there will be a way to unload JS, too
-		// But right now I don't want to over complicate things
-
-		// Loaded CSS elements go there so they can be removed later
-		this.loadedCssEl = [];
-
-		// Load CSS
-		for (var i = 0, c = info.css.length; i < c; i++)
-		{
-			var link = jQuery('<link>')
-				.attr('type', 'text/css')
-				.attr('rel', 'stylesheet')
-				.attr('href', info.css[i]);
-
-			jQuery('head').append(link);
-			this.loadedCssEl.push(link);
-		}
-
-		// Load JS
-		for (var i = 0, c = info.js.length; i < c; i++)
-		{
-			var script = jQuery('<script>').attr('src', info.js[i]);
-		}
-
-		if (typeof callback === 'function')
-		{
-			callback();
-		}
-	};
-
-	/**
 	 * Load an URL
 	 *
 	 * @param string url
@@ -315,10 +263,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 		Ajaxsite.$content.html(Ajaxsite.renderLoading());
 
-		Ajaxsite.prepare(url, function ()
-		{
-			handler(url, data || undefined);
-		});
+		handler(url, data || undefined);
 	};
 
 	/**

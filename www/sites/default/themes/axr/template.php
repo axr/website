@@ -46,30 +46,6 @@ function axr_breadcrumb ($data)
 }
 
 /**
- * As the name says: Preprocess html
- */
-function axr_preprocess_html (&$variables)
-{
-	$path = drupal_get_path('theme', 'axr');
-
-	drupal_add_js($path.'/js/json2.js', array('group' => JS_THEME));
-	drupal_add_js($path.'/js/script.js', array('group' => JS_THEME));
-	drupal_add_js($path.'/js/mustache.js', array('group' => JS_THEME));
-	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
-	drupal_add_js($path.'/js/ajaxsite.js', array('group' => JS_THEME));
-
-	drupal_add_js($path.'/js/rainbow/rainbow.js', array('group' => JS_THEME));
-	drupal_add_js($path.'/js/rainbow/css.js', array('group' => JS_THEME));
-	drupal_add_js($path.'/js/rainbow/hss.js', array('group' => JS_THEME));
-
-	drupal_add_css($path.'/css/rainbow.css', array('group' => CSS_THEME));
-	drupal_add_css($path . '/css/drupal.css', array('group' => CSS_THEME));
-
-	// TODO: Find a way to include it only on pages that have comments
-	drupal_add_css($path . '/css/comments.css', array('group' => CSS_THEME));
-}
-
-/**
  * Preprocess page
  */
 function axr_preprocess_page (&$variables)
@@ -77,6 +53,7 @@ function axr_preprocess_page (&$variables)
 	// Initialize variables
 	$variables['ajaxsite_page'] = false;
 	$variables['ajaxsite_js'] = array();
+	$variables['is_404'] = drupal_get_http_header('status') === '404 Not Found';
 
 	// If we're on the search page
 	if (preg_match('/^\/search[\?\/$]/', request_uri()))
@@ -142,19 +119,23 @@ function axr_preprocess_node (&$variables)
  */
 function axr_js_alter (&$js)
 {
-	$js['misc/jquery.js']['data'] =
-		'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
-	$js['misc/jquery.js']['type'] = 'external';
+	$js = array(); // This is not used
+
+	RSRC::loadScript('https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+	RSRC::loadBundle('js/bundle_shared.js');
+	RSRC::loadBundle('js/bundle_drupal.js');
+	RSRC::loadBundle('js/bundle_www.js');
 }
 
 /**
  * Remove unwanted CSS.
  */
 function axr_css_alter (&$css)
-{ 
-	unset($css[drupal_get_path('module','system').'/system.menus.css']); 
-	unset($css[drupal_get_path('module','system').'/system.theme.css']);
-	unset($css[drupal_get_path('module','filter').'/filter.css']);
-	unset($css[drupal_get_path('module','user').'/user.css']);
+{
+	$css = array(); // This is not used
+
+	RSRC::loadBundle('css/bundle_shared.css');
+	RSRC::loadBundle('css/bundle_drupal.css');
+	RSRC::loadBundle('css/bundle_www.css');
 }
 
