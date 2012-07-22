@@ -93,7 +93,7 @@ require_once($IP . '/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php'
 // OpenID
 require_once($IP . '/extensions/OpenID/OpenID.php');
 $wgHideOpenIDLoginLink = true;
-$wgOpenIDAllowExistingAccountSelection = false;
+$wgOpenIDAllowExistingAccountSelection = true;
 
 $wgShowExceptionDetails = true;
 
