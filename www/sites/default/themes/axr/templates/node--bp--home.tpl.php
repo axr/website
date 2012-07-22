@@ -310,7 +310,7 @@ baz
 {
 	anchorX: 100%;
 	alignX: 50% - 30;
-	flow: false;
+	flow: no;
 }
 //align all elements *inside* qux at the middle vertically,
 //and lay them out from top to bottom instead of left
@@ -318,7 +318,7 @@ baz
 qux
 {
 	contentAlignY: middle;
-	direction: topToBottom;
+	direction: ttb;
 }</code>
 				</div>
 			</div>
