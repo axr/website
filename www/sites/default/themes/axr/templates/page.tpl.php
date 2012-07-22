@@ -1,3 +1,7 @@
+<?php if (!$is_front): ?>
+	<?php echo render($tabs); ?>
+<?php endif; ?>
+
 <?php if ($ajaxsite_page): ?>
 	<noscript>Please enable JavaScript</noscript>
 	<script>
@@ -16,18 +20,13 @@
 	</script>
 <?php else: ?>
 	<?php echo isset($messages) ? $messages : ''; ?>
-
-	<?php /*if (!$is_front): ?>
-		<?php print render($tabs); ?>
-	<?php endif;*/ ?>
-
 	<?php print render($page['content']); ?>
 <?php endif; ?>
 <?php
 
 $view = axr_get_view();
 
-if (!$is_front)
+if (!$is_front && !$is_404)
 {
 	// Yes, it's a really dirty way to do this, but that's what Drupal is
 	$view->_breadcrumb = $breadcrumb;

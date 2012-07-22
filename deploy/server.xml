@@ -119,9 +119,7 @@
 			<param>axrreleases</param>
 			<param>axrsearch</param>
 			<param>ajaxutil</param>
-			<param>continueto</param>
 			<param>sessid</param>
-			<param>assetmagic</param>
 		</drush>
 
 		<!-- Enable JavaScript aggregation -->

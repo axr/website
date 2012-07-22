@@ -89,8 +89,6 @@ if (file_exists($IP . '/LocalSettings.2.php'))
 
 // Syntax highlighting
 require_once($IP . '/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php');
-// Parser functions
-require_once($IP . '/extensions/ParserFunctions/ParserFunctions.php');
 
 // OpenID
 require_once($IP . '/extensions/OpenID/OpenID.php');

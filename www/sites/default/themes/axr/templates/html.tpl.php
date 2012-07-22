@@ -11,14 +11,14 @@ $view->_title = $head_title;
 $view->_content = $page;
 
 // Resources
-$view->_rsrc_styles = $styles;
-$view->_rsrc_scripts = $scripts;
+$view->_rsrc_styles = RSRC::getStylesHTML();
+$view->_rsrc_scripts = RSRC::getScriptsHTML();
 
 // Additional HTML (This crap was created just for Drupal)
 $view->_html_head = $head;
 $view->_html_top = $page_top;
 $view->_html_bottom = $page_bottom;
-$view->_html_body_classes = $classes;
+$view->_html_body_classes .= ' ' . $classes;
 $view->_html_body_attrs = $attributes;
 
 if ($user->uid == 0)

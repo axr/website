@@ -6,5 +6,6 @@ if (!defined('SHARED'))
 }
 
 require_once(SHARED . '/lib/axr/config.php');
+require_once(SHARED . '/lib/axr/rsrc.php');
 require_once(SHARED . '/config.php');
 

@@ -42,7 +42,8 @@ function axrreleases_get_arch ()
  */
 function axrreleases_get_exists ($url)
 {
-	$url = str_replace('http://files.axr.vg/', '/var/dev/files/', $url);
+	$url = str_replace(Config::get('/shared/files_url'),
+		Config::get('/shared/files_path') . '/', $url);
 	return file_exists($url);
 }
 
@@ -98,7 +99,8 @@ function axrreleases_get_releases ($start = 0, $count = 1,
 		$version = $releases[$i]->version;
 		$timestamp = $releases[$i]->date;
 
-		$url = 'http://files.axr.vg/prototype/'.$version.'-stable/axr_'.$version.'_';
+		$url = Config::get('/shared/files_url') .
+			'/prototype/'.$version.'-stable/axr_'.$version.'_';
 
 		$release = (object) array(
 			'date' => ((int) $timestamp == 0) ? 'n/a' :
