@@ -104,7 +104,7 @@ class AxrBookTemplate extends MonoBookTemplate
 			$view->_user = false;
 
 			$view->_url_login = Config::get('/shared/wiki_url') .
-				'/Special:OpenIDLogin';	
+				'/Special:UserLogin';	
 		}
 		else
 		{
