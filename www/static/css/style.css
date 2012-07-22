@@ -468,15 +468,14 @@ header > nav
 	width: 647px;
 	height: 49px;
 	margin: 97px 0 0 3px;
-	position:absolute;
-	right:0;
+	float:left;
+	background: url('../images/sprite.jpg');
+	background-position: -312px 0;
 }
 
 header > nav > ul
 {
 	height: 100%;
-	background: url('../images/sprite.jpg');
-	background-position: -312px 0;
 }
 
 header > nav > ul > li
@@ -725,6 +724,21 @@ body
 	to
 	{
 		padding: 0;
+	}
+}
+
+/* Opera 9 */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	html:first-child header > nav
+	{
+		background-image: none;
+		position:absolute;
+		right:0;
+	}
+	html:first-child header > nav > ul
+	{
+		background: url('../images/sprite.jpg');
+		background-position: -312px 0;
 	}
 }
 
