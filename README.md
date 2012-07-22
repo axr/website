@@ -83,7 +83,8 @@ http://nvie.com/posts/a-successful-git-branching-model/
 
 ### The versioning system
 The version uses the following simple scheme: `<version>.<hotfix>`, where
-`<version>` is an increasing version number starting from 1.
+`<version>` is an increasing version number starting from 1. Every time
+`<version>` is increased, `<hotfix>` will be reset to 0 (zero).
 
 Coding standards
 ================
