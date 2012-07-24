@@ -6,7 +6,7 @@ class HomeController extends WWWController
 {
 	public function run ()
 	{
-		echo 'Hello world';
+		echo $this->renderView(ROOT . '/views/home.html');
 	}
 }
 
