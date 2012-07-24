@@ -1,5 +1,6 @@
 <?php
 
+require_once(SHARED . '/lib/core/rsrc.php');
 require_once(SHARED . '/lib/mustache.php/Mustache.php');
 
 class Controller
@@ -12,11 +13,31 @@ class Controller
 	protected $view;
 
 	/**
+	 * Resource loader
+	 *
+	 * @var RSRC
+	 */
+	public $rsrc;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct ()
 	{
+		$that = $this;
+
 		$this->view = new StdClass();
+		$this->rsrc = new RSRC();
+
+		$this->view->_rsrc_styles = function () use ($that)
+		{
+			return $that->rsrc->getStylesHTML();
+		};
+
+		$this->view->_rsrc_scripts = function () use ($that)
+		{
+			return $that->rsrc->getScriptsHTML();
+		};
 	}
 
 	/**

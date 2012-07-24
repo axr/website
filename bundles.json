@@ -1,0 +1,42 @@
+{
+	"css/bundle_shared.css": {
+		"type": "css",
+		"files": [
+			"css/style.css"
+		]
+	},
+	"js/bundle_shared.js": {
+		"type": "js",
+		"files": [
+			"js/json2.js",
+			"js/mustache.js",
+			"js/native.history.js",
+			"js/ajaxsite.js",
+			"js/rainbow/rainbow.js",
+			"js/rainbow/css.js",
+			"js/rainbow/hss.js",
+			"js/script.js"
+		]
+	},
+	"css/bundle_www.css": {
+		"type": "css",
+		"files": [
+			"css/search.css",
+			"css/rainbow.css",
+			"css/404.css",
+			"css/home.css",
+			"css/get_involved.css",
+			"css/downloads.css",
+			"css/manifesto.css",
+			"css/blog.css"
+		]
+	},
+	"js/bundle_www.js": {
+		"type": "js",
+		"files": [
+			"js/home.js",
+			"js/downloads.js"
+		]
+	}
+}
+
