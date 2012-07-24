@@ -4,7 +4,11 @@ define('ROOT', dirname(__FILE__) . '/..');
 define('SHARED', ROOT . '/..');
 
 require_once(SHARED . '/lib/core/http_exception.php');
+require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/lib/core/router.php');
+
+// Load config
+require_once(SHARED . '/config.php');
 
 // Create new router
 $router = new Router(isset($_SERVER['REQUEST_URI']) ?
