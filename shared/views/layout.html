@@ -77,8 +77,7 @@
 						<a href="{{_www_url}}/downloads">Resources</a>
 						<div>
 							<a class="downloads first" href="{{_www_url}}/downloads">Downloads</a>
-							<!-- <a class="e
-xamples" href="/under-construction">Examples</a> -->
+							<!-- <a class="examples" href="/under-construction">Examples</a> -->
 							<!-- <a class="tutorials" href="{{_www_url}}/under-construction">Tutorials</a> -->
 							<a class="documentation last" href="http://docs.axr.vg">Prototype documentation</a>
 						</div>
@@ -182,6 +181,11 @@ xamples" href="/under-construction">Examples</a> -->
 		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
 		g.src=('https:'==location.protocol?'https://ssl':'https://www')+'.google-analytics.com/ga.js';
 		s.parentNode.insertBefore(g,s)}(document,'script'));
+		//<![CDATA[
+		/*@cc_on@if(@_jscript_version<9)
+		for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis.length;i++){lis[i].getElementsByTagName("a")[0].id="time"+(i+1);if(lis[i].getElementsByTagName("div").length>0){for(var anchors=lis[i].getElementsByTagName("div")[0].getElementsByTagName("a"),j=0;j<anchors.length;j++){var a=anchors[j],t="time",href=a.href;a.setAttribute("begin",t+(i+1)+".focus");a.setAttribute("end",t+(i+2)+".focus;"+t+i+".focus");a.setAttribute(t+"Action","class:afocus");a.addBehavior("#default#time2");a.setAttribute("href",href)}}};
+		@end@*/
+		//]]>
 	</script>
 
 	<!--[if lt IE 7 ]>
