@@ -1,1 +1,3 @@
 /config.user.php
+/util/bundles/
+*.pyc
