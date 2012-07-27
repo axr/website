@@ -20,6 +20,11 @@ $router->route('/^\/$/', array(
 	'controller' => 'HomeController'
 ));
 
+$router->route('/^\/get-involved(\/|$)/', array(
+	'controller' => 'GetInvolvedController'
+));
+
+
 $goto = $router->find();
 $_GET = $router->query;
 
