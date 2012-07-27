@@ -38,6 +38,8 @@ class Controller
 		{
 			return $that->rsrc->getScriptsHTML();
 		};
+
+		$this->view->_rsrc_root = Config::get('/shared/rsrc_url');
 	}
 
 	/**
