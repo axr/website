@@ -6,7 +6,7 @@ Config::set('/shared/rsrc/prod', true);
 
 Config::set('/shared/rsrc_url', 'http://static.axr.vg/prod-2');
 Config::set('/shared/www_url', 'http://axr.vg');
-Config::set('/shared/wiki_url', 'http://axr.vg/wiki');
+Config::set('/shared/wiki_url', 'http://wiki.axr.vg');
 
 /**
  * Reccommended development values. You can put them in config.user.php
