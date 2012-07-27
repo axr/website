@@ -20,10 +20,14 @@ $router->route('/^\/$/', array(
 	'controller' => 'HomeController'
 ));
 
+$router->route('/^\/_ajax\/(\w+)(\/|$)/', array(
+	'controller' => 'AjaxController',
+	'args' => array(1)
+));
+
 $router->route('/^\/get-involved(\/|$)/', array(
 	'controller' => 'GetInvolvedController'
 ));
-
 
 $goto = $router->find();
 $_GET = $router->query;
