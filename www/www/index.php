@@ -6,6 +6,7 @@ define('SHARED', ROOT . '/..');
 require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/lib/core/router.php');
+require_once(ROOT . '/controllers/view/view.php');
 
 // Load config
 require_once(SHARED . '/config.php');
@@ -58,7 +59,15 @@ try
 }
 catch (HTTPException $e)
 {
-	// TODO display a nice error page
-	echo $e->getCode() . ': ' . $e->getMessage();
+	if ($e->getCode() === 404)
+	{
+		$controller = new ViewController();
+		$controller->initialize();
+		$controller->run(SHARED . '/views/404.html');
+	}
+	else
+	{
+		echo $e->getCode() . ': ' . $e->getMessage();
+	}
 }
 
