@@ -8,8 +8,7 @@ import tempfile
 import urllib.parse
 from deps import cssmin
 
-PATH_STATIC = '../www/static'
-PATH_DRUPAL = '../www'
+PATH_STATIC = '../www/www/static'
 
 def process_js (data):
     '''
@@ -69,7 +68,7 @@ os.makedirs('./bundles/css/')
 os.makedirs('./bundles/js/')
 
 # Read bundles info file
-bundles = open('../shared/bundles.json', 'r').read()
+bundles = open('../bundles.json', 'r').read()
 bundles = json.loads(bundles)
 
 for bundleName in bundles:
@@ -80,11 +79,7 @@ for bundleName in bundles:
 
     # Concatenate all bundle files
     for fileName in bundle['files']:
-        if fileName[0:8] == '{DRUPAL}':
-            fileName = fileName.replace('{DRUPAL}', PATH_DRUPAL)
-        else:
-            fileName = PATH_STATIC + '/' + fileName
-
+        fileName = PATH_STATIC + '/' + fileName
         bundleData += open(fileName).read() + '\n\n'
 
     # Process the resulting bunble file
