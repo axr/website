@@ -1,6 +1,7 @@
 <?php
 
 require_once(SHARED . '/lib/core/rsrc.php');
+require_once(SHARED . '/lib/core/minify.php');
 require_once(SHARED . '/lib/mustache.php/Mustache.php');
 
 class Controller
@@ -55,6 +56,8 @@ class Controller
 	protected function renderView ($viewPath)
 	{
 		$layoutPath = SHARED . '/views/layout.html';
+		$explode = explode('.', $viewPath);
+		$extension = end($explode);
 		$viewHTML = 'View not found';
 		$layoutHTML = '{{{_content}}}';
 
@@ -71,7 +74,9 @@ class Controller
 		$mustache = new Mustache();
 
 		$this->view->_content = $mustache->render($viewHTML, $this->view);
-		return $mustache->render($layoutHTML, $this->view);
+		$out = $mustache->render($layoutHTML, $this->view);
+		
+		return ($extension === 'html') ? Minify::html($out) : $out;
 	}
 }
 
