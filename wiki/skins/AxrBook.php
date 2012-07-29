@@ -92,6 +92,7 @@ class AxrBookTemplate extends MonoBookTemplate
 		// URLs
 		$view->_rsrc_root = Config::get('/shared/rsrc_url');
 		$view->_www_url = Config::get('/shared/www_url');
+		$view->_wiki_url = Config::get('/shared/wiki_url');
 		
 		// Resources
 		$view->_rsrc_styles = $rsrc->getStylesHTML() .
