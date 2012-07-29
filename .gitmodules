@@ -1,0 +1,3 @@
+[submodule "util/deps/phing"]
+	path = util/deps/phing
+	url = git://github.com/phingofficial/phing.git
