@@ -5,11 +5,22 @@ define('SHARED', ROOT . '/..');
 
 require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/config.php');
+require_once(SHARED . '/lib/core/session.php');
 require_once(SHARED . '/lib/core/router.php');
 require_once(ROOT . '/controllers/view/view.php');
 
-// Load config
+// Load configs
 require_once(SHARED . '/config.php');
+require_once(ROOT . '/config.php');
+
+// Connect to the database
+$dbh = new PDO(Config::get('/www/db/dsn'),
+	Config::get('/www/db/user'),
+	Config::get('/www/db/pass'));
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+// Initialize the session
+Session::initialize($dbh);
 
 // Create new router
 $router = new Router(isset($_SERVER['REQUEST_URI']) ?
@@ -56,6 +67,7 @@ try
 	}
 
 	$controller = new $goto[0]();
+	$controller->dbh = $dbh;
 
 	function c ()
 	{
@@ -79,4 +91,7 @@ catch (HTTPException $e)
 		echo $e->getCode() . ': ' . $e->getMessage();
 	}
 }
+
+// Save the session
+Session::save();
 
