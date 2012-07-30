@@ -1,3 +1,6 @@
 [submodule "util/deps/phing"]
 	path = util/deps/phing
 	url = git://github.com/phingofficial/phing.git
+[submodule "lib/lightopenid"]
+	path = lib/lightopenid
+	url = git://gitorious.org/lightopenid/lightopenid.git
