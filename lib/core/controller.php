@@ -80,5 +80,15 @@ class Controller
 		
 		return ($extension === 'html') ? Minify::html($out) : $out;
 	}
+
+	/**
+	 * Redirect
+	 *
+	 * @param string $location
+	 */
+	public function redirect ($location)
+	{
+		header('Location: ' . $location);
+	}
 }
 

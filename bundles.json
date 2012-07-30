@@ -21,6 +21,8 @@
 	"css/bundle_www.css": {
 		"type": "css",
 		"files": [
+			"css/openid.css",
+			"css/auth.css",
 			"css/search.css",
 			"css/rainbow.css",
 			"css/404.css",
@@ -34,6 +36,9 @@
 	"js/bundle_www.js": {
 		"type": "js",
 		"files": [
+			"js/openid-jquery.js",
+			"js/openid-en.js",
+			"js/auth.js",
 			"js/home.js",
 			"js/downloads.js"
 		]

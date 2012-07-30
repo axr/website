@@ -1154,6 +1154,65 @@ input::-webkit-input-placeholder
 	background-position: -253px -1px;
 }
 
+.uiInput
+{
+	background: #fff;
+	display: inline-block;
+	border: 1px solid #B3B3B3;
+	border-radius: 4px;
+	box-shadow: #ECECEC 0 1px 0, #ECECEC 0 -1px 0;
+	margin: 0 5px 0 0;
+	padding: 6px;
+}
+
+.uiInput.button
+{
+	background-image: linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -o-linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -moz-linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -webkit-linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -ms-linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(1, rgb(255,255,255)),
+		color-stop(0.5, rgb(221,221,221)));
+	border: 1px solid #999;
+}
+
+input[type!=submit].uiInput
+{
+	max-width: 300px;
+	width: 90%;
+}
+
+textarea.uiInput
+{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	height: 120px;
+	width: 100%;
+}
+
+
 .button_std.inline
 {
 	display: inline-block;
@@ -1167,6 +1226,7 @@ input::-webkit-input-placeholder
 	margin: 0 8px;
 	height: 37px;
 	position: relative;
+	margin: 0 8px;
 	color: white;
 	text-decoration: none;
 	text-shadow: #BC910E 0 1px 0;
@@ -1397,6 +1457,20 @@ input::-webkit-input-placeholder
 .button_big:hover > .footer
 {
 	background-position: -218px -109px;
+}
+
+.message_std
+{
+	border: 1px solid #bbb;
+	color: #222;
+	margin: 5px 0;
+	padding: 5px;
+}
+
+.message_std.error
+{
+	border: 1px solid #8C2E0B;
+	color: #8C2E0B;
 }
 
 nav#breadcrumb div

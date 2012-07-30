@@ -36,6 +36,15 @@ $router->route('/^\/_ajax\/(\w+)(\/|$)/', array(
 	'args' => array(1)
 ));
 
+$router->route('/^\/auth\/(\w+)(\/|$)/', array(
+	'controller' => 'AuthController',
+	'args' => array(1)
+));
+
+$router->route('/^\/auth(\/|$)/', array(
+	'controller' => 'AuthController'
+));
+
 $router->route('/^\/get-involved(\/|$)/', array(
 	'controller' => 'GetInvolvedController'
 ));
