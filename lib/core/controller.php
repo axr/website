@@ -43,6 +43,13 @@ class Controller
 		$this->view->_rsrc_root = Config::get('/shared/rsrc_url');
 		$this->view->_www_url = Config::get('/shared/www_url');
 		$this->view->_wiki_url = Config::get('/shared/wiki_url');
+
+		$this->view->_breadcrumb = array(
+			array(
+				'name' => 'Home',
+				'link' => '/'
+			)
+		);
 	}
 
 	/**

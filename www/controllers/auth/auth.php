@@ -18,13 +18,6 @@ class AuthController extends WWWController
 			'InvalidIdentityError' => 'The supplied OpenID URL is not a valid OpenID endpoint'
 		);
 
-		$this->view->_breadcrumb = array(
-			array(
-				'name' => 'Home',
-				'link' => '/'
-			)
-		);
-
 		if ($mode === 'openid')
 		{
 			try
@@ -179,8 +172,7 @@ class AuthController extends WWWController
 		if (Session::get('/user/is_auth'))
 		{
 			$this->view->_breadcrumb[] = array(
-				'name' => 'Associate with an OpenID',
-				'current' => true
+				'name' => 'Associate with an OpenID'
 			);
 
 			echo $this->renderView(ROOT . '/views/openid_ask_assoc.html');
@@ -188,8 +180,7 @@ class AuthController extends WWWController
 		else
 		{
 			$this->view->_breadcrumb[] = array(
-				'name' => 'Create a new account',
-				'current' => true
+				'name' => 'Create a new account'
 			);
 
 			echo $this->renderView(ROOT . '/views/openid_ask_create.html');

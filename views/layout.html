@@ -122,17 +122,17 @@ xamples" href="/under-construction">Examples</a> -->
 		<div id="main" role="main">
 			<nav id="breadcrumb">
 				{{#_breadcrumb}}
-					{{#current}}
+					{{^link}}
 						<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
 							<span class="current" itemprop="title">{{name}}</span>
 						</div>
-					{{/current}}
-					{{^current}}
+					{{/link}}
+					{{#link}}
 						<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
 							<a href="{{link}}" itemprop="url"><span itemprop="title">{{name}}</span></a>
 						</div>
 						<span class="extra_0"></span>
-					{{/current}}
+					{{/link}}
 				{{/_breadcrumb}}
 			</nav>
 
