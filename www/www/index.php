@@ -17,7 +17,11 @@ require_once(ROOT . '/config.php');
 $dbh = new PDO(Config::get('/www/db/dsn'),
 	Config::get('/www/db/user'),
 	Config::get('/www/db/pass'));
-$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+if (Config::get('/www/debug'))
+{
+	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
 
 // Initialize the session
 Session::initialize($dbh);
