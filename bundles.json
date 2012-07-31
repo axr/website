@@ -30,7 +30,8 @@
 			"css/get_involved.css",
 			"css/downloads.css",
 			"css/manifesto.css",
-			"css/blog.css"
+			"css/blog.css",
+			"css/calendar.css"
 		]
 	},
 	"js/bundle_www.js": {

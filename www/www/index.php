@@ -49,6 +49,11 @@ $router->route('/^\/get-involved(\/|$)/', array(
 	'controller' => 'GetInvolvedController'
 ));
 
+$router->route('/^\/calendar(\/|$)/', array(
+	'controller' => 'ViewController',
+	'args' => array(ROOT . '/views/calendar.html', 'Calendar')
+));
+
 $goto = $router->find();
 $_GET = $router->query;
 
