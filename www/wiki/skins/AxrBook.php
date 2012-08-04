@@ -74,6 +74,13 @@ class AxrBookTemplate extends MonoBookTemplate
 		require_once(SHARED . '/lib/axr/minify.php');
 		require_once(SHARED . '/lib/axr/shared_view.php');
 
+		// Load styles
+		RSRC::loadBundle('css/bundle_shared.css');
+
+		// Load scripts
+		RSRC::loadScript('https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+		RSRC::loadBundle('js/bundle_shared.js');
+
 		$mustache = new Mustache();
 		$view = new SharedView();
 
@@ -82,10 +89,9 @@ class AxrBookTemplate extends MonoBookTemplate
 		$view->_content = $this->content();
 
 		// Resources
-		$view->_rsrc_styles = $out->buildCssLinks($this->skin);
-		$view->_rsrc_scripts = 
-			'<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>' .
-			'<script src="' . $view->_rsrc_root . '/js/script.js"></script>';
+		$view->_rsrc_styles = RSRC::getStylesHTML() .
+			$out->buildCssLinks($this->skin);
+		$view->_rsrc_scripts = RSRC::getScriptsHTML();
 
 		// Additional HTML
 		$view->_html_head = $out->getHeadLinks($this->skin, true) .
@@ -96,11 +102,20 @@ class AxrBookTemplate extends MonoBookTemplate
 		if (!is_object($wgUser) || $wgUser->getID() == 0)
 		{
 			$view->_user = false;
+
+			$view->_url_login = Config::get('/shared/wiki_url') .
+				'/Special:UserLogin';	
 		}
 		else
 		{
 			$view->_user = new StdClass();
-			$view->_user->wiki_name = $wgUser->getName();
+
+			$view->_url_profile = Config::get('/shared/wiki_url') .
+				'/User:' . $wgUser->getName();
+			$view->_url_account = Config::get('/shared/wiki_url') .
+				'/Special:Preferences';
+			$view->_url_logout = Config::get('/shared/wiki_url') .
+				'/Special:UserLogout';
 		}
 
 		$view->_breadcrumb = array(

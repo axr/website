@@ -39,17 +39,15 @@
 			<a href="/" id="logo"><img src="{{_rsrc_root}}/images/logo.jpg" height="230" width="310" alt="AXR Logo" title="AXR Project" /></a>
 			<div class="secondary">
 				{{^_user}}
-					<span class="register"><a href="{{_www_url}}/user/register">Register</a></span>
-					<span class="login"><a href="{{_www_url}}/user/login">Login</a></span>
+					<span class="login"><a href="{{_url_login}}">Login</a></span>
 				{{/_user}}
 				{{#_user}}
 					<div class="user_menu">
 						<span class="arrow"></span>
-						<a class="user_link" href="{{_www_url}}/user/"><span class="menu_title">User</span></a>
+						<a class="user_link" href="{{_url_profile}}/"><span class="menu_title">User</span></a>
 						<div class="dropdown">
-							<a class="edit_account first" href="{{_www_url}}/user">Edit account</a>
-							<a class="wiki_profile" href="/wiki/User:{{_user.wiki_name}}">Wiki profile</a>
-							<a class="logout last" href="/user/logout">Logout</a>
+							<a class="edit_account first" href="{{_url_account}}">Edit account</a>
+							<a class="logout last" href="{{_url_logout}}">Logout</a>
 						</div>
 					</div>
 				{{/_user}}
