@@ -46,6 +46,25 @@ function axr_breadcrumb ($data)
 }
 
 /**
+ * As the name says: Preprocess html
+ */
+function axr_preprocess_html (&$variables)
+{
+	$path = drupal_get_path('theme', 'axr');
+
+	drupal_add_js($path.'/js/json2.js', array('group' => JS_THEME));
+	drupal_add_js($path.'/js/script.js', array('group' => JS_THEME));
+	drupal_add_js($path.'/js/mustache.js', array('group' => JS_THEME));
+	drupal_add_js($path.'/js/native.history.js', array('group' => JS_THEME));
+	drupal_add_js($path.'/js/ajaxsite.js', array('group' => JS_THEME));
+
+	drupal_add_css($path . '/css/drupal.css', array('group' => CSS_THEME));
+
+	// TODO: Find a way to include it only on pages that have comments
+	drupal_add_css($path . '/css/comments.css', array('group' => CSS_THEME));
+}
+
+/**
  * Preprocess page
  */
 function axr_preprocess_page (&$variables)
