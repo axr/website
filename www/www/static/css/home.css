@@ -1,6 +1,6 @@
-body.front nav#breadcrumb
+#home
 {
-	display: none;
+	margin-top: 14px;
 }
 
 #home .above_fold > .nested_0

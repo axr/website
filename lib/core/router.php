@@ -88,6 +88,8 @@ class Router
 				continue;
 			}
 
+			$args['run'] = isset($args['run']) ? $args['run'] : 'run';
+
 			if (!isset($args['args']) || !is_array($args['args']))
 			{
 				$args['args'] = array();
@@ -107,7 +109,7 @@ class Router
 					$match[$replace] : null;
 			}
 
-			return array($args['controller'], $args['args']);
+			return array($args['controller'], $args['run'], $args['args']);
 		}
 
 		return null;

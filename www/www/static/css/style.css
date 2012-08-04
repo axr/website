@@ -448,7 +448,7 @@ header
 {
 	position: relative;
 	width: 960px;
-	height: 200px;
+	height: 188px;
 	margin: 0px auto;
 	left:-37px;
 	z-index:10;
@@ -458,7 +458,8 @@ header
 header > #logo
 {
 	display: block;
-	height: 230px;
+	height: 188px;
+	overflow: hidden;
 	width: 310px;
 	float: left;
 }
@@ -1202,6 +1203,11 @@ input[type!=submit].uiInput
 	width: 90%;
 }
 
+input[type=text].uiInput
+{
+	width: 220px;
+}
+
 textarea.uiInput
 {
 	box-sizing: border-box;
@@ -1471,6 +1477,33 @@ textarea.uiInput
 {
 	border: 1px solid #8C2E0B;
 	color: #8C2E0B;
+}
+
+nav#tabs_main
+{
+	display: block;
+	float: right;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+nav#tabs_main > a
+{
+	display: inline-block;
+	background: #e3e3e3;
+	border: 1px solid #c2c2c2;
+	border-radius: 0 0 5px 5px;
+	border-top: 0;
+	color: #888;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+
+nav#tabs_main > a.active
+{
+	font-weight: bold;
 }
 
 nav#breadcrumb div

@@ -121,6 +121,14 @@ xamples" href="/under-construction">Examples</a> -->
 			</ul>
 		</div>
 		<div id="main" role="main">
+			{{#_tabs_has}}
+				<nav id="tabs_main">
+					{{#_tabs}}
+						<a href="{{link}}"{{#current}} class="active"{{/current}}>{{name}}</a>
+					{{/_tabs}}
+				</nav>
+			{{/_tabs_has}}
+
 			<nav id="breadcrumb">
 				{{#_breadcrumb}}
 					{{^link}}

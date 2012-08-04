@@ -1,5 +1,7 @@
 <?php
 
+require_once(SHARED . '/lib/core/session_permissions.php');
+
 class Session
 {
 	/**
@@ -139,6 +141,28 @@ class Session
 		$query->bindValue(':expires', time() + self::EXPIRE, PDO::PARAM_INT);
 		$query->execute();
 
+		self::perms()->save();
+	}
+
+	/**
+	 * Get the permissions object
+	 */
+	public static function perms ()
+	{
+		static $perms;
+
+		if (!($perms instanceof SessionPermissions))
+		{
+			$perms = new SessionPermissions(self::$dbh);
+
+			if (self::get('/user/is_auth') === true &&
+				is_numeric(self::get('/user/id')))
+			{
+				$perms->loadUser(self::get('/user/id'));
+			}
+		}
+
+		return $perms;
 	}
 }
 

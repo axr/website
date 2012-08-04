@@ -1,0 +1,19 @@
+<div id="page">
+	<div class="page_item">
+		<h1>{{title}}</h1>
+		<div class="content clearfix">
+			{{{page.fields.content}}}
+		</div>
+		<div class="comments" data-hash="comments">
+			<h1>Comments</h1>
+
+			<!-- START: Livefyre Embed -->
+			<script src="http://zor.livefyre.com/wjs/v1.0/javascripts/livefyre_init.js"></script>
+			<script>
+				var fyre = LF({{{lf_params}}});
+			</script>
+			<!-- END: Livefyre Embed -->
+		</div>
+	</div>
+</div>
+

@@ -22,6 +22,7 @@
 		"type": "css",
 		"files": [
 			"css/openid.css",
+			"css/livefyre.css",
 			"css/auth.css",
 			"css/search.css",
 			"css/rainbow.css",
@@ -30,7 +31,7 @@
 			"css/get_involved.css",
 			"css/downloads.css",
 			"css/manifesto.css",
-			"css/blog.css",
+			"css/page.css",
 			"css/calendar.css"
 		]
 	},

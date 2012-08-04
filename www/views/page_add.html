@@ -1,0 +1,60 @@
+<div id="page_add">
+	{{#edit_mode}}<h2>Edit page</h2>{{/edit_mode}}
+	{{^edit_mode}}<h2>Create a new page</h2>{{/edit_mode}}
+
+	{{#errors}}
+		<div class="message_std error">{{{errors}}}</div>
+	{{/errors}}
+
+	{{#message}}
+		<div class="message_std">{{{message}}}</div>
+	{{/message}}
+
+	<form action="{{action}}" method="post">
+		<div class="field">
+			<label for="title">Title</label>
+			<input type="text" name="title" class="uiInput long"
+				value="{{values.title}}" />
+		</div>
+
+		{{#fields}}
+			<div class="field">
+				<label for="field_{{key}}">{{name}}</label>
+				{{#description}}
+					<span class="description">{{description}}</span>
+				{{/description}}
+				{{#typeIs_textarea}}
+					<textarea name="field_{{key}}" class="uiInput">{{_value}}</textarea>
+				{{/typeIs_textarea}}
+				{{#typeIs_text}}
+					<input type="text" name="field_{{key}}"
+						class="uiInput" value="{{_value}}" />
+				{{/typeIs_text}}
+			</div>
+		{{/fields}}
+
+		<div class="field">
+			<label for="url">URL</label>
+			<input type="text" name="url" class="uiInput"
+				value="{{values.url}}" />
+		</div>
+
+		<div class="field">
+			<label for="url">Published</label>
+			<input type="radio" name="published" value="1"{{#values.published}} checked{{/values.published}} /> Yes
+			<input type="radio" name="published" value="0"{{^values.published}} checked{{/values.published}} /> No
+		</div>
+
+		<input type="hidden" name="_via_post" value="1" />
+
+		{{#edit_mode}}
+			<input type="submit" value="Update" />
+			or <a href="{{delete_url}}">Delete</a>
+		{{/edit_mode}}
+
+		{{^edit_mode}}
+			<input type="submit" value="Create" />
+		{{/edit_mode}}
+	</form>
+</div>
+

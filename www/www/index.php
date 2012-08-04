@@ -3,6 +3,9 @@
 define('ROOT', dirname(__FILE__) . '/..');
 define('SHARED', ROOT . '/..');
 
+// Set timezone
+date_default_timezone_set('UTC');
+
 require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/lib/core/session.php');
@@ -16,7 +19,8 @@ require_once(ROOT . '/config.php');
 // Connect to the database
 $dbh = new PDO(Config::get('/www/db/dsn'),
 	Config::get('/www/db/user'),
-	Config::get('/www/db/pass'));
+	Config::get('/www/db/pass'),
+	array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 
 if (Config::get('/www/debug'))
 {
@@ -49,17 +53,61 @@ $router->route('/^\/auth(\/|$)/', array(
 	'controller' => 'AuthController'
 ));
 
-$router->route('/^\/get-involved(\/|$)/', array(
+$router->route('/^\/get-involved\/?$/', array(
 	'controller' => 'GetInvolvedController'
 ));
 
-$router->route('/^\/calendar(\/|$)/', array(
+$router->route('/^\/calendar\/?$/', array(
 	'controller' => 'ViewController',
 	'args' => array(ROOT . '/views/calendar.html', 'Calendar')
 ));
 
+$router->route('/^\/page\/add\/?$/', array(
+	'controller' => 'PageController',
+	'run' => 'runAddSelect',
+	'args' => array(1)
+));
+
+
+$router->route('/^\/page\/add\/(\w+)\/?$/', array(
+	'controller' => 'PageController',
+	'run' => 'runAdd',
+	'args' => array(1)
+));
+
+$router->route('/^\/page\/(\w+)\/edit\/?$/', array(
+	'controller' => 'PageController',
+	'run' => 'runEdit',
+	'args' => array(1)
+));
+
+$router->route('/^\/page\/(\w+)\/rm\/?$/', array(
+	'controller' => 'PageController',
+	'run' => 'runRm',
+	'args' => array(1)
+));
+
+$router->route('/^\/page\/(\w+)\/?$/', array(
+	'controller' => 'PageController',
+	'run' => 'runDisplay',
+	'args' => array(1)
+));
+
+$router->route('/^\/blog\/?$/', array(
+	'controller' => 'PageController',
+	'run' => 'runBlogList'
+));
+
+$router->route('/^\/(.+)$/', array(
+	'controller' => 'PageController',
+	'run' => 'runDisplay',
+	'args' => array(1)
+));
+
 $goto = $router->find();
 $_GET = $router->query;
+
+header('Content-Type: text/html; charset=utf-8');
 
 try
 {
@@ -94,7 +142,7 @@ try
 	}
 
 	call_user_func(array($controller, 'initialize'));
-	call_user_func_array(array($controller, 'run'), $goto[1]);
+	call_user_func_array(array($controller, $goto[1]), $goto[2]);
 }
 catch (HTTPException $e)
 {
@@ -102,7 +150,7 @@ catch (HTTPException $e)
 	{
 		$controller = new ViewController();
 		$controller->initialize();
-		$controller->run(SHARED . '/views/404.html');
+		$controller->run(SHARED . '/views/404.html', 'Not Found');
 	}
 	else
 	{

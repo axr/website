@@ -1,0 +1,15 @@
+<div id="page" class="list">
+	{{#pages}}
+		<div class="page_item">
+			<h1>{{title}}</h1>
+			<div class="content clearfix">
+				{{{fields.summary}}}
+			</div>
+			<ul class="page_links">
+				<li><a href="{{permalink}}">Read more</a></li>
+				<li><a href="{{permalink}}#comments">Leave a coment</a></li>
+			</ul>
+		</div>
+	{{/pages}}
+</div>
+

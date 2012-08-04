@@ -44,6 +44,10 @@ class Controller
 		$this->view->_www_url = Config::get('/shared/www_url');
 		$this->view->_wiki_url = Config::get('/shared/wiki_url');
 
+		$this->view->_POST = $_POST;
+		$this->view->_GET = $_GET;
+
+		$this->view->_tabs = array();
 		$this->view->_breadcrumb = array(
 			array(
 				'name' => 'Home',
@@ -92,9 +96,15 @@ class Controller
 	 * Redirect
 	 *
 	 * @param string $location
+	 * @param int $code either 301 or null
 	 */
-	public function redirect ($location)
+	public function redirect ($location, $code = null)
 	{
+		if ($code === 301)
+		{
+			header('HTTP/1.1 301 Moved Permanently');
+		}
+
 		header('Location: ' . $location);
 	}
 }

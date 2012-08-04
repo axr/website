@@ -8,6 +8,10 @@ Config::set('/www/db/dsn', 'mysql:host=localhost;dbname=test');
 Config::set('/www/db/user', 'root');
 Config::set('/www/db/pass', '');
 
+Config::set('/www/lf/site_id', 309262);
+Config::set('/www/lf/domain', 'axr.vg');
+Config::set('/www/lf/secret', null);
+
 if (file_exists(ROOT . '/config.user.php'))
 {
 	require_once(ROOT . '/config.user.php');
