@@ -697,3 +697,71 @@ a:hover
 	color: #765;
 }
 
+#tweet
+{
+	padding: 0;
+	margin:0 0 30px 75px;
+	position:relative;
+	width:261px;
+	border:1px solid #BEBEBE;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+}
+#tweet  a
+{
+	color: #D09610;
+	text-decoration: none;
+	font-weight: bold;
+}
+#tweet a:hover
+{
+	text-decoration: underline;
+}
+#tweet > li
+{
+	list-style-type: none;
+	text-shadow:0 1px 0 #EBEBEB;
+	background:lightGrey;
+}
+#tweet > .tweet_container
+{
+	width:223px;
+	padding:15px 18px;
+	color:#606060;
+	font-weight:bold;
+	font-size:0.9em;
+	word-break:break-all;
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+	border:1px solid;
+	border-color:#E1E1E1 #E1E1E1 #BEBEBE #E1E1E1;
+	-moz-border-radius:8px 8px 0 0;
+	-webkit-border-radius:8px 8px 0 0;
+	border-radius:8px 8px 0 0;
+}
+#tweet > .follow_us
+{
+	width: 259px;
+	height:36px;
+	line-height:36px;
+	text-align:center;
+	color:#939393;
+	font-weight:bold;
+	border:1px solid #E1E1E1;
+	-moz-border-radius:0 0 8px 8px;
+	-webkit-border-radius:0 0 8px 8px;
+	border-radius:0 0 8px 8px;
+}
+#tweet > .bird
+{
+	background: url("http://axr.vg/sites/default/themes/axr/images/sprite32.png") no-repeat -116px -29px;
+	height:47px;
+	width:76px;
+	margin:12px 0 0 -75px;
+	z-index:2;
+	position:absolute;
+	top:0;
+}
