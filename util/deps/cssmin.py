@@ -99,7 +99,7 @@ def normalize_rgb_colors_to_hex(css):
     match = regex.search(css)
     while match:
         colors = match.group(1).split(",")
-        hexcolor = '#%.2x%.2x%.2x' % map(int, colors)
+        hexcolor = '#%.2x%.2x%.2x' % tuple(map(int, colors))
         css = css.replace(match.group(), hexcolor)
         match = regex.search(css)
     return css
