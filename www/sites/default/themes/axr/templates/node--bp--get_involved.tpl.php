@@ -117,7 +117,7 @@
 				<br style="clear: both" />
 			</div>
 
-			<ul id="tweet">
+			<ul class="last_tweet">
 				<li class="tweet_container">Loading last tweet...</li>
 				<li class="follow_us">Follow us on Twitter: <a href="https://twitter.com/AXRProject/">@AXRProject</a></li>
 				<li class="bird"></li>
