@@ -1425,18 +1425,6 @@ nav#breadcrumb .extra_0
 	*display: inline; /* IE7 */
 }
 
-#container .last_tweet  a
-{
-	color: #D09610;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-#container .last_tweet a:hover
-{
-	text-decoration: underline;
-}
-
 footer
 {
 	background-image: url("../images/footer_repeat.jpg");
@@ -1651,6 +1639,18 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 	position: absolute;
 	left: 180px;
 	top: 26px;
+}
+
+.last_tweet  a
+{
+	color: #D09610;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.last_tweet a:hover
+{
+	text-decoration: underline;
 }
 
 .last_tweet > li
