@@ -444,7 +444,7 @@ h2
 	font-size: 1.5em;
 }
 
-header
+#container > header
 {
 	position: relative;
 	width: 960px;
@@ -455,7 +455,7 @@ header
 	_left:0;     /* IE6 */
 }
 
-header > #logo
+#container > header > #logo
 {
 	display: block;
 	height: 188px;
@@ -464,7 +464,7 @@ header > #logo
 	float: left;
 }
 
-header > nav
+#container > header > nav
 {
 	width: 647px;
 	height: 49px;
@@ -474,19 +474,19 @@ header > nav
 	background-position: -312px 0;
 }
 
-header > nav > ul
+#container > header > nav > ul
 {
 	height: 100%;
 }
 
-header > nav > ul > li
+#container > header > nav > ul > li
 {
 	float: left;
 	height: 100%;
 	position: relative;
 }
 
-header > nav > ul > li > a
+#container > header > nav > ul > li > a
 {
 	display: block;
 	width: 100%;
@@ -495,75 +495,75 @@ header > nav > ul > li > a
 	overflow: hidden;
 }
 
-header > nav > ul > li > a:hover,
-header > nav > ul > li:hover > a
+#container > header > nav > ul > li > a:hover,
+#container > header > nav > ul > li:hover > a
 {
 	background: url('../images/sprite.jpg');
 	padding-right: 1px;
 }
 
-header > nav > ul > li.about
+#container > header > nav > ul > li.about
 {
 	width: 97px;
 }
 
-header > nav > ul > li.specification
+#container > header > nav > ul > li.specification
 {
 	width: 129px;
 }
 
-header > nav > ul > li.resources
+#container > header > nav > ul > li.resources
 {
 	width: 136px;
 }
 
-header > nav > ul > li.community
+#container > header > nav > ul > li.community
 {
 	width: 131px;
 }
 
-header > nav > ul > li.wiki
+#container > header > nav > ul > li.wiki
 {
 	width: 88px;
 }
 
-header > nav > ul > li.blog
+#container > header > nav > ul > li.blog
 {
 	width: 66px;
 }
 
-header > nav > ul > li.about > a:hover,
-header > nav > ul > li.about:hover > a
+#container > header > nav > ul > li.about > a:hover,
+#container > header > nav > ul > li.about:hover > a
 {
 	background-position: -312px -49px;
 }
 
-header > nav > ul > li.specification > a:hover,
-header > nav > ul > li.specification:hover > a
+#container > header > nav > ul > li.specification > a:hover,
+#container > header > nav > ul > li.specification:hover > a
 {
 	background-position: -410px -49px;
 }
 
-header > nav > ul > li.resources > a:hover,
-header > nav > ul > li.resources:hover > a
+#container > header > nav > ul > li.resources > a:hover,
+#container > header > nav > ul > li.resources:hover > a
 {
 	background-position: -540px -49px;
 }
 
-header > nav > ul > li.community > a:hover,
-header > nav > ul > li.community:hover > a
+#container > header > nav > ul > li.community > a:hover,
+#container > header > nav > ul > li.community:hover > a
 {
 	background-position: -677px -49px;
 }
 
-header > nav > ul > li.wiki > a:hover,
-header > nav > ul > li.wiki:hover > a
+#container > header > nav > ul > li.wiki > a:hover,
+#container > header > nav > ul > li.wiki:hover > a
 {
 	background-position: -809px -49px;
 }
 
-header > nav > ul > li.blog > a:hover,
-header > nav > ul > li.blog:hover > a
+#container > header > nav > ul > li.blog > a:hover,
+#container > header > nav > ul > li.blog:hover > a
 {
 	background-position: -898px -49px;
 }
@@ -730,20 +730,20 @@ body
 
 /* Opera 9 */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	html:first-child header > nav
+	html:first-child #container > header > nav
 	{
 		background-image: none;
 		position:absolute;
 		right:0;
 	}
-	html:first-child header > nav > ul
+	html:first-child #container > header > nav > ul
 	{
 		background: url('../images/sprite.jpg');
 		background-position: -312px 0;
 	}
 }
 
-header .secondary
+#container > header .secondary
 {
 	position: absolute;
 	top: 40px;
@@ -751,8 +751,8 @@ header .secondary
 	z-index:1;
 }
 
-header .secondary .register,
-header .secondary .login
+#container > header .secondary .register,
+#container > header .secondary .login
 {
 	background: url("../images/sprite32.png") -228px -147px;
 	height: 18px;
@@ -764,13 +764,13 @@ header .secondary .login
 	top: 6px;
 }
 
-header .secondary .login:hover
+#container > header .secondary .login:hover
 {
 	background-position: -248px -147px;
 }
 
-header .secondary .register a,
-header .secondary .login a
+#container > header .secondary .register a,
+#container > header .secondary .login a
 {
 	color: #999;
 	font-size: 12px;
@@ -781,24 +781,24 @@ header .secondary .login a
 	line-height: 18px;
 }
 
-header .secondary .register a:hover,
-header .secondary .login a:hover
+#container > header .secondary .register a:hover,
+#container > header .secondary .login a:hover
 {
 	border-bottom-style: solid;
 }
 
-header .secondary .register
+#container > header .secondary .register
 {
 	background: url("../images/sprite32.png") -228px -128px;
 	left: -155px;
 }
 
-header .secondary .register:hover
+#container > header .secondary .register:hover
 {
 	background-position: -248px -128px;
 }
 
-header .secondary div.user_menu
+#container > header .secondary div.user_menu
 {
 	display: inline-block;
 	margin-top: 7px;
@@ -807,7 +807,7 @@ header .secondary div.user_menu
 	vertical-align: top;
 }
 
-header .secondary > div.user_menu > a
+#container > header .secondary > div.user_menu > a
 {
 	display: inline-block;
 	text-decoration: none;
@@ -820,13 +820,13 @@ header .secondary > div.user_menu > a
 	outline: none;
 }
 
-header .secondary > div.user_menu > a:focus,
-header .secondary > div.user_menu:hover > a
+#container > header .secondary > div.user_menu > a:focus,
+#container > header .secondary > div.user_menu:hover > a
 {
 	background-position: -248px -109px;
 }
 
-header .secondary > div.user_menu > a span
+#container > header .secondary > div.user_menu > a span
 {
 	color: #999;
 	font-size: 12px;
@@ -846,27 +846,27 @@ header .secondary > div.user_menu > a span
 	top: 6px
 }
 
-header .secondary > div.user_menu > a:focus span,
-header .secondary > div.user_menu:hover > a span
+#container > header .secondary > div.user_menu > a:focus span,
+#container > header .secondary > div.user_menu:hover > a span
 {
 	background-position: -244px -78px;
 }
 
-header .secondary > div.user_menu div.dropdown a
+#container > header .secondary > div.user_menu div.dropdown a
 {
 	display: none;
 }
 
-header .secondary > div.user_menu:hover div.dropdown,
-header .secondary > div.user_menu div.dropdown:hover,
-header .secondary > div.user_menu div.dropdown a:focus ~ div
+#container > header .secondary > div.user_menu:hover div.dropdown,
+#container > header .secondary > div.user_menu div.dropdown:hover,
+#container > header .secondary > div.user_menu div.dropdown a:focus ~ div
 {
 	display: block;
 }
 
-header .secondary > div.user_menu div.dropdown,
-header .secondary > div.user_menu div.dropdown a:focus,
-header .secondary > div.user_menu div.dropdown a:focus ~ a
+#container > header .secondary > div.user_menu div.dropdown,
+#container > header .secondary > div.user_menu div.dropdown a:focus,
+#container > header .secondary > div.user_menu div.dropdown a:focus ~ a
 {
 	width: 138px;
 	z-index: 15;
@@ -874,7 +874,7 @@ header .secondary > div.user_menu div.dropdown a:focus ~ a
 	background: #717171;
 }
 
-header .secondary > div.user_menu div.dropdown
+#container > header .secondary > div.user_menu div.dropdown
 {
 	top: 26px;
 	margin-left: -32px;
@@ -886,7 +886,7 @@ header .secondary > div.user_menu div.dropdown
 	box-shadow: 0 0 8px #575757;
 }
 
-header .secondary > div.user_menu:hover div.dropdown
+#container > header .secondary > div.user_menu:hover div.dropdown
 {
 	border: 1px solid #7D7D7D;
 	background-image: linear-gradient(top, #747474 0%, #636363 37%);
@@ -898,10 +898,10 @@ header .secondary > div.user_menu:hover div.dropdown
 		color-stop(0, #747474), color-stop(0.37, #636363));
 }
 
-header .secondary > div.user_menu:hover div.dropdown a,
-header .secondary > div.user_menu a:focus ~ div.dropdown a,
-header .secondary > div.user_menu div.dropdown a:focus,
-header .secondary > div.user_menu div.dropdown a:focus ~ a,
+#container > header .secondary > div.user_menu:hover div.dropdown a,
+#container > header .secondary > div.user_menu a:focus ~ div.dropdown a,
+#container > header .secondary > div.user_menu div.dropdown a:focus,
+#container > header .secondary > div.user_menu div.dropdown a:focus ~ a,
 .afocus
 {
 	display:block !important;
@@ -913,7 +913,7 @@ header .secondary > div.user_menu div.dropdown a:focus ~ a,
 	outline: none;
 }
 
-header .secondary > div.user_menu div.dropdown a
+#container > header .secondary > div.user_menu div.dropdown a
 {
 	color: white;
 	text-decoration: none;
@@ -922,14 +922,14 @@ header .secondary > div.user_menu div.dropdown a
 	cursor: pointer;
 }
 
-header .secondary > div.user_menu div.dropdown a:hover,
-header .secondary > div.user_menu div.dropdown a:focus
+#container > header .secondary > div.user_menu div.dropdown a:hover,
+#container > header .secondary > div.user_menu div.dropdown a:focus
 {
 	color: #313131;
 	text-shadow: #959595 0 1px 0;
 }
 
-header .secondary > div.user_menu div.dropdown a:focus
+#container > header .secondary > div.user_menu div.dropdown a:focus
 {
 	border-top: none;
 	-webkit-border-top-left-radius: 8px;
@@ -940,18 +940,18 @@ header .secondary > div.user_menu div.dropdown a:focus
 	border-top-right-radius: 8px;
 }
 
-header .secondary > div.user_menu div.dropdown .first
+#container > header .secondary > div.user_menu div.dropdown .first
 {
 	border-top: none !important;
 }
 
-header .secondary > div.user_menu div.dropdown .last
+#container > header .secondary > div.user_menu div.dropdown .last
 {
 	border-bottom: none !important;
 }
 
-header .secondary > div.user_menu div.dropdown a:focus ~ .last,
-header .secondary > div.user_menu div.dropdown .last:focus
+#container > header .secondary > div.user_menu div.dropdown a:focus ~ .last,
+#container > header .secondary > div.user_menu div.dropdown .last:focus
 {
 	-webkit-border-bottom-left-radius: 8px;
 	-webkit-border-bottom-right-radius: 8px;
@@ -961,7 +961,7 @@ header .secondary > div.user_menu div.dropdown .last:focus
 	border-bottom-right-radius: 8px;
 }
 
-header .secondary > div.user_menu .arrow
+#container > header .secondary > div.user_menu .arrow
 {
 	border-color: transparent transparent #737373 transparent;
 	border-style: solid;
@@ -974,17 +974,17 @@ header .secondary > div.user_menu .arrow
 	display: none;
 }
 
-header .secondary > div.user_menu:hover .arrow
+#container > header .secondary > div.user_menu:hover .arrow
 {
 	display: block;
 }
 
-header .secondary > form
+#container > header .secondary > form
 {
 	display: inline-block;
 }
 
-header .secondary input[type="search"]
+#container > header .secondary input[type="search"]
 {
 	width: 154px;
 	height: 16px;
@@ -1002,12 +1002,12 @@ header .secondary input[type="search"]
 	background: #FFF url(../images/glass.png) 130px center no-repeat;
 }
 
-header .secondary input[type="search"]:focus
+#container > header .secondary input[type="search"]:focus
 {
 	background-image: none;
 }
 
-body:-moz-last-node header input[type="search"]
+body:-moz-last-node #container > header input[type="search"]
 {
 	border-width: 2px;
 	-moz-border-top-colors: #EDEDED #B3B3B3;
@@ -1016,25 +1016,25 @@ body:-moz-last-node header input[type="search"]
 	-moz-border-left-colors: #EDEDED #B3B3B3;
 }
 
-header .secondary input:focus::-webkit-input-placeholder,
-header .secondary input:hover::-webkit-input-placeholder
+#container > header .secondary input:focus::-webkit-input-placeholder,
+#container > header .secondary input:hover::-webkit-input-placeholder
 {
 	color: transparent;
 }
 
-header .secondary input:focus:-moz-placeholder,
-header .secondary input:hover:-moz-placeholder
+#container > header .secondary input:focus:-moz-placeholder,
+#container > header .secondary input:hover:-moz-placeholder
 {
 	color: transparent;
 }
 
-header .secondary input:focus:-ms-input-placeholder,
-header .secondary input:hover:-ms-input-placeholder
+#container > header .secondary input:focus:-ms-input-placeholder,
+#container > header .secondary input:hover:-ms-input-placeholder
 {
 	color: transparent;
 }
 
-header .secondary input::-webkit-search-cancel-button
+#container > header .secondary input::-webkit-search-cancel-button
 {
 	margin: 0 8px 0 -8px
 }
@@ -1558,7 +1558,7 @@ nav#breadcrumb .extra_0
 	text-decoration: underline;
 }
 
-footer
+#container > footer
 {
 	background-image: url("../images/footer_repeat.jpg");
 	background-position: center 115px;
@@ -1567,7 +1567,7 @@ footer
 	width: 100%;
 }
 
-footer > a
+#container > footer > a
 {
 	background-image: url("../images/sprite.jpg");
 	background-position: -508px -353px;
@@ -1581,12 +1581,12 @@ footer > a
 	z-index: 1;
 }
 
-footer > a:hover
+#container > footer > a:hover
 {
 	background-position: -508px -469px;
 }
 
-footer > ul.technologies_used
+#container > footer > ul.technologies_used
 {
 	height: 95px;
 	list-style: none outside none;
@@ -1597,7 +1597,7 @@ footer > ul.technologies_used
 	z-index: 2;
 }
 
-footer > ul.technologies_used > li
+#container > footer > ul.technologies_used > li
 {
 	float: left;
 	margin-right: 8px;
@@ -1606,7 +1606,7 @@ footer > ul.technologies_used > li
 	z-index: 1;
 }
 
-footer > ul.technologies_used > li > a
+#container > footer > ul.technologies_used > li > a
 {
 	background-image: url("../images/sprite.jpg");
 	display: block;
@@ -1614,79 +1614,79 @@ footer > ul.technologies_used > li > a
 	text-indent: -9999px;
 }
 
-footer > ul.technologies_used > li.html5
+#container > footer > ul.technologies_used > li.html5
 {
 	left: 560px;
 	top: 20px;
 }
 
-footer > ul.technologies_used > li.html5 > a
+#container > footer > ul.technologies_used > li.html5 > a
 {
 	background-position: -508px -228px;
 	height: 53px;
 	width: 116px;
 }
 
-footer > ul.technologies_used > li.html5 > a:hover
+#container > footer > ul.technologies_used > li.html5 > a:hover
 {
 	background-position: -508px -281px;
 }
 
-footer > ul.technologies_used > li.humanstxt
+#container > footer > ul.technologies_used > li.humanstxt
 {
 	left: 175px;
 	top: 30px;
 }
 
-footer > ul.technologies_used > li.humanstxt > a
+#container > footer > ul.technologies_used > li.humanstxt > a
 {
 	background-position: -624px -316px;
 	height: 37px;
 	width: 137px;
 }
 
-footer > ul.technologies_used > li.humanstxt > a:hover
+#container > footer > ul.technologies_used > li.humanstxt > a:hover
 {
 	background-position: -761px -316px;
 }
 
-footer > ul.technologies_used > li.github
+#container > footer > ul.technologies_used > li.github
 {
 	left: 0px;
 	top: 30px;
 }
 
-footer > ul.technologies_used > li.github > a
+#container > footer > ul.technologies_used > li.github > a
 {
 	background-position: -873px -383px;
 	height: 43px;
 	width: 119px;
 }
 
-footer > ul.technologies_used > li.github > a:hover
+#container > footer > ul.technologies_used > li.github > a:hover
 {
 	background-position: -873px -426px;
 }
 
-footer > ul.technologies_used > li.google_groups
+#container > footer > ul.technologies_used > li.google_groups
 {
 	left: 725px;
 	top: 35px;
 }
 
-footer > ul.technologies_used > li.google_groups > a
+#container > footer > ul.technologies_used > li.google_groups > a
 {
 	background-position: -311px -228px;
 	height: 48px;
 	width: 90px;
 }
 
-footer > ul.technologies_used > li.google_groups > a:hover
+#container > footer > ul.technologies_used > li.google_groups > a:hover
 {
 	background-position: -401px -228px;
 }
 
-footer > .activity
+#container > footer > .activity
 {
 	height: 201px;
 	margin: 20px auto;
@@ -1694,7 +1694,7 @@ footer > .activity
 	width: 810px;
 }
 
-footer > .activity > form > a
+#container > footer > .activity > form > a
 {
 	background-image: url("../images/sprite.jpg");
 	background-position: -831px -228px;
@@ -1707,12 +1707,12 @@ footer > .activity > form > a
 	width: 105px;
 }
 
-footer > .activity > form > a:hover
+#container > footer > .activity > form > a:hover
 {
 	background-position: -831px -271px;
 }
 
-footer > .activity > .follow_us
+#container > footer > .activity > .follow_us
 {
 	background-image: url("../images/sprite.jpg");
 	background-position: -624px -228px;
@@ -1727,7 +1727,7 @@ footer > .activity > .follow_us
 	z-index: 1;
 }
 
-footer > .activity > .follow_us > li
+#container > footer > .activity > .follow_us > li
 {
 	display: block;
 	float: left;
@@ -1736,7 +1736,7 @@ footer > .activity > .follow_us > li
 	width: 24px;
 }
 
-footer > .activity > .follow_us > li > a
+#container > footer > .activity > .follow_us > li > a
 {
 	display: block;
 	height: 100%;
@@ -1745,22 +1745,22 @@ footer > .activity > .follow_us > li > a
 	width: 100%;
 }
 
-footer > .activity > .follow_us > li > a:hover
+#container > footer > .activity > .follow_us > li > a:hover
 {
 	background-image: url("../images/sprite.jpg");
 }
 
-footer > .activity > .follow_us > li.twitter > a:hover
+#container > footer > .activity > .follow_us > li.twitter > a:hover
 {
 	background-position: -873px -353px;
 }
 
-footer > .activity > .follow_us > li.facebook > a:hover
+#container > footer > .activity > .follow_us > li.facebook > a:hover
 {
 	background-position: -897px -353px;
 }
 
-footer > .activity > .follow_us > li.vimeo > a:hover
+#container > footer > .activity > .follow_us > li.vimeo > a:hover
 {
 	background-position: -921px -353px;
 }
@@ -1842,7 +1842,7 @@ footer > .activity > .follow_us > li.vimeo > a:hover
 	z-index: 2;
 }
 
-footer > .activity > .participate
+#container > footer > .activity > .participate
 {
 	background-image: url("../images/sprite.jpg");
 	background-position: -680px -99px;
@@ -1853,7 +1853,7 @@ footer > .activity > .participate
 	font-weight: bold;
 }
 
-footer > .activity > .participate > h2
+#container > footer > .activity > .participate > h2
 {
 
 	color: white;
@@ -1863,7 +1863,7 @@ footer > .activity > .participate > h2
 	width: 72px;
 }
 
-footer > .activity > .participate > p
+#container > footer > .activity > .participate > p
 {
 
 	color: white;
@@ -1873,19 +1873,19 @@ footer > .activity > .participate > p
 	width: 230px;
 }
 
-footer > .activity > .participate > p > a
+#container > footer > .activity > .participate > p > a
 {
 	color: #FFD519;
 	text-decoration: none;
 	text-shadow: 0 1px 0 #666666;
 }
 
-footer > .activity > .participate > p > a:hover
+#container > footer > .activity > .participate > p > a:hover
 {
 	text-decoration: underline;
 }
 
-footer > .activity > .copy
+#container > footer > .activity > .copy
 {
 	bottom: 0px;
 	position: absolute;
@@ -1894,14 +1894,14 @@ footer > .activity > .copy
 	width: 100%;
 }
 
-footer > .activity > .copy > p > a
+#container > footer > .activity > .copy > p > a
 {
 	color: #666666;
 	font-weight: bold;
 	text-decoration: none;
 }
 
-footer > .activity > .copy > p > a:hover
+#container > footer > .activity > .copy > p > a:hover
 {
 	text-decoration: underline;
 }
