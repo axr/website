@@ -8,6 +8,9 @@ class AuthController extends WWWController
 	public function initialize ()
 	{
 		$this->openid = new LightOpenID(Config::get('/shared/www_url'));
+
+		$this->rsrc->loadBundle('css/auth.css');
+		$this->rsrc->loadBundle('j/auth.js');
 	}
 
 	public function run ($mode = null)

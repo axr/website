@@ -5,6 +5,12 @@ require_once(ROOT . '/controllers/page/page_model.php');
 
 class PageController extends WWWController
 {
+	public function initialize ()
+	{
+		$this->rsrc->loadBundle('css/page.css');
+		$this->rsrc->loadBundle('js/page.js');
+	}
+
 	/**
 	 * Display a page
 	 *

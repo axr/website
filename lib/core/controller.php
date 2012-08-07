@@ -93,6 +93,27 @@ class Controller
 	}
 
 	/**
+	 * Render just the view. Don't wrap it with the layout
+	 */
+	public function renderViewOnly ($file, $minify = false)
+	{
+		if (!file_exists($file))
+		{
+			return false;
+		}
+
+		$explode = explode('.', $file);
+		$extension = end($explode);
+
+		$template = file_get_contents($file);
+
+		$mustache = new Mustache();
+		$out = $mustache->render($template, $this->view);
+
+		return ($minify && $extension === 'html') ? Minify::html($out) : $out;
+	}
+
+	/**
 	 * Redirect
 	 *
 	 * @param string $location

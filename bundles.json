@@ -21,28 +21,59 @@
 	"css/bundle_www.css": {
 		"type": "css",
 		"files": [
-			"css/openid.css",
-			"css/livefyre.css",
-			"css/auth.css",
-			"css/search.css",
 			"css/rainbow.css",
 			"css/404.css",
-			"css/home.css",
-			"css/get_involved.css",
 			"css/downloads.css",
 			"css/manifesto.css",
-			"css/page.css",
 			"css/calendar.css"
 		]
 	},
 	"js/bundle_www.js": {
 		"type": "js",
 		"files": [
-			"js/openid-jquery.js",
-			"js/openid-en.js",
-			"js/auth.js",
+			"js/ajaxsite.js",
 			"js/home.js",
 			"js/downloads.js"
+		]
+	},
+	"css/home.css": {
+		"type": "css",
+		"files": [
+			"css/home.css"
+		]
+	},
+	"css/auth.css": {
+		"type": "css",
+		"files": [
+			"css/openid.css",
+			"css/auth.css"
+		]
+	},
+	"js/auth.js": {
+		"type": "js",
+		"files": [
+			"js/openid-jquery.js",
+			"js/openid-en.js",
+			"js/auth.js"
+		]
+	},
+	"css/get_involved.css": {
+		"type": "css",
+		"files": [
+			"css/get_involved.css"
+		]
+	},
+	"js/get_involved.js": {
+		"type": "js",
+		"files": [
+			"js/get_involved.js"
+		]
+	},
+	"css/page.css": {
+		"type": "css",
+		"files": [
+			"css/livefyre.css",
+			"css/page.css"
 		]
 	}
 }
