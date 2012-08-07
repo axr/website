@@ -68,7 +68,6 @@ $router->route('/^\/page\/add\/?$/', array(
 	'args' => array(1)
 ));
 
-
 $router->route('/^\/page\/add\/(\w+)\/?$/', array(
 	'controller' => 'PageController',
 	'run' => 'runAdd',
@@ -96,6 +95,12 @@ $router->route('/^\/page\/(\w+)\/?$/', array(
 $router->route('/^\/blog\/?$/', array(
 	'controller' => 'PageController',
 	'run' => 'runBlogList'
+));
+
+$router->route('/^\/doc\/([^\/#]+)\/?$/i', array(
+	'controller' => 'PageController',
+	'run' => 'runHssdocObj',
+	'args' => array(1)
 ));
 
 $router->route('/^\/(.+)$/', array(

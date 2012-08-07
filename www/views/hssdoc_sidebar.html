@@ -1,0 +1,18 @@
+<div id="hssdoc_sidebar">
+	<ul class="obj_list">
+		{{#objects}}
+			<li>
+				<span class="object">
+					<a href="#" class="open">[+]</a>
+					{{object}}
+				</span>
+				<ul class="prop_list">
+					{{#props}}
+						<li><a href="{{url}}">{{title}}</a></li>
+					{{/props}}
+				</ul>
+			</li>
+		{{/objects}}
+	</ul>
+</div>
+

@@ -5,6 +5,16 @@ require_once(SHARED . '/lib/php-markdown/markdown.php');
 class PageModel
 {
 	/**
+	 * No error
+	 */
+	const STATUS_OK = 0;
+
+	/**
+	 * Error while loading data from database
+	 */
+	const STATUS_DB_READ_ERR = 1;
+
+	/**
 	 * Content types information
 	 */
 	public static $ctypes;
@@ -25,6 +35,11 @@ class PageModel
 	 * @var string[]
 	 */
 	public $errors = array();
+
+	/**
+	 * Status
+	 */
+	public $status = self::STATUS_OK;
 
 	/**
 	 * @var PDO
@@ -61,6 +76,11 @@ class PageModel
 		{
 			$this->data->url = $params['url'];
 			$this->loadPageData();
+		}
+
+		if ($this->status !== self::STATUS_OK)
+		{
+			return;
 		}
 
 		$this->loadPostData();
@@ -121,6 +141,7 @@ class PageModel
 		if (!is_object($page) ||
 			!isset(self::$ctypes->{$page->ctype}))
 		{
+			$this->status = self::STATUS_DB_READ_ERR;
 			return false;
 		}
 
@@ -175,6 +196,11 @@ class PageModel
 		$this->data->published = (bool) $this->data->published;
 
 		$this->parseFields();
+
+		if (isset($this->ctype->filterHook))
+		{
+			call_user_func($this->ctype->filterHook, $this->data);
+		}
 	}
 
 	/**
@@ -227,6 +253,8 @@ class PageModel
 		{
 			$this->data->id = $this->dbh->lastInsertId();
 		}
+
+		$this->updateFieldIndexes();
 
 		return (bool) $status;
 	}
@@ -374,6 +402,58 @@ class PageModel
 	}
 
 	/**
+	 *
+	 */
+	private function updateFieldIndexes ()
+	{
+		foreach ($this->ctype->fields as $field)
+		{
+			if (isset($field->index) && $field->index === true)
+			{
+				$this->setFieldIndexData($field->key,
+					$this->data->fields->{$field->key});
+			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	private function setFieldIndexData ($field, $data)
+	{
+		$query = $this->dbh->prepare('SELECT COUNT(*)
+			FROM `www_pages_index` AS `page_index`
+			WHERE `page_index`.`page_id` = :page_id AND
+				`page_index`.`field` = :field
+			LIMIT 1');
+		$query->bindValue(':page_id', $this->data->id, PDO::PARAM_INT);
+		$query->bindValue(':field', $field, PDO::PARAM_STR);
+		$query->execute();
+
+		$indexExists = $query->fetch(PDO::FETCH_OBJ)->{'COUNT(*)'} > 0;
+
+		if ($indexExists)
+		{
+			$query = $this->dbh->prepare('UPDATE
+					`www_pages_index` AS `page_index`
+				SET `page_index`.`value` = :data
+				WHERE `page_index`.`page_id` = :page_id AND
+					`page_index`.`field` = :field');
+		}
+		else
+		{
+			$query = $this->dbh->prepare('INSERT INTO `www_pages_index`
+				(`page_id`, `field`, `value`)
+				VALUES (:page_id, :field, :data)');
+		}
+
+		$query->bindValue(':page_id', $this->data->id, PDO::PARAM_INT);
+		$query->bindValue(':field', $field, PDO::PARAM_STR);
+		$query->bindValue(':data', $data, PDO::PARAM_STR);
+		$query->execute();
+	}
+
+	/**
 	 * Check if URL exists
 	 *
 	 * @param string $url
@@ -438,6 +518,48 @@ PageModel::$ctypes = (object) array(
 				'type' => 'textarea',
 				'required' => true,
 				'filters' => array('markdown')
+			)
+		)
+	),
+	'hssprop' => (object) array(
+		'name' => 'HSS property',
+		'view' => ROOT . '/views/page_hssprop.html',
+		'filterHook' => function ($data)
+		{
+			$objectSafe = preg_replace('/[^a-z0-9-_]/i',
+				'', $data->fields->object);
+			$propSafe = preg_replace('/[^a-z0-9-_]/i',
+				'', $data->title);
+
+			$data->url = 'doc/' . $objectSafe . '/' . $propSafe;
+		},
+		'fields' => array(
+			(object) array(
+				'key' => 'description',
+				'name' => 'Description',
+				'type' => 'textarea',
+				'required' => true,
+				'filters' => array('markdown')
+			),
+			(object) array(
+				'key' => 'code',
+				'name' => 'Code',
+				'type' => 'textarea',
+				'required' => true,
+				'filters' => array('code')
+			),
+			(object) array(
+				'key' => 'values',
+				'name' => 'Values',
+				'type' => 'textarea',
+				'required' => true
+			),
+			(object) array(
+				'key' => 'object',
+				'name' => '',
+				'type' => 'text',
+				'required' => true,
+				'index' => true
 			)
 		)
 	)

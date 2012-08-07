@@ -1,0 +1,25 @@
+<div id="hssdoc_obj">
+	{{{sidebar}}}
+
+	<h1>{{object}}</h1>
+
+	{{#pages}}
+		<section class="prop_item">
+			<header>
+				<h2>{{title}}</h2>
+				{{#can_edit}}
+					<a href="/page/{{id}}/edit" class="action">[edit]</a>
+				{{/can_edit}}
+			</header>
+
+			{{{fields.description}}}
+
+			<h3>Code:</h3>
+			{{{fields.code}}}
+
+			<h3>Values:</h3>
+			{{{fields.values}}}
+		</section>
+	{{/pages}}
+</div>
+

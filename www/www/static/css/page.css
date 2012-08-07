@@ -139,3 +139,85 @@
 	margin-top: 0 !important;
 }
 
+/**
+ * HSS Documentation styles
+ */
+
+#hssdoc_sidebar
+{
+	background: #eee;
+	border: 1px solid #ccc;
+	float: right;
+	margin: 0 0 10px 10px;
+	padding: 10px;
+	width: 200px;
+}
+
+#hssdoc_sidebar ul
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#hssdoc_sidebar > ul > li
+{
+	margin: 0 0 10px 0;
+}
+
+#hssdoc_sidebar > ul > li:last-child
+{
+	margin: 0;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.open
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.open:hover
+{
+	text-decoration: underline;
+}
+
+#hssdoc_sidebar > ul ul
+{
+	margin: 0 0 0 18px;
+}
+
+#hssdoc_sidebar > ul ul li
+{
+	padding: 2px 0;
+}
+
+#hssdoc_sidebar > ul ul li a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > ul ul li a:hover
+{
+	text-decoration: underline;
+}
+
+#hssdoc_obj .prop_item header h2
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#hssdoc_obj .prop_item header a.action
+{
+	color: #D09610;
+	font-size: 13px;
+	margin: 0 0 0 6px;
+	text-decoration: none;
+}
+
+#hssdoc_obj .prop_item header a.action:hover
+{
+	text-decoration: underline;
+}
+

@@ -16,7 +16,7 @@ class PageController extends WWWController
 
 		$model = new PageModel($this->dbh, array($key => $value));
 
-		if (!is_object($model) || !isset($model->data->title))
+		if ($model->status !== PageModel::STATUS_OK)
 		{
 			throw new HTTPException(null, 404);
 		}
@@ -36,6 +36,16 @@ class PageController extends WWWController
 		{
 			$url = preg_replace('/^\//', '', $page->url);
 			$this->redirect('/' . $url, 301);
+			return;
+		}
+
+		// if the page is a hssdoc prop, redirect
+		if ($page->ctype === 'hssprop')
+		{
+			$objectName = $page->fields->object;
+			$propName = $page->title;
+
+			$this->redirect('/doc/' . $objectName . '#' . $propName);
 			return;
 		}
 
@@ -81,6 +91,56 @@ class PageController extends WWWController
 		}
 
 		echo $this->renderView($ctype->view);
+	}
+
+	/**
+	 * Display HSS object pages
+	 */
+	public function runHssdocObj ($object)
+	{
+		$query = $this->dbh->prepare('SELECT `index`.*, `page`.*
+			FROM `www_pages_index` AS `index`,
+				`www_pages` AS `page`
+			WHERE `page`.`id` = `index`.`page_id` AND
+				`index`.`field` = \'object\' AND
+				`index`.`value` = :value');
+		$query->bindValue(':value', $object, PDO::PARAM_STR);
+		$query->execute();
+
+		$pages = $query->fetchAll(PDO::FETCH_OBJ);
+
+		// Check object existance
+		if (!is_array($pages) || count($pages) === 0)
+		{
+			throw new HTTPException(null, 404);
+		}
+
+		// Process the results
+		foreach ($pages as &$page)
+		{
+			// Merge the fields
+			$page->fields = (object) array_merge(
+				(array) json_decode($page->fields, true),
+				(array) json_decode($page->fields_parsed, true));
+		}
+
+		// Title & breadcrumb
+		$this->view->_title = $object;
+		$this->view->_breadcrumb[] = array(
+			'name' => 'HSS documentation',
+			'link' => '/hssdoc'
+		);
+		$this->view->_breadcrumb[] = array(
+			'name' => $object
+		);
+
+		$this->view->object = $object;
+		$this->view->pages = $pages;
+		$this->view->can_edit = Session::perms()->has('/page/edit/*') ||
+			Session::perms()->has('/page/edit/hssprop');
+		$this->view->sidebar = $this->renderHssdocSidebar();
+
+		echo $this->renderView(ROOT . '/views/hssdoc_obj.html');
 	}
 
 	/**
@@ -196,21 +256,31 @@ class PageController extends WWWController
 			'name' => 'Create a new page'
 		);
 
-		if (!Session::perms()->has('/page/create/*') &&
-			!Session::perms()->has('/page/create/' . $type))
-		{
-			throw new HTTPException(null, 403);
-		}
 
+		$allowedCount = 0;
 		$this->view->types = array();
 
 		foreach (PageModel::$ctypes as $key => $ctype)
 		{
+			if (!Session::perms()->has('/page/create/*') &&
+				!Session::perms()->has('/page/create/' . $key))
+			{
+				continue;
+			}
+
 			$this->view->types[] = array(
 				'key' => $key,
 				'name' => $ctype->name,
-				'description' => $ctype->description
+				'description' => isset($ctype->description) ?
+					$ctype->description : null
 			);
+
+			$allowedCount++;
+		}
+
+		if ($allowedCount === 0)
+		{
+			throw new HTTPException(null, 403);
 		}
 
 		echo $this->renderView(ROOT . '/views/page_add_select.html');
@@ -299,6 +369,58 @@ class PageController extends WWWController
 		}
 
 		echo $this->renderView(ROOT . '/views/page_rm.html');
+	}
+
+	/**
+	 * Create the sidebar for HSS documentation pages
+	 *
+	 * @return string HTML
+	 */
+	private function renderHssdocSidebar ()
+	{
+		$query = $this->dbh->prepare('SELECT `index`.*, `page`.*
+			FROM `www_pages_index` AS `index`,
+				`www_pages` AS `page`
+			WHERE `page`.`id` = `index`.`page_id` AND
+				`index`.`field` = \'object\'
+			ORDER BY `index`.`value` ASC');
+		$query->execute();
+
+		$props = $query->fetchAll(PDO::FETCH_OBJ);
+		$objects = array();
+
+		foreach ($props as &$prop)
+		{
+			// Merge the fields
+			$prop->fields = (object) array_merge(
+				(array) json_decode($prop->fields, true),
+				(array) json_decode($prop->fields_parsed, true));
+
+			$objectName = $prop->fields->object;
+
+			if (!isset($objects[$objectName]))
+			{
+				$objects[$objectName] = array();
+			}
+
+			$prop->url = '/doc/' . $objectName . '#' . $prop->title;
+			$objects[$objectName][] = $prop;
+		}
+
+		$mustache = new Mustache();
+		$view = new StdClass();
+		$view->objects = array();
+
+		foreach ($objects as $objectName => $objectProps)
+		{
+			$view->objects[] = array(
+				'object' => $objectName,
+				'props' => $objectProps
+			);
+		}
+
+		return $mustache->render(
+			file_get_contents(ROOT . '/views/hssdoc_sidebar.html'), $view);
 	}
 }
 
