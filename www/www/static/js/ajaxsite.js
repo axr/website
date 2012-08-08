@@ -14,53 +14,58 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 */
 	Ajaxsite.initialize =  function ()
 	{
-		Ajaxsite.$content = jQuery('#main');
+		Ajaxsite.content = new Ajaxsite.Block();
+		Ajaxsite.content.html(jQuery('#main').html());
+		jQuery('#main').html(Ajaxsite.content.placeholder());
 
 		History.Adapter.bind(window, 'statechange', function ()
 		{
 			var state = History.getState();
+			var path = state.url.replace(/^https?:\/\/[^\/]+(\/.*)?$/, '$1');
+			path = (path === '') ? '/' : path;
 
-			state.url = state.url.replace(/^https?:\/\/[^\/]+(\/.*)$/, '$1');
-
-			console.log(state.url);
-
-			if (!/^\/search\//.test(state.url))
+			if (state.data._believeMe !== true)
 			{
-				window.location = state.url;
-
+				window.location = path;
 				return;
 			}
 
-			if (Ajaxsite.load_url(state.url, state.data) === false)
+			if (Ajaxsite.load_url(path, state.data) === false)
 			{
-				window.location = state.url;
+				window.location = path;
 			}
 		});
 
 		jQuery('a').on('click', function (e)
 		{
 			var url = jQuery(this).attr('href');
+			var host = window.location.host;
 
-			if (!/^\/search\//.test(url) ||
-				e.which !== 1 || /^(https?:|#|javascript:)/.test(url))
+			if (/^https?/.test(url))
+			{
+				host = url.replace(/^https?:\/\/([^\/]+)(\/?.*)$/, '$1');
+			}
+
+			// Exceptions
+			if (e.which !== 1 || host !== window.location.host ||
+				/(#|^javascript:)/.test(url))
 			{
 				return;
 			}
 
 			e.preventDefault();
-
 			Ajaxsite.url(url);
 		});
 
+		Ajaxsite.rsrc.initialize();
+
+		// Execute callbacks
 		if (typeof Ajaxsite_onInit === 'object' &&
 			Ajaxsite_onInit instanceof Array)
 		{
 			for (var i = 0, c = Ajaxsite_onInit.length; i < c; i++)
 			{
-				if (typeof Ajaxsite_onInit[i] === 'function')
-				{
-					Ajaxsite_onInit[i].call(null);
-				}
+				Ajaxsite.on_init(Ajaxsite_onInit[i]);
 			}
 		}
 
@@ -98,58 +103,151 @@ window.Ajaxsite = window.Ajaxsite || {};
 			return;
 		}
 
-		url = url.replace(/^https?:\/\/[^\/]+(\/.*)$/, '$1');
-		url = (url[0] !== '/') ? '/' + url : url;
+		data = data || {};
+		data._believeMe = true;
 
 		if (url === window.location.pathname && force !== true)
 		{
 			return;
 		}
 
-		History.pushState(data || null, null, url);
+		History.pushState(data, null, url);
 	};
+
+	/**
+	 * Router
+	 */
+	Ajaxsite.router = {
+		_routes: [
+			{
+				regex: /^\/get-involved\/?$/,
+				handler: function (data)
+				{
+					Ajaxsite.handlers.get_involved(data);
+				},
+				rsrc_bundles: [
+					'css/get_involved.css',
+					'js/get_involved.js'
+				]
+			},
+			{
+				regex: /^\/$/,
+				handler: function (data)
+				{
+					//Ajaxsite.handlers.home(data);
+					window.location = '/';
+				},
+				rsrc_bundles: [
+					'css/home.css'
+				]
+			}
+		],
+
+		/**
+		 * Route the request (find a handler)
+		 *
+		 * @param string url
+		 * @return object
+		 */
+		find: function (url)
+		{
+			for (var i = 0, c = this._routes.length; i < c; i++)
+			{
+				var route = this._routes[i];
+
+				if (!route.regex.test(url))
+				{
+					continue;
+				}
+
+				return {
+					run_handler: route.handler,
+					rsrc_bundles: route.rsrc_bundles || []
+				};
+			}
+		}
+	};
+
+	/**
+	 * Cache system
+	 */
+	Ajaxsite.cache = {
+		_cache: {},
+
+		/**
+		 * Save data into cache
+		 *
+		 * @param string key
+		 * @param mixed
+		 */
+		set: function (key, data)
+		{
+			this._cache[key] = data;
+		},
+
+		/**
+		 * Get data from cache
+		 *
+		 * @param string key
+		 * @return mixed
+		 */
+		get: function (key)
+		{
+			return this._cache[key] || undefined;
+		},
+
+		/**
+		 * Remove an item from the cache
+		 *
+		 * @param string key
+		 */
+		rm: function (key)
+		{
+			delete this._cache[key];
+		}
+	};
+
+	/**
+	 * Functions that deal with fetching data
+	 */
+	Ajaxsite.data = {};
 
 	/**
 	 * Load a template
 	 *
 	 * @param string name
-	 * @param function callback
+	 * @param function callback(template, error)
 	 */
-	Ajaxsite.template = function (name, callback)
+	Ajaxsite.data.template = function (name, callback)
 	{
-		Ajaxsite.template.cache = Ajaxsite.template.cache || {};
-		Ajaxsite.template.loading = Ajaxsite.template.loading || {};
+		if (typeof callback !== 'function')
+		{
+			callback = function () {};
+		}
 
 		// We already have the template in cache
-		if (Ajaxsite.template.cache[name] !== undefined)
+		if (Ajaxsite.cache.get('/template/' + name) !== undefined)
 		{
-			if (typeof callback === 'function')
-			{
-				callback(Ajaxsite.template.cache[name].template, false);
-			}
-
+			callback(Ajaxsite.cache.get('/template/' + name), null);
 			return;
 		}
 
 		// The template is currently being requested
-		if (Ajaxsite.template.loading[name] === true)
+		if (Ajaxsite.cache.get('/template/:loading/' + name) === true)
 		{
 			var interval = setInterval(function ()
 			{
-				if (Ajaxsite.template.cache[name] !== undefined)
+				if (Ajaxsite.cache.get('/template/' + name) !== undefined)
 				{
 					clearInterval(interval);
-
-					if (typeof callback === 'function')
-					{
-						callback(Ajaxsite.template.cache[name].template, false);
-					}
+					callback(Ajaxsite.cache.get('/template/' + name), null);
 				}
 			}, 100);
+
 			return;
 		}
 
-		Ajaxsite.template.loading[name] = true;
+		Ajaxsite.cache.get('/template/:loading/' + name, true);
 
 		jQuery.ajax({
 			url: '/_ajax/template',
@@ -159,74 +257,65 @@ window.Ajaxsite = window.Ajaxsite || {};
 			dataType: 'json'
 		}).success(function (data)
 		{
-			if (data === null || data.status !== 0)
+			if (typeof data !== 'object' || data.status !== 0)
 			{
-				if (typeof callback == 'function')
-				{
-					callback('Error loading template', true);
-				}
+				callback(null, 'Error loading template');
 
 				return;
 			}
 
-			Ajaxsite.template.cache[name] = data.payload;
-			Ajaxsite.template.loading[name] = false;
+			Ajaxsite.cache.get('/template/' + name, data.payload.template);
+			Ajaxsite.cache.get('/template/:loading/' + name, false);
 
-			if (typeof callback === 'function')
-			{
-				callback(data.payload.template, false);
-			}
+			callback(data.payload.template, false);
 		}).error(function ()
 		{
 			console.error('Error while loading template ' + name);
+			callback(null, 'Error loading template');
 		});
 	};
 
 	/**
-	 * Get info for an url
+	 * Get a prerendered page that supports _forajax querystring parameter
+	 * There is no automatic cache since this data should not be cached.
+	 *
+	 * @param string path
+	 * @param function callback(data, error)
 	 */
-	Ajaxsite.urlInfo = function (url, callback)
+	Ajaxsite.data.sp_forajax = function (path, callback)
 	{
-		Ajaxsite.urlInfo.cache = Ajaxsite.urlInfo.cache || {};
-
-		if (typeof url !== 'string')
-		{
-			return;
-		}
-
-		if (Ajaxsite.urlInfo.cache[url] === undefined)
-		{
-			jQuery.ajax({
-				url: '/_ajax/info',
-				data: {
-					url: url
-				},
-				dataType: 'json'
-			}).success(function (data)
+		jQuery.ajax({
+			url: path,
+			data: {
+				_forajax: 1
+			},
+			method: 'GET',
+			dataType: 'json',
+			success: function (data)
 			{
-				Ajaxsite.urlInfo.cache[url] = data.payload;
-
-				if (typeof callback === 'function')
+				if (typeof data !== 'object' || data.status !== 0)
 				{
-					callback(Ajaxsite.urlInfo.cache[url]);
-				}
-			}).error(function (data)
-			{
-				Ajaxsite.urlInfo.cache[url] = null;
+					if (typeof callback === 'function')
+					{
+						callback(null, 'Received non-zero status code');
+						callback = undefined;
+					}
 
-				if (typeof callback === 'function')
-				{
-					callback(Ajaxsite.urlInfo.cache[url]);
+					return;
 				}
-			});
-		}
-		else
+
+				callback(data.payload, null);
+				callback = undefined;
+			}
+		});
+
+		setTimeout(function ()
 		{
 			if (typeof callback === 'function')
 			{
-				callback(Ajaxsite.urlInfo.cache[url]);
+				callback(null, 'Timeout');
 			}
-		}
+		}, 10000);
 	};
 
 	/**
@@ -242,62 +331,57 @@ window.Ajaxsite = window.Ajaxsite || {};
 			return false;
 		}
 
-		url = url.replace(/^https?:\/\/[^\/]+\/(.*)$/, '$1')
-			.replace(/^\//, '');
+		var route = Ajaxsite.router.find(url);
 
-		return Ajaxsite.load(url, data || undefined);
-	};
-
-	/**
-	 * Load a page
-	 */
-	Ajaxsite.load = function (url, data)
-	{
-		var handler = this._find_handler(url);
-
-		if (handler === undefined)
+		if (route === undefined)
 		{
-			console.error('Page ' + url + ' cannot be loaded');
 			return false;
 		}
 
-		Ajaxsite.$content.html(Ajaxsite.renderLoading());
+		if (!data._prerendered)
+		{
+			Ajaxsite.content.html(Ajaxsite.renderLoading());
+		}
 
-		handler(url, data || undefined);
+		Ajaxsite.rsrc.loadBundles(route.rsrc_bundles, function ()
+		{
+			data = data || {};
+			data._url = url;
+
+			route.run_handler(data);
+		});
+
+		return true;
 	};
 
 	/**
-	 * Find a handler for supplied url
+	 * Handle errors
 	 *
-	 * @param string url
-	 * @return function
+	 * @param string message
+	 * @param bool isFatal
 	 */
-	Ajaxsite._find_handler = function (url)
+	Ajaxsite.error = function (message, isFatal)
 	{
-		var segments = url.split('/');
-		var last_handler = this.handlers;
-
-		for (var i = 0, c = segments.length; i < c; i++)
+		if (isFatal)
 		{
-			if (last_handler[segments[i]] === undefined)
-			{
-				break;
-			}
-
-			last_handler = last_handler[segments[i]];
+			// In case of a fatal error we want to clear the page where
+			// the error occurred
+			Ajaxsite.content.html('<h1>Error</h1><p>' + message + '</p>');
+		}
+		else
+		{
+			alert('Error: ' + message);
 		}
 
-		if (typeof last_handler === 'object' &&
-			typeof last_handler._default === 'function')
-		{
-			return last_handler._default;
-		}
-		else if (typeof last_handler === 'function')
-		{
-			return last_handler;
-		}
+		console.error((isFatal ? 'Fatal error' : 'Error') + ': ' + message);
+	};
 
-		return undefined;
+	/**
+	 * Display a 404 page (call the 404 handler)
+	 */
+	Ajaxsite.call404 = function ()
+	{
+		Ajaxsite.handlers['404'](window.location.pathname);
 	};
 
 	/**
@@ -306,6 +390,157 @@ window.Ajaxsite = window.Ajaxsite || {};
 	Ajaxsite.renderLoading = function ()
 	{
 		return 'Loading...';
+	};
+
+	/**
+	 * Resource manager
+	 */
+	Ajaxsite.rsrc = {
+		/**
+		 * Loaded files
+		 */
+		_loaded: {},
+
+		/**
+		 * Is initialized?
+		 */
+		_initialized: false,
+
+		initialize: function ()
+		{
+			if (Ajaxsite.rsrc._initialized === true)
+			{
+				return;
+			}
+
+			Ajaxsite.rsrc._initialized = true;
+
+			// TODO Add already loaded files to Ajaxsite.rsrc._loaded
+		},
+
+		/**
+		 * Load multiple resource bundles at once
+		 */
+		loadBundles: function (bundleNames, callback)
+		{
+			if (!(bundleNames instanceof Array) ||
+				bundleNames.length === 0)
+			{
+				callback();
+				return;
+			}
+
+			var cb_count = bundleNames.length;
+			var cb = function ()
+			{
+				if (--cb_count === 0 &&
+					typeof callback === 'function')
+				{
+					callback();
+				}
+			};
+
+			for (var i = 0, c = bundleNames.length; i < c; i++)
+			{
+				var status = Ajaxsite.rsrc.loadBundle(bundleNames[i], cb);
+
+				if (status === false)
+				{
+					cb();
+				}
+			}
+		},
+
+		/**
+		 * Load a resource bundle
+		 */
+		loadBundle: function (bundleName, callback)
+		{
+			if (bundleName instanceof Array)
+			{
+				Ajaxsite.rsrc.loadBundles(bundleName);
+				return;
+			}
+
+			if (App.rsrc_bundles[bundleName] === undefined)
+			{
+				return false;
+			}
+
+			if (App.rsrc_prod === true)
+			{
+				Ajaxsite.rsrc.loadFile(bundleName, callback);
+				return;
+			}
+
+			var bundle = App.rsrc_bundles[bundleName];
+			var cb_count = bundle.files.length;
+			var cb = function ()
+			{
+				if (--cb_count === 0 &&
+					typeof callback === 'function')
+				{
+					callback();
+				}
+			};
+
+			for (var i = 0, c = bundle.files.length; i < c; i++)
+			{
+				Ajaxsite.rsrc.loadFile(bundle.files[i], cb);
+			}
+		},
+
+		loadFile: function (file, callback)
+		{
+			if (Ajaxsite.rsrc._loaded[file] === true)
+			{
+				if (typeof callback === 'function')
+				{
+					callback();
+				}
+
+				return;
+			}
+
+			var ext = file.split('.').pop();
+
+			if (ext === 'css')
+			{
+				// TODO Load qith AJAX
+				$('head').append($('<link>')
+					.attr('rel', 'stylesheet')
+					.attr('type', 'text/css')
+					.attr('href', App.rsrc_root + '/' + file));
+
+				Ajaxsite.rsrc._loaded[file] = true;
+
+				if (typeof callback === 'function')
+				{
+					callback();
+				}
+			}
+			else if (ext === 'js')
+			{
+				jQuery.ajax({
+					url: App.rsrc_root + '/' + file,
+					dataType: 'script',
+					timeout: 7000,
+					complete: function ()
+					{
+						if (typeof callback === 'function')
+						{
+							callback();
+						}
+
+						Ajaxsite.rsrc._loaded[file] = true;
+					}
+				});
+			}
+			else
+			{
+				callback();
+			}
+		}
 	};
 
 	/**
@@ -420,266 +655,20 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 	Ajaxsite.handlers['404'] = function (url)
 	{
-		var le404_block = new Ajaxsite.Block();
-		le404_block.html(Ajaxsite.renderLoading());
+		var a404_block = new Ajaxsite.Block();
+		a404_block.html(Ajaxsite.renderLoading());
 
-		Ajaxsite.template('404', function (template, error)
+		Ajaxsite.data.template('404', function (template, error)
 		{
-			if (error)
+			if (!error)
 			{
-				le404_block.html('404 Not found');
-				return;
+				a404_block.html(template);
 			}
-
-			le404_block.html(template);
 		});
 
-		Ajaxsite.$content.html(le404_block.placeholder());
-	};
+		a404_block.html('404 Not Found');
 
-	/**
-	 * Implement search module
-	 */
-	Ajaxsite.handlers.search = {
-		_default: function (url, data)
-		{
-			var that = this;
-
-			/**
-			 * Search result items' type names
-			 */
-			this.typeNames = {
-				blog: 'blog post',
-				page: 'site page',
-				wiki: 'wiki page',
-				user: 'user'
-			};
-
-			/**
-			 * Search types
-			 */
-			this.searchTypes = {
-				'mixed': {name: 'Everything'},
-				'node': {name: 'Site pages'},
-				'wiki': {name: 'Wiki pages'},
-				'user': {name: 'Users'}
-			};
-
-			/**
-			 * Is initialized
-			 */
-			this.isInitialized = this.isInitialized || false;
-
-			/**
-			 * History data
-			 */
-			this.data = data || {};
-
-			/**
-			 * What type of content is being searched for
-			 */
-			this.type = null;
-
-			/**
-			 * Search keywords
-			 */
-			this.keys = null;
-
-			/**
-			 * Get search results
-			 *
-			 * @param string keys
-			 * @param function callback
-			 */
-			this.query = function (callback)
-			{
-				jQuery.ajax({
-					url: '/_ajax/search',
-					data: {
-						keys: this.keys,
-						type: this.type
-					},
-					dataType: 'json'
-				}).success(function (data_raw)
-				{
-					if (data_raw.status != 0)
-					{
-						callback([]);
-						return;
-					}
-
-					var data = [];
-
-					for (var i = 0, c = data_raw.payload.length; i < c; i++)
-					{
-						var result = data_raw.payload[i];
-
-						if (!isNaN(result.changed))
-						{
-							var date = new Date(parseInt(result.changed) * 1000);
-							result.date = date.getFullYear() + '/' +
-								date.getMonth() + '/' + date.getDate() +
-								'-' + date.getHours() + ':' + date.getMinutes();
-						}
-
-						result.type_str = that.typeNames[result.type] ||
-							result.type;
-
-						data.push(result);
-					}
-
-					if (typeof callback === 'function')
-					{
-						callback(data);
-					}
-				}).error(function ()
-				{
-					if (typeof callback === 'function')
-					{
-						callback([]);
-					}
-				});
-			};
-
-			var match = window.location.pathname
-				.match(/^\/search\/([a-z]+)\/(.*)$/);
-
-			if (match === null)
-			{
-				Ajaxsite.load_url('404');
-				return;
-			}
-
-			this.type = match[1];
-			this.keys = match[2];
-
-			// Create blocks
-			var layout_block = new Ajaxsite.Block();
-			var options_block = new Ajaxsite.Block();
-			var results_block = new Ajaxsite.Block();
-
-			// Insert loading indicators
-			layout_block.html(Ajaxsite.renderLoading());
-			options_block.html(Ajaxsite.renderLoading());
-			results_block.html(Ajaxsite.renderLoading());
-
-			// Preload the results template
-			Ajaxsite.template('search_results');
-
-			// Render the main layout
-			Ajaxsite.template('search', function (template)
-			{
-				var html = Mustache.render(template, {
-					options_block: options_block.placeholder(),
-					results_block: results_block.placeholder(),
-					query_field: layout_block.field('query', that.keys)
-				});
-
-				layout_block.html(html);
-			});
-
-			// Load options block
-			Ajaxsite.template('search_options', function (template)
-			{
-				var types = [];
-
-				for (var type in that.searchTypes)
-				{
-					types.push({
-						type: type,
-						name: that.searchTypes[type].name,
-						selected: type === that.type
-					});
-				}
-
-				var html = Mustache.render(template, {
-					types: types,
-					query: that.keys
-				});
-
-				options_block.html(html);
-			});
-
-			// Load search results
-			this.query(function (results)
-			{
-				// Get search results page template
-				Ajaxsite.template('search_results', function (template)
-				{
-					var html = Mustache.render(template, {
-						results: results,
-						no_results: results.length === 0
-					});
-
-					results_block.html(html);
-				});
-			});
-
-			if (!this.isInitialized)
-			{
-				var $bar = undefined;
-				var barOffset = undefined;
-				var barOffsetDiff = 7;
-
-				jQuery(window).scroll(function (e)
-				{
-					$bar = $bar || jQuery('#search .search_options');
-
-					if ($bar.length == 0)
-					{
-						$bar = undefined;
-						return;
-					}
-
-					barOffset = barOffset || $bar.offset().top;
-
-					if (jQuery(window).scrollTop() > barOffset - barOffsetDiff)
-					{
-						$bar.addClass('stick');
-
-						if (jQuery('#toolbar').length > 0)
-						{
-							barOffsetDiff = 40;
-							$bar.addClass('stickLess');
-						}
-					}
-					else
-					{
-						$bar.removeClass('stick stickLess');
-					}
-				});
-
-				jQuery('#main').on('change',
-					'#search .search_options select[name=type]',
-					function (e)
-				{
-					e.preventDefault();
-
-					var type = jQuery(this).val();
-
-					Ajaxsite.url('search/' + type + '/' +
-						encodeURIComponent(that.keys));
-				});
-
-				jQuery('#main').on('submit',
-					'#search .search_options form.search',
-					function (e)
-				{
-					e.preventDefault();
-
-					var keys = jQuery(this).find('input[type=search]').val();
-					var url = '/search/' + that.type + '/' +
-						encodeURIComponent(keys);
-
-					Ajaxsite.url(url, false);
-				});
-			}
-
-			// Insert layout_block placeholder into #main
-			Ajaxsite.$content.html(layout_block.placeholder());
-
-			this.isInitialized = true;
-		}
+		Ajaxsite.content.html(a404_block.placeholder());
 	};
 
 	Ajaxsite.initialize();

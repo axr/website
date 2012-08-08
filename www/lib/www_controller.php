@@ -14,6 +14,12 @@ class WWWController extends Controller
 		$this->rsrc->loadBundle('js/bundle_shared.js');
 		$this->rsrc->loadBundle('js/bundle_www.js');
 
+		$this->view->_app_vars = json_encode(array(
+			'rsrc_root' => Config::get('/shared/rsrc_url'),
+			'rsrc_prod' => Config::get('/shared/rsrc/prod'),
+			'rsrc_bundles' => $this->rsrc->getBundlesInfo()
+		));
+
 		if (Session::get('/user/is_auth'))
 		{
 			$this->view->_user = array(

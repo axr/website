@@ -32,8 +32,14 @@
 	<![endif]-->
 	{{{_rsrc_styles}}}
 	<script>
-		var App = App || {};
-		App.rsrc_root = '{{_rsrc_root}}';
+		window.App = {{{_app_vars}}};
+
+		function withAS (callback) {
+			window.Ajaxsite_onInit = window.Ajaxsite_onInit || [];
+			var cb = function () { callback(Ajaxsite); };
+			try { window.Ajaxsite.on_init(cb); }
+			catch (e) { window.Ajaxsite_onInit.push(cb); }
+		};
 	</script>
 </head>
 <body class="{{_html_body_classes}}" {{{_html_body_attrs}}}>
@@ -122,30 +128,6 @@ xamples" href="/under-construction">Examples</a> -->
 			</ul>
 		</div>
 		<div id="main" role="main">
-			{{#_tabs_has}}
-				<nav id="tabs_main">
-					{{#_tabs}}
-						<a href="{{link}}"{{#current}} class="active"{{/current}}>{{name}}</a>
-					{{/_tabs}}
-				</nav>
-			{{/_tabs_has}}
-
-			<nav id="breadcrumb">
-				{{#_breadcrumb}}
-					{{^link}}
-						<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-							<span class="current" itemprop="title">{{name}}</span>
-						</div>
-					{{/link}}
-					{{#link}}
-						<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-							<a href="{{link}}" itemprop="url"><span itemprop="title">{{name}}</span></a>
-						</div>
-						<span class="extra_0"></span>
-					{{/link}}
-				{{/_breadcrumb}}
-			</nav>
-
 			{{{_content}}}
 		</div>
 

@@ -1,3 +1,6 @@
+{{{_tabs_html}}}
+{{{_breadcrumb_html}}}
+
 <div id="get_involved">
 	<div class="get_involved">
 		<div class="join_us">
@@ -7,7 +10,7 @@
 			<h2>Get involved</h2>
 			<p>If you have ever thought that the current web standards are just not good enough, you can help us make a change!</p>
 
-			<a href="#" id="action_button" class="join button_std">
+			<a href="#" class="join button_std">
 				<span class="header"></span>
 				<span class="content"><span class="block_0"></span>Get started right now!</span>
 				<span class="footer"></span>
@@ -171,7 +174,7 @@
 	</div>
 	<br style="clear: both" />
 
-	<div id="joining" class="modal hidden">
+	<div class="modal _joining hidden">
 		<div class="modal_wrap">
 			<div class="modal_inner">
 				<a class="modal_close">Close this</a>
@@ -187,4 +190,15 @@
 		</div>
 	</div>
 </div>
+
+{{^_ajax}}
+	<script>
+		withAS(function (Ajaxsite)
+		{
+			Ajaxsite.load_url(window.location.pathname, {
+				_prerendered: true
+			});
+		});
+	</script>
+{{/_ajax}}
 

@@ -14,8 +14,7 @@
 			"js/ajaxsite.js",
 			"js/rainbow/rainbow.js",
 			"js/rainbow/css.js",
-			"js/rainbow/hss.js",
-			"js/script.js"
+			"js/rainbow/hss.js"
 		]
 	},
 	"css/bundle_www.css": {

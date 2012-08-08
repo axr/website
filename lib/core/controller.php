@@ -21,6 +21,14 @@ class Controller
 	public $rsrc;
 
 	/**
+	 */
+	public $tabs = array();
+
+	/**
+	 */
+	public $breadcrumb = array();
+
+	/**
 	 * Constructor
 	 */
 	public function __construct ()
@@ -40,6 +48,28 @@ class Controller
 			return $that->rsrc->getScriptsHTML();
 		};
 
+		$this->view->_breadcrumb_html = function () use ($that)
+		{
+			$mustache = new Mustache();
+			$template = file_get_contents(ROOT . '/views/layout_breadcrumb.html');
+
+			return $mustache->render($template, array(
+				'has' => count($that->breadcrumb) > 0,
+				'breadcrumb' => $that->breadcrumb
+			));
+		};
+
+		$this->view->_tabs_html = function () use ($that)
+		{
+			$mustache = new Mustache();
+			$template = file_get_contents(ROOT . '/views/layout_tabs.html');
+
+			return $mustache->render($template, array(
+				'has' => count($that->tabs) > 0,
+				'tabs' => $that->tabs
+			));
+		};
+
 		$this->view->_rsrc_root = Config::get('/shared/rsrc_url');
 		$this->view->_www_url = Config::get('/shared/www_url');
 		$this->view->_wiki_url = Config::get('/shared/wiki_url');
@@ -47,8 +77,8 @@ class Controller
 		$this->view->_POST = $_POST;
 		$this->view->_GET = $_GET;
 
-		$this->view->_tabs = array();
-		$this->view->_breadcrumb = array(
+		$this->tabs = array();
+		$this->breadcrumb = array(
 			array(
 				'name' => 'Home',
 				'link' => '/'

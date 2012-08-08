@@ -259,15 +259,6 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	}
 
 	/**
-	 * Show "Join the revolution" modal box
-	 */
-	$('#action_button').click(function ()
-	{
-		$('#joining').trigger('show');
-		return false;
-	});
-
-	/**
 	 * Handle search form
 	 */
 	$('header > .secondary > form').on('submit', function (e)

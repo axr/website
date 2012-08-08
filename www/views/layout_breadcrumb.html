@@ -1,0 +1,18 @@
+{{#has}}
+	<nav id="breadcrumb">
+		{{#breadcrumb}}
+			{{^link}}
+				<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+					<span class="current" itemprop="title">{{name}}</span>
+				</div>
+			{{/link}}
+			{{#link}}
+				<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+					<a href="{{link}}" itemprop="url"><span itemprop="title">{{name}}</span></a>
+				</div>
+				<span class="extra_0"></span>
+			{{/link}}
+		{{/breadcrumb}}
+	</nav>
+{{/has}}
+
