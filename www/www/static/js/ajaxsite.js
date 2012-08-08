@@ -14,9 +14,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 	 */
 	Ajaxsite.initialize =  function ()
 	{
-		Ajaxsite.content = new Ajaxsite.Block();
-		Ajaxsite.content.html(jQuery('#main').html());
-		jQuery('#main').html(Ajaxsite.content.placeholder());
+		Ajaxsite.content = jQuery('#main');
 
 		History.Adapter.bind(window, 'statechange', function ()
 		{
@@ -602,9 +600,9 @@ window.Ajaxsite = window.Ajaxsite || {};
 		/**
 		 * Return a placeholder
 		 */
-		this.placeholder = function ()
+		this.placeholder = function ($el)
 		{
-			var $el = jQuery('<div>')
+				var $el = jQuery('<div>')
 				.attr('class', 'as_block_' + this.id)
 				.html(this._html);
 
