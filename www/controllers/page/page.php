@@ -65,25 +65,24 @@ class PageController extends WWWController
 		// Customize the breadcrumb for blog posts
 		if ($page->ctype === 'bpost')
 		{
-			$this->view->_breadcrumb[] = array(
+			$this->breadcrumb[] = array(
 				'name' => 'Blog',
 				'link' => '/blog'
 			);
 		}
 
 		$this->view->_title = $page->title;
-		$this->view->_breadcrumb[] = array(
+		$this->breadcrumb[] = array(
 			'name' => $page->title
 		);
 
 		// Set tabs
-		$this->view->_tabs_has = true;
-		$this->view->_tabs[] = array(
+		$this->tabs[] = array(
 			'name' => 'View',
 			'link' => '/page/' . $page->id,
 			'current' => true
 		);
-		$this->view->_tabs[] = array(
+		$this->tabs[] = array(
 			'name' => 'Edit',
 			'link' => '/page/' . $page->id . '/edit'
 		);
@@ -132,11 +131,11 @@ class PageController extends WWWController
 
 		// Title & breadcrumb
 		$this->view->_title = $object;
-		$this->view->_breadcrumb[] = array(
+		$this->breadcrumb[] = array(
 			'name' => 'HSS documentation',
 			'link' => '/hssdoc'
 		);
-		$this->view->_breadcrumb[] = array(
+		$this->breadcrumb[] = array(
 			'name' => $object
 		);
 
@@ -192,7 +191,7 @@ class PageController extends WWWController
 		$this->view->pages = $pages;
 
 		$this->view->_title = 'Blog';
-		$this->view->_breadcrumb[] = array(
+		$this->breadcrumb[] = array(
 			'name' => 'Blog'
 		);
 
@@ -207,7 +206,7 @@ class PageController extends WWWController
 	public function runAdd ($type)
 	{
 		$this->view->_title = 'Create a new page';
-		$this->view->_breadcrumb[] = array(
+		$this->breadcrumb[] = array(
 			'name' => 'Create a new page'
 		);
 
@@ -258,7 +257,7 @@ class PageController extends WWWController
 	public function runAddSelect ()
 	{
 		$this->view->_title = 'Create a new page';
-		$this->view->_breadcrumb[] = array(
+		$this->breadcrumb[] = array(
 			'name' => 'Create a new page'
 		);
 
@@ -358,7 +357,7 @@ class PageController extends WWWController
 	public function runRm ($id)
 	{
 		$this->view->_title = 'Delete page';
-		$this->view->_breadcrumb[] = array(
+		$this->breadcrumb[] = array(
 			'name' => 'Delete page'
 		);
 

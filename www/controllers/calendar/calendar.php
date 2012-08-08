@@ -6,6 +6,10 @@ class CalendarController extends WWWController
 {
 	public function run ()
 	{
+		$this->breadcrumb[] = array(
+			'title' => 'Calendar'
+		);
+
 		echo $this->renderView(ROOT . '/views/calendar.html');
 	}
 }
