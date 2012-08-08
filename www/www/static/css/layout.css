@@ -1,0 +1,1102 @@
+/**
+ * Main styles
+ * ===========
+ */
+
+html, body
+{
+	min-width: 960px;
+}
+
+body
+{
+
+	background: url('../images/body_bg.png') repeat-x #e5e5e5;
+	color: #666666;
+	font-family: 'Century Gothic',Futura,Arial,sans-serif;
+	line-height: 1.38;
+	font-size: 0.75em;
+}
+
+#container
+{
+	overflow: hidden;
+	position: relative;
+}
+
+h2
+{
+	font-size: 1.5em;
+}
+
+/**
+ * Site header
+ * ===========
+ */
+
+#container > header
+{
+	position: relative;
+	width: 960px;
+	height: 188px;
+	margin: 0px auto;
+	left:-37px;
+	z-index:10;
+	_left:0;     /* IE6 */
+}
+
+#container > header > #logo
+{
+	display: block;
+	height: 188px;
+	overflow: hidden;
+	width: 310px;
+	float: left;
+}
+
+#container > header > nav
+{
+	width: 647px;
+	height: 49px;
+	margin: 97px 0 0 3px;
+	float:left;
+	background: url('../images/sprite.jpg');
+	background-position: -312px 0;
+}
+
+#container > header > nav > ul
+{
+	height: 100%;
+}
+
+#container > header > nav > ul > li
+{
+	float: left;
+	height: 100%;
+	outline: none;
+	position: relative;
+}
+
+#container > header > nav > ul > li > a
+{
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-indent: -999px;
+	overflow: hidden;
+}
+
+#container > header > nav > ul > li > a:hover,
+#container > header > nav > ul > li:hover > a
+{
+	background: url('../images/sprite.jpg');
+	padding-right: 1px;
+}
+
+#container > header > nav > ul > li.about
+{
+	width: 97px;
+}
+
+#container > header > nav > ul > li.specification
+{
+	width: 129px;
+}
+
+#container > header > nav > ul > li.resources
+{
+	width: 136px;
+}
+
+#container > header > nav > ul > li.community
+{
+	width: 131px;
+}
+
+#container > header > nav > ul > li.wiki
+{
+	width: 88px;
+}
+
+#container > header > nav > ul > li.blog
+{
+	width: 66px;
+}
+
+#container > header > nav > ul > li.about > a:hover,
+#container > header > nav > ul > li.about:hover > a
+{
+	background-position: -312px -49px;
+}
+
+#container > header > nav > ul > li.specification > a:hover,
+#container > header > nav > ul > li.specification:hover > a
+{
+	background-position: -410px -49px;
+}
+
+#container > header > nav > ul > li.resources > a:hover,
+#container > header > nav > ul > li.resources:hover > a
+{
+	background-position: -540px -49px;
+}
+
+#container > header > nav > ul > li.community > a:hover,
+#container > header > nav > ul > li.community:hover > a
+{
+	background-position: -677px -49px;
+}
+
+#container > header > nav > ul > li.wiki > a:hover,
+#container > header > nav > ul > li.wiki:hover > a
+{
+	background-position: -809px -49px;
+}
+
+#container > header > nav > ul > li.blog > a:hover,
+#container > header > nav > ul > li.blog:hover > a
+{
+	background-position: -898px -49px;
+}
+
+#container > header > nav > ul > li > div > a
+{
+	display: none;
+}
+
+#container > header > nav > ul > li:hover > div,
+#container > header > nav > ul > li > div:hover,
+#container > header > nav > ul > li > a:focus ~ div
+{
+	display: block;
+}
+
+#container > header > nav > ul > li > div,
+#container > header > nav > ul > li > div > a:focus,
+#container > header > nav > ul > li > div > a:focus ~ a
+{
+	width: 174px;
+	z-index: 15;
+	left: 50%;
+	margin-left: -87px;
+	position: relative;
+	background: #717171;
+}
+
+#container > header > nav > ul > li > div
+{
+	top: -4px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-moz-box-shadow: 0 0 8px #575757;
+	-webkit-box-shadow: 0 0 8px #575757;
+	box-shadow: 0 0 8px #575757;
+}
+
+#container > header > nav > ul > li:hover > div
+{
+	border: 1px solid #7D7D7D;
+	background-image: linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -o-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -moz-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -webkit-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #747474), color-stop(0.37, #636363));
+}
+
+#container > header > nav > ul > li:hover > div > a,
+#container > header > nav > ul > li > a:focus ~ div > a,
+#container > header > nav > ul > li > div > a:focus,
+#container > header > nav > ul > li > div > a:focus ~ a
+{
+	display: block !important;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #555555;
+	border-top: 1px solid #7F7F7F;
+	outline: none;
+}
+
+#container > header > nav > ul > li > div > a
+{
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+	text-shadow: #333333 0 1px 0;
+	cursor: pointer;
+}
+
+#container > header > nav > ul > li > div > a:hover,
+#container > header > nav > ul > li > div > a:focus
+{
+	color: #313131;
+	text-shadow: #959595 0 1px 0;
+}
+
+#container > header > nav > ul > li > div > a:focus
+{
+	border-top:none;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}
+
+#container > header > nav > ul > li > div > .first
+{
+	border-top: none !important;
+}
+
+#container > header > nav > ul > li > div > .last
+{
+	border-bottom: none !important;
+}
+
+#container > header > nav > ul > li > div > a:focus ~ .last,
+#container > header > nav > ul > li > div > .last:focus
+{
+	-webkit-border-bottom-left-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	-moz-border-radius-bottomright: 8px;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+#container > header > nav > ul > li > .arrow
+{
+	border-color: transparent transparent #737373 transparent;
+	border-style: solid;
+	border-width: 0px 8px 8px 8px;
+	height: 0;
+	width: 0;
+	position: absolute;
+	z-index: 20;
+	margin-top: 39px;
+	left: 50%;
+	margin-left: -8px;
+	display: none;
+}
+
+#container > header > nav > ul > li:hover > .arrow
+{
+	display: block;
+}
+
+/* Gecko */
+body:-moz-last-node #container > header > nav > ul > li:hover > div
+{
+	border-width: 2px;
+	-moz-border-top-colors: #575757 #7D7D7D;
+	-moz-border-bottom-colors: #575757 #7D7D7D;
+	-moz-border-right-colors: #575757 #7D7D7D;
+	-moz-border-left-colors: #575757 #7D7D7D;
+}
+
+/* WebKit */
+body
+{
+	-webkit-animation: bugfix infinite 1s;
+}
+@-webkit-keyframes bugfix {
+	from
+	{
+		padding: 0;
+	}
+	to
+	{
+		padding: 0;
+	}
+}
+
+/* Opera 9 */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	html:first-child #container > header > nav
+	{
+		background-image: none;
+		position:absolute;
+		right:0;
+	}
+	html:first-child #container > header > nav > ul
+	{
+		background: url('../images/sprite.jpg');
+		background-position: -312px 0;
+	}
+}
+
+/**
+ * Secondary header (search ^ user links)
+ * --------------------------------------
+ */
+
+#container > header .secondary
+{
+	position: absolute;
+	top: 40px;
+	right: 0;
+	z-index:1;
+}
+
+#container > header .secondary .register,
+#container > header .secondary .login
+{
+	background: url("../images/sprite32.png") -228px -147px;
+	height: 18px;
+	width: 0;
+	left: -60px;
+	padding-left: 19px;
+	position: absolute;
+	text-indent: 7px;
+	top: 6px;
+}
+
+#container > header .secondary .login:hover
+{
+	background-position: -248px -147px;
+}
+
+#container > header .secondary .register a,
+#container > header .secondary .login a
+{
+	color: #999;
+	font-size: 12px;
+	font-weight: bold;
+	text-shadow: -1px 1px #EFEFEF;
+	text-decoration: none;
+	border-bottom: 1px dotted;
+	line-height: 18px;
+}
+
+#container > header .secondary .register a:hover,
+#container > header .secondary .login a:hover
+{
+	border-bottom-style: solid;
+}
+
+#container > header .secondary .register
+{
+	background: url("../images/sprite32.png") -228px -128px;
+	left: -155px;
+}
+
+#container > header .secondary .register:hover
+{
+	background-position: -248px -128px;
+}
+
+#container > header .secondary div.user_menu
+{
+	display: inline-block;
+	margin-top: 7px;
+	position: relative;
+	width: 75px;
+	vertical-align: top;
+}
+
+#container > header .secondary > div.user_menu > a
+{
+	display: inline-block;
+	text-decoration: none;
+	background: url('../images/sprite32.png');
+	background-position: -228px -109px;
+	display: block;
+	height: 18px;
+	position: absolute;
+	padding-left: 19px;
+	outline: none;
+}
+
+#container > header .secondary > div.user_menu > a:focus,
+#container > header .secondary > div.user_menu:hover > a
+{
+	background-position: -248px -109px;
+}
+
+#container > header .secondary > div.user_menu > a span
+{
+	color: #999;
+	font-size: 12px;
+	font-weight: bold;
+	height: 18px;
+	line-height:8px;
+	text-shadow: -1px 1px #efefef;
+	text-decoration-style:dotted;
+	background: url('../images/sprite32.png');
+	background-position: -232px -78px;
+	display: block;
+	height: 11px;
+	width: 11px;
+	position: absolute;
+	text-indent:-28px;
+	right: -46px;
+	top: 6px
+}
+
+#container > header .secondary > div.user_menu > a:focus span,
+#container > header .secondary > div.user_menu:hover > a span
+{
+	background-position: -244px -78px;
+}
+
+#container > header .secondary > div.user_menu div.dropdown a
+{
+	display: none;
+}
+
+#container > header .secondary > div.user_menu:hover div.dropdown,
+#container > header .secondary > div.user_menu div.dropdown:hover,
+#container > header .secondary > div.user_menu div.dropdown a:focus ~ div
+{
+	display: block;
+}
+
+#container > header .secondary > div.user_menu div.dropdown,
+#container > header .secondary > div.user_menu div.dropdown a:focus,
+#container > header .secondary > div.user_menu div.dropdown a:focus ~ a
+{
+	width: 138px;
+	z-index: 15;
+	position: relative;
+	background: #717171;
+}
+
+#container > header .secondary > div.user_menu div.dropdown
+{
+	top: 26px;
+	margin-left: -32px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-moz-box-shadow: 0 0 8px #575757;
+	-webkit-box-shadow: 0 0 8px #575757;
+	box-shadow: 0 0 8px #575757;
+}
+
+#container > header .secondary > div.user_menu:hover div.dropdown
+{
+	border: 1px solid #7D7D7D;
+	background-image: linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -o-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -moz-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -webkit-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
+	background-image: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0, #747474), color-stop(0.37, #636363));
+}
+
+#container > header .secondary > div.user_menu:hover div.dropdown a,
+#container > header .secondary > div.user_menu a:focus ~ div.dropdown a,
+#container > header .secondary > div.user_menu div.dropdown a:focus,
+#container > header .secondary > div.user_menu div.dropdown a:focus ~ a,
+.afocus
+{
+	display:block !important;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #555555;
+	border-top: 1px solid #7F7F7F;
+	outline: none;
+}
+
+#container > header .secondary > div.user_menu div.dropdown a
+{
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+	text-shadow: #333333 0 1px 0;
+	cursor: pointer;
+}
+
+#container > header .secondary > div.user_menu div.dropdown a:hover,
+#container > header .secondary > div.user_menu div.dropdown a:focus
+{
+	color: #313131;
+	text-shadow: #959595 0 1px 0;
+}
+
+#container > header .secondary > div.user_menu div.dropdown a:focus
+{
+	border-top: none;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}
+
+#container > header .secondary > div.user_menu div.dropdown .first
+{
+	border-top: none !important;
+}
+
+#container > header .secondary > div.user_menu div.dropdown .last
+{
+	border-bottom: none !important;
+}
+
+#container > header .secondary > div.user_menu div.dropdown a:focus ~ .last,
+#container > header .secondary > div.user_menu div.dropdown .last:focus
+{
+	-webkit-border-bottom-left-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	-moz-border-radius-bottomright: 8px;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+#container > header .secondary > div.user_menu .arrow
+{
+	border-color: transparent transparent #737373 transparent;
+	border-style: solid;
+	border-width: 0px 8px 8px 8px;
+	height: 0;
+	width: 0;
+	position: absolute;
+	z-index: 20;
+	margin: 20px 0 0 30px;
+	display: none;
+}
+
+#container > header .secondary > div.user_menu:hover .arrow
+{
+	display: block;
+}
+
+#container > header .secondary > form
+{
+	display: inline-block;
+}
+
+#container > header .secondary input[type="search"]
+{
+	width: 154px;
+	height: 16px;
+	padding:5px 0;
+	margin: 1px 0 0 20px;
+	-webkit-border-radius: 13px;
+	-moz-border-radius: 13px;
+	border-radius: 13px;
+	-webkit-appearance: none;
+	-webkit-box-sizing: content-box;
+	border: solid 1px #B3B3B3;
+	text-align: center;
+	color: #a3a3a3;
+	outline: none;
+	background: #FFF url(../images/glass.png) 130px center no-repeat;
+}
+
+#container > header .secondary input[type="search"]:focus
+{
+	background-image: none;
+}
+
+body:-moz-last-node #container > header input[type="search"]
+{
+	border-width: 2px;
+	-moz-border-top-colors: #EDEDED #B3B3B3;
+	-moz-border-bottom-colors: #EDEDED #B3B3B3;
+	-moz-border-right-colors: #EDEDED #B3B3B3;
+	-moz-border-left-colors: #EDEDED #B3B3B3;
+}
+
+#container > header .secondary input:focus::-webkit-input-placeholder,
+#container > header .secondary input:hover::-webkit-input-placeholder
+{
+	color: transparent;
+}
+
+#container > header .secondary input:focus:-moz-placeholder,
+#container > header .secondary input:hover:-moz-placeholder
+{
+	color: transparent;
+}
+
+#container > header .secondary input:focus:-ms-input-placeholder,
+#container > header .secondary input:hover:-ms-input-placeholder
+{
+	color: transparent;
+}
+
+#container > header .secondary input::-webkit-search-cancel-button
+{
+	margin: 0 8px 0 -8px
+}
+
+/**
+ * Content area
+ * ============
+ */
+#main
+{
+	margin: auto;
+	min-height: 70px;
+	width: 900px;
+	padding-top: 30px;
+	position: relative;
+}
+
+#container > .fork_github
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#container > .fork_github a
+{
+	display: block;
+	height: 113px;
+	width: 140px;
+	background: url('../images/fork_github.png') no-repeat;
+	text-indent: -10000px;
+}
+
+/**
+ * Tabs
+ * ====
+ */
+
+nav#tabs_main
+{
+	display: block;
+	float: right;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+nav#tabs_main > a
+{
+	display: inline-block;
+	background: #e3e3e3;
+	border: 1px solid #c2c2c2;
+	border-radius: 0 0 5px 5px;
+	border-top: 0;
+	color: #888;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+
+nav#tabs_main > a.active
+{
+	font-weight: bold;
+}
+
+/**
+ * Breadcrumb
+ * ==========
+ */
+
+nav#breadcrumb div
+{
+	display: inline;
+}
+
+nav#breadcrumb a
+{
+	color: #666;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+nav#breadcrumb a:hover
+{
+	text-decoration: underline;
+}
+
+nav#breadcrumb .current
+{
+	color: #8c8c8c;
+	font-size: 1.2em;
+}
+
+nav#breadcrumb .extra_0
+{
+	background: url(../images/sprite32.png) no-repeat;
+	background-position: -223px -77px;
+	height: 7px;
+	width: 5px;
+	margin:0 10px;
+	vertical-align:middle;
+	display: inline-block;
+}
+
+nav#breadcrumb .extra_0
+{
+	*display: inline; /* IE7 */
+}
+
+/**
+ * Site footer
+ * ===========
+ */
+
+#container > footer
+{
+	background-image: url("../images/footer_repeat.jpg");
+	background-position: center 115px;
+	background-repeat: repeat-x;
+	position: relative;
+	width: 100%;
+}
+
+#container > footer > a
+{
+	background-image: url("../images/sprite.jpg");
+	background-position: -508px -353px;
+	display: block;
+	height: 116px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+	text-indent: -9999px;
+	width: 365px;
+	z-index: 1;
+}
+
+#container > footer > a:hover
+{
+	background-position: -508px -469px;
+}
+
+#container > footer > ul.technologies_used
+{
+	height: 95px;
+	list-style: none outside none;
+	margin: -95px auto 0;
+	pointer-events: none;
+	position: relative;
+	width: 780px;
+	z-index: 2;
+}
+
+#container > footer > ul.technologies_used > li
+{
+	float: left;
+	margin-right: 8px;
+	position: absolute;
+	pointer-events: auto;
+	z-index: 1;
+}
+
+#container > footer > ul.technologies_used > li > a
+{
+	background-image: url("../images/sprite.jpg");
+	display: block;
+	overflow: hidden;
+	text-indent: -9999px;
+}
+
+#container > footer > ul.technologies_used > li.html5
+{
+	left: 560px;
+	top: 20px;
+}
+
+#container > footer > ul.technologies_used > li.html5 > a
+{
+	background-position: -508px -228px;
+	height: 53px;
+	width: 116px;
+}
+
+#container > footer > ul.technologies_used > li.html5 > a:hover
+{
+	background-position: -508px -281px;
+}
+
+#container > footer > ul.technologies_used > li.humanstxt
+{
+	left: 175px;
+	top: 30px;
+}
+
+#container > footer > ul.technologies_used > li.humanstxt > a
+{
+	background-position: -624px -316px;
+	height: 37px;
+	width: 137px;
+}
+
+#container > footer > ul.technologies_used > li.humanstxt > a:hover
+{
+	background-position: -761px -316px;
+}
+
+#container > footer > ul.technologies_used > li.github
+{
+	left: 0px;
+	top: 30px;
+}
+
+#container > footer > ul.technologies_used > li.github > a
+{
+	background-position: -873px -383px;
+	height: 43px;
+	width: 119px;
+}
+
+#container > footer > ul.technologies_used > li.github > a:hover
+{
+	background-position: -873px -426px;
+}
+
+#container > footer > ul.technologies_used > li.google_groups
+{
+	left: 725px;
+	top: 35px;
+}
+
+#container > footer > ul.technologies_used > li.google_groups > a
+{
+	background-position: -311px -228px;
+	height: 48px;
+	width: 90px;
+}
+
+#container > footer > ul.technologies_used > li.google_groups > a:hover
+{
+	background-position: -401px -228px;
+}
+
+#container > footer > .activity
+{
+	height: 201px;
+	margin: 20px auto;
+	position: relative;
+	width: 810px;
+}
+
+#container > footer > .activity > form > a
+{
+	background-image: url("../images/sprite.jpg");
+	background-position: -831px -228px;
+	display: block;
+	height: 43px;
+	overflow: hidden;
+	position: absolute;
+	text-indent: -9999px;
+	top: 45px;
+	width: 105px;
+}
+
+#container > footer > .activity > form > a:hover
+{
+	background-position: -831px -271px;
+}
+
+#container > footer > .activity > .follow_us
+{
+	background-image: url("../images/sprite.jpg");
+	background-position: -624px -228px;
+	height: 77px;
+	left: -25px;
+	list-style: none outside none;
+	margin: 0;
+	padding: 11px 0 0 29px;
+	position: absolute;
+	top: 100px;
+	width: 178px;
+	z-index: 1;
+}
+
+#container > footer > .activity > .follow_us > li
+{
+	display: block;
+	float: left;
+	height: 26px;
+	margin-right: 13px;
+	width: 24px;
+}
+
+#container > footer > .activity > .follow_us > li > a
+{
+	display: block;
+	height: 100%;
+	overflow: hidden;
+	text-indent: -999px;
+	width: 100%;
+}
+
+#container > footer > .activity > .follow_us > li > a:hover
+{
+	background-image: url("../images/sprite.jpg");
+}
+
+#container > footer > .activity > .follow_us > li.twitter > a:hover
+{
+	background-position: -873px -353px;
+}
+
+#container > footer > .activity > .follow_us > li.facebook > a:hover
+{
+	background-position: -897px -353px;
+}
+
+#container > footer > .activity > .follow_us > li.vimeo > a:hover
+{
+	background-position: -921px -353px;
+}
+
+#container > footer > .activity > .last_tweet
+{
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	left: 180px;
+	top: 26px;
+}
+
+#container > footer > .activity > .last_tweet  a
+{
+	color: #D09610;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#container > footer > .activity > .last_tweet a:hover
+{
+	text-decoration: underline;
+}
+
+#container > footer > .activity > .last_tweet > li
+{
+	list-style-type: none;
+	position: absolute;
+	text-shadow: 0 1px 0 #EBEBEB;
+}
+
+#container > footer > .activity > .last_tweet > .tweet_container
+{
+	z-index: 1;
+	margin: 1px 0 0 75px;
+	height: 50px;
+	width: 223px;
+	padding: 15px 18px 18px 18px;
+	color: #606060;
+	font-weight: bold;
+	font-size: 0.9em;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: -o-ellipsis-lastline;
+	border: 1px solid;
+	border-color: #E1E1E1 #E1E1E1 #BEBEBE #E1E1E1;
+	-moz-border-radius: 8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+}
+
+#container > footer > .activity > .last_tweet > .tweet_container:hover
+{
+	text-overflow: clip;
+}
+
+#container > footer > .activity > .last_tweet > .follow_us
+{
+
+	width: 261px;
+	margin-left: 74px;
+	text-align: center;
+	color: #939393;
+	font-weight: bold;
+	background: #D3D3D3;
+	border: 1px solid #BEBEBE;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;     
+}
+
+#container > footer > .activity > .last_tweet > .follow_us > span
+{  
+	margin-top: 85px;
+	display: block;
+	height: 36px;
+	line-height: 36px;
+	border: 1px solid #E1E1E1;
+	-moz-border-radius: 0 0 8px 8px;
+	-webkit-border-radius: 0 0 8px 8px;
+	border-radius: 0 0 8px 8px;
+}
+
+#container > footer > .activity > .last_tweet > .bird
+{
+	background: url("../images/sprite32.png") no-repeat -116px -29px;
+	height: 47px;
+	width: 76px;
+	margin-top:12px;
+	z-index: 2;
+}
+
+#container > footer > .activity > .participate
+{
+	background-image: url("../images/sprite.jpg");
+	background-position: -680px -99px;
+	height: 126px; left: 550px;
+	position: absolute;
+	top: 25px;
+	width: 267px;
+	font-weight: bold;
+}
+
+#container > footer > .activity > .participate > h2
+{
+
+	color: white;
+	font-weight: bold;
+	margin: 10px 0 0 20px;
+	text-shadow: 0 1px 0 #666666;
+	width: 72px;
+}
+
+#container > footer > .activity > .participate > p
+{
+
+	color: white;
+	font-size: 0.89em;
+	margin: 16px 0 0 20px;
+	text-shadow: 0 1px 0 #666666;
+	width: 230px;
+}
+
+#container > footer > .activity > .participate > p > a
+{
+	color: #FFD519;
+	text-decoration: none;
+	text-shadow: 0 1px 0 #666666;
+}
+
+#container > footer > .activity > .participate > p > a:hover
+{
+	text-decoration: underline;
+}
+
+#container > footer > .activity > .copy
+{
+	bottom: 0px;
+	position: absolute;
+	text-align: center;
+	text-shadow: 0 1px 0 white;
+	width: 100%;
+}
+
+#container > footer > .activity > .copy > p > a
+{
+	color: #666666;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#container > footer > .activity > .copy > p > a:hover
+{
+	text-decoration: underline;
+}
+

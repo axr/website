@@ -246,33 +246,31 @@
 	width: 26px;
 }
 
-#get_involved .sidebar > .boxes
+#get_involved .sidebar > .box
 {
-	float: left;
-	margin: 0 0 0 26px;
-	width: 344px;
-}
-
-#get_involved .sidebar > .boxes > .box
-{
+	border: 1px solid #bdbdbd;
+	border-radius: 8px;
+	float: right;
 	margin: 0 0 30px 0;
+	width: 262px;
 }
 
-#get_involved .sidebar > .boxes > .box > .icon
+#get_involved .sidebar > .box > .icon
 {
 	float: left;
+	margin: 0 0 0 -76px;
 	position: relative;
 	width: 75px;
 }
 
-#get_involved .sidebar > .boxes > .box > .icon > .extra_0
+#get_involved .sidebar > .box > .icon > .extra_0
 {
 	background: url(../images/get_involved_sprite.png) no-repeat;
 	height: 47px;
 	width: 55px;
 }
 
-#get_involved .sidebar > .boxes > .box > .icon > .extra_1
+#get_involved .sidebar > .box > .icon > .extra_1
 {
 	background: url(../images/get_involved_sprite.png) no-repeat;
 	background-position: -100px -125px;
@@ -282,44 +280,27 @@
 	top: 15px;
 	right: 0;
 	width: 10px;
-	z-index:900;
+	z-index: 1;
 }
 
-#get_involved .sidebar > .boxes > .box > .nested_0
+#get_involved .sidebar > .box > .nested_0
 {
-	background: url(../images/side_box_light_repeat_v.png) repeat-y;
-	float: left;
+	background: #d3d3d3;
+	border: 1px solid #e1e1e1;
+	border-radius: 8px;
 	min-height: 49px;
-	width: 262px;
 }
 
-#get_involved .sidebar > .boxes > .box > .nested_0 > .extra_0
-{
-	background: url(../images/get_involved_sprite.png) no-repeat;
-	background-position: -1px -51px;
-	height: 11px;
-	width: 262px;
-}
-
-#get_involved .sidebar > .boxes > .box > .nested_0 > .extra_1
-{
-	background: url(../images/get_involved_sprite.png) no-repeat;
-	background-position: -1px -62px;
-	height: 38px;
-	margin: -25px 0 0 0;
-	width: 262px;
-}
-
-#get_involved .sidebar > .boxes > .box > .nested_0 > .title
+#get_involved .sidebar > .box > .nested_0 > .title
 {
 	color: #fff;
 	font-size: 1.2em;
 	font-weight: bold;
-	padding: 0 0 3px 20px;
+	padding: 7px 20px;
 	text-shadow: #666 0 1px 0;
 }
 
-#get_involved .sidebar > .boxes > .box > .nested_0 > .inner
+#get_involved .sidebar > .box > .nested_0 > .inner
 {
 	color: #606060;
 	font-weight:bold;
@@ -328,16 +309,12 @@
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .boxes > .box > .nested_0 > hr
+#get_involved .sidebar > .box.newsletter
 {
-	border: 0;
-	border-top: 1px solid #bebebe;
-	border-bottom: 1px solid #e1e1e1;
-	height: 0;
-	margin: 5px 2px;
+	border: 1px solid #969696;
 }
 
-#get_involved .sidebar > .boxes > .box.newsletter > .icon > .extra_0
+#get_involved .sidebar > .box.newsletter > .icon > .extra_0
 {
 	background-position: -97px -101px;
 	height: 23px;
@@ -345,80 +322,85 @@
 	width: 47px;
 }
 
-#get_involved .sidebar > .boxes > .box.newsletter > .icon > .extra_1
+#get_involved .sidebar > .box.newsletter > .icon > .extra_1
 {
 	background-position: -114px -125px;
 }
 
-#get_involved .sidebar > .boxes > .box.newsletter > .nested_0
+#get_involved .sidebar > .box.newsletter > .nested_0
 {
-	background: url(../images/side_box_dark_repeat_v.png) repeat-y;
+	background: #acacac;
+	border: 1px solid #cdcdcd;
 }
 
-#get_involved .sidebar > .boxes > .box.newsletter > .nested_0 > .extra_0
+#get_involved .sidebar > .box.newsletter > .nested_0 > .title
 {
-	background-position: -1px -1px;
+	border-bottom: 1px solid #939393;
 }
 
-#get_involved .sidebar > .boxes > .box.newsletter > .nested_0 > .extra_1
+#get_involved .sidebar > .box.newsletter > .nested_0 > .inner
 {
-	background-position: -1px -12px;
-}
-
-#get_involved .sidebar > .boxes > .box.newsletter > .nested_0 > .inner
-{
+	border-top: 1px solid #cbcbcb;
 	color: #fff;
-	text-shadow: #666 0 1px 0;
 	font-size: 1em;
+	text-shadow: #666 0 1px 0;
 }
 
-#get_involved .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > form > input.subscribe
+#get_involved .sidebar > .box.newsletter > .nested_0 > .inner > form
 {
-	background: url(../images/get_involved_sprite.png) no-repeat;
-	background-position: -1px -154px;
-	border: 0;
+	border: 1px solid #ccc;
+	border-radius: 15px;
+	margin: 0 0 10px 0;
+}
+
+#get_involved .sidebar > .box.newsletter > .nested_0 > .inner > form > input.subscribe
+{
+	border: 1px solid #939393;
+	border-radius: 15px;
 	color: #999;
-	height: 31px;
-	margin: 5px 0 0 0;
-	outline: none;
-	padding: 0 15px 0 15px;
-	width: 162px;
-	float: left;
-}
-
-#get_involved .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > form >
-a
-{
 	display: block;
-	width: 30px;
-	height: 32px;
-	float: left;
-	text-indent: -999px;
-	overflow: hidden;
-	background-image: url(../images/get_involved_sprite.png);
-	background-position: -197px -154px;
-	margin-top: 5px;
+	outline: none;
+	height: 24px;
+	padding: 0 15px;
+	width: 186px;
 }
 
-#get_involved .sidebar > .boxes > .box.newsletter > .nested_0 > .inner > form >
-a:hover
+#get_involved > .sidebar > .box.twitter > .icon > .extra_0
 {
-	background-position: -228px -154px;
+	background-position: -143px -101px;
+	height: 38px;
+	margin: 4px 0;
+	width: 55px;
 }
 
-#get_involved .sidebar > .boxes > .box.newsletter > .nested_0 > hr
+#get_involved > .sidebar > .box.twitter > .nested_0 > .inner
 {
-	border-top-color: #939393;
-	border-bottom-color: #cbcbcb;
+	border-bottom: 1px solid #bdbdbd;
+	padding: 12px 20px;
 }
 
-#get_involved .sidebar > .boxes > .last_tweet
+#get_involved > .sidebar > .box.twitter > .nested_0 > .follow
 {
-	position: static;
-	height: 153px;
+	border-top: 1px solid #e1e1e1;
+	color: #939393;
+	font-weight: bold;
+	padding: 8px 0;
+	text-align: center;
 }
 
-#get_involved .sidebar > .boxes > .box.facebook > .icon > .extra_0
+#get_involved > .sidebar > .box.twitter > .nested_0 > .follow > a
+{
+	color: #D09610;
+	text-decoration: none;
+	text-shadow: #ededed 1px 1px 3px;
+}
+
+#get_involved > .sidebar > .box.twitter > .nested_0 > .follow a:hover
+{
+	text-decoration: underline;
+}
+
+#get_involved .sidebar > .box.facebook > .icon > .extra_0
 {
 	background-position: -3px -105px;
 	height: 45px;
@@ -426,72 +408,21 @@ a:hover
 	width: 44px;
 }
 
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0
+#get_involved .sidebar > .box.facebook > .nested_0 > .inner
 {
-	position: relative;
+	padding: 3px;
 }
 
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_0
-{
-	margin-bottom: -6px;
-}
-
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_1
-{
-	margin-top: -33px;
-}
-
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_2,
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_3,
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_4,
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_5
-{
-	background: url(../images/fb_box_corners.png) no-repeat;
-	background-position: 0 0;
-	height: 12px;
-	position: absolute;
-	width: 12px;
-}
-
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_2
-{
-	left: 0;
-	top: 0;
-}
-
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_3
-{
-	background-position: -12px 0;
-	right: 0;
-	top: 0;
-}
-
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_4
-{
-	background-position: 0 -12px;
-	bottom: 0;
-	left: 0;
-}
-
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .extra_5
-{
-	background-position: -12px -12px;
-	bottom: 0;
-	right: 0;
-}
-
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .inner
-{
-	padding: 0 5px;
-}
-
-#get_involved .sidebar > .boxes > .box.facebook > .nested_0 > .inner > iframe
+#get_involved .sidebar > .box.facebook > .nested_0 > .inner > iframe
 {
 	display: block !important;
 	visibility: visible !important;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .icon > .extra_0
+/**
+ * @todo this needs to be cleaned
+ */
+/*#get_involved .sidebar > .box.github > .icon > .extra_0
 {
 	background-position: -50px -102px;
 	height: 47px;
@@ -499,29 +430,29 @@ a:hover
 	width: 47px;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .nested_0 > ul
+#get_involved .sidebar > .box.github > .nested_0 > ul
 {
 	margin: 0 2px;
 	padding: 0;
 	list-style-type: none;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .nested_0 > ul > li
+#get_involved .sidebar > .box.github > .nested_0 > ul > li
 {
 	border-bottom: 1px solid #e1e1e1;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .nested_0 > ul > li:last-child
+#get_involved .sidebar > .box.github > .nested_0 > ul > li:last-child
 {
 	border-bottom: 0;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .nested_0 > ul > li:last-child .inner
+#get_involved .sidebar > .box.github > .nested_0 > ul > li:last-child .inner
 {
 	border-bottom: 0;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner
+#get_involved .sidebar > .box.github > .nested_0 > ul > li .inner
 {
 	border-bottom: 1px solid #bebebe;
 	color: #6b6b6b;
@@ -531,24 +462,24 @@ a:hover
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner a
+#get_involved .sidebar > .box.github > .nested_0 > ul > li .inner a
 {
 	color: #D09610;
 	text-decoration: underline;
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .nested_0 > ul > li .inner > span
+#get_involved .sidebar > .box.github > .nested_0 > ul > li .inner > span
 {
 	color: #979797;
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .boxes > .box.github > .nested_0 > .inner > a.see_all
+#get_involved .sidebar > .box.github > .nested_0 > .inner > a.see_all
 {
 	margin: 10px auto 0 auto;
 	width: 200px;
-}
+}*/
 
 #get_involved_join .inner
 {

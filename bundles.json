@@ -2,8 +2,11 @@
 	"css/bundle_shared.css": {
 		"type": "css",
 		"files": [
+			"css/boilerplate.css",
+			"css/layout.css",
 			"css/style.css",
-			"css/style_modal.css"
+			"css/style_modal.css",
+			"css/boilerplate_after.css"
 		]
 	},
 	"js/bundle_shared.js": {
