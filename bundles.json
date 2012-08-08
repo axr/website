@@ -2,7 +2,8 @@
 	"css/bundle_shared.css": {
 		"type": "css",
 		"files": [
-			"css/style.css"
+			"css/style.css",
+			"css/style_modal.css"
 		]
 	},
 	"js/bundle_shared.js": {
@@ -30,6 +31,7 @@
 	"js/bundle_www.js": {
 		"type": "js",
 		"files": [
+			"js/script.js",
 			"js/ajaxsite.js",
 			"js/home.js",
 			"js/downloads.js"

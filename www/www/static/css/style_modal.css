@@ -1,0 +1,24 @@
+#as_modal
+{
+	background: rgba(80,80,80,.3);
+	display: none;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 900;
+}
+
+#as_modal > #as_modal_wrap
+{
+	width: 50%;
+	height: 50%;
+	position: absolute;
+}
+
+#as_modal > #as_modal_wrap > .inner
+{
+	position: absolute;
+}
+

@@ -35,18 +35,37 @@
 			});
 		};
 
-		if (this.data._prerendered !== true)
+		if (!this.data._prerendered)
 		{
 			this.render();
 		}
 
 		if (!this.isInitialized)
 		{
+			// Preload it
+			Ajaxsite.data.template('get_involved_join');
+
 			jQuery('#get_involved .join_us a.join').on('click', function (e)
 			{
-				jQuery('#get_involved .modal._joining').trigger('show');
-				return false;
+				e.preventDefault();
+
+				Ajaxsite.data.template('get_involved_join',
+					function (template, error)
+				{
+					if (error)
+					{
+						Ajaxsite.error('Error loading the dialog: ' +
+							error, true);
+						return;
+					}
+
+					Ajaxsite.modal.show(template, {
+						size: [640, 550]
+					});
+				});
 			});
+
+			this.isInitialized = true;
 		}
 	};
 })(Ajaxsite);

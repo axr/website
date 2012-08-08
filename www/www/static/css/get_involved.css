@@ -550,30 +550,8 @@ a:hover
 	width: 200px;
 }
 
-.modal
+#get_involved_join .inner
 {
-	background: rgba(80,80,80,.3);
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 900;
-}
-
-.modal_wrap
-{
-	width: 50%;
-	height: 50%;
-	position: absolute;
-}
-
-.modal_inner
-{
-	width: 640px;
-	height: 550px;
-	margin: 0 auto;
 	background: #cecece;
 	background: -moz-linear-gradient(top,  #dcdcdc 0%, #cecece 50%, #dcdcdc 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dcdcdc), color-stop(50%,#cecece), color-stop(100%,#dcdcdc));
@@ -585,12 +563,11 @@ a:hover
 	border: 1px solid #ebebeb;
 	border-radius: 5px;
 	box-shadow: 0 0 10px rgba(80,80,80,.9);
-	position: absolute;
-	bottom: -275px;
-	right: -320px;
+	height: 550px;
+	width: 640px;
 }
 
-.modal_close
+#get_involved_join a.close
 {
 	text-indent: -9999px;
 	display: block;
@@ -603,7 +580,7 @@ a:hover
 	cursor: pointer;
 }
 
-.modal_inner h2
+#get_involved_join .inner h2
 {
 	border-bottom: 1px solid #bebebe;
 	text-align: center;
@@ -611,34 +588,34 @@ a:hover
 	padding: 10px 0;
 }
 
-.modal_inner ol
+#get_involved_join .inner ol
 {
 	border-top: 1px solid #eaeaea;
 	margin: 0;
 	padding: 20px 20px 0 80px;
 }
 
-.modal_inner ol
+#get_involved_join .inner ol
 {
 	vertical-align: middle;
 	counter-reset: item;
 	list-style-type: none;
 }
 
-.modal_inner ol li
+#get_involved_join .inner ol li
 {
 	position: relative;
 }
 
-.modal_inner ol li,
-.modal_inner ol li *
+#get_involved_join .inner ol li,
+#get_involved_join .inner ol li *
 {
 	-background: red;
 	line-height: 5em;
 	vertical-align: top;
 }
 
-.modal_inner ol li:before
+#get_involved_join .inner ol li:before
 {
 	color: #b9b9b9;
 	font-weight: bold;
@@ -652,32 +629,32 @@ a:hover
 	filter: none;
 }
 
-.modal_inner ol li + li
+#get_involved_join .inner ol li + li
 {
 	margin-left: 045px;
 }
 
-.modal_inner ol li + li + li
+#get_involved_join .inner ol li + li + li
 {
 	margin-left: 090px;
 }
 
-.modal_inner ol li + li + li + li
+#get_involved_join .inner ol li + li + li + li
 {
 	margin-left: 135px;
 }
 
-.modal_inner ol li + li+ li + li + li
+#get_involved_join .inner ol li + li+ li + li + li
 {
 	margin-left: 180px;
 }
 
-.modal_inner ol li + li + li + li + li + li
+#get_involved_join .inner ol li + li + li + li + li + li
 {
 	margin-left: 225px;
 }
 
-.modal_inner li
+#get_involved_join .inner li
 {
 	color: #8b8b8b;
 	text-shadow: 0px 1px 0px #e5e5e5;
@@ -686,13 +663,13 @@ a:hover
 	font-weight: bold;
 }
 
-.modal_inner a
+#get_involved_join .inner a
 {
 	color: #666666;
 	text-decoration: none;
 }
 
-.modal_inner a:visited
+#get_involved_join .inner a:visited
 {
 	color: #765;
 }

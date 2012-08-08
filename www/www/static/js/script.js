@@ -225,40 +225,6 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	});
 
 	/**
-	 * Event handlers for madal boxes
-	 */
-	{
-		$('.modal').hide().removeClass('hidden');
-
-		$('.modal').bind('show',function ()
-		{
-			$(this).fadeIn('fast');
-		});
-
-		$('.modal').bind('hide',function ()
-		{
-			$(this).fadeOut('fast');
-		});
-
-		$('.modal .modal_close').click(function ()
-		{
-			$(this).closest('.modal').trigger('hide');
-
-			return false;
-		});
-
-		$('.modal').click(function (e)
-		{
-			if (e.target != this)
-			{
-				return;
-			}
-
-			$(this).trigger('hide');
-		});
-	}
-
-	/**
 	 * Handle search form
 	 */
 	$('header > .secondary > form').on('submit', function (e)
