@@ -366,6 +366,12 @@ class PageController extends WWWController
 			'name' => 'Delete page'
 		);
 
+		if (!Session::perms()->has('/page/rm/*') &&
+			!Session::perms()->has('/page/rm/' . $model->data->ctype))
+		{
+			throw new HTTPException(null, 403);
+		}
+
 		$model = new PageModel($this->dbh, array('id' => $id));
 
 		$this->view->page = $model->data;
