@@ -77,15 +77,20 @@ class PageController extends WWWController
 		);
 
 		// Set tabs
-		$this->tabs[] = array(
-			'name' => 'View',
-			'link' => '/page/' . $page->id,
-			'current' => true
-		);
-		$this->tabs[] = array(
-			'name' => 'Edit',
-			'link' => '/page/' . $page->id . '/edit'
-		);
+		if (Session::perms()->has('/page/edit/*') ||
+			Session::perms()->has('/page/edit/' . $page->ctype))
+		{
+			$this->tabs[] = array(
+				'name' => 'View',
+				'link' => '/page/' . $page->id,
+				'current' => true
+			);
+
+			$this->tabs[] = array(
+				'name' => 'Edit',
+				'link' => '/page/' . $page->id . '/edit'
+			);
+		}
 
 		$this->view->page = $page;
 		$this->view->page->ctime_formated = date('Y/m/d', $page->ctime);
