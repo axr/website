@@ -10,7 +10,7 @@ class AuthController extends WWWController
 		$this->openid = new LightOpenID(Config::get('/shared/www_url'));
 
 		$this->rsrc->loadBundle('css/auth.css');
-		$this->rsrc->loadBundle('j/auth.js');
+		$this->rsrc->loadBundle('js/auth.js');
 	}
 
 	public function run ($mode = null)
