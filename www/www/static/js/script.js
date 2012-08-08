@@ -160,7 +160,7 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 			});
 		}
 
-		Ajaxsite.template('code_frame', function (template)
+		Ajaxsite.data.template('code_frame', function (template)
 		{
 			$(block).replaceWith(Mustache.render(template, {
 				language: language,
@@ -251,7 +251,10 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 
 		Rainbow.onHighlight(function (block)
 		{
-			insertCodeFrame(block);
+			withAS(function ()
+			{
+				insertCodeFrame(block);
+			});
 		});
 
 		if (/^\/get-involved(\/|$)/.test(window.location.pathname))
