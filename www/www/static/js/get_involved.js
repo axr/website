@@ -32,10 +32,27 @@
 				}
 
 				Ajaxsite.content.html(data.html);
+				that.afterRender();
 			});
 		};
 
-		if (!this.data._prerendered)
+		/**
+		 * Call after rendering
+		 */
+		this.afterRender = function ()
+		{
+			Ajaxsite.data.lastTweetForBox(function (tweet, error)
+			{
+				jQuery('#get_involved .box.twitter ._last_tweet')
+					.html(tweet || error);
+			});
+		};
+
+		if (this.data._prerendered)
+		{
+			this.afterRender();
+		}
+		else
 		{
 			this.render();
 		}

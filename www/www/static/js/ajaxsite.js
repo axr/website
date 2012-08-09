@@ -317,6 +317,150 @@ window.Ajaxsite = window.Ajaxsite || {};
 	};
 
 	/**
+	 * Get last tweet.
+	 *
+	 * @para callback(tweet, error)
+	 */
+	Ajaxsite.data.lastTweetForBox = function (callback)
+	{
+		if (Ajaxsite.cache.get('/lastTweetForBox'))
+		{
+			callback(Ajaxsite.cache.get('/lastTweetForBox'), null)
+			return;
+		}
+
+		if (Ajaxsite.cache.get('/lastTweetForBox/:loading') === true)
+		{
+			var interval = setInterval(function ()
+			{
+				if (Ajaxsite.cache.get('/lastTweetForBox'))
+				{
+					clearInterval(interval);
+					callback(Ajaxsite.cache.get('/lastTweetForBox'), null)
+
+					return;
+				}
+			}, 200);
+
+			return;
+		}
+
+		Ajaxsite.cache.set('/lastTweetForBox/:loading', true);
+
+		$.ajax({
+			url: 'https://api.twitter.com/1/statuses/user_timeline.json?callback=?',
+			method: 'get',
+			data: {
+				screen_name: 'axrproject',
+				include_rts: 'true',
+				include_entities: 'false',
+				exclude_replies: 'true',
+				trim_user: 'true',
+				count: 10
+			},
+			dataType: 'jsonp'
+		}).success(function (data)
+		{
+			if (data[0] === undefined)
+			{
+				callback(null, 'Error loading last tweet');
+				return;
+			}
+
+			var fuckIE = data[0].created_at.split(' ');
+			var date = Date.parse(fuckIE[1] + ' ' + fuckIE[2] + ', ' +
+				fuckIE[5] + ' ' + fuckIE[3] + ' UTC');
+			var timestamp = (new Date(date)).getTime();
+			var time = Ajaxsite.util.formatDateAgo(Math.floor(timestamp / 1000));
+
+			var tweet = Ajaxsite.util.beautifyTweet(data[0].text) +
+				' &mdash; ' + time;
+
+			Ajaxsite.cache.set('/lastTweetForBox', tweet);
+			Ajaxsite.cache.set('/lastTweetForBox/:loading', false);
+
+			if (typeof callback === 'function')
+			{
+				callback(tweet, null);
+			}
+		}).error(function ()
+		{
+			Ajaxsite.cache.set('/lastTweetForBox/:loading', false);
+			callback(null, 'Error loading last tweet');
+		});
+	};
+
+	Ajaxsite.util = {};
+
+	/**
+	 * Makes your tweets beautiful
+	 *
+	 * @param string tweet
+	 * @return string
+	 */
+	Ajaxsite.util.beautifyTweet = function (tweet)
+	{
+		parseURL = function (tweet)
+		{
+			return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/g,
+				function (url)
+			{
+				return url.link(url);
+			});
+		};
+
+		parseUsername = function (tweet)
+		{
+			return tweet.replace(/[@]+[A-Za-z0-9-_]+/g, function (u)
+			{
+				return u.link('https://twitter.com/#!/' + u.replace('@', ''));
+			});
+		};
+
+		parseHashtag = function (tweet)
+		{
+			return tweet.replace(/[#]+[A-Za-z0-9-_]+/g, function (t)
+			{
+				return t.link('http://search.twitter.com/search?q=' +
+					t.replace('#', '%23'));
+			});
+		};
+
+		tweet = parseURL(tweet);
+		tweet = parseUsername(tweet);
+		tweet = parseHashtag(tweet);
+
+		return tweet;
+	};
+
+	/**
+	 * Format dates into "x units ago" format.
+	 *
+	 * @param int timestamp
+	 * @return string
+	 */
+	Ajaxsite.util.formatDateAgo = function (timestamp)
+	{
+		var diff = Math.floor((new Date()).getTime() / 1000) - timestamp;
+
+		if (diff == 0) {
+			return 'just now';
+		}
+
+		var unit = 'year', divide = 31556926;
+		if (diff < 31556926) { unit = 'month', divide = 2628000; }
+		if (diff < 2629744) { unit = 'week', divide = 604800; }
+		if (diff < 604800) { unit = 'day', divide = 86400; }
+		if (diff < 86400) { unit = 'hour', divide = 3600; }
+		if (diff < 3600) { unit = 'minute', divide = 60; }
+		if (diff < 60) { unit = 'second', divide = 1; }
+
+		var value = Math.floor(diff / divide);
+
+		return value + ' ' + unit + (value > 1 ? 's' : '') + ' ago';
+	};
+
+	/**
 	 * Load an URL
 	 *
 	 * @param string url
