@@ -473,6 +473,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 			return false;
 		}
 
+		var data = data || {};
 		var route = Ajaxsite.router.find(url);
 
 		if (route === undefined)
