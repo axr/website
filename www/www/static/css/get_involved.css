@@ -373,6 +373,17 @@
 	width: 55px;
 }
 
+#get_involved > .sidebar > .box.twitter > .nested_0 a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#get_involved > .sidebar > .box.twitter > .nested_0 a:hover
+{
+	text-decoration: underline;
+}
+
 #get_involved > .sidebar > .box.twitter > .nested_0 > .inner
 {
 	border-bottom: 1px solid #bdbdbd;
@@ -388,16 +399,9 @@
 	text-align: center;
 }
 
-#get_involved > .sidebar > .box.twitter > .nested_0 > .follow > a
+#get_involved > .sidebar > .box.twitter > .nested_0 > .follow a
 {
-	color: #D09610;
-	text-decoration: none;
 	text-shadow: #ededed 1px 1px 3px;
-}
-
-#get_involved > .sidebar > .box.twitter > .nested_0 > .follow a:hover
-{
-	text-decoration: underline;
 }
 
 #get_involved .sidebar > .box.facebook > .icon > .extra_0
