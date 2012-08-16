@@ -162,8 +162,8 @@ class AuthController extends WWWController
 			$query->execute();
 
 			Session::set('/user/is_auth', true);
-			Session::set('/user/id', $user->id);
-
+			Session::set('/user/id', $userId);
+			
 			$this->redirect('/');
 		}
 
