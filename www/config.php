@@ -12,6 +12,8 @@ Config::set('/www/lf/site_id', 309262);
 Config::set('/www/lf/domain', 'axr.vg');
 Config::set('/www/lf/secret', null);
 
+Config::set('/www/ga_account', 'UA-20384487-1');
+
 if (file_exists(ROOT . '/config.user.php'))
 {
 	require_once(ROOT . '/config.user.php');

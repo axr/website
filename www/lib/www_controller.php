@@ -17,6 +17,7 @@ class WWWController extends Controller
 		$this->view->_app_vars = json_encode(array(
 			'rsrc_root' => Config::get('/shared/rsrc_url'),
 			'rsrc_prod' => Config::get('/shared/rsrc/prod'),
+			'ga_account' => Config::get('/www/ga_account'),
 			'rsrc_bundles' => $this->rsrc->getBundlesInfo()
 		));
 
