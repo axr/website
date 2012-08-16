@@ -304,16 +304,15 @@ class PageController extends WWWController
 	public function runEdit ($id)
 	{
 		$this->view->_title = 'Edit page';
-		$this->view->_breadcrumb[] = array(
+		$this->breadcrumb[] = array(
 			'name' => 'Edit page'
 		);
 
-		$this->view->_tabs_has = true;
-		$this->view->_tabs[] = array(
+		$this->tabs[] = array(
 			'name' => 'View',
 			'link' => '/page/' . $id
 		);
-		$this->view->_tabs[] = array(
+		$this->tabs[] = array(
 			'name' => 'Edit',
 			'link' => '/page/' . $id . '/edit',
 			'current' => true
