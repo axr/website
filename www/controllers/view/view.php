@@ -11,7 +11,21 @@ class ViewController extends WWWController
 			'name' => $title
 		);
 
-		echo $this->renderView($view, $this->view);
+		if (isset($_GET['_forajax']) && $_GET['_forajax'] === '1')
+		{
+			$this->view->_ajax = true;
+
+			echo json_encode(array(
+				'status' => 0,
+				'payload' => array(
+					'html' => $this->renderViewOnly($view, true)
+				)
+			));
+		}
+		else
+		{
+			echo $this->renderView($view);
+		}
 	}
 }
 

@@ -148,6 +148,13 @@ window.Ajaxsite = window.Ajaxsite || {};
 				]
 			},
 			{
+				regex: /^\/calendar\/?$/,
+				handler: function (data)
+				{
+					Ajaxsite.handlers.sp_forajax(data);
+				}
+			},
+			{
 				regex: /^\/$/,
 				handler: function (data)
 				{
@@ -903,6 +910,21 @@ window.Ajaxsite = window.Ajaxsite || {};
 		a404_block.html('404 Not Found');
 
 		Ajaxsite.content.html(a404_block.placeholder());
+	};
+
+	Ajaxsite.handlers.sp_forajax = function (data)
+	{
+		Ajaxsite.data.sp_forajax(window.location.pathname, function (data, error)
+		{
+			if (error)
+			{
+				Ajaxsite.error('Error while loading ' +
+					window.location.pathname + ': ' + error, true);
+				return;
+			}
+
+			Ajaxsite.content.html(data.html);
+		});
 	};
 
 	Ajaxsite.initialize();
