@@ -103,7 +103,8 @@ class PageController extends WWWController
 		{
 			$this->tabs[] = array(
 				'name' => 'View',
-				'link' => '/page/' . $page->id,
+				'link' => !empty($model->data->url) ?
+					'/' . $model->data->url : '/page/' . $id,
 				'current' => true
 			);
 
@@ -375,16 +376,6 @@ class PageController extends WWWController
 			'name' => 'Edit page'
 		);
 
-		$this->tabs[] = array(
-			'name' => 'View',
-			'link' => '/page/' . $id
-		);
-		$this->tabs[] = array(
-			'name' => 'Edit',
-			'link' => '/page/' . $id . '/edit',
-			'current' => true
-		);
-
 		$model = new PageModel($this->dbh, array('id' => $id));
 
 		if (!Session::perms()->has('/page/edit/*') &&
@@ -392,6 +383,18 @@ class PageController extends WWWController
 		{
 			throw new HTTPException(null, 403);
 		}
+
+		$permalink = !empty($model->data->url) ? '/' . $model->data->url : '/page/' . $id;
+
+		$this->tabs[] = array(
+			'name' => 'View',
+			'link' => $permalink
+		);
+		$this->tabs[] = array(
+			'name' => 'Edit',
+			'link' => '/page/' . $id . '/edit',
+			'current' => true
+		);
 
 		$this->view->values = $model->data;
 		$this->view->fields = $model->getCtypeFieldsForView();
