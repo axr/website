@@ -24,7 +24,6 @@ class PageController extends WWWController
 		}
 
 		$key = is_numeric($value) ? 'id' : 'url';
-
 		$model = new PageModel($this->dbh, array($key => $value));
 
 		if ($model->status !== PageModel::STATUS_OK)
@@ -32,20 +31,10 @@ class PageController extends WWWController
 			throw new HTTPException(null, 404);
 		}
 
-		$page = clone $model->data;
-
-		// Check permissions
-		if ($page->published !== true &&
-			!Session::perms()->has('/page/view_unpub/*') &&
-			!Session::perms()->has('/page/view_unpub/' . $page->ctype))
-		{
-			throw new HTTPException(null, 404);
-		}
-
 		// if the page has an URL alias, use it
-		if ($key === 'id' && !empty($page->url))
+		if ($key === 'id' && !empty($model->data->url))
 		{
-			$url = preg_replace('/^\//', '', $page->url);
+			$url = preg_replace('/^\//', '', $model->data->url);
 			$this->redirect('/' . $url, 301);
 			return;
 		}
@@ -53,38 +42,18 @@ class PageController extends WWWController
 		// if the page is a hssdoc prop, redirect
 		if ($page->ctype === 'hssprop')
 		{
-			$objectName = $page->fields->object;
-			$propName = $page->title;
+			$objectName = $model->data->fields->object;
+			$propName = $model->data->title;
 
 			$this->redirect('/doc/' . $objectName . '#' . $propName);
 			return;
 		}
 
-		// Merge the fields
-		$page->fields = (object) array_merge((array) $page->fields,
-			(array) $page->fields_parsed);
-
 		// Get the content type info
-		$ctype = PageModel::$ctypes->{$page->ctype};
-
-		if (isset($_GET['_ajax']))
-		{
-			echo json_encode(array(
-				'status' => 0,
-				'payload' => array(
-					'page' => array(
-						'id' => $page->id,
-						'title' => $page->title,
-						'fields' => $page->fields
-					)
-				)
-			));
-
-			return;
-		}
+		$ctype = PageModel::$ctypes->{$model->data->ctype};
 
 		// Customize the breadcrumb for blog posts
-		if ($page->ctype === 'bpost')
+		if ($model->data->ctype === 'bpost')
 		{
 			$this->breadcrumb[] = array(
 				'name' => 'Blog',
@@ -92,38 +61,42 @@ class PageController extends WWWController
 			);
 		}
 
-		$this->view->_title = $page->title;
+		$this->view->_title = $model->data->title;
 		$this->breadcrumb[] = array(
-			'name' => $page->title
+			'name' => $model->data->title
 		);
 
-		// Set tabs
+		$this->tabs[] = array(
+			'name' => 'View',
+			'link' => !empty($model->data->url) ?
+				'/' . $model->data->url : '/page/' . $id,
+			'current' => true
+		);
+
+		// Edit tab
 		if (Session::perms()->has('/page/edit/*') ||
-			Session::perms()->has('/page/edit/' . $page->ctype))
+			Session::perms()->has('/page/edit/' . $model->data->ctype))
 		{
 			$this->tabs[] = array(
-				'name' => 'View',
-				'link' => !empty($model->data->url) ?
-					'/' . $model->data->url : '/page/' . $id,
-				'current' => true
-			);
-
-			$this->tabs[] = array(
 				'name' => 'Edit',
-				'link' => '/page/' . $page->id . '/edit'
+				'link' => '/page/' . $model->data->id . '/edit'
 			);
 		}
 
-		$this->view->page = $page;
-		$this->view->page->ctime_formated = date('Y/m/d', $page->ctime);
+		$this->view->page = $model->data;
+		$this->view->page->fields = $model->data->fields_merged;
 
 		echo $this->renderView($ctype->view);
 	}
 
+	/**
+	 * Handle AJAX requests
+	 *
+	 * @param string|int $value
+	 */
 	public function runDisplay_ajax ($value)
 	{
 		$key = is_numeric($value) ? 'id' : 'url';
-
 		$model = new PageModel($this->dbh, array($key => $value));
 
 		if ($model->status !== PageModel::STATUS_OK)
@@ -131,43 +104,32 @@ class PageController extends WWWController
 			throw new HTTPException(null, 404);
 		}
 
-		$page = clone $model->data;
-
-		// Check permissions
-		if ($page->published !== true &&
-			!Session::perms()->has('/page/view_unpub/*') &&
-			!Session::perms()->has('/page/view_unpub/' . $page->ctype))
-		{
-			throw new HTTPException(null, 404);
-		}
-
-		if ($page->ctype === 'hssprop')
+		// We don't handle hssprops here
+		if ($model->data->ctype === 'hssprop')
 		{
 			throw new HTTPException('You cannot request HSS documentation properties through this interface', 400);
 		}
 
-		// Merge the fields
-		$page->fields = (object) array_merge((array) $page->fields,
-			(array) $page->fields_parsed);
-
 		// Get the content type info
-		$ctype = PageModel::$ctypes->{$page->ctype};
+		$ctype = PageModel::$ctypes->{$model->data->ctype};
 
+		// Construct a response
 		$response = array(
 			'status' => 0,
 			'payload' => array(
 				'page' => array(
-					'id' => $page->id,
-					'title' => $page->title,
-					'url' => $page->url,
-					'ctype' => $page->ctype,
-					'fields' => $page->fields
+					'id' => $model->data->id,
+					'title' => $model->data->title,
+					'url' => $model->data->url,
+					'ctype' => $model->data->ctype,
+					'fields' => $model->data->fields_merged
 				),
 				'can_edit' =>Session::perms()->has('/page/edit/*') ||
-					Session::perms()->has('/page/edit/' . $page->ctype)
+					Session::perms()->has('/page/edit/' . $model->data->ctype)
 			)
 		);
 
+		// Respond
 		echo json_encode($response);
 	}
 
@@ -235,29 +197,27 @@ class PageController extends WWWController
 			LIMIT 25');
 		$query->execute();
 
-		$pages = $query->fetchAll(PDO::FETCH_OBJ);
+		$pages_raw = (array) $query->fetchAll(PDO::FETCH_OBJ);
+		$pages = array();
 
-		if (!is_array($pages) || count($pages) === 0)
+		foreach ($pages_raw as &$page)
 		{
-			throw new HTTPException(null, 404);
-		}
+			$model = new PageModel($this->dbh, array(
+				'_raw_data' => $page
+			));
 
-		foreach ($pages as &$page)
-		{
-			// Merge the fields
-			$page->fields = (object) array_merge(
-				(array) json_decode($page->fields, true),
-				(array) json_decode($page->fields_parsed, true));
-
-			if (empty($page->fields->summary))
+			if ($model->status !== PageModel::STATUS_OK)
 			{
-				$explode = explode('<!--more-->', $page->fields->content);
-				$page->fields->summary = $explode[0];
+				continue;
 			}
 
-			$page->permalink = !empty($page->url) ? '/' . $page->url :
-				'/page/' . $page->id;
+			if (empty($model->data->fields->summary))
+			{
+				$explode = explode('<!--more-->', $model->data->fields->content);
+				$model->data->fields->summary = $explode[0];
+			}
 
+			$pages[] = $model->data;
 			unset($page);
 		}
 	

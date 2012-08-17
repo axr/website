@@ -64,6 +64,13 @@ class Controller
 			$mustache = new Mustache();
 			$template = file_get_contents(ROOT . '/views/layout_tabs.html');
 
+			// Only one tab, and it's active == no tabs
+			if (count($that->tabs) === 1 &&
+				$that->tabs[0]['current'] === true)
+			{
+				return;
+			}
+
 			return $mustache->render($template, array(
 				'has' => count($that->tabs) > 0,
 				'tabs' => $that->tabs

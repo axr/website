@@ -7,12 +7,22 @@ class PageModel
 	/**
 	 * No error
 	 */
-	const STATUS_OK = 0;
+	const STATUS_OK = 0;	
 
 	/**
 	 * Error while loading data from database
 	 */
 	const STATUS_DB_READ_ERR = 1;
+
+	/**
+	 * No permissions
+	 */
+	const STATUS_PERMISSIONS_ERR = 2;
+
+	/**
+	 * Error loading raw data
+	 */
+	const STATUS_LOAD_RAW_ERR = 3;
 
 	/**
 	 * Content types information
@@ -42,6 +52,13 @@ class PageModel
 	public $status = self::STATUS_OK;
 
 	/**
+	 * Check permissions automatically?
+	 *
+	 * @var bool
+	 */
+	public $checkPerms = true;
+
+	/**
 	 * @var PDO
 	 */
 	private $dbh;
@@ -67,7 +84,11 @@ class PageModel
 		// Create $this->data structure
 		$this->wipeData();
 	
-		if (isset($params['id']))
+		if (isset($params['_raw_data']))
+		{
+			$this->loadFromRawData($params['_raw_data']);
+		}
+		elseif (isset($params['id']))
 		{
 			$this->data->id = $params['id'];
 			$this->loadPageData();
@@ -136,20 +157,7 @@ class PageModel
 			($key === 'url') ? PDO::PARAM_STR : PDO::PARAM_INT);
 		$query->execute();
 
-		$page = $query->fetch(PDO::FETCH_OBJ);
-
-		if (!is_object($page) ||
-			!isset(self::$ctypes->{$page->ctype}))
-		{
-			$this->status = self::STATUS_DB_READ_ERR;
-			return false;
-		}
-
-		$page->fields = json_decode($page->fields);
-		$this->data = $page;
-		$this->ctype = self::$ctypes->{$page->ctype};
-
-		return true;
+		return $this->loadFromRawData($query->fetch(PDO::FETCH_OBJ));
 	}
 
 	/**
@@ -196,11 +204,19 @@ class PageModel
 		$this->data->published = (bool) $this->data->published;
 
 		$this->parseFields();
-
+	
 		if (isset($this->ctype->filterHook))
 		{
 			call_user_func($this->ctype->filterHook, $this->data);
 		}
+
+		// Virtual values
+		$this->data->fields_merged = (object) array_merge(
+			(array) $this->data->fields,
+			(array) $this->data->fields_parsed);
+		$this->data->ctime_formated = date('Y/m/d', $this->data->ctime);
+		$this->data->permalink = !empty($this->data->url) ?
+			'/' . $this->data->url : '/page/' . $this->data->id;
 	}
 
 	/**
@@ -367,6 +383,36 @@ class PageModel
 				unset($fdata->{$field->key});
 			}
 		}
+	}
+
+	/**
+	 * Load page from raw data that was given by PDO
+	 *
+	 * @return bool status
+	 */
+	private function loadFromRawData ($page)
+	{
+		if (!is_object($page) ||
+			!isset(self::$ctypes->{$page->ctype}))
+		{
+			$this->status = self::STATUS_LOAD_RAW_ERR;
+			return false;
+		}
+
+		if ($this->checkPerms === true &&
+			((bool) $page->published) !== true &&
+			!Session::perms()->has('/page/view_unpub/*') &&
+			!Session::perms()->has('/page/view_unpub/' . $page->ctype))
+		{
+			$this->status = self::STATUS_PERMISSIONS_ERR;
+			return false;
+		}
+
+		$page->fields = json_decode($page->fields);
+		$this->data = $page;
+		$this->ctype = self::$ctypes->{$page->ctype};
+
+		return true;
 	}
 
 	/**
