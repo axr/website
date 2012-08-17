@@ -151,15 +151,25 @@ try
 }
 catch (HTTPException $e)
 {
-	if ($e->getCode() === 404)
+	if (isset($_GET['_forajax']) || isset($_GET['_ajax']))
 	{
-		$controller = new ViewController();
-		$controller->initialize();
-		$controller->run(SHARED . '/views/404.html', 'Not Found');
+		echo json_encode(array(
+			'status' => 1,
+			'error' => 'HTTPException:' . $e->getCode() . ':' . $e->getMessage()
+		));
 	}
 	else
 	{
-		echo $e->getCode() . ': ' . $e->getMessage();
+		if ($e->getCode() === 404)
+		{
+			$controller = new ViewController();
+			$controller->initialize();
+			$controller->run(SHARED . '/views/404.html', 'Not Found');
+		}
+		else
+		{
+			echo $e->getCode() . ': ' . $e->getMessage();
+		}
 	}
 }
 
