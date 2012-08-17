@@ -7,6 +7,18 @@
 		<div class="content clearfix">
 			{{{page.fields.content}}}
 		</div>
+		{{{comments_html}}}
 	</div>
 </div>
+
+{{^_ajax}}
+	<script>
+		withAS(function (Ajaxsite)
+		{
+			Ajaxsite.load_url(window.location.pathname, {
+				_prerendered: true
+			});
+		});
+	</script>
+{{/_ajax}}
 

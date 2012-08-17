@@ -18,6 +18,11 @@ class PageController extends WWWController
 	 */
 	public function runDisplay ($value)
 	{
+		if (isset($_GET['_ajax']))
+		{
+			return $this->runDisplay_ajax($value);
+		}
+
 		$key = is_numeric($value) ? 'id' : 'url';
 
 		$model = new PageModel($this->dbh, array($key => $value));
@@ -62,6 +67,22 @@ class PageController extends WWWController
 		// Get the content type info
 		$ctype = PageModel::$ctypes->{$page->ctype};
 
+		if (isset($_GET['_ajax']))
+		{
+			echo json_encode(array(
+				'status' => 0,
+				'payload' => array(
+					'page' => array(
+						'id' => $page->id,
+						'title' => $page->title,
+						'fields' => $page->fields
+					)
+				)
+			));
+
+			return;
+		}
+
 		// Customize the breadcrumb for blog posts
 		if ($page->ctype === 'bpost')
 		{
@@ -95,12 +116,58 @@ class PageController extends WWWController
 		$this->view->page = $page;
 		$this->view->page->ctime_formated = date('Y/m/d', $page->ctime);
 
-		if (isset($ctype->comments) && $ctype->comments === true)
+		echo $this->renderView($ctype->view);
+	}
+
+	public function runDisplay_ajax ($value)
+	{
+		$key = is_numeric($value) ? 'id' : 'url';
+
+		$model = new PageModel($this->dbh, array($key => $value));
+
+		if ($model->status !== PageModel::STATUS_OK)
 		{
-			$this->view->lf_params = json_encode($model->getLfParams());
+			throw new HTTPException(null, 404);
 		}
 
-		echo $this->renderView($ctype->view);
+		$page = clone $model->data;
+
+		// Check permissions
+		if ($page->published !== true &&
+			!Session::perms()->has('/page/view_unpub/*') &&
+			!Session::perms()->has('/page/view_unpub/' . $page->ctype))
+		{
+			throw new HTTPException(null, 404);
+		}
+
+		if ($page->ctype === 'hssprop')
+		{
+			throw new HTTPException('You cannot request HSS documentation properties through this interface', 400);
+		}
+
+		// Merge the fields
+		$page->fields = (object) array_merge((array) $page->fields,
+			(array) $page->fields_parsed);
+
+		// Get the content type info
+		$ctype = PageModel::$ctypes->{$page->ctype};
+
+		$response = array(
+			'status' => 0,
+			'payload' => array(
+				'page' => array(
+					'id' => $page->id,
+					'title' => $page->title,
+					'url' => $page->url,
+					'ctype' => $page->ctype,
+					'fields' => $page->fields
+				),
+				'can_edit' =>Session::perms()->has('/page/edit/*') ||
+					Session::perms()->has('/page/edit/' . $page->ctype)
+			)
+		);
+
+		echo json_encode($response);
 	}
 
 	/**

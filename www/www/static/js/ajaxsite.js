@@ -148,6 +148,29 @@ window.Ajaxsite = window.Ajaxsite || {};
 				]
 			},
 			{
+				regex: /^\/page\/[0-9]+?\/?$/,
+				handler: function (data)
+				{
+					Ajaxsite.handlers.page(data);
+				},
+				rsrc_bundles: [
+					'css/page.css',
+					'js/page.js'
+				]
+			},
+			{
+				regex: /^\/blog\/.+?\/?$/,
+				handler: function (data)
+				{
+					Ajaxsite.handlers.page(data);
+				},
+				rsrc_bundles: [
+					'css/blog.css',
+					'css/page.css',
+					'js/page.js'
+				]
+			},
+			{
 				regex: /^\/calendar\/?$/,
 				handler: function (data)
 				{
@@ -416,6 +439,52 @@ window.Ajaxsite = window.Ajaxsite || {};
 		});
 	};
 
+	/**
+	 * Get a page by either URL or id
+	 *
+	 * @param string|int path
+	 * @param function callback
+	 */
+	Ajaxsite.data.page = function (path, callback)
+	{
+		if (typeof callback !== 'function')
+		{
+			callback = function () {};
+		}
+
+		path = !isNaN(path) ? '/page/' + id : path;
+
+		if (Ajaxsite.cache.get('/page/:byPath/' + path))
+		{
+			callback(Ajaxsite.cache.get('/page/:byPath/' + path), null);
+			return;
+		}
+
+		$.ajax({
+			url: path,
+			data: {
+				_ajax: 1
+			},
+			method: 'get',
+			dataType: 'json',
+			success: function (data)
+			{
+				if (data.status !== 0)
+				{
+					callback(null, data.status);
+					return;
+				}
+
+				Ajaxsite.cache.set('/page/:byPath/' + path, data.payload);
+				callback(data.payload, null);
+			},
+			error: function (jqXHR, textStatus, error)
+			{
+				callback(null, error);
+			}
+		});
+	};
+
 	Ajaxsite.util = {};
 
 	/**
@@ -562,6 +631,57 @@ window.Ajaxsite = window.Ajaxsite || {};
 	};
 
 	/**
+	 * Render breadcrumb HTML
+	 *
+	 * @param object[] items
+	 * @param function callback(html, error)
+	 */
+	Ajaxsite.renderBreadcrumb = function (items, callback)
+	{
+		if (typeof callback !== 'function')
+		{
+			return;
+		}
+
+		Ajaxsite.data.template('layout_breadcrumb', function (template, error)
+		{
+			if (error)
+			{
+				callback(null, error);
+				return;
+			}
+
+			callback(Mustache.render(template, {
+				has: true,
+				breadcrumb: items
+			}), null);
+		});
+	};
+
+	/**
+	 * Render tabs' HTML
+	 *
+	 * @param object[] tabs
+	 * @param function callback(html, error)
+	 */
+	Ajaxsite.renderTabs = function (tabs, callback)
+	{
+		Ajaxsite.data.template('layout_tabs', function (template, error)
+		{
+			if (error)
+			{
+				callback(null, error);
+				return;
+			}
+
+			callback(Mustache.render(template, {
+				has: true,
+				tabs: tabs
+			}), null);
+		});
+	};
+
+	/**
 	 * Resource manager
 	 */
 	Ajaxsite.rsrc = {
@@ -661,7 +781,11 @@ window.Ajaxsite = window.Ajaxsite || {};
 
 		loadFile: function (file, callback)
 		{
-			if (Ajaxsite.rsrc._loaded[file] === true)
+			var ext = file.split('.').pop();
+			var url = /^https?:\/\//.test(file) ? file :
+				App.rsrc_root + '/' + file;
+
+			if (Ajaxsite.rsrc._loaded[url] === true)
 			{
 				if (typeof callback === 'function')
 				{
@@ -671,17 +795,15 @@ window.Ajaxsite = window.Ajaxsite || {};
 				return;
 			}
 
-			var ext = file.split('.').pop();
-
 			if (ext === 'css')
 			{
 				// TODO Load qith AJAX
 				$('head').append($('<link>')
 					.attr('rel', 'stylesheet')
 					.attr('type', 'text/css')
-					.attr('href', App.rsrc_root + '/' + file));
+					.attr('href', url));
 
-				Ajaxsite.rsrc._loaded[file] = true;
+				Ajaxsite.rsrc._loaded[url] = true;
 
 				if (typeof callback === 'function')
 				{
@@ -691,7 +813,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 			else if (ext === 'js')
 			{
 				jQuery.ajax({
-					url: App.rsrc_root + '/' + file,
+					url: url,
 					dataType: 'script',
 					timeout: 7000,
 					complete: function ()
@@ -701,7 +823,7 @@ window.Ajaxsite = window.Ajaxsite || {};
 							callback();
 						}
 
-						Ajaxsite.rsrc._loaded[file] = true;
+						Ajaxsite.rsrc._loaded[url] = true;
 					}
 				});
 			}

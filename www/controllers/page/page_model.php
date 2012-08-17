@@ -334,38 +334,6 @@ class PageModel
 
 		return $fields;
 	}
-	
-	/**
-	 * Get LiveFyre initialization params
-	 */
-	public function getLfParams ()
-	{
-		$params = array(
-			'domain' => Config::get('/www/lf/domain'),
-			'site_id' => Config::get('/www/lf/site_id'),
-			'article_id' => $this->data->id
-		);
-
-		$permalink = Config::get('/shared/www_url') .
-			(!empty($this->data->url) ? '/' . $this->data->url :
-				'/page/' . $this->data->id);
-
-		if (Config::get('/www/lf/secret') !== null)
-		{
-			$lf_params['conv_meta'] = array(
-				'article_url' => $permalink,
-				'title' => $page->title,
-				'sig' => md5(implode(',', array(
-					$page->id,
-					$permalink,
-					$page->title,
-					Config::get('/www/lf/secret')
-				)))
-			);
-		}
-
-		return $params;
-	}
 
 	/**
 	 * Filter content type specific fields
@@ -487,7 +455,7 @@ PageModel::$ctypes = (object) array(
 	'bpost' => (object) array(
 		'name' => 'Blog post',
 		'description' => 'This is used for blog posts',
-		'view' => ROOT . '/views/page_bpost.html',
+		'view' => ROOT . '/views/page_page.html',
 		'comments' => true,
 		'fields' => array(
 			(object) array(
