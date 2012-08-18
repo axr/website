@@ -613,14 +613,14 @@ PageModel::$ctypes = (object) array(
 		<tr>
 			<th>values</th>
 			<td>val</td>
-			<td colspan="">val</td>
-			<td colspan="">val</td>
+			<td>val</td>
+			<td>val</td>
 		</tr>
 		<tr>
 			<th>since version</th>
-			<td colspan="">0.</td>
-			<td colspan="">0.</td>
-			<td colspan="">0.</td>
+			<td>0.</td>
+			<td>0.</td>
+			<td>0.</td>
 		</tr>
 	</tbody>
 </table>
