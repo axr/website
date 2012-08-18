@@ -14,10 +14,11 @@
 
 			{{{fields.description}}}
 
-			<h3>Code:</h3>
-			{{{fields.code}}}
+			{{#fields.code}}
+				<h3>Code:</h3>
+				{{{fields.code}}}
+			{{/fields.code}}
 
-			<h3>Values:</h3>
 			{{{fields.values}}}
 		</section>
 	{{/pages}}
