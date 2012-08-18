@@ -258,6 +258,7 @@ class PageController extends WWWController
 
 		$this->view->values = $model->data;
 		$this->view->fields = $model->getCtypeFieldsForView();
+		$this->view->ctype = $model->ctype;
 		$this->view->action = '/page/add/' . $type;
 
 		if (isset($_POST['_via_post']))
@@ -358,6 +359,7 @@ class PageController extends WWWController
 
 		$this->view->values = $model->data;
 		$this->view->fields = $model->getCtypeFieldsForView();
+		$this->view->ctype = $model->ctype;
 		$this->view->action = '/page/' . $id . '/edit';
 		$this->view->delete_url = '/page/' . $id . '/rm';
 		$this->view->edit_mode = true;

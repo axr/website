@@ -36,11 +36,13 @@
 			</div>
 		{{/fields}}
 
+		{{^ctype.hide_url}}
 		<div class="field">
 			<label for="url">URL</label>
 			<input type="text" name="url" class="uiInput"
 				value="{{values.url}}" />
 		</div>
+		{{/ctype.hide_url}}
 
 		<div class="field">
 			<label for="url">Published</label>

@@ -577,7 +577,8 @@ PageModel::$ctypes = (object) array(
 				'required' => true,
 				'index' => true
 			)
-		)
+		),
+		'hide_url' => true
 	)
 );
 
