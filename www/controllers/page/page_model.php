@@ -195,21 +195,26 @@ class PageModel
 	}
 
 	/**
-	 * This should be run after $this->loadPostData() and after
-	 * $this->loadPageData()
+	 * Basic data filtering and creation of virtual fields. This filter
+	 * is run on both edit and display pages.
+	 * This filter should be called after any kind of data manipulation.
 	 */
 	public function filterData ()
 	{
-		$this->data->url = preg_replace('/[^a-z0-9-+_.\/]/i',
-			'', $this->data->url);
-		$this->data->url = preg_replace('/^\//', '', $this->data->url);
 		$this->data->published = (bool) $this->data->published;
 
 		$this->parseFields();
-	
-		if (isset($this->ctype->filterHook))
+
+		// Insert default values
+		if (count($_POST) === 0 && !is_numeric($this->data->id))
 		{
-			call_user_func($this->ctype->filterHook, $this->data);
+			foreach ($this->ctype->fields as $field)
+			{
+				if (isset($field->value))
+				{
+					$this->data->fields->{$field->key} = $field->value;
+				}
+			}
 		}
 
 		// Virtual values
@@ -222,12 +227,38 @@ class PageModel
 	}
 
 	/**
-	 * Save the data to the database
+	 * This filter gets called just before saving the data
+	 *
+	 * @param StdClass $data
+	 */
+	public function filterBeforeSave ($data)
+	{
+		// Filter the URL
+		$data->url = preg_replace('/[^a-z0-9-+_.\/]/i',
+			'', $this->data->url);
+		$data->url = preg_replace('/^\//', '', $data->url);
+	
+		// Call ctype hook
+		if (isset($this->ctype->filterBeforeSave))
+		{
+			call_user_func($this->ctype->filterBeforeSave, $data);
+		}
+	}
+
+	/**
+	 * Save the data to the database.
+	 * Before saving, both filterData and filterBeforeSave filters get
+	 * called.
 	 *
 	 * @return bool
 	 */
 	public function saveData ()
 	{
+		$this->filterData();
+
+		$data = clone $this->data;
+		$this->filterBeforeSave($data);
+
 		if ($this->data->id === null)
 		{
 			$query = $this->dbh->prepare('INSERT INTO `www_pages`
@@ -250,19 +281,19 @@ class PageModel
 					`page`.`published` = :published
 				WHERE `page`.`id` = :id');
 
-			$query->bindValue(':id', $this->data->id, PDO::PARAM_INT);
+			$query->bindValue(':id', $data->id, PDO::PARAM_INT);
 		}
 
-		$query->bindValue(':title', $this->data->title, PDO::PARAM_STR);
-		$query->bindValue(':url', $this->data->url, PDO::PARAM_STR);
-		$query->bindValue(':published', (int) $this->data->published, PDO::PARAM_INT);
+		$query->bindValue(':title', $data->title, PDO::PARAM_STR);
+		$query->bindValue(':url', $data->url, PDO::PARAM_STR);
+		$query->bindValue(':published', (int) $data->published, PDO::PARAM_INT);
 
 		$query->bindValue(':mtime', time(), PDO::PARAM_INT);
-		$query->bindValue(':ctype', $this->data->ctype, PDO::PARAM_STR);
+		$query->bindValue(':ctype', $data->ctype, PDO::PARAM_STR);
 
-		$query->bindValue(':fields', json_encode($this->data->fields),
+		$query->bindValue(':fields', json_encode($data->fields),
 			PDO::PARAM_STR);
-		$query->bindValue(':fields_p', json_encode($this->data->fields_parsed),
+		$query->bindValue(':fields_p', json_encode($data->fields_parsed),
 			PDO::PARAM_STR);
 
 		$status = $query->execute();
@@ -540,7 +571,7 @@ PageModel::$ctypes = (object) array(
 	'hssprop' => (object) array(
 		'name' => 'HSS property',
 		'view' => ROOT . '/views/page_hssprop.html',
-		'filterHook' => function ($data)
+		'filterBeforeSave' => function ($data)
 		{
 			$objectSafe = preg_replace('/[^a-z0-9-_]/i',
 				'', $data->fields->object);
@@ -568,7 +599,32 @@ PageModel::$ctypes = (object) array(
 				'key' => 'values',
 				'name' => 'Values',
 				'type' => 'textarea',
-				'required' => true
+				'required' => true,
+				'value' => <<<VALUE
+<table>
+	<thead>
+		<tr>
+			<th></th>
+			<th>default</th>
+			<th colspan="2">accepted</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>values</th>
+			<td>val</td>
+			<td colspan="">val</td>
+			<td colspan="">val</td>
+		</tr>
+		<tr>
+			<th>since version</th>
+			<td colspan="">0.</td>
+			<td colspan="">0.</td>
+			<td colspan="">0.</td>
+		</tr>
+	</tbody>
+</table>
+VALUE
 			),
 			(object) array(
 				'key' => 'object',
