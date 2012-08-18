@@ -40,7 +40,7 @@ class PageController extends WWWController
 		}
 
 		// if the page is a hssdoc prop, redirect
-		if ($page->ctype === 'hssprop')
+		if ($model->data->ctype === 'hssprop')
 		{
 			$objectName = $model->data->fields->object;
 			$propName = $model->data->title;
