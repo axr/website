@@ -221,3 +221,23 @@
 	text-decoration: underline;
 }
 
+#hssdoc_obj .prop_item table
+{
+	border-collapse: collapse;
+	empty-cells: hide;
+	text-align: center;
+}
+
+#hssdoc_obj .prop_item table th,
+#hssdoc_obj .prop_item table td
+{
+	background: #eaeaea;
+	border: 1px solid #aaa;
+	padding: 4px 8px;
+}
+
+#hssdoc_obj .prop_item table th
+{
+	background: #ddd;
+}
+
