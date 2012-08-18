@@ -122,7 +122,9 @@ class PageModel
 			'published' => null,
 			'ctype' => isset($this->data->ctype) ? $this->data->ctype : null,
 			'fields' => new StdClass(),
-			'fields_parsed' => new StdClass()
+			'fields_parsed' => new StdClass(),
+			'ctime' => time(),
+			'mtime' => time()
 		);
 
 		if (is_object($this->ctype))
