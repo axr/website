@@ -572,7 +572,7 @@ PageModel::$ctypes = (object) array(
 			),
 			(object) array(
 				'key' => 'object',
-				'name' => '',
+				'name' => 'Object name:',
 				'type' => 'text',
 				'required' => true,
 				'index' => true
