@@ -10,6 +10,8 @@ Config::set('/www/db/pass', '');
 
 Config::set('/www/ga_account', 'UA-20384487-1');
 
+Config::set('/www/disqus/shortname', 'axr');
+
 if (file_exists(ROOT . '/config.user.php'))
 {
 	require_once(ROOT . '/config.user.php');

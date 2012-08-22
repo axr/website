@@ -75,6 +75,11 @@ class PageController extends WWWController
 		$this->view->page = $model->data;
 		$this->view->page->fields = $model->data->fields_merged;
 
+		if (isset($ctype->comments) && $ctype->comments === true)
+		{
+			$this->view->comments_html = $this->renderPageComments($model);
+		}
+
 		echo $this->renderView($ctype->view);
 	}
 
@@ -374,6 +379,30 @@ class PageController extends WWWController
 		}
 
 		echo $this->renderView(ROOT . '/views/page_rm.html');
+	}
+
+	/**
+	 * Render comments area for page
+	 *
+	 * @param PageModel $page
+	 * @return string
+	 */
+	private function renderPageComments (PageModel $page)
+	{
+		$view = new StdClass();
+		$view->page = clone $page->data;
+		$view->disqus = array(
+			'developer' => Config::get('/www/debug') ? 'true' : 'false',
+			'shortname' => Config::get('/www/disqus/shortname'),
+			'identifier' => '/page/' . $page->data->id,
+			'title' => str_replace('\'', '\\\'', $page->data->title)
+		);
+
+		$mustache = new Mustache();
+		$template = file_get_contents(ROOT . '/views/page__comments.html');
+
+		return $mustache->render($template, $view);
+
 	}
 
 	/**
