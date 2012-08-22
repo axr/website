@@ -33,12 +33,14 @@
 	{{{_rsrc_styles}}}
 	<script>
 		window.App = {{{_app_vars}}};
+		window.App._onInit = [];
+
+		function withApp (callback) {
+			window.App._onInit.push(function () { callback(window.App); });
+		};
 
 		function withAS (callback) {
-			window.Ajaxsite_onInit = window.Ajaxsite_onInit || [];
-			var cb = function () { callback(Ajaxsite); };
-			try { window.Ajaxsite.on_init(cb); }
-			catch (e) { window.Ajaxsite_onInit.push(cb); }
+			console.warn('Deprecated withAS was called', callback);
 		};
 	</script>
 </head>

@@ -103,6 +103,11 @@ $router->route('/^\/doc\/([^\/#]+)\/?$/i', array(
 	'args' => array(1)
 ));
 
+$router->route('/^\/doc\/?$/i', array(
+	'controller' => 'PageController',
+	'run' => 'runHssdoc'
+));
+
 $router->route('/^\/(.+)$/', array(
 	'controller' => 'PageController',
 	'run' => 'runDisplay',

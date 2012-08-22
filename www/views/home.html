@@ -406,3 +406,12 @@ qux
 	</div>-->
 </div>
 
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load', '/home');
+		});
+	</script>
+{{/_ajax}}
+

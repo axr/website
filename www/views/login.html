@@ -26,3 +26,12 @@
 	</form>
 </div>
 
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load', '/auth');
+		});
+	</script>
+{{/_ajax}}
+

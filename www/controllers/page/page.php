@@ -5,12 +5,6 @@ require_once(ROOT . '/controllers/page/page_model.php');
 
 class PageController extends WWWController
 {
-	public function initialize ()
-	{
-		$this->rsrc->loadBundle('css/page.css');
-		$this->rsrc->loadBundle('js/page.js');
-	}
-
 	/**
 	 * Display a page
 	 *
@@ -18,11 +12,6 @@ class PageController extends WWWController
 	 */
 	public function runDisplay ($value)
 	{
-		if (isset($_GET['_ajax']))
-		{
-			return $this->runDisplay_ajax($value);
-		}
-
 		$key = is_numeric($value) ? 'id' : 'url';
 		$model = new PageModel($this->dbh, array($key => $value));
 
@@ -89,48 +78,12 @@ class PageController extends WWWController
 		echo $this->renderView($ctype->view);
 	}
 
-	/**
-	 * Handle AJAX requests
-	 *
-	 * @param string|int $value
-	 */
-	public function runDisplay_ajax ($value)
+	public function runHssdoc ()
 	{
-		$key = is_numeric($value) ? 'id' : 'url';
-		$model = new PageModel($this->dbh, array($key => $value));
-
-		if ($model->status !== PageModel::STATUS_OK)
-		{
-			throw new HTTPException(null, 404);
-		}
-
-		// We don't handle hssprops here
-		if ($model->data->ctype === 'hssprop')
-		{
-			throw new HTTPException('You cannot request HSS documentation properties through this interface', 400);
-		}
-
-		// Get the content type info
-		$ctype = PageModel::$ctypes->{$model->data->ctype};
-
-		// Construct a response
-		$response = array(
-			'status' => 0,
-			'payload' => array(
-				'page' => array(
-					'id' => $model->data->id,
-					'title' => $model->data->title,
-					'url' => $model->data->url,
-					'ctype' => $model->data->ctype,
-					'fields' => $model->data->fields_merged
-				),
-				'can_edit' =>Session::perms()->has('/page/edit/*') ||
-					Session::perms()->has('/page/edit/' . $model->data->ctype)
-			)
-		);
-
-		// Respond
-		echo json_encode($response);
+		// I know, I know
+		// We should either select an object from the database or display
+		// some kind of page here
+		$this->redirect('/doc/@container');
 	}
 
 	/**
@@ -147,21 +100,23 @@ class PageController extends WWWController
 		$query->bindValue(':value', $object, PDO::PARAM_STR);
 		$query->execute();
 
-		$pages = $query->fetchAll(PDO::FETCH_OBJ);
+		$pages_raw = (array) $query->fetchAll(PDO::FETCH_OBJ);
+		$pages = array();
 
-		// Check object existance
-		if (!is_array($pages) || count($pages) === 0)
+		// @todo create a static function PageModel::fromRaw() to do this
+		foreach ($pages_raw as &$page)
 		{
-			throw new HTTPException(null, 404);
-		}
+			$model = new PageModel($this->dbh, array(
+				'_raw_data' => $page
+			));
 
-		// Process the results
-		foreach ($pages as &$page)
-		{
-			// Merge the fields
-			$page->fields = (object) array_merge(
-				(array) json_decode($page->fields, true),
-				(array) json_decode($page->fields_parsed, true));
+			if ($model->status !== PageModel::STATUS_OK)
+			{
+				continue;
+			}
+
+			$pages[] = $model;
+			unset($page);
 		}
 
 		// Title & breadcrumb
@@ -175,10 +130,13 @@ class PageController extends WWWController
 		);
 
 		$this->view->object = $object;
-		$this->view->pages = $pages;
-		$this->view->can_edit = Session::perms()->has('/page/edit/*') ||
-			Session::perms()->has('/page/edit/hssprop');
 		$this->view->sidebar = $this->renderHssdocSidebar();
+		$this->view->props_html = '';
+
+		foreach ($pages as $page)
+		{
+			$this->view->props_html .= $this->renderHssdocProp($page);
+		}
 
 		echo $this->renderView(ROOT . '/views/hssdoc_obj.html');
 	}
@@ -468,6 +426,26 @@ class PageController extends WWWController
 
 		return $mustache->render(
 			file_get_contents(ROOT . '/views/hssdoc_sidebar.html'), $view);
+	}
+
+	/**
+	 * Render a property item for HSS documentation page
+	 *
+	 * @param PageModel $page
+	 * @return string
+	 */
+	private function renderHssdocProp (PageModel $page)
+	{
+		$view = new StdClass();
+		$view->page = clone $page->data;
+		$view->page->fields = $view->page->fields_merged;
+		$view->can_edit = Session::perms()->has('/page/edit/*') ||
+			Session::perms()->has('/page/edit/hssprop');
+
+		$mustache = new Mustache();
+		$template = file_get_contents(ROOT . '/views/hssdoc_prop.html');
+
+		return $mustache->render($template, $view);
 	}
 }
 

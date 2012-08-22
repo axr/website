@@ -1,0 +1,18 @@
+<section class="prop_item">
+	<header>
+		<h2>{{page.title}}</h2>
+		{{#can_edit}}
+			<a href="/page/{{page.id}}/edit" class="action">[edit]</a>
+		{{/can_edit}}
+	</header>
+
+	{{{page.fields.description}}}
+
+	{{#page.fields.code}}
+		<h3>Code:</h3>
+		{{{page.fields.code}}}
+	{{/page.fields.code}}
+
+	{{{page.fields.values}}}
+</section>
+

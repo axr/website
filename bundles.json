@@ -14,77 +14,44 @@
 		"files": [
 			"js/json2.js",
 			"js/mustache.js",
-			"js/native.history.js",
-			"js/ajaxsite.js",
-			"js/rainbow/rainbow.js",
-			"js/rainbow/css.js",
-			"js/rainbow/hss.js"
+			"js/app_rsrc.js",
+			"js/app_modal.js",
+			"js/app.js",
+			"js/site.js"
 		]
 	},
 	"css/bundle_www.css": {
 		"type": "css",
 		"files": [
 			"css/rainbow.css",
+			"css/openid.css",
 			"css/404.css",
+			"css/blog.css",
+			"css/page.css",
 			"css/downloads.css",
 			"css/manifesto.css",
-			"css/calendar.css"
+			"css/calendar.css",
+			"css/home.css",
+			"css/auth.css",
+			"css/get_involved.css"
 		]
 	},
 	"js/bundle_www.js": {
 		"type": "js",
 		"files": [
-			"js/script.js",
-			"js/ajaxsite.js",
-			"js/home.js",
-			"js/downloads.js"
-		]
-	},
-	"css/home.css": {
-		"type": "css",
-		"files": [
-			"css/home.css"
-		]
-	},
-	"css/auth.css": {
-		"type": "css",
-		"files": [
-			"css/openid.css",
-			"css/auth.css"
-		]
-	},
-	"js/auth.js": {
-		"type": "js",
-		"files": [
 			"js/openid-jquery.js",
 			"js/openid-en.js",
-			"js/auth.js"
-		]
-	},
-	"css/get_involved.css": {
-		"type": "css",
-		"files": [
-			"css/get_involved.css"
-		]
-	},
-	"js/get_involved.js": {
-		"type": "js",
-		"files": [
+			"js/auth.js",
+			"js/home.js",
 			"js/get_involved.js"
 		]
 	},
-	"css/page.css": {
-		"type": "css",
-		"files": [
-			"css/livefyre.css",
-			"css/blog.css",
-			"css/page.css"
-		]
-	},
-	"js/page.js": {
+	"js/bundle_rainbow.js": {
 		"type": "js",
 		"files": [
-			"js/page.js"
+			"js/rainbow/rainbow.js",
+			"js/rainbow/css.js",
+			"js/rainbow/hss.js"
 		]
 	}
 }

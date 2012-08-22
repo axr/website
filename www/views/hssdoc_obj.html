@@ -3,24 +3,17 @@
 
 	<h1>{{object}}</h1>
 
-	{{#pages}}
-		<section class="prop_item">
-			<header>
-				<h2>{{title}}</h2>
-				{{#can_edit}}
-					<a href="/page/{{id}}/edit" class="action">[edit]</a>
-				{{/can_edit}}
-			</header>
-
-			{{{fields.description}}}
-
-			{{#fields.code}}
-				<h3>Code:</h3>
-				{{{fields.code}}}
-			{{/fields.code}}
-
-			{{{fields.values}}}
-		</section>
-	{{/pages}}
+	{{{props_html}}}
 </div>
+
+{{^_ajax}}
+	<script>
+		withAS(function (Ajaxsite)
+		{
+			Ajaxsite.load_url(window.location.pathname, {
+				_prerendered: false // DEBUG
+			});
+		});
+	</script>
+{{/_ajax}}
 

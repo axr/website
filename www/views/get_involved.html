@@ -166,11 +166,9 @@
 
 {{^_ajax}}
 	<script>
-		withAS(function (Ajaxsite)
+		withApp(function (App)
 		{
-			Ajaxsite.load_url(window.location.pathname, {
-				_prerendered: true
-			});
+			App.pageEvent.trigger('load', '/get-involved');
 		});
 	</script>
 {{/_ajax}}

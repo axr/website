@@ -1,4 +1,4 @@
-(function ()
+App.pageEvent.on('load', '/auth', function ()
 {
 	if ($('#auth_login form').length > 0)
 	{
@@ -10,5 +10,5 @@
 		$(this).closest('form').submit();
 		return false;
 	});
-})();
+});
 

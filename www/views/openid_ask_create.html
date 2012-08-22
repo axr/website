@@ -11,7 +11,7 @@
 			<input type="text" class="uiInput" name="name" value="{{name}}" />
 		</div>
 
-		<a href="#" onclick="$(this).closest('form').submit()" class="create button_std go inline">
+		<a href="#" class="create button_std go inline">
 			<span class="header"></span>
 			<span class="content">
 				<span class="block_0"></span>
@@ -19,7 +19,7 @@
 			</span>
 			<span class="footer"></span>
 		</a>
-		{{^_jsonly}}
+		{{^_ajax}}
 			<noscript>
 				<style type="text/css">
 					#auth_login_choice a.create
@@ -29,8 +29,17 @@
 				</style>
 				<input class="input_std" type="submit" value="Create a new account" />
 			</noscript>
-		{{/_jsonly}}
+		{{/_ajax}}
 		or <a href="/auth/openid_assoc?cancel=1&pt={{pt}}" class="cancel">cancel</a>
 	</form>
 </div>
+
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load', '/auth');
+		});
+	</script>
+{{/_ajax}}
 
