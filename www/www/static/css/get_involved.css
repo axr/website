@@ -455,10 +455,7 @@
 	visibility: visible !important;
 }
 
-/**
- * @todo this needs to be cleaned
- */
-/*#get_involved .sidebar > .box.github > .icon > .extra_0
+#get_involved .sidebar > .box.github > .icon > .extra_0
 {
 	background-position: -50px -102px;
 	height: 47px;
@@ -466,31 +463,31 @@
 	width: 47px;
 }
 
+#get_involved .sidebar > .box.github > .nested_0 > .title
+{
+	border-bottom: 1px solid #bdbdbd;
+}
+
 #get_involved .sidebar > .box.github > .nested_0 > ul
 {
+	border-top: 1px solid #e1e1e1;
 	margin: 0 2px;
 	padding: 0;
 	list-style-type: none;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul > li
-{
-	border-bottom: 1px solid #e1e1e1;
-}
-
-#get_involved .sidebar > .box.github > .nested_0 > ul > li:last-child
+#get_involved .sidebar > .box.github > .nested_0 > ul li:last-child
 {
 	border-bottom: 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul > li:last-child .inner
+#get_involved .sidebar > .box.github > .nested_0 > ul li:last-child .inner
 {
 	border-bottom: 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul > li .inner
+#get_involved .sidebar > .box.github > .nested_0 > ul li .inner
 {
-	border-bottom: 1px solid #bebebe;
 	color: #6b6b6b;
 	font-size: 1em;
 	font-weight: bold;
@@ -498,24 +495,24 @@
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul > li .inner a
+#get_involved .sidebar > .box.github > .nested_0 > ul li a
 {
 	color: #D09610;
 	text-decoration: underline;
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul > li .inner > span
+#get_involved .sidebar > .box.github > .nested_0 > ul li span
 {
 	color: #979797;
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > .inner > a.see_all
+#get_involved .sidebar > .box.github > .nested_0 > .inner a.see_all
 {
 	margin: 10px auto 0 auto;
 	width: 200px;
-}*/
+}
 
 #get_involved_join .inner
 {

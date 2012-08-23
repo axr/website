@@ -6,6 +6,7 @@ define('SHARED', ROOT . '/..');
 // Set timezone
 date_default_timezone_set('UTC');
 
+require_once(SHARED . '/lib/extend.php');
 require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/lib/core/session.php');

@@ -154,25 +154,26 @@
 			</div>
 		</div>
 
-		<!--<div class="box github">
+		<div class="box github">
 			<div class="icon">
 				<div class="extra_0"></div>
 				<div class="extra_1"></div>
 			</div>
 			<div class="nested_0">
+				<div class="title"><a href="https://github.com/AXR" target="_blank">AXR</a> on GitHub</div>
 				<ul id="ghactivity">
 					<li><div class="inner">Loading...</div></li>
 				</ul>
 
-				<div class="inner">
+				{{#_false}}<!--<div class="inner">
 					<a href="https://github.com/axr" class="see_all button_std go">
 						<span class="header"></span>
 						<span class="content">see all<span class="block_0"></span></span>
 						<span class="footer"></span>
 					</a>
-				</div>
+				</div>-->{{/_false}}
 			</div>
-		</div>-->
+		</div>
 	</div>
 	<br style="clear: both" />
 </div>
@@ -182,6 +183,7 @@
 		withApp(function (App)
 		{
 			App.pageEvent.trigger('load_init', '/get-involved');
+			App.pageEvent.trigger('load', '/get-involved');
 		});
 	</script>
 {{/_ajax}}

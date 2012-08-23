@@ -1,6 +1,7 @@
 <?php
 
 require_once(ROOT . '/lib/www_controller.php');
+require_once(SHARED . '/lib/github_activity.php');
 
 class AjaxController extends WWWController
 {
@@ -11,6 +12,10 @@ class AjaxController extends WWWController
 			if ($mode === 'template')
 			{
 				$this->template();
+			}
+			else if ($mode === 'ghactivity')
+			{
+				$this->ghactivity();
 			}
 			else
 			{
@@ -54,6 +59,27 @@ class AjaxController extends WWWController
 			'payload' => array(
 				'name' => $name,
 				'template' => $template
+			)
+		));
+	}
+
+	public function ghactivity ()
+	{
+		$count = isset($_GET['count']) ? (int) $_GET['count'] : 9999;
+
+		$events = GithubActivity::getActivity();
+		$events = array_splice($events, 0, $count);
+
+		foreach ($events as &$event)
+		{
+			$event->title = str_replace('{TIME}',
+				format_time_ago($event->created_at), $event->title);
+		}
+
+		echo json_encode(array(
+			'status' => 0,
+			'payload' => array(
+				'events' => $events
 			)
 		));
 	}
