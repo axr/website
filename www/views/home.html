@@ -358,42 +358,35 @@ qux
 				<div class="block_2"></div>
 				<div class="block_3"></div>
 			</div>
-			<!--<div class="changes">
+			<div class="changes">
 				<h2>Latest changes:</h2>
-				<?php
-					$changelog = null;
-
-					if (function_exists('axrreleases_get_changelog_short'))
-					{
-						$changelog = axrreleases_get_changelog_short();
-					}
-				?>
-				<?php if (is_object($latest) && is_array($changelog)): ?>
+				{{#has_changelog}}
 					<div class="verinfo">
-						<span class="version">v <?php echo $latest->version; ?></span>
-						Released: <?php echo $latest->date; ?>
+						<span class="version">v {{release.version}}</span>
+						Released: {{release.date}}
 					</div>
 					<ul>
-						<?php foreach ($changelog as $change): ?>
+						{{#changelog}}
 							<li>
 								<span class="block_0"></span>
-								<span class="text"><?php echo $change; ?></span>
+								<span class="text">{{change}}</span>
 							</li>
-						<?php endforeach; ?>
+						{{/changelog}}
 						<li class="clear"></li>
 					</ul>
 
-					<a href="/wiki/changelog" class="see_all button_std go">
+					<a href="{{full_changelog_url}}" target="_blank" class="see_all button_std go">
 						<span class="header"></span>
 						<span class="content"><span class="block_0"></span>See all</span>
 						<span class="footer"></span>
 					</a>
-				<?php else: ?>
+				{{/has_changelog}}
+				{{^has_changelog}}
 					<div class="verinfo">
 						No changelog is currently available
 					</div>
-				<?php endif; ?>
-			</div>-->
+				{{/has_changelog}}
+			</div>
 		</div>
 	</div>
 </div>

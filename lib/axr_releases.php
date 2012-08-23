@@ -74,8 +74,6 @@ class AXRReleases
 			);
 		}
 
-		// TODO Sort by version number
-
 		return $out;
 	}
 
@@ -92,6 +90,86 @@ class AXRReleases
 		{
 		 	$data = $this->fetchData();
 			Cache::set('/axr_releases/:repo/' . $this->repository, $data);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get the changelog
+	 *
+	 * @param string $version
+	 * @return mixed
+	 */
+	public function getChangelog ($version)
+	{
+		$data = Cache::get('/axr_releases/changelog/' . $version);
+
+		if ($data === null)
+		{
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/' .
+				$this->repository . '/git/refs/tags');
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+
+			$refs = json_decode(curl_exec($ch));
+			curl_close($ch);
+
+			if (!is_array($refs))
+			{
+				Cache::set('/axr_releases/changelog/' . $version, array());
+				return array();
+			}
+
+			$sha = null;
+
+			for ($i = 0, $c = count($refs); $i < $c; $i++)
+			{
+				if ($refs[$i]->ref === "refs/tags/v{$version}-stable")
+				{
+					$sha = $refs[$i]->object->sha;
+				}
+			}
+
+			if ($sha === null)
+			{
+				Cache::set('/axr_releases/changelog/' . $version, array());
+				return array();
+			}
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/' .
+				$this->repository . '/git/tags/' . $sha);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+
+			$tag = json_decode(curl_exec($ch));
+			curl_close($ch);
+
+			if (!is_object($tag))
+			{
+				Cache::set('/axr_releases/changelog/:repo/' .
+					$this->repository, array());
+				return array();
+			}
+
+			$data = array();
+			$explode = explode("Changelog:\n", $tag->message);
+
+			if (isset($explode[1]))
+			{
+				$explode = explode("-----BEGIN PGP SIGNATURE-----\n", $explode[1]);
+				$data = explode("\n", $explode[0]);
+
+				$data = array_filter($data, function ($change)
+				{
+					$change = trim($change);
+					return !empty($change);
+				});
+			}
+
+			Cache::set('/axr_releases/changelog/' . $version, $data);
 		}
 
 		return $data;
