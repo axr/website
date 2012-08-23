@@ -589,13 +589,6 @@ PageModel::$ctypes = (object) array(
 				'filters' => array('markdown')
 			),
 			(object) array(
-				'key' => 'code',
-				'name' => 'Code',
-				'type' => 'textarea',
-				'required' => false,
-				'filters' => array('code')
-			),
-			(object) array(
 				'key' => 'values',
 				'name' => 'Values',
 				'type' => 'textarea',
