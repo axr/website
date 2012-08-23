@@ -30,6 +30,28 @@ window.App = window.App || {};
 		});
 	};
 
+	/**
+	 * Expand collapse all objects
+	 *
+	 * @param bool collapse default: false
+	 */
+	var expandAll = function (collapse)
+	{
+		$('#hssdoc_sidebar .obj_list').each(function (i, element)
+		{
+			if (collapse)
+			{
+				$(element).find('.prop_list').hide();
+				$(element).find('a.open').html('[+]');
+			}
+			else
+			{
+				$(element).find('.prop_list').show();
+				$(element).find('a.open').html('[-]');
+			}
+		});
+	};
+
 	App.pageEvent.on('load', '/doc', function ()
 	{
 		// Scroll to the property that's in the hash
@@ -66,6 +88,16 @@ window.App = window.App || {};
 			{
 				scrollToProperty(targetProperty);
 			}
+		});
+
+		$('#hssdoc_sidebar .actions a.expand').on('click', function (e)
+		{
+			expandAll();
+		});
+
+		$('#hssdoc_sidebar .actions a.collapse').on('click', function (e)
+		{
+			expandAll(true);
 		});
 	});
 })(window.App);

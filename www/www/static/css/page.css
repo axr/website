@@ -171,6 +171,26 @@
 	text-decoration: underline;
 }
 
+#hssdoc_sidebar > .actions
+{
+	margin: 8px 0 -8px 0;
+	text-align: center;
+}
+
+#hssdoc_sidebar > .actions a
+{
+	color: #aaa;
+	display: inline-block;
+	font-size: 11px;
+	margin: 0 5px;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > .actions a:hover
+{
+	text-decoration: underline;
+}
+
 #hssdoc_obj .prop_item
 {
 	margin: 0 0 25px 0;
