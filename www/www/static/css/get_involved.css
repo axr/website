@@ -404,6 +404,19 @@
 	text-shadow: #ededed 1px 1px 3px;
 }
 
+#get_involved > .sidebar > .box.googleplus > .icon > .extra_0
+{
+	background: none;
+	height: 38px;
+	margin: 4px 0;
+	width: 55px;
+}
+
+#get_involved > .sidebar > .box.googleplus > .nested_0 > .inner
+{
+	padding: 3px;
+}
+
 #get_involved .sidebar > .box.facebook > .icon > .extra_0
 {
 	background-position: -3px -105px;
