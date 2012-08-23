@@ -43,7 +43,8 @@
 			"js/openid-en.js",
 			"js/auth.js",
 			"js/home.js",
-			"js/get_involved.js"
+			"js/get_involved.js",
+			"js/hssdoc.js"
 		]
 	},
 	"js/bundle_rainbow.js": {

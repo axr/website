@@ -83,12 +83,14 @@ class PageController extends WWWController
 		echo $this->renderView($ctype->view);
 	}
 
+	/**
+	 * Display /doc
+	 */
 	public function runHssdoc ()
 	{
-		// I know, I know
-		// We should either select an object from the database or display
-		// some kind of page here
-		$this->redirect('/doc/@container');
+		$this->view->sidebar = $this->renderHssdocSidebar();
+
+		echo $this->renderView(ROOT . '/views/hssdoc.html');
 	}
 
 	/**
