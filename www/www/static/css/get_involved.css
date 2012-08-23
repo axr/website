@@ -293,11 +293,22 @@
 
 #get_involved .sidebar > .box > .nested_0 > .title
 {
-	color: #fff;
+	color: #666;
 	font-size: 1.2em;
 	font-weight: bold;
 	padding: 7px 20px;
-	text-shadow: #666 0 1px 0;
+	text-shadow: #ddd 0 1px 0;
+}
+
+#get_involved .sidebar > .box > .nested_0 > .title a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#get_involved .sidebar > .box > .nested_0 > .title a:hover
+{
+	text-decoration: underline;
 }
 
 #get_involved .sidebar > .box > .nested_0 > .inner
@@ -336,6 +347,8 @@
 #get_involved .sidebar > .box.newsletter > .nested_0 > .title
 {
 	border-bottom: 1px solid #939393;
+	color: #fff;
+	text-shadow: #666 0 1px 0;
 }
 
 #get_involved .sidebar > .box.newsletter > .nested_0 > .inner
@@ -412,9 +425,15 @@
 	width: 55px;
 }
 
+#get_involved > .sidebar > .box.googleplus > .nested_0 > .title
+{
+	border-bottom: 1px solid #bdbdbd;
+}
+
 #get_involved > .sidebar > .box.googleplus > .nested_0 > .inner
 {
-	padding: 3px;
+	border-top: 1px solid #e1e1e1;
+	padding: 10px 20px;
 }
 
 #get_involved .sidebar > .box.facebook > .icon > .extra_0
