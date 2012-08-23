@@ -112,6 +112,11 @@ $router->route('/^\/doc\/?$/i', array(
 	'run' => 'runHssdoc'
 ));
 
+$router->route('/^\/downloads\/?$/i', array(
+	'controller' => 'DownloadsController',
+	'run' => 'run'
+));
+
 $router->route('/^\/(.+)$/', array(
 	'controller' => 'PageController',
 	'run' => 'runDisplay',

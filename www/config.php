@@ -11,6 +11,7 @@ Config::set('/www/db/pass', '');
 Config::set('/www/ga_account', 'UA-20384487-1');
 
 Config::set('/www/disqus/shortname', 'axr');
+Config::set('/www/downloads/releases_repo', 'AXR/Prototype');
 
 if (file_exists(ROOT . '/config.user.php'))
 {
