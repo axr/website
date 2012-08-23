@@ -25,6 +25,7 @@
 		"files": [
 			"css/rainbow.css",
 			"css/openid.css",
+			"css/content.css",
 			"css/404.css",
 			"css/blog.css",
 			"css/page.css",

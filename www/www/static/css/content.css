@@ -1,0 +1,43 @@
+.parsedContent p,
+.parsedContent li {
+	font-size: 13px;
+	line-height: 1.5;
+	margin: 0 0 5px 0;
+}
+
+.parsedContent p
+{
+	margin: 0 0 20px 0;
+}
+
+.parsedContent img
+{
+	float: left;
+	margin: 10px 10px 10px 0;
+}
+
+.parsedContent img.alignRight
+{
+	float: right;
+	margin: 10px 0 10px 10px;
+}
+
+.parsedContent a {
+	color: #666;
+}
+
+.parsedContent a:hover
+{
+	color: #000;
+}
+
+.parsedContent code:not([data-language])
+{
+	background: #fff;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	color: #555;
+	display: inline;
+	padding: 0 3px;
+}
+

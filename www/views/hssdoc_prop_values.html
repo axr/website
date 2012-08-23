@@ -1,0 +1,22 @@
+<table>
+	<thead>
+		<th>Value</th>
+		<th>Since version</th>
+	</thead>
+	<tbody>
+		{{#values}}
+			<tr>
+				<td>
+					{{value}}
+					{{#default}}
+						<span class="flag default">default</span>
+					{{/default}}
+				</td>
+				{{#_count}}
+					<td rowspan="{{_count}}" class="version">{{_version}}</td>
+				{{/_count}}
+			</tr>
+		{{/values}}
+	</tbody>
+</table>
+

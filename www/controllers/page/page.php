@@ -470,11 +470,56 @@ class PageController extends WWWController
 		$view = new StdClass();
 		$view->page = clone $page->data;
 		$view->page->fields = $view->page->fields_merged;
+		$view->page->fields->values =
+			$this->renderHssdocValues($view->page->fields->values);
 		$view->can_edit = Session::perms()->has('/page/edit/*') ||
 			Session::perms()->has('/page/edit/hssprop');
 
 		$mustache = new Mustache();
 		$template = file_get_contents(ROOT . '/views/hssdoc_prop.html');
+
+		return $mustache->render($template, $view);
+	}
+
+	/**
+	 * Render HSS documenattion values table
+	 *
+	 * @param string $data_raw
+	 * @return string
+	 */
+	private function renderHssdocValues ($data_raw)
+	{
+		$out = array();
+		$data = json_decode($data_raw);
+
+		if (!is_object($data))
+		{
+			return $data_raw;
+		}
+
+		$sorted = array();
+
+		foreach ($data as $version => $rows)
+		{
+			if (!is_array($rows) || count($rows) === 0)
+			{
+				continue;
+			}
+
+			$rows[0]->_version = $version;
+			$rows[0]->_count = count($rows);
+
+			foreach ($rows as $row)
+			{
+				$sorted[] = $row;
+			}
+		}
+
+		$view = new StdClass();
+		$view->values = $sorted;
+
+		$mustache = new Mustache();
+		$template = file_get_contents(ROOT . '/views/hssdoc_prop_values.html');
 
 		return $mustache->render($template, $view);
 	}

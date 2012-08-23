@@ -147,6 +147,7 @@
 {
 	background: #eee;
 	border: 1px solid #ccc;
+	border-radius: 3px;
 	float: right;
 	margin: 0 0 10px 10px;
 	padding: 10px;
@@ -203,9 +204,15 @@
 	text-decoration: underline;
 }
 
+#hssdoc_obj .prop_item
+{
+	margin: 0 0 25px 0;
+}
+
 #hssdoc_obj .prop_item header h2
 {
 	display: inline-block;
+	margin: 0;
 	vertical-align: middle;
 }
 
@@ -235,10 +242,35 @@
 	background: #eaeaea;
 	border: 1px solid #aaa;
 	padding: 4px 8px;
+	text-align: left;
 }
 
 #hssdoc_obj .prop_item table th
 {
 	background: #ddd;
+}
+
+#hssdoc_obj .prop_item table td.version
+{
+	text-align: center;
+}
+
+#hssdoc_obj .prop_item table .flag
+{
+	background: #bbb;
+	border-radius: 3px;
+	color: #222;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 14px;
+	padding: 2px 5px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	text-transform: lowercase;
+}
+
+#hssdoc_obj .prop_item table .flag.default
+{
+	background: #468847;
+	color: #fff;
 }
 

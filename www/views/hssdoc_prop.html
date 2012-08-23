@@ -6,13 +6,18 @@
 		{{/can_edit}}
 	</header>
 
-	{{{page.fields.description}}}
+	<div class="parsedContent">
+		{{{page.fields.description}}}
+	</div>
 
 	{{#page.fields.code}}
 		<h3>Code:</h3>
-		{{{page.fields.code}}}
+		<div class="parsedContent">
+			{{{page.fields.code}}}
+		</div>
 	{{/page.fields.code}}
 
+	<h3>Values:</h3>
 	{{{page.fields.values}}}
 </section>
 

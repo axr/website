@@ -601,29 +601,12 @@ PageModel::$ctypes = (object) array(
 				'type' => 'textarea',
 				'required' => true,
 				'value' => <<<VALUE
-<table>
-	<thead>
-		<tr>
-			<th></th>
-			<th>default</th>
-			<th colspan="2">accepted</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<th>values</th>
-			<td>val</td>
-			<td>val</td>
-			<td>val</td>
-		</tr>
-		<tr>
-			<th>since version</th>
-			<td>0.</td>
-			<td>0.</td>
-			<td>0.</td>
-		</tr>
-	</tbody>
-</table>
+{
+	"0.x": [
+		{"value": "", "default": true},
+		{"value": "", since: "0"}
+	]
+}
 VALUE
 			),
 			(object) array(
