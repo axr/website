@@ -1,4 +1,4 @@
-App.pageEvent.on('load', '/home', function ()
+App.pageEvent.on('load_init', '/home', function ()
 {
 	/**
 	 * Handle the HSS Features menu

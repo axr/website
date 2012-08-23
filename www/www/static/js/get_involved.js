@@ -1,4 +1,4 @@
-App.pageEvent.on('load', '/get-involved', function ()
+App.pageEvent.on('load_init', '/get-involved', function ()
 {
 	App.data.lastTweetForBox(function (tweet, error)
 	{

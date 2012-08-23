@@ -11,12 +11,3 @@
 	</div>
 </div>
 
-{{^_ajax}}
-	<script>
-		withApp(function (App)
-		{
-			App.pageEvent.trigger('load', '/page');
-		});
-	</script>
-{{/_ajax}}
-
