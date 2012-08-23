@@ -446,7 +446,7 @@
 
 #get_involved .sidebar > .box.facebook > .nested_0 > .inner
 {
-	padding: 3px;
+	padding: 0;
 }
 
 #get_involved .sidebar > .box.facebook > .nested_0 > .inner > iframe
