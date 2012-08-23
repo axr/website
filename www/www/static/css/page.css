@@ -1,36 +1,3 @@
-#main .node-teaser
-{
-	margin-bottom: 30px;
-}
-
-#page .page_item .content p,
-#page .page_item .content li {
-	font-size: 1.2em;
-	line-height: 1.4;
-	margin: 0 0 20px 0;
-}
-
-#page .page_item .content img
-{
-	float: left;
-	margin: 10px 10px 10px 0;
-}
-
-#page .page_item .content img.alignRight
-{
-	float: right;
-	margin: 10px 0 10px 10px;
-}
-
-#page .page_item .content a {
-	color: #666;
-}
-
-#page .page_item .content a:hover
-{
-	color: #000;
-}
-
 #page .page_item ul.page_links
 {
 	list-style: none;

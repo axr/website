@@ -1,6 +1,6 @@
 .parsedContent p,
 .parsedContent li {
-	font-size: 13px;
+	font-size: 14px;
 	line-height: 1.5;
 	margin: 0 0 5px 0;
 }
@@ -8,6 +8,16 @@
 .parsedContent p
 {
 	margin: 0 0 20px 0;
+}
+
+.parsedContent h2,
+.parsedContent h3,
+.parsedContent h4,
+.parsedContent h5,
+.parsedContent h6
+{
+	clear: both;
+	display: block;
 }
 
 .parsedContent img
