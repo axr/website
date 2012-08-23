@@ -10,6 +10,7 @@ require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/lib/core/session.php');
 require_once(SHARED . '/lib/core/router.php');
+require_once(SHARED . '/lib/core/cache.php');
 require_once(ROOT . '/controllers/view/view.php');
 
 // Load configs
@@ -29,6 +30,9 @@ if (Config::get('/www/debug'))
 
 // Initialize the session
 Session::initialize($dbh);
+
+// Initialize the cache
+Cache::initialize($dbh);
 
 // Create new router
 $router = new Router(isset($_SERVER['REQUEST_URI']) ?
