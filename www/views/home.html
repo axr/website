@@ -324,41 +324,33 @@ qux
 		</div>
 	</div>
 
-	<!--<div class="getit">
+	<div class="getit">
 		<div class="nested_0 clearfix">
 			<div class="releases">
 				<h2>download</h2>
 				<div class="nested_0">
-					<?php
-						$latest = null;
-
-						if (function_exists('axrreleases_get_releases'))
-						{
-							$releases = axrreleases_get_releases(0, 1);
-							$latest = count($releases) > 0 ? $releases[0] : null;
-						}
-					?>
-					<?php if (is_object($latest)): ?>
-						<a href="<?php echo $latest->url; ?>" class="download button_big">
+					{{#has_release}}
+						<a href="{{release.url}}" class="download button_big">
 							<span class="header"></span>
 							<span class="content">
 								<span class="big">Latest version:</span>
 								<span class="version">
-									<?php echo $latest->version; ?> prototype
+									{{release.version}} prototype
 								</span>
-								<span class="for">for <?php echo $latest->os_str; ?></span>
+								<span class="for">for {{release.os_str}}</span>
 								<span class="block_0"></span>
 							</span>
 							<span class="footer"></span>
 						</a>
-						<a class="older" href="<?php echo Config::get('/shared/files_url'); ?>/prototype">looking for an older version?</a>
+						<a class="older" href="{{_www_root}}/downloads">looking for an older version?</a>
 						<h3>What am I downloading?</h3>
 						<p>This is a test app that runs on your computer, and
 						already does many of the cool features of HSS! It
 						includes tests and tutorials you can try out.</p>
-					<?php else: ?>
+					{{/has_release}}
+					{{^has_release}}
 						<strong>No downloads available for your operating system</strong>
-					<?php endif; ?>
+					{{/has_release}}
 				</div>
 				<a class="altos" href="/downloads">need other operating system?</a>
 				<div class="block_0"></div>
@@ -366,7 +358,7 @@ qux
 				<div class="block_2"></div>
 				<div class="block_3"></div>
 			</div>
-			<div class="changes">
+			<!--<div class="changes">
 				<h2>Latest changes:</h2>
 				<?php
 					$changelog = null;
@@ -401,9 +393,9 @@ qux
 						No changelog is currently available
 					</div>
 				<?php endif; ?>
-			</div>
+			</div>-->
 		</div>
-	</div>-->
+	</div>
 </div>
 
 {{^_ajax}}

@@ -105,36 +105,37 @@ class AXRReleases
 	 */
 	public function getForHome ()
 	{
-		$data = $this->getData();
+		$data = (array) $this->getData();
 
-		$versions = get_object_vars($data);
-		sort($versions);
+		ksort($data);
+		$data = array_reverse($data);
 
 		$clientOS = self::detectOS();
 		$clientArch = self::detectArch();
 		$out = null;
 
-		for ($i = 0, $c = count($versions); $i < $c; $i++)
+		foreach ($data as $version => $item)
 		{
-			$version = $versions[$i];
-			$item = $data->{$version};
-
 			if (!isset($item->{$clientOS}))
 			{
 				continue;
 			}
 
-			for ($j = 0, $c2 = count($item->{$clientOS}); $j < $c2; $j++)
+			for ($i = 0, $c = count($item->{$clientOS}); $i < $c; $i++)
 			{
-				$release = $item->{$clientOS}[$j];
+				$release = $item->{$clientOS}[$i];
 
 				if ($release->arch === $clientArch)
 				{
 					$out = $release;
+					$out->os = $clientOS;
+					$out->version = $version;
+
 					break(2);
 				}
 			}
 		}
+
 
 		return $out;
 	}
@@ -176,7 +177,7 @@ class AXRReleases
 			return 'x86-64';
 		}
 
-		return 'x86';
+		return 'i386';
 	}
 }
 
