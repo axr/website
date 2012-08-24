@@ -118,6 +118,11 @@ $router->route('/^\/downloads\/?$/i', array(
 	'run' => 'run'
 ));
 
+$router->route('/^\/admin\/cache\/?$/', array(
+	'controller' => 'AdminController',
+	'run' => 'runCache'
+));
+
 $router->route('/^\/(.+)$/', array(
 	'controller' => 'PageController',
 	'run' => 'runDisplay',
