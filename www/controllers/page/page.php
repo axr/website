@@ -176,9 +176,11 @@ class PageController extends WWWController
 				continue;
 			}
 
+			$model->data->fields = $model->data->fields_merged;
+
 			if (empty($model->data->fields->summary))
 			{
-				$explode = explode('<!--more-->', $model->data->fields->content);
+				$explode = explode('<!--more-->', $model->data->fields_merged->content);
 				$model->data->fields->summary = $explode[0];
 			}
 

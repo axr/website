@@ -1,7 +1,7 @@
 #page .page_item ul.page_links
 {
 	list-style: none;
-	margin: 0 0 10px;
+	margin: 5px 0 10px 0;
 	padding: 0;
 	overflow: hidden;
 }
@@ -36,6 +36,15 @@
 #page .page_item ul.page_links > li:first-child a:hover
 {
 	color: #000;
+}
+
+#page.list .page_item .parsedContent h2,
+#page.list .page_item .parsedContent h3,
+#page.list .page_item .parsedContent h4,
+#page.list .page_item .parsedContent h5,
+#page.list .page_item .parsedContent h6
+{
+	clear: none;
 }
 
 #page_add a,
