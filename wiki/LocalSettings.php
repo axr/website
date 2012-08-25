@@ -9,6 +9,7 @@ if (!defined('MEDIAWIKI'))
 }
 
 define('SHARED', dirname(__FILE__) . '/..');
+define('ROOT', $IP);
 
 require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/config.php');
