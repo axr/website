@@ -51,7 +51,7 @@ class Controller
 		$this->view->_breadcrumb_html = function () use ($that)
 		{
 			$mustache = new Mustache();
-			$template = file_get_contents(ROOT . '/views/layout_breadcrumb.html');
+			$template = file_get_contents(SHARED . '/views/layout_breadcrumb.html');
 
 			return $mustache->render($template, array(
 				'has' => count($that->breadcrumb) > 0,
@@ -62,7 +62,7 @@ class Controller
 		$this->view->_tabs_html = function () use ($that)
 		{
 			$mustache = new Mustache();
-			$template = file_get_contents(ROOT . '/views/layout_tabs.html');
+			$template = file_get_contents(SHARED . '/views/layout_tabs.html');
 
 			// Only one tab, and it's active == no tabs
 			if (count($that->tabs) === 1 &&
