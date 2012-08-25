@@ -6,7 +6,8 @@
 			"css/layout.css",
 			"css/style.css",
 			"css/style_modal.css",
-			"css/boilerplate_after.css"
+			"css/boilerplate_after.css",
+			"css/rainbow.css"
 		]
 	},
 	"js/bundle_shared.js": {
@@ -23,7 +24,6 @@
 	"css/bundle_www.css": {
 		"type": "css",
 		"files": [
-			"css/rainbow.css",
 			"css/openid.css",
 			"css/content.css",
 			"css/404.css",
