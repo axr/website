@@ -115,7 +115,7 @@ class Controller
 		$layoutPath = SHARED . '/views/layout.html';
 		$explode = explode('.', $viewPath);
 		$extension = end($explode);
-		$viewHTML = 'View not found';
+		$viewHTML = $viewPath;
 		$layoutHTML = '{{{_content}}}';
 
 		if (file_exists($viewPath))
