@@ -81,6 +81,13 @@ class Controller
 		$this->view->_www_url = Config::get('/shared/www_url');
 		$this->view->_wiki_url = Config::get('/shared/wiki_url');
 
+		$this->view->_app_vars = json_encode(array(
+			'rsrc_root' => Config::get('/shared/rsrc_url'),
+			'rsrc_prod' => Config::get('/shared/rsrc/prod'),
+			'ga_account' => Config::get('/www/ga_account'),
+			'rsrc_bundles' => $this->rsrc->getBundlesInfo()
+		));
+
 		$this->view->_POST = $_POST;
 		$this->view->_GET = $_GET;
 
