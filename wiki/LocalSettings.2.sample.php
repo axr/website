@@ -15,3 +15,14 @@ $wgDBprefix = '';
 $wgSecretKey = '';
 $wgUpgradeKey = '';
 
+/**
+ * For development:
+ *
+
+$wgMainCacheType = CACHE_NONE;
+$wgMessageCacheType = CACHE_NONE;
+$wgParserCacheType = CACHE_NONE;
+$wgCachePages = false;
+
+*/
+
