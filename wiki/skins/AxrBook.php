@@ -27,9 +27,6 @@ class SkinAxrBook extends SkinTemplate
 		parent::setupSkinUserCss($out);
 
 		$out->addStyle('axrbook/monobook.css', 'screen');
-
-		$out->addStyle(Config::get('/shared/rsrc_url') .
-			'/css/style.css', 'screen');
 		$out->addStyle('axrbook/axrbook.css', 'screen');
 		
 		$out->addStyle('monobook/IE50Fixes.css', 'screen', 'lt IE 5.5000');
@@ -95,8 +92,8 @@ class AxrBookTemplate extends MonoBookTemplate
 		$view->_wiki_url = Config::get('/shared/wiki_url');
 		
 		// Resources
-		$view->_rsrc_styles = $rsrc->getStylesHTML() .
-			$out->buildCssLinks($this->skin);
+		$view->_rsrc_styles = $out->buildCssLinks($this->skin) .
+			$rsrc->getStylesHTML();
 		$view->_rsrc_scripts = $rsrc->getScriptsHTML();
 
 		// Misc
