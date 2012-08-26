@@ -19,6 +19,8 @@ $wgUpgradeKey = '';
  * For development:
  *
 
+$wgShowExceptionDetails = true;
+
 $wgMainCacheType = CACHE_NONE;
 $wgMessageCacheType = CACHE_NONE;
 $wgParserCacheType = CACHE_NONE;
