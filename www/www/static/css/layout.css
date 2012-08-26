@@ -341,51 +341,53 @@ body
 	z-index:1;
 }
 
-#container > header .secondary .register,
-#container > header .secondary .login
+#container > header .secondary > .link
+{
+	display: inline-block;
+	margin: 6px 0 0 0;
+}
+
+#container > header .secondary > .link .icon
 {
 	background: url("../images/sprite32.png") -228px -147px;
+	display: inline-block;
 	height: 18px;
-	width: 0;
-	left: -60px;
-	padding-left: 19px;
-	position: absolute;
-	text-indent: 7px;
-	top: 6px;
+	margin: 0 5px 0 0;
+	vertical-align: middle;
+	width: 18px;
 }
 
-#container > header .secondary .login:hover
-{
-	background-position: -248px -147px;
-}
-
-#container > header .secondary .register a,
-#container > header .secondary .login a
-{
-	color: #999;
-	font-size: 12px;
-	font-weight: bold;
-	text-shadow: -1px 1px #EFEFEF;
-	text-decoration: none;
-	border-bottom: 1px dotted;
-	line-height: 18px;
-}
-
-#container > header .secondary .register a:hover,
-#container > header .secondary .login a:hover
-{
-	border-bottom-style: solid;
-}
-
-#container > header .secondary .register
+#container > header .secondary > .link.register .icon
 {
 	background: url("../images/sprite32.png") -228px -128px;
 	left: -155px;
 }
 
-#container > header .secondary .register:hover
+#container > header .secondary > .link.login:hover .icon
+{
+	background-position: -248px -147px;
+}
+
+#container > header .secondary > .link.register:hover .icon
 {
 	background-position: -248px -128px;
+}
+
+#container > header .secondary > .link a
+{
+	border-bottom: 1px dotted;
+	color: #999;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 18px;
+	text-decoration: none;
+	text-shadow: -1px 1px #EFEFEF;
+	vertical-align: middle;
+}
+
+#container > header .secondary > .link:hover a
+{
+	border-bottom-style: solid;
 }
 
 #container > header .secondary div.user_menu
