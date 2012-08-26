@@ -129,7 +129,11 @@
 
 code
 {
+	background: #272727 !important;
 	color: #ABDABA;
+	display: block;
+	padding: 15px;
+	white-space: pre;
 }
 
 code .comment

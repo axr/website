@@ -99,3 +99,6 @@ $wgOpenIDAllowExistingAccountSelection = true;
 
 $wgShowExceptionDetails = true;
 
+// Other extensions
+require_once($IP . '/extensions/Code/Code.php');
+
