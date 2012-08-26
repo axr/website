@@ -1,3 +1,77 @@
 {{{_breadcrumb_html}}}
-{{{_mw_content}}}
+{{{_tabs_html}}}
+
+<div id="globalWrapper">
+	<div id="column-content">
+		<div id="p-cactions" class="portlet">
+			<h5>{{msg.views}}</h5>
+			<div class="pBody">
+				<ul>
+					{{#cactions}}{{{.}}}{{/cactions}}
+				</ul>
+			</div>
+		</div>
+
+		<div id="content">
+			<a id="top"></a>
+			{{#mwt.data.sitenotice}}
+				<div id="siteNotice">{{mwt.data.sitenotice}}</div>
+			{{/mwt.data.sitenotice}}
+
+			<h1 id="firstHeading" class="firstHeading">{{_title}}</h1>
+
+			<div id="bodyContent">
+				<div id="siteSub">{{msg.tagline}}</div>
+				<div id="contentSub"{{{html.userlangattributes}}}>{{{html.subtitle}}}</div>
+				{{#mwt.data.undelete}}
+					<div id="contentSub2">{{{html.undelete}}}</div>
+				{{/mwt.data.undelete}}
+				{{#mwt.data.newtalk}}
+					<div class="usermessage">{{{html.newtalk}}}</div>
+				{{/mwt.data.newtalk}}
+				{{#mwt.data.showjumplinks}}
+					<div id="jump-to-nav">
+						{{msg.jumpto}}
+						<a href="#column-one">{{msg.jumptonavigation}}</a>,
+						<a href="#searchInput">{{jumptosearch}}</a>
+					</div>
+				{{/mwt.data.showjumplinks}}
+
+				{{{html.bodytext}}}
+				{{#mwt.data.catlinks}}{{{html.catlinks}}}{{/mwt.data.catlinks}}
+				{{#mwt.data.dataAfterContent}}{{{html.dataAfterContent}}}{{/mwt.data.dataAfterContent}}
+				<div class="visualClear"></div>
+			</div>
+		</div>
+
+		<div id="footer">
+			{{#footer_has_links}}
+				<div class="links">
+					<div class="info">
+						{{#footer_infolinks}}{{{.}}}{{/footer_infolinks}}
+					</div>
+
+					{{#footer_links}}{{{.}}}{{/footer_links}}
+				</div>
+			{{/footer_has_links}}
+
+			<img src="/skins/axrbook/poweredby_mediawiki_88x31.png" class="poweredby" />
+			<br style="clear: both" />
+		</div>
+	</div>
+	<div id="column-one"{{{userlangattributes}}}>
+		<div class="portlet" id="p-personal">
+			<h5>{{msg.personaltools}}</h5>
+			<div class="pBody">
+				<ul{{{userlangattributes}}}>
+					{{#personal_tools}}{{{.}}}{{/personal_tools}}
+				</ul>
+			</div>
+		</div>
+
+		{{#portals}}{{{.}}}{{/portals}}
+	</div>
+	<div class="visualClear"></div>
+</div>
+
 

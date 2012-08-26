@@ -32,20 +32,20 @@ class SkinAxrBook extends SkinTemplate
 	{
 		parent::setupSkinUserCss($out);
 
-		$out->addStyle('axrbook/monobook.css', 'screen');
-		$out->addStyle('axrbook/axrbook.css', 'screen');
+		$out->addStyle('axrbook/css/monobook.css', 'screen');
+		$out->addStyle('axrbook/css/axrbook.css', 'screen');
 		
-		$out->addStyle('monobook/IE50Fixes.css', 'screen', 'lt IE 5.5000');
-		$out->addStyle('monobook/IE55Fixes.css', 'screen', 'IE 5.5000');
-		$out->addStyle('monobook/IE60Fixes.css', 'screen', 'IE 6');
-		$out->addStyle('monobook/IE70Fixes.css', 'screen', 'IE 7');
+		$out->addStyle('axrbook/css/IE50Fixes.css', 'screen', 'lt IE 5.5000');
+		$out->addStyle('axrbook/css/IE55Fixes.css', 'screen', 'IE 5.5000');
+		$out->addStyle('axrbook/css/IE60Fixes.css', 'screen', 'IE 6');
+		$out->addStyle('axrbook/css/IE70Fixes.css', 'screen', 'IE 7');
 	}
 }
 
 /**
  * @ingroup Skins
  */
-class AxrBookTemplate extends MonoBookTemplate
+class AxrBookTemplate extends BaseTemplate
 {
 	/**
 	 * @var Skin
@@ -97,12 +97,21 @@ class AxrBookTemplate extends MonoBookTemplate
 		return $output;
 	}
 
-	/**
-	 * This function exists only to hide the default search box as we
-	 * use our own search box.
-	 */
-	public function searchBox ()
-	{
+	public function cactions() {
+?>
+	<div id="p-cactions" class="portlet">
+		<h5><?php $this->msg('views') ?></h5>
+		<div class="pBody">
+			<ul><?php
+				foreach($this->data['content_actions'] as $key => $tab) {
+					echo '
+				' . $this->makeListItem( $key, $tab );
+				} ?>
+
+			</ul>
+		</div>
+	</div>
+<?php
 	}
 
 	public function getPersonalTools ()
