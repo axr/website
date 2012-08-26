@@ -53,7 +53,8 @@
 		"files": [
 			"js/rainbow/rainbow.js",
 			"js/rainbow/css.js",
-			"js/rainbow/hss.js"
+			"js/rainbow/hss.js",
+			"js/rainbow/xml.js"
 		]
 	}
 }
