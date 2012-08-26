@@ -97,7 +97,10 @@ require_once($IP . '/extensions/OpenID/OpenID.php');
 $wgHideOpenIDLoginLink = true;
 $wgOpenIDAllowExistingAccountSelection = true;
 
-$wgShowExceptionDetails = true;
+// CategoryTree
+require_once($IP . '/extensions/CategoryTree/CategoryTree.php');
+$wgUseAjax = true; // Allow MW AJAX stuff
+$wgEnableMWSuggest = true; // Search suggestions
 
 // Other extensions
 require_once($IP . '/extensions/Code/Code.php');
