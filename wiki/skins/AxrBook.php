@@ -12,8 +12,6 @@ if(!defined('MEDIAWIKI'))
 
 global $IP;
 
-require_once('MonoBook.php');
-
 require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/rsrc.php');
 require_once($IP . '/skins/axrbook/controller.php');
