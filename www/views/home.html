@@ -159,7 +159,12 @@
 			</div>
 			<div class="features_content" id="hss_features_content">
 				<div class="selected" data-section-name="hierarchical">
-					<p>Instead of writing longer and longer selector chains, the rules (the selectors + the block with the properties) can be nested inside each other. If the content in the XML file is a tree of elements, why not apply styles using a tree as well? It is both clearer and has better performance, since not all elements have to be matched against each selector.</p>
+					<p>Instead of writing longer and longer selector chains, the
+					rules (the selectors + the block with the properties) can be
+					nested inside each other. If the content in the XML file is
+					a tree of elements, why not apply styles using a tree as
+					well? It is both clearer and has better performance, since
+					not all elements have to be matched against each selector.</p>
 					<h3>CSS:</h3>
 <code data-language="css">books { }
 books > book{ }
@@ -173,7 +178,11 @@ books > book > cover { }</code>
 }</code>
 				</div>
 				<div data-section-name="object_oriented">
-					<p>Instead of dealing with an ever growing, plain list of properties, in HSS you use objects that encapsulate a group of related values, just as objects encapsulate related functionality in traditional object oriented programming languages.</p>
+					<p>Instead of dealing with an ever growing, plain list of
+					properties, in HSS you use objects that encapsulate a group
+					of related values, just as objects encapsulate related
+					functionality in traditional object oriented programming
+					languages.</p>
 					<h3>CSS:</h3>
 <code data-language="css">selector
 {
@@ -192,7 +201,10 @@ books > book > cover { }</code>
 }</code>
 				</div>
 				<div data-section-name="modular">
-					<p>You can give any HSS object a name, and reuse it as needed. You can make "presets" and apply them to the selected object(s) and then even override any property as needed.</p>
+					<p>You can give any HSS object a name, and reuse it as
+					needed. You can make "presets" and apply them to the
+					selected object(s) and then even override any property as
+					needed.</p>
 					<p>For example:</p>
 <code data-language="hss">@linearGradient boxBg
 {
@@ -214,7 +226,11 @@ selector chain
 }</code>
 				</div>
 				<div data-section-name="expressions">
-					<p>Anywhere a number is accepted as a value, you can also use an expression. This is especially useful when you want to mix fixed-width elements with fluid ones. For example, when you have a sidebar 150 point wide, how wide is the rest? Answer: 100% - 150.</p>
+					<p>Anywhere a number is accepted as a value, you can also
+					use an expression. This is especially useful when you want
+					to mix fixed-width elements with fluid ones. For example,
+					when you have a sidebar 150 point wide, how wide is the
+					rest? Answer: 100% - 150.</p>
 					<p>For example:</p>
 <code data-language="hss">sidebar
 {
@@ -227,7 +243,11 @@ content
 }</code>
 				</div>
 				<div data-section-name="functions">
-					<p>Functions like min(), max() or avg() help you control the dimensions of your elements in fluid environments, without the need for countless properties such as min-width or max-height in CSS. The function will always return the appropriate value depending on the parameters.</p>
+					<p>Functions like min(), max() or avg() help you control the
+					dimensions of your elements in fluid environments, without
+					the need for countless properties such as min-width or
+					max-height in CSS. The function will always return the
+					appropriate value depending on the parameters.</p>
 					<p>For example:</p>
 <code data-language="hss">selector
 {
@@ -237,7 +257,12 @@ content
 }</code>
 				</div>
 				<div data-section-name="references">
-					<p>Many times it is very useful to be able to refer to a property of another element to do some calculations, for example. Imagine a site with a sidebar and content area, for example. You want to make the content area as wide as the whole page minus the sidebar, which is flexible. So you'd do something like this:</p>
+					<p>Many times it is very useful to be able to refer to a
+					property of another element to do some calculations, for
+					example. Imagine a site with a sidebar and content area, for
+					example. You want to make the content area as wide as the
+					whole page minus the sidebar, which is flexible. So you'd do
+					something like this:</p>
 <code data-language="hss">page
 {
 	sidebar
@@ -253,7 +278,13 @@ content
 }</code>
 				</div>
 				<div data-section-name="filters">
-					<p>Filters are like pseudo-selectors in CSS but with a completely overhauled selection system. Since HSS has scope, the selectors are read from left to right. You select elements based on the name, for example, and then you filter that selection down to the elements you really want. There are a lot of them to cover all the different needs, so check out the docs.</p>
+					<p>Filters are like pseudo-selectors in CSS but with a
+					completely overhauled selection system. Since HSS has scope,
+					the selectors are read from left to right. You select
+					elements based on the name, for example, and then you filter
+					that selection down to the elements you really want. There
+					are a lot of them to cover all the different needs, so check
+					out the docs.</p>
 <code data-language="hss">// selects the first of the elements named foo
 foo:first { }
 // selects the elements named foo that are first inside
@@ -268,7 +299,11 @@ baz(width > 500) { }
 qux:[title:startsWith("Welcome")] { }</code>
 				</div>
 				<div data-section-name="structural_independence">
-					<p>The structure of the content is intrinsic to its meaning, it should NEVER be altered just because of some stylistic requirements. Therefore, in HSS you can freely manipulate the content tree to fit whatever structure you need to achieve your visual layout.</p>
+					<p>The structure of the content is intrinsic to its meaning,
+					it should NEVER be altered just because of some stylistic
+					requirements. Therefore, in HSS you can freely manipulate
+					the content tree to fit whatever structure you need to
+					achieve your visual layout.</p>
 <code data-language="hss">root
 {
 	// wrap the element called "navigation" in a new
@@ -297,7 +332,17 @@ qux:[title:startsWith("Welcome")] { }</code>
 }</code>
 				</div>
 				<div data-section-name="layout">
-					<p>A new box model, combined with most of the other features in this list, provide an awesome new way of doing layout, more suited to how designers think. Instead of floating, pushing and otherwise bang your head against the wall when laying out your elements on the page, you use alignX and alignY to set alignment points. These will determine the position of the elements in the page, which will flow inside of their parents, balancing themselves out when more than one tries to align itself on that specific point. It sounds more complicated than it really is, so here come some examples:</p>
+					<p>A new box model, combined with most of the other features
+					in this list, provide an awesome new way of doing layout,
+					more suited to how designers think. Instead of floating,
+					pushing and otherwise bang your head against the wall when
+					laying out your elements on the page, you use alignX and
+					alignY to set alignment points. These will determine the
+					position of the elements in the page, which will flow inside
+					of their parents, balancing themselves out when more than
+					one tries to align itself on that specific point. It sounds
+					more complicated than it really is, so here come some
+					examples:</p>
 <code data-language="hss">// align foo to the right horizontally
 foo { alignX: left; }
 // align bar at the middle vertically
