@@ -50,7 +50,7 @@ class AxrBookController extends Controller
 		if (!is_object($this->wgUser) || $this->wgUser->getID() == 0)
 		{
 			$this->view->_user = false;
-			$this->view->_url_login = $wwroot . '/Special:UserLogin';
+			$this->view->_url_login = $wwroot . '/Special:OpenIDLogin';
 			$this->view->_label_login = 'Login to wiki';
 		}
 		else
