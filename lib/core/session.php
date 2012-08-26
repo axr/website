@@ -70,8 +70,8 @@ class Session
 				else
 				{
 					$query = self::$dbh->prepare('DELETE
-						FROM `www_sessions` AS `session`
-						WHERE `session`.`id` = :sid');
+						FROM `www_sessions`
+						WHERE `www_sessions`.`id` = :sid');
 					$query->bindValue(':sid', $sid, PDO::PARAM_STR);
 					$query->execute();
 				}
