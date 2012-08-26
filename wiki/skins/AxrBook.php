@@ -87,33 +87,6 @@ class AxrBookTemplate extends BaseTemplate
 		wfRestoreWarnings();
 	}
 
-	public function content ()
-	{
-		ob_start();
-		include(ROOT . '/skins/axrbook/content.tpl.php');
-		$output = ob_get_contents();
-		ob_end_clean();
-
-		return $output;
-	}
-
-	public function cactions() {
-?>
-	<div id="p-cactions" class="portlet">
-		<h5><?php $this->msg('views') ?></h5>
-		<div class="pBody">
-			<ul><?php
-				foreach($this->data['content_actions'] as $key => $tab) {
-					echo '
-				' . $this->makeListItem( $key, $tab );
-				} ?>
-
-			</ul>
-		</div>
-	</div>
-<?php
-	}
-
 	public function getPersonalTools ()
 	{
 		$personal_tools = parent::getPersonalTools();
