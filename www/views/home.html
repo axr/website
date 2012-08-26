@@ -23,7 +23,7 @@
 				</a>
 			</div>
 			<div class="slides">
-				<iframe width="346" height="278" src="https://www.youtube.com/embed/QwLY2gYyTFE?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+				<iframe width="346" height="278" src="https:// www.youtube.com/embed/QwLY2gYyTFE?wmode=transparent" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
 	</div>
@@ -231,8 +231,8 @@ content
 					<p>For example:</p>
 <code data-language="hss">selector
 {
-	//make it 20% the width of the parent, but at
-	//least 150 points wide and at most 400 points
+	// make it 20% the width of the parent, but at
+	// least 150 points wide and at most 400 points
 	width: min(150, max(400, 20%));
 }</code>
 				</div>
@@ -242,7 +242,7 @@ content
 {
 	sidebar
 	{
-		//like in the previous example
+		// like in the previous example
 		width: min(150, max(400, 20%));
 	}
 
@@ -254,66 +254,66 @@ content
 				</div>
 				<div data-section-name="filters">
 					<p>Filters are like pseudo-selectors in CSS but with a completely overhauled selection system. Since HSS has scope, the selectors are read from left to right. You select elements based on the name, for example, and then you filter that selection down to the elements you really want. There are a lot of them to cover all the different needs, so check out the docs.</p>
-<code data-language="hss">//selects the first of the elements named foo
+<code data-language="hss">// selects the first of the elements named foo
 foo:first { }
-//selects the elements named foo that are first inside
-//their parent
+// selects the elements named foo that are first inside
+// their parent
 foo:firstChild { }
-//selects bar elements, then return the 2nd, 4th, 6th, etc
+// selects bar elements, then return the 2nd, 4th, 6th, etc
 bar:even { }
-//selects baz elements whose width is greater than 500
+// selects baz elements whose width is greater than 500
 baz(width > 500) { }
-//selects qux elements whose title attribute start
-//with "Welcome"
+// selects qux elements whose title attribute start
+// with "Welcome"
 qux:[title:startsWith("Welcome")] { }</code>
 				</div>
 				<div data-section-name="structural_independence">
 					<p>The structure of the content is intrinsic to its meaning, it should NEVER be altered just because of some stylistic requirements. Therefore, in HSS you can freely manipulate the content tree to fit whatever structure you need to achieve your visual layout.</p>
 <code data-language="hss">root
 {
-	//wrap the element called "navigation" in a new
-	//"header" element
+	// wrap the element called "navigation" in a new
+	// "header" element
 	#wrap(navigation) header
 	{
-		//supposing myMenuPreset has been defined elsewhere
+		// supposing myMenuPreset has been defined elsewhere
 		navigation { isA: myMenuPreset; }
 	}
-	//wrap everything that is not "header" or "footer" in a
-	//new "content" element
+	// wrap everything that is not "header" or "footer" in a
+	// new "content" element
 	#wrap(!(header, footer)) content
 	{
-		//change the order of the items
+		// change the order of the items
 		#move element2 { /*etc*/ }
 		#move element1 { /*etc*/ }
 		#move element3 { /*etc*/ }
 	}
-	//create a new footer, if not already there
+	// create a new footer, if not already there
 	#ensure footer
 	{
-		//create a new search box, assuming the object has been
-		//defined elsewhere
+		// create a new search box, assuming the object has been
+		// defined elsewhere
 		#new search { isA: searchBox; }
 	}
 }</code>
 				</div>
 				<div data-section-name="layout">
 					<p>A new box model, combined with most of the other features in this list, provide an awesome new way of doing layout, more suited to how designers think. Instead of floating, pushing and otherwise bang your head against the wall when laying out your elements on the page, you use alignX and alignY to set alignment points. These will determine the position of the elements in the page, which will flow inside of their parents, balancing themselves out when more than one tries to align itself on that specific point. It sounds more complicated than it really is, so here come some examples:</p>
-<code data-language="hss">//align foo to the right horizontally
+<code data-language="hss">// align foo to the right horizontally
 foo { alignX: left; }
-//align bar at the middle vertically
+// align bar at the middle vertically
 bar { alignY: middle; }
-//place baz with it's right edge 30 points to the left
-//of the center of its parent, without affecting other
-//elements
+// place baz with it's right edge 30 points to the left
+// of the center of its parent, without affecting other
+// elements
 baz
 {
 	anchorX: 100%;
 	alignX: 50% - 30;
 	flow: no;
 }
-//align all elements *inside* qux at the middle vertically,
-//and lay them out from top to bottom instead of left
-//to right
+// align all elements *inside* qux at the middle vertically,
+// and lay them out from top to bottom instead of left
+// to right
 qux
 {
 	contentAlignY: middle;
