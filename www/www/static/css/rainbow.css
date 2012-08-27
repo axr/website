@@ -80,6 +80,7 @@
 
 .code_frame code
 {
+	background: none !important;
 	display: table-cell;
 	white-space: pre;
 	padding: 10px;
