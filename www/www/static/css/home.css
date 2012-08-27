@@ -437,6 +437,7 @@
 #home .getit > .nested_0 > .releases > .nested_0 > p
 {
 	margin: 0 20px 5px 20px;
+	text-align: justify;
 }
 
 #home .getit > .nested_0 > .releases > .nested_0 > .download
