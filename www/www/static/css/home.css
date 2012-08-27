@@ -23,19 +23,18 @@
 	text-align: justify;
 }
 
-#home .above_fold > .nested_0 > .intro > .button_std
+#home .above_fold > .nested_0 > .intro > a.uiButton
 {
-	display: inline-block;
 	margin-top: 25px;
-	width: 150px;
+	width: 165px;
 }
 
-#home .above_fold > .nested_0 > .intro > .join > .content
+#home .above_fold > .nested_0 > .intro > a.join .inner
 {
 	line-height: 1.2;
 }
 
-#home .above_fold > .nested_0 > .intro > .join > .content > .big
+#home .above_fold > .nested_0 > .intro > a.join .big
 {
 	display: block;
 	font-size: 12px;
@@ -44,7 +43,7 @@
 	padding-top: 3px;
 }
 
-#home .above_fold > .nested_0 > .intro > .join > .content > .small
+#home .above_fold > .nested_0 > .intro > a.join .small
 {
 	display: block;
 	font-size: 11px;
@@ -53,12 +52,12 @@
 	text-align: center;
 }
 
-#home .above_fold > .nested_0 > .intro > .manifesto
+#home .above_fold > .nested_0 > .intro > a.manifesto
 {
 	float: right;
 }
 
-#home .above_fold > .nested_0 > .intro > .manifesto > .content > .block_0
+#home .above_fold > .nested_0 > .intro > a.manifesto .icon
 {
 	background-position: -88px -1px;
 	margin-top: 9px;
@@ -154,17 +153,17 @@
 	margin-right: 20px;
 }
 
-#home .advantages > .nested_0 > .learn_more
+#home .advantages > .nested_0 > a.learn_more
 {
 	float: right;
 	margin: 0 55px 0 0;
 	position: absolute;
 	right: 0;
 	top: 45%;
-	width: 140px;
+	width: 150px;
 }
 
-#home .advantages > .nested_0 > .learn_more > .content
+#home .advantages > .nested_0 > a.learn_more .inner
 {
 	text-indent: 20px;
 }
@@ -440,18 +439,19 @@
 	text-align: justify;
 }
 
-#home .getit > .nested_0 > .releases > .nested_0 > .download
+#home .getit > .nested_0 > .releases > .nested_0 > a.download
 {
 	margin: 0 20px;
 }
 
-#home .getit > .nested_0 > .releases > .nested_0 > .download .content
+#home .getit > .nested_0 > .releases > .nested_0 > a.download .inner
 {
+	line-height: 15px;
 	padding: 0 0 0 10px;
 	position: relative;
 }
 
-#home .getit > .nested_0 > .releases > .nested_0 > .download .block_0
+#home .getit > .nested_0 > .releases > .nested_0 > a.download .icon
 {
 	background-position: -233px -54px;
 	height: 23px;
@@ -461,21 +461,21 @@
 	width: 37px;
 }
 
-#home .getit > .nested_0 > .releases > .nested_0 > .download .big
+#home .getit > .nested_0 > .releases > .nested_0 > a.download .big
 {
 	display: block;
 	font-size: 20px;
-	padding: 9px 0 3px 0;
+	line-height: 39px;
 }
 
-#home .getit > .nested_0 > .releases > .nested_0 > .download .version
+#home .getit > .nested_0 > .releases > .nested_0 > a.download .version
 {
 	color: #ffffff;
 	font-size: 12px;
 	text-shadow: #BC910E 0 1px 0;
 }
 
-#home .getit > .nested_0 > .releases > .nested_0 > .download .for
+#home .getit > .nested_0 > .releases > .nested_0 > a.download .for
 {
 	color: #bf8300;
 	font-size: 11px;
@@ -599,9 +599,8 @@
 	padding: 3px 0 0 0;
 }
 
-#home .getit > .nested_0 > .changes > .see_all
+#home .getit > .nested_0 > .changes > a.see_all
 {
-	display: inline-block;
 	margin: 10px 0 0 43px;
 }
 

@@ -4,22 +4,18 @@
 			<div class="intro">
 				<h2>AXR stands for Arbitrary XML Rendering. It's aim is to provide a better alternative to HTML+CSS</h2>
 				<p>It uses XML for the content and HSS for the design and simple behavior of the interface. HSS  is a language based on CSS, but offers many more advanced features, such as object orientation, rule nesting, expressions, references to other objects, modularization (code reuse), etc. JavaScript will be used as well for advanced behavior.</p>
-				<a href="/get-involved" class="join button_std">
-					<span class="header"></span>
-					<span class="content">
-						<span class="block_0"></span>
+				<a href="/get-involved" class="uiButton inline join">
+					<span class="inner">
+						<span class="icon"></span>
 						<span class="big">become a volunteer</span>
 						<span class="small">join the revolution</span>
 					</span>
-					<span class="footer"></span>
 				</a>
-				<a href="/about/manifesto" class="manifesto button_std gray">
-					<span class="header"></span>
-					<span class="content">
-						<span class="block_0"></span>
-						<span>read the manifesto</span>
+				<a href="/about/manifesto" class="uiButton inline gray manifesto">
+					<span class="inner">
+						<span class="icon"></span>
+						read the manifesto
 					</span>
-					<span class="footer"></span>
 				</a>
 			</div>
 			<div class="slides">
@@ -59,10 +55,10 @@
 					<span class="text">Truly separate content from presentation</span>
 				</li>
 			</ul>
-			<a href="/about/features" class="learn_more button_std go">
-				<span class="header"></span>
-				<span class="content">Learn more<span class="block_0"></span></span>
-				<span class="footer"></span>
+			<a href="/about/features" class="uiButton go learn_more">
+				<span class="inner">Learn more
+					<span class="icon"></span>
+				</span>
 			</a>
 		</div>
 	</div>
@@ -375,17 +371,15 @@ qux
 				<h2>download</h2>
 				<div class="nested_0">
 					{{#has_release}}
-						<a href="{{release.url}}" class="download button_big">
-							<span class="header"></span>
-							<span class="content">
+						<a href="{{release.url}}" class="uiButton big download">
+							<span class="inner">
 								<span class="big">Latest version:</span>
 								<span class="version">
 									{{release.version}} prototype
 								</span>
 								<span class="for">for {{release.os_str}}</span>
-								<span class="block_0"></span>
+								<span class="icon"></span>
 							</span>
-							<span class="footer"></span>
 						</a>
 						<a class="older" href="{{_www_root}}/downloads">looking for an older version?</a>
 						<h3>What am I downloading?</h3>
@@ -420,10 +414,11 @@ qux
 						<li class="clear"></li>
 					</ul>
 
-					<a href="{{full_changelog_url}}" target="_blank" class="see_all button_std go">
-						<span class="header"></span>
-						<span class="content"><span class="block_0"></span>See all</span>
-						<span class="footer"></span>
+					<a href="{{full_changelog_url}}" target="_blank" class="uiButton go inline see_all">
+						<span class="inner">
+							<span class="icon"></span>
+							See all
+						</span>
 					</a>
 				{{/has_changelog}}
 				{{^has_changelog}}
