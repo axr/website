@@ -1,4 +1,4 @@
-window.App = window.App || {};
+window['App'] = window['App'] || {};
 
 (function (App)
 {
@@ -70,5 +70,5 @@ window.App = window.App || {};
 		$('#container > footer .last_tweet .tweet_container')
 			.html(tweet || error);
 	});
-})(window.App);
+})(window['App']);
 

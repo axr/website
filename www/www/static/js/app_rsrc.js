@@ -1,21 +1,23 @@
-window.App = window.App || {};
+window['App'] = window['App'] || {};
 
 (function (App)
 {
-		/**
+	/**
 	 * Resource manager
 	 */
 	App.rsrc = {
 		/**
 		 * Loaded files
+		 *
+		 * @private
 		 */
 		_loaded: {},
 
 		/**
 		 * Load multiple resource bundles at once
 		 *
-		 * @param string[] bundles
-		 * @param function callback
+		 * @param {Array<string>} bundles
+		 * @param {function()} callback
 		 */
 		loadBundles: function (bundles, callback)
 		{
@@ -34,8 +36,8 @@ window.App = window.App || {};
 		 * Load a resource bundle. In case things go terribly wrong,
 		 * false is returned.
 		 *
-		 * @param string bundle_name
-		 * @param function callback
+		 * @param {string} bundle_name
+		 * @param {function()} callback
 		 * @return bool
 		 */
 		loadBundle: function (bundle_name, callback)
@@ -63,8 +65,8 @@ window.App = window.App || {};
 		/**
 		 * Load a CSS or JS file.
 		 *
-		 * @param string file
-		 * @param function callback
+		 * @param {string} file
+		 * @param {function()} callback
 		 */
 		loadFile: function (file, callback)
 		{
@@ -113,5 +115,5 @@ window.App = window.App || {};
 			}
 		}
 	};
-})(window.App);
+})(window['App']);
 

@@ -1,4 +1,4 @@
-window.App = window.App || {};
+window['App'] = window['App'] || {};
 
 (function (App)
 {
@@ -9,7 +9,8 @@ window.App = window.App || {};
 		/**
 		 * Has the modal system been initialized?
 		 *
-		 * @var bool
+		 * @private
+		 * @type {bool}
 		 */
 		_initialized: false,
 
@@ -38,7 +39,8 @@ window.App = window.App || {};
 		/**
 		 * Show a modal box
 		 *
-		 * @param string html
+		 * @param {string} html
+		 * @param {Object<string, *>} options
 		 */
 		show: function (html, options)
 		{
@@ -73,5 +75,5 @@ window.App = window.App || {};
 			$('#as_modal > div > .inner > .content').empty();
 		}
 	};
-})(window.App);
+})(window['App']);
 

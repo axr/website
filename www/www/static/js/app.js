@@ -1,4 +1,4 @@
-window.App = window.App || {};
+window['App'] = window['App'] || {};
 
 (function (App)
 {
@@ -15,14 +15,17 @@ window.App = window.App || {};
 			callback(App);
 		};
 
-		for (var i = 0, c = App._onInit.length; i < c; i++)
+		if (App._onInit !== undefined && App._onInit instanceof Array)
 		{
-			App._onInit[i](App);
+			for (var i = 0, c = App._onInit.length; i < c; i++)
+			{
+				App._onInit[i](App);
+			}
 		}
 
 		// Initialize GA queue
 		window._gaq = window._gaq || [];
-		window._gaq.push(['_setAccount', window.App.ga_account]);
+		window._gaq.push(['_setAccount', App['ga_account']]);
 		window._gaq.push(['_trackPageview']);
 
 		// Load GA tracker code
@@ -42,8 +45,8 @@ window.App = window.App || {};
 	 * A fatal error is an error that occurrs during generation of the
 	 * page and due to which the page cannot be displayed
 	 *
-	 * @param string error
-	 * @param bool fatal
+	 * @param {string} error
+	 * @param {boolean} fatal
 	 */
 	App.error = function (error, fatal)
 	{
@@ -60,8 +63,8 @@ window.App = window.App || {};
 		/**
 		 * Save data into cache
 		 *
-		 * @param string key
-		 * @param mixed
+		 * @param {string} key
+		 * @param {*} data
 		 */
 		set: function (key, data)
 		{
@@ -71,7 +74,7 @@ window.App = window.App || {};
 		/**
 		 * Get data from cache
 		 *
-		 * @param string key
+		 * @param {string} key
 		 * @return mixed
 		 */
 		get: function (key)
@@ -82,7 +85,7 @@ window.App = window.App || {};
 		/**
 		 * Remove an item from the cache
 		 *
-		 * @param string key
+		 * @param {string} key
 		 */
 		rm: function (key)
 		{
@@ -92,6 +95,8 @@ window.App = window.App || {};
 
 	/**
 	 * A block class
+	 *
+	 * @constructor
 	 */
 	App.Block = function (id)
 	{
@@ -104,11 +109,15 @@ window.App = window.App || {};
 
 		/**
 		 * HTML for the block
+		 *
+		 * @private
 		 */
 		this._html = null;
 
 		/**
 		 * Fields
+		 *
+		 * @private
 		 */
 		this._fields = {};
 
@@ -118,7 +127,7 @@ window.App = window.App || {};
 		this.html = function (html)
 		{
 			this._html = html;
-			jQuery('.as_block_' + this.id).html(html);
+			$('.as_block_' + this.id).html(html);
 		};
 
 		/**
@@ -132,13 +141,13 @@ window.App = window.App || {};
 		/**
 		 * Set value for a field
 		 *
-		 * @param string name
-		 * @param string value
+		 * @param {string} name
+		 * @param {string} value
 		 */
 		this.setField = function (name, value)
 		{
 			this._fields[name] = value;
-			jQuery('.as_field_' + this.id + '_' + name).html(value);
+			$('.as_field_' + this.id + '_' + name).html(value);
 		};
 
 		/**
@@ -146,27 +155,27 @@ window.App = window.App || {};
 		 */
 		this.placeholder = function ($el)
 		{
-				var $el = jQuery('<div>')
+				var $el = $('<div>')
 				.attr('class', 'as_block_' + this.id)
 				.html(this._html);
 
-			return jQuery('<div>').append($el).html();
+			return $('<div>').append($el).html();
 		};
 
 		/**
 		 * Return placeholder for a field
 		 *
-		 * @param string name
-		 * @param string value default value
+		 * @param {string} name
+		 * @param {string} value default value
 		 * @return string
 		 */
 		this.field = function (name, value)
 		{
-			var $el = jQuery('<span>')
+			var $el = $('<span>')
 				.attr('class', 'as_field_' + this.id + '_' + name)
 				.html(this._fields[name] || value || '');
 
-			return jQuery('<div>').append($el).html();
+			return $('<div>').append($el).html();
 		};
 
 		/**
@@ -176,16 +185,16 @@ window.App = window.App || {};
 		 */
 		this.count = function ()
 		{
-			return jQuery('.as_block_' + this.id).length;
+			return $('.as_block_' + this.id).length;
 		};
 
 		// Wait for element to be created
 		var interval = setInterval(function ()
 		{
-			if (jQuery('.as_block_' + that.id).length > 0)
+			if ($('.as_block_' + that.id).length > 0)
 			{
 				clearInterval(interval);
-				jQuery('.as_block_' + that.id).html(that._html);
+				$('.as_block_' + that.id).html(that._html);
 			}
 		}, 100);
 	};
@@ -194,8 +203,8 @@ window.App = window.App || {};
 	 * Calls `finalCallback` after the returned function has been called
 	 * `count` times.
 	 *
-	 * @param int count
-	 * @param function finalCallback
+	 * @param {integer} count
+	 * @param {function()} finalCallback
 	 * @return function
 	 */
 	App.util.multiCallback = function (count, finalCallback)
@@ -212,7 +221,7 @@ window.App = window.App || {};
 	/**
 	 * Makes your tweets beautiful
 	 *
-	 * @param string tweet
+	 * @param {string} tweet
 	 * @return string
 	 */
 	App.util.beautifyTweet = function (tweet)
@@ -253,7 +262,7 @@ window.App = window.App || {};
 	/**
 	 * Format dates into "x units ago" format.
 	 *
-	 * @param int timestamp
+	 * @param {integer} timestamp
 	 * @return string
 	 */
 	App.util.formatDateAgo = function (timestamp)
@@ -278,6 +287,11 @@ window.App = window.App || {};
 	};
 
 	App.pageEvent = {
+		/**
+		 * All registered events are stored in here
+		 *
+		 * @private
+		 */
 		_events: {},
 
 		/**
@@ -286,9 +300,9 @@ window.App = window.App || {};
 		 * does not have to reflect the actual page URL. The first segment
 		 * is usually controller name.
 		 *
-		 * @param string eventType
-		 * @param string page
-		 * @param function callback
+		 * @param {string} eventType
+		 * @param {string} page
+		 * @param {function()} callback
 		 */
 		on: function (eventType, page, callback)
 		{
@@ -301,9 +315,9 @@ window.App = window.App || {};
 		 * Trigger a page event.
 		 * The callback gets called after all event handlers have returned
 		 *
-		 * @param string eventType
-		 * @param string page
-		 * @param function callback
+		 * @param {string} eventType
+		 * @param {string} page
+		 * @param {function()} callback
 		 */
 		trigger: function (eventType, page, callback)
 		{
@@ -334,8 +348,8 @@ window.App = window.App || {};
 	/**
 	 * Load a template
 	 *
-	 * @param string name
-	 * @param function callback(template, error)
+	 * @param {string} name
+	 * @param {function(?string, ?string)} callback
 	 */
 	App.data.template = function (name, callback)
 	{
@@ -364,7 +378,7 @@ window.App = window.App || {};
 
 		App.cache.get('/template/:loading/' + name, true);
 
-		jQuery.ajax({
+		$.ajax({
 			url: '/_ajax/template',
 			data: {
 				name: name
@@ -392,7 +406,7 @@ window.App = window.App || {};
 	/**
 	 * Get last tweet.
 	 *
-	 * @param callback(tweet, error)
+	 * @param {function(?string, ?string)}
 	 */
 	App.data.lastTweetForBox = function (callback)
 	{
@@ -454,5 +468,5 @@ window.App = window.App || {};
 
 	// Initialize the app
 	$('document').ready(App.initialize);
-})(App);
+})(window['App']);
 
