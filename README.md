@@ -56,6 +56,7 @@ These rules apply everywhere:
 - Every file ends with a blank line
 - Use whitespace to divide your lines into logical blocks
 - You should never omit braces
+
 		// Wrong
 		if (condition) do_stuff();
 
@@ -70,9 +71,10 @@ These rules apply everywhere:
 		}
 
 - Do not indent array/object values (This applies to JS, too)
+
 		// Wrong
 		array(
-			'key'		=> 'value',
+			'key'        => 'value',
 			'anotherkey' => 'value'
 		)
 
@@ -97,11 +99,10 @@ subsection. Another example: id `blog` class `categories`.
 
 - To avoid conflicts in CSS, always start your selector with an id:
 
-		#home.index
+		#blog.categories
 		{
 			//styles go here
 		}
 
-- Avoid using the descendants selector (whitespace). Instead, use the children
-	selector (>).
+- Use use the children selector (`>`) to make your selectors more specific
 
