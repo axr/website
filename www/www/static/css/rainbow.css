@@ -1,136 +1,66 @@
-.code_frame > h3
+.uiCode
 {
-	margin-bottom: 0;
-}
-
-.code_frame > .wrapper
-{
-	margin-left: -6px;
-}
-
-.code_frame > .wrapper > .header
-{
-	height: 45px;
-	padding: 0 18px 0 59px;
+	background: #4b4b4b;
+	border: 1px solid #252525;
+	border-radius: 10px;
+	font-family: Monaco, monospace;
+	font-size: 12px;
+	padding: 1px;
 	position: relative;
-	margin-bottom: -35px;
 }
 
-.code_frame > .wrapper > .header > .header
+.uiCode > .shadow
 {
-	width: 59px;
-	height: 45px;
-	background-image: url(../images/sprite.jpg);
-	background-position: -269px -600px;
+	background: rgba(55, 55, 55, 0.5);
+	border-radius: 9px 9px 0 0;
+	height: 34px;
 	position: absolute;
-	left: 0;
-	top: 0;
+	width: 100%;
 }
 
-.code_frame > .wrapper > .header > .content
-{
-	height: 45px;
-	background-image: url(../images/sprite_repeat_h.png);
-	background-position: 0 -376px;
-}
-
-.code_frame > .wrapper > .header > .footer
-{
-	width: 18px;
-	height: 45px;
-	background-image: url(../images/sprite.jpg);
-	background-position: -328px -600px;
-	position: absolute;
-	right: 0;
-	top: 0;
-}
-
-.code_frame > .wrapper > .content
+.uiCode > .inner
 {
 	background: #272727;
-	background-image: url(../images/code_frame_left_repeat_y.png);
-	background-repeat: repeat-y;
+	border-radius: 9px;
+	display: table;
+	width: 100%;
 }
 
-.code_frame > .wrapper > .content > .nested_0
+.uiCode > .inner > .numbers
 {
-	background-image: url(../images/code_frame_right_repeat_y.png);
-	background-repeat: repeat-y;
-	background-position: right top;
-	overflow: hidden;
-}
-
-.code_frame .numbers
-{
+	background: #161616;
+	border-radius: 9px 0 0 9px;
+	border-right: 1px solid #000000;
 	display: table-cell;
-	width: 50px;
-	padding: 10px;
 	line-height: 18px;
-	font-family: "Monaco", monospace;
-	position: relative;
+	margin: 1px 0 1px 1px;
+	min-width: 35px;
+	padding: 10px 15px 10px 0;
+	width: 35px;
 }
 
-.code_frame .numbers > span
+.uiCode > .inner > .numbers > span
 {
+	color: #666666;
 	display: block;
-	margin-left: 20px;
-	margin-right: 20px;
+	position: relative;
 	text-align: right;
 }
 
-.code_frame code
+.uiCode > .inner > code
 {
-	background: none !important;
+	background: none;
+	border-left: 1px solid #363636;
 	display: table-cell;
-	white-space: pre;
-	padding: 10px;
 	line-height: 18px;
-	color: #abdaba;
-	-webkit-font-smoothing: antialiased;
-	text-shadow: black 0 1px 0;
-	position: relative;
-}
-
-.code_frame > .wrapper > .footer
-{
-	height: 19px;
-	padding: 0 18px 0 59px;
-	position: relative;
-	margin-top: -10px;
-}
-
-.code_frame > .wrapper > .footer > .header
-{
-	width: 59px;
-	height: 19px;
-	background-image: url(../images/sprite.jpg);
-	background-position: -269px -645px;
+	margin: 1px 1px 1px 0;
+	padding: 10px 15px;
 	position: absolute;
-	left: 0;
-	top: 0;
-}
-
-.code_frame > .wrapper > .footer > .content
-{
-	height: 19px;
-	background-image: url(../images/sprite_repeat_h.png);
-	background-position: 0 -421px;
-}
-
-.code_frame > .wrapper > .footer > .footer
-{
-	width: 18px;
-	height: 19px;
-	background-image: url(../images/sprite.jpg);
-	background-position: -328px -645px;
-	position: absolute;
-	right: 0;
-	top: 0;
 }
 
 code
 {
-	background: #272727 !important;
+	background: #272727;
 	color: #ABDABA;
 	display: block;
 	padding: 15px;

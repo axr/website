@@ -217,9 +217,6 @@ div#globalWrapper {
 	font-family: Times, "Times New Roman", serif;
 	font-style: italic;
 }*/
-#main code {
-	background-color: #f9f9f9;
-}
 #main pre {
 	padding: 1em;
 	border: 1px dashed #2f6fab;
