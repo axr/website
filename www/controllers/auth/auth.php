@@ -38,7 +38,15 @@ class AuthController extends WWWController
 			Session::set('/user/is_auth', false);
 			Session::set('/user/id', null);
 
-			$this->redirect('/');
+			if (isset($_GET['continue']))
+			{
+				$continue = Router::parseUrl($_GET['continue'])->path;
+				$this->redirect($continue);
+			}
+			else
+			{
+				$this->redirect('/');
+			}
 		}
 		else
 		{
@@ -48,6 +56,7 @@ class AuthController extends WWWController
 			);
 
 			$this->view->assoc_mode = Session::get('/user/is_auth') === true;
+			$this->view->continue = array_key_or($_GET, 'continue', '');
 
 			if (isset($_GET['error']))
 			{
@@ -72,6 +81,21 @@ class AuthController extends WWWController
 			$this->openid->required = array('contact/email');
 			$this->openid->optional = array('namePerson');
 
+			if (isset($_POST['continue']) || !empty($_POST['continue']))
+			{
+				$continue = Router::parseUrl($_POST['continue'])->path;
+
+				$this->openid->returnUrl = Router::buildUrl(
+					Config::get('/shared/www_url'),
+					array(
+						'path' => '/auth/openid',
+						'query' => array(
+							'continue' => $continue
+						)
+					)
+				);
+			}
+
 			$this->redirect($this->openid->authUrl());
 		}
 		elseif ($this->openid->mode === 'cancel')
@@ -88,7 +112,6 @@ class AuthController extends WWWController
 			else
 			{
 				$this->redirect('/auth?error=OpenIDValidateError');
-
 			}
 		}
 	}
@@ -161,7 +184,15 @@ class AuthController extends WWWController
 			Session::set('/user/is_auth', true);
 			Session::set('/user/id', $userId);
 			
-			$this->redirect('/');
+			if (isset($_GET['continue']))
+			{
+				$continue = Router::parseUrl($_GET['continue'])->path;
+				$this->redirect($continue);
+			}
+			else
+			{
+				$this->redirect('/');
+			}
 		}
 
 		$this->view->pt = htmlentities($_GET['pt']);
@@ -212,7 +243,15 @@ class AuthController extends WWWController
 			Session::set('/user/is_auth', true);
 			Session::set('/user/id', $user->id);
 
-			$this->redirect('/');
+			if (isset($_GET['continue']))
+			{
+				$continue = Router::parseUrl($_GET['continue'])->path;
+				$this->redirect($continue);
+			}
+			else
+			{
+				$this->redirect('/');
+			}
 		}
 		else // Not associated
 		{
