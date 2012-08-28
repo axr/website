@@ -130,7 +130,7 @@ $router->route('/^\/(.+)$/', array(
 ));
 
 $goto = $router->find();
-$_GET = $router->query;
+$_GET = $router->url->query;
 
 header('Content-Type: text/html; charset=utf-8');
 

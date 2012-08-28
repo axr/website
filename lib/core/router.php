@@ -10,32 +10,18 @@ class Router
 	protected $routes = array();
 
 	/**
-	 * Requested path name
+	 * Current URL in parsed form
 	 *
-	 * @var string
+	 * @var StdClass
 	 */
-	public $pathname = null;
-
-	/**
-	 * Parsed query string
-	 *
-	 * @var mixed[]
-	 */
-	public $query = array();
+	public $url = null;
 
 	/**
 	 * Initialize the router. Parse the request URL.
 	 */
 	public function __construct ($url)
 	{
-		$url = explode('?', $url);
-
-		$this->pathname = $url[0];
-
-		if (isset($url[1]))
-		{
-			$this->query = $this->parseQuery($url[1]);
-		}
+		$this->url = self::parseUrl($url);
 	}
 
 	/**
@@ -83,7 +69,7 @@ class Router
 	{
 		foreach ($this->routes as $regex => $args)
 		{
-			if (!(bool) preg_match($regex, $this->pathname, $match))
+			if (!(bool) preg_match($regex, $this->url->path, $match))
 			{
 				continue;
 			}
@@ -116,12 +102,38 @@ class Router
 	}
 
 	/**
+	 * Parse an URL
+	 *
+	 * @param string $url
+	 * @return StdClass
+	 */
+	public static function parseUrl ($url)
+	{
+		$parsed = (object) array_merge(array(
+			'scheme' => null,
+			'host' => null,
+			'user' => null,
+			'pass' => null,
+			'path' => null,
+			'query' => array(),
+			'fragment' => null
+		), parse_url($url));
+
+		if (!is_array($parsed->query))
+		{
+			$parsed->query = self::parseQuery($parsed->query);
+		}
+
+		return $parsed;
+	}
+
+	/**
 	 * Parse a query string
 	 *
 	 * @param string @query
 	 * @return string[]
 	 */
-	public function parseQuery ($queryRaw)
+	public static function parseQuery ($queryRaw)
 	{
 		$query = array();
 		$pairs = explode('&', $queryRaw);
@@ -140,6 +152,73 @@ class Router
 		}
 
 		return $query;
+	}
+
+	/**
+	 * Build a URL
+	 *
+	 * @param string $url
+	 * @param string|array $parts
+	 * @param bool $returnParsed
+	 * @return string
+	 */
+	public static function buildUrl ($url, $parts = array(),
+		$returnParsed = false)
+	{
+		$parts = (array) $parts;
+
+		if (isset($parts['query']) && is_array($parts['query']))
+		{
+			$parts['query'] = self::buildQuery($parts['query']);
+		}
+
+		if ($returnParsed)
+		{
+			$new = array();
+			http_build_url($url, $parts,
+				HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY, $new);
+
+			$new = (object) array_merge(array(
+				'scheme' => null,
+				'host' => null,
+				'user' => null,
+				'pass' => null,
+				'path' => null,
+				'query' => array(),
+				'fragment' => null
+			), $new);
+
+			if (!is_array($new->query))
+			{
+				$new->query = self::parseQuery($new->query);
+			}
+
+			return $new;
+		}
+
+		return http_build_url($url, $parts,
+			HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY);
+	}
+
+	/**
+	 * Build a query string
+	 *
+	 * @param mixed $query
+	 * @return string
+	 */
+	public static function buildQuery ($query)
+	{
+		return http_build_query($query);
+	}
+
+	/**
+	 * Get current URL in parsed form
+	 *
+	 * @return StdClass
+	 */
+	public static function getUrl ()
+	{
+		return self::parseUrl($_SERVER['REQUEST_URI']);
 	}
 
 	/**
