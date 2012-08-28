@@ -33,7 +33,6 @@
 	border-right: 1px solid #000000;
 	display: table-cell;
 	line-height: 18px;
-	margin: 1px 0 1px 1px;
 	min-width: 35px;
 	padding: 10px 15px 10px 0;
 	width: 35px;
@@ -53,7 +52,6 @@
 	border-left: 1px solid #363636;
 	display: table-cell;
 	line-height: 18px;
-	margin: 1px 1px 1px 0;
 	padding: 10px 15px;
 	position: absolute;
 }
