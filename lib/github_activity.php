@@ -39,6 +39,12 @@ class GithubActivity
 			$title = null;
 			$body = null;
 
+			if ($event->repo->name === 'AXR/Website')
+			{
+				// People don't care about the website
+				continue;
+			}
+
 			switch ($event->type)
 			{
 				case 'CreateEvent':
