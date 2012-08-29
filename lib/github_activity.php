@@ -75,7 +75,7 @@ class GithubActivity
 
 				case 'IssuesEvent':
 					// TODO $event->payload->action == 'open' ? show issue title
-					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> <span>{ACTED}</span> <a href="{URL}">Issue #{NUMBER}</a> &mdash; {TIME}';
+					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> <span>{ACTED}</span> <a href="{URL}">Issue #{NUMBER}</a> on <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
 					$title = str_replace('{ACTED}', $event->payload->action, $title);
 					$title = str_replace('{URL}', $event->payload->issue->html_url, $title);
 					$title = str_replace('{NUMBER}', $event->payload->issue->number, $title);
