@@ -1,0 +1,5 @@
+#!/bin/bash
+
+./util/stylecheck.py
+exit $?
+
