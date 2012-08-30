@@ -249,7 +249,7 @@ class AXRReleases
 			return 'universal';
 		}
 
-		if (preg_match('/wow64|wow642|x86_64|x86-64|x64|amd64/i', $_SERVER['HTTP_USER_AGENT']))
+		if (preg_match('/wow64|x86_64|x86-64|x64|amd64/i', $_SERVER['HTTP_USER_AGENT']))
 		{
 			return 'x86-64';
 		}
