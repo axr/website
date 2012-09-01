@@ -32,6 +32,12 @@
 	margin: 10px 0 10px 10px;
 }
 
+.parsedContent img.alignCenter
+{
+	display: block;
+	margin: 10px auto;
+}
+
 .parsedContent a {
 	color: #666;
 }
