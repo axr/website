@@ -47,6 +47,15 @@
 	clear: none;
 }
 
+#page.list nav.pagination
+{
+	margin: 10px 0 0 0;
+}
+
+#page.list nav.pagination a
+{
+	}
+
 #page_add a,
 #page_add_select a,
 #page_rm a
@@ -98,6 +107,11 @@
 	color: #777;
 	display: block;
 	font-style: italic;
+}
+
+#page_add form textarea
+{
+	font-family: Monaco, monospace !important;
 }
 
 #page_add form input[name=title]
