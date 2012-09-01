@@ -53,3 +53,8 @@ div#footer img.poweredby {
 	float: right;
 }
 
+form#editform textarea
+{
+	font-family: Moncao, monospace !important;
+}
+
