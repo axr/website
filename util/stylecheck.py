@@ -76,7 +76,7 @@ def check_file_php (data):
         if re.search("var_dump\s*\(", line):
             problems.append("var_dump found on line %i" % counter)
 
-    if re.search("\?\>", data):
+    if re.search("(\n)\s*\?\>", data):
         problems.append("You must not close PHP tags")
 
     return problems + check_file_ending(data)
