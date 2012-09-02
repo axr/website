@@ -334,8 +334,6 @@ window['Rainbow'] = (function() {
                     replacement = _wrapCodeInSpan(pattern['name'], replacement);
                 }
 
-                // console.log('LEVEL', CURRENT_LEVEL, 'replace', match[0], 'with', replacement, 'at position', start_pos, 'to', end_pos);
-
                 // store what needs to be replaced with what at this position
                 if (!replacements[CURRENT_LEVEL]) {
                     replacements[CURRENT_LEVEL] = {};
@@ -756,18 +754,9 @@ window['Rainbow'] = (function() {
     };
 }) ();
 
-/**
- * adds event listener to start highlighting
- */
-(function() {
-    if (window.addEventListener) {
-        return window.addEventListener('load', Rainbow.color, false);
-    }
-    window.attachEvent('onload', Rainbow.color);
-}) ();
-
 // When using Google closure compiler in advanced mode some methods
 // get renamed.  This keeps a public reference to these methods so they can
 // still be referenced from outside this library.
 Rainbow["onHighlight"] = Rainbow.onHighlight;
 Rainbow["addClass"] = Rainbow.addClass;
+

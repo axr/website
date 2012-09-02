@@ -18,6 +18,18 @@ window['App'] = window['App'] || {};
 				});
 			}
 
+			// If the first line is empty, remove it
+			if (lines[0].line.replace(/\s+/, '').length === 0)
+			{
+				lines.splice(0, 1);
+			}
+
+			// If the last line is empty, remove it
+			if (lines[lines.length - 1].line.replace(/\s+/, '').length === 0)
+			{
+				lines.splice(lines.length - 1, 1);
+			}
+
 			App.data.template('code_frame', function (template)
 			{
 				$(block).replaceWith(Mustache.render(template, {
@@ -25,6 +37,11 @@ window['App'] = window['App'] || {};
 					lines: lines
 				}));
 			});
+		});
+
+		$(document).ready(function ()
+		{
+			Rainbow.color();
 		});
 	});
 
