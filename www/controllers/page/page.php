@@ -164,44 +164,33 @@ class PageController extends WWWController
 
 	/**
 	 * List all pages that have type `bpost`
-	 *
-	 * @todo pagination
 	 */
 	public function runBlogList ()
 	{
-		$query = $this->dbh->prepare('SELECT `page`.*
-			FROM `www_pages` AS `page`
-			WHERE `page`.`ctype` = \'bpost\'
-			ORDER BY `page`.`ctime` DESC
-			LIMIT 25');
-		$query->execute();
+		$per_page = 25;
+		$page = (int) array_key_or($_GET, 'page', 0);
+		$offset = $page * $per_page;
 
-		$pages_raw = (array) $query->fetchAll(PDO::FETCH_OBJ);
-		$pages = array();
+		// Get items for current page
+		$pages = Page::all(array(
+			'conditions' => array('ctype = ? AND published = 1', 'bpost'),
+			'limit' => $per_page,
+			'offset' => $offset
+		));	
 
-		foreach ($pages_raw as &$page)
-		{
-			$model = new PageModel($this->dbh, array(
-				'_raw_data' => $page
-			));
+		// Get total count of items
+		$count = Page::count(array(
+			'conditions' => array('ctype = ? AND published = 1', 'bpost')
+		));
 
-			if ($model->status !== PageModel::STATUS_OK)
-			{
-				continue;
-			}
+		// Get previous and next page numbers
+		$this->view->prev = $page - 1;
+		$this->view->next = $page + 1;
 
-			$model->data->fields = $model->data->fields_merged;
+		// Check, if generated page numbers exist
+		$this->view->has_prev = $this->view->prev >= 0;
+		$this->view->has_next = $this->view->next !== (int) ceil($count / $per_page);
 
-			if (empty($model->data->fields->summary))
-			{
-				$explode = explode('<!--more-->', $model->data->fields_merged->content);
-				$model->data->fields->summary = $explode[0];
-			}
-
-			$pages[] = $model->data;
-			unset($page);
-		}
-	
 		$this->view->pages = $pages;
 
 		$this->view->_title = 'Blog';

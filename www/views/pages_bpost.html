@@ -6,7 +6,7 @@
 		<div class="page_item">
 			<h1>{{title}}</h1>
 			<div class="parsedContent clearfix">
-				{{{fields.summary}}}
+				{{{fields_merged.summary}}}
 			</div>
 			<ul class="page_links">
 				<li><a href="{{permalink}}">Read more</a></li>
@@ -14,5 +14,14 @@
 			</ul>
 		</div>
 	{{/pages}}
+
+	<nav class="pagination">
+		{{#has_prev}}
+			<a href="?page={{prev}}">&laquo; Previous entries</a>
+		{{/has_prev}}
+		{{#has_next}}
+			<a href="?page={{next}}" class="next">Next entries &raquo;</a>
+		{{/has_next}}
+	</nav>
 </div>
 

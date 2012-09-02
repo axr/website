@@ -6,7 +6,7 @@ class Page extends ActiveRecord\Model
 
 	static $before_update = array('encode_fields');
 	static $after_update = array('decode_fields');
-	static $after_construct = array('decode_fields');
+	static $after_construct = array('decode_fields', 'virtual_fields');
 
 	static $ctypes;
 
@@ -15,7 +15,14 @@ class Page extends ActiveRecord\Model
 	 *
 	 * @var StdClass
 	 */
-	public $fields_merged = null;
+	public $fields_merged;
+
+	/**
+	 * Permalink to the page
+	 *
+	 * @var string
+	 */
+	public $permalink;
 
 	/**
 	 * Encode fields
@@ -37,6 +44,15 @@ class Page extends ActiveRecord\Model
 		$this->fields_merged = (object) array_merge(
 			(array) $this->fields,
 			(array) $this->fields_parsed);
+	}
+
+	/**
+	 * Create virtual fields, like permalink
+	 */
+	public function virtual_fields ()
+	{
+		$this->permalink = !empty($this->url) ? $this->url :
+			'/page/' . $this->id;
 	}
 
 	/**
