@@ -17,7 +17,7 @@
 		<div class="field">
 			<label for="title">Title</label>
 			<input type="text" name="title" class="uiInput long"
-				value="{{values.title}}" />
+				value="{{page.title}}" />
 		</div>
 
 		{{#fields}}
@@ -36,18 +36,16 @@
 			</div>
 		{{/fields}}
 
-		{{^ctype.hide_url}}
 		<div class="field">
 			<label for="url">URL</label>
 			<input type="text" name="url" class="uiInput"
-				value="{{values.url}}" />
+				value="{{page.url}}" />
 		</div>
-		{{/ctype.hide_url}}
 
 		<div class="field">
 			<label for="url">Published</label>
-			<input type="radio" name="published" value="1"{{#values.published}} checked{{/values.published}} /> Yes
-			<input type="radio" name="published" value="0"{{^values.published}} checked{{/values.published}} /> No
+			<input type="radio" name="published" value="1"{{#page.published}} checked{{/page.published}} /> Yes
+			<input type="radio" name="published" value="0"{{^page.published}} checked{{/page.published}} /> No
 		</div>
 
 		<input type="hidden" name="_via_post" value="1" />

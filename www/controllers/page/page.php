@@ -208,49 +208,45 @@ class PageController extends WWWController
 	 */
 	public function runAdd ($type)
 	{
+		$page = new Page();
+		$page->ctype = $type;
+
+		if (!isset(Page::$ctypes->{$type}))
+		{
+			throw new HTTPException(null, 404);
+		}
+
+		if (!$page->can_create())
+		{
+			throw new HTTPException(null, 403);
+		}
+
+		if (isset($_POST['_via_post']))
+		{
+			$page->update_attributes($_POST);
+
+			if ($page->is_valid())
+			{
+				$page->save();
+				$this->redirect('/page/' . $page->id . '/edit?fresh=1');
+
+				return;
+			}
+			else
+			{
+				$this->view->errors = implode('<br />', $page->errors->full_messages());
+			}
+		}
+
 		$this->view->_title = 'Create a new page';
 		$this->breadcrumb[] = array(
 			'name' => 'Create a new page'
 		);
 
-		if (!Session::perms()->has('/page/create/*') &&
-			!Session::perms()->has('/page/create/' . $type))
-		{
-			throw new HTTPException(null, 403);
-		}
-
-		if (!isset(PageModel::$ctypes->{$type}))
-		{
-			throw new HTTPException(null, 404);
-		}
-
-		$model = new PageModel($this->dbh, array('ctype' => $type));
-
-		$this->view->values = $model->data;
-		$this->view->fields = $model->getCtypeFieldsForView();
-		$this->view->ctype = $model->ctype;
+		$this->view->page = $page;
+		$this->view->ctype = $page->ctype;
+		$this->view->fields = $page->ctype_fields_for_view();
 		$this->view->action = '/page/add/' . $type;
-
-		if (isset($_POST['_via_post']))
-		{
-			if ($model->validateData())
-			{
-				if ($model->saveData())
-				{
-					$this->redirect('/page/' . $model->data->id .
-						'/edit?fresh=1');
-					return;
-				}
-				else
-				{
-					throw new HTTPException('Database write error', 500);
-				}
-			}
-			else
-			{
-				$this->view->errors = implode('<br />', $model->errors);
-			}
-		}
 
 		echo $this->renderView(ROOT . '/views/page_add.html');
 	}
@@ -260,16 +256,9 @@ class PageController extends WWWController
 	 */
 	public function runAddSelect ()
 	{
-		$this->view->_title = 'Create a new page';
-		$this->breadcrumb[] = array(
-			'name' => 'Create a new page'
-		);
-
-
-		$allowedCount = 0;
 		$this->view->types = array();
 
-		foreach (PageModel::$ctypes as $key => $ctype)
+		foreach (Page::$ctypes as $key => $ctype)
 		{
 			if (!Session::perms()->has('/page/create/*') &&
 				!Session::perms()->has('/page/create/' . $key))
@@ -283,14 +272,17 @@ class PageController extends WWWController
 				'description' => isset($ctype->description) ?
 					$ctype->description : null
 			);
-
-			$allowedCount++;
 		}
 
-		if ($allowedCount === 0)
+		if (count($this->view->types) === 0)
 		{
 			throw new HTTPException(null, 403);
 		}
+
+		$this->view->_title = 'Create a new page';
+		$this->breadcrumb[] = array(
+			'name' => 'Create a new page'
+		);
 
 		echo $this->renderView(ROOT . '/views/page_add_select.html');
 	}

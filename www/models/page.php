@@ -4,9 +4,17 @@ class Page extends ActiveRecord\Model
 {
 	static $table_name = 'www_pages';
 
-	static $before_update = array('encode_fields');
+	static $before_save = array('parse_fields', 'encode_fields');
 	static $after_update = array('decode_fields');
 	static $after_construct = array('decode_fields', 'virtual_fields');
+
+	static $validates_presence_of = array(
+		array('title')
+	);
+
+	static $validates_uniqueness_of = array(
+		array('url')
+	);
 
 	static $ctypes;
 
@@ -25,6 +33,26 @@ class Page extends ActiveRecord\Model
 	public $permalink;
 
 	/**
+	 * Validate data
+	 */
+	public function validate ()
+	{
+		if (!in_array($this->ctype, array_keys((array) Page::$ctypes)))
+		{
+			$this->errors->add('ctype', 'Invalid content type');
+		}
+
+		foreach (Page::$ctypes->{$this->ctype}->fields as $field)
+		{
+			if (isset($field->required) && $field->required === true &&
+				empty($this->fields->{$field->key}))
+			{
+				$this->errors->add('field_' . $field->key, ' can\'t be empty');
+			}
+		}
+	}
+
+	/**
 	 * Encode fields
 	 */
 	public function encode_fields ()
@@ -41,9 +69,48 @@ class Page extends ActiveRecord\Model
 		$this->fields = json_decode($this->fields);
 		$this->fields_parsed = json_decode($this->fields_parsed);
 
-		$this->fields_merged = (object) array_merge(
-			(array) $this->fields,
-			(array) $this->fields_parsed);
+		if (!is_object($this->fields))
+		{
+			$this->fields = new StdClass();
+		}
+
+		if (!is_object($this->fields_parsed))
+		{
+			$this->fields_parsed = new StdClass();
+		}
+	}
+
+	/**
+	 * Parse fields before saving
+	 */
+	public function parse_fields ()
+	{
+		foreach (Page::$ctypes->{$this->ctype}->fields as $field)
+		{
+			if (!isset($field->filters) || !is_array($field->filters))
+			{
+				continue;
+			}
+
+			$this->fields_parsed->{$field->key} = $this->fields->{$field->key};
+
+			foreach ($field->filters as $filter)
+			{
+				if (method_exists($this, 'filter_' . $filter))
+				{
+					$this->fields_parsed->{$field->key} = call_user_func(
+						array($this, 'filter_' . $filter),
+						$this->fields_parsed->{$field->key});
+				}
+			}
+
+			if ($this->fields_parsed->{$field->key} ===
+				$this->fields->{$field->key})
+			{
+				unset($this->fields_parsed->{$field->key});
+			}
+		}
+
 	}
 
 	/**
@@ -51,8 +118,70 @@ class Page extends ActiveRecord\Model
 	 */
 	public function virtual_fields ()
 	{
+		$this->fields_merged = (object) array_merge(
+			(array) $this->fields,
+			(array) $this->fields_parsed);
+
 		$this->permalink = !empty($this->url) ? $this->url :
 			'/page/' . $this->id;
+	}
+
+	/**
+	 * Read content type fields data
+	 *
+	 * @param mixed[] $data
+	 */
+	public function update_attributes ($data)
+	{
+		parent::update_attributes(array(
+			'title' => array_key_or($data, 'title', null),
+			'url' => array_key_or($data, 'url', null),
+			'published' => array_key_or($data, 'published', null)
+		));
+
+		if (isset(self::$ctypes->{$this->ctype}))
+		{
+			foreach (self::$ctypes->{$this->ctype}->fields as $field)
+			{
+				$this->fields->{$field->key} =
+					array_key_or($data, 'field_' . $field->key, '');
+			}
+		}
+
+		$this->virtual_fields();
+	}
+
+	/**
+	 * Get content type specific fields for displaying in a view
+	 *
+	 * @return StdClass[]
+	 */
+	public function ctype_fields_for_view ()
+	{
+		if (!isset(self::$ctypes->{$this->ctype}))
+		{
+			return array();
+		}
+
+		$ctype = self::$ctypes->{$this->ctype};
+		$fields = array();
+
+		foreach ($ctype->fields as $_field)
+		{
+			$field = clone $_field;
+			$fields[] = $field;
+
+			$postKey = 'field_' . $field->key;
+
+			$field->{'typeIs_' . $field->type} = true;
+
+			if (isset($this->fields->{$field->key}))
+			{
+				$field->_value = $this->fields->{$field->key};
+			}
+		}
+
+		return $fields;
 	}
 
 	/**
@@ -147,6 +276,17 @@ class Page extends ActiveRecord\Model
 
 		return false;
 	}
+
+	/**
+	 * Markdown filter
+	 *
+	 * @param string $data
+	 * @return string
+	 */
+	private function filter_markdown ($data)
+	{
+		return Markdown($data);
+	}
 }
 
 Page::$ctypes = (object) array(
@@ -161,7 +301,7 @@ Page::$ctypes = (object) array(
 				'name' => 'Summary',
 				'description' => 'This will be displayed on the blog posts listing page',
 				'type' => 'textarea',
-				'required' => false,
+				'required' => true,
 				'filters' => array('markdown')
 			),
 			(object) array(
@@ -186,50 +326,6 @@ Page::$ctypes = (object) array(
 				'filters' => array('markdown')
 			)
 		)
-	),
-	'hssprop' => (object) array(
-		'name' => 'HSS property',
-		'view' => ROOT . '/views/page_hssprop.html',
-		'filterBeforeSave' => function ($data)
-		{
-			$objectSafe = preg_replace('/[^a-z0-9-_]/i',
-				'', $data->fields->object);
-			$propSafe = preg_replace('/[^a-z0-9-_]/i',
-				'', $data->title);
-
-			$data->url = 'doc/' . $objectSafe . '/' . $propSafe;
-		},
-		'fields' => array(
-			(object) array(
-				'key' => 'description',
-				'name' => 'Description',
-				'type' => 'textarea',
-				'required' => false,
-				'filters' => array('markdown')
-			),
-			(object) array(
-				'key' => 'values',
-				'name' => 'Values',
-				'type' => 'textarea',
-				'required' => true,
-				'value' => <<<VALUE
-{
-	"0.x": [
-		{"value": "", "default": true},
-		{"value": "", since: "0"}
-	]
-}
-VALUE
-			),
-			(object) array(
-				'key' => 'object',
-				'name' => 'Object name:',
-				'type' => 'text',
-				'required' => true,
-				'index' => true
-			)
-		),
-		'hide_url' => true
 	)
 );
 
