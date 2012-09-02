@@ -9,11 +9,15 @@ class PageController extends WWWController
 	/**
 	 * Display a page
 	 *
-	 * @param int $id
+	 * @param int|string $id
+	 * @param string $findBy (url|id)
 	 */
-	public function runDisplay ($value)
+	public function runDisplay ($value, $findBy = 'url')
 	{
-		$findBy = is_numeric($value) ? 'id' : 'url';
+		if ($findBy !== 'url' && $findBy != 'id')
+		{
+			$findBy = is_numeric($value) ? 'id' : 'url';
+		}
 
 		if ($findBy === 'id')
 		{

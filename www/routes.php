@@ -86,6 +86,6 @@ $router->route('/^\/admin\/cache\/?$/', array(
 $router->route('/^\/(.+)$/', array(
 	'controller' => 'PageController',
 	'run' => 'runDisplay',
-	'args' => array(1)
+	'args' => array(1, 'url')
 ));
 
