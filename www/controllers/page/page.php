@@ -362,26 +362,25 @@ class PageController extends WWWController
 	 */
 	public function runRm ($id)
 	{
+		$page = Page::find($id);
+
+		if ($page === null || !$page->can_rm())
+		{
+			throw new HTTPException(null, 404);
+		}
+
 		$this->view->_title = 'Delete page';
 		$this->breadcrumb[] = array(
 			'name' => 'Delete page'
 		);
 
-		if (!Session::perms()->has('/page/rm/*') &&
-			!Session::perms()->has('/page/rm/' . $model->data->ctype))
-		{
-			throw new HTTPException(null, 403);
-		}
-
-		$model = new PageModel($this->dbh, array('id' => $id));
-
-		$this->view->page = $model->data;
+		$this->view->page = clone $page;
 		$this->view->action = '/page/' . $id . '/rm';
 		$this->view->cancel_url = '/page/' . $id;
 
 		if (isset($_POST['_via_post']))
 		{
-			$model->rm();
+			$page->delete();
 			$this->redirect('/');
 		}
 

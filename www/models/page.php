@@ -119,6 +119,16 @@ class Page extends ActiveRecord\Model
 	}
 
 	/**
+	 * Check if the user can remove this page
+	 *
+	 * @return bool
+	 */
+	public function can_rm ()
+	{
+		return $this->can_do('rm');
+	}
+
+	/**
 	 * Check if the user can do $action with this page
 	 *
 	 * @param string $action
