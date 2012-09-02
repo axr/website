@@ -4,9 +4,6 @@
 [submodule "lib/lightopenid"]
 	path = lib/lightopenid
 	url = git://gitorious.org/lightopenid/lightopenid.git
-[submodule "lib/php-markdown"]
-	path = lib/php-markdown
-	url = git://github.com/michelf/php-markdown.git
 [submodule "wiki/extensions/CategoryTree"]
 	path = wiki/extensions/CategoryTree
 	url = https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CategoryTree.git
