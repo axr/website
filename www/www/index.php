@@ -101,6 +101,12 @@ catch (HTTPException $e)
 		$controller->initialize();
 		$controller->run(SHARED . '/views/404.html', 'Not Found');
 	}
+	else if ($e->getCode() === 403)
+	{
+		$controller = new ViewController();
+		$controller->initialize();
+		$controller->run(SHARED . '/views/403.html', 'Forbidden');
+	}
 	else
 	{
 		echo $e->getCode() . ': ' . $e->getMessage();
