@@ -4,7 +4,8 @@ class Page extends ActiveRecord\Model
 {
 	static $table_name = 'www_pages';
 
-	static $before_save = array('parse_fields', 'encode_fields');
+	static $before_save = array('parse_fields', 'encode_fields',
+		'before_save');
 	static $after_update = array('decode_fields');
 	static $after_construct = array('decode_fields', 'virtual_fields');
 
@@ -13,7 +14,7 @@ class Page extends ActiveRecord\Model
 	);
 
 	static $validates_uniqueness_of = array(
-		array('url')
+		//array('url')
 	);
 
 	static $ctypes;
@@ -49,6 +50,17 @@ class Page extends ActiveRecord\Model
 			{
 				$this->errors->add('field_' . $field->key, ' can\'t be empty');
 			}
+		}
+	}
+
+	/**
+	 * Run before save
+	 */
+	public function before_save ()
+	{
+		if (empty($this->url))
+		{
+			$this->url = null;
 		}
 	}
 
@@ -127,13 +139,11 @@ class Page extends ActiveRecord\Model
 	}
 
 	/**
-	 * Read content type fields data
-	 *
 	 * @param mixed[] $data
 	 */
-	public function update_attributes ($data)
+	public function set_attributes (array $data)
 	{
-		parent::update_attributes(array(
+		parent::set_attributes(array(
 			'title' => array_key_or($data, 'title', null),
 			'url' => array_key_or($data, 'url', null),
 			'published' => array_key_or($data, 'published', null)
@@ -225,16 +235,6 @@ class Page extends ActiveRecord\Model
 	public function can_view ()
 	{
 		return $this->can_do('view_unpub');
-	}
-
-	/**
-	 * Check if the user can create this page
-	 *
-	 * @return bool
-	 */
-	public function can_create ()
-	{
-		return $this->can_do('create');
 	}
 
 	/**

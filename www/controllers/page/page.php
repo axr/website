@@ -60,8 +60,7 @@ class PageController extends WWWController
 
 		$this->tabs[] = array(
 			'name' => 'View',
-			'link' => !empty($page->url) ?
-				'/' . $page->url : '/page/' . $id,
+			'link' => $page->permalink,
 			'current' => true
 		);
 
@@ -202,66 +201,16 @@ class PageController extends WWWController
 	}
 
 	/**
-	 * Create a new page
-	 *
-	 * @param string $type
-	 */
-	public function runAdd ($type)
-	{
-		$page = new Page();
-		$page->ctype = $type;
-
-		if (!isset(Page::$ctypes->{$type}))
-		{
-			throw new HTTPException(null, 404);
-		}
-
-		if (!$page->can_create())
-		{
-			throw new HTTPException(null, 403);
-		}
-
-		if (isset($_POST['_via_post']))
-		{
-			$page->update_attributes($_POST);
-
-			if ($page->is_valid())
-			{
-				$page->save();
-				$this->redirect('/page/' . $page->id . '/edit?fresh=1');
-
-				return;
-			}
-			else
-			{
-				$this->view->errors = implode('<br />', $page->errors->full_messages());
-			}
-		}
-
-		$this->view->_title = 'Create a new page';
-		$this->breadcrumb[] = array(
-			'name' => 'Create a new page'
-		);
-
-		$this->view->page = $page;
-		$this->view->ctype = $page->ctype;
-		$this->view->fields = $page->ctype_fields_for_view();
-		$this->view->action = '/page/add/' . $type;
-
-		echo $this->renderView(ROOT . '/views/page_add.html');
-	}
-
-	/**
 	 * Select a content type for the new page
 	 */
-	public function runAddSelect ()
+	public function runAdd ()
 	{
 		$this->view->types = array();
 
 		foreach (Page::$ctypes as $key => $ctype)
 		{
-			if (!Session::perms()->has('/page/create/*') &&
-				!Session::perms()->has('/page/create/' . $key))
+			if (!Session::perms()->has('/page/edit/*') &&
+				!Session::perms()->has('/page/edit/' . $key))
 			{
 				continue;
 			}
@@ -288,63 +237,80 @@ class PageController extends WWWController
 	}
 
 	/**
-	 * Edit a page
+	 * Edit/create a page
 	 *
-	 * @param int $id
+	 * @param string $arg
 	 */
-	public function runEdit ($id)
+	public function runEdit ($mode, $arg)
 	{
-		$this->view->_title = 'Edit page';
-		$this->breadcrumb[] = array(
-			'name' => 'Edit page'
-		);
+		if ($mode === 'edit')
+		{
+			$page = Page::find($arg);
+		}
+		else
+		{
+			$page = new Page();
+			$page->ctype = $arg;
+		}
 
-		$model = new PageModel($this->dbh, array('id' => $id));
+		if (!isset(Page::$ctypes->{$page->ctype}))
+		{
+			throw new HTTPException(null, 404);
+		}
 
-		if (!Session::perms()->has('/page/edit/*') &&
-			!Session::perms()->has('/page/edit/' . $model->data->ctype))
+		if (!$page->can_edit())
 		{
 			throw new HTTPException(null, 403);
 		}
 
-		$permalink = !empty($model->data->url) ? '/' . $model->data->url : '/page/' . $id;
-
-		$this->tabs[] = array(
-			'name' => 'View',
-			'link' => $permalink
-		);
-		$this->tabs[] = array(
-			'name' => 'Edit',
-			'link' => '/page/' . $id . '/edit',
-			'current' => true
-		);
-
-		$this->view->values = $model->data;
-		$this->view->fields = $model->getCtypeFieldsForView();
-		$this->view->ctype = $model->ctype;
-		$this->view->action = '/page/' . $id . '/edit';
-		$this->view->delete_url = '/page/' . $id . '/rm';
-		$this->view->edit_mode = true;
-
-		if (isset($_GET['fresh']) && $_GET['fresh'] === '1')
-		{
-			$this->view->message = 'Page successfully created!';
-		}
-
 		if (isset($_POST['_via_post']))
 		{
-			if ($model->validateData())
+			$page->set_attributes($_POST);
+
+			if ($page->save() && $mode === 'add')
 			{
-				if (!$model->saveData())
-				{
-					throw new HTTPException('Database write error', 500);
-				}
+				$this->redirect('/page/' . $page->id . '/edit');
+				return;
 			}
-			else
+
+			if ($page->is_invalid())
 			{
-				$this->view->errors = implode('<br />', $model->errors);
+				$this->view->errors = $page->errors->full_messages();
+				$this->view->has_errors = true;
 			}
+
 		}
+	
+		if ($mode === 'edit')
+		{
+			$this->view->_title = 'Edit page';
+			$this->breadcrumb[] = array(
+				'name' => 'Edit page'
+			);
+
+			$this->tabs[] = array(
+				'name' => 'View',
+				'link' => $page->permalink
+			);
+			$this->tabs[] = array(
+				'name' => 'Edit',
+				'link' => '/page/' . $page->id . '/edit',
+				'current' => true
+			);
+		}
+		else
+		{
+			$this->view->_title = 'Create a new page';
+			$this->breadcrumb[] = array(
+				'name' => 'Create a new page'
+			);
+		}
+
+		$this->view->page = $page;
+		$this->view->ctype = $page->ctype;
+		$this->view->fields = $page->ctype_fields_for_view();
+		$this->view->action = '/page/add/' . $arg;
+		$this->view->edit_mode = $mode === 'edit';
 
 		echo $this->renderView(ROOT . '/views/page_add.html');
 	}

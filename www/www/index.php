@@ -86,14 +86,14 @@ $router->route('/^\/page\/add\/?$/', array(
 
 $router->route('/^\/page\/add\/(\w+)\/?$/', array(
 	'controller' => 'PageController',
-	'run' => 'runAdd',
-	'args' => array(1)
+	'run' => 'runEdit',
+	'args' => array('add', 1)
 ));
 
-$router->route('/^\/page\/(\w+)\/edit\/?$/', array(
+$router->route('/^\/page\/(\d+)\/edit\/?$/', array(
 	'controller' => 'PageController',
 	'run' => 'runEdit',
-	'args' => array(1)
+	'args' => array('edit', 1)
 ));
 
 $router->route('/^\/page\/(\w+)\/rm\/?$/', array(

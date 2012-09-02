@@ -5,13 +5,11 @@
 	{{#edit_mode}}<h2>Edit page</h2>{{/edit_mode}}
 	{{^edit_mode}}<h2>Create a new page</h2>{{/edit_mode}}
 
-	{{#errors}}
-		<div class="message_std error">{{{errors}}}</div>
-	{{/errors}}
-
-	{{#message}}
-		<div class="message_std">{{{message}}}</div>
-	{{/message}}
+	{{#has_errors}}
+		<div class="message_std error">
+			{{#errors}}<p>{{{.}}}</p>{{/errors}}
+		</div>
+	{{/has_errors}}
 
 	<form action="{{action}}" method="post">
 		<div class="field">
