@@ -7,6 +7,7 @@ define('SHARED', ROOT . '/..');
 date_default_timezone_set('UTC');
 
 require_once(SHARED . '/lib/extend.php');
+require_once(SHARED . '/lib/activerecord/ActiveRecord.php');
 require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/lib/core/session.php');
@@ -17,6 +18,16 @@ require_once(ROOT . '/controllers/view/view.php');
 // Load configs
 require_once(SHARED . '/config.php');
 require_once(ROOT . '/config.php');
+
+// Connect to the database
+ActiveRecord\Config::initialize(function($cfg)
+{
+	$cfg->set_model_directory(ROOT . '/models');
+	$cfg->set_default_connection('default');
+	$cfg->set_connections(array(
+		'default' => Config::get('/www/db/connection')
+	));
+});
 
 // Connect to the database
 $dbh = new PDO(Config::get('/www/db/dsn'),
