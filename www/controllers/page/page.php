@@ -2,6 +2,7 @@
 
 require_once(ROOT . '/lib/www_controller.php');
 require_once(ROOT . '/controllers/page/page_model.php');
+require_once(ROOT . '/models/page.php');
 
 class PageController extends WWWController
 {
@@ -12,72 +13,85 @@ class PageController extends WWWController
 	 */
 	public function runDisplay ($value)
 	{
-		$key = is_numeric($value) ? 'id' : 'url';
-		$model = new PageModel($this->dbh, array($key => $value));
+		$findBy = is_numeric($value) ? 'id' : 'url';
 
-		if ($model->status !== PageModel::STATUS_OK)
+		if ($findBy === 'id')
+		{
+			$page = Page::find($value);
+		}
+		else
+		{
+			$page = Page::find_by_url($value);
+		}
+
+		if ($page === null)
 		{
 			throw new HTTPException(null, 404);
 		}
 
-		// if the page has an URL alias, use it
-		if ($key === 'id' && !empty($model->data->url))
+		if (!$page->can_view())
 		{
-			$url = preg_replace('/^\//', '', $model->data->url);
+			throw new HTTPException(null, 403);
+		}
+
+		// if the page has an URL alias, use it
+		if ($findBy === 'id' && !empty($page->url))
+		{
+			$url = preg_replace('/^\//', '', $page->url);
 			$this->redirect('/' . $url, 301);
+
 			return;
 		}
 
 		// if the page is a hssdoc prop, redirect
-		if ($model->data->ctype === 'hssprop')
+		if ($page->ctype === 'hssprop')
 		{
-			$objectName = $model->data->fields->object;
-			$propName = $model->data->title;
+			$this->redirect('/doc/' . $page->fields->object .
+				'#' . $page->title);
 
-			$this->redirect('/doc/' . $objectName . '#' . $propName);
 			return;
 		}
 
 		// Get the content type info
-		$ctype = PageModel::$ctypes->{$model->data->ctype};
+		$ctype = Page::$ctypes->{$page->ctype};
 
-		// Customize the breadcrumb for blog posts
-		if ($model->data->ctype === 'bpost')
-		{
-			$this->breadcrumb[] = array(
-				'name' => 'Blog',
-				'link' => '/blog'
-			);
-		}
-
-		$this->view->_title = $model->data->title;
-		$this->breadcrumb[] = array(
-			'name' => $model->data->title
-		);
+		$this->view->_title = $page->title;
+		$this->breadcrumb = $page->breadcrumb();
 
 		$this->tabs[] = array(
 			'name' => 'View',
-			'link' => !empty($model->data->url) ?
-				'/' . $model->data->url : '/page/' . $id,
+			'link' => !empty($page->url) ?
+				'/' . $page->url : '/page/' . $id,
 			'current' => true
 		);
 
 		// Edit tab
-		if (Session::perms()->has('/page/edit/*') ||
-			Session::perms()->has('/page/edit/' . $model->data->ctype))
+		if ($page->can_edit())
 		{
 			$this->tabs[] = array(
 				'name' => 'Edit',
-				'link' => '/page/' . $model->data->id . '/edit'
+				'link' => '/page/' . $page->id . '/edit'
 			);
 		}
 
-		$this->view->page = $model->data;
-		$this->view->page->fields = $model->data->fields_merged;
+		$this->view->page = clone $page;
+		$this->view->page->fields = $page->fields_merged;
 
 		if (isset($ctype->comments) && $ctype->comments === true)
 		{
-			$this->view->comments_html = $this->renderPageComments($model);
+			$comments_view = new StdClass();
+			$comments_view->page = clone $page;
+			$comments_view->disqus = array(
+				'developer' => Config::get('/www/debug') ? 'true' : 'false',
+				'shortname' => Config::get('/www/disqus/shortname'),
+				'identifier' => '/page/' . $page->id,
+				'title' => str_replace('\'', '\\\'', $page->title)
+			);
+
+			$mustache = new Mustache();
+			$this->view->comments_html = $mustache->render(
+				file_get_contents(ROOT . '/views/page__comments.html'),
+				$comments_view);
 		}
 
 		echo $this->renderView($ctype->view);
@@ -383,30 +397,6 @@ class PageController extends WWWController
 		}
 
 		echo $this->renderView(ROOT . '/views/page_rm.html');
-	}
-
-	/**
-	 * Render comments area for page
-	 *
-	 * @param PageModel $page
-	 * @return string
-	 */
-	private function renderPageComments (PageModel $page)
-	{
-		$view = new StdClass();
-		$view->page = clone $page->data;
-		$view->disqus = array(
-			'developer' => Config::get('/www/debug') ? 'true' : 'false',
-			'shortname' => Config::get('/www/disqus/shortname'),
-			'identifier' => '/page/' . $page->data->id,
-			'title' => str_replace('\'', '\\\'', $page->data->title)
-		);
-
-		$mustache = new Mustache();
-		$template = file_get_contents(ROOT . '/views/page__comments.html');
-
-		return $mustache->render($template, $view);
-
 	}
 
 	/**
