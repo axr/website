@@ -29,7 +29,7 @@ $router->route('/^\/calendar\/?$/', array(
 
 $router->route('/^\/page\/add\/?$/', array(
 	'controller' => 'PageController',
-	'run' => 'runAddSelect',
+	'run' => 'runAdd',
 	'args' => array(1)
 ));
 
