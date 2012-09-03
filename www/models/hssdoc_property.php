@@ -6,6 +6,20 @@ class HssdocProperty extends \ActiveRecord\Model
 {
 	static $table_name = 'www_hssdoc_properties';
 
+	static $after_construct = array('virtual_fields');
+
+	/**
+	 * Permalink to the property
+	 *
+	 * @var string
+	 */
+	public $permalink;
+
+	/**
+	 * HTML code for the values table
+	 *
+	 * @var string
+	 */
 	public $_values_table;
 
 	/**
@@ -32,6 +46,14 @@ class HssdocProperty extends \ActiveRecord\Model
 	public function get_description__parsed ()
 	{
 		return Markdown($this->description);
+	}
+
+	/**
+	 * Create virtual fields, like permalink
+	 */
+	public function virtual_fields ()
+	{
+		$this->permalink = '/doc/' . $this->object . '#' . $this->name;
 	}
 
 	/**
