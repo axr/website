@@ -63,14 +63,14 @@ $router->route('/^\/blog\/?$/', array(
 ));
 
 $router->route('/^\/doc\/([^\/#]+)\/?$/i', array(
-	'controller' => 'PageController',
-	'run' => 'runHssdocObj',
+	'controller' => 'HssdocController',
+	'run' => 'run_object',
 	'args' => array(1)
 ));
 
 $router->route('/^\/doc\/?$/i', array(
-	'controller' => 'PageController',
-	'run' => 'runHssdoc'
+	'controller' => 'HssdocController',
+	'run' => 'run'
 ));
 
 $router->route('/^\/downloads\/?$/i', array(

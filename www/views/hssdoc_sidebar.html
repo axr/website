@@ -1,19 +1,24 @@
 <div id="hssdoc_sidebar">
-	<ul class="obj_list">
-		{{#objects}}
-			<li data-object="{{object}}">
-				<span class="object">
-					<a href="#" class="open">[+]</a>
-					{{object}}
-				</span>
-				<ul class="prop_list">
-					{{#props}}
-						<li><a href="{{url}}">{{title}}</a></li>
-					{{/props}}
-				</ul>
-			</li>
-		{{/objects}}
-	</ul>
+	{{#has_objects}}
+		<ul class="obj_list">
+			{{#objects}}
+				<li data-object="{{name}}">
+					<span class="object">
+						<a href="#" class="open">[+]</a>
+						{{name}}
+					</span>
+					<ul class="prop_list">
+						{{#properties}}
+							<li><a href="{{permalink}}">{{name}}</a></li>
+						{{/properties}}
+					</ul>
+				</li>
+			{{/objects}}
+		</ul>
+	{{/has_objects}}
+	{{^has_objects}}
+		No objects were found
+	{{/has_objects}}
 
 	<div class="actions">
 		<a href="#" class="expand">expand all</a>

@@ -1,9 +1,31 @@
 <div id="hssdoc_obj">
 	{{{sidebar}}}
 
-	<h1>{{object}}</h1>
+	<h1>{{object.name}}</h1>
 
-	{{{props_html}}}
+	<div class="parsedContent">
+		{{{object.description__parsed}}}
+	</div>
+
+	{{#properties}}
+		<section class="prop_item" data-property="{{page.title}}">
+			<header>
+				<h2>{{name}}</h2>
+				{{#can_edit}}
+					<a href="/hssdoc/property/{{id}}/edit" class="action">[edit]</a>
+				{{/can_edit}}
+			</header>
+
+			<div class="parsedContent">
+				{{{description__parsed}}}
+			</div>
+
+			{{#_values_table}}
+				<h3>Values:</h3>
+				{{{_values_table}}}
+			{{/_values_table}}
+		</section>
+	{{/properties}}
 </div>
 
 {{^_ajax}}
