@@ -1,0 +1,37 @@
+{{{_tabs_html}}}
+{{{_breadcrumb_html}}}
+
+<div id="hssdoc_add">
+	<h2>{{_title}}</h2>
+
+	{{#has_errors}}
+		<div class="message_std error">
+			{{#errors}}<p>{{{.}}}</p>{{/errors}}
+		</div>
+	{{/has_errors}}
+
+	<form action="" method="post">
+		<div class="field">
+			<label for="name">Property name</label>
+			<input type="text" name="name" class="uiInput"
+				value="{{property.name}}" />
+		</div>
+
+		<div class="field">
+			<label for="description">Description</label>
+			<textarea name="description" class="uiInput">{{property.description}}</textarea>
+		</div>
+
+		<input type="hidden" name="_via_post" value="1" />
+
+		{{#edit_mode}}
+			<input type="submit" value="Update" />
+			or <a href="{{delete_url}}">Delete</a>
+		{{/edit_mode}}
+
+		{{^edit_mode}}
+			<input type="submit" value="Create" />
+		{{/edit_mode}}
+	</form>
+</div>
+

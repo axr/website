@@ -63,6 +63,92 @@ class HssdocController extends WWWController
 		echo $this->renderView(ROOT . '/views/hssdoc_obj.html');
 	}
 
+	public function run_edit_property ($mode = 'add', $arg = null)
+	{
+		if ($mode === 'add')
+		{
+			$property = new HssdocProperty();
+
+			$count = HssdocObject::count(array(
+				'conditions' => array('name = ?', $arg)
+			));
+
+			if ((int) $count === 0)
+			{
+				throw new HTTPException(null, 404);
+			}
+
+			$property->object = $arg;
+		}
+		else
+		{
+			try
+			{
+				$property = HssdocProperty::find($arg);
+			}
+			catch (\ActiveRecord\RecordNotFound $e)
+			{
+				throw new HTTPException(null, 404);
+			}
+		}
+
+		if (!$property->can_edit())
+		{
+			throw new HTTPException(null, 403);
+		}
+
+		if (isset($_POST['_via_post']))
+		{
+			$property->set_attributes(array(
+				'name' => array_key_or($_POST, 'name', null),
+				'description' => array_key_or($_POST, 'description', null)
+			));
+
+			if ($property->save() && $mode === 'add')
+			{
+				$this->redirect('/doc/edit_property/' . $property->id);
+				return;
+			}
+
+			if ($property->is_invalid())
+			{
+				$this->view->errors = $property->errors->full_messages();
+				$this->view->has_errors = true;
+			}
+
+		}
+
+		if ($mode === 'add')
+		{
+			$this->view->_title = 'Create a new property';
+			$this->breadcrumb[] = array(
+				'name' => 'Create a new property'
+			);
+		}
+		else
+		{
+			$this->view->_title = 'Edit property';
+			$this->breadcrumb[] = array(
+				'name' => 'Edit property'
+			);
+
+			$this->tabs[] = array(
+				'name' => 'View',
+				'link' => $property->permalink
+			);
+			$this->tabs[] = array(
+				'name' => 'Edit',
+				'link' => '/doc/edit_property/' . $property->id,
+				'current' => true
+			);
+		}
+
+		$this->view->property = $property;
+		$this->view->edit_mode = $mode === 'edit';
+
+		echo $this->renderView(ROOT . '/views/hssdoc_edit.html');
+	}
+
 	/**
 	 * Create the sidebar for HSS documentation pages
 	 *

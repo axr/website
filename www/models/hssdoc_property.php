@@ -8,6 +8,11 @@ class HssdocProperty extends \ActiveRecord\Model
 
 	static $after_construct = array('virtual_fields');
 
+	static $validates_presence_of = array(
+		array('name'),
+		array('description')
+	);
+
 	/**
 	 * Permalink to the property
 	 *

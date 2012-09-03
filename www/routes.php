@@ -62,6 +62,18 @@ $router->route('/^\/blog\/?$/', array(
 	'run' => 'runBlogList'
 ));
 
+$router->route('/^\/doc\/add_property\/([^\/]+)\/?$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_edit_property',
+	'args' => array('add', 1)
+));
+
+$router->route('/^\/doc\/edit_property\/(\d+)\/?$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_edit_property',
+	'args' => array('edit', 1)
+));
+
 $router->route('/^\/doc\/([^\/#]+)\/?$/i', array(
 	'controller' => 'HssdocController',
 	'run' => 'run_object',
