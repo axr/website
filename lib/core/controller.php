@@ -66,7 +66,7 @@ class Controller
 
 			// Only one tab, and it's active == no tabs
 			if (count($that->tabs) === 1 &&
-				$that->tabs[0]['current'] === true)
+				array_key_or($that->tabs[0], 'current', false) === true)
 			{
 				return;
 			}
