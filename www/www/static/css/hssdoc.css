@@ -156,6 +156,17 @@
 	color: #fff;
 }
 
+#hssdoc_add table
+{
+	width: 100%;
+}
+
+#hssdoc_add table th.actions,
+#hssdoc_add table td.actions
+{
+	width: 70px;
+}
+
 #hssdoc_rm p
 {
 	font-size: 14px;

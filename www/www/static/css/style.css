@@ -308,3 +308,40 @@ textarea.uiInput
 	width: 26px;
 }
 
+/**
+ * Tables
+ * ======
+ */
+
+table.uiTable
+{
+	border-collapse: collapse;
+	empty-cells: hide;
+	text-align: center;
+}
+
+table.uiTable th,
+table.uiTable td
+{
+	background: #eaeaea;
+	border: 1px solid #aaa;
+	padding: 4px 8px;
+	text-align: left;
+}
+
+table.uiTable th
+{
+	background: #ddd;
+}
+
+table.uiTable a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+table.uiTable a:hover
+{
+	text-decoration: underline;
+}
+
