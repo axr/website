@@ -62,6 +62,12 @@ $router->route('/^\/blog\/?$/', array(
 	'run' => 'runBlogList'
 ));
 
+$router->route('/^\/doc\/add_object\/?$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_edit_object',
+	'args' => array('add')
+));
+
 $router->route('/^\/doc\/add_property\/([^\/]+)\/?$/i', array(
 	'controller' => 'HssdocController',
 	'run' => 'run_edit_property',
@@ -72,6 +78,24 @@ $router->route('/^\/doc\/edit_property\/(\d+)\/?$/i', array(
 	'controller' => 'HssdocController',
 	'run' => 'run_edit_property',
 	'args' => array('edit', 1)
+));
+
+$router->route('/^\/doc\/([^\/]+)\/edit\/?$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_edit_object',
+	'args' => array('edit', 1)
+));
+
+$router->route('/^\/doc\/([^\/]+)\/rm\/?$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_rm_object',
+	'args' => array(1)
+));
+
+$router->route('/^\/doc\/([^\/]+)\/([^\/]+)\/rm\/?$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_rm_property',
+	'args' => array(1, 2)
 ));
 
 $router->route('/^\/doc\/([^\/#]+)\/?$/i', array(

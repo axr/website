@@ -32,7 +32,14 @@
 	text-decoration: none;
 }
 
-#hssdoc_sidebar > ul > li > span.object a.open:hover
+#hssdoc_sidebar > ul > li > span.object a.obj
+{
+	color: #444;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.open:hover,
+#hssdoc_sidebar > ul > li > span.object a.obj:hover
 {
 	text-decoration: underline;
 }
@@ -147,5 +154,10 @@
 {
 	background: #468847;
 	color: #fff;
+}
+
+#hssdoc_rm p
+{
+	font-size: 14px;
 }
 

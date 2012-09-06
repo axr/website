@@ -6,6 +6,7 @@ class HssdocProperty extends \ActiveRecord\Model
 {
 	static $table_name = 'www_hssdoc_properties';
 
+	static $before_destroy = array('before_destroy');
 	static $after_construct = array('virtual_fields');
 
 	static $validates_presence_of = array(
@@ -54,6 +55,15 @@ class HssdocProperty extends \ActiveRecord\Model
 	}
 
 	/**
+	 * Call before destroying the property
+	 *
+	 * @todo remove values
+	 */
+	public function before_destroy ()
+	{
+	}
+
+	/**
 	 * Create virtual fields, like permalink
 	 */
 	public function virtual_fields ()
@@ -71,6 +81,23 @@ class HssdocProperty extends \ActiveRecord\Model
 		if (Session::perms()->has('*') ||
 			Session::perms()->has('/hssdoc/*') ||
 			Session::perms()->has('/hssdoc/edit'))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Decide if the user can remove this property
+	 *
+	 * @return bool
+	 */
+	public function can_rm ()
+	{
+		if (Session::perms()->has('*') ||
+			Session::perms()->has('/hssdoc/*') ||
+			Session::perms()->has('/hssdoc/rm'))
 		{
 			return true;
 		}

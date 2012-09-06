@@ -51,6 +51,20 @@ class HssdocController extends WWWController
 			'name' => $object->name
 		);
 
+		$this->tabs[] = array(
+			'name' => 'View',
+			'link' => $object->permalink,
+			'current' => true
+		);
+
+		if ($object->can_edit())
+		{
+			$this->tabs[] = array(
+				'name' => 'Edit',
+				'link' => '/doc/' . $object->name . '/edit'
+			);
+		}
+
 		foreach ($properties as &$property)
 		{
 			$property->_values_table = $this->render_values_table($property->id);
@@ -63,6 +77,97 @@ class HssdocController extends WWWController
 		echo $this->renderView(ROOT . '/views/hssdoc_obj.html');
 	}
 
+	/**
+	 * Display add/edit page for objects
+	 *
+	 * @param string $mode (add|edit)
+	 * @param mixed $arg
+	 */
+	public function run_edit_object ($mode = 'add', $arg = null)
+	{
+		if ($mode === 'add')
+		{
+			$object = new HssdocObject();
+		}
+		else
+		{
+			try
+			{
+				$object = HssdocObject::find_by_name($arg);
+			}
+			catch (\ActiveRecord\RecordNotFound $e)
+			{
+				throw new HTTPException(null, 404);
+			}
+		}
+
+		if (!$object->can_edit())
+		{
+			throw new HTTPException(null, 403);
+		}
+
+		if (isset($_POST['_via_post']))
+		{
+			$object->set_attributes(array(
+				'name' => array_key_or($_POST, 'name', null),
+				'description' => array_key_or($_POST, 'description', null)
+			));
+
+			if ($object->save())
+			{
+				// We want to always redirect after edit in case the object
+				// name gets changed
+
+				$this->redirect('/doc/' . $object->name . '/edit');
+				return;
+			}
+
+			if ($object->is_invalid())
+			{
+				$this->view->errors = $object->errors->full_messages();
+				$this->view->has_errors = true;
+			}
+
+		}
+
+		if ($mode === 'add')
+		{
+			$this->view->_title = 'Create a new object';
+			$this->breadcrumb[] = array(
+				'name' => 'Create a new object'
+			);
+		}
+		else
+		{
+			$this->view->_title = 'Edit object';
+			$this->breadcrumb[] = array(
+				'name' => 'Edit object'
+			);
+
+			$this->tabs[] = array(
+				'name' => 'View',
+				'link' => $object->permalink
+			);
+			$this->tabs[] = array(
+				'name' => 'Edit',
+				'link' => '/doc/' . $object->name . '/edit',
+				'current' => true
+			);
+		}
+
+		$this->view->object = $object;
+		$this->view->edit_mode = $mode === 'edit';
+		$this->view->delete_url = '/doc/' . $object->name . '/rm';
+
+		echo $this->renderView(ROOT . '/views/hssdoc_edit_object.html');
+	}
+
+	/**
+	 * Display edit/add page for properties
+	 *
+	 * @param string $mode (add|edit)
+	 * @param mixed $arg
+	 */
 	public function run_edit_property ($mode = 'add', $arg = null)
 	{
 		if ($mode === 'add')
@@ -146,7 +251,91 @@ class HssdocController extends WWWController
 		$this->view->property = $property;
 		$this->view->edit_mode = $mode === 'edit';
 
-		echo $this->renderView(ROOT . '/views/hssdoc_edit.html');
+		echo $this->renderView(ROOT . '/views/hssdoc_edit_property.html');
+	}
+
+	/**
+	 * Remove an object
+	 *
+	 * @todo display the error message in a nicer way
+	 */ 
+	public function run_rm_object ($name)
+	{
+		try
+		{
+			$object = HssdocObject::find_by_name($name);
+		}
+		catch (\ActiveRecord\RecordNotFound $e)
+		{
+			throw new HTTPException(null, 404);
+		}
+
+		if (!$object->can_rm())
+		{
+			throw new HTTPException(null, 404);
+		}
+
+		if (!$object->is_empty())
+		{
+			throw new HTTPException('Object is not empty', 403);
+		}
+
+		$this->view->_title = 'Delete object';
+		$this->breadcrumb[] = array(
+			'name' => 'Delete object'
+		);
+
+		$this->view->object = $object;
+
+		if (isset($_POST['_via_post']))
+		{
+			$object->delete();
+			$this->redirect('/doc');
+		}
+
+		echo $this->renderView(ROOT . '/views/hssdoc_rm_object.html');
+	}
+
+	/**
+	 * Remove property
+	 *
+	 * @param string $object_name
+	 * @param string $property_name
+	 */ 
+	public function run_rm_property ($object_name, $property_name)
+	{
+		try
+		{
+			$property = HssdocProperty::find(array(
+				'conditions' => array(
+					'object = ? AND name = ?', $object_name, $property_name
+				)
+			));
+		}
+		catch (\ActiveRecord\RecordNotFound $e)
+		{
+			throw new HTTPException(null, 404);
+		}
+
+		if (!$property->can_rm())
+		{
+			throw new HTTPException(null, 404);
+		}
+
+		$this->view->_title = 'Delete property';
+		$this->breadcrumb[] = array(
+			'name' => 'Delete property'
+		);
+
+		$this->view->property = $property;
+
+		if (isset($_POST['_via_post']))
+		{
+			$property->delete();
+			$this->redirect('/doc/' . $object_name);
+		}
+
+		echo $this->renderView(ROOT . '/views/hssdoc_rm_property.html');
 	}
 
 	/**
@@ -165,6 +354,7 @@ class HssdocController extends WWWController
 		foreach ($objects as &$object)
 		{
 			$item = $object->attributes();
+			$item['permalink'] = $object->permalink;
 			$item['properties'] = $object->properties;
 
 			$object = $item;
