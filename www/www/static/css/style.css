@@ -66,6 +66,27 @@ textarea.uiInput
 	width: 100%;
 }
 
+form.uiForm .uiFormField
+{
+	margin: 0 0 10px 0;
+}
+
+form.uiForm .uiFormField label
+{
+	display: block;
+}
+
+form.uiForm .uiFormField a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+form.uiForm .uiFormField a:hover
+{
+	text-decoration: underline;
+}
+
 /**
  * Message boxes
  * =============

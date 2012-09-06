@@ -10,28 +10,30 @@
 		</div>
 	{{/has_errors}}
 
-	<form action="" method="post">
-		<div class="field">
+	<form action="" method="post" class="uiForm">
+		<div class="uiFormField">
 			<label for="name">Object name</label>
 			<input type="text" name="name" class="uiInput"
 				value="{{object.name}}" />
 		</div>
 
-		<div class="field">
+		<div class="uiFormField">
 			<label for="description">Description</label>
 			<textarea name="description" class="uiInput">{{object.description}}</textarea>
 		</div>
 
 		<input type="hidden" name="_via_post" value="1" />
 
-		{{#edit_mode}}
-			<input type="submit" value="Update" />
-			or <a href="{{delete_url}}">Delete</a>
-		{{/edit_mode}}
+		<div class="uiFormField">
+			{{#edit_mode}}
+				<input type="submit" value="Update" />
+				or <a href="{{delete_url}}">Delete</a>
+			{{/edit_mode}}
 
-		{{^edit_mode}}
-			<input type="submit" value="Create" />
-		{{/edit_mode}}
+			{{^edit_mode}}
+				<input type="submit" value="Create" />
+			{{/edit_mode}}
+		</div>
 	</form>
 
 	<h2>Properties</h2>
