@@ -44,7 +44,7 @@ if (Config::get('/www/debug'))
 Session::initialize($dbh);
 
 // Initialize the cache
-Cache::initialize($dbh);
+Cache::initialize();
 
 // Create new router
 $router = new Router(isset($_SERVER['REQUEST_URI']) ?
