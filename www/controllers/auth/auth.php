@@ -2,6 +2,8 @@
 
 require_once(SHARED . '/lib/lightopenid/openid.php');
 require_once(ROOT . '/lib/www_controller.php');
+require_once(ROOT . '/models/user.php');
+require_once(ROOT . '/models/user_oid.php');
 
 class AuthController extends WWWController
 {
@@ -123,27 +125,23 @@ class AuthController extends WWWController
 			throw new HTTPException(null, 400);
 		}
 
-		$query = $this->dbh->prepare('SELECT `oid`.*
-			FROM `www_users_oid` AS `oid`
-			WHERE `oid`.`pending` = :pending
-			LIMIT 1');
-		$query->bindValue(':pending', $_GET['pt'], PDO::PARAM_STR);
-		$query->execute();
+		try
+		{
+			$oid = \WWW\Models\UserOID::find_by_pending($_GET['pt']);
+		}
+		catch (\ActiveRecord\RecordNotFound $e)
+		{
+			throw new HTTPException(null, 404);
+		}
 
-		$oid = $query->fetch(PDO::FETCH_OBJ);
-
-		if (!is_object($oid) || $oid->pending === null)
+		if ($oid->pending === null)
 		{
 			throw new HTTPException(null, 404);
 		}
 
 		if (isset($_GET['cancel']))
 		{
-			$query = $this->dbh->prepare('DELETE
-				FROM `www_users_oid`
-				WHERE `www_users_oid`.`pending` = :pending');
-			$query->bindValue(':pending', $_GET['pt'], PDO::PARAM_STR);
-			$query->execute();
+			$oid->delete();
 
 			$this->redirect('/');
 			return;
@@ -156,33 +154,26 @@ class AuthController extends WWWController
 		{
 			if (!Session::get('/user/is_auth'))
 			{
-				$query = $this->dbh->prepare('INSERT INTO `www_users`
-					(`name`, `email`)
-					VALUES (:name, :email)');
-				$query->bindValue(':name', htmlentities($_POST['name']),
-					PDO::PARAM_STR);
-				$query->bindValue(':email',
-					htmlentities($attrs['contact/email']), PDO::PARAM_STR);
-				$query->execute();
+				$user = new \WWW\Models\User();
 
-				$userId = $this->dbh->lastInsertId();
+				$user->name = htmlentities($_POST['name']);
+				$user->email = htmlentities($attrs['contact/email']);
+				$user->save();
+
+				$user_id = $user->id;
 			}
 			else
 			{
-				$userId = Session::get('/user/id');
+				$user_id = Session::get('/user/id');
 			}
 
-			$query = $this->dbh->prepare('UPDATE `www_users_oid` AS `oid`
-				SET `oid`.`user_id` = :user_id,
-					`oid`.`pending` = NULL,
-					`oid`.`pending_attrs` = NULL
-				WHERE `oid`.`pending` = :pending');
-			$query->bindValue(':user_id', $userId, PDO::PARAM_INT);
-			$query->bindValue(':pending', $_GET['pt'], PDO::PARAM_STR);
-			$query->execute();
+			$oid->user_id = $user_id;
+			$oid->pending = null;
+			$oid->pending_attrs = null;
+			$oid->save();
 
 			Session::set('/user/is_auth', true);
-			Session::set('/user/id', $userId);
+			Session::set('/user/id', $user_id);
 			
 			if (isset($_GET['continue']))
 			{
@@ -220,28 +211,19 @@ class AuthController extends WWWController
 
 	public function openidHandle ($identity, $attrs)
 	{
-		$query = $this->dbh->prepare('SELECT `oid`.*
-			FROM `www_users_oid` AS `oid`
-			WHERE `oid`.`identity` = :identity
-			LIMIT 1');
-		$query->bindValue(':identity', $identity, PDO::PARAM_STR);
-		$query->execute();
-
-		$oid = $query->fetch(PDO::FETCH_OBJ);
+		try
+		{
+			$oid = \WWW\Models\UserOID::find_by_identity($identity);
+		}
+		catch(\ActiveRecord\RecordNotFound $e)
+		{
+			$oid = null;
+		}
 
 		if (is_object($oid) && $oid->pending === null)
 		{
-			$query = $this->dbh->prepare('SELECT `user`.*
-				FROM `www_users` as `user`
-				WHERE `user`.`id` = :user_id
-				LIMIT 1');
-			$query->bindValue(':user_id', $oid->user_id, PDO::PARAM_INT);
-			$query->execute();
-
-			$user = $query->fetch(PDO::FETCH_OBJ);
-
 			Session::set('/user/is_auth', true);
-			Session::set('/user/id', $user->id);
+			Session::set('/user/id', $oid->user->id);
 
 			if (isset($_GET['continue']))
 			{
@@ -257,23 +239,22 @@ class AuthController extends WWWController
 		{
 			if (is_object($oid) && $oid->pending !== null)
 			{
+				// TODO: Use the router to build this URL
 				$this->redirect('/auth/openid_assoc?pt=' .
 					rawurlencode($oid->pending));
 				return;
 			}
 
-			$pendingToken = md5(uniqid($identify));
+			$oid = new \WWW\Models\UserOID();
 
-			$query = $this->dbh->prepare('INSERT INTO `www_users_oid`
-				(`identity`, `pending`, `pending_attrs`)
-				VALUES (:identity, :pending, :attrs)');
-			$query->bindValue(':identity', $identity, PDO::PARAM_STR);
-			$query->bindValue(':pending', $pendingToken, PDO::PARAM_STR);
-			$query->bindValue(':attrs', serialize($attrs), PDO::PARAM_STR);
-			$query->execute();
+			$oid->identity = $identity;
+			$oid->pending = md5(uniqid($identify));
+			$oid->pending_attrs = serialize($attrs);
+			$oid->save();
 
+			// TODO: Use the router to build this URL
 			$this->redirect('/auth/openid_assoc?pt=' .
-				rawurlencode($pendingToken));
+				rawurlencode($oid->pending));
 		}
 	}
 }
