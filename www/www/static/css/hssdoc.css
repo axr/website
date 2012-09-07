@@ -167,6 +167,23 @@
 	width: 70px;
 }
 
+#hssdoc_add .table_actions
+{
+	margin: 10px 0 5px 0;
+	text-align: right;
+}
+
+#hssdoc_add .table_actions a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#hssdoc_add .table_actions a:hover
+{
+	text-decoration: underline;
+}
+
 #hssdoc_rm p
 {
 	font-size: 14px;

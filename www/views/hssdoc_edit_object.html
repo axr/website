@@ -36,25 +36,31 @@
 		</div>
 	</form>
 
-	<h2>Properties</h2>
+	{{#edit_mode}}
+		<h2>Properties</h2>
 
-	<table class="uiTable">
-		<thead>
-			<tr>
-				<th>Property</th>
-				<th class="actions">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{{#properties}}
+		<table class="uiTable">
+			<thead>
 				<tr>
-					<td>{{name}}</td>
-					<td class="actions">
-						<a href="/doc/edit_property/{{id}}">edit</a>
-					</td>
+					<th>Property</th>
+					<th class="actions">Actions</th>
 				</tr>
-			{{/properties}}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{{#properties}}
+					<tr>
+						<td>{{name}}</td>
+						<td class="actions">
+							<a href="/doc/edit_property/{{id}}">edit</a>
+						</td>
+					</tr>
+				{{/properties}}
+			</tbody>
+		</table>
+
+		<div class="table_actions">
+			<a href="/doc/add_property/{{object.name}}">New property</a>
+		</div>
+	{{/edit_mode}}
 </div>
 
