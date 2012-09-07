@@ -8,7 +8,7 @@ class DownloadsController extends WWWController
 	public function run ()
 	{
 		$releases = new AXRReleases(Config::get('/www/downloads/releases_repo'));
-		$data = $releases->getData();
+		$data = $releases->get_releases();
 
 		$this->view->_title = 'Downloads';
 		$this->breadcrumb[] = array(

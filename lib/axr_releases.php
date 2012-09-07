@@ -19,80 +19,72 @@ class AXRReleases
 	}
 
 	/**
-	 * Fetch data from GitHub API. This function does no caching
-	 *
-	 * @return mixed
-	 */
-	public function fetchData ()
-	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/' .
-			$this->repository . '/downloads');
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-
-		$data = json_decode(curl_exec($ch));
-		curl_close($ch);
-
-		if (!is_array($data))
-		{
-			return array();
-		}
-
-		$out = new StdClass();
-
-		for ($i = 0, $c = count($data); $i < $c; $i++)
-		{
-			$item = $data[$i];
-
-			preg_match('/axr_([0-9.]+)_([a-z]+)_([^_\.]+)/', $item->name, $match);
-
-			if (!is_array($match))
-			{
-				continue;
-			}
-
-			$version = $match[1];
-			$os = $match[2];
-			$arch = $match[3];
-
-			if (!isset($out->{$version}))
-			{
-				$out->{$version} = new StdClass();
-			}
-
-			if (!isset($out->{$version}->{$os}))
-			{
-				$out->{$version}->{$os} = array();
-			}
-
-
-			$out->{$version}->{$os}[] = (object) array(
-				'arch' => $arch,
-				'url' => $item->html_url,
-				'size' => $item->size
-			);
-		}
-
-		return $out;
-	}
-
-	/**
 	 * Get parsed releases data
 	 *
 	 * @return mixed
 	 */
-	public function getData ()
+	public function get_releases ()
 	{
-		$data = Cache::get('/axr_releases/:repo/' . $this->repository);
+		$out = Cache::get('/axr_releases/:repo/' . $this->repository);
 
-		if ($data === null)
+		if (!is_object($out))
 		{
-		 	$data = $this->fetchData();
-			Cache::set('/axr_releases/:repo/' . $this->repository, $data);
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/' .
+				$this->repository . '/downloads');
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+
+			$data = json_decode(curl_exec($ch));
+			curl_close($ch);
+
+			if (!is_array($data))
+			{
+				return array();
+			}
+
+			$out = new StdClass();
+
+			for ($i = 0, $c = count($data); $i < $c; $i++)
+			{
+				$item = $data[$i];
+
+				preg_match('/^axr-([0-9.]+)-(\w+)-(\w+)/i', $item->name, $match);
+
+				if (!is_array($match) || count($match) !== 4)
+				{
+					continue;
+				}
+
+				$version = $match[1];
+				$os = $match[2];
+				$arch = $match[3];
+
+				if (!isset($out->{$version}))
+				{
+					$out->{$version} = new StdClass();
+
+					$changelog = $this->get_changelog($version);
+					$out->{$version}->date = $changelog->date;
+					$out->{$version}->changes = $changelog->changes;
+				}
+
+				if (!isset($out->{$version}->{$os}))
+				{
+					$out->{$version}->{$os} = array();
+				}
+
+				$out->{$version}->{$os}[] = (object) array(
+					'arch' => $arch,
+					'url' => $item->html_url,
+					'size' => $item->size
+				);
+			}
+
+			Cache::set('/axr_releases/:repo/' . $this->repository, $out);
 		}
 
-		return $data;
+		return $out;
 	}
 
 	/**
@@ -101,78 +93,75 @@ class AXRReleases
 	 * @param string $version
 	 * @return mixed
 	 */
-	public function getChangelog ($version)
+	public function get_changelog ($version)
 	{
-		$data = Cache::get('/axr_releases/changelog/' . $version);
+		static $lines;
 
-		if ($data === null)
+		if (!is_array($lines))
 		{
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/' .
-				$this->repository . '/git/refs/tags');
+				$this->repository . '/contents/CHANGELOG.md');
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 
-			$refs = json_decode(curl_exec($ch));
+			$response = json_decode(curl_exec($ch));
 			curl_close($ch);
 
-			if (!is_array($refs))
+			$lines = array();
+
+			if (is_object($response) && isset($response->encoding) &&
+				$response->encoding === 'base64')
 			{
-				Cache::set('/axr_releases/changelog/' . $version, array());
-				return array();
+				$lines = explode("\n", base64_decode($response->content));
 			}
-
-			$sha = null;
-
-			for ($i = 0, $c = count($refs); $i < $c; $i++)
-			{
-				if ($refs[$i]->ref === "refs/tags/v{$version}-stable")
-				{
-					$sha = $refs[$i]->object->sha;
-				}
-			}
-
-			if ($sha === null)
-			{
-				Cache::set('/axr_releases/changelog/' . $version, array());
-				return array();
-			}
-
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/' .
-				$this->repository . '/git/tags/' . $sha);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-
-			$tag = json_decode(curl_exec($ch));
-			curl_close($ch);
-
-			if (!is_object($tag))
-			{
-				Cache::set('/axr_releases/changelog/:repo/' .
-					$this->repository, array());
-				return array();
-			}
-
-			$data = array();
-			$explode = explode("Changelog:\n", $tag->message);
-
-			if (isset($explode[1]))
-			{
-				$explode = explode("-----BEGIN PGP SIGNATURE-----\n", $explode[1]);
-				$data = explode("\n", $explode[0]);
-
-				$data = array_filter($data, function ($change)
-				{
-					$change = trim($change);
-					return !empty($change);
-				});
-			}
-
-			Cache::set('/axr_releases/changelog/' . $version, $data);
 		}
 
-		return $data;
+		$changes = array();
+		$date = null;
+		$is_found = false;
+
+		foreach ($lines as $line)
+		{
+			if (!$is_found)
+			{
+				preg_match('/^[#]+\s+Version\s+([0-9.]+)/', $line, $match);
+
+				if (is_array($match) && isset($match[1]) &&
+					$match[1] === $version)
+				{
+					$is_found = true;
+				}
+
+				continue;
+			}
+
+			if (strlen($line) === 0)
+			{
+				continue;
+			}
+
+			if ($line[0] === '#')
+			{
+				break;
+			}
+
+			preg_match('/([0-9]{4}-[0-9]{2}-[0-9]{2})/', $line, $match);
+			if (is_array($match) && count($match) === 2)
+			{
+				$date = strtotime($match[1]);
+			}
+
+			if ($line[0] === '*')
+			{
+				$changes[] = preg_replace('/\*\s+/', '', $line);
+			}
+		}
+
+		return (object) array(
+			'date' => $date,
+			'changes' => $changes
+		);
 	}
 
 	/**
@@ -181,15 +170,15 @@ class AXRReleases
 	 *
 	 * @return mixed
 	 */
-	public function getForHome ()
+	public function get_for_home ()
 	{
-		$data = (array) $this->getData();
+		$data = (array) $this->get_releases();
 
 		ksort($data);
 		$data = array_reverse($data);
 
-		$clientOS = self::detectOS();
-		$clientArch = self::detectArch();
+		$clientOS = self::detect_os();
+		$clientArch = self::detect_arch();
 		$out = null;
 
 		foreach ($data as $version => $item)
@@ -206,6 +195,8 @@ class AXRReleases
 				if ($release->arch === $clientArch)
 				{
 					$out = $release;
+					$out->date = $item->date;
+					$out->changes = $item->changes;
 					$out->os = $clientOS;
 					$out->version = $version;
 
@@ -222,7 +213,7 @@ class AXRReleases
 	 *
 	 * @return string (osx|linux|win)
 	 */
-	private static function detectOS ()
+	private static function detect_os ()
 	{
 		if (preg_match('/Mac/', $_SERVER['HTTP_USER_AGENT']))
 		{
@@ -242,16 +233,16 @@ class AXRReleases
 	 *
 	 * @return string (universal|i386|x86-64)
 	 */
-	private static function detectArch ()
+	private static function detect_arch ()
 	{
-		if (self::detectOS() === 'osx')
+		if (self::detect_os() === 'osx')
 		{
 			return 'universal';
 		}
 
 		if (preg_match('/wow64|x86_64|x86-64|x64|amd64/i', $_SERVER['HTTP_USER_AGENT']))
 		{
-			return 'x86-64';
+			return 'x86_64';
 		}
 
 		return 'i386';

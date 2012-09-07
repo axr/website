@@ -402,15 +402,15 @@ qux
 				{{#has_changelog}}
 					<div class="verinfo">
 						<span class="version">v {{release.version}}</span>
-						Released: {{release.date}}
+						Released: {{release.date_str}}
 					</div>
 					<ul>
-						{{#changelog}}
+						{{#release.changes}}
 							<li>
 								<span class="block_0"></span>
-								<span class="text">{{change}}</span>
+								<span class="text">{{.}}</span>
 							</li>
-						{{/changelog}}
+						{{/release.changes}}
 						<li class="clear"></li>
 					</ul>
 

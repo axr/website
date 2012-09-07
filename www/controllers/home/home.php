@@ -15,37 +15,21 @@ class HomeController extends WWWController
 			'win' => 'Windows'
 		);
 
-		$release = $releases->getForHome();
-
-		$changelog_raw = null;
-		$changelog = array();
+		$release = $releases->get_for_home();
 
 		if (is_object($release))
 		{
 			$release->os_str = isset($oses[$release->os]) ?
 				$oses[$release->os] : $release->os;
+			$release->date_str = date('Y-m-d', $release->date);
 
 			$this->view->release = $release;
 			$this->view->has_release = true;
+			$this->view->has_changelog = count($release->changes) > 0;
 
 			$this->view->full_changelog_url = 'http://github.com/' .
 				Config::get('/www/downloads/releases_repo') .
-				'/commits/v' . $release->version. '-stable';
-
-			$changelog_raw = $releases->getChangelog($release->version);
-		}
-
-		if (is_array($changelog_raw))
-		{
-			foreach ($changelog_raw as $change)
-			{
-				$changelog[] = array(
-					'change' => $change
-				);
-			}
-
-			$this->view->changelog = $changelog;
-			$this->view->has_changelog = count($changelog) > 0;
+				'/blob/master/CHANGELOG.md';
 		}
 
 		echo $this->renderView(ROOT . '/views/home.html');
