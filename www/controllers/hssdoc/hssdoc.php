@@ -261,6 +261,8 @@ class HssdocController extends WWWController
 		}
 
 		$this->view->property = $property;
+		$this->view->delete_url = '/doc/' . $property->object . '/' .
+			$property->name  . '/rm';
 		$this->view->edit_mode = $mode === 'edit';
 
 		echo $this->renderView(ROOT . '/views/hssdoc_edit_property.html');
