@@ -37,8 +37,7 @@ class AuthController extends WWWController
 		}
 		elseif ($mode === 'logout')
 		{
-			Session::set('/user/is_auth', false);
-			Session::set('/user/id', null);
+			\WWW\Models\User::current()->set_logged(false);
 
 			if (isset($_GET['continue']))
 			{
@@ -149,31 +148,27 @@ class AuthController extends WWWController
 
 		$attrs = unserialize($oid->pending_attrs);
 
-		if (isset($_POST['_via_post']) &&
-			isset($_POST['name']))
+		if (isset($_POST['_via_post']))
 		{
-			if (!Session::get('/user/is_auth'))
+			if (!\WWW\Models\User::is_logged())
 			{
 				$user = new \WWW\Models\User();
 
-				$user->name = htmlentities($_POST['name']);
+				$user->name = htmlentities(array_key_or($_POST, 'name', 'Somebody'));
 				$user->email = htmlentities($attrs['contact/email']);
 				$user->save();
-
-				$user_id = $user->id;
 			}
 			else
 			{
-				$user_id = Session::get('/user/id');
+				$user = \WWW\Models\User::current();
 			}
 
-			$oid->user_id = $user_id;
+			$oid->user_id = $user->id;
 			$oid->pending = null;
 			$oid->pending_attrs = null;
 			$oid->save();
 
-			Session::set('/user/is_auth', true);
-			Session::set('/user/id', $user_id);
+			$user->set_logged();
 			
 			if (isset($_GET['continue']))
 			{
@@ -222,12 +217,17 @@ class AuthController extends WWWController
 
 		if (is_object($oid) && $oid->pending === null)
 		{
-			Session::set('/user/is_auth', true);
-			Session::set('/user/id', $oid->user->id);
+			$oid->user->set_logged();
 
 			if (isset($_GET['continue']))
 			{
 				$continue = Router::parseUrl($_GET['continue'])->path;
+				
+				if (strlen(trim($continue)) === 0)
+				{
+					$continue = '/';
+				}
+				
 				$this->redirect($continue);
 			}
 			else
