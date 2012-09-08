@@ -239,7 +239,6 @@ class PageController extends WWWController
 		$this->view->page = $page;
 		$this->view->ctype = $page->ctype;
 		$this->view->fields = $page->ctype_fields_for_view();
-		$this->view->action = '/page/add/' . $arg;
 		$this->view->edit_mode = $mode === 'edit';
 
 		echo $this->renderView(ROOT . '/views/page_add.html');
