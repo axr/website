@@ -8,6 +8,50 @@ class User extends \ActiveRecord\Model
 
 	private static $current = null;
 
+
+	/**
+	 * Check if user has a permission
+	 *
+	 * @param string $key
+	 * @param bool $recursive = false
+	 * @return bool
+	 */
+	public function can ($key, $recursive = true)
+	{
+		if ($recursive === true)
+		{
+			if ($this->can('*', false) === true)
+			{
+				return true;
+			}
+
+			$test = explode('/', $key);
+
+			while (count($test) > 1)
+			{
+				if ($this->can(implode('/', $test) . '/*', false) === true)
+				{
+					return true;
+				}
+
+				array_pop($test);
+			}
+		}
+
+		return in_array($key, explode(',', $this->permissions));
+	}
+
+	/**
+	 * Give user a permission
+	 *
+	 * @param string $key
+	 */
+	public function permit ($key)
+	{
+		$key = preg_replace('/[^a-z0-9_\/*]/', '', $key);
+		$this->permissions .= ',' . $key;
+	}
+
 	/**
 	 * Get currently logged in user
 	 *

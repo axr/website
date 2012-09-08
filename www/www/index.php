@@ -14,6 +14,7 @@ require_once(SHARED . '/lib/core/session.php');
 require_once(SHARED . '/lib/core/router.php');
 require_once(SHARED . '/lib/core/cache.php');
 require_once(ROOT . '/controllers/view/view.php');
+require_once(ROOT . '/models/user.php');
 
 // Load configs
 require_once(SHARED . '/config.php');

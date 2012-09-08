@@ -140,12 +140,12 @@ class Session
 		$query->bindValue(':data', serialize(self::$data), PDO::PARAM_STR);
 		$query->bindValue(':expires', time() + self::EXPIRE, PDO::PARAM_INT);
 		$query->execute();
-
-		self::perms()->save();
 	}
 
 	/**
 	 * Get the permissions object
+	 *
+	 * @deprecated
 	 */
 	public static function perms ()
 	{
@@ -153,13 +153,7 @@ class Session
 
 		if (!($perms instanceof SessionPermissions))
 		{
-			$perms = new SessionPermissions(self::$dbh);
-
-			if (self::get('/user/is_auth') === true &&
-				is_numeric(self::get('/user/id')))
-			{
-				$perms->loadUser(self::get('/user/id'));
-			}
+			$perms = new SessionPermissions(\WWW\Models\User::current());
 		}
 
 		return $perms;
