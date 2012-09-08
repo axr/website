@@ -234,7 +234,13 @@ class Page extends ActiveRecord\Model
 	 */
 	public function can_view ()
 	{
-		return $this->can_do('view_unpub');
+		if ((int) $this->published === 1)
+		{
+			return true;
+		}
+
+		return \WWW\Models\User::current()
+			->can('/page/view_unpub/' . $this->ctype);
 	}
 
 	/**
@@ -244,7 +250,8 @@ class Page extends ActiveRecord\Model
 	 */
 	public function can_edit ()
 	{
-		return $this->can_do('edit');
+		return \WWW\Models\User::current()
+			->can('/page/edit/' . $this->ctype);
 	}
 
 	/**
@@ -254,27 +261,8 @@ class Page extends ActiveRecord\Model
 	 */
 	public function can_rm ()
 	{
-		return $this->can_do('rm');
-	}
-
-	/**
-	 * Check if the user can do $action with this page
-	 *
-	 * @param string $action
-	 * @return bool
-	 */
-	private function can_do ($action)
-	{
-		if ($this->published === 1 ||
-			Session::perms()->has('*') ||
-			Session::perms()->has('/page/*') ||
-			Session::perms()->has('/page/' . $action . '/*') ||
-			Session::perms()->has('/page/' . $action . '/' . $this->ctype))
-		{
-			return true;
-		}
-
-		return false;
+		return \WWW\Models\User::current()
+			->can('/page/rm/' . $this->ctype);
 	}
 
 	/**

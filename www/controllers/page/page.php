@@ -1,7 +1,6 @@
 <?php
 
 require_once(ROOT . '/lib/www_controller.php');
-require_once(ROOT . '/controllers/page/page_model.php');
 require_once(ROOT . '/models/page.php');
 
 class PageController extends WWWController
@@ -139,8 +138,7 @@ class PageController extends WWWController
 
 		foreach (Page::$ctypes as $key => $ctype)
 		{
-			if (!Session::perms()->has('/page/edit/*') &&
-				!Session::perms()->has('/page/edit/' . $key))
+			if (!\WWW\Models\User::current()->can('/page/edit/' . $key))
 			{
 				continue;
 			}

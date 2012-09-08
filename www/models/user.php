@@ -36,6 +36,8 @@ class User extends \ActiveRecord\Model
 
 				array_pop($test);
 			}
+
+			return false;
 		}
 
 		return in_array($key, explode(',', $this->permissions));
@@ -61,7 +63,7 @@ class User extends \ActiveRecord\Model
 	{
 		if (!self::is_logged())
 		{
-			return null;
+			return new User();
 		}
 
 		if (self::$current === null)
@@ -72,7 +74,7 @@ class User extends \ActiveRecord\Model
 			}
 			catch (\ActiveRecord\RecordNotFound $e)
 			{
-				return null;
+				return new User();
 			}
 		}
 
