@@ -1,6 +1,7 @@
 <?php
 
 require_once(SHARED . '/lib/lightopenid/openid.php');
+require_once(SHARED . '/lib/core/url.php');
 require_once(ROOT . '/lib/www_controller.php');
 require_once(ROOT . '/models/user.php');
 require_once(ROOT . '/models/user_oid.php');
@@ -41,7 +42,7 @@ class AuthController extends WWWController
 
 			if (isset($_GET['continue']))
 			{
-				$continue = Router::parseUrl($_GET['continue'])->path;
+				$continue = URL::create($_GET['continue'])->path;
 				$this->redirect($continue);
 			}
 			else
@@ -84,17 +85,13 @@ class AuthController extends WWWController
 
 			if (isset($_POST['continue']) || !empty($_POST['continue']))
 			{
-				$continue = Router::parseUrl($_POST['continue'])->path;
+				$continue = URL::create($_POST['continue'])->path;
 
-				$this->openid->returnUrl = Router::buildUrl(
-					Config::get('/shared/www_url'),
-					array(
-						'path' => '/auth/openid',
-						'query' => array(
-							'continue' => $continue
-						)
-					)
-				);
+				$this->openid->returnUrl = URL::create()
+					->from_string(Config::get('/shared/www_url'))
+					->path('/auth/openid')
+					->query('continue', $continue)
+					->to_string();
 			}
 
 			$this->redirect($this->openid->authUrl());
@@ -172,7 +169,7 @@ class AuthController extends WWWController
 			
 			if (isset($_GET['continue']))
 			{
-				$continue = Router::parseUrl($_GET['continue'])->path;
+				$continue = URL::create($_GET['continue'])->path;
 				$this->redirect($continue);
 			}
 			else
@@ -221,7 +218,7 @@ class AuthController extends WWWController
 
 			if (isset($_GET['continue']))
 			{
-				$continue = Router::parseUrl($_GET['continue'])->path;
+				$continue = URL::create($_GET['continue'])->path;
 				
 				if (strlen(trim($continue)) === 0)
 				{
@@ -239,9 +236,10 @@ class AuthController extends WWWController
 		{
 			if (is_object($oid) && $oid->pending !== null)
 			{
-				// TODO: Use the router to build this URL
-				$this->redirect('/auth/openid_assoc?pt=' .
-					rawurlencode($oid->pending));
+				$this->redirect(URL::create('/auth/openid_assoc')
+					->query('pt', $oid->pending)
+					->to_string());
+
 				return;
 			}
 
@@ -252,9 +250,9 @@ class AuthController extends WWWController
 			$oid->pending_attrs = serialize($attrs);
 			$oid->save();
 
-			// TODO: Use the router to build this URL
-			$this->redirect('/auth/openid_assoc?pt=' .
-				rawurlencode($oid->pending));
+			$this->redirect(URL::create('/auth/openid_assoc')
+				->query('pt', $oid->pending)
+				->to_string());
 		}
 	}
 }
