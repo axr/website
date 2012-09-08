@@ -1,5 +1,7 @@
 <?php
 
+require_once(SHARED . '/lib/php-markdown/markdown.php');
+
 class Page extends ActiveRecord\Model
 {
 	static $table_name = 'www_pages';
