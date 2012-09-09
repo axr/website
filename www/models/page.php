@@ -94,7 +94,10 @@ class Page extends ActiveRecord\Model
 		if ($this->is_new_record())
 		{
 			$this->user_id = User::current()->id;
+			$this->ctime = time();
 		}
+
+		$this->mtime = time();
 	}
 
 	/**
