@@ -136,7 +136,7 @@ class Page extends ActiveRecord\Model
 			(array) $this->fields,
 			(array) $this->fields_parsed);
 
-		$this->permalink = !empty($this->url) ? $this->url :
+		$this->permalink = !empty($this->url) ? '/' . $this->url :
 			'/page/' . $this->id;
 	}
 
