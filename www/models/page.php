@@ -19,10 +19,6 @@ class Page extends ActiveRecord\Model
 		array('title')
 	);
 
-	static $validates_uniqueness_of = array(
-		//array('url')
-	);
-
 	static $ctypes;
 
 	/**
@@ -69,6 +65,15 @@ class Page extends ActiveRecord\Model
 		if (!in_array($this->ctype, array_keys((array) Page::$ctypes)))
 		{
 			$this->errors->add('ctype', 'Invalid content type');
+		}
+
+		$page_by_url = Page::find(array(
+			'conditions' => array('url = ?', $this->url)
+		));
+
+		if (is_object($page_by_url) && $page_by_url->id != $this->id)
+		{
+			$this->errors->add('url', 'The URL needs to be unique');
 		}
 
 		foreach (Page::$ctypes->{$this->ctype}->fields as $field)
