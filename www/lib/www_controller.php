@@ -26,8 +26,7 @@ class WWWController extends Controller
 				rawurlencode(Router::getUrl()->path);
 		}
 
-		$this->view->_url_login = '/auth?continue=' .
-			rawurlencode(Router::getUrl()->path);
+		$this->view->_hide_login = true;
 	}
 }
 
