@@ -87,5 +87,23 @@ window['App'] = window['App'] || {};
 		$('#container > footer .last_tweet .tweet_container')
 			.html(tweet || error);
 	});
+
+	/**
+	 * data-hash
+	 */
+	{
+		var hash = window.location.hash.replace(/^#/, '');
+		var offset = $('*').filter(function ()
+		{
+			return $(this).attr('data-hash') === hash;
+		}).offset();
+
+		if (offset !== null && !isNaN(offset.top))
+		{
+			$('html, body').animate({
+				scrollTop: offset.top
+			}, 800);
+		}
+	}
 })(window['App']);
 
