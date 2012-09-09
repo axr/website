@@ -6,12 +6,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
 	<!-- general meta-->
 	<title>{{#_title}}{{{_title}}} | {{/_title}}AXR Project</title>
+
 	{{{_html_head}}}
+
 	<meta name="description" content="AXR stands for Arbitrary XML Rendering. Its aim is to provide a better alternative to HTML+CSS">
-	<meta name="author" content="Miro Keller">
-	<link rel="canonical" href="http://axr.vg">
+
+	{{#_meta.canonical}}
+		<link rel="canonical" href="{{_meta.canonical}}">
+	{{/_meta.canonical}}
 
 	<!-- open graph metadata-->
 	<meta property="og:title" content="AXR: The web, done right #axr" />
@@ -20,17 +25,23 @@
 	<meta property="og:image" content="http://axr.vg/resources/images/logo_small.jpg" />
 	<meta property="og:description" content="AXR is a new standard for making web sites and apps, replacing HTML with XML and CSS with HSS. A unified platform independent of browsers, possible to install as plug-in." />
 	<meta property="og:site_name" content="AXR: Arbitrary XML Rendering" />
+	
 	<!-- google +snippet metadata-->
 	<link href="https://plus.google.com/105865857923622443169" rel="publisher" />
+
 	<meta itemprop="name" content="AXR: The web, done right #axr">
 	<meta itemprop="description" content="AXR is a new standard for making web sites and apps, replacing HTML with XML and CSS with HSS. A unified platform independent of browsers, possible to install as plug-in.">
 	<meta itemprop="image" content="http://axr.vg/resources/images/logo_small.jpg">
+
 	<!-- unleash the beast-->
 	<meta name="viewport" content="width=device-width,initial-scale=1">
+
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
 	{{{_rsrc_styles}}}
+
 	<script>
 		window.App = {{{_app_vars}}};
 		window.App._onInit = [];
@@ -38,17 +49,16 @@
 		function withApp (callback) {
 			window.App._onInit.push(function () { callback(window.App); });
 		};
-
-		function withAS (callback) {
-			console.warn('Deprecated withAS was called', callback);
-		};
 	</script>
 </head>
 <body class="{{_html_body_classes}}" {{{_html_body_attrs}}}>
 	{{{_html_top}}}
+
 	<div id="container">
 		<header>
-			<a href="{{_www_url}}" id="logo"><img src="{{_rsrc_root}}/images/logo.jpg" height="230" width="310" alt="AXR Logo" title="AXR Project" /></a>
+			<a href="{{_www_url}}" id="logo">
+				<img src="{{_rsrc_root}}/images/logo.jpg" height="230" width="310" alt="AXR Logo" title="AXR Project" />
+			</a>
 			<div class="secondary">
 				{{^_hide_login}}
 					<span class="link login">
@@ -61,14 +71,13 @@
 						<span class="arrow"></span>
 						<a class="user_link" href="{{_url_profile}}/"><span class="menu_title">User</span></a>
 						<div class="dropdown">
-							<a class="edit_account first" href="{{_url_account}}">Edit account</a>
-							<a class="logout last" href="{{_url_logout}}">Logout</a>
+							<a class="edit_account first"
+								href="{{_url_account}}">Edit account</a>
+							<a class="logout last"
+								href="{{_url_logout}}">Logout</a>
 						</div>
 					</div>
 				{{/_user}}
-				<!--<form action="{{_www_url}}/search/{{_search_type}}" method="post" accept-charset="UTF-8">
-					<input type="search" name="q" placeholder="Search" autocomplete="off" />
-				</form>-->
 			</div>
 			<nav>
 				<ul id="menu">
@@ -76,54 +85,73 @@
 						<span class="arrow"></span>
 						<a href="{{_www_url}}/about/features">About</a>
 						<div>
-							<a class="features first" href="{{_www_url}}/about/features">Features</a>
-							<a class="manifesto last" href="{{_www_url}}/about/manifesto">Manifesto</a>
-							<!-- <a class="media_kit" href="{{_www_url}}/under-construction">Media Kit</a> -->
-							<!-- <a class="history" href="{{_www_url}}/under-construction">History</a> -->
+							<a class="features first"
+								href="{{_www_url}}/about/features">Features</a>
+							<a class="manifesto last"
+								href="{{_www_url}}/about/manifesto">Manifesto</a>
 						</div>
 					</li>
 					<li class="specification">
-						<a href="http://spec.axr.vg/specification.html">Specification</a>
+						<a href="http://spec.axr.vg/">Specification</a>
 					</li>
 					<li class="resources">
 						<span class="arrow"></span>
 						<a href="{{_www_url}}/downloads">Resources</a>
 						<div>
-							<a class="downloads first" href="{{_www_url}}/downloads">Downloads</a>
-							<!-- <a class="e
-xamples" href="/under-construction">Examples</a> -->
-							<!-- <a class="tutorials" href="{{_www_url}}/under-construction">Tutorials</a> -->
-							<a class="documentation" href="http://docs.axr.vg">Prototype documentation</a>
-							<a class="hssdocs last" href="{{_www_url}}/doc">HSS documentation</a>
+							<a class="downloads first"
+								href="{{_www_url}}/downloads">Downloads</a>
+							<a class="documentation"
+								href="http://docs.axr.vg">Prototype documentation</a>
+							<a class="hssdocs last"
+								href="{{_www_url}}/doc">HSS documentation</a>
 						</div>
 					</li>
 					<li class="community">
 						<span class="arrow"></span>
 						<a href="{{_www_url}}/get-involved">Community</a>
 						<div>
-							<a class="get_involved first" href="{{_www_url}}/get-involved">Get involved</a>
-							<a class="chat" href="http://webchat.freenode.net/?channels=axr" target="_blank">Chat</a>
-							<!-- <a class="forum" href="{{_www_url}}/under-construction">Forum</a> -->
-							<a class="github" href="https://github.com/AXR" target="_blank">GitHub</a>
-							<a class="mailinglist" href="https://groups.google.com/forum/#!forum/axr-main" target="_blank">Mailing list</a>
-							<a class="calendar last" href="{{_www_url}}/calendar">Calendar</a>
+							<a class="get_involved first"
+								href="{{_www_url}}/get-involved">Get involved</a>
+							<a class="chat"
+								href="http://webchat.freenode.net/?channels=axr"
+								target="_blank">Chat</a>
+							<a class="github"
+								href="https://github.com/AXR"
+									target="_blank">GitHub</a>
+							<a class="mailinglist"
+								href="https://groups.google.com/forum/#!forum/axr-main"
+								target="_blank">Mailing list</a>
+							<a class="calendar last"
+								href="{{_www_url}}/calendar">Calendar</a>
 						</div>
 					</li>
 					<li class="wiki">
 						<span class="arrow"></span>
 						<a href="{{_wiki_url}}">Wiki</a>
 						<div>
-							<a class="main first" href="{{_wiki_url}}">Main page</a>
-							<a class="faq" href="{{_wiki_url}}/FAQ">FAQ</a>
-							<a class="roadmap" href="{{_wiki_url}}/Roadmap">Roadmap</a>
-							<a class="changelog last" href="{{_wiki_url}}/Changelog">Changelog</a>
+							<a class="main first"
+								href="{{_wiki_url}}">Main page</a>
+							<a class="faq"
+								href="{{_wiki_url}}/FAQ">FAQ</a>
+							<a class="roadmap"
+								href="{{_wiki_url}}/Roadmap">Roadmap</a>
+							<a class="changelog last"
+								href="https://github.com/AXR/Prototype/blob/master/CHANGELOG.md"
+								target="_blank">Changelog</a>
 						</div>
 					</li>
-					<li class="blog"><a href="{{_www_url}}/blog">Blog</a></li>
+					<li class="blog">
+						<a href="{{_www_url}}/blog">Blog</a>
+					</li>
 				</ul>
 			</nav>
 		</header>
-		<div class="fork_github"><a href="https://github.com/AXR/Prototype" target="_blank">Fork me on GitHub</a></div>
+
+		<div class="fork_github">
+			<a href="https://github.com/AXR/Prototype"
+				target="_blank">Fork me on GitHub</a>
+		</div>
+
 		<div id="main" role="main">
 			{{{_content}}}
 		</div>
@@ -131,10 +159,25 @@ xamples" href="/under-construction">Examples</a> -->
 		<footer>
 			<a href="#top" title="Back to top">Back to top</a>
 			<ul class="technologies_used">
-				<li class="html5"><a href="https://www.w3.org/html/logo/" title="HTML5">HTML5</a></li>
-				<li class="humanstxt"><a href="http://axr.vg/humans.txt" title="humans.txt">humans.txt</a></li>
-				<li class="github"><a href="https://github.com/AXR/" title="AXR Project on GitHub">GitHub</a></li>
-				<li class="google_groups"><a href="https://groups.google.com/group/axr-main/" title="join the mailing list">Google Groups</a></li>
+				<li class="html5">
+					<a href="https://www.w3.org/html/logo/"
+						title="HTML5"
+						target="_blank">HTML5</a>
+				</li>
+				<li class="humanstxt">
+					<a href="{{_www_url}}/humans.txt"
+						title="humans.txt">humans.txt</a>
+				</li>
+				<li class="github">
+					<a href="https://github.com/AXR/"
+						title="AXR Project on GitHub"
+						target="_blank">GitHub</a>
+				</li>
+				<li class="google_groups">
+					<a href="https://groups.google.com/forum/#!forum/axr-main"
+						title="join the mailing list"
+						target="_blank">Google Groups</a>
+				</li>
 			</ul>
 
 			<div class="activity">
@@ -145,9 +188,21 @@ xamples" href="/under-construction">Examples</a> -->
 					 </form>
 
 					 <ul class="follow_us">
-						<li class="twitter"><a href="https://twitter.com/AXRProject/" title="Follow us on Twitter" target="_blank">Twitter</a></li>
-						<li class="facebook"><a href="https://www.facebook.com/pages/AXRProject/120456481367465?sk=info" title="Friend us on Facebook" target="_blank">Facebook</a></li>
-						<li class="vimeo"><a href="https://vimeo.com/AXRProject/" title="Watch our videos on Vimeo" target="_blank">Vimeo</a></li>
+						<li class="twitter">
+							<a href="https://twitter.com/AXRProject/"
+								title="Follow us on Twitter"
+								target="_blank">Twitter</a>
+						</li>
+						<li class="facebook">
+							<a href="https://www.facebook.com/axrproject"
+								title="Friend us on Facebook"
+								target="_blank">Facebook</a>
+						</li>
+						<li class="vimeo">
+							<a href="https://vimeo.com/AXRProject/"
+							title="Watch our videos on Vimeo"
+							target="_blank">Vimeo</a>
+						</li>
 					 </ul>
 
 					 <ul class="last_tweet">

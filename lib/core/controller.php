@@ -78,6 +78,7 @@ class Controller
 		};
 
 		$this->view->_year = date('Y');
+		$this->view->_meta = new StdClass();
 
 		$this->view->_rsrc_root = Config::get('/shared/rsrc_url');
 		$this->view->_www_url = Config::get('/shared/www_url');
