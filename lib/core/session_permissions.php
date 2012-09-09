@@ -28,7 +28,7 @@ class SessionPermissions
 	 */
 	public function has ($name)
 	{
-		if ($user === null)
+		if ($this->user === null)
 		{
 			return false;
 		}
