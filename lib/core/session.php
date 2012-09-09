@@ -153,7 +153,7 @@ class Session
 
 		if (!($perms instanceof SessionPermissions))
 		{
-			$perms = new SessionPermissions(\WWW\Models\User::current());
+			$perms = new SessionPermissions(User::current());
 		}
 
 		return $perms;

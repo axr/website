@@ -6,16 +6,16 @@
 class SessionPermissions
 {
 	/**
-	 * @var \WWW\Models\User
+	 * @var User
 	 */
 	private $user;
 
 	/**
 	 * Constructor
 	 *
-	 * @param \WWW\Models\User $user
+	 * @param User $user
 	 */
-	public function __construct (\WWW\Models\User $user = null)
+	public function __construct (User $user = null)
 	{
 		$this->user = $user;
 	}

@@ -1,7 +1,5 @@
 <?php
 
-namespace WWW\Models;
-
 class User extends \ActiveRecord\Model
 {
 	static $table_name = 'www_users';
@@ -57,7 +55,7 @@ class User extends \ActiveRecord\Model
 	/**
 	 * Get currently logged in user
 	 *
-	 * @return \WWW\Models\User
+	 * @return User
 	 */
 	public static function current ()
 	{

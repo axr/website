@@ -139,7 +139,7 @@ class PageController extends WWWController
 
 		foreach (Page::$ctypes as $key => $ctype)
 		{
-			if (!\WWW\Models\User::current()->can('/page/edit/' . $key))
+			if (!User::current()->can('/page/edit/' . $key))
 			{
 				continue;
 			}

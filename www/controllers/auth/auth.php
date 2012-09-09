@@ -38,7 +38,7 @@ class AuthController extends WWWController
 		}
 		elseif ($mode === 'logout')
 		{
-			\WWW\Models\User::current()->set_logged(false);
+			User::current()->set_logged(false);
 
 			if (isset($_GET['continue']))
 			{
@@ -123,7 +123,7 @@ class AuthController extends WWWController
 
 		try
 		{
-			$oid = \WWW\Models\UserOID::find_by_pending($_GET['pt']);
+			$oid = UserOID::find_by_pending($_GET['pt']);
 		}
 		catch (\ActiveRecord\RecordNotFound $e)
 		{
@@ -147,9 +147,9 @@ class AuthController extends WWWController
 
 		if (isset($_POST['_via_post']))
 		{
-			if (!\WWW\Models\User::is_logged())
+			if (!User::is_logged())
 			{
-				$user = new \WWW\Models\User();
+				$user = new User();
 
 				$user->name = htmlentities(array_key_or($_POST, 'name', 'Somebody'));
 				$user->email = htmlentities($attrs['contact/email']);
@@ -157,7 +157,7 @@ class AuthController extends WWWController
 			}
 			else
 			{
-				$user = \WWW\Models\User::current();
+				$user = User::current();
 			}
 
 			$oid->user_id = $user->id;
@@ -205,7 +205,7 @@ class AuthController extends WWWController
 	{
 		try
 		{
-			$oid = \WWW\Models\UserOID::find_by_identity($identity);
+			$oid = UserOID::find_by_identity($identity);
 		}
 		catch(\ActiveRecord\RecordNotFound $e)
 		{
@@ -243,7 +243,7 @@ class AuthController extends WWWController
 				return;
 			}
 
-			$oid = new \WWW\Models\UserOID();
+			$oid = new UserOID();
 
 			$oid->identity = $identity;
 			$oid->pending = md5(uniqid($identify));

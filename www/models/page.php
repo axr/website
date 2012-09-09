@@ -11,6 +11,10 @@ class Page extends ActiveRecord\Model
 	static $after_update = array('decode_fields');
 	static $after_construct = array('decode_fields', 'virtual_fields');
 
+	static $belongs_to = array(
+		array('user')
+	);
+
 	static $validates_presence_of = array(
 		array('title')
 	);
@@ -241,7 +245,7 @@ class Page extends ActiveRecord\Model
 			return true;
 		}
 
-		return \WWW\Models\User::current()
+		return User::current()
 			->can('/page/view_unpub/' . $this->ctype);
 	}
 
@@ -252,7 +256,7 @@ class Page extends ActiveRecord\Model
 	 */
 	public function can_edit ()
 	{
-		return \WWW\Models\User::current()
+		return User::current()
 			->can('/page/edit/' . $this->ctype);
 	}
 
@@ -263,7 +267,7 @@ class Page extends ActiveRecord\Model
 	 */
 	public function can_rm ()
 	{
-		return \WWW\Models\User::current()
+		return User::current()
 			->can('/page/rm/' . $this->ctype);
 	}
 
@@ -283,7 +287,7 @@ Page::$ctypes = (object) array(
 	'bpost' => (object) array(
 		'name' => 'Blog post',
 		'description' => 'This is used for blog posts',
-		'view' => ROOT . '/views/page_page.html',
+		'view' => ROOT . '/views/page_bpost.html',
 		'comments' => true,
 		'fields' => array(
 			(object) array(
