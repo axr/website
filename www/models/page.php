@@ -11,10 +11,6 @@ class Page extends ActiveRecord\Model
 	static $after_update = array('decode_fields');
 	static $after_construct = array('decode_fields', 'virtual_fields');
 
-	static $belongs_to = array(
-		array('user')
-	);
-
 	static $validates_presence_of = array(
 		array('title')
 	);
@@ -38,6 +34,13 @@ class Page extends ActiveRecord\Model
 	 * @var string
 	 */
 	public $permalink;
+
+	/**
+	 * Creation time in `Y-m-d` format
+	 *
+	 * @var string
+	 */
+	public $ctime_str_Ymd;
 
 	/**
 	 * Validate data
@@ -142,6 +145,7 @@ class Page extends ActiveRecord\Model
 
 		$this->permalink = !empty($this->url) ? '/' . $this->url :
 			'/page/' . $this->id;
+		$this->ctime_str_Ymd = date('Y-m-d', $this->ctime);
 	}
 
 	/**

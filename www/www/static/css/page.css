@@ -1,3 +1,15 @@
+#page .page_item > h1
+{
+	margin: 15px 0 10px 0;
+}
+
+#page .page_item > .info
+{
+	font-size: 12px;
+	font-style: italic;
+	margin: 0 0 10px 0;
+}
+
 #page .page_item ul.page_links
 {
 	list-style: none;
