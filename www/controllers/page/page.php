@@ -68,7 +68,7 @@ class PageController extends WWWController
 			);
 		}
 
-		$this->view->page = clone $page;
+		$this->view->page = (object) $page->attributes();
 		$this->view->page->fields = $page->fields_merged;
 
 		if (isset($ctype->comments) && $ctype->comments === true)

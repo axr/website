@@ -11,6 +11,10 @@ class Page extends ActiveRecord\Model
 	static $after_update = array('decode_fields');
 	static $after_construct = array('decode_fields', 'virtual_fields');
 
+	static $belongs_to = array(
+		array('user', 'primary_key' => 'user_id', 'readonly' => true)
+	);
+
 	static $validates_presence_of = array(
 		array('title')
 	);
@@ -43,6 +47,21 @@ class Page extends ActiveRecord\Model
 	public $ctime_str_Ymd;
 
 	/**
+	 * Override attributes()
+	 *
+	 * @return mixed
+	 */
+	public function attributes ()
+	{
+		$attributes = parent::attributes();
+		$attributes['permalink'] = $this->permalink;
+		$attributes['ctime_str_Ymd'] = $this->ctime_str_Ymd;
+		$attributes['user'] = $this->user->attributes();
+
+		return $attributes;
+	}
+
+	/**
 	 * Validate data
 	 */
 	public function validate ()
@@ -70,6 +89,11 @@ class Page extends ActiveRecord\Model
 		if (empty($this->url))
 		{
 			$this->url = null;
+		}
+
+		if ($this->is_new_record())
+		{
+			$this->user_id = User::current()->id;
 		}
 	}
 
