@@ -20,7 +20,18 @@ class Cache
 	 */
 	public static function set ($path, $data, $options = array())
 	{
-		$item = new \Core\Models\Cache();
+		try
+		{
+			$item = \Core\Models\Cache::find($path);
+		}
+		catch (\ActiveRecord\RecordNotFound $e)
+		{
+		}
+
+		if (!isset($item) || !is_object($item))
+		{
+			$item = new \Core\Models\Cache();
+		}
 
 		$item->key = $path;
 		$item->data = serialize($data);
