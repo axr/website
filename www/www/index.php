@@ -42,7 +42,7 @@ if (Config::get('/www/debug'))
 }
 
 // Initialize the session
-Session::initialize($dbh);
+Session::initialize();
 
 // Initialize the cache
 Cache::initialize();

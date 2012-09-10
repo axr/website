@@ -1,6 +1,7 @@
 <?php
 
 require_once(SHARED . '/lib/core/session_permissions.php');
+require_once(SHARED . '/lib/core/models/session.php');
 
 class Session
 {
@@ -10,82 +11,50 @@ class Session
 	const EXPIRE = 86400;
 
 	/**
-	 * PDO instance
-	 *
-	 * @var PDO
-	 */
-	private static $dbh;
-
-	/**
 	 * Session ID
 	 *
-	 * @var string
+	 * @var \Core\Models\Session
 	 */
-	private static $sid = null;
-
-	/**
-	 * Is there a database entry for the session, or not?
-	 *
-	 * @var bool
-	 */
-	private static $isNew = true;
-
-	/**
-	 * Session data
-	 *
-	 * @var mixed
-	 */
-	private static $data = array();
+	private static $session = null;
 
 	/**
 	 * Initialize the session handler
-	 *
-	 * @param PDO
 	 */
-	public static function initialize (PDO $dbh)
+	public static function initialize ()
 	{
-		self::$dbh = $dbh;
-
 		if (isset($_COOKIE['axr_www_sid']))
 		{
 			$sid = $_COOKIE['axr_www_sid'];
 
-			$query = self::$dbh->prepare('SELECT `session`.*
-				FROM `www_sessions` AS `session`
-				WHERE `session`.`id` = :sid
-				LIMIT 1');
-			$query->bindValue(':sid', $sid, PDO::PARAM_STR);
-			$query->execute();
-
-			$session = $query->fetch(PDO::FETCH_OBJ);
-
-			if (is_object($session))
+			try
 			{
-				if ($session->expires > time())
+				self::$session = \Core\Models\Session::find($sid); 
+			}
+			catch (\ActiveRecord\RecordNotFound $e)
+			{
+			}
+			
+			if (is_object(self::$session))
+			{
+				if (self::$session->expires < time())
 				{
-					self::$isNew = false;
-					self::$sid = $session->id;
-					self::$data = unserialize($session->data);
-				}
-				else
-				{
-					$query = self::$dbh->prepare('DELETE
-						FROM `www_sessions`
-						WHERE `www_sessions`.`id` = :sid');
-					$query->bindValue(':sid', $sid, PDO::PARAM_STR);
-					$query->execute();
+					self::$session->delete();
+					self::$session = null;
 				}
 			}
 		}
 
-		if (self::$sid === null)
+		if (self::$session === null)
 		{
-			self::$sid = sha1(uniqid(time() . $_SERVER['REMOTE_ADDR']));
+			self::$session = new \Core\Models\Session();
+			self::$session->id = sha1(uniqid(time() . $_SERVER['REMOTE_ADDR']));
 
+			// TODO use the router
 			$domain = preg_replace('/^https?:\/\/([a-z0-9-_\.]+)/i', '$1',
 				Config::get('/shared/www_url'));
 
-			setcookie('axr_www_sid', self::$sid, 0, '/', $domain, false, true);
+			setcookie('axr_www_sid', self::$session->id, 0, '/',
+				$domain, false, true);
 		}
 	}
 
@@ -97,7 +66,7 @@ class Session
 	 */
 	public static function set ($path, $value)
 	{
-		self::$data[$path] = $value;
+		self::$session->data->{$path} = $value;
 	}
 
 	/**
@@ -109,9 +78,9 @@ class Session
 	 */
 	public static function get ($path)
 	{
-		if (isset(self::$data[$path]))
+		if (isset(self::$session->data->{$path}))
 		{
-			return self::$data[$path];
+			return self::$session->data->{$path};
 		}
 
 		return null;
@@ -122,24 +91,8 @@ class Session
 	 */
 	public static function save ()
 	{
-		if (self::$isNew)
-		{
-			$query = self::$dbh->prepare('INSERT INTO `www_sessions`
-				(`id`, `data`, `expires`)
-				VALUES (:sid, :data, :expires)');
-		}
-		else
-		{
-			$query = self::$dbh->prepare('UPDATE `www_sessions` AS `session`
-				SET `session`.`data` = :data,
-					`session`.`expires` = :expires
-				WHERE `session`.`id` = :sid');
-		}
-
-		$query->bindValue(':sid', self::$sid, PDO::PARAM_STR);
-		$query->bindValue(':data', serialize(self::$data), PDO::PARAM_STR);
-		$query->bindValue(':expires', time() + self::EXPIRE, PDO::PARAM_INT);
-		$query->execute();
+		self::$session->expires = time() + self::EXPIRE;
+		self::$session->save();
 	}
 
 	/**
