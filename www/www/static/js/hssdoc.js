@@ -9,7 +9,8 @@ window.App = window.App || {};
 	 */
 	var getObjectName = function ()
 	{
-		return window.location.pathname.match(/^\/doc\/([^\/]+)/)[1];
+		var match = window.location.pathname.match(/^\/doc\/([^\/]+)/);
+		return (match || [])[1];
 	};
 
 	/**
