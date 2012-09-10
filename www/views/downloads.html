@@ -16,6 +16,7 @@
 			<tbody>
 				{{#releases}}
 					<tr>
+						{{..date}}
 						<td class="version">{{version}}</td>
 						{{#oses}}
 							<td class="os">
@@ -23,7 +24,7 @@
 									<a class="dlink" href="#"><span class="icon {{os}}"></span>download</a>
 									<div class="dropdown">
 										{{#files}}
-											<a href="{{url}}" target="_blank">{{arch}}</a>
+											<a href="{{url}}" target="_blank">{{ext}} <span>{{arch}}</span></a>
 										{{/files}}
 									</div>
 								{{/has_files}}

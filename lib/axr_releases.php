@@ -49,16 +49,33 @@ class AXRReleases
 			{
 				$item = $data[$i];
 
-				preg_match('/^axr-([0-9.]+)-(\w+)-(\w+)/i', $item->name, $match);
+				preg_match('/^axr-([0-9.]+)-((\w+)-)?(\w+)\.([a-z0-9.]+)$/i', $item->name, $match);
 
-				if (!is_array($match) || count($match) !== 4)
+				if (!is_array($match) || count($match) !== 6)
 				{
 					continue;
 				}
 
 				$version = $match[1];
-				$os = $match[2];
-				$arch = $match[3];
+				$os = !empty($match[3]) ? $match[3] : null;
+				$arch = $match[4];
+				$ext = $match[5];
+
+				if ($os === null)
+				{
+					// Detect the OS by file extension
+					switch ($ext)
+					{
+						case 'rpm':
+						case 'deb': $os = 'linux'; break;
+						default: continue(2);
+					}
+				}
+
+				if ($os === 'android' || $os === 'ios')
+				{
+					continue;
+				}
 
 				if (!isset($out->{$version}))
 				{
@@ -76,6 +93,7 @@ class AXRReleases
 
 				$out->{$version}->{$os}[] = (object) array(
 					'arch' => $arch,
+					'ext' => $ext,
 					'url' => $item->html_url,
 					'size' => $item->size
 				);

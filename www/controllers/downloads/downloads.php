@@ -15,7 +15,7 @@ class DownloadsController extends WWWController
 			'name' => 'Downloads'
 		);
 
-		$this->view->releases = $this->filterReleasesForView($data);
+		$this->view->releases = $this->filter_releases_for_view($data);
 		$this->view->has_releases = count($this->view->releases) > 0;
 
 		echo $this->renderView(ROOT . '/views/downloads.html');
@@ -27,7 +27,7 @@ class DownloadsController extends WWWController
 	 * @param mixed $data
 	 * @return mixed
 	 */
-	private function filterReleasesForView ($data)
+	private function filter_releases_for_view ($data)
 	{
 		$out = array();
 
