@@ -34,8 +34,6 @@ class User extends \ActiveRecord\Model
 
 				array_pop($test);
 			}
-
-			return false;
 		}
 
 		return in_array($key, explode(',', $this->permissions));
