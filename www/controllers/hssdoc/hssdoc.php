@@ -223,7 +223,8 @@ class HssdocController extends WWWController
 		{
 			$property->set_attributes(array(
 				'name' => array_key_or($_POST, 'name', null),
-				'description' => array_key_or($_POST, 'description', null)
+				'description' => array_key_or($_POST, 'description', null),
+				'readonly' => array_key_or($_POST, 'readonly', 0)
 			));
 
 			if ($property->save() && $mode === 'add')
@@ -275,7 +276,7 @@ class HssdocController extends WWWController
 			);
 		}
 
-		$this->view->property = $property;
+		$this->view->property = $property->attributes();
 		$this->view->delete_url = '/doc/' . $property->object . '/' .
 			$property->name  . '/rm';
 		$this->view->edit_mode = $mode === 'edit';
