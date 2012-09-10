@@ -30,17 +30,6 @@ ActiveRecord\Config::initialize(function($cfg)
 	));
 });
 
-// Connect to the database
-$dbh = new PDO(Config::get('/www/db/dsn'),
-	Config::get('/www/db/user'),
-	Config::get('/www/db/pass'),
-	array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-
-if (Config::get('/www/debug'))
-{
-	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-
 // Initialize the session
 Session::initialize();
 
@@ -83,7 +72,6 @@ try
 	}
 
 	$controller = new $goto[0]();
-	$controller->dbh = $dbh;
 
 	function c ()
 	{
