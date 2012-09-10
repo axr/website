@@ -1,9 +1,18 @@
 <?php
 
+require_once(SHARED . '/lib/core/exceptions/url_readonly.php');
+
 class URL
 {
 	private static $parts = array('scheme', 'host', 'user', 'pass', 'path',
 		'query', 'fragment');
+
+	/**
+	 * Is readonly?
+	 *
+	 * @var bool
+	 */
+	private $readonly = false;
 
 	/**
 	 * URL scheme
@@ -59,9 +68,12 @@ class URL
 	 *
 	 * @param string $url
 	 */
-	public function __construct ($url)
+	public function __construct ($url = null)
 	{
-		$this->from_string($url);
+		if (is_string($url))
+		{
+			$this->from_string($url);
+		}
 	}
 
 	/**
@@ -99,6 +111,24 @@ class URL
 	public static function create ($url = null)
 	{
 		return new URL($url);
+	}
+
+	/**
+	 * Set the URL as readonly
+	 */
+	public function set_readonly ()
+	{
+		$this->readonly = true;
+	}
+
+	/**
+	 * Check, if the URL is readonly
+	 *
+	 * @return bool
+	 */
+	public function is_readonly ()
+	{
+		return $this->readonly;
 	}
 
 	/**
@@ -161,6 +191,11 @@ class URL
 			return $this->scheme;
 		}
 
+		if ($this->is_readonly())
+		{
+			throw new \Core\Exceptions\URLReadonly();
+		}
+
 		$this->scheme = $value;
 
 		return $this;
@@ -177,6 +212,11 @@ class URL
 		if ($value === null)
 		{
 			return $this->host;
+		}
+
+		if ($this->is_readonly())
+		{
+			throw new \Core\Exceptions\URLReadonly();
 		}
 
 		$this->host = $value;
@@ -197,6 +237,11 @@ class URL
 			return $this->user;
 		}
 
+		if ($this->is_readonly())
+		{
+			throw new \Core\Exceptions\URLReadonly();
+		}
+
 		$this->user = $value;
 
 		return $this;
@@ -213,6 +258,11 @@ class URL
 		if ($value === null)
 		{
 			return $this->pass;
+		}
+
+		if ($this->is_readonly())
+		{
+			throw new \Core\Exceptions\URLReadonly();
 		}
 
 		$this->pass = $value;
@@ -233,6 +283,11 @@ class URL
 			return $this->path;
 		}
 
+		if ($this->is_readonly())
+		{
+			throw new \Core\Exceptions\URLReadonly();
+		}
+
 		$this->path = $value;
 
 		return $this;
@@ -250,6 +305,11 @@ class URL
 		if ($key === null)
 		{
 			return $this->query;
+		}
+
+		if ($this->is_readonly())
+		{
+			throw new \Core\Exceptions\URLReadonly();
 		}
 
 		if (is_string($value) || is_array($value))
@@ -281,6 +341,11 @@ class URL
 		if ($value === null)
 		{
 			return $this->fragment;
+		}
+
+		if ($this->is_readonly())
+		{
+			throw new \Core\Exceptions\URLReadonly();
 		}
 
 		$this->fragment = $value;
