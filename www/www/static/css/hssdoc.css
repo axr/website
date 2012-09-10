@@ -38,6 +38,19 @@
 	text-decoration: none;
 }
 
+#hssdoc_sidebar > ul > li > span.object a.new_property
+{
+	color: #aaa;
+	display: none;
+	float: right;
+	font-size: 11px;
+}
+
+#hssdoc_sidebar > ul > li:hover > span.object a.new_property
+{
+	display: inline-block;
+}
+
 #hssdoc_sidebar > ul > li > span.object a.open:hover,
 #hssdoc_sidebar > ul > li > span.object a.obj:hover
 {

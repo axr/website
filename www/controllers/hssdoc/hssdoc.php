@@ -377,6 +377,7 @@ class HssdocController extends WWWController
 		$view = new StdClass();
 		$view->objects = $objects;
 		$view->has_objects = count($objects) > 0;
+		$view->can_edit = User::current()->can('/hssdoc/edit');
 
 		$mustache = new Mustache();
 		$template = file_get_contents(ROOT . '/views/hssdoc_sidebar.html');

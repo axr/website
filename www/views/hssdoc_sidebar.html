@@ -6,6 +6,10 @@
 					<span class="object">
 						<a href="#" class="open">[+]</a>
 						<a href="{{permalink}}" class="obj">{{name}}</a>
+						{{#can_edit}}
+							<a href="/doc/add_property/{{name}}"
+								class="new_property">new property</a>
+						{{/can_edit}}
 					</span>
 					<ul class="prop_list">
 						{{#properties}}
