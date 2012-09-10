@@ -27,7 +27,7 @@ Rainbow.extend('xml', [
     },
     {
         'matches': {
-            2: 'string',
+            2: 'string'
         },
         'pattern': /=('.*?'|".*?")/g
     },
@@ -38,3 +38,4 @@ Rainbow.extend('xml', [
         'pattern': /\s(\w+)(?=\s|&gt;)(?![\s\S]*&lt;)/g
     }
 ], true);
+
