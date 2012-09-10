@@ -18,22 +18,26 @@ class User extends \ActiveRecord\Model
 	{
 		if ($recursive === true)
 		{
-			if ($this->can('*', false) === true)
-			{
-				return true;
-			}
-
 			$test = explode('/', $key);
 
-			while (count($test) > 1)
+			while (count($test) > 0)
 			{
-				if ($this->can(implode('/', $test) . '/*', false) === true)
+				$name = implode('/', $test);
+
+				if ($name !== $key)
+				{
+					$name .= '/*';
+				}
+
+				if ($this->can($name, false) === true)
 				{
 					return true;
 				}
 
 				array_pop($test);
 			}
+
+			return false;
 		}
 
 		return in_array($key, explode(',', $this->permissions));
