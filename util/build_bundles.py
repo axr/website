@@ -10,6 +10,26 @@ from deps import cssmin
 
 PATH_STATIC = '../www/www/static'
 
+def validate_js (data):
+    params = urllib.parse.urlencode([
+        ('js_code', data),
+        ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
+        ('output_format', 'text'),
+        ('output_info', 'errors'),
+    ])
+
+    headers = {
+        'Content-type': 'application/x-www-form-urlencoded'
+    }
+
+    connection = http.client.HTTPConnection('closure-compiler.appspot.com')
+    connection.request('POST', '/compile', params, headers)
+
+    response = str(connection.getresponse().read(), 'utf-8')
+    connection.close()
+
+    return response
+
 def process_js (data):
     '''
     Minify JavaScript code using Google Closure compiler
@@ -84,6 +104,12 @@ for bundleName in bundles:
 
     # Process the resulting bunble file
     if bundle['type'] == 'js':
+        errors = validate_js(bundleData)
+
+        if errors != "":
+            print(errors)
+            continue
+
         bundleData = process_js(bundleData)
     elif bundle['type'] == 'css':
         bundleData = process_css(bundleData)
