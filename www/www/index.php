@@ -30,9 +30,6 @@ ActiveRecord\Config::initialize(function($cfg)
 	));
 });
 
-// Initialize the session
-Session::initialize();
-
 // Initialize the cache
 Cache::initialize();
 
@@ -42,6 +39,9 @@ $router = new Router(Config::get('/shared/www_url') . $path);
 
 // Register routes
 require_once(ROOT . '/routes.php');
+
+// Initialize the session
+Session::initialize();
 
 $goto = $router->find();
 $_GET = $router->url->query;

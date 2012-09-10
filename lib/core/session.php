@@ -49,12 +49,8 @@ class Session
 			self::$session = new \Core\Models\Session();
 			self::$session->id = sha1(uniqid(time() . $_SERVER['REMOTE_ADDR']));
 
-			// TODO use the router
-			$domain = preg_replace('/^https?:\/\/([a-z0-9-_\.]+)/i', '$1',
-				Config::get('/shared/www_url'));
-
 			setcookie('axr_www_sid', self::$session->id, 0, '/',
-				$domain, false, true);
+				Router::get_instance()->url->host, false, true);
 		}
 	}
 
