@@ -1,7 +1,14 @@
 <?php
 
+require_once(SHARED . '/lib/core/url.php');
+
 class Router
 {
+	/**
+	 * @var Router
+	 */
+	protected static $instance = null;
+
 	/**
 	 * Registered routes are stored here
 	 *
@@ -10,9 +17,9 @@ class Router
 	protected $routes = array();
 
 	/**
-	 * Current URL in parsed form
+	 * Current URL
 	 *
-	 * @var StdClass
+	 * @var URL
 	 */
 	public $url = null;
 
@@ -21,7 +28,13 @@ class Router
 	 */
 	public function __construct ($url)
 	{
-		$this->url = self::parseUrl($url);
+		$this->url = new URL($url);
+		$this->url->set_readonly();
+
+		if (self::$instance === null)
+		{
+			self::$instance = $this;
+		}
 	}
 
 	/**
@@ -32,6 +45,14 @@ class Router
 	 */
 	public function __set ($variable, $value)
 	{
+	}
+
+	/**
+	 * Get instance
+	 */
+	public static function get_instance ()
+	{
+		return self::$instance;
 	}
 
 	/**

@@ -37,8 +37,8 @@ Session::initialize();
 Cache::initialize();
 
 // Create new router
-$router = new Router(isset($_SERVER['REQUEST_URI']) ?
-	$_SERVER['REQUEST_URI'] : '/');
+$path = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
+$router = new Router(Config::get('/shared/www_url') . $path);
 
 // Register routes
 require_once(ROOT . '/routes.php');
