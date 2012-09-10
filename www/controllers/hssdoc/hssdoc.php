@@ -141,11 +141,16 @@ class HssdocController extends WWWController
 
 		}
 
+		$this->breadcrumb[] = array(
+			'name' => 'HSS documentation',
+			'link' => '/doc'
+		);
+
 		if ($mode === 'add')
 		{
-			$this->view->_title = 'Create a new object';
+			$this->view->_title = 'New object';
 			$this->breadcrumb[] = array(
-				'name' => 'Create a new object'
+				'name' => 'New object'
 			);
 		}
 		else
@@ -235,11 +240,21 @@ class HssdocController extends WWWController
 
 		}
 
+		$this->breadcrumb[] = array(
+			'name' => 'HSS documentation',
+			'link' => '/doc'
+		);
+
+		$this->breadcrumb[] = array(
+			'name' => $property->object,
+			'link' => '/doc/' . $property->object
+		);
+
 		if ($mode === 'add')
 		{
-			$this->view->_title = 'Create a new property';
+			$this->view->_title = 'New property';
 			$this->breadcrumb[] = array(
-				'name' => 'Create a new property'
+				'name' => 'New property'
 			);
 		}
 		else
