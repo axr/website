@@ -229,7 +229,7 @@ class HssdocController extends WWWController
 
 			if ($property->save() && $mode === 'add')
 			{
-				$this->redirect('/doc/edit_property/' . $property->id);
+				$this->redirect($property->permalink);
 				return;
 			}
 
