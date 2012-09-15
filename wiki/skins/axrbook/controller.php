@@ -33,15 +33,15 @@ class AxrBookController extends Controller
 		$this->rsrc->loadBundle('js/bundle_rainbow.js');
 
 		// Resources
-		$this->view->_rsrc_styles = $out->buildCssLinks($this->mwt->skin) .
+		$this->view->{'g/rsrc/styles'} = $out->buildCssLinks($this->mwt->skin) .
 			$this->rsrc->getStylesHTML();
-		$this->view->_rsrc_scripts = $this->rsrc->getScriptsHTML();
+		$this->view->{'g/rsrc/scripts'} = $this->rsrc->getScriptsHTML();
 
 		// Additional MW HTML
-		$this->view->_html_head = $out->getHeadLinks($this->mwt->skin, true) .
+		$this->view->{'g/html_head'} = $out->getHeadLinks($this->mwt->skin, true) .
 			$out->getHeadScripts($this->mwt->skin);
 			$out->getHeadItems();
-		$this->view->_html_bottom = $this->getMWTrail();
+		$this->view->{'g/html_bottom'} = $this->getMWTrail();
 
 		// Local URL prefix
 		$wwwroot = Config::get('/shared/wiki_url');
@@ -49,17 +49,17 @@ class AxrBookController extends Controller
 		// Variables for the user menu
 		if (!is_object($this->wgUser) || $this->wgUser->getID() == 0)
 		{
-			$this->view->_user = false;
-			$this->view->_url_login = $wwroot . '/Special:OpenIDLogin';
-			$this->view->_label_login = 'Login to wiki';
+			$this->view->{'g/user'} = false;
+			$this->view->{'g/url_login'} = $wwroot . '/Special:OpenIDLogin';
+			$this->view->{'g/url_login/label'} = 'Login to wiki';
 		}
 		else
 		{
-			$this->view->_user = new StdClass();
+			$this->view->{'g/user'} = new StdClass();
 
-			$this->view->_url_profile = $wwwroot . '/User:' . $this->wgUser->getName();
-			$this->view->_url_account = $wwwroot . '/Special:Preferences';
-			$this->view->_url_logout = $wwwroot . '/Special:UserLogout';
+			$this->view->{'g/url_profile'} = $wwwroot . '/User:' . $this->wgUser->getName();
+			$this->view->{'g/url_account'} = $wwwroot . '/Special:Preferences';
+			$this->view->{'g/url_logout'} = $wwwroot . '/Special:UserLogout';
 		}
 	}
 

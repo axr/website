@@ -16,17 +16,17 @@ class WWWController extends Controller
 	
 		if (Session::get('/user/is_auth'))
 		{
-			$this->view->_user = array(
+			$this->view->{'g/user'} = array(
 				'id' => Session::get('/user/id')
 			);
 
-			$this->view->_url_profile =
-			$this->view->_url_account = '/account';
-			$this->view->_url_logout = '/auth/logout?continue=' .
+			$this->view->{'g/url_profile'} =
+			$this->view->{'g/url_account'} = '/account';
+			$this->view->{'g/url_login'} = '/auth/logout?continue=' .
 				rawurlencode(Router::getUrl()->path);
 		}
 
-		$this->view->_hide_login = true;
+		$this->view->{'g/hide_login'} = true;
 	}
 }
 

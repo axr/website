@@ -1,4 +1,4 @@
-{{{_breadcrumb_html}}}
+{{{g/breadcrumb/html}}}
 
 <div id="admin" class="cache">
 	<h1>Manage cache</h1>
@@ -7,12 +7,12 @@
 		<div class="message_std success">{{message}}</div>
 	{{/message}}
 
-	<form action="{{_www_url}}/admin/cache" method="post" class="clear_all">
+	<form action="{{g/www_url}}/admin/cache" method="post" class="clear_all">
 		<input type="hidden" name="_via_post" value="1" />
 		<input type="hidden" name="mode" value="clear_all" />
 	</form>
 
-	<form action="{{_www_url}}/admin/cache" method="post" class="clear_expired">
+	<form action="{{g/www_url}}/admin/cache" method="post" class="clear_expired">
 		<input type="hidden" name="_via_post" value="1" />
 		<input type="hidden" name="mode" value="clear_expired" />
 	</form>
