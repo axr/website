@@ -7,6 +7,14 @@ require_once(ROOT . '/models/hssdoc_value.php');
 
 class HssdocController extends WWWController
 {
+	public function initialize ()
+	{
+		if (!User::current()->can('/hssdoc'))
+		{
+			throw new HTTPException(null, 404);
+		}
+	}
+
 	/**
 	 * Display /doc
 	 */
