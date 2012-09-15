@@ -1,6 +1,5 @@
 <?php
 
-require_once(SHARED . '/lib/core/session_permissions.php');
 require_once(SHARED . '/lib/core/models/session.php');
 
 class Session
@@ -89,23 +88,6 @@ class Session
 	{
 		self::$session->expires = time() + self::EXPIRE;
 		self::$session->save();
-	}
-
-	/**
-	 * Get the permissions object
-	 *
-	 * @deprecated
-	 */
-	public static function perms ()
-	{
-		static $perms;
-
-		if (!($perms instanceof SessionPermissions))
-		{
-			$perms = new SessionPermissions(User::current());
-		}
-
-		return $perms;
 	}
 }
 

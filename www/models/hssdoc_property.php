@@ -73,9 +73,7 @@ class HssdocProperty extends \ActiveRecord\Model
 	 */
 	public function can_edit ()
 	{
-		if (Session::perms()->has('*') ||
-			Session::perms()->has('/hssdoc/*') ||
-			Session::perms()->has('/hssdoc/edit'))
+		if (User::current()->can('/hssdoc/edit'))
 		{
 			return true;
 		}
@@ -90,9 +88,7 @@ class HssdocProperty extends \ActiveRecord\Model
 	 */
 	public function can_rm ()
 	{
-		if (Session::perms()->has('*') ||
-			Session::perms()->has('/hssdoc/*') ||
-			Session::perms()->has('/hssdoc/rm'))
+		if (User::current()->can('/hssdoc/rm'))
 		{
 			return true;
 		}

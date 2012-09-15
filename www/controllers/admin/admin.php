@@ -6,7 +6,7 @@ class AdminController extends WWWController
 {
 	public function runCache ()
 	{
-		if (!Session::perms()->has('/cache/manage'))
+		if (!User::current()->can('/cache/manage'))
 		{
 			throw new HTTPException(null, 403);
 		}

@@ -23,9 +23,7 @@ class HssdocController extends WWWController
 		$this->view->_title = 'HSS documentation';
 		$this->view->sidebar = $this->render_sidebar();
 
-		if (Session::perms()->has('*') ||
-			Session::perms()->has('/hssdoc/*') ||
-			Session::perms()->has('/hssdoc/edit'))
+		if (User::current()->can('/hssdoc/edit'))
 		{
 			$this->tabs[] = array(
 				'name' => 'New object',
