@@ -50,7 +50,7 @@ class PageController extends WWWController
 		$ctype = Page::$ctypes->{$page->ctype};
 
 		$this->view->_title = $page->title;
-		$this->view->_meta->canonical = $page->permalink;
+		$this->view->{'g/meta'}->canonical = $page->permalink;
 		$this->breadcrumb = $page->breadcrumb();
 
 		$this->tabs[] = array(
