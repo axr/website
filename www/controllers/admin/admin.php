@@ -1,6 +1,7 @@
 <?php
 
 require_once(ROOT . '/lib/www_controller.php');
+require_once(SHARED . '/lib/core/models/cache.php');
 
 class AdminController extends WWWController
 {
@@ -17,17 +18,17 @@ class AdminController extends WWWController
 
 			if ($mode === 'clear_all')
 			{
-				$query = $this->dbh->prepare('DELETE FROM `www_cache`');
-				$query->execute();
+				\Core\Models\Cache::delete_all(array(
+					'conditions' => array('1 = 1')
+				));
 
 				$this->view->message = 'The cache has been cleared';
 			}
 			else if ($mode === 'clear_expired')
 			{
-				$query = $this->dbh->prepare('DELETE FROM `www_cache`
-					WHERE `www_cache`.`expires` < :now');
-				$query->bindValue(':now', time(), PDO::PARAM_STR);
-				$query->execute();
+				\Core\Models\Cache::delete_all(array(
+					'conditions' => array('expires < ?', time())
+				));
 
 				$this->view->message = 'Expired items have been cleared';
 			}
