@@ -69,7 +69,7 @@ class PageController extends WWWController
 		}
 
 		$this->view->page = (object) $page->attributes();
-		$this->view->page->fields = $page->fields_merged;
+		$this->view->page->fields = $page->fields__merged;
 
 		if (isset($ctype->comments) && $ctype->comments === true)
 		{

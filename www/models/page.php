@@ -9,7 +9,7 @@ class Page extends ActiveRecord\Model
 	static $before_save = array('parse_fields', 'encode_fields',
 		'before_save');
 	static $after_update = array('decode_fields');
-	static $after_construct = array('decode_fields', 'virtual_fields');
+	static $after_construct = array('decode_fields');
 
 	static $belongs_to = array(
 		array('user', 'primary_key' => 'user_id', 'readonly' => true)
@@ -22,25 +22,51 @@ class Page extends ActiveRecord\Model
 	static $ctypes;
 
 	/**
-	 * Merged fields
-	 *
-	 * @var StdClass
+	 * __isset
 	 */
-	public $fields_merged;
+	public function __isset ($attribute_name)
+	{
+		$virtual_attributes = array('fields__merged', 'permalink',
+			'ctime_str_Ymd');
+
+		if (in_array($attribute_name, $virtual_attributes))
+		{
+			return true;
+		}
+
+		return parent::__isset($attribute_name);
+	}
 
 	/**
-	 * Permalink to the page
+	 * Getter for attribute fields__merged
 	 *
-	 * @var string
+	 * @return mixed
 	 */
-	public $permalink;
+	public function get_fields__merged ()
+	{
+		return (object) array_merge((array) $this->fields,
+			(array) $this->fields_parsed);
+	}
 
 	/**
-	 * Creation time in `Y-m-d` format
+	 * Getter for attribute permalink
 	 *
-	 * @var string
+	 * @return string
 	 */
-	public $ctime_str_Ymd;
+	public function get_permalink ()
+	{
+		return !empty($this->url) ? '/' . $this->url : '/page/' . $this->id;
+	}
+
+	/**
+	 * Getter for attribute ctime_str_Ymd
+	 *
+	 * @return string
+	 */
+	public function get_ctime_str_Ymd ()
+	{
+		return date('Y-m-d', $this->ctime);
+	}
 
 	/**
 	 * Override attributes()
@@ -164,20 +190,6 @@ class Page extends ActiveRecord\Model
 			}
 		}
 
-	}
-
-	/**
-	 * Create virtual fields, like permalink
-	 */
-	public function virtual_fields ()
-	{
-		$this->fields_merged = (object) array_merge(
-			(array) $this->fields,
-			(array) $this->fields_parsed);
-
-		$this->permalink = !empty($this->url) ? '/' . $this->url :
-			'/page/' . $this->id;
-		$this->ctime_str_Ymd = date('Y-m-d', $this->ctime);
 	}
 
 	/**

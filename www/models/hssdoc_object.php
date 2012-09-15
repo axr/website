@@ -6,8 +6,6 @@ class HssdocObject extends \ActiveRecord\Model
 {
 	static $table_name = 'www_hssdoc_objects';
 
-	static $after_construct = array('virtual_fields');
-
 	static $validates_presence_of = array(
 		array('name')
 	);
@@ -18,13 +16,6 @@ class HssdocObject extends \ActiveRecord\Model
 			'primary_key' => 'name',
 			'foreign_key' => 'object')
 	);
-
-	/**
-	 * Permalink to the property
-	 *
-	 * @var string
-	 */
-	public $permalink;
 
 	/**
 	 * __isset
@@ -53,11 +44,13 @@ class HssdocObject extends \ActiveRecord\Model
 	}
 
 	/**
-	 * Create virtual fields, like permalink
+	 * Getter for attribute permalink
+	 *
+	 * @return string
 	 */
-	public function virtual_fields ()
+	public function get_permalink ()
 	{
-		$this->permalink = '/doc/' . $this->name;
+		return '/doc/' . $this->name;
 	}
 
 	/**

@@ -7,18 +7,10 @@ class HssdocProperty extends \ActiveRecord\Model
 	static $table_name = 'www_hssdoc_properties';
 
 	static $before_destroy = array('before_destroy');
-	static $after_construct = array('virtual_fields');
 
 	static $validates_presence_of = array(
 		array('name')
 	);
-
-	/**
-	 * Permalink to the property
-	 *
-	 * @var string
-	 */
-	public $permalink;
 
 	/**
 	 * HTML code for the values table
@@ -35,7 +27,9 @@ class HssdocProperty extends \ActiveRecord\Model
 	 */
 	public function __isset ($attribute_name)
 	{
-		if ($attribute_name === 'description__parsed')
+		$virtual_fields = array('description__parsed', 'permalink');
+
+		if (in_array($attribute_name, $virtual_fields))
 		{
 			return true;
 		}
@@ -54,20 +48,22 @@ class HssdocProperty extends \ActiveRecord\Model
 	}
 
 	/**
+	 * Getter for attribute permalink
+	 *
+	 * @return string
+	 */
+	public function get_permalink ()
+	{
+		return '/doc/' . $this->object . '#' . $this->name;
+	}
+
+	/**
 	 * Call before destroying the property
 	 *
 	 * @todo remove values
 	 */
 	public function before_destroy ()
 	{
-	}
-
-	/**
-	 * Create virtual fields, like permalink
-	 */
-	public function virtual_fields ()
-	{
-		$this->permalink = '/doc/' . $this->object . '#' . $this->name;
 	}
 
 	/**
