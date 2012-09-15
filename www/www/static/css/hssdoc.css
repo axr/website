@@ -169,6 +169,11 @@
 	color: #fff;
 }
 
+#hssdoc_add textarea
+{
+	font-family: Monaco, monospace;
+}
+
 #hssdoc_add table
 {
 	width: 100%;
