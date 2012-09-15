@@ -2,6 +2,8 @@
 
 require_once(SHARED . '/lib/core/rsrc.php');
 require_once(SHARED . '/lib/core/minify.php');
+require_once(SHARED . '/lib/core/router.php');
+require_once(SHARED . '/lib/core/url.php');
 require_once(SHARED . '/lib/mustache.php/Mustache.php');
 
 class Controller
@@ -172,6 +174,14 @@ class Controller
 		{
 			header('HTTP/1.1 301 Moved Permanently');
 		}
+
+		$router = Router::get_instance();
+
+		$location = URL::create()
+			->scheme($router->url->scheme)
+			->host($router->url->host)
+			->from_string($location)
+			->to_string();
 
 		header('Location: ' . $location);
 	}
