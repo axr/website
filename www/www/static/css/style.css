@@ -95,16 +95,38 @@ form.uiForm .uiFormField a:hover
 
 .message_std
 {
-	border: 1px solid #bbb;
+	border: 2px solid #bbb;
 	color: #222;
-	margin: 5px 0;
+	margin: 6px 0;
 	padding: 5px;
+}
+
+.message_std.info
+{
+	background-color: #d5edf8;
+	border-color: #92cae4;
+	color: #205791;
+}
+
+.message_std.success
+{
+	background-color: #e6efc2;
+	border-color: #c6d880;
+	color: #264409;
+}
+
+.message_std.notice
+{
+	background-color: #fff6bf;
+	border-color: #ffd324;
+	color: #514721;
 }
 
 .message_std.error
 {
-	border: 1px solid #8C2E0B;
-	color: #8C2E0B;
+	background-color: #fbe3e4;
+	border-color: #fbc2c4;
+	color: #8a1f11;
 }
 
 /**
