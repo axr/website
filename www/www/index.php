@@ -82,6 +82,13 @@ try
 	call_user_func(array($controller, 'initialize'));
 	call_user_func_array(array($controller, $goto[1]), $goto[2]);
 }
+catch (HTTPAjaxException $e)
+{
+	echo json_encode(array(
+		'status' => $e->getCode(),
+		'error' => $e->getMessage()
+	));
+}
 catch (HTTPException $e)
 {
 	if ($e->getCode() === 404)
