@@ -98,6 +98,24 @@ $router->route('/^\/doc\/([^\/]+)\/([^\/]+)\/rm\/?$/i', array(
 	'args' => array(1, 2)
 ));
 
+$router->route('/^\/doc\/property_values\.json$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_property_values_GET',
+	'method' => 'GET'
+));
+
+$router->route('/^\/doc\/property_values\.json$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_property_values_POST',
+	'method' => 'POST'
+));
+
+$router->route('/^\/doc\/property_values\.json$/i', array(
+	'controller' => 'HssdocController',
+	'run' => 'run_property_values_DELETE',
+	'method' => 'DELETE'
+));
+
 $router->route('/^\/doc\/([^\/#]+)\/?$/i', array(
 	'controller' => 'HssdocController',
 	'run' => 'run_object',

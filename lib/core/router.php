@@ -24,12 +24,24 @@ class Router
 	public $url = null;
 
 	/**
+	 * Request method
+	 *
+	 * @var string
+	 */
+	public $request_method = 'GET';
+
+	/**
 	 * Initialize the router. Parse the request URL.
 	 */
 	public function __construct ($url)
 	{
 		$this->url = new URL($url);
 		$this->url->set_readonly();
+
+		if (isset($_SERVER['REQUEST_METHOD']))
+		{
+			$this->request_method = $_SERVER['REQUEST_METHOD'];
+		}
 
 		if (self::$instance === null)
 		{
@@ -75,7 +87,8 @@ class Router
 			return false;
 		}
 
-		$this->routes[$regex] = $args;
+		$args['regex'] = $regex;
+		$this->routes[] = $args;
 
 		return true;
 	}
@@ -88,9 +101,17 @@ class Router
 	 */
 	public function find ()
 	{
-		foreach ($this->routes as $regex => $args)
+		foreach ($this->routes as $i => $args)
 		{
+			$regex = $args['regex'];
+
 			if (!(bool) preg_match($regex, $this->url->path, $match))
+			{
+				continue;
+			}
+
+			if (isset($args['method']) &&
+				$args['method'] != $this->request_method)
 			{
 				continue;
 			}

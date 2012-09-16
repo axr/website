@@ -53,6 +53,203 @@ window.App = window.App || {};
 		});
 	};
 
+	var edit = {
+		/**
+		 * Get current property id
+		 *
+		 * @return int
+		 */
+		get_property_id: function ()
+		{
+			return (window.location.pathname.match(/^\/doc\/edit_property\/(\d+)/) || [])[1] || null;
+		},
+
+		/**
+		 * Load hssdoc values table data
+		 *
+		 * @param int property_id
+		 * @function callback(object data, mixed error)
+		 */
+		get_values: function (property_id, callback)
+		{
+			var cache_key = '/hssdoc/property_values/' + property_id;
+
+			if (typeof callback !== 'function')
+			{
+				callback = function () {};
+			}
+
+			if (App.cache.get(cache_key))
+			{
+				callback(App.cache.get(cache_key));
+
+				return;
+			}
+
+			$.ajax({
+				url: '/doc/property_values.json',
+				data: {
+					property: property_id
+				},
+				dataType: 'json',
+				success: function (data)
+				{
+					if (data.status !== 0)
+					{
+						callback(null, data.error);
+						return;
+					}
+
+					App.cache.set(cache_key, data.payload);
+					callback(data.payload, null);
+				},
+				error: function (jqxhr, text_status, error)
+				{
+					callback(null, error);
+				}
+			});
+		},
+
+		/**
+		 * Save hssdoc value
+		 *
+		 * @param object $element
+		 * @param function callback(mixed error)
+		 */
+		save_from_element: function ($element, callback)
+		{
+			if (typeof callback !== 'function')
+			{
+				callback = function () {};
+			}
+
+			var data = {
+				value: $element.find('input[name=value]').val(),
+				version: $element.find('input[name=version]').val(),
+				'default': $element.find('input[name=default]').is('checked') ? 1 : 0
+			};
+
+			if ($element.attr('data-new') === '1')
+			{
+				data.property_id = edit.get_property_id();
+
+				if (data.value.length === 0 ||
+					data.version.length === 0)
+				{
+					callback(new App.Error('TooEarlyToSave'));
+
+					return;
+				}
+			}
+			else
+			{
+				data.id = $element.attr('data-id');
+			}
+
+			$.ajax({
+				url: '/doc/property_values.json',
+				type: 'POST',
+				data: data,
+				dataType: 'json',
+				success: function (data)
+				{
+					if (data.status !== 0)
+					{
+						if (data.error === 'ValidationFailed')
+						{
+							callback(new App.Error('ValidationFailed', {
+								validation_errors: data.validation_errors
+							}));
+
+							return;
+						}
+
+						callback(new App.Error('ResponseError', {
+							response_status: data.status,
+							response_error: data.error
+						}));
+
+						return;
+					}
+
+					callback(null);
+				}
+			});
+		},
+
+		/**
+		 * Delete an entry
+		 *
+		 * @param {integer} id
+		 * @param {function} callback
+		 */
+		delete_item: function (id, callback)
+		{
+			$.ajax({
+				url: '/doc/property_values.json',
+				type: 'DELETE',
+				data: {
+					id: id
+				},
+				dataType: 'json',
+				success: function (data)
+				{
+					if (data.status != 0)
+					{
+						callback(new App.Error('RequestError', {
+							request_status: data.status,
+							request_error: data.error
+						}));
+
+						return;
+					}
+				},
+				error: function (jqxhr, text_status, error)
+				{
+					callback(new App.Error('RequestError', {
+						request_error: text_status,
+						error_thrown: error
+					}));
+				}
+			});
+		},
+
+		/**
+		 * Render a new row
+		 *
+		 * @param {object} data
+		 * @param {function} callback
+		 */
+		render_new_row: function (data, callback)
+		{
+			App.data.template('hssdoc_edit_values_row', function (template, error)
+			{
+				if (error)
+				{
+					callback(error);
+					return;
+				}
+
+				if (typeof data !== 'object')
+				{
+					data = {'new?': true};
+				}
+				else
+				{
+					data['default?'] = parseInt(data['default']) === 1;
+				}
+
+				$('#hssdoc_add .values_table > tbody')
+					.append(Mustache.render(template, data));
+
+				if (typeof callback === 'function')
+				{
+					callback();
+				}
+			});
+		}
+	};
+
 	App.pageEvent.on('load', '/doc', function ()
 	{
 		// Scroll to the property that's in the hash
@@ -99,6 +296,91 @@ window.App = window.App || {};
 		$('#hssdoc_sidebar .actions a.collapse').on('click', function (e)
 		{
 			expandAll(true);
+		});
+	});
+
+	App.pageEvent.on('load_init', '/doc/edit_property', function ()
+	{
+		// Auto-save when a values field is edited
+		$('#hssdoc_add .values_table > tbody').on('change', 'tr input', function (e)
+		{
+			var $element = $(this).closest('tr');
+			$element.addClass('unsaved');
+
+			edit.save_from_element($element, function (error)
+			{
+				if (error instanceof App.Error)
+				{
+					switch (error.name)
+					{
+						case 'TooEarlyToSave': return;
+						case 'ValidationFailed':
+							alert(error.validation_errors.join("\n"));
+							break;
+						default: alert(error);
+					}
+
+					return;
+				}
+
+				$element.removeClass('unsaved');
+			});
+		});
+
+		// Delete link
+		$('#hssdoc_add .values_table').on('click', 'a._delete', function (e)
+		{
+			e.preventDefault();
+
+			if (!confirm('Are you sure?'))
+			{
+				return;
+			}
+
+			var $element = $(this).closest('tr');
+			$element.hide(700);
+
+			edit.delete_item($element.attr('data-id'), function (error)
+			{
+				if (error instanceof App.Error)
+				{
+					$element.show();
+					error.show();
+
+					return;
+				}
+
+				$element.remove();
+			});
+		});
+
+		// New link
+		$('#hssdoc_add .table_actions a._new_value').on('click', function (e)
+		{
+			e.preventDefault();
+			edit.render_new_row();
+		});
+	});
+
+	App.pageEvent.on('load', '/doc/edit_property', function ()
+	{
+		if (edit.get_property_id() === null)
+		{
+			return;
+		}
+
+		edit.get_values(edit.get_property_id(), function (data, error)
+		{
+			// We request the template here, so the order if values
+			// does not get messed up
+			App.data.template('hssdoc_edit_values_row', function ()
+			{
+
+				for (var i = 0, c = data.length; i < c; i++)
+				{
+					edit.render_new_row(data[i]);
+				}
+			});
 		});
 	});
 })(window.App);

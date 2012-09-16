@@ -64,8 +64,21 @@ window['App'] = window['App'] || {};
 	{
 		this.name = name;
 
+		/**
+		 * Show the error to the user
+		 */
+		this.show = function ()
+		{
+			alert('Error: ' + name + ': ' + JSON.stringify(data));
+		};
+
 		for (var key in data)
 		{
+			if (key === 'show')
+			{
+				continue;
+			}
+
 			this[key] = data[key];
 		}
 	};

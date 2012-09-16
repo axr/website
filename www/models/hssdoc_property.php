@@ -1,5 +1,6 @@
 <?php
 
+require_once(ROOT . '/models/hssdoc_value.php');
 require_once(SHARED . '/lib/php-markdown/markdown.php');
 
 class HssdocProperty extends \ActiveRecord\Model
@@ -7,6 +8,12 @@ class HssdocProperty extends \ActiveRecord\Model
 	static $table_name = 'www_hssdoc_properties';
 
 	static $before_destroy = array('before_destroy');
+
+	static $has_many = array(
+		array('values',
+			'class_name' => 'HssdocValue',
+			'foreign_key' => 'property_id')
+	);
 
 	static $validates_presence_of = array(
 		array('name')

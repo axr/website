@@ -41,5 +41,34 @@
 			{{/edit_mode}}
 		</div>
 	</form>
+
+	<h2>Values</h2>
+
+	<table class="uiTable values_table">
+		<thead>
+			<tr>
+				<th>Value</th>
+				<th>Since version</th>
+				<th>Options</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+
+	<div class="table_actions">
+		<a href="#" class="_new_value">New value</a>
+	</div>
 </div>
+
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load_init', '/doc/edit_property');
+			App.pageEvent.trigger('load', '/doc/edit_property');
+		});
+	</script>
+{{/_ajax}}
 

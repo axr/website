@@ -4,6 +4,7 @@ require_once(ROOT . '/lib/www_controller.php');
 require_once(ROOT . '/models/hssdoc_object.php');
 require_once(ROOT . '/models/hssdoc_property.php');
 require_once(ROOT . '/models/hssdoc_value.php');
+require_once(SHARED . '/lib/core/exceptions/http_ajax.php');
 
 class HssdocController extends WWWController
 {
@@ -372,6 +373,126 @@ class HssdocController extends WWWController
 		}
 
 		echo $this->renderView(ROOT . '/views/hssdoc_rm_property.html');
+	}
+
+	/**
+	 * GET /doc/property_values.json
+	 */
+	public function run_property_values_GET ()
+	{
+		if (!isset($_GET['property']))
+		{
+			throw new HTTPAjaxException(null, 400);
+		}
+
+		try
+		{
+			$property = HssdocProperty::find($_GET['property']);
+		}
+		catch (\ActiveRecord\RecordNotFound $e)
+		{
+			throw new HTTPAjaxException(null, 404);
+		}
+
+		$data = array();
+
+		foreach ($property->values as $value)
+		{
+			$data[] = $value->attributes();
+		}
+
+		echo json_encode(array(
+			'status' => 0,
+			'payload' => $data
+		));
+	}
+
+	/**
+	 * POST /doc/property_values.json
+	 */
+	public function run_property_values_POST ()
+	{
+		if (!User::current()->can('/hssdoc/edit'))
+		{
+			throw new HTTPAjaxException(null, 403);
+		}
+
+		if (isset($_POST['id']))
+		{
+			try
+			{
+				$item = HssdocValue::find($_POST['id']);
+			}
+			catch (\ActiveRecord\RecordNotFound $e)
+			{
+			}
+		}
+
+		if (!isset($item) || !is_object($item))
+		{
+			$item = new HssdocValue();
+
+			// Check if property exists
+			if (!isset($_POST['property_id']) ||
+				HssdocProperty::count($_POST['property_id']) === 0)
+			{
+				throw new HTTPAjaxException(null, 400);
+			}
+
+			$item->property_id = (int) $_POST['property_id'];
+		}
+
+		$item->set_attributes($_POST);
+		$item->save();
+
+		if ($item->is_valid())
+		{
+			echo json_encode(array(
+				'status' => 0,
+				'payload' => $item->attributes()
+			));
+		}
+		else
+		{
+			echo json_encode(array(
+				'status' => 1,
+				'error' => 'ValidationFailed',
+				'validation_errors' => $item->errors->full_messages()
+			));
+		}
+	}
+
+	/**
+	 * DELETE /doc/property_values.json
+	 */
+	public function run_property_values_DELETE ()
+	{
+		parse_str(file_get_contents("php://input"), $_DELETE);
+
+		if (!User::current()->can('/hssdoc/rm'))
+		{
+			throw new HTTPAjaxException(null, 403);
+		}
+
+		if (!isset($_DELETE['id']))
+		{
+			throw new HTTPAjaxException(null, 400);
+		}
+
+		try
+		{
+			$item = HssdocValue::find($_DELETE['id']);
+		}
+		catch (\ActiveRecord\RecordNotFound $e)
+		{
+			throw new HTTPAjaxException(null, 404);
+		}
+
+		$item->delete();
+
+		echo json_encode(array(
+			'status' => 0
+		));
 	}
 
 	/**
