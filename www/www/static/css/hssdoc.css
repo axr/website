@@ -1,0 +1,214 @@
+#hssdoc_sidebar
+{
+	background: #eee;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	float: right;
+	margin: 0 0 10px 10px;
+	padding: 10px;
+	width: 200px;
+}
+
+#hssdoc_sidebar ul
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#hssdoc_sidebar > ul > li
+{
+	margin: 0 0 10px 0;
+}
+
+#hssdoc_sidebar > ul > li:last-child
+{
+	margin: 0;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.open
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.obj
+{
+	color: #444;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.new_property
+{
+	color: #aaa;
+	display: none;
+	float: right;
+	font-size: 11px;
+}
+
+#hssdoc_sidebar > ul > li:hover > span.object a.new_property
+{
+	display: inline-block;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.open:hover,
+#hssdoc_sidebar > ul > li > span.object a.obj:hover
+{
+	text-decoration: underline;
+}
+
+#hssdoc_sidebar > ul ul
+{
+	display: none;
+	margin: 0 0 0 18px;
+}
+
+#hssdoc_sidebar > ul ul li
+{
+	padding: 2px 0;
+}
+
+#hssdoc_sidebar > ul ul li a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > ul ul li a:hover
+{
+	text-decoration: underline;
+}
+
+#hssdoc_sidebar > .actions
+{
+	margin: 8px 0 -8px 0;
+	text-align: center;
+}
+
+#hssdoc_sidebar > .actions a
+{
+	color: #aaa;
+	display: inline-block;
+	font-size: 11px;
+	margin: 0 5px;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > .actions a:hover
+{
+	text-decoration: underline;
+}
+
+#hssdoc_obj .prop_item
+{
+	margin: 25px 0;
+}
+
+#hssdoc_obj .prop_item header h2
+{
+	display: inline-block;
+	margin: 0;
+	vertical-align: middle;
+}
+
+#hssdoc_obj .prop_item header a.action
+{
+	color: #D09610;
+	font-size: 13px;
+	margin: 0 0 0 6px;
+	text-decoration: none;
+}
+
+#hssdoc_obj .prop_item header a.action:hover
+{
+	text-decoration: underline;
+}
+
+#hssdoc_obj .prop_item table
+{
+	border-collapse: collapse;
+	empty-cells: hide;
+	text-align: center;
+}
+
+#hssdoc_obj .prop_item table th,
+#hssdoc_obj .prop_item table td
+{
+	background: #eaeaea;
+	border: 1px solid #aaa;
+	padding: 4px 8px;
+	text-align: left;
+}
+
+#hssdoc_obj .prop_item table th
+{
+	background: #ddd;
+}
+
+#hssdoc_obj .prop_item table td.version
+{
+	text-align: center;
+}
+
+#hssdoc_obj .prop_item table .flag
+{
+	background: #bbb;
+	border-radius: 3px;
+	color: #222;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 14px;
+	padding: 2px 5px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	text-transform: lowercase;
+}
+
+#hssdoc_obj .prop_item table .flag.default
+{
+	background: #468847;
+	color: #fff;
+}
+
+#hssdoc_add textarea
+{
+	font-family: Monaco, monospace;
+}
+
+#hssdoc_add table
+{
+	width: 100%;
+}
+
+#hssdoc_add table th.actions,
+#hssdoc_add table td.actions
+{
+	width: 70px;
+}
+
+#hssdoc_add .table_actions
+{
+	margin: 10px 0 5px 0;
+	text-align: right;
+}
+
+#hssdoc_add .table_actions a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#hssdoc_add .table_actions a:hover
+{
+	text-decoration: underline;
+}
+
+#hssdoc_add table.values_table tr.unsaved td
+{
+	background: #d5d5d5;
+}
+
+#hssdoc_rm p
+{
+	font-size: 14px;
+}
+

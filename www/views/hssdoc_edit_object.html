@@ -1,0 +1,66 @@
+{{{g/tabs/html}}}
+{{{g/breadcrumb/html}}}
+
+<div id="hssdoc_add">
+	<h2>{{_title}}</h2>
+
+	{{#has_errors}}
+		<div class="message_std error">
+			{{#errors}}<p>{{{.}}}</p>{{/errors}}
+		</div>
+	{{/has_errors}}
+
+	<form action="" method="post" class="uiForm">
+		<div class="uiFormField">
+			<label for="name">Object name</label>
+			<input type="text" name="name" class="uiInput"
+				value="{{object.name}}" />
+		</div>
+
+		<div class="uiFormField">
+			<label for="description">Description</label>
+			<textarea name="description" class="uiInput">{{object.description}}</textarea>
+		</div>
+
+		<input type="hidden" name="_via_post" value="1" />
+
+		<div class="uiFormField">
+			{{#edit_mode}}
+				<input type="submit" value="Update" />
+				or <a href="{{delete_url}}">Delete</a>
+			{{/edit_mode}}
+
+			{{^edit_mode}}
+				<input type="submit" value="Create" />
+			{{/edit_mode}}
+		</div>
+	</form>
+
+	{{#edit_mode}}
+		<h2>Properties</h2>
+
+		<table class="uiTable">
+			<thead>
+				<tr>
+					<th>Property</th>
+					<th class="actions">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#properties}}
+					<tr>
+						<td>{{name}}</td>
+						<td class="actions">
+							<a href="/doc/edit_property/{{id}}">edit</a>
+						</td>
+					</tr>
+				{{/properties}}
+			</tbody>
+		</table>
+
+		<div class="table_actions">
+			<a href="/doc/add_property/{{object.name}}">New property</a>
+		</div>
+	{{/edit_mode}}
+</div>
+

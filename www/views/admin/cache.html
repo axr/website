@@ -1,0 +1,27 @@
+{{{g/breadcrumb/html}}}
+
+<div id="admin" class="cache">
+	<h1>Manage cache</h1>
+
+	{{#message}}
+		<div class="message_std success">{{message}}</div>
+	{{/message}}
+
+	<form action="{{g/www_url}}/admin/cache" method="post" class="clear_all">
+		<input type="hidden" name="_via_post" value="1" />
+		<input type="hidden" name="mode" value="clear_all" />
+	</form>
+
+	<form action="{{g/www_url}}/admin/cache" method="post" class="clear_expired">
+		<input type="hidden" name="_via_post" value="1" />
+		<input type="hidden" name="mode" value="clear_expired" />
+	</form>
+
+	<a href="#" onclick="$('#admin form.clear_all').submit()" class="uiButton inline">
+		<span class="inner">Clear the cache</span>
+	</a> or
+	<a href="#" onclick="$('#admin form.clear_expired').submit()" class="uiButton inline">
+		<span class="inner">Clear expired items</span>
+	</a>
+</div>
+

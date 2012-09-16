@@ -1,0 +1,10 @@
+#calendar
+{
+	padding: 16px 0 0 0;
+}
+
+#calendar > iframe
+{
+	border: 1px solid #ccc;
+}
+

@@ -1,0 +1,390 @@
+/**
+ * Form elements
+ * =============
+ */
+
+.uiInput
+{
+	background: #fff;
+	display: inline-block;
+	border: 1px solid #B3B3B3;
+	border-radius: 4px;
+	box-shadow: #ECECEC 0 1px 0, #ECECEC 0 -1px 0;
+	margin: 0 5px 0 0;
+	padding: 6px;
+}
+
+.uiInput.button
+{
+	background-image: linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -o-linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -moz-linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -webkit-linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -ms-linear-gradient(
+		bottom,
+		rgb(255,255,255) 100%,
+		rgb(221,221,221) 50%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(1, rgb(255,255,255)),
+		color-stop(0.5, rgb(221,221,221)));
+	border: 1px solid #999;
+}
+
+input[type!=submit].uiInput
+{
+	max-width: 300px;
+	width: 90%;
+}
+
+input[type=text].uiInput
+{
+	width: 220px;
+}
+
+textarea.uiInput
+{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	height: 120px;
+	width: 100%;
+}
+
+form.uiForm .uiFormField
+{
+	margin: 0 0 10px 0;
+}
+
+form.uiForm .uiFormField label
+{
+	display: block;
+}
+
+form.uiForm .uiFormField a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+form.uiForm .uiFormField a:hover
+{
+	text-decoration: underline;
+}
+
+/**
+ * Message boxes
+ * =============
+ * @todo style this
+ */
+
+.message_std
+{
+	border: 2px solid #bbb;
+	color: #222;
+	margin: 6px 0;
+	padding: 5px;
+}
+
+.message_std.info
+{
+	background-color: #d5edf8;
+	border-color: #92cae4;
+	color: #205791;
+}
+
+.message_std.success
+{
+	background-color: #e6efc2;
+	border-color: #c6d880;
+	color: #264409;
+}
+
+.message_std.notice
+{
+	background-color: #fff6bf;
+	border-color: #ffd324;
+	color: #514721;
+}
+
+.message_std.error
+{
+	background-color: #fbe3e4;
+	border-color: #fbc2c4;
+	color: #8a1f11;
+}
+
+/**
+ * UI Buttons
+ * ==========
+ */
+
+.uiButton
+{
+	background: linear-gradient(bottom, #EFC444 0%, #F5DB8C 100%);
+	background: -o-linear-gradient(bottom, #EFC444 0%, #F5DB8C 100%);
+	background: -moz-linear-gradient(bottom, #EFC444 0%, #F5DB8C 100%);
+	background: -webkit-linear-gradient(bottom, #EFC444 0%, #F5DB8C 100%);
+	background: -ms-linear-gradient(bottom, #EFC444 0%, #F5DB8C 100%);
+	background: -webkit-gradient(linear, left bottom, left top,
+		color-stop(0, #EFC444), color-stop(1, #F5DB8C));
+	border: 1px solid #e3af12;
+	border-radius: 5px;
+	box-shadow: 0 1px 0 #fff;
+	box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+	display: block;
+	height: 35px;
+	text-decoration: none;
+}
+
+.uiButton:hover
+{
+	border-color: #cf9d16;
+}
+
+.uiButton.inline
+{
+	display: inline-block;
+}
+
+.uiButton > .inner
+{
+	background: linear-gradient(to bottom, #f1cd60 0%, #efc546 50%,
+		#ecb819 51%, #efc544 100%);
+	background: -o-linear-gradient(top, #f1cd60 0%, #efc546 50%,
+		#ecb819 51%, #efc544 100%);
+	background: -moz-linear-gradient(top, #f1cd60 0%, #efc546 50%,
+		#ecb819 51%, #efc544 100%);
+	background: -webkit-linear-gradient(top, #f1cd60 0%, #efc546 50%,
+		#ecb819 51%, #efc544 100%);
+	background: -ms-linear-gradient(top, #f1cd60 0%, #efc546 50%,
+		#ecb819 51%, #efc544 100%);
+	background: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0%, #f1cd60), color-stop(50%, #efc546),
+		color-stop(51%, #ecb819), color-stop(100%, #efc544));
+	border-radius: 4px;
+	color: #fff;	
+	display: block;
+	font-weight: bold;
+	height: 33px;
+	line-height: 33px;
+	margin: 1px;
+	padding: 0 6px;
+	text-shadow: #BC910E 0 1px 0;
+}
+
+.uiButton:hover > .inner
+{
+	background: linear-gradient(to bottom, #edc456 0%, #eabb3b 50%,
+		#dea817 51%, #eabb3b 100%);
+	background: -o-linear-gradient(top, #edc456 0%, #eabb3b 50%,
+		#dea817 51%, #eabb3b 100%);
+	background: -moz-linear-gradient(top, #edc456 0%, #eabb3b 50%,
+		#dea817 51%, #eabb3b 100%);
+	background: -webkit-linear-gradient(top, #edc456 0%, #eabb3b 50%,
+		#dea817 51%, #eabb3b 100%);
+	background: -ms-linear-gradient(top, #edc456 0%, #eabb3b 50%,
+		#dea817 51%, #eabb3b 100%);
+	background: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0%, #edc456), color-stop(50%, #eabb3b),
+		color-stop(51%, #dea817), color-stop(100%, #eabb3b));
+}
+
+.uiButton > .inner > .icon
+{
+	background-image: url(../images/sprite32.png);
+	background-position: -69px -1px;
+	display: block;
+	float: left;
+	height: 18px;
+	margin: 8px 8px 0 2px;
+	width: 18px;
+}
+
+.uiButton.go > .inner
+{
+	padding: 0 6px 0 12px;
+}
+
+.uiButton.go > .inner > .icon
+{
+	background-image: url(../images/sprite32.png);
+	background-position: -90px -21px;
+	float: right;
+	height: 17px;
+	margin: 8px 2px 0 8px;
+	width: 17px;
+}
+
+/**
+ * Gray buttons
+ * ------------
+ */
+
+.uiButton.gray
+{
+	background: linear-gradient(bottom, #c3c3c3 0%, #dadada 100%);
+	background: -o-linear-gradient(bottom, #c3c3c3 0%, #dadada 100%);
+	background: -moz-linear-gradient(bottom, #c3c3c3 0%, #dadada 100%);
+	background: -webkit-linear-gradient(bottom, #c3c3c3 0%, #dadada 100%);
+	background: -ms-linear-gradient(bottom, #c3c3c3 0%, #dadada 100%);
+	background: -webkit-gradient(linear, left bottom, left top,
+		color-stop(0, #c3c3c3), color-stop(1, #dadada));
+	border-color: #b1b1b1;
+}
+
+.uiButton.gray:hover
+{
+	background: linear-gradient(bottom, #bbbbbb 0%, #d5d5d5 100%);
+	background: -o-linear-gradient(bottom, #bbbbbb 0%, #d5d5d5 100%);
+	background: -moz-linear-gradient(bottom, #bbbbbb 0%, #d5d5d5 100%);
+	background: -webkit-linear-gradient(bottom, #bbbbbb 0%, #d5d5d5 100%);
+	background: -ms-linear-gradient(bottom, #bbbbbb 0%, #d5d5d5 100%);
+	background: -webkit-gradient(linear, left bottom, left top,
+		color-stop(0, #bbbbbb), color-stop(1, #d5d5d5));
+	border-color: #a6a6a6;
+}
+
+.uiButton.gray > .inner
+{
+	background: linear-gradient(to bottom, #cccccc 0%, #c3c3c3 50%,
+		#b6b6b6 51%, #c3c3c3 100%);
+	background: -o-linear-gradient(top, #cccccc 0%, #c3c3c3 50%,
+		#b6b6b6 51%, #c3c3c3 100%);
+	background: -moz-linear-gradient(top, #cccccc 0%, #c3c3c3 50%,
+		#b6b6b6 51%, #c3c3c3 100%);
+	background: -webkit-linear-gradient(top, #cccccc 0%, #c3c3c3 50%,
+		#b6b6b6 51%, #c3c3c3 100%);
+	background: -ms-linear-gradient(top, #cccccc 0%, #c3c3c3 50%,
+		#b6b6b6 51%, #c3c3c3 100%);
+	background: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0%, #cccccc), color-stop(50%, #c3c3c3),
+		color-stop(51%, #b6b6b6), color-stop(100%, #c3c3c3));
+	color: #7a7a7a;
+	text-shadow: 0 1px 0 #e3e3e3;
+}
+
+.uiButton.gray:hover > .inner
+{
+	background: linear-gradient(to bottom, #c5c5c5 0%, #bbbbbb 50%,
+		#ababab 51%, #bbbbbb 100%);
+	background: -o-linear-gradient(top, #c5c5c5 0%, #bbbbbb 50%,
+		#ababab 51%, #bbbbbb 100%);
+	background: -moz-linear-gradient(top, #c5c5c5 0%, #bbbbbb 50%,
+		#ababab 51%, #bbbbbb 100%);
+	background: -webkit-linear-gradient(top, #c5c5c5 0%, #bbbbbb 50%,
+		#ababab 51%, #bbbbbb 100%);
+	background: -ms-linear-gradient(top, #c5c5c5 0%, #bbbbbb 50%,
+		#ababab 51%, #bbbbbb 100%);
+	background: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0%, #c5c5c5), color-stop(50%, #bbbbbb),
+		color-stop(51%, #ababab), color-stop(100%, #bbbbbb));
+}
+
+.uiButton.gray.go > .inner > .icon
+{
+	background-position: -220px -62px;
+	float: right;
+	height: 12px;
+	margin: 12px 6px 0 8px;
+	width: 12px;
+}
+
+.uiButton.gray.small.go > .inner > .icon
+{
+	margin: 9px 2px 0 8px;
+}
+
+/**
+ * Small buttons
+ * -------------
+ */
+.uiButton.small
+{
+	height: 29px;
+}
+
+.uiButton.small > .inner
+{
+	height: 27px;
+	line-height: 27px;
+}
+
+/**
+ * Big buttons
+ * -----------
+ */
+
+.uiButton.big
+{
+	height: 67px;
+}
+
+.uiButton.big > .inner
+{
+	height: 65px;
+	line-height: 65px;
+}
+
+.uiButton.big > .inner > .icon
+{
+	background-position: -227px -29px;
+	display: block;
+	float: left;
+	height: 24px;
+	margin: 19px 0 0 20px;
+	width: 26px;
+}
+
+/**
+ * Tables
+ * ======
+ */
+
+table.uiTable
+{
+	border-collapse: collapse;
+	empty-cells: hide;
+	text-align: center;
+}
+
+table.uiTable th,
+table.uiTable td
+{
+	background: #eaeaea;
+	border: 1px solid #aaa;
+	padding: 4px 8px;
+	text-align: left;
+}
+
+table.uiTable th
+{
+	background: #ddd;
+}
+
+table.uiTable a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+table.uiTable a:hover
+{
+	text-decoration: underline;
+}
+

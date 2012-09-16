@@ -1,0 +1,32 @@
+<div id="hssdoc_sidebar">
+	{{#has_objects}}
+		<ul class="obj_list">
+			{{#objects}}
+				<li data-object="{{name}}">
+					<span class="object">
+						<a href="#" class="open">[+]</a>
+						<a href="{{permalink}}" class="obj">{{name}}</a>
+						{{#can_edit}}
+							<a href="/doc/add_property/{{name}}"
+								class="new_property">new property</a>
+						{{/can_edit}}
+					</span>
+					<ul class="prop_list">
+						{{#properties}}
+							<li><a href="{{permalink}}">{{name}}</a></li>
+						{{/properties}}
+					</ul>
+				</li>
+			{{/objects}}
+		</ul>
+	{{/has_objects}}
+	{{^has_objects}}
+		No objects were found
+	{{/has_objects}}
+
+	<div class="actions">
+		<a href="#" class="expand">expand all</a>
+		<a href="#" class="collapse">collapse all</a>
+	</div>
+</div>
+

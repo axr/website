@@ -1,0 +1,39 @@
+<div id="auth_login">
+	{{#assoc_mode}}
+		<h2>Connect another OpenID identity to this account</h2>
+	{{/assoc_mode}}
+	{{^assoc_mode}}
+		<h2>Login or create a new account with OpenID</h2>
+	{{/assoc_mode}}
+
+	{{#error}}<div class="message_std error">{{error}}</div>{{/error}}
+
+	<form action="/auth/openid" method="post" id="openid_form">
+		<div id="openid_choice">
+			<p>Please click your account provider:</p>
+			<div id="openid_btns"></div>
+		</div>
+
+		<div id="openid_input_area">
+			<input class="uiInput" name="identifier" type="text" value="http://" />
+			<input class="uiInput button" type="submit" value="Continue"/>
+		</div>
+
+		<input type="hidden" name="continue" value="{{continue}}" />
+
+		<noscript>
+			<p>OpenID is service that allows you to log-on to many different websites using a single indentity.
+	Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
+		</noscript>
+	</form>
+</div>
+
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load', '/auth');
+		});
+	</script>
+{{/_ajax}}
+

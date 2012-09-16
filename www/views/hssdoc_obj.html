@@ -1,0 +1,42 @@
+{{{g/tabs/html}}}
+
+<div id="hssdoc_obj">
+	{{{sidebar}}}
+
+	<h1>{{object.name}}</h1>
+
+	<div class="parsedContent">
+		{{{object.description__parsed}}}
+	</div>
+
+	{{#properties}}
+		<section class="prop_item" data-property="{{name}}">
+			<header>
+				<h2>{{name}}</h2>
+				{{#can_edit}}
+					<a href="/doc/edit_property/{{id}}" class="action">[edit]</a>
+				{{/can_edit}}
+			</header>
+
+			<div class="parsedContent">
+				{{{description__parsed}}}
+			</div>
+
+			{{#_values_table}}
+				<h3>Values:</h3>
+				{{{_values_table}}}
+			{{/_values_table}}
+		</section>
+	{{/properties}}
+</div>
+
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load_init', '/doc');
+			App.pageEvent.trigger('load', '/doc');
+		});
+	</script>
+{{/_ajax}}
+

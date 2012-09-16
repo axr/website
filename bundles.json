@@ -1,0 +1,62 @@
+{
+	"css/bundle_shared.css": {
+		"type": "css",
+		"files": [
+			"css/boilerplate.css",
+			"css/layout.css",
+			"css/style.css",
+			"css/style_modal.css",
+			"css/boilerplate_after.css",
+			"css/rainbow.css"
+		]
+	},
+	"js/bundle_shared.js": {
+		"type": "js",
+		"files": [
+			"js/json2.js",
+			"js/mustache.js",
+			"js/app_rsrc.js",
+			"js/app_modal.js",
+			"js/app.js",
+			"js/site.js"
+		]
+	},
+	"css/bundle_www.css": {
+		"type": "css",
+		"files": [
+			"css/openid.css",
+			"css/content.css",
+			"css/404.css",
+			"css/blog.css",
+			"css/page.css",
+			"css/hssdoc.css",
+			"css/downloads.css",
+			"css/manifesto.css",
+			"css/calendar.css",
+			"css/home.css",
+			"css/auth.css",
+			"css/get_involved.css"
+		]
+	},
+	"js/bundle_www.js": {
+		"type": "js",
+		"files": [
+			"js/openid-jquery.js",
+			"js/openid-en.js",
+			"js/auth.js",
+			"js/home.js",
+			"js/get_involved.js",
+			"js/hssdoc.js"
+		]
+	},
+	"js/bundle_rainbow.js": {
+		"type": "js",
+		"files": [
+			"js/rainbow/rainbow.js",
+			"js/rainbow/css.js",
+			"js/rainbow/hss.js",
+			"js/rainbow/xml.js"
+		]
+	}
+}
+

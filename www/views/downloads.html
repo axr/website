@@ -1,0 +1,51 @@
+{{{g/breadcrumb/html}}}
+
+<div id="downloads">
+	<h2>Prototype</h2>
+
+	{{#has_releases}}
+		<table class="dtable">
+			<thead>
+				<tr>
+					<th class="version">Version</th>
+					<th class="os">Windows</th>
+					<th class="os">OS X</th>
+					<th class="os">Linux</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#releases}}
+					<tr>
+						{{..date}}
+						<td class="version">{{version}}</td>
+						{{#oses}}
+							<td class="os">
+								{{#has_files}}
+									<a class="dlink" href="#"><span class="icon {{os}}"></span>download</a>
+									<div class="dropdown">
+										{{#files}}
+											<a href="{{url}}" target="_blank">{{ext}} <span>{{arch}}</span></a>
+										{{/files}}
+									</div>
+								{{/has_files}}
+							</td>
+						{{/oses}}
+					</tr>
+				{{/releases}}
+			</tbody>
+		</table>
+	{{/has_releases}}
+	{{^has_releases}}
+		<div class="none">No releases are currently available</div>
+	{{/has_releases}}
+</div>
+
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load_init', '/downloads');
+		});
+	</script>
+{{/_ajax}}
+

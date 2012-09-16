@@ -1,0 +1,16 @@
+{{{g/tabs/html}}}
+{{{g/breadcrumb/html}}}
+
+<div id="page_add_select">
+	<h2>Select page type to create</h2>
+
+	<ul class="types">
+		{{#types}}
+			<li>
+				<a href="/page/add/{{key}}">{{name}}</a>
+				<div class="description">{{description}}</div>
+			</li>
+		{{/types}}
+	</ul>
+</div>
+

@@ -1,0 +1,43 @@
+<div id="auth_login_choice">
+	<h2>Do you want to create a new account?</h2>
+	<p>The OpenID identity <em>{{identity}}</em> is not associated with any
+	existing user account. Do you want to create a new user account?</p>
+
+	<form action="/auth/openid_assoc?pt={{pt}}" method="post">
+		<input type="hidden" name="_via_post" value="1" />
+
+		<div class="ask_name">
+			<label for="name">Please enter your name below:</label>
+			<input type="text" class="uiInput" name="name" value="{{name}}" />
+		</div>
+
+		<a href="#" class="uiButton go inline create">
+			<span class="inner">
+				<span class="icon"></span>
+				Create a new account
+			</span>
+		</a>
+		{{^_ajax}}
+			<noscript>
+				<style type="text/css">
+					#auth_login_choice a.create
+					{
+						display: none;
+					}
+				</style>
+				<input class="input_std" type="submit" value="Create a new account" />
+			</noscript>
+		{{/_ajax}}
+		or <a href="/auth/openid_assoc?cancel=1&pt={{pt}}" class="cancel">cancel</a>
+	</form>
+</div>
+
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load', '/auth');
+		});
+	</script>
+{{/_ajax}}
+
