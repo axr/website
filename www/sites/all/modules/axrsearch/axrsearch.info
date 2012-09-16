@@ -1,7 +1,0 @@
-; $Id: $
-name = AXR combined search
-description = Provides combined search results
-package = axr_search
-core = 7.x
-version = 1
-

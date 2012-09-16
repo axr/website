@@ -1,7 +1,0 @@
-; $Id: $
-name = AXR releases
-description = Get information about releases from GitHub
-package = axr
-core = 7.x
-version = 1
-

@@ -1,8 +1,0 @@
-; $Id: $
-name = Sessid
-description = Insert Drupal's session id into `drupal_sid` cookie
-
-package = Sessid
-core = 7.x
-version = 1
-
