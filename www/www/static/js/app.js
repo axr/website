@@ -55,6 +55,22 @@ window['App'] = window['App'] || {};
 	};
 
 	/**
+	 * Error
+	 *
+	 * @param {string} name
+	 * @param {object} data
+	 */
+	App.Error = function (name, data)
+	{
+		this.name = name;
+
+		for (var key in data)
+		{
+			this[key] = data[key];
+		}
+	};
+
+	/**
 	 * Cache system
 	 */
 	App.cache = {
