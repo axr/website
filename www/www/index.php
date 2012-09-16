@@ -91,6 +91,17 @@ catch (HTTPAjaxException $e)
 }
 catch (HTTPException $e)
 {
+	$code_responses = array(
+		400 => 'HTTP/1.0 400 Bad Request',
+		403 => 'HTTP/1.0 403 Forbidden',
+		404 => 'HTTP/1.0 404 Not Found'
+	);
+
+	if (isset($code_responses[$e->getCode()]))
+	{
+		header($code_responses[$e->getCode()]);
+	}
+
 	if ($e->getCode() === 404)
 	{
 		$controller = new ViewController();
