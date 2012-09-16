@@ -211,8 +211,6 @@ class Page extends ActiveRecord\Model
 					array_key_or($data, 'field_' . $field->key, '');
 			}
 		}
-
-		$this->virtual_fields();
 	}
 
 	/**
