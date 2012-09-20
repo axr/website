@@ -377,6 +377,11 @@ h2
 	{
 		background-image: url(../images/menu_sprite@2.png);
 	}
+
+	#container > header > nav > .item > a > span .down
+	{
+		background-image: url(../images/menu_dropdown_marker@2.png);
+	}
 }
 
 /**
