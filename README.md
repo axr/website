@@ -50,7 +50,7 @@ You can find a detailed workflow description on our
 
 Pre-commit hook
 ===============
-It is reccommended that you use our pre-commit hook. In order to do so, simply
+It is recommended that you use our pre-commit hook. In order to do so, simply
 copy or symlink the executable at /util/pre-commit to /.git/hooks/, for example:
 
 	ln -s ../../bin/pre-commit "$(git rev-parse --show-toplevel)/.git/hooks/pre-commit"

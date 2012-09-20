@@ -38,10 +38,10 @@ def get_edited_files ():
 def check_file_ending (data):
     problems = []
 
-    if not data.endswith("\n\n"):
+    if not data.endswith("\n"):
         problems.append("File does not end with a blank line")
 
-    if data.endswith("\n\n\n"):
+    if data.endswith("\n\n"):
         problems.append("File must end with only one blank line")
 
     return problems
