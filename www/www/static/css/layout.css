@@ -228,6 +228,7 @@ h2
 
 #container > header > nav > .item > div
 {
+	background: #747474;
 	background-image: linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -o-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -moz-linear-gradient(top, #747474 0%, #636363 37%);
