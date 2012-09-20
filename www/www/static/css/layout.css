@@ -57,9 +57,10 @@ h2
 #container > header > nav
 {
 	border-radius: 10px;
-	float: left;
+	float: right;
 	font-size: 0;
 	height: 48px;
+	position: relative;
 	margin: 97px 0 0 3px;
 	width: 647px;
 }
@@ -74,7 +75,7 @@ h2
 	background: -o-linear-gradient(top, #646464 0%,#5c5c5c 100%);
 	background: -ms-linear-gradient(top, #646464 0%,#5c5c5c 100%);
 	background: linear-gradient(to bottom, #646464 0%,#5c5c5c 100%);
-	height: 48px;
+	float: left;
 	display: inline-block;
 	position: relative;
 	height: 48px;
@@ -104,6 +105,14 @@ h2
 
 #container > header > nav > .item > a
 {
+	background: #747474;
+	background: -moz-linear-gradient(top, #747474 0%, #646464 100%);
+	background: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0%,#747474), color-stop(100%,#646464));
+	background: -webkit-linear-gradient(top, #747474 0%,#646464 100%);
+	background: -o-linear-gradient(top, #747474 0%,#646464 100%);
+	background: -ms-linear-gradient(top, #747474 0%,#646464 100%);
+	background: linear-gradient(to bottom, #747474 0%,#646464 100%);
 	border: 1px solid #7c7c7c;
 	border-left: 0;
 	border-right: 0;
@@ -150,20 +159,24 @@ h2
 
 #container > header > nav > .item > a > span
 {
-	background: #747474;
-	background: -moz-linear-gradient(top, #747474 0%, #646464 100%);
-	background: -webkit-gradient(linear, left top, left bottom,
-		color-stop(0%,#747474), color-stop(100%,#646464));
-	background: -webkit-linear-gradient(top, #747474 0%,#646464 100%);
-	background: -o-linear-gradient(top, #747474 0%,#646464 100%);
-	background: -ms-linear-gradient(top, #747474 0%,#646464 100%);
-	background: linear-gradient(to bottom, #747474 0%,#646464 100%);
 	border-left: 1px solid #626262;
 	border-right: 1px solid #7c7c7c;
 	display: inline-block;
 	font-size: 15px;
 	line-height: 44px;
 	padding: 0 12px;
+}
+
+#container > header > nav > .item > a > span em
+{
+	background: url(../images/menu_sprite.png) no-repeat;
+	background-size: auto 48px;
+	-moz-background-size: auto 48px;
+	-webkit-background-size: auto 48px;
+	display: inline-block;
+	line-height: 15px;
+	text-indent: -9999px;
+	vertical-align: middle;
 }
 
 #container > header > nav > .item:hover > a > span
@@ -178,6 +191,24 @@ h2
 	background: linear-gradient(to bottom, #5c5c5c 0%,#464646 100%);
 	border-left-color: #494949;
 	border-right-color: #494949;
+}
+
+#container > header > nav > .item > a > span > .down
+{
+	background: url(../images/menu_dropdown_marker.png) no-repeat;
+	background-size: 20px auto;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	display: inline-block;
+	height: 20px;
+	margin: 0 0 0 5px;
+	vertical-align: -5px;
+	width: 20px;
+}
+
+#container > header > nav > .item:hover > a > span > .down
+{
+	background-position: 0 -19px;
 }
 
 #container > header > nav > .item:hover + .item > a > span
@@ -195,8 +226,6 @@ h2
 	border-right: 0;
 }
 
-
-
 #container > header > nav > .item > div
 {
 	background-image: linear-gradient(top, #747474 0%, #636363 37%);
@@ -204,7 +233,8 @@ h2
 	background-image: -moz-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -webkit-linear-gradient(top, #747474 0%, #636363 37%);
 	background-image: -ms-linear-gradient(top, #747474 0%, #636363 37%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #747474), color-stop(0.37, #636363));
+	background-image: -webkit-gradient(linear, left top, left bottom,
+		color-stop(0, #747474), color-stop(0.37, #636363));
 	border: 1px solid #7d7d7d;
 	border-radius: 8px;
 	box-shadow: 0 0 8px #575757;
@@ -269,6 +299,84 @@ h2
 {
 	border-bottom: 0;
 	border-radius: 0 0 8px 8px;
+}
+
+#container > header > nav > .item.about > a > span em
+{
+	background-position: -2px -5px;
+	width: 44px;
+}
+
+#container > header > nav > .item.about:hover > a > span em
+{
+	background-position: -2px -29px;
+}
+
+#container > header > nav > .item.specification > a > span em
+{
+	background-position: -51px -5px;
+	width: 99px;
+}
+
+#container > header > nav > .item.specification:hover > a > span em
+{
+	background-position: -51px -29px;
+}
+
+#container > header > nav > .item.resources > a > span em
+{
+	background-position: -155px -5px;
+	width: 81px;
+}
+
+#container > header > nav > .item.resources:hover > a > span em
+{
+	background-position: -155px -29px;
+}
+
+#container > header > nav > .item.community > a > span em
+{
+	background-position: -241px -5px;
+	width: 79px;
+}
+
+#container > header > nav > .item.community:hover > a > span em
+{
+	background-position: -241px -29px;
+}
+
+#container > header > nav > .item.wiki > a > span em
+{
+	background-position: -324px -5px;
+	width: 32px;
+}
+
+#container > header > nav > .item.wiki:hover > a > span em
+{
+	background-position: -324px -29px;
+}
+
+#container > header > nav > .item.blog > a > span em
+{
+	background-position: -361px -5px;
+	width: 34px;
+}
+
+#container > header > nav > .item.blog:hover > a > span em
+{
+	background-position: -361px -29px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+	(min--moz-device-pixel-ratio: 2),
+	(-o-min-device-pixel-ratio: 2/1),
+	(min-device-pixel-ratio: 2),
+	(min-resolution: 2dppx)
+{
+	#container > header > nav > .item > a > span em
+	{
+		background-image: url(../images/menu_sprite@2.png);
+	}
 }
 
 /**
@@ -1044,4 +1152,3 @@ nav#breadcrumb .extra_0
 {
 	text-decoration: underline;
 }
-
