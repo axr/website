@@ -94,7 +94,7 @@ class AuthController extends WWWController
 					->to_string();
 			}
 
-			$this->redirect($this->openid->authUrl());
+			$this->redirect_raw($this->openid->authUrl());
 		}
 		elseif ($this->openid->mode === 'cancel')
 		{
@@ -256,4 +256,3 @@ class AuthController extends WWWController
 		}
 	}
 }
-
