@@ -13,7 +13,7 @@ body
 
 	background: url('../images/body_bg.png') repeat-x #e5e5e5;
 	color: #666666;
-	font-family: 'Century Gothic',Futura,Arial,sans-serif;
+	font-family: 'Trebuchet MS', Futura, Arial, sans-serif;
 	line-height: 1.38;
 	font-size: 0.75em;
 }
@@ -27,6 +27,7 @@ body
 h2
 {
 	font-size: 1.5em;
+	font-weight: bold;
 }
 
 /**
@@ -37,12 +38,10 @@ h2
 #container > header
 {
 	position: relative;
-	width: 960px;
+	width: 900px;
 	height: 188px;
 	margin: 0px auto;
-	left:-37px;
-	z-index:10;
-	_left:0;     /* IE6 */
+	z-index:1 0;
 }
 
 #container > header > #logo
@@ -50,6 +49,8 @@ h2
 	display: block;
 	height: 188px;
 	overflow: hidden;
+	margin: 0 0 0 -100px;
+	position: absolute;
 	width: 310px;
 	float: left;
 }
@@ -59,7 +60,7 @@ h2
 	width: 647px;
 	height: 49px;
 	margin: 97px 0 0 3px;
-	float:left;
+	float: right;
 	background: url('../images/sprite.jpg');
 	background-position: -312px 0;
 }
@@ -326,6 +327,24 @@ body
 		background: url('../images/sprite.jpg');
 		background-position: -312px 0;
 	}
+}
+
+/**
+ * Help button
+ * -----------
+ */
+#container > header > .help_us
+{
+	font-size: 14px;
+	left: 260px;
+	position: absolute;
+	top: 40px;
+}
+
+#container > header > .help_us > .uiButton.donate
+{
+	margin: 0 0 0 5px;
+	vertical-align: middle;
 }
 
 /**
@@ -878,7 +897,7 @@ nav#breadcrumb .extra_0
 	width: 810px;
 }
 
-#container > footer > .activity > form > a
+#container > footer > .activity > a.paypal
 {
 	background-image: url("../images/sprite.jpg");
 	background-position: -831px -228px;
@@ -891,7 +910,7 @@ nav#breadcrumb .extra_0
 	width: 105px;
 }
 
-#container > footer > .activity > form > a:hover
+#container > footer > .activity > a.paypal:hover
 {
 	background-position: -831px -271px;
 }
@@ -1101,4 +1120,3 @@ nav#breadcrumb .extra_0
 {
 	text-decoration: underline;
 }
-

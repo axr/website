@@ -65,11 +65,21 @@ window['App'] = window['App'] || {};
 		this.name = name;
 
 		/**
+		 * Convert the error to string
+		 *
+		 * @return string
+		 */
+		this.to_s = function ()
+		{
+			return 'Error: ' + name + ': ' + JSON.stringify(data);
+		};
+
+		/**
 		 * Show the error to the user
 		 */
 		this.show = function ()
 		{
-			alert('Error: ' + name + ': ' + JSON.stringify(data));
+			alert(this.to_s());
 		};
 
 		for (var key in data)
@@ -495,7 +505,74 @@ window['App'] = window['App'] || {};
 		});
 	};
 
+	/**
+	 * Get GitHub activity
+	 *
+	 * @param object options
+	 * @param function callback (events, error)
+	 */
+	App.data.githubActivity = function (options, callback)
+	{
+		if (typeof callback !== 'function')
+		{
+			callback = function () {};
+		}
+
+		options.count = options.count || 20;
+		var cache_key = '/githubActivity/:count/' + options.count;
+
+		if (App.cache.get(cache_key))
+		{
+			callback(App.cache.get(cache_key), null)
+			return;
+		}
+
+		if (App.cache.get(cache_key + '/:loading') === true)
+		{
+			setTimeout(function ()
+			{
+				App.data.githubActivity(ptions, callback);
+			}, 200);
+
+			return;
+		}
+
+		App.cache.set(cache_key + '/:loading', true);
+
+		$.ajax({
+			url: '/_ajax/ghactivity',
+			method: 'get',
+			data: {
+				count: options.count
+			},
+			dataType: 'json'
+		}).success(function (data)
+		{
+			if (data.status !== 0)
+			{
+				callback(null, new App.Error('ResponseError', {
+					response_status: data.status,
+					response_error: data.error
+				}));
+
+				return;
+			}
+
+			App.cache.set(cache_key, data.payload.events);
+			App.cache.set(cache_key + '/:loading', false);
+
+			callback(data.payload.events, null);
+		}).error(function (jqXHR, text_status, error_thrown)
+		{
+			App.cache.set(cache_key + '/:loading', false);
+
+			callback(null, new App.Error('RequestError', {
+				text_status: text_status,
+				error_thrown: error_thrown
+			}));
+		});
+	};
+
 	// Initialize the app
 	$('document').ready(App.initialize);
 })(window['App']);
-
