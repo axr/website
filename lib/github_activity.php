@@ -83,7 +83,7 @@ class GithubActivity
 					$body = substr($event->payload->issue->body, 0, 120) . '...';
 				break;
 
-				case 'MemberberEvent':
+				case 'MemberEvent':
 					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> <span>added</span> <a href="{USER_URL}">{USER}</a> as a collaborator on <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
 					$title = str_replace('{USER_URL}', $event->payload->mspanber->html_url, $title);
 					$title = str_replace('{USER}', $event->payload->mspanber->login, $title);
@@ -162,4 +162,3 @@ class GithubActivity
 		return $data;
 	}
 }
-
