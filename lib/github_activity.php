@@ -100,22 +100,6 @@ class GithubActivity
 					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> <span>pushed</span> to {BRANCH} at <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
 					$title = str_replace('{BRANCH}',
 						preg_replace('/^refs\/heads\//', '', $event->payload->ref), $title);
-
-					$body = array();
-
-					foreach ($event->payload->commits as $commit)
-					{
-						// TODO Make #[0-9]+ automatically into issue links
-						$msg = '<a href="{URL}">{SHA}</a> {MESSAGE}';
-						$msg = str_replace('{URL}', 'https://github.com/' .
-							$event->repo->name . '/commit/' . $commit->sha, $msg);
-						$msg = str_replace('{SHA}', substr($commit->sha, 0, 7), $msg);
-						$msg = str_replace('{MESSAGE}', substr($commit->message, 0, 80), $msg);
-
-						$body[] = array(
-							'msg' => $msg
-						);
-					}
 				break;
 
 				default:
