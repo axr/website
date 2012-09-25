@@ -1,9 +1,10 @@
 <?php
 
 require_once(ROOT . '/models/hssdoc_value.php');
+require_once(SHARED . '/lib/core/model.php');
 require_once(SHARED . '/lib/php-markdown/markdown.php');
 
-class HssdocProperty extends \ActiveRecord\Model
+class HssdocProperty extends \Core\Model
 {
 	static $table_name = 'www_hssdoc_properties';
 
@@ -103,4 +104,3 @@ class HssdocProperty extends \ActiveRecord\Model
 		return false;
 	}
 }
-
