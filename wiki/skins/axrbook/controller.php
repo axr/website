@@ -2,6 +2,7 @@
 
 require_once(SHARED . '/lib/core/controller.php');
 require_once(SHARED . '/lib/core/minify.php');
+require_once(SHARED . '/lib/mustache/src/mustache.php');
 
 class AxrBookController extends Controller
 {
@@ -163,7 +164,7 @@ class AxrBookController extends Controller
 
 	public function renderPortalBox ($box, $content)
 	{
-		$mustache = new Mustache();
+		$mustache = new \Mustache\Renderer();
 		$template = file_get_contents(ROOT . '/skins/axrbook/portal_box.html');
 
 		$view = new StdClass();
@@ -179,7 +180,7 @@ class AxrBookController extends Controller
 		else
 		{
 			$view->content = array($content);
-			$view->{'content_raw?'} = true;
+			$view->{'content_is_raw'} = true;
 		}
 
 		return $mustache->render($template, $view);
@@ -189,7 +190,7 @@ class AxrBookController extends Controller
 	{
 		$that = $this;
 
-		$mustache = new Mustache();
+		$mustache = new \Mustache\Renderer();
 		$template = file_get_contents(ROOT . '/skins/axrbook/portal_toolbox.html');
 
 		$view = new StdClass();
