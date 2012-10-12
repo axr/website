@@ -50,17 +50,17 @@ class GithubActivity
 				case 'CreateEvent':
 					if ($event->payload->ref_type == 'repository')
 					{
-						$title = '<a href="{ACTOR_URL}">{ACTOR}</a> created a <span>repository</span> <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
+						$title = '<a href="{ACTOR_URL}" target="_blank">{ACTOR}</a> created a <span>repository</span> <a href="{REPO_URL}" target="_blank">{REPO}</a> &mdash; {TIME}';
 					}
 					else if ($event->payload->ref_type == 'branch')
 					{
-						$title = '{ACTOR} created a <span>branch</span> <a href="{URL}">{NAME}</a> on <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
+						$title = '{ACTOR} created a <span>branch</span> <a href="{URL}" target="_blank">{NAME}</a> on <a href="{REPO_URL}" target="_blank">{REPO}</a> &mdash; {TIME}';
 						$title = str_replace('{URL}', 'https://github.com/' .
 							$event->repo->name . '/tree/' . $event->payload->ref, $title);
 					}
 					else // if ($event->payload->ref_type == 'tag')
 					{
-						$title = '{ACTOR} created a <span>tag</span> {NAME} on <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
+						$title = '{ACTOR} created a <span>tag</span> {NAME} on <a href="{REPO_URL}" target="_blank">{REPO}</a> &mdash; {TIME}';
 						$title = str_replace('{TYPE}', $event->payload->ref_type, $title);
 					}
 
@@ -68,14 +68,14 @@ class GithubActivity
 				break;
 
 				case 'DeleteEvent':
-					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> deleted <span>{TYPE}</span> <strong>{NAME}</string> &mdash; {TIME}';
+					$title = '<a href="{ACTOR_URL}" target="_blank">{ACTOR}</a> deleted <span>{TYPE}</span> <strong>{NAME}</string> &mdash; {TIME}';
 					$title = str_replace('{TYPE}', $event->payload->ref_type, $title);
 					$title = str_replace('{NAME}', $event->payload->ref, $title);
 				break;
 
 				case 'IssuesEvent':
 					// TODO $event->payload->action == 'open' ? show issue title
-					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> <span>{ACTED}</span> <a href="{URL}">Issue #{NUMBER}</a> on <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
+					$title = '<a href="{ACTOR_URL}" target="_blank">{ACTOR}</a> <span>{ACTED}</span> <a href="{URL}" target="_blank">Issue #{NUMBER}</a> on <a href="{REPO_URL}" target="_blank">{REPO}</a> &mdash; {TIME}';
 					$title = str_replace('{ACTED}', $event->payload->action, $title);
 					$title = str_replace('{URL}', $event->payload->issue->html_url, $title);
 					$title = str_replace('{NUMBER}', $event->payload->issue->number, $title);
@@ -84,20 +84,20 @@ class GithubActivity
 				break;
 
 				case 'MemberEvent':
-					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> <span>added</span> <a href="{USER_URL}">{USER}</a> as a collaborator on <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
+					$title = '<a href="{ACTOR_URL}" target="_blank">{ACTOR}</a> <span>added</span> <a href="{USER_URL}" target="_blank">{USER}</a> as a collaborator on <a href="{REPO_URL}" target="_blank">{REPO}</a> &mdash; {TIME}';
 					$title = str_replace('{USER_URL}', $event->payload->mspanber->html_url, $title);
 					$title = str_replace('{USER}', $event->payload->mspanber->login, $title);
 				break;
 
 				case 'PullRequestEvent':
-					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> <span>{ACTED}</span> <a href="{URL}">pull request {NUMBER}</a> on <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
+					$title = '<a href="{ACTOR_URL}" target="_blank">{ACTOR}</a> <span>{ACTED}</span> <a href="{URL}">pull request {NUMBER}</a> on <a href="{REPO_URL}" target="_blank">{REPO}</a> &mdash; {TIME}';
 					$title = str_replace('{ACTED}', $event->payload->action, $title);
 					$title = str_replace('{URL}', $event->payload->pull_request->html_url, $title);
 					$title = str_replace('{NUMBER}', $event->payload->pull_request->number, $title);
 				break;
 
 				case 'PushEvent':
-					$title = '<a href="{ACTOR_URL}">{ACTOR}</a> <span>pushed</span> to {BRANCH} at <a href="{REPO_URL}">{REPO}</a> &mdash; {TIME}';
+					$title = '<a href="{ACTOR_URL}" target="_blank">{ACTOR}</a> <span>pushed</span> to {BRANCH} at <a href="{REPO_URL}" target="_blank">{REPO}</a> &mdash; {TIME}';
 					$title = str_replace('{BRANCH}',
 						preg_replace('/^refs\/heads\//', '', $event->payload->ref), $title);
 				break;
