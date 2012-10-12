@@ -2,6 +2,7 @@
 
 require_once(ROOT . '/lib/www_controller.php');
 require_once(ROOT . '/models/page.php');
+require_once(SHARED . '/lib/mustache/src/mustache.php');
 
 class PageController extends WWWController
 {
@@ -82,7 +83,7 @@ class PageController extends WWWController
 				'title' => str_replace('\'', '\\\'', $page->title)
 			);
 
-			$mustache = new Mustache();
+			$mustache = new \Mustache\Renderer();
 			$this->view->comments_html = $mustache->render(
 				file_get_contents(ROOT . '/views/page__comments.html'),
 				$comments_view);
