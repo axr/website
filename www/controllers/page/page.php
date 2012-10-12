@@ -103,6 +103,7 @@ class PageController extends WWWController
 		// Get items for current page
 		$pages = Page::all(array(
 			'conditions' => array('ctype = ? AND published = 1', 'bpost'),
+			'order' => 'ctime desc',
 			'limit' => $per_page,
 			'offset' => $offset
 		));	
