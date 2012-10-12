@@ -5,9 +5,13 @@ App.pageEvent.on('load', '/get-involved', function ()
 		$('#get_involved .box.twitter ._last_tweet').html(tweet || error);
 	});
 
-	$.getJSON('/_ajax/ghactivity?count=5', function (data)
+	App.data.githubActivity({ count: 5 }, function (events, error)
 	{
-		var events = data.payload.events;
+		if (error instanceof App.Error)
+		{
+			error.show();
+			return;
+		}
 
 		$('#ghactivity').empty();
 
@@ -39,4 +43,3 @@ App.pageEvent.on('load_init', '/get-involved', function ()
 		});
 	});
 });
-

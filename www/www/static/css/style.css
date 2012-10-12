@@ -136,6 +136,7 @@ form.uiForm .uiFormField a:hover
 
 .uiButton
 {
+	background: #F5DB8C;
 	background: linear-gradient(bottom, #EFC444 0%, #F5DB8C 100%);
 	background: -o-linear-gradient(bottom, #EFC444 0%, #F5DB8C 100%);
 	background: -moz-linear-gradient(bottom, #EFC444 0%, #F5DB8C 100%);
@@ -164,6 +165,7 @@ form.uiForm .uiFormField a:hover
 
 .uiButton > .inner
 {
+	background: #efc546;
 	background: linear-gradient(to bottom, #f1cd60 0%, #efc546 50%,
 		#ecb819 51%, #efc544 100%);
 	background: -o-linear-gradient(top, #f1cd60 0%, #efc546 50%,
@@ -190,6 +192,7 @@ form.uiForm .uiFormField a:hover
 
 .uiButton:hover > .inner
 {
+	background: #eabb3b;
 	background: linear-gradient(to bottom, #edc456 0%, #eabb3b 50%,
 		#dea817 51%, #eabb3b 100%);
 	background: -o-linear-gradient(top, #edc456 0%, #eabb3b 50%,
@@ -238,6 +241,7 @@ form.uiForm .uiFormField a:hover
 
 .uiButton.gray
 {
+	background: #dadada;
 	background: linear-gradient(bottom, #c3c3c3 0%, #dadada 100%);
 	background: -o-linear-gradient(bottom, #c3c3c3 0%, #dadada 100%);
 	background: -moz-linear-gradient(bottom, #c3c3c3 0%, #dadada 100%);
@@ -250,6 +254,7 @@ form.uiForm .uiFormField a:hover
 
 .uiButton.gray:hover
 {
+	background: #d5d5d5;
 	background: linear-gradient(bottom, #bbbbbb 0%, #d5d5d5 100%);
 	background: -o-linear-gradient(bottom, #bbbbbb 0%, #d5d5d5 100%);
 	background: -moz-linear-gradient(bottom, #bbbbbb 0%, #d5d5d5 100%);
@@ -262,6 +267,7 @@ form.uiForm .uiFormField a:hover
 
 .uiButton.gray > .inner
 {
+	background: #c3c3c3;
 	background: linear-gradient(to bottom, #cccccc 0%, #c3c3c3 50%,
 		#b6b6b6 51%, #c3c3c3 100%);
 	background: -o-linear-gradient(top, #cccccc 0%, #c3c3c3 50%,
@@ -281,6 +287,7 @@ form.uiForm .uiFormField a:hover
 
 .uiButton.gray:hover > .inner
 {
+	background: #bbb;
 	background: linear-gradient(to bottom, #c5c5c5 0%, #bbbbbb 50%,
 		#ababab 51%, #bbbbbb 100%);
 	background: -o-linear-gradient(top, #c5c5c5 0%, #bbbbbb 50%,
@@ -387,4 +394,3 @@ table.uiTable a:hover
 {
 	text-decoration: underline;
 }
-

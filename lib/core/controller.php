@@ -171,20 +171,31 @@ class Controller
 	 */
 	public function redirect ($location, $code = null)
 	{
-		if ($code === 301)
-		{
-			header('HTTP/1.1 301 Moved Permanently');
-		}
-
 		$router = Router::get_instance();
 
+		// Make sure the host and scheme is present
 		$location = URL::create()
 			->scheme($router->url->scheme)
 			->host($router->url->host)
 			->from_string($location)
 			->to_string();
 
+		$this->redirect_raw($location, $code);
+	}
+
+	/**
+	 * Redirect without manipulating the redirect URL
+	 *
+	 * @param string $location
+	 * @param int $code either 301 or null
+	 */
+	public function redirect_raw ($location, $code = null)
+	{
+		if ($code === 301)
+		{
+			header('HTTP/1.1 301 Moved Permanently');
+		}
+
 		header('Location: ' . $location);
 	}
 }
-

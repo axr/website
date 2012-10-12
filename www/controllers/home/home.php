@@ -1,6 +1,7 @@
 <?php
 
 require_once(ROOT . '/lib/www_controller.php');
+require_once(ROOT . '/models/page.php');
 require_once(SHARED . '/lib/axr_releases.php');
 
 class HomeController extends WWWController
@@ -31,6 +32,13 @@ class HomeController extends WWWController
 				Config::get('/www/downloads/releases_repo') .
 				'/blob/master/CHANGELOG.md';
 		}
+
+		// Get blog posts
+		$this->view->blog_posts = Page::all(array(
+			'conditions' => array('ctype = ? AND published = 1', 'bpost'),
+			'order' => 'ctime desc',
+			'limit' => 5,
+		));	
 
 		echo $this->renderView(ROOT . '/views/home.html');
 	}

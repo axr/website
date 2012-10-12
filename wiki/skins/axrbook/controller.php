@@ -55,6 +55,7 @@ class AxrBookController extends Controller
 		}
 		else
 		{
+			$this->view->{'g/hide_login'} = true;
 			$this->view->{'g/user'} = new StdClass();
 
 			$this->view->{'g/url_profile'} = $wwwroot . '/User:' . $this->wgUser->getName();

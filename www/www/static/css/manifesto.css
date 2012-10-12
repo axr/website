@@ -26,14 +26,14 @@
 {
 	background-color: white;
 	border-radius: 3px;
-	padding: 10px;
+	padding: 54px 64px;
 }
 
 
 #manifesto > .original_text > .extra_0 > section
 {
-	padding: 54px;
-	background-image: url(../images/manifesto/separator.png);
+	padding: 0 0 35px 0;
+	background-image: url(../images/manifesto_separator.png);
 	background-repeat: no-repeat;
 	background-position: center bottom;
 }
@@ -57,11 +57,14 @@
 #manifesto > .original_text > .extra_0 > .signature
 {
 	background: none;
-	padding-top: 0;
+}
+
+#manifesto > .original_text > .extra_0 > .signature
+{
+	padding: 0;
 }
 
 #manifesto > .original_text > .extra_0 h2
 {
 	font-size: 1.5em;
 }
-

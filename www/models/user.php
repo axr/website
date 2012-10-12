@@ -1,6 +1,8 @@
 <?php
 
-class User extends \ActiveRecord\Model
+require_once(SHARED . '/lib/core/model.php');
+
+class User extends \Core\Model
 {
 	static $table_name = 'www_users';
 
@@ -112,4 +114,3 @@ class User extends \ActiveRecord\Model
 		return \Session::get('/user/is_auth') === true;
 	}
 }
-

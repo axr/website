@@ -1,3 +1,8 @@
+#auth_login p
+{
+	font-size: 14px;
+}
+
 #auth_login_choice .ask_name
 {
 	margin: 15px 0;
@@ -30,4 +35,3 @@
 {
 	text-decoration: underline;
 }
-

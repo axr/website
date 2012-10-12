@@ -1,167 +1,171 @@
 <div id="home">
-	<div class="above_fold">
-		<div class="nested_0 clearfix">
-			<div class="intro">
-				<h2>AXR stands for Arbitrary XML Rendering. It's aim is to provide a better alternative to HTML+CSS</h2>
-				<p>It uses XML for the content and HSS for the design and simple behavior of the interface. HSS  is a language based on CSS, but offers many more advanced features, such as object orientation, rule nesting, expressions, references to other objects, modularization (code reuse), etc. JavaScript will be used as well for advanced behavior.</p>
-				<a href="/get-involved" class="uiButton inline join">
-					<span class="inner">
-						<span class="icon"></span>
-						<span class="big">become a volunteer</span>
-						<span class="small">join the revolution</span>
-					</span>
-				</a>
-				<a href="/about/manifesto" class="uiButton inline gray manifesto">
-					<span class="inner">
-						<span class="icon"></span>
-						read the manifesto
-					</span>
-				</a>
-			</div>
-			<div class="slides">
-				<iframe width="346" height="278" src="https://www.youtube.com/embed/QwLY2gYyTFE?wmode=transparent" frameborder="0" allowfullscreen></iframe>
-			</div>
-		</div>
-	</div>
+	<div class="intro clearfix">
+		<div class="welcome">
+			<h2>Ever dreamed of a better alternative to current web tools?
+				<em>You've come to the right place!</em></h2>
+			<p>AXR is a new platform for creating web sites and applications,
+				redesigned from the ground up to enable modern user experiences.
+				The web you love, but <strong>better</strong>.</p>
 
-	<div class="advantages clearfix">
-		<div class="nested_0">
-			<h2>Advantages:</h2>
-			<ul class="clearfix">
-				<li class="first">
-					<span class="block_0"></span>
-					<span class="text">Build websites faster and easier</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Modularize and reuse your styling objects</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Vector graphics, powerful effects, textures, etc</span>
-				</li>
-			</ul>
-			<ul class="clearfix">
-				<li class="first">
-					<span class="block_0"></span>
-					<span class="text">True semantic content</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Exactly the same rendering across all browsers</span>
-				</li>
-				<li>
-					<span class="block_0"></span>
-					<span class="text">Truly separate content from presentation</span>
-				</li>
-			</ul>
-			<a href="/about/features" class="uiButton go learn_more">
-				<span class="inner">Learn more
+			<a href="/about/manifesto" class="uiButton inline gray manifesto">
+				<span class="inner">
 					<span class="icon"></span>
+					read the manifesto
+				</span>
+			</a>
+			<a href="/about/features" class="uiButton inline go">
+				<span class="inner">
+					<span class="icon"></span>
+					Learn more
 				</span>
 			</a>
 		</div>
-	</div>
 
-	<div class="hss_features">
-		<div class="nested_0">
-			<div class="features_menu" id="hss_features_menu">
-				<h2>Features of HSS</h2>
-				<div class="header"></div>
-				<ul class="content">
-					<li class="selected" data-section-name="hierarchical">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								Hierarchical
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-					<li data-section-name="object_oriented">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								Object oriented
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-					<li data-section-name="modular">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								Modular
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-					<li data-section-name="expressions">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								Expressions
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-					<li data-section-name="functions">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								Functions
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-					<li data-section-name="references">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								References
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-					<li data-section-name="filters">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								Filters
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-					<li data-section-name="structural_independence">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								Structural Independence
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-					<li data-section-name="layout">
-						<a href="#">
-							<span class="header"></span>
-							<span class="content">
-								Layout
-							</span>
-							<span class="footer"></span>
-						</a>
-					</li>
-				</ul>
-				<div class="footer"></div>
+		<a class="presentation" href="https://www.youtube.com/watch?v=QwLY2gYyTFE"
+			target="_blank"><span>Featured presentation</span></a>
+	</div>
+	<hr class="block_separator" />
+
+	{{#has_release}}
+		<div class="getit clearfix">
+			<div class="info">
+				<h2>Get an early speak-peek:</h2>
+				<p>Our prototype is already capable of doing many of the cool
+					features of HSS. It's not a full browser yet, but it allows
+					you to start experimenting right now with the web language
+					of the future.</p>
 			</div>
-			<div class="features_content" id="hss_features_content">
-				<div class="selected" data-section-name="hierarchical">
-					<p>Instead of writing longer and longer selector chains, the
-					rules (the selectors + the block with the properties) can be
-					nested inside each other. If the content in the XML file is
-					a tree of elements, why not apply styles using a tree as
-					well? It is both clearer and has better performance, since
-					not all elements have to be matched against each selector.</p>
-					<h3>CSS:</h3>
+			<div class="download">
+				<a href="{{release.url}}" class="uiButton get big">
+					<span class="inner">
+						<span class="big">Download now</span>
+						<span class="version">{{release.version}} prototype</span>
+						<span class="for">for {{release.os_str}}</span>
+						<span class="bomb"></span>
+					</span>
+				</a>
+				<a class="morestuff" href="http://docs.axr.vg">API docs</a>
+				<a class="morestuff" href="/downloads">All downloads</a>
+			</div>
+		</div>
+		<hr class="block_separator" />
+	{{/has_release}}
+
+	<div class="social clearfix">
+		<div class="left">
+			<h2>Latest blog posts:</h2>
+			<ul class="blog">
+				{{#blog_posts}}
+					<li><span class="icon"></span><a href="{{permalink}}">{{title}}</a></li>
+				{{/blog_posts}}
+			</ul>
+
+			<hr />
+
+			<h2>Social Media <span>Follow us on:</span></h2>
+			<a href="#" class="social_media twitter">Twitter</a>
+			<a href="#" class="social_media facebook">Facebook</a>
+			<a href="#" class="social_media google_plus">Google+</a>
+			<a href="#" class="social_media youtube">YouTube</a>
+		</div>
+
+		<div class="github">
+			<h2>Most recent GitHub activity:</h2>
+			<div class="box">
+				<div class="icon">
+					<div class="extra_0"></div>
+					<div class="extra_1"></div>
+				</div>
+				<div class="nested_0">
+					<ul class="_github_activity">
+						<li><div class="inner">Loading...</div></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr class="block_separator" />
+
+	<div class="hss_features clearfix">
+		<div class="features_menu" id="hss_features_menu">
+			<h2>Features of HSS</h2>
+			<div class="header"></div>
+			<ul class="content">
+				<li class="selected" data-section-name="hierarchical">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">Hierarchical</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+				<li data-section-name="object_oriented">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">Object oriented</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+				<li data-section-name="modular">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">Modular</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+				<li data-section-name="expressions">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">Expressions</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+				<li data-section-name="functions">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">Functions</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+				<li data-section-name="references">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">References</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+				<li data-section-name="filters">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">Filters</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+				<li data-section-name="structural_independence">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">Structural Independence</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+				<li data-section-name="layout">
+					<a href="#">
+						<span class="header"></span>
+						<span class="content">Layout</span>
+						<span class="footer"></span>
+					</a>
+				</li>
+			</ul>
+			<div class="footer"></div>
+		</div>
+		<div class="features_content" id="hss_features_content">
+			<div class="selected" data-section-name="hierarchical">
+				<p>Instead of writing longer and longer selector chains, the
+				rules (the selectors + the block with the properties) can be
+				nested inside each other. If the content in the XML file is
+				a tree of elements, why not apply styles using a tree as
+				well? It is both clearer and has better performance, since
+				not all elements have to be matched against each selector.</p>
+				<h3>CSS:</h3>
 <code data-language="css">books { }
 books > book{ }
 books > book > cover { }</code>
@@ -172,14 +176,14 @@ books > book > cover { }</code>
 		cover { }
 	}
 }</code>
-				</div>
-				<div data-section-name="object_oriented">
-					<p>Instead of dealing with an ever growing, plain list of
-					properties, in HSS you use objects that encapsulate a group
-					of related values, just as objects encapsulate related
-					functionality in traditional object oriented programming
-					languages.</p>
-					<h3>CSS:</h3>
+			</div>
+			<div data-section-name="object_oriented">
+				<p>Instead of dealing with an ever growing, plain list of
+				properties, in HSS you use objects that encapsulate a group
+				of related values, just as objects encapsulate related
+				functionality in traditional object oriented programming
+				languages.</p>
+				<h3>CSS:</h3>
 <code data-language="css">selector
 {
 	border-size: 1px;
@@ -187,7 +191,7 @@ books > book > cover { }</code>
 	border-style: solid;
 }</code>
 
-					<h3>HSS:</h3>
+				<h3>HSS:</h3>
 <code data-language="hss">selector
 {
 	border: @line {
@@ -195,13 +199,13 @@ books > book > cover { }</code>
 		color: #F00;
 	};
 }</code>
-				</div>
-				<div data-section-name="modular">
-					<p>You can give any HSS object a name, and reuse it as
-					needed. You can make "presets" and apply them to the
-					selected object(s) and then even override any property as
-					needed.</p>
-					<p>For example:</p>
+			</div>
+			<div data-section-name="modular">
+				<p>You can give any HSS object a name, and reuse it as
+				needed. You can make "presets" and apply them to the
+				selected object(s) and then even override any property as
+				needed.</p>
+				<p>For example:</p>
 <code data-language="hss">@linearGradient boxBg
 {
 	startColor: #F;
@@ -220,14 +224,14 @@ selector chain
 {
 	isA: box;
 }</code>
-				</div>
-				<div data-section-name="expressions">
-					<p>Anywhere a number is accepted as a value, you can also
-					use an expression. This is especially useful when you want
-					to mix fixed-width elements with fluid ones. For example,
-					when you have a sidebar 150 point wide, how wide is the
-					rest? Answer: 100% - 150.</p>
-					<p>For example:</p>
+			</div>
+			<div data-section-name="expressions">
+				<p>Anywhere a number is accepted as a value, you can also
+				use an expression. This is especially useful when you want
+				to mix fixed-width elements with fluid ones. For example,
+				when you have a sidebar 150 point wide, how wide is the
+				rest? Answer: 100% - 150.</p>
+				<p>For example:</p>
 <code data-language="hss">sidebar
 {
 	width: 150;
@@ -237,28 +241,28 @@ content
 {
 	width: 100% - 150;
 }</code>
-				</div>
-				<div data-section-name="functions">
-					<p>Functions like min(), max() or avg() help you control the
-					dimensions of your elements in fluid environments, without
-					the need for countless properties such as min-width or
-					max-height in CSS. The function will always return the
-					appropriate value depending on the parameters.</p>
-					<p>For example:</p>
+			</div>
+			<div data-section-name="functions">
+				<p>Functions like min(), max() or avg() help you control the
+				dimensions of your elements in fluid environments, without
+				the need for countless properties such as min-width or
+				max-height in CSS. The function will always return the
+				appropriate value depending on the parameters.</p>
+				<p>For example:</p>
 <code data-language="hss">selector
 {
 	// make it 20% the width of the parent, but at
 	// least 150 points wide and at most 400 points
 	width: min(150, max(400, 20%));
 }</code>
-				</div>
-				<div data-section-name="references">
-					<p>Many times it is very useful to be able to refer to a
-					property of another element to do some calculations, for
-					example. Imagine a site with a sidebar and content area, for
-					example. You want to make the content area as wide as the
-					whole page minus the sidebar, which is flexible. So you'd do
-					something like this:</p>
+			</div>
+			<div data-section-name="references">
+				<p>Many times it is very useful to be able to refer to a
+				property of another element to do some calculations, for
+				example. Imagine a site with a sidebar and content area, for
+				example. You want to make the content area as wide as the
+				whole page minus the sidebar, which is flexible. So you'd do
+				something like this:</p>
 <code data-language="hss">page
 {
 	sidebar
@@ -272,15 +276,15 @@ content
 		width: 100% - ref(width of sidebar);
 	}
 }</code>
-				</div>
-				<div data-section-name="filters">
-					<p>Filters are like pseudo-selectors in CSS but with a
-					completely overhauled selection system. Since HSS has scope,
-					the selectors are read from left to right. You select
-					elements based on the name, for example, and then you filter
-					that selection down to the elements you really want. There
-					are a lot of them to cover all the different needs, so check
-					out the docs.</p>
+			</div>
+			<div data-section-name="filters">
+				<p>Filters are like pseudo-selectors in CSS but with a
+				completely overhauled selection system. Since HSS has scope,
+				the selectors are read from left to right. You select
+				elements based on the name, for example, and then you filter
+				that selection down to the elements you really want. There
+				are a lot of them to cover all the different needs, so check
+				out the docs.</p>
 <code data-language="hss">// selects the first of the elements named foo
 foo:first { }
 // selects the elements named foo that are first inside
@@ -293,13 +297,13 @@ baz(width > 500) { }
 // selects qux elements whose title attribute start
 // with "Welcome"
 qux:[title:startsWith("Welcome")] { }</code>
-				</div>
-				<div data-section-name="structural_independence">
-					<p>The structure of the content is intrinsic to its meaning,
-					it should NEVER be altered just because of some stylistic
-					requirements. Therefore, in HSS you can freely manipulate
-					the content tree to fit whatever structure you need to
-					achieve your visual layout.</p>
+			</div>
+			<div data-section-name="structural_independence">
+				<p>The structure of the content is intrinsic to its meaning,
+				it should NEVER be altered just because of some stylistic
+				requirements. Therefore, in HSS you can freely manipulate
+				the content tree to fit whatever structure you need to
+				achieve your visual layout.</p>
 <code data-language="hss">root
 {
 	// wrap the element called "navigation" in a new
@@ -326,19 +330,19 @@ qux:[title:startsWith("Welcome")] { }</code>
 		#new search { isA: searchBox; }
 	}
 }</code>
-				</div>
-				<div data-section-name="layout">
-					<p>A new box model, combined with most of the other features
-					in this list, provide an awesome new way of doing layout,
-					more suited to how designers think. Instead of floating,
-					pushing and otherwise bang your head against the wall when
-					laying out your elements on the page, you use alignX and
-					alignY to set alignment points. These will determine the
-					position of the elements in the page, which will flow inside
-					of their parents, balancing themselves out when more than
-					one tries to align itself on that specific point. It sounds
-					more complicated than it really is, so here come some
-					examples:</p>
+			</div>
+			<div data-section-name="layout">
+				<p>A new box model, combined with most of the other features
+				in this list, provide an awesome new way of doing layout,
+				more suited to how designers think. Instead of floating,
+				pushing and otherwise bang your head against the wall when
+				laying out your elements on the page, you use alignX and
+				alignY to set alignment points. These will determine the
+				position of the elements in the page, which will flow inside
+				of their parents, balancing themselves out when more than
+				one tries to align itself on that specific point. It sounds
+				more complicated than it really is, so here come some
+				examples:</p>
 <code data-language="hss">// align foo to the right horizontally
 foo { alignX: left; }
 // align bar at the middle vertically
@@ -360,72 +364,6 @@ qux
 	contentAlignY: middle;
 	direction: ttb;
 }</code>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="getit">
-		<div class="nested_0 clearfix">
-			<div class="releases">
-				<h2>download</h2>
-				<div class="nested_0">
-					{{#has_release}}
-						<a href="{{release.url}}" class="uiButton big download">
-							<span class="inner">
-								<span class="big">Latest version:</span>
-								<span class="version">
-									{{release.version}} prototype
-								</span>
-								<span class="for">for {{release.os_str}}</span>
-								<span class="icon"></span>
-							</span>
-						</a>
-						<a class="older" href="{{g/www_root}}/downloads">looking for an older version?</a>
-						<h3>What am I downloading?</h3>
-						<p>This is a test app that runs on your computer, and
-						already does many of the cool features of HSS! It
-						includes tests and tutorials you can try out.</p>
-					{{/has_release}}
-					{{^has_release}}
-						<strong>No downloads available for your operating system</strong>
-					{{/has_release}}
-				</div>
-				<a class="altos" href="/downloads">need other operating system?</a>
-				<div class="block_0"></div>
-				<div class="block_1"></div>
-				<div class="block_2"></div>
-				<div class="block_3"></div>
-			</div>
-			<div class="changes">
-				<h2>Latest changes:</h2>
-				{{#has_changelog}}
-					<div class="verinfo">
-						<span class="version">v {{release.version}}</span>
-						Released: {{release.date_str}}
-					</div>
-					<ul>
-						{{#release.changes}}
-							<li>
-								<span class="block_0"></span>
-								<span class="text">{{.}}</span>
-							</li>
-						{{/release.changes}}
-						<li class="clear"></li>
-					</ul>
-
-					<a href="{{full_changelog_url}}" target="_blank" class="uiButton go inline see_all">
-						<span class="inner">
-							<span class="icon"></span>
-							See all
-						</span>
-					</a>
-				{{/has_changelog}}
-				{{^has_changelog}}
-					<div class="verinfo">
-						No changelog is currently available
-					</div>
-				{{/has_changelog}}
 			</div>
 		</div>
 	</div>
@@ -436,7 +374,7 @@ qux
 		withApp(function (App)
 		{
 			App.pageEvent.trigger('load_init', '/home');
+			App.pageEvent.trigger('load', '/home');
 		});
 	</script>
 {{/_ajax}}
-

@@ -1,8 +1,9 @@
 <?php
 
+require_once(SHARED . '/lib/core/model.php');
 require_once(SHARED . '/lib/php-markdown/markdown.php');
 
-class HssdocValue extends \ActiveRecord\Model
+class HssdocValue extends \Core\Model
 {
 	static $table_name = 'www_hssdoc_values';
 
@@ -13,4 +14,3 @@ class HssdocValue extends \ActiveRecord\Model
 		array('value')
 	);
 }
-

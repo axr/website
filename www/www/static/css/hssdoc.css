@@ -29,12 +29,14 @@
 #hssdoc_sidebar > ul > li > span.object a.open
 {
 	color: #D09610;
-	text-decoration: none;
+	font-size: 14px;
+	text-decoration: none !important;
 }
 
 #hssdoc_sidebar > ul > li > span.object a.obj
 {
 	color: #444;
+	font-size: 14px;
 	text-decoration: none;
 }
 
@@ -71,6 +73,7 @@
 #hssdoc_sidebar > ul ul li a
 {
 	color: #D09610;
+	font-size: 13px;
 	text-decoration: none;
 }
 
@@ -211,4 +214,3 @@
 {
 	font-size: 14px;
 }
-

@@ -22,11 +22,10 @@ class WWWController extends Controller
 
 			$this->view->{'g/url_profile'} =
 			$this->view->{'g/url_account'} = '/account';
-			$this->view->{'g/url_login'} = '/auth/logout?continue=' .
+			$this->view->{'g/url_logout'} = '/auth/logout?continue=' .
 				rawurlencode(Router::getUrl()->path);
 		}
 
 		$this->view->{'g/hide_login'} = true;
 	}
 }
-
