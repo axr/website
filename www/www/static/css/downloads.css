@@ -1,0 +1,133 @@
+#downloads > h2
+{
+	border-bottom: 1px solid #d8d8d8;
+	color: #666;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 20px 0 5px 0;
+	padding: 5px 0;
+}
+
+#downloads > .none
+{
+	padding: 10px 5px;
+}
+
+#downloads .dtable
+{
+	border-collapse: separate;
+	border-spacing: 1px;
+	width: 100%;
+}
+
+#downloads .dtable tbody tr
+{
+	margin: 0 0 1px 0;
+}
+
+#downloads .dtable thead th,
+#downloads .dtable tbody td
+{
+	background: #d8d8d8;
+	font-size: 13px;
+	margin: 0 0 1px 0;
+	padding: 10px 20px;
+	text-align: left;
+}
+
+#downloads .dtable thead th
+{
+	background: none;
+	font-weight: normal;
+}
+
+#downloads .dtable tbody td.os
+{
+	background: #d8d8d8;
+	padding: 0;
+	position: relative;
+	width: 140px;
+}
+
+#downloads .dtable tbody td.os a.dlink
+{
+	color: #333;
+	display: inline-block;
+	font-size: 13px;
+	height: 17px;
+	padding: 10px 20px;
+	text-decoration: none;
+	width: 100px;
+}
+
+#downloads .dtable tbody td.os a.dlink:hover
+{
+	text-decoration: underline;
+}
+
+#downloads .dtable tbody td.os .icon
+{
+	background: url(../images/sprite32.png) no-repeat 9999px 9999px;
+	display: inline-block;
+	height: 16px;
+	margin: 0 10px 0 0;
+	pointer-events: none;
+	vertical-align: middle;
+	width: 16px;
+}
+
+#downloads .dtable tbody td.os .icon.win
+{
+	background-position: -213px -90px;
+}
+
+#downloads .dtable tbody td.os .icon.osx
+{
+	background-position: -231px -90px;
+}
+
+
+#downloads .dtable tbody td.os .icon.linux
+{
+	background-position: -247px -90px;
+}
+
+#downloads .dtable tbody td.os:hover > a.dlink
+{
+	background: #d0d0d0;
+}
+
+#downloads .dtable tbody td.os:hover > .dropdown
+{
+	display: block;
+}
+
+#downloads .dtable tbody td .dropdown
+{
+	background: #d0d0d0;
+	display: none;
+	position: absolute;
+	z-index: 3;
+}
+
+#downloads .dtable tbody td .dropdown a
+{
+	color: #333;
+	display: block;
+	margin: 1px 0 0 0;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+	width: 100px;
+}
+
+#downloads .dtable tbody td .dropdown a span
+{
+	color: #555;
+	float: right;
+	text-decoration: inherit;
+}
+
+#downloads .dtable tbody td .dropdown a:hover
+{
+	text-decoration: underline;
+}

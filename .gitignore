@@ -1,9 +1,4 @@
-*/.DS_Store
-/deploy/local.properties
-/deploy/server.properties
-/deploy/db/scripts
-!/deploy/db/scripts/initial.sql
-/www/wiki/LocalSettings.2.php
-/www/sites/default/files
-/www/sites/default/images
-/shared/config.user.php
+/config.user.php
+/www/config.user.php
+/wiki/LocalSettings.2.php
+

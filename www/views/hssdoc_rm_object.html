@@ -1,0 +1,15 @@
+{{{g/tabs/html}}}
+{{{g/breadcrumb/html}}}
+
+<div id="hssdoc_rm">
+	<h2>Delete object?</h2>
+	<p>You are about to delete object <strong>{{object.name}}</strong>.
+	This action cannot be undone. Are you sure that this is what you want?</p>
+
+	<form action="" method="post">
+		<input type="hidden" name="_via_post" value="1" />
+		<input type="submit" value="Delete this object" />
+		or <a href="{{object.permalink}}">cancel</a>.
+	</form>
+</div>
+

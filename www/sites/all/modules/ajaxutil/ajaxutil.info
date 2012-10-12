@@ -1,9 +1,0 @@
-; $Id: $
-name = Ajax utilities
-description = AJAX API
-package = axr_ajax
-dependencies[] = axrsearch
-dependencies[] = assetmagic
-core = 7.x
-version = 1
-

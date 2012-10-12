@@ -1,0 +1,37 @@
+#auth_login p
+{
+	font-size: 14px;
+}
+
+#auth_login_choice .ask_name
+{
+	margin: 15px 0;
+}
+
+#auth_login_choice .ask_name label
+{
+	color: #888;
+	display: block;
+}
+
+#auth_login_choice .ask_name input
+{
+	width: 220px;
+}
+
+#auth_login_choice a.create
+{
+	margin: 0 14px 0 0;
+	vertical-align: middle;
+}
+
+#auth_login_choice a.cancel
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#auth_login_choice a.cancel:hover
+{
+	text-decoration: underline;
+}

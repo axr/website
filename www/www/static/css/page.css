@@ -1,0 +1,158 @@
+#page .page_item > h1
+{
+	margin: 15px 0 10px 0;
+}
+
+#page .page_item > .info
+{
+	font-size: 13px;
+	font-style: italic;
+	margin: 0 0 10px 0;
+}
+
+#page .page_item ul.page_links
+{
+	list-style: none;
+	margin: 5px 0 10px 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#page .page_item ul.page_links > li
+{
+	display: inline-block;
+	margin-right: 15px;
+}
+
+#page .page_item ul.page_links > li:first-child a
+{
+	color: #666;
+}
+
+#page .page_item ul.page_links > li a
+{
+	display: inline-block;
+	padding: 8px 12px;
+	background-color: #D8D8D8;
+	color: #999;
+	font-weight: bold;
+	text-decoration: none;
+	border-radius: 8px;
+}
+
+#page .page_item ul.page_links > li a:hover
+{
+	color: #666;
+}
+
+#page .page_item ul.page_links > li:first-child a:hover
+{
+	color: #000;
+}
+
+#page.list .page_item .parsedContent h2,
+#page.list .page_item .parsedContent h3,
+#page.list .page_item .parsedContent h4,
+#page.list .page_item .parsedContent h5,
+#page.list .page_item .parsedContent h6
+{
+	clear: none;
+}
+
+#page.list nav.pagination
+{
+	border-top: 1px solid #ccc;
+	height: 20px;
+	margin: 20px 0 0 0;
+	padding: 5px 0;
+}
+
+#page.list nav.pagination a
+{
+	color: #333;
+	font-size: 13px;
+	text-decoration: none;
+}
+
+#page.list nav.pagination a:hover
+{
+	text-decoration: underline;
+}
+
+#page.list nav.pagination a.next
+{
+	float: right;
+}
+
+#page_add a,
+#page_add_select a,
+#page_rm a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#page_add a:hover,
+#page_add_select a:hover,
+#page_rm a:hover
+{
+	text-decoration: underline;
+}
+
+#page_add_select ul.types
+{
+	list-style-type: bull;
+	margin: 0 0 0 30px;
+	padding: 0;
+}
+
+#page_add_select ul.types li
+{
+	border-bottom: 1px solid #bbb;
+	padding: 6px 0;
+	margin: 0 0 10px 0;
+}
+
+#page_add_select ul.types li a
+{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#page_add form > div.field
+{
+	display: block;
+	margin: 0 0 10px 0;
+}
+
+#page_add form > div.field > label
+{
+	display: block;
+}
+
+#page_add form > div.field > span.description
+{
+	color: #777;
+	display: block;
+	font-style: italic;
+}
+
+#page_add form textarea
+{
+	font-family: Monaco, monospace !important;
+}
+
+#page_add form input[name=title]
+{
+	width: 420px;
+}
+
+#page_add form textarea[name=field_content]
+{
+	height: 400px;
+}
+
+#livefyre
+{
+	margin-top: 0 !important;
+}

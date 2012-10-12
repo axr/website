@@ -1,6 +1,0 @@
-name = Assetmagic
-description = Magically load needed CSS and JS files
-package = other
-core = 7.x
-version = 1
-

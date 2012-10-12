@@ -1,0 +1,11 @@
+<div{{{attrs}}}>
+	<h5>{{msg_title}}</h5>
+	<div class="pBody">
+		{{^content_raw?}}<ul>{{/content_raw?}}
+			{{#content}}
+				{{{.}}}
+			{{/content}}
+		{{^content_raw?}}</ul>{{/content_raw?}}
+	</div>
+</div>
+

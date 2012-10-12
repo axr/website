@@ -1,0 +1,12 @@
+[submodule "util/deps/phing"]
+	path = util/deps/phing
+	url = git://github.com/phingofficial/phing.git
+[submodule "lib/lightopenid"]
+	path = lib/lightopenid
+	url = git://gitorious.org/lightopenid/lightopenid.git
+[submodule "wiki/extensions/CategoryTree"]
+	path = wiki/extensions/CategoryTree
+	url = https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CategoryTree.git
+[submodule "lib/activerecord"]
+	path = lib/activerecord
+	url = git://github.com/kla/php-activerecord.git

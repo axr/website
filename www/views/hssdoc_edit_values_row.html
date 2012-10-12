@@ -1,0 +1,11 @@
+<tr {{#id}}data-id="{{id}}"{{/id}}
+	{{#new?}}data-new="1"{{/new?}}>
+	<td><input type="text" name="value" value="{{value}}" /></td>
+	<td><input type="text" name="version" value="{{version}}" /></td>
+	<td>
+		<input type="checkbox" name="default" value="1"
+			{{#default?}}checked{{/default?}} /> Default
+	</td>
+	<td><a href="#" class="_delete">Delete</a></td>
+</tr>
+
