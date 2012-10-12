@@ -56,10 +56,10 @@ $router->route('/^\/page\/(\w+)\/rm\/?$/', array(
 	'args' => array(1)
 ));
 
-$router->route('/^\/page\/(\w+)\/?$/', array(
+$router->route('/^\/page\/(\d+)\/?$/', array(
 	'controller' => 'PageController',
 	'run' => 'runDisplay',
-	'args' => array(1)
+	'args' => array(1, 'id')
 ));
 
 $router->route('/^\/blog\/?$/', array(
