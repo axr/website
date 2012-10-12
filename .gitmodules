@@ -10,3 +10,6 @@
 [submodule "lib/activerecord"]
 	path = lib/activerecord
 	url = git://github.com/kla/php-activerecord.git
+[submodule "lib/mustache"]
+	path = lib/mustache
+	url = git://github.com/Ragnis/mustache-extended.git
