@@ -55,11 +55,9 @@
 		<div class="left">
 			<h2>Latest blog posts:</h2>
 			<ul class="blog">
-				<li><span class="icon"></span><a href="#">Tenerife LAN Party 2012</a></li>
-				<li><span class="icon"></span><a href="#">What has happened in the AXR Project in the last couple of weeks</a></li>
-				<li><span class="icon"></span><a href="#">Presenting the AXR Project at SpotBros House</a></li>
-				<li><span class="icon"></span><a href="#">Meeting summaries (2012/04/29 + two previous weeks)</a></li>
-				<li><span class="icon"></span><a href="#">Meeting summary (2012/04/01)</a></li>
+				{{#blog_posts}}
+					<li><span class="icon"></span><a href="{{permalink}}">{{title}}</a></li>
+				{{/blog_posts}}
 			</ul>
 
 			<hr />
