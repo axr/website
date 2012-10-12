@@ -299,13 +299,19 @@ window['App'] = window['App'] || {};
 	};
 
 	/**
-	 * Format dates into "x units ago" format.
+	 * Format dates into "x units ago" format. If the timestamp is not a number
+	 * "some time ago" is returned.
 	 *
 	 * @param {integer} timestamp
 	 * @return string
 	 */
 	App.util.formatDateAgo = function (timestamp)
 	{
+		if (isNaN(timestamp))
+		{
+			return 'some time ago';
+		}
+
 		var diff = Math.floor((new Date()).getTime() / 1000) - timestamp;
 
 		if (diff == 0) {
