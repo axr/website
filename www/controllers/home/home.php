@@ -20,17 +20,9 @@ class HomeController extends WWWController
 
 		if (is_object($release))
 		{
-			$release->os_str = isset($oses[$release->os]) ?
+			$this->view->release = clone $release;
+			$this->view->release->os = isset($oses[$release->os]) ?
 				$oses[$release->os] : $release->os;
-			$release->date_str = date('Y-m-d', $release->date);
-
-			$this->view->release = $release;
-			$this->view->has_release = true;
-			$this->view->has_changelog = count($release->changes) > 0;
-
-			$this->view->full_changelog_url = 'http://github.com/' .
-				Config::get('/www/downloads/releases_repo') .
-				'/blob/master/CHANGELOG.md';
 		}
 
 		// Get blog posts
