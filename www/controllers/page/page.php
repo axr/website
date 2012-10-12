@@ -248,9 +248,16 @@ class PageController extends WWWController
 	 */
 	public function runRm ($id)
 	{
-		$page = Page::find($id);
+		try
+		{
+			$page = Page::find($id);
+		}
+		catch (\ActiveRecord\RecordNotFound $e)
+		{
+			throw new HTTPException(null, 404);
+		}
 
-		if ($page === null || !$page->can_rm())
+		if (!$page->can_rm())
 		{
 			throw new HTTPException(null, 404);
 		}
