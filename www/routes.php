@@ -27,6 +27,11 @@ $router->route('/^\/calendar\/?$/', array(
 	'args' => array(ROOT . '/views/calendar.html', 'Calendar')
 ));
 
+$router->route('/^\/about\/manifesto\/?$/', array(
+	'controller' => 'ViewController',
+	'args' => array(ROOT . '/views/manifesto.html', 'Manifesto')
+));
+
 $router->route('/^\/page\/add\/?$/', array(
 	'controller' => 'PageController',
 	'run' => 'runAdd',
