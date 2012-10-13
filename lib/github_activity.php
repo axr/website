@@ -140,7 +140,7 @@ class GithubActivity
 				self::fetchActivity(),
 				self::fetchActivity(2));
 
-			Cache::set('/gh_activity', $data, array('expires' => 600));
+			Cache::set('/gh_activity', $data, array('expires' => 1800));
 		}
 
 		return $data;
