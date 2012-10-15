@@ -2,7 +2,6 @@
 
 require_once(ROOT . '/models/hssdoc_value.php');
 require_once(SHARED . '/lib/core/model.php');
-require_once(SHARED . '/lib/php-markdown/markdown.php');
 
 class HssdocProperty extends \Core\Model
 {
@@ -43,16 +42,6 @@ class HssdocProperty extends \Core\Model
 		}
 
 		return parent::__isset($attribute_name);
-	}
-
-	/**
-	 * Getter for attribute description__parsed
-	 *
-	 * @return string
-	 */
-	public function get_description__parsed ()
-	{
-		return Markdown($this->description);
 	}
 
 	/**

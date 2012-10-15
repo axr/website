@@ -5,15 +5,13 @@ require_once(ROOT . '/models/hssdoc_object.php');
 require_once(ROOT . '/models/hssdoc_property.php');
 require_once(ROOT . '/models/hssdoc_value.php');
 require_once(SHARED . '/lib/core/exceptions/http_ajax.php');
+require_once(SHARED . '/lib/core/mustache_filters/markdown.php');
 
 class HssdocController extends WWWController
 {
 	public function initialize ()
 	{
-		if (!User::current()->can('/hssdoc'))
-		{
-			//throw new HTTPException(null, 404);
-		}
+		\Mustache\Filter::register(new \Core\MustacheFilters\Markdown);
 	}
 
 	/**

@@ -6,7 +6,7 @@
 	<h1>{{object.name}}</h1>
 
 	<div class="parsedContent">
-		{{{object.description__parsed}}}
+		{{object.description|markdown|raw}}
 	</div>
 
 	{{#properties}}
@@ -19,7 +19,7 @@
 			</header>
 
 			<div class="parsedContent">
-				{{{description__parsed}}}
+				{{description|markdown|raw}}
 			</div>
 
 			{{#_values_table}}
@@ -39,4 +39,3 @@
 		});
 	</script>
 {{/_ajax}}
-
