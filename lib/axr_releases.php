@@ -97,7 +97,7 @@ class AXRReleases
 					}
 				}
 
-				if (!isset($out->{$version}->zz{$os}))
+				if (!isset($out->{$version}->{$os}))
 				{
 					$out->{$version}->{$os} = array();
 				}
