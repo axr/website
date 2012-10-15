@@ -13,6 +13,11 @@
 		<section class="prop_item" data-property="{{name}}">
 			<header>
 				<h2>{{name}}</h2>
+
+				{{#readonly}}
+					<span class="ro">Read-only</span>
+				{{/readonly}}
+				
 				{{#can_edit}}
 					<a href="/doc/edit_property/{{id}}" class="action">[edit]</a>
 				{{/can_edit}}
