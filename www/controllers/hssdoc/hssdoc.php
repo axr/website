@@ -522,7 +522,7 @@ class HssdocController extends WWWController
 		$view->has_objects = count($objects) > 0;
 		$view->can_edit = User::current()->can('/hssdoc/edit');
 
-		$mustache = new Mustache();
+		$mustache = new \Mustache\Renderer();
 		$template = file_get_contents(ROOT . '/views/hssdoc_sidebar.html');
 
 		return $mustache->render($template, $view);
@@ -571,7 +571,7 @@ class HssdocController extends WWWController
 		$view = new StdClass();
 		$view->values = $data;
 
-		$mustache = new Mustache();
+		$mustache = new \Mustache\Renderer();
 		$template = file_get_contents(ROOT . '/views/hssdoc_values_table.html');
 
 		return $mustache->render($template, $view);
