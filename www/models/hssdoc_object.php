@@ -15,8 +15,7 @@ class HssdocObject extends \Core\Model
 		array('properties',
 			'class_name' => 'HssdocProperty',
 			'primary_key' => 'name',
-			'foreign_key' => 'object',
-			'order' => 'readonly asc, name asc')
+			'foreign_key' => 'object')
 	);
 
 	/**
@@ -27,22 +26,7 @@ class HssdocObject extends \Core\Model
 	 */
 	public function __isset ($attribute_name)
 	{
-		if ($attribute_name === 'description__parsed')
-		{
-			return true;
-		}
-
 		return parent::__isset($attribute_name);
-	}
-
-	/**
-	 * Getter for attribute description__parsed
-	 *
-	 * @return string
-	 */
-	public function get_description__parsed ()
-	{
-		return Markdown($this->description);
 	}
 
 	/**

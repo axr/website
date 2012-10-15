@@ -34,9 +34,7 @@ class HssdocProperty extends \Core\Model
 	 */
 	public function __isset ($attribute_name)
 	{
-		$virtual_fields = array('description__parsed', 'permalink');
-
-		if (in_array($attribute_name, $virtual_fields))
+		if ($attribute_name === 'permalink')
 		{
 			return true;
 		}
