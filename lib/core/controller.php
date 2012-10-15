@@ -4,7 +4,7 @@ require_once(SHARED . '/lib/core/rsrc.php');
 require_once(SHARED . '/lib/core/minify.php');
 require_once(SHARED . '/lib/core/router.php');
 require_once(SHARED . '/lib/core/url.php');
-require_once(SHARED . '/lib/mustache.php/Mustache.php');
+require_once(SHARED . '/lib/mustache/src/mustache.php');
 
 class Controller
 {
@@ -52,7 +52,7 @@ class Controller
 
 		$this->view->{'g/breadcrumb/html'} = function () use ($that)
 		{
-			$mustache = new Mustache();
+			$mustache = new \Mustache\Renderer();
 			$template = file_get_contents(SHARED . '/views/layout_breadcrumb.html');
 
 			return $mustache->render($template, array(
@@ -63,7 +63,7 @@ class Controller
 
 		$this->view->{'g/tabs/html'} = function () use ($that)
 		{
-			$mustache = new Mustache();
+			$mustache = new \Mustache\Renderer();
 			$template = file_get_contents(SHARED . '/views/layout_tabs.html');
 
 			// Only one tab, and it's active == no tabs
@@ -134,7 +134,7 @@ class Controller
 			$layoutHTML = file_get_contents($layoutPath);
 		}
 
-		$mustache = new Mustache();
+		$mustache = new \Mustache\Renderer();
 
 		$this->view->{'g/content'} = $mustache->render($viewHTML, $this->view);
 		$out = $mustache->render($layoutHTML, $this->view);
@@ -157,7 +157,7 @@ class Controller
 
 		$template = file_get_contents($file);
 
-		$mustache = new Mustache();
+		$mustache = new \Mustache\Renderer();
 		$out = $mustache->render($template, $this->view);
 
 		return ($minify && $extension === 'html') ? Minify::html($out) : $out;

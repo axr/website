@@ -15,29 +15,31 @@ class DownloadsController extends WWWController
 			'name' => 'Downloads'
 		);
 
-		$this->view->releases = $this->filter_releases_for_view($data);
-		$this->view->has_releases = count($this->view->releases) > 0;
+		$this->view->release_types = array(
+			array(
+				'name' => 'Prototype',
+				'releases' => self::get_releases($releases, 'stable')
+			),
+			array(
+				'name' => 'Developer releases',
+				'releases' => self::get_releases($releases, 'dev')
+			)
+		);
 
 		echo $this->renderView(ROOT . '/views/downloads.html');
 	}
 
-	/**
-	 * Reformat data from AXRReleases so it can be passed to the view
-	 *
-	 * @param mixed $data
-	 * @return mixed
-	 */
-	private function filter_releases_for_view ($data)
+	private static function get_releases ($releases, $type)
 	{
 		$out = array();
+		$data = (array) $releases->get_releases_by_type($type);
 
-		$data = (array) clone $data;
 		ksort($data);
 		$data = array_reverse($data);
 
 		foreach ($data as $version => $rel)
 		{
-			$rel->win = isset($rel->win) ? $rel->win : array();
+			$rel->windows = isset($rel->windows) ? $rel->windows : array();
 			$rel->osx = isset($rel->osx) ? $rel->osx : array();
 			$rel->linux = isset($rel->linux) ? $rel->linux : array();
 
@@ -45,19 +47,16 @@ class DownloadsController extends WWWController
 				'version' => $version,
 				'oses' => array(
 					array(
-						'os' => 'win',
-						'files' => $rel->win,
-						'has_files' => count($rel->win) > 0
+						'os' => 'windows',
+						'files' => $rel->windows
 					),
 					array(
 						'os' => 'osx',
-						'files' => $rel->osx,
-						'has_files' => count($rel->osx) > 0
+						'files' => $rel->osx
 					),
 					array(
 						'os' => 'linux',
-						'files' => $rel->linux,
-						'has_files' => count($rel->linux) > 0
+						'files' => $rel->linux
 					)
 				)
 			);
@@ -66,4 +65,3 @@ class DownloadsController extends WWWController
 		return $out;
 	}
 }
-

@@ -49,17 +49,25 @@ class AXRReleases
 			{
 				$item = $data[$i];
 
-				preg_match('/^axr-([0-9.]+)-((\w+)-)?(\w+)\.([a-z0-9.]+)$/i', $item->name, $match);
+				preg_match('/^axr-(?<version>[0-9.]+)-((git(?<sha>[0-9a-f]+)-)?(?<os>\w+)-)?(?<arch>\w+)\.(?<ext>[a-z0-9.]+)$/i', $item->name, $match);
 
-				if (!is_array($match) || count($match) !== 6)
+				if (!is_array($match))
 				{
 					continue;
 				}
 
-				$version = $match[1];
-				$os = !empty($match[3]) ? $match[3] : null;
-				$arch = $match[4];
-				$ext = $match[5];
+				$version = $match['version'];
+				$sha = !empty($match['sha']) ? $match['sha'] : null;
+				$os = !empty($match['os']) ? $match['os'] : null;
+				$arch = $match['arch'];
+				$ext = $match['ext'];
+
+				$type = $sha === null ? 'stable' : 'dev';
+
+				if ($type === 'dev')
+				{
+					$version = $version . '-git' . $sha;
+				}
 
 				if ($os === null)
 				{
@@ -81,12 +89,15 @@ class AXRReleases
 				{
 					$out->{$version} = new StdClass();
 
-					$changelog = $this->get_changelog($version);
-					$out->{$version}->date = $changelog->date;
-					$out->{$version}->changes = $changelog->changes;
+					if ($type === 'stable')
+					{
+						$changelog = $this->get_changelog($version);
+						$out->{$version}->date = $changelog->date;
+						$out->{$version}->changes = $changelog->changes;
+					}
 				}
 
-				if (!isset($out->{$version}->{$os}))
+				if (!isset($out->{$version}->zz{$os}))
 				{
 					$out->{$version}->{$os} = array();
 				}
@@ -95,11 +106,64 @@ class AXRReleases
 					'arch' => $arch,
 					'ext' => $ext,
 					'url' => $item->html_url,
-					'size' => $item->size
+					'size' => $item->size,
+					'sha' => $match['sha'],
+					'type' => $type
 				);
 			}
 
 			Cache::set('/axr_releases/:repo/' . $this->repository, $out);
+		}
+
+		return $out;
+	}
+
+	/**
+	 * Get releases by type
+	 *
+	 * @param string $type (stable|dev)
+	 * @return mixed
+	 */
+	public function get_releases_by_type ($type)
+	{
+		$out = new StdClass();
+		$data = $this->get_releases();
+
+		foreach ($data as $version => $version_data)
+		{
+			foreach ($version_data as $os => $os_data)
+			{
+				if (!in_array($os, array('windows', 'osx', 'linux')))
+				{
+					continue;
+				}
+
+				foreach ($os_data as $i => $release)
+				{
+					if ($release->type === $type)
+					{
+						if (!isset($out->{$version}))
+						{
+							$out->{$version} = new StdClass();
+						}
+
+						if (!isset($out->{$version}->{$os}))
+						{
+							$out->{$version}->{$os} = array();
+						}
+
+						$out->{$version}->{$os}[] = clone $release;
+					}
+				}
+			}
+
+			if (isset($out->{$version}))
+			{
+				$out->{$version}->date = isset($out->{$version}->date) ?
+					$out->{$version}->date : null;
+				$out->{$version}->changes = isset($out->{$version}->changes) ?
+					$out->{$version}->changes : null;
+			}
 		}
 
 		return $out;
@@ -190,7 +254,7 @@ class AXRReleases
 	 */
 	public function get_for_home ()
 	{
-		$data = (array) $this->get_releases();
+		$data = (array) $this->get_releases_by_type('stable');
 
 		ksort($data);
 		$data = array_reverse($data);
@@ -210,7 +274,8 @@ class AXRReleases
 			{
 				$release = $item->{$clientOS}[$i];
 
-				if ($release->arch === $clientArch)
+				if ($release->arch === $clientArch ||
+					($release->arch === 'i386' && $clientArch === 'x86_64'))
 				{
 					$out = $release;
 					$out->date = $item->date;
@@ -218,7 +283,10 @@ class AXRReleases
 					$out->os = $clientOS;
 					$out->version = $version;
 
-					break(2);
+					if ($release->arch === $clientArch)
+					{
+						break(2);
+					}
 				}
 			}
 		}
@@ -243,13 +311,13 @@ class AXRReleases
 			return 'linux';
 		}
 
-		return 'win';
+		return 'windows';
 	}
 
 	/**
 	 * Detect client's system architecture
 	 *
-	 * @return string (universal|i386|x86-64)
+	 * @return string (universal|i386|x86_64)
 	 */
 	private static function detect_arch ()
 	{
