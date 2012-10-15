@@ -12,7 +12,7 @@ class HssdocController extends WWWController
 	{
 		if (!User::current()->can('/hssdoc'))
 		{
-			throw new HTTPException(null, 404);
+			//throw new HTTPException(null, 404);
 		}
 	}
 
@@ -513,13 +513,14 @@ class HssdocController extends WWWController
 			$item = $object->attributes();
 			$item['permalink'] = $object->permalink;
 			$item['properties'] = $object->properties;
+			$item['properties_normal'] = $object->properties_normal;
+			$item['properties_ro'] = $object->properties_ro;
 
 			$object = $item;
 		}
 
 		$view = new StdClass();
 		$view->objects = $objects;
-		$view->has_objects = count($objects) > 0;
 		$view->can_edit = User::current()->can('/hssdoc/edit');
 
 		$mustache = new \Mustache\Renderer();
@@ -577,4 +578,3 @@ class HssdocController extends WWWController
 		return $mustache->render($template, $view);
 	}
 }
-

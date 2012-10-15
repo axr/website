@@ -15,7 +15,8 @@ class HssdocObject extends \Core\Model
 		array('properties',
 			'class_name' => 'HssdocProperty',
 			'primary_key' => 'name',
-			'foreign_key' => 'object')
+			'foreign_key' => 'object',
+			'order' => 'readonly asc, name asc')
 	);
 
 	/**
@@ -52,6 +53,46 @@ class HssdocObject extends \Core\Model
 	public function get_permalink ()
 	{
 		return '/doc/' . $this->name;
+	}
+
+	/**
+	 * Get all normal (non-readonly) properties
+	 *
+	 * @return HssdocProperty[]
+	 */
+	public function get_properties_normal ()
+	{
+		$properties = array();
+
+		foreach ($this->properties as $property)
+		{
+			if ((bool) $property->readonly === false)
+			{
+				$properties[] = $property;
+			}
+		}
+
+		return $properties;
+	}
+
+	/**
+	 * Get all read-only properties
+	 *
+	 * @return HssdocProperty[]
+	 */
+	public function get_properties_ro ()
+	{
+		$properties = array();
+
+		foreach ($this->properties as $property)
+		{
+			if ((bool) $property->readonly === true)
+			{
+				$properties[] = $property;
+			}
+		}
+
+		return $properties;
 	}
 
 	/**
