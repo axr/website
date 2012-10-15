@@ -42,6 +42,7 @@ class DownloadsController extends WWWController
 			$rel->windows = isset($rel->windows) ? $rel->windows : array();
 			$rel->osx = isset($rel->osx) ? $rel->osx : array();
 			$rel->linux = isset($rel->linux) ? $rel->linux : array();
+			$rel->src = isset($rel->src) ? $rel->src : array();
 
 			$out[] = array(
 				'version' => $version,
@@ -57,6 +58,10 @@ class DownloadsController extends WWWController
 					array(
 						'os' => 'linux',
 						'files' => $rel->linux
+					),
+					array(
+						'os' => 'src',
+						'files' => $rel->src
 					)
 				)
 			);
