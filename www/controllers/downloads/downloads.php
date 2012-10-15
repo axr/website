@@ -39,7 +39,7 @@ class DownloadsController extends WWWController
 
 		foreach ($data as $version => $rel)
 		{
-			$rel->win = isset($rel->win) ? $rel->win : array();
+			$rel->windows = isset($rel->windows) ? $rel->windows : array();
 			$rel->osx = isset($rel->osx) ? $rel->osx : array();
 			$rel->linux = isset($rel->linux) ? $rel->linux : array();
 
@@ -47,8 +47,8 @@ class DownloadsController extends WWWController
 				'version' => $version,
 				'oses' => array(
 					array(
-						'os' => 'win',
-						'files' => $rel->win
+						'os' => 'windows',
+						'files' => $rel->windows
 					),
 					array(
 						'os' => 'osx',

@@ -133,7 +133,7 @@ class AXRReleases
 		{
 			foreach ($version_data as $os => $os_data)
 			{
-				if (!in_array($os, array('win', 'osx', 'linux')))
+				if (!in_array($os, array('windows', 'osx', 'linux')))
 				{
 					continue;
 				}
@@ -311,7 +311,7 @@ class AXRReleases
 			return 'linux';
 		}
 
-		return 'win';
+		return 'windows';
 	}
 
 	/**
