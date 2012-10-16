@@ -29,10 +29,12 @@ class AxrBookController extends Controller
 
 		// Load styles
 		$this->rsrc->loadBundle('css/bundle_shared.css');
+		$this->rsrc->loadBundle('css/bundle_wiki.css');
 
 		// Load scripts
 		$this->rsrc->loadScript('https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
 		$this->rsrc->loadBundle('js/bundle_shared.js');
+		$this->rsrc->loadBundle('js/bundle_wiki.js');
 		$this->rsrc->loadBundle('js/bundle_rainbow.js');
 
 		// Resources
@@ -53,7 +55,7 @@ class AxrBookController extends Controller
 		if (!is_object($this->wgUser) || $this->wgUser->getID() == 0)
 		{
 			$this->view->{'g/user'} = false;
-			$this->view->{'g/url_login'} = $wwroot . '/Special:OpenIDLogin';
+			$this->view->{'g/url_login'} = $wwroot . '/Special:MixedLogin';
 			$this->view->{'g/url_login/label'} = 'Login to wiki';
 		}
 		else

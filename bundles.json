@@ -49,6 +49,20 @@
 			"js/hssdoc.js"
 		]
 	},
+	"css/bundle_wiki.css": {
+		"type": "css",
+		"files": [
+			"css/openid.css"
+		]
+	},
+	"js/bundle_wiki.js": {
+		"type": "js",
+		"files": [
+			"js/openid-jquery.js",
+			"js/openid-en.js",
+			"js/wiki/mixed_login.js"
+		]
+	},
 	"js/bundle_rainbow.js": {
 		"type": "js",
 		"files": [
