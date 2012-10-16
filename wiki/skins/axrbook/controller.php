@@ -141,7 +141,7 @@ class AxrBookController extends Controller
 
 		$this->view->user_links = $this->mwt->getPersonalTools();
 
-		$this->view->is_article = $out->mIsarticle;
+		$this->view->is_article = $out->mIsArticleRelated;
 		$this->view->bodytext = $this->getMWhtml('bodytext');
 		$this->view->category_links = isset($out->mCategoryLinks['normal']) ?
 			$out->mCategoryLinks['normal'] : array();

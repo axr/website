@@ -30,7 +30,7 @@ class SkinAxrBook extends SkinTemplate
 	{
 		parent::setupSkinUserCss($out);
 
-		if ($out->mIsarticle !== true &&
+		if ($out->mIsArticleRelated !== true &&
 			!in_array($out->mPagetitle, array('Preferences')))
 		{
 			$out->addStyle('axrbook/css/monobook.css', 'screen');
