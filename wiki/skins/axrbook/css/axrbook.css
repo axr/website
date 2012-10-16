@@ -291,13 +291,18 @@
 
 #preftoc li a:hover
 {
-	text-decoration: underline;
+	color: #222;
 }
 
 /**
  * Form
  * ===========
  */
+form a
+{
+	color: #444;
+}
+
 form fieldset
 {
 	border: 1px solid #ccc;
@@ -308,6 +313,44 @@ form fieldset
 form fieldset > legend
 {
 	font-weight: bold;
+}
+
+form fieldset.prefsection
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+form fieldset.prefsection > legend
+{
+	display: none;
+}
+
+form fieldset input
+{
+	background: #fff;
+	display: inline-block;
+	border: 1px solid #B3B3B3;
+	border-radius: 3px;
+	box-shadow: #ECECEC 0 1px 0, #ECECEC 0 -1px 0;
+	margin: 0 5px 0 0;
+	padding: 2px 4px;
+}
+
+form fieldset table td
+{
+	padding: 3px 0;
+}
+
+form fieldset table td.htmlform-tip
+{
+	font-size: 12px;
+}
+
+form fieldset table td.mw-label
+{
+	padding-right: 8px;
 }
 
 form fieldset table td.mw-label label
