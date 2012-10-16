@@ -1,5 +1,6 @@
 <?php
 
+require_once(SHARED . '/lib/extend.php');
 require_once(SHARED . '/lib/core/rsrc.php');
 require_once(SHARED . '/lib/core/minify.php');
 require_once(SHARED . '/lib/core/router.php');
