@@ -71,3 +71,25 @@
 	display: inline;
 	padding: 0 3px;
 }
+
+.parsedContent table
+{
+	border-collapse: collapse;
+	empty-cells: hide;
+	margin: 5px 0;
+	text-align: center;
+}
+
+.parsedContent table th,
+.parsedContent table td
+{
+	background: #eaeaea;
+	border: 1px solid #aaa;
+	padding: 4px 8px;
+	text-align: left;
+}
+
+.parsedContent table th
+{
+	background: #ddd;
+}

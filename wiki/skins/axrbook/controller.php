@@ -23,6 +23,8 @@ class AxrBookController extends Controller
 	 */
 	public function initialize ()
 	{
+		global $wgSiteNotice;
+
 		$out = RequestContext::getMain()->getOutput();
 
 		// Load styles
@@ -63,6 +65,24 @@ class AxrBookController extends Controller
 			$this->view->{'g/url_account'} = $wwwroot . '/Special:Preferences';
 			$this->view->{'g/url_logout'} = $wwwroot . '/Special:UserLogout';
 		}
+
+		$this->view->site_notice = isset($wgSiteNotice) ? $wgSiteNotice : null;
+		$this->view->footer_info = array();
+		$this->view->footer_links = array();
+
+		$footer_links = $this->mwt->getFooterLinks('flat');
+
+		foreach ($footer_links as $link)
+		{
+			if (in_array($link, array('lastmod', 'viewcount')))
+			{
+				$this->view->footer_info[] = $this->getMWhtml($link);
+			}
+			else
+			{
+				$this->view->footer_links[] = $this->getMWhtml($link);
+			}
+		}
 	}
 
 	/**
@@ -70,7 +90,9 @@ class AxrBookController extends Controller
 	 */
 	public function run ()
 	{
-		$this->view->_title = $this->mwt->data['title'];
+		$out = RequestContext::getMain()->getOutput();
+		
+		$this->view->{'g/title'} = $this->mwt->data['title'];
 		$this->breadcrumb = array(
 			array(
 				'name' => 'Home',
@@ -85,124 +107,18 @@ class AxrBookController extends Controller
 			)
 		);
 
-		// Another way to display personal tools
-		/**$personal_tools = $this->mwt->getPersonalTools();
+		$this->view->cactions = array_values($this->mwt->data['content_actions']);
+		$this->view->user_links = $this->mwt->getPersonalTools();
 
-		foreach ($personal_tools as $key => $item)
-		{
-			$this->tabs[] = array(
-				'name' => $item['links'][0]['text'],
-				'link' => $item['links'][0]['href'],
-				'current' => $item['active']
-			);
-		}**/
+		$this->view->is_article = $out->mIsarticle;
+		$this->view->bodytext = $this->getMWhtml('bodytext');
+		$this->view->category_links = isset($out->mCategoryLinks['normal']) ?
+			$out->mCategoryLinks['normal'] : array();
 
-		$footer_links = $this->mwt->getFooterLinks('flat');
-
-		$this->view->footer_has_links = count($footer_links) > 0;
-		$this->view->footer_infolinks = array();
-		$this->view->footer_links = array();
-
-		foreach ($footer_links as $link)
-		{
-			if (in_array($link, array('lastmod', 'viewcount')))
-			{
-				$this->view->footer_infolinks[] = $this->getMWhtml($link);
-			}
-			else
-			{
-				$this->view->footer_links[] = $this->getMWhtml($link);
-			}
-		}
-
-		$this->view->mwt = $this->mwt;
-		$this->view->html = array(
-			'userlangattributes' => $this->getMWhtml('userlangattributes'),
-			'subtitle' => $this->getMWhtml('subtitle'),
-			'undelete' => $this->getMWhtml('undelete'),
-			'newtalk' => $this->getMWhtml('newtalk'),
-			'bodytext' => $this->getMWhtml('bodytext'),
-			'catlinks' => $this->getMWhtml('catlinks'),
-			'dataAfterContent' => $this->getMWhtml('dataAfterContent')
-		);
-		$this->view->msg = array(
-			'tagline' => $this->getMWmsg('tagline'),
-			'jumpto' => $this->getMWmsg('jumpto'),
-			'jumptonavigation' => $this->getMWmsg('jumptonavigation'),
-			'jumptosearch' => $this->getMWmsg('jumptosearch'),
-			'personaltools' => $this->getMWmsg('personaltools'),
-			'views' => $this->getMWmsg('views')
-		);
-
-		$this->view->cactions =
-			$this->makeListItemArray($this->mwt->data['content_actions']);
-		$this->view->personal_tools =
-			$this->makeListItemArray($this->mwt->getPersonalTools());
-		$this->view->portals = array();
-
-		foreach ($this->mwt->data['sidebar'] as $box => $content)
-		{
-			if ($content === false ||
-				in_array($box, array('SEARCH', 'LANGUAGES')))
-			{
-				continue;
-			}
-
-			if ($box === 'TOOLBOX')
-			{
-				$this->view->portals[] = $this->renderPortalToolbox();
-			}
-			else
-			{
-				$this->view->portals[] = $this->renderPortalBox($box, $content);
-			}
-		}
+		$this->view->after_content = $this->getMWhtml('dataAfterContent');
 
 		$html = $this->renderView(ROOT . '/skins/axrbook/layout.html');
 		echo Minify::html($html);
-	}
-
-	public function renderPortalBox ($box, $content)
-	{
-		$mustache = new \Mustache\Renderer();
-		$template = file_get_contents(ROOT . '/skins/axrbook/portal_box.html');
-
-		$view = new StdClass();
-		$view->attrs = ' class="generated-sidebar portlet" id="' .
-			Sanitizer::escapeId('p-' . $box) . '"';
-		$view->msg_title = wfMessage($box)->exists() ?
-			$this->getMWmsg($box) : $box;
-
-		if (is_array($content))
-		{
-			$view->content = $this->makeListItemArray($content);
-		}
-		else
-		{
-			$view->content = array($content);
-			$view->{'content_is_raw'} = true;
-		}
-
-		return $mustache->render($template, $view);
-	}
-
-	public function renderPortalToolbox ()
-	{
-		$that = $this;
-
-		$mustache = new \Mustache\Renderer();
-		$template = file_get_contents(ROOT . '/skins/axrbook/portal_toolbox.html');
-
-		$view = new StdClass();
-		$view->msg_title = $this->getMWmsg('toolbox');
-		$view->toolbox = $this->makeListItemArray($that->mwt->getToolbox());
-		$view->hook_toolbox_end = function () use ($that)
-		{
-			wfRunHooks('MonoBookTemplateToolboxEnd', array(&$that->mwt));
-			wfRunHooks('SkinTemplateToolboxEnd', array(&$that->mwt, true));
-		};
-
-		return $mustache->render($template, $view);
 	}
 
 	public function makeListItemArray($list)

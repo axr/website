@@ -104,4 +104,3 @@ $wgEnableMWSuggest = true; // Search suggestions
 
 // Other extensions
 require_once($IP . '/extensions/Code/Code.php');
-

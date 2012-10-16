@@ -1,76 +1,50 @@
 {{{g/breadcrumb/html}}}
 {{{g/tabs/html}}}
 
-<div id="globalWrapper">
-	<div id="column-content">
-		<div id="p-cactions" class="portlet">
-			<h5>{{msg.views}}</h5>
-			<div class="pBody">
-				<ul>
-					{{#cactions}}{{{.}}}{{/cactions}}
-				</ul>
+<div id="wiki">
+	{{#user_links|bool}}
+		<nav class="user_links">
+			{{#user_links}}
+				{{#links}}
+					<a href="{{href}}" class="{{single-id}} {{class}}">{{text}}</a>
+				{{/links}}
+			{{/user_links}}
+		</nav>
+	{{/user_links}}
+
+	{{#site_notice}}
+		<div class="site_notice message_std notice">{{site_notice|raw}}</div>
+	{{/site_notice}}
+
+	<nav class="tabs">
+		{{#cactions}}
+			<a href="{{href}}" class="{{id}} {{class}}">{{text}}</a>
+		{{/cactions}}
+	</nav>
+
+	<div class="content">
+		<div class="body{{#is_article}} parsedContent{{/is_article}}">
+			<h1>{{g/title}}</h1>
+
+			{{bodytext|raw}}
+			{{after_content|raw}}
+		</div>
+
+		{{#category_links|bool}}
+			<div class="categories">
+				<span>Categories:</span>
+				{{#category_links}}
+					{{.|raw}}
+				{{/category_links}}
 			</div>
-		</div>
+		{{/category_links}}
 
-		<div id="content">
-			<a id="top"></a>
-			{{#mwt.data.sitenotice}}
-				<div id="siteNotice">{{mwt.data.sitenotice}}</div>
-			{{/mwt.data.sitenotice}}
-
-			<h1 id="firstHeading" class="firstHeading">{{g/title}}</h1>
-
-			<div id="bodyContent">
-				<div id="siteSub">{{msg.tagline}}</div>
-				<div id="contentSub"{{{html.userlangattributes}}}>{{{html.subtitle}}}</div>
-				{{#mwt.data.undelete}}
-					<div id="contentSub2">{{{html.undelete}}}</div>
-				{{/mwt.data.undelete}}
-				{{#mwt.data.newtalk}}
-					<div class="usermessage">{{{html.newtalk}}}</div>
-				{{/mwt.data.newtalk}}
-				{{#mwt.data.showjumplinks}}
-					<div id="jump-to-nav">
-						{{msg.jumpto}}
-						<a href="#column-one">{{msg.jumptonavigation}}</a>,
-						<a href="#searchInput">{{jumptosearch}}</a>
-					</div>
-				{{/mwt.data.showjumplinks}}
-
-				{{{html.bodytext}}}
-				{{#mwt.data.catlinks}}{{{html.catlinks}}}{{/mwt.data.catlinks}}
-				{{#mwt.data.dataAfterContent}}{{{html.dataAfterContent}}}{{/mwt.data.dataAfterContent}}
-				<div class="visualClear"></div>
-			</div>
-		</div>
-
-		<div id="footer">
-			{{#footer_has_links}}
-				<div class="links">
-					<div class="info">
-						{{#footer_infolinks}}{{{.}}}{{/footer_infolinks}}
-					</div>
-
-					{{#footer_links}}{{{.}}}{{/footer_links}}
-				</div>
-			{{/footer_has_links}}
-
-			<img src="/skins/common/images/poweredby_mediawiki_88x31.png" class="poweredby" />
-			<br style="clear: both" />
-		</div>
+		<footer>
+			{{#footer_info}}{{.|raw}}&nbsp;{{/footer_info}}
+		</footer>
 	</div>
-	<div id="column-one"{{{userlangattributes}}}>
-		<div class="portlet" id="p-personal">
-			<h5>{{msg.personaltools}}</h5>
-			<div class="pBody">
-				<ul{{{userlangattributes}}}>
-					{{#personal_tools}}{{{.}}}{{/personal_tools}}
-				</ul>
-			</div>
-		</div>
 
-		{{#portals}}{{{.}}}{{/portals}}
-	</div>
-	<div class="visualClear"></div>
+	<footer>
+		{{#footer_links}}{{.|raw}}{{/footer_links}}
+	</footer>
 </div>
-

@@ -30,7 +30,12 @@ class SkinAxrBook extends SkinTemplate
 	{
 		parent::setupSkinUserCss($out);
 
-		$out->addStyle('axrbook/css/monobook.css', 'screen');
+		if ($out->mIsarticle !== true &&
+			!in_array($out->mPagetitle, array('Preferences')))
+		{
+			$out->addStyle('axrbook/css/monobook.css', 'screen');
+		}
+
 		$out->addStyle('axrbook/css/axrbook.css', 'screen');
 		
 		$out->addStyle('axrbook/css/IE50Fixes.css', 'screen', 'lt IE 5.5000');
