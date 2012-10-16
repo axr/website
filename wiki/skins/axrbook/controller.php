@@ -129,7 +129,16 @@ class AxrBookController extends Controller
 			)
 		);
 
-		$this->view->cactions = array_values($this->mwt->data['content_actions']);
+		foreach ($this->mwt->data['content_actions'] as $action)
+		{
+			$this->tabs[] = array(
+				'link' => $action['href'],
+				'name' => $action['text'],
+				'class' => $action['id'] . ' ' . $action['class'],
+				'current' => strpos($action['class'], 'selected') !== false
+			);
+		}
+
 		$this->view->user_links = $this->mwt->getPersonalTools();
 
 		$this->view->is_article = $out->mIsarticle;

@@ -1,16 +1,10 @@
-{{{g/breadcrumb/html}}}
-{{{g/tabs/html}}}
+{{g/breadcrumb/html|raw}}
+{{g/tabs/html|raw}}
 
 <div id="wiki">
 	{{#site_notice}}
 		<div class="site_notice message_std notice">{{site_notice|raw}}</div>
 	{{/site_notice}}
-
-	<nav class="tabs">
-		{{#cactions}}
-			<a href="{{href}}" class="{{id}} {{class}}">{{text}}</a>
-		{{/cactions}}
-	</nav>
 
 	<div class="content">
 		<div class="body{{#is_article}} parsedContent{{/is_article}}">

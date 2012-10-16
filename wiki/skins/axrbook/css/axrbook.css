@@ -1,3 +1,17 @@
+#tabs_main > a.new
+{
+	color: #cc2200;
+}
+
+#tabs_main > a.ca-talk,
+#tabs_main > a.ca-watch,
+#tabs_main > a.ca-unwatch,
+#tabs_main > a.ca-varlang-0,
+#tabs_main > a.ca-print
+{
+	margin-left: 18px;
+}
+
 /**
  * General styles
  * ==============
@@ -59,48 +73,6 @@
 	line-height: 21px;
 }
 
-/**
- * Navigation tabs
- * ===============
- */
-#wiki > nav.tabs
-{
-	border-bottom: 1px solid #ccc;
-	display: block;
-	font-size: 0;
-	padding: 0 0 0 4px;
-}
-
-#wiki > nav.tabs > a
-{
-	background: #fff;
-	border: 1px solid #ccc;
-	border-radius: 2px 2px 0 0;
-	color: #444;
-	display: inline-block;
-	font-size: 12px;
-	margin: 0 4px -1px 0;
-	padding: 1px 6px;
-	text-decoration: none;
-}
-
-#wiki > nav.tabs > a.selected,
-#wiki > nav.tabs > a:hover
-{
-	border-color: #aaa;
-	border-bottom-color: transparent;
-	text-decoration: none;
-}
-
-#wiki > nav.tabs > a.ca-talk,
-#wiki > nav.tabs > a.ca-watch,
-#wiki > nav.tabs > a.ca-unwatch,
-#wiki > nav.tabs > a.ca-varlang-0,
-#wiki > nav.tabs > a.ca-print
-{
-	margin-right: 18px;
-}
-
 #wiki > footer
 {
 	border-top: 1px solid #aaa;
@@ -128,21 +100,6 @@
  */
 #wiki > .content
 {
-	background-image: -moz-linear-gradient(top,
-		rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom,
-		color-stop(0%, rgba(255, 255, 255, 1)),
-		color-stop(100%, rgba(255, 255, 255, 0)));
-	background-image: -webkit-linear-gradient(top,
-		rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-	background-image: -o-linear-gradient(top,
-		rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-	background-image: -ms-linear-gradient(top,
-		rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-	background-image: linear-gradient(to bottom,
-		rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-	background-repeat: no-repeat;
-	background-size: 100% 30px;
 	padding: 1px 0 0 0;
 }
 
