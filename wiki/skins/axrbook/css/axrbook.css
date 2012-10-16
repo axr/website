@@ -60,36 +60,6 @@
 }
 
 /**
- * User links menu
- * ===============
- */
-#wiki > nav.user_links
-{
-	display: block;
-	float: right;
-	margin-top: -40px;
-}
-
-#wiki > nav.user_links > a
-{
-	color: #444;
-	display: inline-block;
-	margin: 0 0 0 6px;
-	padding: 3px;
-	text-decoration: none;
-}
-
-#wiki > nav.user_links > a:hover
-{
-	text-decoration: underline;
-}
-
-#wiki > nav.user_links > a.current
-{
-	font-weight: bold;
-}
-
-/**
  * Navigation tabs
  * ===============
  */

@@ -69,21 +69,20 @@
 				</a>
 			</div>
 			<div class="secondary">
-				{{^g/hide_login}}
+				{{#g/login_show}}
 					<span class="link login">
 						<span class="icon"></span>
 						<a href="{{g/url_login}}">{{g/url_login/label}}</a>
 					</span>
-				{{/g/hide_login}}
-				{{#g/user}}
+				{{/g/login_show}}
+				{{#g/user|bool}}
 					<div class="user_menu">
 						<span class="arrow"></span>
-						<a class="user_link" href="{{g/url_profile}}/"><span class="menu_title">User</span></a>
+						<a class="user_link" href="{{g/user.url}}/"><span class="menu_title">{{g/user.name}}</span></a>
 						<div class="dropdown">
-							<a class="edit_account first"
-								href="{{g/url_account}}">Edit account</a>
-							<a class="logout last"
-								href="{{g/url_logout}}">Logout</a>
+							{{#g/user.links}}
+								<a href="{{href}}" class="{{class}}">{{text}}</a>
+							{{/g/user.links}}
 						</div>
 					</div>
 				{{/g/user}}

@@ -54,18 +54,38 @@ class AxrBookController extends Controller
 		// Variables for the user menu
 		if (!is_object($this->wgUser) || $this->wgUser->getID() == 0)
 		{
-			$this->view->{'g/user'} = false;
+			$this->view->{'g/login_show'} = true;
 			$this->view->{'g/url_login'} = $wwroot . '/Special:MixedLogin';
 			$this->view->{'g/url_login/label'} = 'Login to wiki';
 		}
 		else
 		{
-			$this->view->{'g/hide_login'} = true;
 			$this->view->{'g/user'} = new StdClass();
+			$this->view->{'g/user'}->name = $this->wgUser->getName();
+			$this->view->{'g/user'}->url = $wwwroot . '/User:' . $this->wgUser->getName();
 
-			$this->view->{'g/url_profile'} = $wwwroot . '/User:' . $this->wgUser->getName();
-			$this->view->{'g/url_account'} = $wwwroot . '/Special:Preferences';
-			$this->view->{'g/url_logout'} = $wwwroot . '/Special:UserLogout';
+			$this->view->{'g/user'}->links = array(
+				array(
+					'href' => $wwwroot . '/User_talk:' . $this->wgUser->getName(),
+					'text' => 'My Talk'
+				),
+				array(
+					'href' => $wwwroot . '/Special:Preferences',
+					'text' => 'My preferences'
+				),
+				array(
+					'href' => $wwwroot . '/Special:Watchlist',
+					'text' => 'My watchlist'
+				),
+				array(
+					'href' => $wwwroot . '/Special:Contributions/' . $this->wgUser->getName(),
+					'text' => 'My contributions'
+				),
+				array(
+					'href' => $wwwroot . '/Special:UserLogout',
+					'text' => 'Log out'
+				)
+			);
 		}
 
 		$this->view->site_notice = isset($wgSiteNotice) ? $wgSiteNotice : null;
