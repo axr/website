@@ -56,7 +56,13 @@
 			<h2>Latest blog posts:</h2>
 			<ul class="blog">
 				{{#blog_posts}}
-					<li><span class="icon"></span><a href="{{permalink}}">{{title}}</a></li>
+					<li>
+						<span class="icon"></span>
+						<span class="post">
+							<a href="{{permalink}}">{{title}}</a>
+							<time datetime="{{ctime_str_Ymd}}">({{ctime_str_Ymd}})</time>
+						</span>
+					</li>
 				{{/blog_posts}}
 			</ul>
 

@@ -215,20 +215,31 @@
 	padding: 4px 0;
 }
 
-#home > .social > .left > ul.blog > li > a
+#home > .social > .left > ul.blog > li > .post
 {
-	color: #6a6a6a;
 	display: block;
-	font-size: 14px;
 	line-height: 20px;
 	margin: 0 0 0 30px;
+}
+
+#home > .social > .left > ul.blog > li > .post > a
+{
+	color: #6a6a6a;
+	font-size: 14px;
 	text-decoration: none;
 }
 
-#home > .social > .left > ul.blog > li > a:hover
+#home > .social > .left > ul.blog > li > .post > a:hover
 {
 	color: #5a5a5a;
 	text-decoration: underline;
+}
+
+#home > .social > .left > ul.blog > li > .post > time
+{
+	color: #aaa;
+	font-size: 12px;
+	margin: 0 0 0 8px-2px
 }
 
 #home > .social > .left > ul.blog > li > .icon
