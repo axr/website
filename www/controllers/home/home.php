@@ -16,7 +16,7 @@ class HomeController extends WWWController
 			'win' => 'Windows'
 		);
 
-		$release = $releases->get_for_home();
+		$release = $releases->get_releases_for_home();
 
 		if (is_object($release))
 		{
@@ -30,7 +30,7 @@ class HomeController extends WWWController
 			'conditions' => array('ctype = ? AND published = 1', 'bpost'),
 			'order' => 'ctime desc',
 			'limit' => 5,
-		));	
+		));
 
 		echo $this->renderView(ROOT . '/views/home.html');
 	}
