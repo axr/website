@@ -26,22 +26,7 @@ class HssdocObject extends \Core\Model
 	 */
 	public function __isset ($attribute_name)
 	{
-		if ($attribute_name === 'description__parsed')
-		{
-			return true;
-		}
-
 		return parent::__isset($attribute_name);
-	}
-
-	/**
-	 * Getter for attribute description__parsed
-	 *
-	 * @return string
-	 */
-	public function get_description__parsed ()
-	{
-		return Markdown($this->description);
 	}
 
 	/**
@@ -52,6 +37,46 @@ class HssdocObject extends \Core\Model
 	public function get_permalink ()
 	{
 		return '/doc/' . $this->name;
+	}
+
+	/**
+	 * Get all normal (non-readonly) properties
+	 *
+	 * @return HssdocProperty[]
+	 */
+	public function get_properties_normal ()
+	{
+		$properties = array();
+
+		foreach ($this->properties as $property)
+		{
+			if ((bool) $property->readonly === false)
+			{
+				$properties[] = $property;
+			}
+		}
+
+		return $properties;
+	}
+
+	/**
+	 * Get all read-only properties
+	 *
+	 * @return HssdocProperty[]
+	 */
+	public function get_properties_ro ()
+	{
+		$properties = array();
+
+		foreach ($this->properties as $property)
+		{
+			if ((bool) $property->readonly === true)
+			{
+				$properties[] = $property;
+			}
+		}
+
+		return $properties;
 	}
 
 	/**

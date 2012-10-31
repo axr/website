@@ -49,9 +49,9 @@ class AXRReleases
 			{
 				$item = $data[$i];
 
-				preg_match('/^axr-(?<version>[0-9.]+)-((git(?<sha>[0-9a-f]+)-)?(?<os>\w+)-)?(?<arch>\w+)\.(?<ext>[a-z0-9.]+)$/i', $item->name, $match);
+				preg_match('/^axr-(?<version>[0-9.]+)((-git(?<sha>[0-9a-f]+))?-(?<os>(linux|osx|windows|src)))?(-(?<arch>(x86_64|i386|arm)))?\.(?<ext>[a-z0-9.]+)$/i', $item->name, $match);
 
-				if (!is_array($match))
+				if (!is_array($match) || count($match) === 0)
 				{
 					continue;
 				}
@@ -97,7 +97,7 @@ class AXRReleases
 					}
 				}
 
-				if (!isset($out->{$version}->zz{$os}))
+				if (!isset($out->{$version}->{$os}))
 				{
 					$out->{$version}->{$os} = array();
 				}
@@ -133,7 +133,7 @@ class AXRReleases
 		{
 			foreach ($version_data as $os => $os_data)
 			{
-				if (!in_array($os, array('windows', 'osx', 'linux')))
+				if (!in_array($os, array('windows', 'osx', 'linux', 'src')))
 				{
 					continue;
 				}

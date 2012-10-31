@@ -1,25 +1,30 @@
 {{{g/tabs/html}}}
 
-<div id="hssdoc_obj">
+<div id="hssdoc_obj" class="clearfix">
 	{{{sidebar}}}
 
 	<h1>{{object.name}}</h1>
 
 	<div class="parsedContent">
-		{{{object.description__parsed}}}
+		{{object.description|markdown|raw}}
 	</div>
 
 	{{#properties}}
 		<section class="prop_item" data-property="{{name}}">
 			<header>
 				<h2>{{name}}</h2>
+
+				{{#readonly}}
+					<span class="ro">Read-only</span>
+				{{/readonly}}
+				
 				{{#can_edit}}
 					<a href="/doc/edit_property/{{id}}" class="action">[edit]</a>
 				{{/can_edit}}
 			</header>
 
 			<div class="parsedContent">
-				{{{description__parsed}}}
+				{{description|markdown|raw}}
 			</div>
 
 			{{#_values_table}}
@@ -39,4 +44,3 @@
 		});
 	</script>
 {{/_ajax}}
-

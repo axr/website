@@ -1,5 +1,5 @@
 <div id="hssdoc_sidebar">
-	{{#has_objects}}
+	{{#objects|bool}}
 		<ul class="obj_list">
 			{{#objects}}
 				<li data-object="{{name}}">
@@ -12,21 +12,31 @@
 						{{/can_edit}}
 					</span>
 					<ul class="prop_list">
-						{{#properties}}
-							<li><a href="{{permalink}}">{{name}}</a></li>
-						{{/properties}}
+						{{#properties_normal|bool}}
+							<li class="title">Properties:</li>
+							{{#properties_normal}}
+								<li><a href="{{permalink}}">{{name}}</a></li>
+							{{/properties_normal}}
+						{{/properties_normal}}
+
+						{{#properties_ro|bool}}
+							<li class="title">Read-only properties:</li>
+							{{#properties_ro}}
+								<li><a href="{{permalink}}">{{name}}</a></li>
+							{{/properties_ro}}
+						{{/properties_ro}}
 					</ul>
 				</li>
 			{{/objects}}
 		</ul>
-	{{/has_objects}}
-	{{^has_objects}}
+	{{/objects}}
+
+	{{^objects|bool}}
 		No objects were found
-	{{/has_objects}}
+	{{/objects}}
 
 	<div class="actions">
 		<a href="#" class="expand">expand all</a>
 		<a href="#" class="collapse">collapse all</a>
 	</div>
 </div>
-

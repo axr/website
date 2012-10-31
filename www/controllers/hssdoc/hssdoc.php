@@ -5,15 +5,13 @@ require_once(ROOT . '/models/hssdoc_object.php');
 require_once(ROOT . '/models/hssdoc_property.php');
 require_once(ROOT . '/models/hssdoc_value.php');
 require_once(SHARED . '/lib/core/exceptions/http_ajax.php');
+require_once(SHARED . '/lib/core/mustache_filters/markdown.php');
 
 class HssdocController extends WWWController
 {
 	public function initialize ()
 	{
-		if (!User::current()->can('/hssdoc'))
-		{
-			throw new HTTPException(null, 404);
-		}
+		\Mustache\Filter::register(new \Core\MustacheFilters\Markdown);
 	}
 
 	/**
@@ -513,16 +511,17 @@ class HssdocController extends WWWController
 			$item = $object->attributes();
 			$item['permalink'] = $object->permalink;
 			$item['properties'] = $object->properties;
+			$item['properties_normal'] = $object->properties_normal;
+			$item['properties_ro'] = $object->properties_ro;
 
 			$object = $item;
 		}
 
 		$view = new StdClass();
 		$view->objects = $objects;
-		$view->has_objects = count($objects) > 0;
 		$view->can_edit = User::current()->can('/hssdoc/edit');
 
-		$mustache = new Mustache();
+		$mustache = new \Mustache\Renderer();
 		$template = file_get_contents(ROOT . '/views/hssdoc_sidebar.html');
 
 		return $mustache->render($template, $view);
@@ -571,10 +570,9 @@ class HssdocController extends WWWController
 		$view = new StdClass();
 		$view->values = $data;
 
-		$mustache = new Mustache();
+		$mustache = new \Mustache\Renderer();
 		$template = file_get_contents(ROOT . '/views/hssdoc_values_table.html');
 
 		return $mustache->render($template, $view);
 	}
 }
-

@@ -2,7 +2,6 @@
 
 require_once(ROOT . '/models/hssdoc_value.php');
 require_once(SHARED . '/lib/core/model.php');
-require_once(SHARED . '/lib/php-markdown/markdown.php');
 
 class HssdocProperty extends \Core\Model
 {
@@ -35,24 +34,12 @@ class HssdocProperty extends \Core\Model
 	 */
 	public function __isset ($attribute_name)
 	{
-		$virtual_fields = array('description__parsed', 'permalink');
-
-		if (in_array($attribute_name, $virtual_fields))
+		if ($attribute_name === 'permalink')
 		{
 			return true;
 		}
 
 		return parent::__isset($attribute_name);
-	}
-
-	/**
-	 * Getter for attribute description__parsed
-	 *
-	 * @return string
-	 */
-	public function get_description__parsed ()
-	{
-		return Markdown($this->description);
 	}
 
 	/**
