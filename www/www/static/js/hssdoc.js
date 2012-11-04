@@ -317,7 +317,7 @@ window.App = window.App || {};
 						case 'ValidationFailed':
 							alert(error.validation_errors.join("\n"));
 							break;
-						default: alert(error);
+						default: error.show();
 					}
 
 					return;
