@@ -27,12 +27,12 @@ class Session
 
 			try
 			{
-				self::$session = \Core\Models\Session::find($sid); 
+				self::$session = \Core\Models\Session::find($sid);
 			}
 			catch (\ActiveRecord\RecordNotFound $e)
 			{
 			}
-			
+
 			if (is_object(self::$session))
 			{
 				if (self::$session->expires < time())
@@ -49,7 +49,7 @@ class Session
 			self::$session->id = sha1(uniqid(time() . $_SERVER['REMOTE_ADDR']));
 
 			setcookie('axr_www_sid', self::$session->id, 0, '/',
-				Router::get_instance()->url->host, false, true);
+				'.' . Router::get_instance()->url->host, false, true);
 		}
 	}
 
