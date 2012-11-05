@@ -1,4 +1,5 @@
-{{{g/tabs/html}}}
+{{g/tabs/breadcrumb|raw}}
+{{g/tabs/html|raw}}
 
 <div id="hssdoc_obj" class="clearfix">
 	{{{sidebar}}}
@@ -17,9 +18,9 @@
 				{{#readonly}}
 					<span class="ro">Read-only</span>
 				{{/readonly}}
-				
+
 				{{#can_edit}}
-					<a href="/doc/edit_property/{{id}}" class="action">[edit]</a>
+					<a href="{{edit_url}}" class="action">[edit]</a>
 				{{/can_edit}}
 			</header>
 

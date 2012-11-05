@@ -9,7 +9,7 @@ window.App = window.App || {};
 	 */
 	var getObjectName = function ()
 	{
-		var match = window.location.pathname.match(/^\/doc\/([^\/]+)/);
+		var match = window.location.pathname.match(/^\/([^\/]+)/);
 		return (match || [])[1];
 	};
 
@@ -61,7 +61,7 @@ window.App = window.App || {};
 		 */
 		get_property_id: function ()
 		{
-			return (window.location.pathname.match(/^\/doc\/edit_property\/(\d+)/) || [])[1] || null;
+			return (window.location.pathname.match(/^\/edit_property\/(\d+)/) || [])[1] || null;
 		},
 
 		/**
@@ -87,7 +87,7 @@ window.App = window.App || {};
 			}
 
 			$.ajax({
-				url: '/doc/property_values.json',
+				url: App['/shared/hssdoc_url'] + '/property_values.json',
 				data: {
 					property: property_id
 				},
@@ -147,7 +147,7 @@ window.App = window.App || {};
 			}
 
 			$.ajax({
-				url: '/doc/property_values.json',
+				url: App['/shared/hssdoc_url'] + '/property_values.json',
 				type: 'POST',
 				data: data,
 				dataType: 'json',
@@ -186,7 +186,7 @@ window.App = window.App || {};
 		delete_item: function (id, callback)
 		{
 			$.ajax({
-				url: '/doc/property_values.json',
+				url: App['/shared/hssdoc_url'] + '/property_values.json',
 				type: 'DELETE',
 				data: {
 					id: id

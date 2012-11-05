@@ -13,12 +13,18 @@ class HssdocController extends WWWController
 	{
 		\Mustache\Filter::register(new \Core\MustacheFilters\Markdown);
 
-		// The documenattion is not being requested from hss.axr.vg domain
+		// The documentation is not being requested from hss.axr.vg domain
 		if(Router::get_instance()->url->host !==
 			(new URL(Config::get('/shared/hssdoc_url')))->host)
 		{
 			throw new HTTPException(null, 404);
 		}
+
+		// Add the common breadcrumb item
+		$this->breadcrumb[] = array(
+			'name' => 'HSS documentation',
+			'link' => URL::create(Config::get('/shared/hssdoc_url'))
+		);
 	}
 
 	/**
@@ -33,7 +39,9 @@ class HssdocController extends WWWController
 		{
 			$this->tabs[] = array(
 				'name' => 'New object',
-				'link' => '/doc/add_object'
+				'link' => URL::create()
+					->from_string(Config::get('/shared/hssdoc_url'))
+					->path('/add_object')
 			);
 		}
 
@@ -67,16 +75,12 @@ class HssdocController extends WWWController
 
 		$this->view->_title = $object->name;
 		$this->breadcrumb[] = array(
-			'name' => 'HSS documentation',
-			'link' => '/doc'
-		);
-		$this->breadcrumb[] = array(
 			'name' => $object->name
 		);
 
 		$this->tabs[] = array(
 			'name' => 'View',
-			'link' => $object->permalink,
+			'link' => $object->display_url,
 			'current' => true
 		);
 
@@ -84,7 +88,7 @@ class HssdocController extends WWWController
 		{
 			$this->tabs[] = array(
 				'name' => 'Edit',
-				'link' => '/doc/' . $object->name . '/edit'
+				'link' => $object->edit_url
 			);
 		}
 
@@ -141,7 +145,8 @@ class HssdocController extends WWWController
 				// We want to always redirect after edit in case the object
 				// name gets changed
 
-				$this->redirect('/doc/' . $object->name . '/edit');
+				$this->redirect($object->edit_url);
+
 				return;
 			}
 
@@ -152,11 +157,6 @@ class HssdocController extends WWWController
 			}
 
 		}
-
-		$this->breadcrumb[] = array(
-			'name' => 'HSS documentation',
-			'link' => '/doc'
-		);
 
 		if ($mode === 'add')
 		{
@@ -174,11 +174,11 @@ class HssdocController extends WWWController
 
 			$this->tabs[] = array(
 				'name' => 'View',
-				'link' => $object->permalink
+				'link' => $object->display_url
 			);
 			$this->tabs[] = array(
 				'name' => 'Edit',
-				'link' => '/doc/' . $object->name . '/edit',
+				'link' => $object->edit_url,
 				'current' => true
 			);
 		}
@@ -186,7 +186,9 @@ class HssdocController extends WWWController
 		$this->view->object = $object;
 		$this->view->properties = $object->properties;
 		$this->view->edit_mode = $mode === 'edit';
-		$this->view->delete_url = '/doc/' . $object->name . '/rm';
+		$this->view->add_property_url = URL::create()
+			->from_string(Config::get('/shared/hssdoc_url'))
+			->path('/add_property/' . $object->name);
 
 		echo $this->renderView(ROOT . '/views/hssdoc_edit_object.html');
 	}
@@ -241,7 +243,7 @@ class HssdocController extends WWWController
 
 			if ($property->save() && $mode === 'add')
 			{
-				$this->redirect($property->permalink);
+				$this->redirect($property->display_url);
 				return;
 			}
 
@@ -254,13 +256,8 @@ class HssdocController extends WWWController
 		}
 
 		$this->breadcrumb[] = array(
-			'name' => 'HSS documentation',
-			'link' => '/doc'
-		);
-
-		$this->breadcrumb[] = array(
 			'name' => $property->object,
-			'link' => '/doc/' . $property->object
+			'link' => $property->display_url
 		);
 
 		if ($mode === 'add')
@@ -279,18 +276,16 @@ class HssdocController extends WWWController
 
 			$this->tabs[] = array(
 				'name' => 'View',
-				'link' => $property->permalink
+				'link' => $property->display_url
 			);
 			$this->tabs[] = array(
 				'name' => 'Edit',
-				'link' => '/doc/edit_property/' . $property->id,
+				'link' => $property->edit_url,
 				'current' => true
 			);
 		}
 
 		$this->view->property = $property->attributes();
-		$this->view->delete_url = '/doc/' . $property->object . '/' .
-			$property->name  . '/rm';
 		$this->view->edit_mode = $mode === 'edit';
 
 		echo $this->renderView(ROOT . '/views/hssdoc_edit_property.html');
@@ -332,7 +327,7 @@ class HssdocController extends WWWController
 		if (isset($_POST['_via_post']))
 		{
 			$object->delete();
-			$this->redirect('/doc');
+			$this->redirect(URL::create(Config::get('/shared/hssdoc_url')));
 		}
 
 		echo $this->renderView(ROOT . '/views/hssdoc_rm_object.html');
@@ -374,7 +369,10 @@ class HssdocController extends WWWController
 		if (isset($_POST['_via_post']))
 		{
 			$property->delete();
-			$this->redirect('/doc/' . $object_name);
+
+			$this->redirect(URL::create()
+				->from_string(Config::get('/shared/hssdoc_url'))
+				->path('/' . $object_name));
 		}
 
 		echo $this->renderView(ROOT . '/views/hssdoc_rm_property.html');
@@ -510,19 +508,6 @@ class HssdocController extends WWWController
 		$objects = HssdocObject::find('all', array(
 			'order' => 'name asc'
 		));
-
-		// For some reason Mustache can't access properties directly from
-		// the HssdocObject model
-		foreach ($objects as &$object)
-		{
-			$item = $object->attributes();
-			$item['permalink'] = $object->permalink;
-			$item['properties'] = $object->properties;
-			$item['properties_normal'] = $object->properties_normal;
-			$item['properties_ro'] = $object->properties_ro;
-
-			$object = $item;
-		}
 
 		$view = new StdClass();
 		$view->objects = $objects;
