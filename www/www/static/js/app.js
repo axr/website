@@ -424,11 +424,11 @@ window['App'] = window['App'] || {};
 		App.cache.get('/template/:loading/' + name, true);
 
 		$.ajax({
-			url: '/_ajax/template',
+			url: App['/shared/www_url'] + '/_ajax/template?callback=?',
 			data: {
 				name: name
 			},
-			dataType: 'json'
+			dataType: 'jsonp'
 		}).success(function (data)
 		{
 			if (typeof data !== 'object' || data.status !== 0)
@@ -546,12 +546,12 @@ window['App'] = window['App'] || {};
 		App.cache.set(cache_key + '/:loading', true);
 
 		$.ajax({
-			url: '/_ajax/ghactivity',
+			url: App['/shared/www_url'] + '/_ajax/ghactivity?callback=?',
 			method: 'get',
 			data: {
 				count: options.count
 			},
-			dataType: 'json'
+			dataType: 'jsonp'
 		}).success(function (data)
 		{
 			if (data.status !== 0)

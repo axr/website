@@ -88,6 +88,8 @@ class Controller
 		$this->view->{'g/wiki_url'}  = Config::get('/shared/wiki_url');
 
 		$this->view->{'g/app_vars'} = json_encode(array(
+			'/shared/hssdoc_url' => Config::get('/shared/hssdoc_url'),
+			'/shared/www_url' => Config::get('/shared/www_url'),
 			'rsrc_root' => Config::get('/shared/rsrc_url'),
 			'rsrc_prod' => Config::get('/shared/rsrc/prod'),
 			'ga_account' => Config::get('/www/ga_account'),
@@ -138,7 +140,7 @@ class Controller
 
 		$this->view->{'g/content'} = $mustache->render($viewHTML, $this->view);
 		$out = $mustache->render($layoutHTML, $this->view);
-		
+
 		return ($extension === 'html') ? Minify::html($out) : $out;
 	}
 
