@@ -12,6 +12,13 @@ class HssdocController extends WWWController
 	public function initialize ()
 	{
 		\Mustache\Filter::register(new \Core\MustacheFilters\Markdown);
+
+		// The documenattion is not being requested from hss.axr.vg domain
+		if(Router::get_instance()->url->host !==
+			(new URL(Config::get('/shared/hssdoc_url')))->host)
+		{
+			throw new HTTPException(null, 404);
+		}
 	}
 
 	/**
@@ -293,7 +300,7 @@ class HssdocController extends WWWController
 	 * Remove an object
 	 *
 	 * @todo display the error message in a nicer way
-	 */ 
+	 */
 	public function run_rm_object ($name)
 	{
 		try
@@ -336,7 +343,7 @@ class HssdocController extends WWWController
 	 *
 	 * @param string $object_name
 	 * @param string $property_name
-	 */ 
+	 */
 	public function run_rm_property ($object_name, $property_name)
 	{
 		try
