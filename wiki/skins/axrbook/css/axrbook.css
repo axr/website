@@ -200,7 +200,7 @@
 	padding: 0;
 }
 
-#preftoc li.selected a 
+#preftoc li.selected a
 {
 	font-weight: bold;
 	padding: 2px 5px;
@@ -219,6 +219,15 @@
 #preftoc li a:hover
 {
 	color: #222;
+}
+
+/**
+ * Page history
+ * ============
+ */
+#pagehistory li
+{
+	border: 0;
 }
 
 /**
