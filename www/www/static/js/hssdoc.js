@@ -340,18 +340,25 @@ window.App = window.App || {};
 			var $element = $(this).closest('tr');
 			$element.hide(700);
 
-			edit.delete_item($element.attr('data-id'), function (error)
+			if ($element.attr('data-new') === '1')
 			{
-				if (error instanceof App.Error)
-				{
-					$element.show();
-					error.show();
-
-					return;
-				}
-
 				$element.remove();
-			});
+			}
+			else
+			{
+				edit.delete_item($element.attr('data-id'), function (error)
+				{
+					if (error instanceof App.Error)
+					{
+						$element.show();
+						error.show();
+
+						return;
+					}
+
+					$element.remove();
+				});
+			}
 		});
 
 		// New link
