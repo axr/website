@@ -28,6 +28,17 @@
 	font-size: 1.2em;
 }
 
+#not_found > p a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#not_found > p a:hover
+{
+	text-decoration: underline;
+}
+
 #not_found > a.join
 {
 	width: 200px;
