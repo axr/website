@@ -255,13 +255,13 @@ window.App = window.App || {};
 		// Scroll to the property that's in the hash
 		scrollToProperty(window.location.hash.replace(/^#/, ''));
 
-		// Expand the current object in the sidebar
+		// Collapse all irrelevant objects on the sidebar
 		$('#hssdoc_sidebar .obj_list > li').each(function (i, element)
 		{
-			if ($(element).attr('data-object') === getObjectName())
+			if ($(element).attr('data-object') !== getObjectName())
 			{
-				$(element).find('.prop_list').show();
-				$(element).find('a.open').html('[-]');
+				$(element).find('.prop_list').hide();
+				$(element).find('a.open').html('[+]');
 			}
 		});
 	});
