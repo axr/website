@@ -46,6 +46,12 @@
 	display: none;
 	float: right;
 	font-size: 11px;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.new_property:hover
+{
+	text-decoration: underline;
 }
 
 #hssdoc_sidebar > ul > li:hover > span.object a.new_property
