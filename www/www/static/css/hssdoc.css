@@ -65,6 +65,19 @@
 	text-decoration: underline;
 }
 
+#hssdoc_sidebar ul.prop_list > li > a.edit
+{
+	color: #aaa;
+	display: none;
+	float: right;
+	font-size: 11px;
+}
+
+#hssdoc_sidebar ul.prop_list > li:hover > a.edit
+{
+	display: inline-block;
+}
+
 #hssdoc_sidebar > ul ul
 {
 	display: none;

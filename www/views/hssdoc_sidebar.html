@@ -15,14 +15,24 @@
 						{{#properties_normal|bool}}
 							<li class="title">Properties:</li>
 							{{#properties_normal}}
-								<li><a href="{{display_url}}">{{name}}</a></li>
+								<li>
+									<a href="{{display_url}}">{{name}}</a>
+									{{#can_edit}}
+										<a href="{{edit_url}}" class="edit">edit</a>
+									{{/can_edit}}
+								</li>
 							{{/properties_normal}}
 						{{/properties_normal}}
 
 						{{#properties_ro|bool}}
 							<li class="title">Read-only properties:</li>
 							{{#properties_ro}}
-								<li><a href="{{display_url}}">{{name}}</a></li>
+								<li>
+									<a href="{{display_url}}">{{name}}</a>
+									{{#can_edit}}
+										<a href="{{edit_url}}" class="edit">edit</a>
+									{{/can_edit}}
+								</li>
 							{{/properties_ro}}
 						{{/properties_ro}}
 					</ul>
