@@ -15,7 +15,8 @@ class HssdocObject extends \Core\Model
 		array('properties',
 			'class_name' => 'HssdocProperty',
 			'primary_key' => 'name',
-			'foreign_key' => 'object')
+			'foreign_key' => 'object',
+			'order' => 'name asc')
 	);
 
 	/**
