@@ -278,6 +278,8 @@ window.App = window.App || {};
 
 		$('#hssdoc_sidebar .obj_list .prop_list a').on('click', function (e)
 		{
+			e.preventDefault();
+
 			var targetObject = $(this).closest('ul.prop_list')
 				.parent().attr('data-object');
 			var targetProperty = $(this).attr('href').match(/^.+?#(.+)$/)[1];
@@ -290,11 +292,13 @@ window.App = window.App || {};
 
 		$('#hssdoc_sidebar .actions a.expand').on('click', function (e)
 		{
+			e.preventDefault();
 			expandAll();
 		});
 
 		$('#hssdoc_sidebar .actions a.collapse').on('click', function (e)
 		{
+			e.preventDefault();
 			expandAll(true);
 		});
 	});
