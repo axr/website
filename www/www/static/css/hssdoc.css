@@ -120,6 +120,11 @@
 	text-decoration: underline;
 }
 
+#hssdoc_obj > .wrapper
+{
+	width: 666px;
+}
+
 #hssdoc_obj .prop_item
 {
 	margin: 25px 0;
