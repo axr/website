@@ -8,7 +8,7 @@ class HomeController extends WWWController
 {
 	public function run ()
 	{
-		$releases = new AXRReleases(Config::get('/www/downloads/releases_repo'));
+		$releases = new AXRReleases(Config::get('/www/downloads/repo/browser'));
 
 		$oses = array(
 			'osx' => 'OSX',
