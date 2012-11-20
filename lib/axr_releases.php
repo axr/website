@@ -49,52 +49,67 @@ class AXRReleases
 			{
 				$item = $data[$i];
 
-				preg_match('/^axr-(?<version>[0-9.]+)((-git(?<sha>[0-9a-f]+))?-(?<os>(linux|osx|windows|src)))?(-(?<arch>(x86_64|i386|arm)))?\.(?<ext>[a-z0-9.]+)$/i', $item->name, $match);
+				preg_match('/\.(?<ext>exe|msi|dmg|tar\.gz|deb|rpm)$/', $item->name, $match);
 
 				if (!is_array($match) || count($match) === 0)
 				{
 					continue;
 				}
 
-				$version = $match['version'];
-				$sha = !empty($match['sha']) ? $match['sha'] : null;
-				$os = !empty($match['os']) ? $match['os'] : null;
-				$arch = $match['arch'];
 				$ext = $match['ext'];
+				$regex = null;
 
-				$type = $sha === null ? 'stable' : 'dev';
-
-				if ($type === 'dev')
+				switch ($ext)
 				{
-					$version = $version . '-git' . $sha;
+					case 'exe':
+					case 'msi':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-windows-(?<arch>x86|x64|ia64)\.(exe|msi)/';
+						$os = 'windows';
+						break;
+
+					case 'dmg':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-osx-(?<arch>i386|x86_64)\.dmg/';
+						$os = 'osx';
+						break;
+
+					case 'tar.gz':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-linux-(?<arch>i386|x86_64)\.tar\.gz/';
+						$os = 'linux';
+						break;
+
+					case 'rpm':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-([^-]+)-(?<arch>i386|i586|i686|x86_64)\.rpm/';
+						$os = 'linux';
+						break;
+
+					case 'deb':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-([^-]+)\.(?<arch>i386|amd64)\.deb/';
+						$os = 'linux';
+						break;
+
+					default:
+						continue 2;
 				}
 
-				if ($os === null)
-				{
-					// Detect the OS by file extension
-					switch ($ext)
-					{
-						case 'rpm':
-						case 'deb': $os = 'linux'; break;
-						default: continue(2);
-					}
-				}
+				// Parse the file name
+				preg_match($regex, $item->name, $match);
 
-				if ($os === 'android' || $os === 'ios')
+				if (count($match) === 0)
 				{
 					continue;
 				}
+
+				// Insert some data about the package
+				$version = $match['version'];
+				$arch = $match['arch'];
 
 				if (!isset($out->{$version}))
 				{
 					$out->{$version} = new StdClass();
 
-					if ($type === 'stable')
-					{
-						$changelog = $this->get_changelog($version);
-						$out->{$version}->date = $changelog->date;
-						$out->{$version}->changes = $changelog->changes;
-					}
+					$changelog = $this->get_changelog($version);
+					$out->{$version}->date = $changelog->date;
+					$out->{$version}->changes = $changelog->changes;
 				}
 
 				if (!isset($out->{$version}->{$os}))
@@ -107,8 +122,6 @@ class AXRReleases
 					'ext' => $ext,
 					'url' => $item->html_url,
 					'size' => $item->size,
-					'sha' => $match['sha'],
-					'type' => $type
 				);
 			}
 
@@ -119,50 +132,48 @@ class AXRReleases
 	}
 
 	/**
-	 * Get releases by type
+	 * Get just one latest release for automatically detected os and
+	 * architecture.
 	 *
-	 * @param string $type (stable|dev)
+	 * @todo make it better
 	 * @return mixed
 	 */
-	public function get_releases_by_type ($type)
+	public function get_releases_for_home ()
 	{
-		$out = new StdClass();
-		$data = $this->get_releases();
+		$data = (array) $this->get_releases();
 
-		foreach ($data as $version => $version_data)
+		ksort($data);
+		$data = array_reverse($data);
+
+		$clientOS = self::detect_os();
+		$clientArch = self::detect_arch();
+		$out = null;
+
+		foreach ($data as $version => $item)
 		{
-			foreach ($version_data as $os => $os_data)
+			if (!isset($item->{$clientOS}))
 			{
-				if (!in_array($os, array('windows', 'osx', 'linux', 'src')))
-				{
-					continue;
-				}
-
-				foreach ($os_data as $i => $release)
-				{
-					if ($release->type === $type)
-					{
-						if (!isset($out->{$version}))
-						{
-							$out->{$version} = new StdClass();
-						}
-
-						if (!isset($out->{$version}->{$os}))
-						{
-							$out->{$version}->{$os} = array();
-						}
-
-						$out->{$version}->{$os}[] = clone $release;
-					}
-				}
+				continue;
 			}
 
-			if (isset($out->{$version}))
+			for ($i = 0, $c = count($item->{$clientOS}); $i < $c; $i++)
 			{
-				$out->{$version}->date = isset($out->{$version}->date) ?
-					$out->{$version}->date : null;
-				$out->{$version}->changes = isset($out->{$version}->changes) ?
-					$out->{$version}->changes : null;
+				$release = $item->{$clientOS}[$i];
+
+				if ($release->arch === $clientArch ||
+					($release->arch === 'i386' && $clientArch === 'x86_64'))
+				{
+					$out = $release;
+					$out->date = $item->date;
+					$out->changes = $item->changes;
+					$out->os = $clientOS;
+					$out->version = $version;
+
+					if ($release->arch === $clientArch)
+					{
+						break(2);
+					}
+				}
 			}
 		}
 
@@ -244,54 +255,6 @@ class AXRReleases
 			'date' => $date,
 			'changes' => $changes
 		);
-	}
-
-	/**
-	 * Get just one latest release for auotmatically detected os and
-	 * architecture.
-	 *
-	 * @return mixed
-	 */
-	public function get_for_home ()
-	{
-		$data = (array) $this->get_releases_by_type('stable');
-
-		ksort($data);
-		$data = array_reverse($data);
-
-		$clientOS = self::detect_os();
-		$clientArch = self::detect_arch();
-		$out = null;
-
-		foreach ($data as $version => $item)
-		{
-			if (!isset($item->{$clientOS}))
-			{
-				continue;
-			}
-
-			for ($i = 0, $c = count($item->{$clientOS}); $i < $c; $i++)
-			{
-				$release = $item->{$clientOS}[$i];
-
-				if ($release->arch === $clientArch ||
-					($release->arch === 'i386' && $clientArch === 'x86_64'))
-				{
-					$out = $release;
-					$out->date = $item->date;
-					$out->changes = $item->changes;
-					$out->os = $clientOS;
-					$out->version = $version;
-
-					if ($release->arch === $clientArch)
-					{
-						break(2);
-					}
-				}
-			}
-		}
-
-		return $out;
 	}
 
 	/**
