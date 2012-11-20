@@ -181,7 +181,8 @@ class AXRReleases
 	}
 
 	/**
-	 * Get the changelog
+	 * Get the changelog.
+	 * WARNING: There's no caching done here.
 	 *
 	 * @param string $version
 	 * @return mixed
@@ -213,9 +214,17 @@ class AXRReleases
 		$changes = array();
 		$date = null;
 		$is_found = false;
+		$can_continue = false;
+		$counter = 0;
 
 		foreach ($lines as $line)
 		{
+			if ($counter >= 10)
+			{
+				// We don't want any more items
+				break;
+			}
+
 			if (!$is_found)
 			{
 				preg_match('/^[#]+\s+Version\s+([0-9.]+)/', $line, $match);
@@ -236,10 +245,12 @@ class AXRReleases
 
 			if ($line[0] === '#')
 			{
+				// That's where the next version starts
 				break;
 			}
 
 			preg_match('/([0-9]{4}-[0-9]{2}-[0-9]{2})/', $line, $match);
+
 			if (is_array($match) && count($match) === 2)
 			{
 				$date = strtotime($match[1]);
@@ -247,7 +258,24 @@ class AXRReleases
 
 			if ($line[0] === '*')
 			{
-				$changes[] = preg_replace('/\*\s+/', '', $line);
+				$changes[] = preg_replace('/^\*\s+/', '', $line);
+
+				$can_continue = true;
+				$counter++;
+
+				continue;
+			}
+
+			if ($can_continue)
+			{
+				if (preg_match('/^[ ]{2}(.+)$/', $line, $match))
+				{
+					$changes[count($changes) - 1] .= $match[1];
+				}
+				else
+				{
+					$can_continue = false;
+				}
 			}
 		}
 
