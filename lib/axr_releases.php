@@ -78,12 +78,12 @@ class AXRReleases
 						break;
 
 					case 'rpm':
-						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-([^-]+)-(?<arch>i386|i586|i686|x86_64)\.rpm/';
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-([^-]+)\.(?<arch>i386|i586|i686|x86_64)\.rpm/';
 						$os = 'linux';
 						break;
 
 					case 'deb':
-						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-([^-]+)\.(?<arch>i386|amd64)\.deb/';
+						$regex = '/^[a-zA-Z0-9_.-]+_(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)_(?<arch>i386|amd64)\.deb/';
 						$os = 'linux';
 						break;
 
