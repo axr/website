@@ -1,10 +1,15 @@
 <?php
 
+namespace Core;
+
 require_once(SHARED . '/lib/core/rsrc.php');
 require_once(SHARED . '/lib/core/minify.php');
 require_once(SHARED . '/lib/core/router.php');
 require_once(SHARED . '/lib/core/url.php');
 require_once(SHARED . '/lib/mustache/src/mustache.php');
+require_once(SHARED . '/lib/mustache_filters/json.php');
+
+\Mustache\Filter::register(new \MustacheFilters\JSON);
 
 class Controller
 {
@@ -37,8 +42,8 @@ class Controller
 	{
 		$that = $this;
 
-		$this->view = new StdClass();
-		$this->rsrc = new RSRC();
+		$this->view = new \StdClass();
+		$this->rsrc = new \RSRC();
 
 		$this->view->{'g/rsrc/styles'} = function () use ($that)
 		{
@@ -80,19 +85,19 @@ class Controller
 		};
 
 		$this->view->{'g/year'}  = date('Y');
-		$this->view->{'g/meta'} = new StdClass();
+		$this->view->{'g/meta'} = new \StdClass();
 		$this->view->{'g/url_login/label'} = 'Login';
 
-		$this->view->{'g/rsrc_root'} = Config::get('/shared/rsrc_url');
-		$this->view->{'g/www_url'} = Config::get('/shared/www_url');
-		$this->view->{'g/wiki_url'}  = Config::get('/shared/wiki_url');
+		$this->view->{'g/rsrc_root'} = \Config::get('/shared/rsrc_url');
+		$this->view->{'g/www_url'} = \Config::get('/shared/www_url');
+		$this->view->{'g/wiki_url'}  = \Config::get('/shared/wiki_url');
 
 		$this->view->{'g/app_vars'} = json_encode(array(
-			'/shared/hssdoc_url' => Config::get('/shared/hssdoc_url'),
-			'/shared/www_url' => Config::get('/shared/www_url'),
-			'rsrc_root' => Config::get('/shared/rsrc_url'),
-			'rsrc_prod' => Config::get('/shared/rsrc/prod'),
-			'ga_account' => Config::get('/www/ga_account'),
+			'/shared/hssdoc_url' => \Config::get('/shared/hssdoc_url'),
+			'/shared/www_url' => \Config::get('/shared/www_url'),
+			'rsrc_root' => \Config::get('/shared/rsrc_url'),
+			'rsrc_prod' => \Config::get('/shared/rsrc/prod'),
+			'ga_account' => \Config::get('/www/ga_account'),
 			'rsrc_bundles' => $this->rsrc->getBundlesInfo()
 		));
 
@@ -141,7 +146,7 @@ class Controller
 		$this->view->{'g/content'} = $mustache->render($viewHTML, $this->view);
 		$out = $mustache->render($layoutHTML, $this->view);
 
-		return ($extension === 'html') ? Minify::html($out) : $out;
+		return ($extension === 'html') ? \Minify::html($out) : $out;
 	}
 
 	/**
@@ -162,7 +167,7 @@ class Controller
 		$mustache = new \Mustache\Renderer();
 		$out = $mustache->render($template, $this->view);
 
-		return ($minify && $extension === 'html') ? Minify::html($out) : $out;
+		return ($minify && $extension === 'html') ? \Minify::html($out) : $out;
 	}
 
 	/**
@@ -173,7 +178,7 @@ class Controller
 	 */
 	public function redirect ($location, $code = null)
 	{
-		$router = Router::get_instance();
+		$router = \Router::get_instance();
 
 		// Make sure the host and scheme is present
 		$location = URL::create()

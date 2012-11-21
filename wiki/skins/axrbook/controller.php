@@ -4,7 +4,7 @@ require_once(SHARED . '/lib/core/controller.php');
 require_once(SHARED . '/lib/core/minify.php');
 require_once(SHARED . '/lib/mustache/src/mustache.php');
 
-class AxrBookController extends Controller
+class AxrBookController extends \Core\Controller
 {
 	/**
 	 * Mediawiki template class
