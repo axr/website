@@ -166,7 +166,7 @@ class AuthController extends WWWController
 			$oid->save();
 
 			$user->set_logged();
-			
+
 			if (isset($_GET['continue']))
 			{
 				$continue = URL::create($_GET['continue'])->path;
@@ -219,12 +219,12 @@ class AuthController extends WWWController
 			if (isset($_GET['continue']))
 			{
 				$continue = URL::create($_GET['continue'])->path;
-				
+
 				if (strlen(trim($continue)) === 0)
 				{
 					$continue = '/';
 				}
-				
+
 				$this->redirect($continue);
 			}
 			else
