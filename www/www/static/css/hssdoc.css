@@ -46,6 +46,12 @@
 	display: none;
 	float: right;
 	font-size: 11px;
+	text-decoration: none;
+}
+
+#hssdoc_sidebar > ul > li > span.object a.new_property:hover
+{
+	text-decoration: underline;
 }
 
 #hssdoc_sidebar > ul > li:hover > span.object a.new_property
@@ -59,9 +65,21 @@
 	text-decoration: underline;
 }
 
+#hssdoc_sidebar ul.prop_list > li > a.edit
+{
+	color: #aaa;
+	display: none;
+	float: right;
+	font-size: 11px;
+}
+
+#hssdoc_sidebar ul.prop_list > li:hover > a.edit
+{
+	display: inline-block;
+}
+
 #hssdoc_sidebar > ul ul
 {
-	display: none;
 	margin: 0 0 0 18px;
 }
 
@@ -100,6 +118,11 @@
 #hssdoc_sidebar > .actions a:hover
 {
 	text-decoration: underline;
+}
+
+#hssdoc_obj > .wrapper
+{
+	width: 666px;
 }
 
 #hssdoc_obj .prop_item

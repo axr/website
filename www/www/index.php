@@ -6,6 +6,10 @@ define('SHARED', ROOT . '/..');
 // Set timezone
 date_default_timezone_set('UTC');
 
+// Initialize the benchmark
+require_once(SHARED . '/lib/core/benchmark.php');
+\Core\Benchmark::initialize();
+
 require_once(SHARED . '/lib/extend.php');
 require_once(SHARED . '/lib/activerecord/ActiveRecord.php');
 require_once(SHARED . '/lib/core/http_exception.php');
@@ -35,7 +39,7 @@ Cache::initialize();
 
 // Create new router
 $path = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
-$router = new Router(Config::get('/shared/www_url') . $path);
+$router = new Router('http://' . $_SERVER['SERVER_NAME'] . $path);
 
 // Register routes
 require_once(ROOT . '/routes.php');
@@ -122,4 +126,3 @@ catch (HTTPException $e)
 
 // Save the session
 Session::save();
-

@@ -27,29 +27,40 @@ class HssdocProperty extends \Core\Model
 	public $_values_table;
 
 	/**
-	 * __isset
+	 * Get display url for the property
 	 *
-	 * @param string $attribute_name
-	 * @return bool
+	 * @return URL
 	 */
-	public function __isset ($attribute_name)
+	public function get_display_url ()
 	{
-		if ($attribute_name === 'permalink')
-		{
-			return true;
-		}
-
-		return parent::__isset($attribute_name);
+		return URL::create()
+			->from_string(Config::get('/shared/hssdoc_url'))
+			->path('/' . $this->object)
+			->fragment($this->name);
 	}
 
 	/**
-	 * Getter for attribute permalink
+	 * Get edit url for the property
 	 *
-	 * @return string
+	 * @return URL
 	 */
-	public function get_permalink ()
+	public function get_edit_url ()
 	{
-		return '/doc/' . $this->object . '#' . $this->name;
+		return URL::create()
+			->from_string(Config::get('/shared/hssdoc_url'))
+			->path('/edit_property/' . $this->id);
+	}
+
+	/**
+	 * Get delete url for the property
+	 *
+	 * @return URL
+	 */
+	public function get_rm_url ()
+	{
+		return URL::create()
+			->from_string(Config::get('/shared/hssdoc_url'))
+			->path('/' . $this->object . '/' . $this->name . '/rm');
 	}
 
 	/**

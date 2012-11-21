@@ -1,45 +1,44 @@
 {{{g/breadcrumb/html}}}
 
 <div id="downloads">
-	{{#release_types}}
+	{{#release_groups}}
 		<h2>{{name}}</h2>
 
-		{{#releases|bool}}
-			<table class="dtable">
-				<thead>
+		<table class="dtable">
+			<thead>
+				<tr>
+					<th class="version">Version</th>
+					<th class="os">Windows</th>
+					<th class="os">OS X</th>
+					<th class="os">Linux</th>
+					<th class="os">Source</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#releases}}
 					<tr>
-						<th class="version">Version</th>
-						<th class="os">Windows</th>
-						<th class="os">OS X</th>
-						<th class="os">Linux</th>
-						<th class="os">Source</th>
+						<td class="version">{{version}}</td>
+						{{#oses}}
+							<td class="os">
+								{{#files|bool}}
+									<a class="dlink" href="#"><span class="icon {{os}}"></span>download</a>
+									<div class="dropdown">
+										{{#files}}
+											<a href="{{url}}" target="_blank">{{ext}} <span>{{arch}}</span></a>
+										{{/files}}
+									</div>
+								{{/files}}
+							</td>
+						{{/oses}}
 					</tr>
-				</thead>
-				<tbody>
-					{{#releases}}
-						<tr>
-							<td class="version">{{version}}</td>
-							{{#oses}}
-								<td class="os">
-									{{#files|bool}}
-										<a class="dlink" href="#"><span class="icon {{os}}"></span>download</a>
-										<div class="dropdown">
-											{{#files}}
-												<a href="{{url}}" target="_blank">{{ext}} <span>{{arch}}</span></a>
-											{{/files}}
-										</div>
-									{{/files}}
-								</td>
-							{{/oses}}
-						</tr>
-					{{/releases}}
-				</tbody>
-			</table>
-		{{/releases}}
-		{{^releases|bool}}
-			<div class="none">No releases are currently available</div>
-		{{/releases}}
-	{{/release_types}}
+				{{/releases}}
+			</tbody>
+		</table>
+	{{/release_groups}}
+
+	{{^release_groups|bool}}
+		<div class="none">No releases are currently available</div>
+	{{/release_groups}}
 </div>
 
 {{^_ajax}}

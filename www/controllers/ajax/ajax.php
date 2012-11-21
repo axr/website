@@ -54,7 +54,7 @@ class AjaxController extends WWWController
 			throw new Exception('template_not_found');
 		}
 
-		echo json_encode(array(
+		echo self::respond_json(array(
 			'status' => 0,
 			'payload' => array(
 				'name' => $name,
@@ -76,12 +76,30 @@ class AjaxController extends WWWController
 				format_time_ago($event->created_at), $event->title);
 		}
 
-		echo json_encode(array(
+		echo self::respond_json(array(
 			'status' => 0,
 			'payload' => array(
 				'events' => $events
 			)
 		));
 	}
-}
 
+	/**
+	 * Send a JSON response
+	 *
+	 * @param mixed $data
+	 * @return string
+	 */
+	private static function respond_json ($data)
+	{
+		$data = json_encode($data);
+
+		if (isset($_GET['callback']))
+		{
+			$callback = preg_replace('/[^a-zA-Z0-9_]/', '', $_GET['callback']);
+			return $callback . '(' . $data . ');';
+		}
+
+		return $data;
+	}
+}
