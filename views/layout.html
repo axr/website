@@ -43,7 +43,7 @@
 	{{{g/rsrc/styles}}}
 
 	<script>
-		window.App = {{{g/app_vars}}};
+		window.App = {{g/app_vars|json|raw}};
 		window.App._onInit = [];
 
 		function withApp (callback) {

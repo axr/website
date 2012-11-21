@@ -5,7 +5,7 @@ window['App'] = window['App'] || {};
 	/**
 	 * Resource manager
 	 */
-	App.rsrc = {
+	App.Rsrc = {
 		/**
 		 * Loaded files
 		 *
@@ -25,7 +25,7 @@ window['App'] = window['App'] || {};
 
 			for (var i = 0, c = bundles.length; i < c; i++)
 			{
-				if (App.rsrc.loadBundle(bundles[i], f) === false)
+				if (App.Rsrc.loadBundle(bundles[i], f) === false)
 				{
 					f();
 				}
@@ -42,29 +42,30 @@ window['App'] = window['App'] || {};
 		 */
 		loadBundle: function (bundle_name, callback)
 		{
-			if (App.rsrc_bundles[bundle_name] === undefined)
+			if (App.rsrc.bundles[bundle_name] === undefined)
 			{
 				return false;
 			}
 
-			if (App.rsrc_prod === true)
+			if (App.rsrc.prod === true)
 			{
-				App.rsrc.loadFile(bundle_name, callback);
+				App.Rsrc.loadFile(bundle_name, callback);
 				return;
 			}
 
-			var bundle = App.rsrc_bundles[bundle_name];
+			var bundle = App.rsrc.bundles[bundle_name];
 			var f = App.util.multiCallback(bundle.files.length, callback);
 
 			for (var i = 0, c = bundle.files.length; i < c; i++)
 			{
-				App.rsrc.loadFile(bundle.files[i], f);
+				App.Rsrc.loadFile(bundle.files[i], f);
 			}
 		},
 
 		/**
 		 * Load a CSS or JS file.
 		 *
+		 * @todo when in production mode, try to find a bundle to load, instead
 		 * @param {string} file
 		 * @param {function()} callback
 		 */
@@ -77,9 +78,9 @@ window['App'] = window['App'] || {};
 
 			var extension = file.split('.').pop();
 			var url = /^https?:\/\//.test(file) ? file :
-				App.rsrc_root + '/' + file;
+				App.rsrc.root + '/' + file;
 
-			if (App.rsrc._loaded[url] === true)
+			if (App.Rsrc._loaded[url] === true)
 			{
 				callback();
 				return;
@@ -93,7 +94,7 @@ window['App'] = window['App'] || {};
 					.attr('type', 'text/css')
 					.attr('href', url));
 
-				App.rsrc._loaded[url] = true;
+				App.Rsrc._loaded[url] = true;
 				callback();
 			}
 			else if (extension === 'js')
@@ -104,7 +105,7 @@ window['App'] = window['App'] || {};
 					timeout: 7000,
 					complete: function (jqXHR, textStatus)
 					{
-						App.rsrc._loaded[url] = true;
+						App.Rsrc._loaded[url] = true;
 						callback();
 					}
 				});
@@ -116,4 +117,3 @@ window['App'] = window['App'] || {};
 		}
 	};
 })(window['App']);
-

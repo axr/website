@@ -25,7 +25,7 @@ window['App'] = window['App'] || {};
 
 		// Initialize GA queue
 		window._gaq = window._gaq || [];
-		window._gaq.push(['_setAccount', App['ga_account']]);
+		window._gaq.push(['_setAccount', App.site.ga_account]);
 		window._gaq.push(['_trackPageview']);
 
 		// Load GA tracker code

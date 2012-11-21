@@ -41,14 +41,19 @@ class Controller extends \Core\Controller
 			));
 		};
 
-		$this->view->{'g/app_vars'} = json_encode(array(
+		$this->view->{'g/app_vars'} = (object) array(
 			'/shared/hssdoc_url' => \Config::get('/shared/hssdoc_url'),
 			'/shared/www_url' => \Config::get('/shared/www_url'),
-			'rsrc_root' => \Config::get('/shared/rsrc_url'),
-			'rsrc_prod' => \Config::get('/shared/rsrc/prod'),
-			'ga_account' => \Config::get('/www/ga_account'),
-			'rsrc_bundles' => $this->rsrc->getBundlesInfo()
-		));
+			'rsrc' => (object) array(
+				'root' => \Config::get('/shared/rsrc_url'),
+				'prod' => \Config::get('/shared/rsrc/prod'),
+				'bundles' => $this->rsrc->getBundlesInfo()
+			),
+			'site' => (object) array(
+				'url' => null,
+				'ga_account' => null
+			)
+		);
 
 		$this->view->{'g/year'}  = date('Y');
 		$this->view->{'g/meta'} = new \StdClass();
