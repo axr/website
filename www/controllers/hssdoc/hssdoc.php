@@ -15,7 +15,7 @@ class HssdocController extends WWWController
 
 		// The documentation is not being requested from hss.axr.vg domain
 		if(Router::get_instance()->url->host !==
-			(new URL(Config::get('/shared/hssdoc_url')))->host)
+			Config::get('/shared/hssdoc_url')->host)
 		{
 			throw new HTTPException(null, 404);
 		}
@@ -23,7 +23,7 @@ class HssdocController extends WWWController
 		// Add the common breadcrumb item
 		$this->breadcrumb[] = array(
 			'name' => 'HSS documentation',
-			'link' => URL::create(Config::get('/shared/hssdoc_url'))
+			'link' => Config::get('/shared/hssdoc_url')->copy()
 		);
 	}
 
@@ -39,8 +39,8 @@ class HssdocController extends WWWController
 		{
 			$this->tabs[] = array(
 				'name' => 'New object',
-				'link' => URL::create()
-					->from_string(Config::get('/shared/hssdoc_url'))
+				'link' => Config::get('/shared/hssdoc_url')
+					->copy()
 					->path('/add_object')
 			);
 		}
@@ -186,8 +186,8 @@ class HssdocController extends WWWController
 		$this->view->object = $object;
 		$this->view->properties = $object->properties;
 		$this->view->edit_mode = $mode === 'edit';
-		$this->view->add_property_url = URL::create()
-			->from_string(Config::get('/shared/hssdoc_url'))
+		$this->view->add_property_url = Config::get('/shared/hssdoc_url')
+			->copy()
 			->path('/add_property/' . $object->name);
 
 		echo $this->renderView(ROOT . '/views/hssdoc_edit_object.html');
@@ -327,7 +327,7 @@ class HssdocController extends WWWController
 		if (isset($_POST['_via_post']))
 		{
 			$object->delete();
-			$this->redirect(URL::create(Config::get('/shared/hssdoc_url')));
+			$this->redirect(Config::get('/shared/hssdoc_url')->copy());
 		}
 
 		echo $this->renderView(ROOT . '/views/hssdoc_rm_object.html');
@@ -370,8 +370,8 @@ class HssdocController extends WWWController
 		{
 			$property->delete();
 
-			$this->redirect(URL::create()
-				->from_string(Config::get('/shared/hssdoc_url'))
+			$this->redirect(Config::get('/shared/hssdoc_url')
+				->copy()
 				->path('/' . $object_name));
 		}
 
