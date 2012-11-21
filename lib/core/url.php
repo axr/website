@@ -103,6 +103,16 @@ class URL
 	}
 
 	/**
+	 * Return a copy of this instance
+	 *
+	 * @return URL
+	 */
+	public static function copy ()
+	{
+		return new URL($this->to_string());
+	}
+
+	/**
 	 * Create a new URL instance
 	 *
 	 * @param string $url
