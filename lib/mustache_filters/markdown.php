@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\MustacheFilters;
+namespace MustacheFilters;
 
 require_once(SHARED . '/lib/php-markdown/markdown.php');
 

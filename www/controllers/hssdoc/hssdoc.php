@@ -5,13 +5,13 @@ require_once(ROOT . '/models/hssdoc_object.php');
 require_once(ROOT . '/models/hssdoc_property.php');
 require_once(ROOT . '/models/hssdoc_value.php');
 require_once(SHARED . '/lib/core/exceptions/http_ajax.php');
-require_once(SHARED . '/lib/core/mustache_filters/markdown.php');
+require_once(SHARED . '/lib/mustache_filters/markdown.php');
 
 class HssdocController extends WWWController
 {
 	public function initialize ()
 	{
-		\Mustache\Filter::register(new \Core\MustacheFilters\Markdown);
+		\Mustache\Filter::register(new \MustacheFilters\Markdown);
 
 		// The documentation is not being requested from hss.axr.vg domain
 		if(Router::get_instance()->url->host !==
