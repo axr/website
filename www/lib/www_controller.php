@@ -28,7 +28,7 @@ class WWWController extends \AXR\Controller
 
 		$this->view->{'g/hide_login'} = true;
 
-		$this->view->{'g/app_vars'}->site->url = \Config::get('/shared/www_url');
+		$this->view->{'g/app_vars'}->site->url = (string) \Config::get('/shared/www_url');
 		$this->view->{'g/app_vars'}->site->ga_account = \Config::get('/www/ga_account');
 	}
 }

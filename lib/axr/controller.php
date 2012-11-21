@@ -42,10 +42,10 @@ class Controller extends \Core\Controller
 		};
 
 		$this->view->{'g/app_vars'} = (object) array(
-			'/shared/hssdoc_url' => \Config::get('/shared/hssdoc_url'),
-			'/shared/www_url' => \Config::get('/shared/www_url'),
+			'/shared/hssdoc_url' => (string) \Config::get('/shared/hssdoc_url'),
+			'/shared/www_url' => (string) \Config::get('/shared/www_url'),
 			'rsrc' => (object) array(
-				'root' => \Config::get('/shared/rsrc_url'),
+				'root' => (string) \Config::get('/shared/rsrc_url'),
 				'prod' => \Config::get('/shared/rsrc/prod'),
 				'bundles' => $this->rsrc->getBundlesInfo()
 			),
@@ -59,9 +59,9 @@ class Controller extends \Core\Controller
 		$this->view->{'g/meta'} = new \StdClass();
 		$this->view->{'g/url_login/label'} = 'Login';
 
-		$this->view->{'g/rsrc_root'} = \Config::get('/shared/rsrc_url');
-		$this->view->{'g/www_url'} = \Config::get('/shared/www_url');
-		$this->view->{'g/wiki_url'}  = \Config::get('/shared/wiki_url');
+		$this->view->{'g/rsrc_root'} = (string) \Config::get('/shared/rsrc_url');
+		$this->view->{'g/www_url'} = (string) \Config::get('/shared/www_url');
+		$this->view->{'g/wiki_url'}  = (string) \Config::get('/shared/wiki_url');
 
 		$this->tabs = array();
 		$this->breadcrumb = array(
