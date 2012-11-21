@@ -107,7 +107,7 @@ class URL
 	 *
 	 * @return URL
 	 */
-	public static function copy ()
+	public function copy ()
 	{
 		return new URL($this->to_string());
 	}
