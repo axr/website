@@ -14,7 +14,8 @@
 		<div class="uiFormField">
 			<label for="name">Object name</label>
 			<input type="text" name="name" class="uiInput"
-				value="{{object.name}}" />
+				value="{{object.name}}"
+				{{#edit_mode}}disabled="disabled"{{/edit_mode}} />
 		</div>
 
 		<div class="uiFormField">
