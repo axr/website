@@ -75,6 +75,13 @@ $wgDiff3 = "/usr/bin/diff3";
 // Don't use MW's JS features
 $wgUseSiteJs = false;
 
+// Disable some special pages
+$wgHooks['SpecialPage_initList'][] = function (&$list)
+{
+	unset($list['Userlogin']);
+	return true;
+};
+
 // *
 $wgGroupPermissions['*']['edit'] = false;
 
