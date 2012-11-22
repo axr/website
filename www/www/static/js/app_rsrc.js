@@ -64,7 +64,7 @@ window['App'] = window['App'] || {};
 			/**
 			 * Load the bundle
 			 */
-			this._load = function ()
+			this.load = function ()
 			{
 				if (this.status !== STATUS_NONE)
 				{
@@ -111,6 +111,8 @@ window['App'] = window['App'] || {};
 			 */
 			this.use = function (callback)
 			{
+				this.load();
+
 				if (typeof callback !== 'function')
 				{
 					return;
@@ -124,8 +126,6 @@ window['App'] = window['App'] || {};
 
 				this._callbacks.push(callback);
 			};
-
-			this._load();
 		},
 
 		/**
@@ -164,7 +164,7 @@ window['App'] = window['App'] || {};
 			/**
 			 * Load the file
 			 */
-			this._load = function ()
+			this.load = function ()
 			{
 				if (this.status !== STATUS_NONE)
 				{
@@ -232,6 +232,8 @@ window['App'] = window['App'] || {};
 			 */
 			this.use = function (callback)
 			{
+				this.load();
+
 				if (typeof callback !== 'function')
 				{
 					return;
@@ -245,8 +247,6 @@ window['App'] = window['App'] || {};
 
 				this._callbacks.push(callback);
 			};
-
-			this._load();
 		},
 
 		/**
