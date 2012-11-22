@@ -127,6 +127,12 @@
  * TOC
  * ---
  */
+#toc
+{
+	background: #efefef;
+	border: 1px solid #bbb;
+}
+
 #toc #toctitle
 {
 	text-align: center;
