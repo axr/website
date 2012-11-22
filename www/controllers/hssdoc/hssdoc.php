@@ -290,7 +290,7 @@ class HssdocController extends WWWController
 			);
 		}
 
-		$this->view->property = $property->attributes();
+		$this->view->property = $property;
 		$this->view->edit_mode = $mode === 'edit';
 
 		echo $this->renderView(ROOT . '/views/hssdoc_edit_property.html');
