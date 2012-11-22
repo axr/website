@@ -200,3 +200,5 @@ openid = {
 	}
 };
 })(jQuery);
+
+window['App'].Rsrc.file('js/openid-jquery.js').set_loaded();

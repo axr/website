@@ -54,3 +54,4 @@
 	});
 })(jQuery);
 
+window['App'].Rsrc.file('js/downloads.js').set_loaded();

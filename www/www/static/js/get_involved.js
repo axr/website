@@ -43,3 +43,5 @@ App.pageEvent.on('load_init', '/get-involved', function ()
 		});
 	});
 });
+
+window['App'].Rsrc.file('js/get_involved.js').set_loaded();

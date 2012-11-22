@@ -394,3 +394,4 @@ window.App = window.App || {};
 	});
 })(window.App);
 
+window['App'].Rsrc.file('js/hssdoc.js').set_loaded();

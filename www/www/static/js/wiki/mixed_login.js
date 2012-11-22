@@ -5,3 +5,5 @@ App.pageEvent.on('load', '/Special:MixedLogin', function ()
 		openid.init('openid_url');
 	}
 });
+
+window['App'].Rsrc.file('js/wiki/mixed_login.js').set_loaded();

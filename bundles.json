@@ -15,10 +15,10 @@
 		"type": "js",
 		"files": [
 			"js/json2.js",
-			"js/mustache.js",
 			"js/app_rsrc.js",
 			"js/app_modal.js",
 			"js/app.js",
+			"js/mustache.js",
 			"js/site.js"
 		]
 	},

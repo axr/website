@@ -12,3 +12,4 @@ App.pageEvent.on('load', '/auth', function ()
 	});
 });
 
+window['App'].Rsrc.file('js/auth.js').set_loaded();
