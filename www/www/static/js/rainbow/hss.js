@@ -40,7 +40,7 @@ var general = [
 			1: 'hss-object-type',
 			2: 'hss-object-name'
 		},
-		'pattern': /(@[a-z]+)(\s+([a-z0-9]+))?/gi
+		'pattern': /(@[a-z]+)(\s+([a-zA-Z0-9_]+))?/gi
 	},
 	{
 		'name': 'hss-instruction',
@@ -77,7 +77,7 @@ Rainbow.extend('hss', [
 						2: [
 							{
 								'name': 'hss-object-name',
-								'pattern': /@\w+/g
+								'pattern': /@[a-zA-Z0-9_]+/g
 							},
 							{
 								'name': 'hss-selector',

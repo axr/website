@@ -41,7 +41,7 @@ h2
 	width: 900px;
 	height: 188px;
 	margin: 0px auto;
-	z-index:1 0;
+	z-index: 10;
 }
 
 #container > header > #logo

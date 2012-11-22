@@ -1,5 +1,6 @@
 <?php
 
+require_once(SHARED . '/lib/extend.php');
 require_once(SHARED . '/lib/core/exceptions/url_readonly.php');
 
 class URL
@@ -103,6 +104,16 @@ class URL
 	}
 
 	/**
+	 * Return a copy of this instance
+	 *
+	 * @return URL
+	 */
+	public function copy ()
+	{
+		return new URL($this->to_string());
+	}
+
+	/**
 	 * Create a new URL instance
 	 *
 	 * @param string $url
@@ -167,7 +178,7 @@ class URL
 	 */
 	public function to_string ()
 	{
-		return http_build_url('', array(
+		$url = http_build_url('', array(
 			'scheme' => $this->scheme,
 			'host' => $this->host,
 			'user' => $this->user,
@@ -176,6 +187,10 @@ class URL
 			'query' => http_build_query($this->query),
 			'fragment' => $this->fragment
 		));
+
+		$url = preg_replace('/\?$/', '', $url);
+
+		return $url;
 	}
 
 	/**

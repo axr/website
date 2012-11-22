@@ -9,7 +9,7 @@ window.App = window.App || {};
 	 */
 	var getObjectName = function ()
 	{
-		var match = window.location.pathname.match(/^\/doc\/([^\/]+)/);
+		var match = window.location.pathname.match(/^\/([^\/]+)/);
 		return (match || [])[1];
 	};
 
@@ -61,7 +61,7 @@ window.App = window.App || {};
 		 */
 		get_property_id: function ()
 		{
-			return (window.location.pathname.match(/^\/doc\/edit_property\/(\d+)/) || [])[1] || null;
+			return (window.location.pathname.match(/^\/edit_property\/(\d+)/) || [])[1] || null;
 		},
 
 		/**
@@ -87,7 +87,7 @@ window.App = window.App || {};
 			}
 
 			$.ajax({
-				url: '/doc/property_values.json',
+				url: App['/shared/hssdoc_url'] + '/property_values.json',
 				data: {
 					property: property_id
 				},
@@ -147,7 +147,7 @@ window.App = window.App || {};
 			}
 
 			$.ajax({
-				url: '/doc/property_values.json',
+				url: App['/shared/hssdoc_url'] + '/property_values.json',
 				type: 'POST',
 				data: data,
 				dataType: 'json',
@@ -186,7 +186,7 @@ window.App = window.App || {};
 		delete_item: function (id, callback)
 		{
 			$.ajax({
-				url: '/doc/property_values.json',
+				url: App['/shared/hssdoc_url'] + '/property_values.json',
 				type: 'DELETE',
 				data: {
 					id: id
@@ -255,13 +255,13 @@ window.App = window.App || {};
 		// Scroll to the property that's in the hash
 		scrollToProperty(window.location.hash.replace(/^#/, ''));
 
-		// Expand the current object in the sidebar
+		// Collapse all irrelevant objects on the sidebar
 		$('#hssdoc_sidebar .obj_list > li').each(function (i, element)
 		{
-			if ($(element).attr('data-object') === getObjectName())
+			if ($(element).attr('data-object') !== getObjectName())
 			{
-				$(element).find('.prop_list').show();
-				$(element).find('a.open').html('[-]');
+				$(element).find('.prop_list').hide();
+				$(element).find('a.open').html('[+]');
 			}
 		});
 	});
@@ -290,11 +290,13 @@ window.App = window.App || {};
 
 		$('#hssdoc_sidebar .actions a.expand').on('click', function (e)
 		{
+			e.preventDefault();
 			expandAll();
 		});
 
 		$('#hssdoc_sidebar .actions a.collapse').on('click', function (e)
 		{
+			e.preventDefault();
 			expandAll(true);
 		});
 	});
@@ -317,7 +319,7 @@ window.App = window.App || {};
 						case 'ValidationFailed':
 							alert(error.validation_errors.join("\n"));
 							break;
-						default: alert(error);
+						default: error.show();
 					}
 
 					return;
@@ -340,18 +342,25 @@ window.App = window.App || {};
 			var $element = $(this).closest('tr');
 			$element.hide(700);
 
-			edit.delete_item($element.attr('data-id'), function (error)
+			if ($element.attr('data-new') === '1')
 			{
-				if (error instanceof App.Error)
-				{
-					$element.show();
-					error.show();
-
-					return;
-				}
-
 				$element.remove();
-			});
+			}
+			else
+			{
+				edit.delete_item($element.attr('data-id'), function (error)
+				{
+					if (error instanceof App.Error)
+					{
+						$element.show();
+						error.show();
+
+						return;
+					}
+
+					$element.remove();
+				});
+			}
 		});
 
 		// New link

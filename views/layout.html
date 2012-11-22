@@ -25,7 +25,7 @@
 	<meta property="og:image" content="http://axr.vg/resources/images/logo_small.jpg" />
 	<meta property="og:description" content="AXR is a new standard for making web sites and apps, replacing HTML with XML and CSS with HSS. A unified platform independent of browsers, possible to install as plug-in." />
 	<meta property="og:site_name" content="AXR: Arbitrary XML Rendering" />
-	
+
 	<!-- google +snippet metadata-->
 	<link href="https://plus.google.com/105865857923622443169" rel="publisher" />
 
@@ -43,7 +43,7 @@
 	{{{g/rsrc/styles}}}
 
 	<script>
-		window.App = {{{g/app_vars}}};
+		window.App = {{g/app_vars|json|raw}};
 		window.App._onInit = [];
 
 		function withApp (callback) {
@@ -142,7 +142,7 @@
 							<a class="roadmap"
 								href="{{g/wiki_url}}/Roadmap">Roadmap</a>
 							<a class="changelog last"
-								href="https://github.com/AXR/Prototype/blob/master/CHANGELOG.md"
+								href="https://github.com/axr/core/blob/master/CHANGELOG.md"
 								target="_blank">Changelog</a>
 						</div>
 					</li>

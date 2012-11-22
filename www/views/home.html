@@ -56,7 +56,13 @@
 			<h2>Latest blog posts:</h2>
 			<ul class="blog">
 				{{#blog_posts}}
-					<li><span class="icon"></span><a href="{{permalink}}">{{title}}</a></li>
+					<li>
+						<span class="icon"></span>
+						<span class="post">
+							<a href="{{permalink}}">{{title}}</a>
+							<time datetime="{{ctime_str_Ymd}}">({{ctime_str_Ymd}})</time>
+						</span>
+					</li>
 				{{/blog_posts}}
 			</ul>
 
@@ -297,7 +303,7 @@ foo:firstChild { }
 // selects bar elements, then return the 2nd, 4th, 6th, etc
 bar:even { }
 // selects baz elements whose width is greater than 500
-baz(width > 500) { }
+baz:(width > 500) { }
 // selects qux elements whose title attribute start
 // with "Welcome"
 qux:[title:startsWith("Welcome")] { }</code>

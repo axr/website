@@ -14,7 +14,8 @@
 		<div class="uiFormField">
 			<label for="name">Object name</label>
 			<input type="text" name="name" class="uiInput"
-				value="{{object.name}}" />
+				value="{{object.name}}"
+				{{#edit_mode}}disabled="disabled"{{/edit_mode}} />
 		</div>
 
 		<div class="uiFormField">
@@ -27,7 +28,7 @@
 		<div class="uiFormField">
 			{{#edit_mode}}
 				<input type="submit" value="Update" />
-				or <a href="{{delete_url}}">Delete</a>
+				or <a href="{{object.rm_url}}">Delete</a>
 			{{/edit_mode}}
 
 			{{^edit_mode}}
@@ -51,7 +52,7 @@
 					<tr>
 						<td>{{name}}</td>
 						<td class="actions">
-							<a href="/doc/edit_property/{{id}}">edit</a>
+							<a href="{{edit_url}}">edit</a>
 						</td>
 					</tr>
 				{{/properties}}
@@ -59,7 +60,7 @@
 		</table>
 
 		<div class="table_actions">
-			<a href="/doc/add_property/{{object.name}}">New property</a>
+			<a href="{{add_property_url}}">New property</a>
 		</div>
 	{{/edit_mode}}
 </div>

@@ -15,29 +15,9 @@ class HssdocObject extends \Core\Model
 		array('properties',
 			'class_name' => 'HssdocProperty',
 			'primary_key' => 'name',
-			'foreign_key' => 'object')
+			'foreign_key' => 'object',
+			'order' => 'name asc')
 	);
-
-	/**
-	 * __isset
-	 *
-	 * @param string $attribute_name
-	 * @return bool
-	 */
-	public function __isset ($attribute_name)
-	{
-		return parent::__isset($attribute_name);
-	}
-
-	/**
-	 * Getter for attribute permalink
-	 *
-	 * @return string
-	 */
-	public function get_permalink ()
-	{
-		return '/doc/' . $this->name;
-	}
 
 	/**
 	 * Get all normal (non-readonly) properties
@@ -77,6 +57,54 @@ class HssdocObject extends \Core\Model
 		}
 
 		return $properties;
+	}
+
+	/**
+	 * Get display URL for the object
+	 *
+	 * @return URL
+	 */
+	public function get_display_url ()
+	{
+		return URL::create()
+			->from_string(Config::get('/shared/hssdoc_url'))
+			->path('/' . $this->name);
+	}
+
+	/**
+	 * Get edit URL for the object
+	 *
+	 * @return URL
+	 */
+	public function get_edit_url ()
+	{
+		return URL::create()
+			->from_string(Config::get('/shared/hssdoc_url'))
+			->path('/' . $this->name . '/edit');
+	}
+
+	/**
+	 * Get delete URL for the object
+	 *
+	 * @return URL
+	 */
+	public function get_rm_url ()
+	{
+		return URL::create()
+			->from_string(Config::get('/shared/hssdoc_url'))
+			->path('/' . $this->name . '/rm');
+	}
+
+	/**
+	 * Get URL for creating a new property
+	 *
+	 * @return URL
+	 */
+	public function get_add_property_url ()
+	{
+		return URL::create()
+			->from_string(Config::get('/shared/hssdoc_url'))
+			->path('/add_property/' . $this->name);
 	}
 
 	/**

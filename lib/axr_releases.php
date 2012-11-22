@@ -49,52 +49,67 @@ class AXRReleases
 			{
 				$item = $data[$i];
 
-				preg_match('/^axr-(?<version>[0-9.]+)((-git(?<sha>[0-9a-f]+))?-(?<os>(linux|osx|windows|src)))?(-(?<arch>(x86_64|i386|arm)))?\.(?<ext>[a-z0-9.]+)$/i', $item->name, $match);
+				preg_match('/\.(?<ext>exe|msi|dmg|tar\.gz|deb|rpm)$/', $item->name, $match);
 
 				if (!is_array($match) || count($match) === 0)
 				{
 					continue;
 				}
 
-				$version = $match['version'];
-				$sha = !empty($match['sha']) ? $match['sha'] : null;
-				$os = !empty($match['os']) ? $match['os'] : null;
-				$arch = $match['arch'];
 				$ext = $match['ext'];
+				$regex = null;
 
-				$type = $sha === null ? 'stable' : 'dev';
-
-				if ($type === 'dev')
+				switch ($ext)
 				{
-					$version = $version . '-git' . $sha;
+					case 'exe':
+					case 'msi':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-windows-(?<arch>x86|x64|ia64)\.(exe|msi)/';
+						$os = 'windows';
+						break;
+
+					case 'dmg':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-osx-(?<arch>i386|x86_64)\.dmg/';
+						$os = 'osx';
+						break;
+
+					case 'tar.gz':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-linux-(?<arch>i386|x86_64)\.tar\.gz/';
+						$os = 'linux';
+						break;
+
+					case 'rpm':
+						$regex = '/^[a-zA-Z0-9_.-]+-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-([^-]+)\.(?<arch>i386|i586|i686|x86_64)\.rpm/';
+						$os = 'linux';
+						break;
+
+					case 'deb':
+						$regex = '/^[a-zA-Z0-9_.-]+_(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)_(?<arch>i386|amd64)\.deb/';
+						$os = 'linux';
+						break;
+
+					default:
+						continue 2;
 				}
 
-				if ($os === null)
-				{
-					// Detect the OS by file extension
-					switch ($ext)
-					{
-						case 'rpm':
-						case 'deb': $os = 'linux'; break;
-						default: continue(2);
-					}
-				}
+				// Parse the file name
+				preg_match($regex, $item->name, $match);
 
-				if ($os === 'android' || $os === 'ios')
+				if (count($match) === 0)
 				{
 					continue;
 				}
+
+				// Insert some data about the package
+				$version = $match['version'];
+				$arch = $match['arch'];
 
 				if (!isset($out->{$version}))
 				{
 					$out->{$version} = new StdClass();
 
-					if ($type === 'stable')
-					{
-						$changelog = $this->get_changelog($version);
-						$out->{$version}->date = $changelog->date;
-						$out->{$version}->changes = $changelog->changes;
-					}
+					$changelog = $this->get_changelog($version);
+					$out->{$version}->date = $changelog->date;
+					$out->{$version}->changes = $changelog->changes;
 				}
 
 				if (!isset($out->{$version}->{$os}))
@@ -107,8 +122,6 @@ class AXRReleases
 					'ext' => $ext,
 					'url' => $item->html_url,
 					'size' => $item->size,
-					'sha' => $match['sha'],
-					'type' => $type
 				);
 			}
 
@@ -119,142 +132,15 @@ class AXRReleases
 	}
 
 	/**
-	 * Get releases by type
-	 *
-	 * @param string $type (stable|dev)
-	 * @return mixed
-	 */
-	public function get_releases_by_type ($type)
-	{
-		$out = new StdClass();
-		$data = $this->get_releases();
-
-		foreach ($data as $version => $version_data)
-		{
-			foreach ($version_data as $os => $os_data)
-			{
-				if (!in_array($os, array('windows', 'osx', 'linux', 'src')))
-				{
-					continue;
-				}
-
-				foreach ($os_data as $i => $release)
-				{
-					if ($release->type === $type)
-					{
-						if (!isset($out->{$version}))
-						{
-							$out->{$version} = new StdClass();
-						}
-
-						if (!isset($out->{$version}->{$os}))
-						{
-							$out->{$version}->{$os} = array();
-						}
-
-						$out->{$version}->{$os}[] = clone $release;
-					}
-				}
-			}
-
-			if (isset($out->{$version}))
-			{
-				$out->{$version}->date = isset($out->{$version}->date) ?
-					$out->{$version}->date : null;
-				$out->{$version}->changes = isset($out->{$version}->changes) ?
-					$out->{$version}->changes : null;
-			}
-		}
-
-		return $out;
-	}
-
-	/**
-	 * Get the changelog
-	 *
-	 * @param string $version
-	 * @return mixed
-	 */
-	public function get_changelog ($version)
-	{
-		static $lines;
-
-		if (!is_array($lines))
-		{
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/' .
-				$this->repository . '/contents/CHANGELOG.md');
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-
-			$response = json_decode(curl_exec($ch));
-			curl_close($ch);
-
-			$lines = array();
-
-			if (is_object($response) && isset($response->encoding) &&
-				$response->encoding === 'base64')
-			{
-				$lines = explode("\n", base64_decode($response->content));
-			}
-		}
-
-		$changes = array();
-		$date = null;
-		$is_found = false;
-
-		foreach ($lines as $line)
-		{
-			if (!$is_found)
-			{
-				preg_match('/^[#]+\s+Version\s+([0-9.]+)/', $line, $match);
-
-				if (is_array($match) && isset($match[1]) &&
-					$match[1] === $version)
-				{
-					$is_found = true;
-				}
-
-				continue;
-			}
-
-			if (strlen($line) === 0)
-			{
-				continue;
-			}
-
-			if ($line[0] === '#')
-			{
-				break;
-			}
-
-			preg_match('/([0-9]{4}-[0-9]{2}-[0-9]{2})/', $line, $match);
-			if (is_array($match) && count($match) === 2)
-			{
-				$date = strtotime($match[1]);
-			}
-
-			if ($line[0] === '*')
-			{
-				$changes[] = preg_replace('/\*\s+/', '', $line);
-			}
-		}
-
-		return (object) array(
-			'date' => $date,
-			'changes' => $changes
-		);
-	}
-
-	/**
-	 * Get just one latest release for auotmatically detected os and
+	 * Get just one latest release for automatically detected os and
 	 * architecture.
 	 *
+	 * @todo make it better
 	 * @return mixed
 	 */
-	public function get_for_home ()
+	public function get_releases_for_home ()
 	{
-		$data = (array) $this->get_releases_by_type('stable');
+		$data = (array) $this->get_releases();
 
 		ksort($data);
 		$data = array_reverse($data);
@@ -292,6 +178,111 @@ class AXRReleases
 		}
 
 		return $out;
+	}
+
+	/**
+	 * Get the changelog.
+	 * WARNING: There's no caching done here.
+	 *
+	 * @param string $version
+	 * @return mixed
+	 */
+	public function get_changelog ($version)
+	{
+		static $lines;
+
+		if (!is_array($lines))
+		{
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/repos/' .
+				$this->repository . '/contents/CHANGELOG.md');
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+
+			$response = json_decode(curl_exec($ch));
+			curl_close($ch);
+
+			$lines = array();
+
+			if (is_object($response) && isset($response->encoding) &&
+				$response->encoding === 'base64')
+			{
+				$lines = explode("\n", base64_decode($response->content));
+			}
+		}
+
+		$changes = array();
+		$date = null;
+		$is_found = false;
+		$can_continue = false;
+		$counter = 0;
+
+		foreach ($lines as $line)
+		{
+			if ($counter >= 10)
+			{
+				// We don't want any more items
+				break;
+			}
+
+			if (!$is_found)
+			{
+				preg_match('/^[#]+\s+Version\s+([0-9.]+)/', $line, $match);
+
+				if (is_array($match) && isset($match[1]) &&
+					$match[1] === $version)
+				{
+					$is_found = true;
+				}
+
+				continue;
+			}
+
+			if (strlen($line) === 0)
+			{
+				continue;
+			}
+
+			if ($line[0] === '#')
+			{
+				// That's where the next version starts
+				break;
+			}
+
+			preg_match('/([0-9]{4}-[0-9]{2}-[0-9]{2})/', $line, $match);
+
+			if (is_array($match) && count($match) === 2)
+			{
+				$date = strtotime($match[1]);
+			}
+
+			if ($line[0] === '*')
+			{
+				$changes[] = preg_replace('/^\*\s+/', '', $line);
+
+				$can_continue = true;
+				$counter++;
+
+				continue;
+			}
+
+			if ($can_continue)
+			{
+				if (preg_match('/^[ ]{2}(.+)$/', $line, $match))
+				{
+					$changes[count($changes) - 1] .= $match[1];
+				}
+				else
+				{
+					$can_continue = false;
+				}
+			}
+		}
+
+		return (object) array(
+			'date' => $date,
+			'changes' => $changes
+		);
 	}
 
 	/**

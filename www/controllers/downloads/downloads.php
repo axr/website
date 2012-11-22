@@ -7,32 +7,36 @@ class DownloadsController extends WWWController
 {
 	public function run ()
 	{
-		$releases = new AXRReleases(Config::get('/www/downloads/releases_repo'));
-		$data = $releases->get_releases();
+		$releases_browser = new AXRReleases(Config::get('/www/downloads/repo/browser'));
 
 		$this->view->_title = 'Downloads';
 		$this->breadcrumb[] = array(
 			'name' => 'Downloads'
 		);
 
-		$this->view->release_types = array(
+		$this->view->release_groups = array(
 			array(
-				'name' => 'Prototype',
-				'releases' => self::get_releases($releases, 'stable')
-			),
-			array(
-				'name' => 'Developer releases',
-				'releases' => self::get_releases($releases, 'dev')
+				'name' => 'AXR Browser',
+				'releases' => self::get_releases($releases_browser)
 			)
 		);
+
+		// Remove empty release groups
+		for ($i = 0, $c = count($this->view->release_groups); $i < $c; $i++)
+		{
+			if (count($this->view->release_groups[$i]['releases']) === 0)
+			{
+				unset($this->view->release_groups[$i]);
+			}
+		}
 
 		echo $this->renderView(ROOT . '/views/downloads.html');
 	}
 
-	private static function get_releases ($releases, $type)
+	private static function get_releases ($releases)
 	{
 		$out = array();
-		$data = (array) $releases->get_releases_by_type($type);
+		$data = (array) $releases->get_releases();
 
 		ksort($data);
 		$data = array_reverse($data);
