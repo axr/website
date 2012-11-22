@@ -48,6 +48,9 @@ class Code
 
 		foreach ($lines as &$line)
 		{
+			$line = str_replace('<', '&lt;', $line);
+			$line = str_replace('>', '&gt;', $line);
+
 			$line = '	' . $line;
 		}
 

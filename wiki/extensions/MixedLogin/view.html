@@ -1,0 +1,27 @@
+<div id="mixed_login">
+	<form action="/Special:OpenIDLogin" method="post" id="openid_form">
+		<div id="openid_choice">
+			<p>Please click your account provider:</p>
+			<div id="openid_btns"></div>
+		</div>
+
+		<div id="openid_input_area">
+			<input class="uiInput" name="openid_url" type="text" value="http://" />
+			<input class="uiInput button" type="submit" value="Continue"/>
+		</div>
+
+		<input type="hidden" name="continue" value="{{continue}}" />
+	</form>
+
+	<p>Although it is highly recommended that you use OpenID to login/register,
+	you can still use an username and password to login by <a href="/Special:UserLogin">clicking here</a>.</p>
+</div>
+
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load', '/Special:MixedLogin');
+		});
+	</script>
+{{/_ajax}}
