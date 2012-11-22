@@ -760,3 +760,4 @@ window['Rainbow'] = (function() {
 Rainbow["onHighlight"] = Rainbow.onHighlight;
 Rainbow["addClass"] = Rainbow.addClass;
 
+window['App'].Rsrc.file('js/rainbow/rainbow.js').set_loaded();

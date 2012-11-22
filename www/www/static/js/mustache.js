@@ -534,3 +534,5 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
   }
 
 })(Mustache);
+
+window['App'].Rsrc.file('js/mustache.js').set_loaded();

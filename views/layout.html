@@ -69,21 +69,20 @@
 				</a>
 			</div>
 			<div class="secondary">
-				{{^g/hide_login}}
+				{{#g/login_show}}
 					<span class="link login">
 						<span class="icon"></span>
 						<a href="{{g/url_login}}">{{g/url_login/label}}</a>
 					</span>
-				{{/g/hide_login}}
-				{{#g/user}}
+				{{/g/login_show}}
+				{{#g/user|bool}}
 					<div class="user_menu">
 						<span class="arrow"></span>
-						<a class="user_link" href="{{g/url_profile}}/"><span class="menu_title">User</span></a>
+						<a class="user_link" href="{{g/user.url}}/"><span class="menu_title">{{g/user.name}}</span></a>
 						<div class="dropdown">
-							<a class="edit_account first"
-								href="{{g/url_account}}">Edit account</a>
-							<a class="logout last"
-								href="{{g/url_logout}}">Logout</a>
+							{{#g/user.links}}
+								<a href="{{href}}" class="{{class}}">{{text}}</a>
+							{{/g/user.links}}
 						</div>
 					</div>
 				{{/g/user}}
@@ -109,8 +108,11 @@
 						<div>
 							<a class="downloads first"
 								href="{{g/www_url}}/downloads">Downloads</a>
-							<a class="documentation last"
+							<a class="documentation"
 								href="http://docs.axr.vg">Prototype documentation</a>
+							<a class="changelog last"
+								href="https://github.com/axr/core/blob/master/CHANGELOG.md"
+								target="_blank">Changelog</a>
 						</div>
 					</li>
 					<li class="community">
@@ -140,11 +142,8 @@
 								href="{{g/wiki_url}}">Main page</a>
 							<a class="faq"
 								href="{{g/wiki_url}}/FAQ">FAQ</a>
-							<a class="roadmap"
+							<a class="roadmap last"
 								href="{{g/wiki_url}}/Roadmap">Roadmap</a>
-							<a class="changelog last"
-								href="https://github.com/axr/core/blob/master/CHANGELOG.md"
-								target="_blank">Changelog</a>
 						</div>
 					</li>
 					<li class="blog">

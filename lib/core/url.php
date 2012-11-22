@@ -1,5 +1,6 @@
 <?php
 
+require_once(SHARED . '/lib/extend.php');
 require_once(SHARED . '/lib/core/exceptions/url_readonly.php');
 
 class URL

@@ -75,6 +75,13 @@ $wgDiff3 = "/usr/bin/diff3";
 // Don't use MW's JS features
 $wgUseSiteJs = false;
 
+// Disable some special pages
+$wgHooks['SpecialPage_initList'][] = function (&$list)
+{
+	unset($list['Userlogin']);
+	return true;
+};
+
 // *
 $wgGroupPermissions['*']['edit'] = false;
 
@@ -104,4 +111,4 @@ $wgEnableMWSuggest = true; // Search suggestions
 
 // Other extensions
 require_once($IP . '/extensions/Code/Code.php');
-
+require_once($IP . '/extensions/MixedLogin/MixedLogin.php');

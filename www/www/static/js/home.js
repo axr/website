@@ -37,3 +37,5 @@ App.pageEvent.on('load', '/home', function ()
 		}
 	});
 });
+
+window['App'].Rsrc.file('js/home.js').set_loaded();

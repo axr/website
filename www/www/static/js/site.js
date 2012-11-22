@@ -11,7 +11,7 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 
 (function (App)
 {
-	App.Rsrc.loadBundle('js/bundle_rainbow.js', function ()
+	App.Rsrc.bundle('js/bundle_rainbow.js').use(function ()
 	{
 		Rainbow.onHighlight(function (block)
 		{
@@ -116,3 +116,4 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 	}
 })(window['App']);
 
+window['App'].Rsrc.file('js/site.js').set_loaded();

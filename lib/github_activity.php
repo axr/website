@@ -39,7 +39,7 @@ class GithubActivity
 			$title = null;
 			$body = null;
 
-			if (in_array($event->repo->name, array('AXR/Website', 'AXR/Design-Sources')))
+			if (in_array($event->repo->name, array('axr/website', 'axr/design-sources')))
 			{
 				// People don't care about the website
 				continue;

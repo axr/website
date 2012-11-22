@@ -7,17 +7,18 @@
 			"css/style.css",
 			"css/style_modal.css",
 			"css/boilerplate_after.css",
-			"css/rainbow.css"
+			"css/rainbow.css",
+			"css/content.css"
 		]
 	},
 	"js/bundle_shared.js": {
 		"type": "js",
 		"files": [
 			"js/json2.js",
-			"js/mustache.js",
 			"js/app_rsrc.js",
 			"js/app_modal.js",
 			"js/app.js",
+			"js/mustache.js",
 			"js/site.js"
 		]
 	},
@@ -25,7 +26,6 @@
 		"type": "css",
 		"files": [
 			"css/openid.css",
-			"css/content.css",
 			"css/404.css",
 			"css/blog.css",
 			"css/page.css",
@@ -47,6 +47,20 @@
 			"js/home.js",
 			"js/get_involved.js",
 			"js/hssdoc.js"
+		]
+	},
+	"css/bundle_wiki.css": {
+		"type": "css",
+		"files": [
+			"css/openid.css"
+		]
+	},
+	"js/bundle_wiki.js": {
+		"type": "js",
+		"files": [
+			"js/openid-jquery.js",
+			"js/openid-en.js",
+			"js/wiki/mixed_login.js"
 		]
 	},
 	"js/bundle_rainbow.js": {

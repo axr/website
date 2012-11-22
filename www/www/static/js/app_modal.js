@@ -77,3 +77,4 @@ window['App'] = window['App'] || {};
 	};
 })(window['App']);
 
+window['App'].Rsrc.file('js/app_modal.js').set_loaded();

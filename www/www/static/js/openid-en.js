@@ -1,7 +1,7 @@
 /*
 	Simple OpenID Plugin
 	http://code.google.com/p/openid-selector/
-	
+
 	This code is licensed under the New BSD License.
 */
 
@@ -38,7 +38,7 @@ var providers_small = {
 		url : 'http://{username}.livejournal.com/'
 	},
 	/* flickr: {
-		name: 'Flickr',        
+		name: 'Flickr',
 		label: 'Enter your Flickr username.',
 		url: 'http://flickr.com/{username}/'
 	}, */
@@ -95,3 +95,4 @@ openid.demo_text = 'In client demo mode. Normally would have submitted OpenID:';
 openid.signin_text = 'Sign-In';
 openid.image_title = 'log in with {provider}';
 
+window['App'].Rsrc.file('js/openid-en.js').set_loaded();
