@@ -32,12 +32,11 @@
 	display: none;
 }
 
-#wiki h1,
 #wiki h2,
 #wiki h3
 {
 	border-bottom: 1px solid #aaa;
-	color: #222;
+	color: #555;
 	font-weight: normal;
 }
 
@@ -52,9 +51,10 @@
 #wiki h1
 {
 	font-size: 23px;
+	font-weight: bold;
 	line-height: 31px;
-	margin: 0 0 10px 0;
-	padding: 9px 0 3px 0;
+	margin: 15px 0 10px 0;
+	padding: 0 0 3px 0;
 }
 
 #wiki h2
@@ -98,11 +98,6 @@
  * Content area
  * ============
  */
-#wiki > .content
-{
-	padding: 1px 0 0 0;
-}
-
 #wiki > .content > .parsedContent p
 {
 	margin: 0 0 10px 0;
@@ -189,7 +184,7 @@
  */
 #preftoc
 {
-	background: #eaeaea;
+	background: #efefef;
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	display: block;
@@ -209,7 +204,7 @@
 #preftoc li.selected a
 {
 	font-weight: bold;
-	padding: 2px 5px;
+	padding: 3px 7px;
 }
 
 #preftoc li a
@@ -218,13 +213,18 @@
 	color: #444;
 	display: inline-block;
 	font-size: 13px;
-	padding: 2px 6px;
+	padding: 3px 8px;
 	text-decoration: none;
 }
 
 #preftoc li a:hover
 {
 	color: #222;
+}
+
+#preferences .prefsection fieldset
+{
+	background: #efefef;
 }
 
 /**
@@ -252,6 +252,7 @@
 {
 	background: #efefef;
 	border: 1px dashed #bbb;
+	position: relative;
 }
 
 /**
@@ -306,16 +307,23 @@ form fieldset table td
 form fieldset table td.htmlform-tip
 {
 	font-size: 12px;
+	padding: 2px 0 2px 25%;
 }
 
 form fieldset table td.mw-label
 {
 	padding-right: 8px;
+	width: 20%;
 }
 
 form fieldset table td.mw-label label
 {
 	color: #333;
+}
+
+form fieldset table td.mw-input
+{
+	vertical-align: top;
 }
 
 #editform textarea
