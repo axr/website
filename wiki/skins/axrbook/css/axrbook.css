@@ -231,9 +231,27 @@
  * Page history
  * ============
  */
+#mw-history-search
+{
+	background: #efefef;
+}
+
+#pagehistory
+{
+	list-style: none;
+	margin: 10px 0;
+	padding: 0;
+}
+
 #pagehistory li
 {
-	border: 0;
+	border: 1px solid transparent;
+}
+
+#pagehistory li.selected
+{
+	background: #efefef;
+	border: 1px dashed #bbb;
 }
 
 /**
