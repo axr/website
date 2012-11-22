@@ -79,14 +79,14 @@ window['App'] = window['App'] || {};
 
 				if (App.rsrc.prod === true)
 				{
-					App.Rsrc.file(this.name).with(callback);
+					App.Rsrc.file(this.name).use(callback);
 				}
 				else
 				{
 					var f = App.util.multiCallback(this.info.files.length, callback);
 					for (var i = 0, c = this.info.files.length; i < c; i++)
 					{
-						App.Rsrc.file(this.info.files[i]).with(f);
+						App.Rsrc.file(this.info.files[i]).use(f);
 					}
 				}
 			};
@@ -109,7 +109,7 @@ window['App'] = window['App'] || {};
 			 *
 			 * @param {function} callback
 			 */
-			this.with = function (callback)
+			this.use = function (callback)
 			{
 				if (typeof callback !== 'function')
 				{
@@ -230,7 +230,7 @@ window['App'] = window['App'] || {};
 			 *
 			 * @param {function} callback
 			 */
-			this.with = function (callback)
+			this.use = function (callback)
 			{
 				if (typeof callback !== 'function')
 				{
@@ -306,7 +306,7 @@ window['App'] = window['App'] || {};
 		 */
 		loadBundle: function (bundle_name, callback)
 		{
-			App.Rsrc.bundle(bundle_name).with(callback);
+			App.Rsrc.bundle(bundle_name).use(callback);
 		},
 
 		/**
@@ -319,7 +319,7 @@ window['App'] = window['App'] || {};
 		 */
 		loadFile: function (file, callback)
 		{
-			App.Rsrc.get_file(file).with(callback);
+			App.Rsrc.get_file(file).use(callback);
 		}
 	};
 })(window['App']);

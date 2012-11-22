@@ -1,4 +1,4 @@
-window['App'].Rsrc.file('js/rainbow/rainbow.js').with(function ()
+window['App'].Rsrc.file('js/rainbow/rainbow.js').use(function ()
 {
 	Rainbow.extend('xml', [
 		 {

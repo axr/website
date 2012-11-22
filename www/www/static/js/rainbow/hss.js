@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-window['App'].Rsrc.file('js/rainbow/rainbow.js').with(function ()
+window['App'].Rsrc.file('js/rainbow/rainbow.js').use(function ()
 {
 	var general = [
 		{
