@@ -49,20 +49,13 @@
 
 .uiCode > .inner > code
 {
+	color: #ABDABA;
 	background: none;
 	border-left: 1px solid #363636;
 	display: table-cell;
 	line-height: 18px;
 	padding: 10px 15px;
 	position: absolute;
-}
-
-code
-{
-	background: #272727;
-	color: #ABDABA;
-	display: block;
-	padding: 15px;
 	white-space: pre;
 }
 
@@ -133,4 +126,3 @@ code .hss-keyword
 {
 	color: #FDA062;
 }
-

@@ -41,10 +41,19 @@ for(var lis=document.getElementById("menu").getElementsByTagName("li"),i=0;i<lis
 
 			App.data.template('code_frame', function (template)
 			{
-				$(block).replaceWith(Mustache.render(template, {
+				var html = Mustache.render(template, {
 					language: language,
 					lines: lines
-				}));
+				});
+
+				if ($(block).parent().prop('tagName') === 'PRE')
+				{
+					$(block).parent().replaceWith(html);
+				}
+				else
+				{
+					$(block).replaceWith(html);
+				}
 			});
 		});
 

@@ -176,16 +176,16 @@
 				well? It is both clearer and has better performance, since
 				not all elements have to be matched against each selector.</p>
 				<h3>CSS:</h3>
-<code data-language="css">books { }
+<pre><code data-language="css">books { }
 books > book{ }
-books > book > cover { }</code>
+books > book > cover { }</code></pre>
 
 					<h3>HSS:</h3>
-<code data-language="hss">books {
+<pre><code data-language="hss">books {
 	book {
 		cover { }
 	}
-}</code>
+}</code></pre>
 			</div>
 			<div data-section-name="object_oriented">
 				<p>Instead of dealing with an ever growing, plain list of
@@ -194,21 +194,21 @@ books > book > cover { }</code>
 				functionality in traditional object oriented programming
 				languages.</p>
 				<h3>CSS:</h3>
-<code data-language="css">selector
+<pre><code data-language="css">selector
 {
 	border-size: 1px;
 	border-color: #F00;
 	border-style: solid;
-}</code>
+}</code></pre>
 
 				<h3>HSS:</h3>
-<code data-language="hss">selector
+<pre><code data-language="hss">selector
 {
 	border: @line {
 		size: 1;
 		color: #F00;
 	};
-}</code>
+}</code></pre>
 			</div>
 			<div data-section-name="modular">
 				<p>You can give any HSS object a name, and reuse it as
@@ -216,7 +216,7 @@ books > book > cover { }</code>
 				selected object(s) and then even override any property as
 				needed.</p>
 				<p>For example:</p>
-<code data-language="hss">@linearGradient boxBg
+<pre><code data-language="hss">@linearGradient boxBg
 {
 	startColor: #F;
 	endColor: #0;
@@ -233,7 +233,7 @@ books > book > cover { }</code>
 selector chain
 {
 	isA: box;
-}</code>
+}</code></pre>
 			</div>
 			<div data-section-name="expressions">
 				<p>Anywhere a number is accepted as a value, you can also
@@ -242,7 +242,7 @@ selector chain
 				when you have a sidebar 150 point wide, how wide is the
 				rest? Answer: 100% - 150.</p>
 				<p>For example:</p>
-<code data-language="hss">sidebar
+<pre><code data-language="hss">sidebar
 {
 	width: 150;
 }
@@ -250,7 +250,7 @@ selector chain
 content
 {
 	width: 100% - 150;
-}</code>
+}</code></pre>
 			</div>
 			<div data-section-name="functions">
 				<p>Functions like min(), max() or avg() help you control the
@@ -259,12 +259,12 @@ content
 				max-height in CSS. The function will always return the
 				appropriate value depending on the parameters.</p>
 				<p>For example:</p>
-<code data-language="hss">selector
+<pre><code data-language="hss">selector
 {
 	// make it 20% the width of the parent, but at
 	// least 150 points wide and at most 400 points
 	width: min(150, max(400, 20%));
-}</code>
+}</code></pre>
 			</div>
 			<div data-section-name="references">
 				<p>Many times it is very useful to be able to refer to a
@@ -273,7 +273,7 @@ content
 				example. You want to make the content area as wide as the
 				whole page minus the sidebar, which is flexible. So you'd do
 				something like this:</p>
-<code data-language="hss">page
+<pre><code data-language="hss">page
 {
 	sidebar
 	{
@@ -285,7 +285,7 @@ content
 	{
 		width: 100% - ref(width of sidebar);
 	}
-}</code>
+}</code></pre>
 			</div>
 			<div data-section-name="filters">
 				<p>Filters are like pseudo-selectors in CSS but with a
@@ -295,7 +295,7 @@ content
 				that selection down to the elements you really want. There
 				are a lot of them to cover all the different needs, so check
 				out the docs.</p>
-<code data-language="hss">// selects the first of the elements named foo
+<pre><code data-language="hss">// selects the first of the elements named foo
 foo:first { }
 // selects the elements named foo that are first inside
 // their parent
@@ -306,7 +306,7 @@ bar:even { }
 baz:(width > 500) { }
 // selects qux elements whose title attribute start
 // with "Welcome"
-qux:[title:startsWith("Welcome")] { }</code>
+qux:[title:startsWith("Welcome")] { }</code></pre>
 			</div>
 			<div data-section-name="structural_independence">
 				<p>The structure of the content is intrinsic to its meaning,
@@ -314,7 +314,7 @@ qux:[title:startsWith("Welcome")] { }</code>
 				requirements. Therefore, in HSS you can freely manipulate
 				the content tree to fit whatever structure you need to
 				achieve your visual layout.</p>
-<code data-language="hss">root
+<pre><code data-language="hss">root
 {
 	// wrap the element called "navigation" in a new
 	// "header" element
@@ -339,7 +339,7 @@ qux:[title:startsWith("Welcome")] { }</code>
 		// defined elsewhere
 		#new search { isA: searchBox; }
 	}
-}</code>
+}</code></pre>
 			</div>
 			<div data-section-name="layout">
 				<p>A new box model, combined with most of the other features
@@ -353,7 +353,7 @@ qux:[title:startsWith("Welcome")] { }</code>
 				one tries to align itself on that specific point. It sounds
 				more complicated than it really is, so here come some
 				examples:</p>
-<code data-language="hss">// align foo to the right horizontally
+<pre><code data-language="hss">// align foo to the right horizontally
 foo { alignX: left; }
 // align bar at the middle vertically
 bar { alignY: middle; }
@@ -373,7 +373,7 @@ qux
 {
 	contentAlignY: middle;
 	direction: ttb;
-}</code>
+}</code></pre>
 			</div>
 		</div>
 	</div>
