@@ -386,11 +386,23 @@ window.App = window.App || {};
 			// does not get messed up
 			App.data.template('hssdoc_edit_values_row', function ()
 			{
+				// This is needed in order to make sure that the values are
+				// rendered in correct order
 
-				for (var i = 0, c = data.length; i < c; i++)
+				var cycle = function (i)
 				{
-					edit.render_new_row(data[i]);
-				}
+					if (i > data.length - 1)
+					{
+						return;
+					}
+
+					edit.render_new_row(data[i], function ()
+					{
+						cycle(i + 1);
+					});
+				};
+
+				cycle(0);
 			});
 		});
 	});
