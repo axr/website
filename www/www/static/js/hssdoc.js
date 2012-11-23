@@ -129,8 +129,6 @@ window.App = window.App || {};
 				'default': $element.find('input[name=default]').is(':checked') ? 1 : 0
 			};
 
-			console.log($element, data);
-
 			if ($element.attr('data-new') === '1')
 			{
 				data.property_id = edit.get_property_id();
