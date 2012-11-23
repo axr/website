@@ -240,6 +240,7 @@ window.App = window.App || {};
 					data['default?'] = parseInt(data['default']) === 1;
 				}
 
+				$('#hssdoc_add .values_table > tbody > tr.loading').hide();
 				$('#hssdoc_add .values_table > tbody')
 					.append(Mustache.render(template, data));
 
