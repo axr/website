@@ -188,7 +188,7 @@ class URL
 			'fragment' => $this->fragment
 		));
 
-		$url = preg_replace('/\?$/', '', $url);
+		$url = preg_replace('/\?($|#)/', '$1', $url);
 
 		return $url;
 	}
@@ -368,4 +368,3 @@ class URL
 		return $this;
 	}
 }
-
