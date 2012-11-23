@@ -135,8 +135,7 @@ window.App = window.App || {};
 			{
 				data.property_id = edit.get_property_id();
 
-				if (data.value.length === 0 ||
-					data.version.length === 0)
+				if (data.value.length === 0)
 				{
 					callback(new App.Error('TooEarlyToSave'));
 
