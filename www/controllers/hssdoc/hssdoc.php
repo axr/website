@@ -241,10 +241,7 @@ class HssdocController extends WWWController
 
 		if (isset($_POST['_via_post']))
 		{
-			$property->set_attributes(array(
-				'description' => array_key_or($_POST, 'description', null),
-				'readonly' => array_key_or($_POST, 'readonly', 0)
-			));
+			$property->set_attributes($_POST);
 
 			if ($property->save() && $mode === 'add')
 			{
