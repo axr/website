@@ -126,8 +126,10 @@ window.App = window.App || {};
 			var data = {
 				value: $element.find('input[name=value]').val(),
 				version: $element.find('input[name=version]').val(),
-				'default': $element.find('input[name=default]').is('checked') ? 1 : 0
+				'default': $element.find('input[name=default]').is(':checked') ? 1 : 0
 			};
+
+			console.log($element, data);
 
 			if ($element.attr('data-new') === '1')
 			{
