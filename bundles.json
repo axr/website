@@ -58,6 +58,7 @@
 	"js/bundle_wiki.js": {
 		"type": "js",
 		"files": [
+			"js/app_auth.js",
 			"js/openid-jquery.js",
 			"js/openid-en.js",
 			"js/wiki/mixed_login.js"

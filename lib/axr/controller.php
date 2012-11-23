@@ -52,6 +52,9 @@ class Controller extends \Core\Controller
 			'site' => (object) array(
 				'url' => null,
 				'ga_account' => null
+			),
+			'session' => (object) array(
+				'is_logged' => false
 			)
 		);
 

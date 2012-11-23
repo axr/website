@@ -10,6 +10,15 @@ Config::set('/shared/www_url', new \URL('http://axr.vg'));
 Config::set('/shared/hssdoc_url', new \URL('http://hss.axr.vg'));
 Config::set('/shared/wiki_url', new \URL('http://wiki.axr.vg'));
 
+Config::set('/shared/apps', (object) array(
+	'www' => (object) array(
+		'domains' => array('axr.vg', 'hss.axr.vg')
+	),
+	'wiki' => (object) array(
+		'domains' => array('wiki.axr.vg')
+	)
+));
+
 /**
  * Reccommended development values. You can put them in config.user.php
  *
