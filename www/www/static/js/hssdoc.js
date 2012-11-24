@@ -380,6 +380,12 @@ window.App = window.App || {};
 
 		edit.get_values(edit.get_property_id(), function (data, error)
 		{
+			if (data.length === 0)
+			{
+				$('#hssdoc_add .values_table > tbody > tr.loading').hide();
+				return;
+			}
+
 			// We request the template here, so the order if values
 			// does not get messed up
 			App.data.template('hssdoc_edit_values_row', function ()
