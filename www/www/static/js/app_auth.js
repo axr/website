@@ -14,8 +14,6 @@ window['App'] = window['App'] || {};
 		{
 			window.addEventListener('message', function (event)
 			{
-				console.log(event);
-window
 				var data;
 
 				var origin_url = $('<a>').attr('href', event.origin).get(0);
@@ -34,8 +32,6 @@ window
 				{
 					return;
 				}
-
-				window.localStorage.setItem('aa_done', true);
 
 				$.ajax({
 					url: App.site.aa_handler,
@@ -58,11 +54,13 @@ window
 		autoauth: function ()
 		{
 			if (App.session.is_logged === true ||
-				window.localStorage === undefined ||
-				window.localStorage.getItem('aa_done'))
+				window.sessionStorage === undefined ||
+				window.sessionStorage.getItem('aa_done'))
 			{
 				return;
 			}
+
+			window.sessionStorage.setItem('aa_done', true);
 
 			var frame = $('<iframe>')
 				.attr('src', App['/shared/www_url'] + '/auth/ra_sid_frame' +
