@@ -89,5 +89,15 @@ class Session
 		self::$session->expires = time() + self::EXPIRE;
 		self::$session->save();
 	}
+
+	/**
+	 * Returns the session ID
+	 *
+	 * @return string
+	 */
+	public static function get_sid ()
+	{
+		return self::$session->id;
+	}
 }
 
