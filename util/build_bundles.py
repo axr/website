@@ -4,6 +4,7 @@ import http.client
 import json
 import os
 import shutil
+import sys
 import tempfile
 import urllib.parse
 from deps import cssmin
@@ -91,6 +92,8 @@ os.makedirs('./bundles/js/')
 bundles = open('../bundles.json', 'r').read()
 bundles = json.loads(bundles)
 
+hasErrors = False
+
 for bundleName in bundles:
     print('Building bundle ' + bundleName)
 
@@ -107,6 +110,7 @@ for bundleName in bundles:
         errors = validate_js(bundleData)
 
         if errors != "":
+            hasErrors = True
             print(errors)
             continue
 
@@ -121,3 +125,5 @@ for bundleName in bundles:
 
 print('Done')
 
+if hasErrors:
+    sys.exit(1)
