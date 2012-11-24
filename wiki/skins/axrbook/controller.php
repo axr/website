@@ -46,7 +46,18 @@ class AxrBookController extends \AXR\Controller
 		$this->view->{'g/html_head'} = $out->getHeadLinks($this->mwt->skin, true) .
 			$out->getHeadScripts($this->mwt->skin);
 			$out->getHeadItems();
-		$this->view->{'g/html_bottom'} = $this->getMWTrail();
+		$this->view->{'g/html_bottom'} = $this->getMWTrail(). <<<DATA
+<script>
+	withApp(function ()
+	{
+		App.Rsrc.file('js/app_auth.js').use(function ()
+		{
+			App.Auth.initialize();
+			App.Auth.autoauth();
+		});
+	});
+</script>
+DATA;
 
 		// Local URL prefix
 		$wwwroot = Config::get('/shared/wiki_url');
@@ -105,6 +116,15 @@ class AxrBookController extends \AXR\Controller
 				$this->view->footer_links[] = $this->getMWhtml($link);
 			}
 		}
+
+		$this->view->{'g/app_vars'}->session->is_logged =
+			is_object($this->wgUser) && $this->wgUser->getID() !== 0;
+
+		$this->view->{'g/app_vars'}->site->url = (string) \Config::get('/shared/wiki_url');
+		$this->view->{'g/app_vars'}->site->app_id = 'wiki';
+		$this->view->{'g/app_vars'}->site->aa_handler = (string) \Config::get('/shared/wiki_url')
+			->copy()
+			->path('/Special:Autoauth');
 	}
 
 	/**
@@ -113,7 +133,7 @@ class AxrBookController extends \AXR\Controller
 	public function run ()
 	{
 		$out = RequestContext::getMain()->getOutput();
-		
+
 		$this->view->{'g/title'} = $this->mwt->data['title'];
 		$this->breadcrumb = array(
 			array(

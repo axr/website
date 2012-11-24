@@ -9,6 +9,8 @@ class HssdocProperty extends \Core\Model
 
 	static $before_destroy = array('before_destroy');
 
+	static $attr_accessible = array('name', 'description', 'readonly');
+
 	static $has_many = array(
 		array('values',
 			'class_name' => 'HssdocValue',

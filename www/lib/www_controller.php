@@ -34,5 +34,6 @@ class WWWController extends \AXR\Controller
 
 		$this->view->{'g/app_vars'}->site->url = (string) \Config::get('/shared/www_url');
 		$this->view->{'g/app_vars'}->site->ga_account = \Config::get('/www/ga_account');
+		$this->view->{'g/app_vars'}->site->app_id = 'www';
 	}
 }

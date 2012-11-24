@@ -191,7 +191,7 @@ window['App'] = window['App'] || {};
 				else if (extension === 'js')
 				{
 					$.ajax({
-						cache: false,
+						cache: true,
 						url: url,
 						dataType: 'script',
 						timeout: 7000,

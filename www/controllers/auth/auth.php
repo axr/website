@@ -50,6 +50,51 @@ class AuthController extends WWWController
 				$this->redirect('/');
 			}
 		}
+		elseif ($mode === 'ra_sid_frame')
+		{
+			if (!User::current()->is_logged())
+			{
+				// Nobody is logged in which means we have nothing to say
+				echo '0';
+				return;
+			}
+
+			$mustache = new \Mustache\Renderer();
+			$template = file_get_contents(ROOT . '/views/message_frame.html');
+
+			$apps = Config::get('/shared/apps');
+
+			try
+			{
+				if (!isset($_GET['app_id']) ||
+					!isset($_GET['respond_to']) ||
+					!isset($apps->{$_GET['app_id']}))
+				{
+					throw new HTTPException('Bad Request', 400);
+				}
+
+				$app = $apps->{$_GET['app_id']};
+				$respond_to = new URL($_GET['respond_to']);
+
+				if (!in_array($respond_to->host, $app->domains))
+				{
+					throw new HTTPException('Bad Request', 400);
+				}
+
+				echo $mustache->render($template, array(
+					'vars' => json_encode(array(
+						'respond_to' => (string) $respond_to,
+						'message' => json_encode(array(
+							'sid' => Session::get_sid()
+						))
+					))
+				));
+			}
+			catch (HTTPException $e)
+			{
+				echo $e->getCode() . ':' . $e->getMessage();
+			}
+		}
 		else
 		{
 			$this->view->_breadcrumb[] = array(

@@ -10,7 +10,6 @@ class HssdocValue extends \Core\Model
 	static $attr_accessible = array('value', 'version', 'default');
 
 	static $validates_presence_of = array(
-		array('version'),
 		array('value')
 	);
 }

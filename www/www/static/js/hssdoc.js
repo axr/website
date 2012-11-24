@@ -126,15 +126,14 @@ window.App = window.App || {};
 			var data = {
 				value: $element.find('input[name=value]').val(),
 				version: $element.find('input[name=version]').val(),
-				'default': $element.find('input[name=default]').is('checked') ? 1 : 0
+				'default': $element.find('input[name=default]').is(':checked') ? 1 : 0
 			};
 
 			if ($element.attr('data-new') === '1')
 			{
 				data.property_id = edit.get_property_id();
 
-				if (data.value.length === 0 ||
-					data.version.length === 0)
+				if (data.value.length === 0)
 				{
 					callback(new App.Error('TooEarlyToSave'));
 
@@ -239,6 +238,7 @@ window.App = window.App || {};
 					data['default?'] = parseInt(data['default']) === 1;
 				}
 
+				$('#hssdoc_add .values_table > tbody > tr.loading').hide();
 				$('#hssdoc_add .values_table > tbody')
 					.append(Mustache.render(template, data));
 
@@ -384,11 +384,23 @@ window.App = window.App || {};
 			// does not get messed up
 			App.data.template('hssdoc_edit_values_row', function ()
 			{
+				// This is needed in order to make sure that the values are
+				// rendered in correct order
 
-				for (var i = 0, c = data.length; i < c; i++)
+				var cycle = function (i)
 				{
-					edit.render_new_row(data[i]);
-				}
+					if (i > data.length - 1)
+					{
+						return;
+					}
+
+					edit.render_new_row(data[i], function ()
+					{
+						cycle(i + 1);
+					});
+				};
+
+				cycle(0);
 			});
 		});
 	});

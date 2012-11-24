@@ -100,14 +100,35 @@ window['App'] = window['App'] || {};
 		_cache: {},
 
 		/**
-		 * Save data into cache
+		 * Save data into cache.
+		 *
+		 * options:
+		 * - {boolean} persistent
+		 * - {number} max_age
 		 *
 		 * @param {string} key
 		 * @param {*} data
+		 * @param {Object} options
 		 */
-		set: function (key, data)
+		set: function (key, data, options)
 		{
 			this._cache[key] = data;
+
+			if ((options || {}).persistent === true)
+			{
+				var item = {
+					version: App.version,
+					expires: (new Date()).getTime() + (options.max_age || 30000000),
+					data: data
+				};
+
+				if (options.max_age && !isNaN(options.max_age))
+				{
+					item.expires = (new Date()).getTime() + (options.max_age * 1000);
+				}
+
+				window.localStorage.setItem('cache:' + key, JSON.stringify(item));
+			}
 		},
 
 		/**
@@ -118,7 +139,32 @@ window['App'] = window['App'] || {};
 		 */
 		get: function (key)
 		{
-			return this._cache[key] || undefined;
+			if (this._cache[key] !== undefined)
+			{
+				return this._cache[key];
+			}
+
+			var item = window.localStorage.getItem('cache:' + key);
+
+			try
+			{
+				item = JSON.parse(item);
+			}
+			catch (e)
+			{
+				window.localStorage.removeItem('cache:' + key);
+				return undefined;
+			}
+
+			if (item === null ||
+				item.version !== App.version ||
+				(!isNaN(item.expires) && (new Date()).getTime() > item.expires))
+			{
+				window.localStorage.removeItem('cache:' + key);
+				return undefined;
+			}
+
+			return item.data;
 		},
 
 		/**
@@ -421,7 +467,7 @@ window['App'] = window['App'] || {};
 			return;
 		}
 
-		App.cache.get('/template/:loading/' + name, true);
+		App.cache.set('/template/:loading/' + name, true);
 
 		$.ajax({
 			url: App['/shared/www_url'] + '/_ajax/template?callback=?',
@@ -437,8 +483,10 @@ window['App'] = window['App'] || {};
 				return;
 			}
 
-			App.cache.get('/template/' + name, data.payload.template);
-			App.cache.get('/template/:loading/' + name, false);
+			App.cache.set('/template/' + name, data.payload.template, {
+				persistent: true
+			});
+			App.cache.set('/template/:loading/' + name, false);
 
 			callback(data.payload.template, false);
 		}).error(function ()
@@ -564,7 +612,10 @@ window['App'] = window['App'] || {};
 				return;
 			}
 
-			App.cache.set(cache_key, data.payload.events);
+			App.cache.set(cache_key, data.payload.events, {
+				persistent: true,
+				max_age: 1800
+			});
 			App.cache.set(cache_key + '/:loading', false);
 
 			callback(data.payload.events, null);

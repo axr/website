@@ -44,6 +44,7 @@ class Controller extends \Core\Controller
 		$this->view->{'g/app_vars'} = (object) array(
 			'/shared/hssdoc_url' => (string) \Config::get('/shared/hssdoc_url'),
 			'/shared/www_url' => (string) \Config::get('/shared/www_url'),
+			'version' => \Config::get('/shared/version'),
 			'rsrc' => (object) array(
 				'root' => (string) \Config::get('/shared/rsrc_url'),
 				'prod' => \Config::get('/shared/rsrc/prod'),
@@ -52,6 +53,9 @@ class Controller extends \Core\Controller
 			'site' => (object) array(
 				'url' => null,
 				'ga_account' => null
+			),
+			'session' => (object) array(
+				'is_logged' => false
 			)
 		);
 
