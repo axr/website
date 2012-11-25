@@ -47,8 +47,7 @@ $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
 $wgDBmysql5 = false;
 
 // Shared memory settings
-$wgMainCacheType = CACHE_NONE;
-$wgMemCachedServers = array();
+$wgMainCacheType = CACHE_ACCEL;
 
 // InstantCommons allows wiki to use images from http://commons.wikimedia.org
 $wgUseInstantCommons  = false;
@@ -74,6 +73,9 @@ $wgDiff3 = "/usr/bin/diff3";
 
 // Don't use MW's JS features
 $wgUseSiteJs = false;
+
+// Disable page counters
+$wgDisableCounters = true;
 
 // Disable some special pages
 $wgHooks['SpecialPage_initList'][] = function (&$list)
