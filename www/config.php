@@ -16,7 +16,7 @@ Config::set('/www/ga_account', 'UA-20384487-1');
 Config::set('/www/disqus/shortname', 'axr');
 Config::set('/www/downloads/repo/browser', 'axr/browser');
 
-if (file_exists(ROOT . '/config.user.php'))
+if (file_exists(dirname(__FILE__) . '/config.user.php'))
 {
-	require_once(ROOT . '/config.user.php');
+	require_once(dirname(__FILE__) . '/config.user.php');
 }

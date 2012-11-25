@@ -35,7 +35,7 @@ Config::set('/shared/wiki_url', $localhost . '/wiki');
 
  */
 
-if (file_exists(SHARED . '/config.user.php'))
+if (file_exists(dirname(__FILE__) . '/config.user.php'))
 {
-	require_once(SHARED . '/config.user.php');
+	require_once(dirname(__FILE__) . '/config.user.php');
 }
