@@ -24,7 +24,10 @@ class WWWController extends \AXR\Controller
 
 			$this->view->{'g/user'}->links = array(
 				array(
-					'href' => '/auth/logout?continue=' . rawurlencode(Router::getUrl()->path),
+					'href' => Config::get('/shared/www_url')
+						->copy()
+						->path('/auth/logout')
+						->query('continue', (string) Router::get_instance()->url),
 					'text' => 'Log out'
 				)
 			);

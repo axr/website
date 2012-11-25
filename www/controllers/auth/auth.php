@@ -42,13 +42,20 @@ class AuthController extends WWWController
 
 			if (isset($_GET['continue']))
 			{
-				$continue = URL::create($_GET['continue'])->path;
-				$this->redirect($continue);
+				$continue = new URL($_GET['continue']);
+				$apps = Config::get('/shared/apps');
+
+				foreach ($apps as $id => $app)
+				{
+					if (in_array($continue->host, $app->domains))
+					{
+						$this->redirect($continue);
+						return;
+					}
+				}
 			}
-			else
-			{
-				$this->redirect('/');
-			}
+
+			$this->redirect('/');
 		}
 		elseif ($mode === 'ra_sid_frame')
 		{
