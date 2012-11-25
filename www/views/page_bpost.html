@@ -9,6 +9,11 @@
 				itemtype="http://schema.org/Person">{{page.user.name}}</span>
 			on <time itemprop="dateCreated">{{page.ctime_str_Ymd}}</time>
 		</div>
+
+		{{^page.published}}
+			<div class="message_std notice">This page is not published.</div>
+		{{/page.published}}
+
 		<div class="parsedContent clearfix" itemprop="articleBody">
 			{{page.fields.content|raw}}
 		</div>
