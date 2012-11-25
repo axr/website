@@ -35,14 +35,17 @@ window['App'] = window['App'] || {};
 
 				$.ajax({
 					url: App.site.aa_handler,
-					method: 'POST',
+					method: 'GET',
 					data: {
-						sid: data.sid
+						www_sid: data.sid
 					},
 					dataType: 'json',
 					success: function (data, text_status, jq_xhr)
 					{
-						alert('You have been automatically logged in');
+						if (data.autoauth.status === 0)
+						{
+							alert('You have been automatically logged in');
+						}
 					}
 				});
 			}, false);
@@ -53,14 +56,18 @@ window['App'] = window['App'] || {};
 		 */
 		autoauth: function ()
 		{
-			if (App.session.is_logged === true ||
-				window.sessionStorage === undefined ||
-				window.sessionStorage.getItem('aa_done'))
+			if (App.session.is_logged === true)
+			{
+				Cookie.set('aa_done', '1');
+				return;
+			}
+
+			if (Cookie.get('aa_done') === '1')
 			{
 				return;
 			}
 
-			window.sessionStorage.setItem('aa_done', true);
+			Cookie.set('aa_done', '1');
 
 			var frame = $('<iframe>')
 				.attr('src', App['/shared/www_url'] + '/auth/ra_sid_frame' +
@@ -69,7 +76,7 @@ window['App'] = window['App'] || {};
 				.hide();
 
 			$('body').append(frame);
-		}
+		},
 	};
 })(window['App']);
 

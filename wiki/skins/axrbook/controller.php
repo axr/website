@@ -124,7 +124,7 @@ DATA;
 		$this->view->{'g/app_vars'}->site->app_id = 'wiki';
 		$this->view->{'g/app_vars'}->site->aa_handler = (string) \Config::get('/shared/wiki_url')
 			->copy()
-			->path('/Special:Autoauth');
+			->from_string('/api.php?action=autoauth&format=json');
 	}
 
 	/**

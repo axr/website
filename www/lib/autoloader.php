@@ -32,7 +32,7 @@ class Autoloader
 	{
 		if (isset(self::$classes[$class]))
 		{
-			require_once(ROOT . self::$classes[$class]);
+			require_once(dirname(__FILE__) . '/..' . self::$classes[$class]);
 		}
 	}
 
