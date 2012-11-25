@@ -137,6 +137,17 @@
 	vertical-align: middle;
 }
 
+#hssdoc_obj .prop_item header h2 a
+{
+	color: #666;
+	text-decoration: none;
+}
+
+#hssdoc_obj .prop_item header h2 a:hover
+{
+	text-decoration: underline;
+}
+
 #hssdoc_obj .prop_item header .ro
 {
 	background: #b94a48;
