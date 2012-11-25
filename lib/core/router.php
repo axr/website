@@ -152,6 +152,7 @@ class Router
 	/**
 	 * Parse an URL
 	 *
+	 * @deprecated
 	 * @param string $url
 	 * @return StdClass
 	 */
@@ -178,6 +179,7 @@ class Router
 	/**
 	 * Parse a query string
 	 *
+	 * @deprecated
 	 * @param string @query
 	 * @return string[]
 	 */
@@ -205,6 +207,7 @@ class Router
 	/**
 	 * Build a URL
 	 *
+	 * @deprecated
 	 * @param string $url
 	 * @param string|array $parts
 	 * @param bool $returnParsed
@@ -251,6 +254,7 @@ class Router
 	/**
 	 * Build a query string
 	 *
+	 * @deprecated
 	 * @param mixed $query
 	 * @return string
 	 */
@@ -262,7 +266,7 @@ class Router
 	/**
 	 * Get current URL in parsed form
 	 *
-	 * @depreacted
+	 * @deprecated
 	 * @return StdClass
 	 */
 	public static function getUrl ()
