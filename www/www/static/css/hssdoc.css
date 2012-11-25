@@ -130,6 +130,11 @@
 	margin: 25px 0;
 }
 
+#hssdoc_obj .prop_item header
+{
+	margin: 0 0 8px 0;
+}
+
 #hssdoc_obj .prop_item header h2
 {
 	display: inline-block;
