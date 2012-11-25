@@ -10,7 +10,6 @@ class User extends \Core\Model
 
 	private static $current = null;
 
-
 	/**
 	 * Check if user has a permission
 	 *
