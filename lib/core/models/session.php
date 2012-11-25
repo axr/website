@@ -24,4 +24,14 @@ class Session extends \ActiveRecord\Model
 	{
 		$this->data = json_decode($this->data);
 	}
+
+	/**
+	 * Returns whether the session is valid or not
+	 *
+	 * @return bool
+	 */
+	public function is_valid ()
+	{
+		return $this->expires > time();
+	}
 }
