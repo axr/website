@@ -15,7 +15,10 @@ class Page extends \Core\Model
 	static $after_construct = array('decode_fields');
 
 	static $belongs_to = array(
-		array('user', 'primary_key' => 'user_id', 'readonly' => true)
+		array('user',
+			'class_name' => '\\WWW\\User',
+			'primary_key' => 'user_id',
+			'readonly' => true)
 	);
 
 	static $validates_presence_of = array(

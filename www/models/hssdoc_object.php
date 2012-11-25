@@ -15,7 +15,7 @@ class HssdocObject extends \Core\Model
 
 	static $has_many = array(
 		array('properties',
-			'class_name' => 'HssdocProperty',
+			'class_name' => '\\WWW\\HssdocProperty',
 			'primary_key' => 'name',
 			'foreign_key' => 'object',
 			'order' => 'name asc')

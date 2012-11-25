@@ -9,6 +9,6 @@ class UserOID extends \Core\Model
 	static $table_name = 'www_users_oid';
 
 	static $belongs_to = array(
-		array('user')
+		array('user', 'class_name' => '\\WWW\\User')
 	);
 }
