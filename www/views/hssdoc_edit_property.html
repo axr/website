@@ -1,12 +1,12 @@
-{{{g/tabs/html}}}
-{{{g/breadcrumb/html}}}
+{{g/tabs/html|raw}}
+{{g/breadcrumb/html|raw}}
 
 <div id="hssdoc_add">
 	<h2>{{title}}</h2>
 
 	{{#has_errors}}
 		<div class="message_std error">
-			{{#errors}}<p>{{{.}}}</p>{{/errors}}
+			{{#errors}}<p>{{.|raw}}</p>{{/errors}}
 		</div>
 	{{/has_errors}}
 
@@ -26,6 +26,12 @@
 			<label for="description">Read-only</label>
 			<input type="checkbox" name="readonly" value="1"
 				{{#property.readonly}}checked{{/property.readonly}} />
+		</div>
+
+		<div class="uiFormField">
+			<label for="many_values">Multiple values accepted</label>
+			<input type="checkbox" name="many_values" value="1"
+				{{#property.many_values}}checked{{/property.many_values}} />
 		</div>
 
 		<input type="hidden" name="_via_post" value="1" />
@@ -76,4 +82,3 @@
 		});
 	</script>
 {{/_ajax}}
-

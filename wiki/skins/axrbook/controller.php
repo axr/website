@@ -134,7 +134,7 @@ DATA;
 	{
 		$out = RequestContext::getMain()->getOutput();
 
-		$this->view->{'g/title'} = $this->mwt->data['title'];
+		$this->view->{'_title'} = $this->mwt->data['title'];
 		$this->breadcrumb = array(
 			array(
 				'name' => 'Home',
@@ -231,4 +231,3 @@ DATA;
 		return $html;
 	}
 }
-

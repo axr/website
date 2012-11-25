@@ -1,5 +1,5 @@
-{{{g/tabs/html}}}
-{{{g/breadcrumb/html}}}
+{{g/tabs/html|raw}}
+{{g/breadcrumb/html|raw}}
 
 <div id="page_add">
 	{{#edit_mode}}<h2>Edit page</h2>{{/edit_mode}}
@@ -7,7 +7,7 @@
 
 	{{#has_errors}}
 		<div class="message_std error">
-			{{#errors}}<p>{{{.}}}</p>{{/errors}}
+			{{#errors}}<p>{{.|raw}}</p>{{/errors}}
 		</div>
 	{{/has_errors}}
 
@@ -58,4 +58,3 @@
 		{{/edit_mode}}
 	</form>
 </div>
-

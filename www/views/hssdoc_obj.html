@@ -2,7 +2,7 @@
 {{g/tabs/html|raw}}
 
 <div id="hssdoc_obj" class="clearfix">
-	{{{sidebar}}}
+	{{sidebar|raw}}
 
 	<div class="wrapper">
 		<h1>{{object.name}}</h1>
@@ -14,7 +14,7 @@
 		{{#properties}}
 			<section class="prop_item" data-property="{{name}}">
 				<header>
-					<h2>{{name}}</h2>
+					<h2><a href="{{display_url}}" name="{{name}}">{{name}}</a></h2>
 
 					{{#readonly}}
 						<span class="ro">Read-only</span>
@@ -29,10 +29,7 @@
 					{{description|markdown|raw}}
 				</div>
 
-				{{#_values_table}}
-					<h3>Values:</h3>
-					{{{_values_table}}}
-				{{/_values_table}}
+				{{_values_table|raw}}
 			</section>
 		{{/properties}}
 	</div>

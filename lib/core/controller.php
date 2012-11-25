@@ -124,6 +124,12 @@ class Controller
 	 */
 	public function redirect ($location, $code = null)
 	{
+		if ($location instanceof \URL)
+		{
+			$this->redirect_raw((string) $location, $code);
+			return;
+		}
+
 		$router = \Router::get_instance();
 
 		// Make sure the host and scheme is present

@@ -1,16 +1,15 @@
 <?php
 
+namespace WWW;
+
 require_once(SHARED . '/lib/lightopenid/openid.php');
 require_once(SHARED . '/lib/core/url.php');
-require_once(ROOT . '/lib/www_controller.php');
-require_once(ROOT . '/models/user.php');
-require_once(ROOT . '/models/user_oid.php');
 
-class AuthController extends WWWController
+class AuthController extends Controller
 {
 	public function initialize ()
 	{
-		$this->openid = new LightOpenID(Config::get('/shared/www_url'));
+		$this->openid = new \LightOpenID(\Config::get('/shared/www_url'));
 	}
 
 	public function run ($mode = null)
@@ -27,7 +26,7 @@ class AuthController extends WWWController
 			{
 				$this->runOpenid();
 			}
-			catch (ErrorException $e)
+			catch (\ErrorException $e)
 			{
 				$this->redirect('/auth?error=InvalidIdentityError');
 			}
@@ -42,13 +41,20 @@ class AuthController extends WWWController
 
 			if (isset($_GET['continue']))
 			{
-				$continue = URL::create($_GET['continue'])->path;
-				$this->redirect($continue);
+				$continue = new \URL($_GET['continue']);
+				$apps = \Config::get('/shared/apps');
+
+				foreach ($apps as $id => $app)
+				{
+					if (in_array($continue->host, $app->domains))
+					{
+						$this->redirect($continue);
+						return;
+					}
+				}
 			}
-			else
-			{
-				$this->redirect('/');
-			}
+
+			$this->redirect('/');
 		}
 		elseif ($mode === 'ra_sid_frame')
 		{
@@ -62,7 +68,7 @@ class AuthController extends WWWController
 			$mustache = new \Mustache\Renderer();
 			$template = file_get_contents(ROOT . '/views/message_frame.html');
 
-			$apps = Config::get('/shared/apps');
+			$apps = \Config::get('/shared/apps');
 
 			try
 			{
@@ -70,27 +76,27 @@ class AuthController extends WWWController
 					!isset($_GET['respond_to']) ||
 					!isset($apps->{$_GET['app_id']}))
 				{
-					throw new HTTPException('Bad Request', 400);
+					throw new \HTTPException('Bad Request', 400);
 				}
 
 				$app = $apps->{$_GET['app_id']};
-				$respond_to = new URL($_GET['respond_to']);
+				$respond_to = new \URL($_GET['respond_to']);
 
 				if (!in_array($respond_to->host, $app->domains))
 				{
-					throw new HTTPException('Bad Request', 400);
+					throw new \HTTPException('Bad Request', 400);
 				}
 
 				echo $mustache->render($template, array(
 					'vars' => json_encode(array(
 						'respond_to' => (string) $respond_to,
 						'message' => json_encode(array(
-							'sid' => Session::get_sid()
+							'sid' => \Session::get_sid()
 						))
 					))
 				));
 			}
-			catch (HTTPException $e)
+			catch (\HTTPException $e)
 			{
 				echo $e->getCode() . ':' . $e->getMessage();
 			}
@@ -102,7 +108,7 @@ class AuthController extends WWWController
 				'current' => true
 			);
 
-			$this->view->assoc_mode = Session::get('/user/is_auth') === true;
+			$this->view->assoc_mode = \Session::get('/user/is_auth') === true;
 			$this->view->continue = array_key_or($_GET, 'continue', '');
 
 			if (isset($_GET['error']))
@@ -121,7 +127,7 @@ class AuthController extends WWWController
 		{
 			if (!isset($_POST['identifier']))
 			{
-				throw new HTTPException(null, 400);
+				throw new \HTTPException(null, 400);
 			}
 
 			$this->openid->identity = $_POST['identifier'];
@@ -130,10 +136,10 @@ class AuthController extends WWWController
 
 			if (isset($_POST['continue']) || !empty($_POST['continue']))
 			{
-				$continue = URL::create($_POST['continue'])->path;
+				$continue = \URL::create($_POST['continue'])->path;
 
-				$this->openid->returnUrl = URL::create()
-					->from_string(Config::get('/shared/www_url'))
+				$this->openid->returnUrl = \URL::create()
+					->from_string(\Config::get('/shared/www_url'))
 					->path('/auth/openid')
 					->query('continue', $continue)
 					->to_string();
@@ -163,7 +169,7 @@ class AuthController extends WWWController
 	{
 		if (!isset($_GET['pt']))
 		{
-			throw new HTTPException(null, 400);
+			throw new \HTTPException(null, 400);
 		}
 
 		try
@@ -172,12 +178,12 @@ class AuthController extends WWWController
 		}
 		catch (\ActiveRecord\RecordNotFound $e)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		if ($oid->pending === null)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		if (isset($_GET['cancel']))
@@ -214,7 +220,7 @@ class AuthController extends WWWController
 
 			if (isset($_GET['continue']))
 			{
-				$continue = URL::create($_GET['continue'])->path;
+				$continue = \URL::create($_GET['continue'])->path;
 				$this->redirect($continue);
 			}
 			else
@@ -228,7 +234,7 @@ class AuthController extends WWWController
 		$this->view->name = isset($attrs['namePerson']) ?
 			$attrs['namePerson'] : null;
 
-		if (Session::get('/user/is_auth'))
+		if (\Session::get('/user/is_auth'))
 		{
 			$this->view->_breadcrumb[] = array(
 				'name' => 'Associate with an OpenID'
@@ -263,7 +269,7 @@ class AuthController extends WWWController
 
 			if (isset($_GET['continue']))
 			{
-				$continue = URL::create($_GET['continue'])->path;
+				$continue = \URL::create($_GET['continue'])->path;
 
 				if (strlen(trim($continue)) === 0)
 				{
@@ -281,7 +287,7 @@ class AuthController extends WWWController
 		{
 			if (is_object($oid) && $oid->pending !== null)
 			{
-				$this->redirect(URL::create('/auth/openid_assoc')
+				$this->redirect(\URL::create('/auth/openid_assoc')
 					->query('pt', $oid->pending)
 					->to_string());
 
@@ -295,7 +301,7 @@ class AuthController extends WWWController
 			$oid->pending_attrs = serialize($attrs);
 			$oid->save();
 
-			$this->redirect(URL::create('/auth/openid_assoc')
+			$this->redirect(\URL::create('/auth/openid_assoc')
 				->query('pt', $oid->pending)
 				->to_string());
 		}

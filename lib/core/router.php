@@ -105,6 +105,12 @@ class Router
 		{
 			$regex = $args['regex'];
 
+			if (isset($args['domain']) &&
+				$args['domain'] !== $this->url->host)
+			{
+				continue;
+			}
+
 			if (!(bool) preg_match($regex, $this->url->path, $match))
 			{
 				continue;
@@ -132,7 +138,7 @@ class Router
 				{
 					continue;
 				}
-				
+
 				$args['args'][$i] = isset($match[$replace]) ?
 					$match[$replace] : null;
 			}
@@ -146,6 +152,7 @@ class Router
 	/**
 	 * Parse an URL
 	 *
+	 * @deprecated
 	 * @param string $url
 	 * @return StdClass
 	 */
@@ -172,6 +179,7 @@ class Router
 	/**
 	 * Parse a query string
 	 *
+	 * @deprecated
 	 * @param string @query
 	 * @return string[]
 	 */
@@ -179,7 +187,7 @@ class Router
 	{
 		$query = array();
 		$pairs = explode('&', $queryRaw);
-		
+
 		foreach ($pairs as $pair)
 		{
 			$pair = explode('=', $pair);
@@ -199,6 +207,7 @@ class Router
 	/**
 	 * Build a URL
 	 *
+	 * @deprecated
 	 * @param string $url
 	 * @param string|array $parts
 	 * @param bool $returnParsed
@@ -245,6 +254,7 @@ class Router
 	/**
 	 * Build a query string
 	 *
+	 * @deprecated
 	 * @param mixed $query
 	 * @return string
 	 */
@@ -256,6 +266,7 @@ class Router
 	/**
 	 * Get current URL in parsed form
 	 *
+	 * @deprecated
 	 * @return StdClass
 	 */
 	public static function getUrl ()
@@ -267,6 +278,7 @@ class Router
 	 * Get domain from the URL. If domain name extraction fails, null
 	 * is returned.
 	 *
+	 * @deprecated
 	 * @param string $url
 	 * @return string
 	 */
@@ -276,4 +288,3 @@ class Router
 		return isset($match) && isset($match[1]) ? $match[1] : null;
 	}
 }
-

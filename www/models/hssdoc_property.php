@@ -1,5 +1,7 @@
 <?php
 
+namespace WWW;
+
 require_once(ROOT . '/models/hssdoc_value.php');
 require_once(SHARED . '/lib/core/model.php');
 
@@ -9,11 +11,11 @@ class HssdocProperty extends \Core\Model
 
 	static $before_destroy = array('before_destroy');
 
-	static $attr_accessible = array('name', 'description', 'readonly');
+	static $attr_accessible = array('name', 'description', 'readonly', 'many_values');
 
 	static $has_many = array(
 		array('values',
-			'class_name' => 'HssdocValue',
+			'class_name' => '\\WWW\\HssdocValue',
 			'foreign_key' => 'property_id')
 	);
 
@@ -31,12 +33,12 @@ class HssdocProperty extends \Core\Model
 	/**
 	 * Get display url for the property
 	 *
-	 * @return URL
+	 * @return \URL
 	 */
 	public function get_display_url ()
 	{
-		return URL::create()
-			->from_string(Config::get('/shared/hssdoc_url'))
+		return \URL::create()
+			->from_string(\Config::get('/shared/hssdoc_url'))
 			->path('/' . $this->object)
 			->fragment($this->name);
 	}
@@ -44,24 +46,24 @@ class HssdocProperty extends \Core\Model
 	/**
 	 * Get edit url for the property
 	 *
-	 * @return URL
+	 * @return \URL
 	 */
 	public function get_edit_url ()
 	{
-		return URL::create()
-			->from_string(Config::get('/shared/hssdoc_url'))
+		return \URL::create()
+			->from_string(\Config::get('/shared/hssdoc_url'))
 			->path('/edit_property/' . $this->id);
 	}
 
 	/**
 	 * Get delete url for the property
 	 *
-	 * @return URL
+	 * @return \URL
 	 */
 	public function get_rm_url ()
 	{
-		return URL::create()
-			->from_string(Config::get('/shared/hssdoc_url'))
+		return \URL::create()
+			->from_string(\Config::get('/shared/hssdoc_url'))
 			->path('/' . $this->object . '/' . $this->name . '/rm');
 	}
 

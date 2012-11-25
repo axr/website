@@ -1,5 +1,7 @@
 <?php
 
+namespace WWW;
+
 require_once(SHARED . '/lib/core/model.php');
 require_once(SHARED . '/lib/php-markdown/markdown.php');
 
@@ -13,7 +15,10 @@ class Page extends \Core\Model
 	static $after_construct = array('decode_fields');
 
 	static $belongs_to = array(
-		array('user', 'primary_key' => 'user_id', 'readonly' => true)
+		array('user',
+			'class_name' => '\\WWW\\User',
+			'primary_key' => 'user_id',
+			'readonly' => true)
 	);
 
 	static $validates_presence_of = array(
@@ -151,12 +156,12 @@ class Page extends \Core\Model
 
 		if (!is_object($this->fields))
 		{
-			$this->fields = new StdClass();
+			$this->fields = new \StdClass();
 		}
 
 		if (!is_object($this->fields_parsed))
 		{
-			$this->fields_parsed = new StdClass();
+			$this->fields_parsed = new \StdClass();
 		}
 	}
 
@@ -217,7 +222,7 @@ class Page extends \Core\Model
 	/**
 	 * Get content type specific fields for displaying in a view
 	 *
-	 * @return StdClass[]
+	 * @return \StdClass[]
 	 */
 	public function ctype_fields_for_view ()
 	{

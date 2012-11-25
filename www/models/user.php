@@ -1,5 +1,7 @@
 <?php
 
+namespace WWW;
+
 require_once(SHARED . '/lib/core/model.php');
 
 class User extends \Core\Model
@@ -7,7 +9,6 @@ class User extends \Core\Model
 	static $table_name = 'www_users';
 
 	private static $current = null;
-
 
 	/**
 	 * Check if user has a permission

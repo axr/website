@@ -42,7 +42,10 @@
 
 #wiki h1 .editsection,
 #wiki h2 .editsection,
-#wiki h3 .editsection
+#wiki h3 .editsection,
+#wiki h4 .editsection,
+#wiki h5 .editsection,
+#wiki h6 .editsection
 {
 	font-size: 12px;
 	font-weight: normal;

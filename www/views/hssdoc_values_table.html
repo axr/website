@@ -1,13 +1,20 @@
 <table>
 	<thead>
-		<th>Value</th>
+		<th>Value{{#property.many_values}} <sup>unlimited</sup>{{/property.many_values}}</th>
 		<th>Since version</th>
 	</thead>
 	<tbody>
 		{{#values}}
 			<tr>
 				<td>
-					{{value}}
+					{{#_ref_url|bool}}
+						<a href="{{_ref_url}}">{{value}}</a>
+					{{/_ref_url}}
+
+					{{^_ref_url}}
+						{{value}}
+					{{/_ref_url}}
+
 					{{#default}}
 						<span class="flag default">default</span>
 					{{/default}}
@@ -19,4 +26,3 @@
 		{{/values}}
 	</tbody>
 </table>
-

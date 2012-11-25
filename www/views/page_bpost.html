@@ -1,5 +1,5 @@
-{{{g/tabs/html}}}
-{{{g/breadcrumb/html}}}
+{{g/tabs/html|raw}}
+{{g/breadcrumb/html|raw}}
 
 <div id="page">
 	<div class="page_item" itemscope itemtype="http://schema.org/BlogPosting">
@@ -9,10 +9,14 @@
 				itemtype="http://schema.org/Person">{{page.user.name}}</span>
 			on <time itemprop="dateCreated">{{page.ctime_str_Ymd}}</time>
 		</div>
+
+		{{^page.published}}
+			<div class="message_std notice">This page is not published.</div>
+		{{/page.published}}
+
 		<div class="parsedContent clearfix" itemprop="articleBody">
-			{{{page.fields.content}}}
+			{{page.fields.content|raw}}
 		</div>
-		{{{comments_html}}}
+		{{comments_html|raw}}
 	</div>
 </div>
-

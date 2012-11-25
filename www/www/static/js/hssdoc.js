@@ -129,7 +129,7 @@ window.App = window.App || {};
 				'default': $element.find('input[name=default]').is(':checked') ? 1 : 0
 			};
 
-			if ($element.attr('data-new') === '1')
+			if (isNaN($element.attr('data-id')))
 			{
 				data.property_id = edit.get_property_id();
 
@@ -171,6 +171,7 @@ window.App = window.App || {};
 						return;
 					}
 
+					$element.attr('data-id', data.payload.id);
 					callback(null);
 				}
 			});
@@ -307,7 +308,9 @@ window.App = window.App || {};
 		$('#hssdoc_add .values_table > tbody').on('change', 'tr input', function (e)
 		{
 			var $element = $(this).closest('tr');
-			$element.addClass('unsaved');
+			$element
+				.addClass('unsaved')
+				.find('input').prop('disabled', true);
 
 			edit.save_from_element($element, function (error)
 			{
@@ -325,7 +328,9 @@ window.App = window.App || {};
 					return;
 				}
 
-				$element.removeClass('unsaved');
+				$element
+					.removeClass('unsaved')
+					.find('input').prop('disabled', false);
 			});
 		});
 
@@ -380,6 +385,12 @@ window.App = window.App || {};
 
 		edit.get_values(edit.get_property_id(), function (data, error)
 		{
+			if (data.length === 0)
+			{
+				$('#hssdoc_add .values_table > tbody > tr.loading').hide();
+				return;
+			}
+
 			// We request the template here, so the order if values
 			// does not get messed up
 			App.data.template('hssdoc_edit_values_row', function ()

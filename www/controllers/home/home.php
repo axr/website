@@ -1,14 +1,14 @@
 <?php
 
-require_once(ROOT . '/lib/www_controller.php');
-require_once(ROOT . '/models/page.php');
+namespace WWW;
+
 require_once(SHARED . '/lib/axr_releases.php');
 
-class HomeController extends WWWController
+class HomeController extends Controller
 {
 	public function run ()
 	{
-		$releases = new AXRReleases(Config::get('/www/downloads/repo/browser'));
+		$releases = new \AXRReleases(\Config::get('/www/downloads/repo/browser'));
 
 		$oses = array(
 			'osx' => 'OSX',
@@ -35,4 +35,3 @@ class HomeController extends WWWController
 		echo $this->renderView(ROOT . '/views/home.html');
 	}
 }
-

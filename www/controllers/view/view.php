@@ -1,8 +1,8 @@
 <?php
 
-require_once(ROOT . '/lib/www_controller.php');
+namespace WWW;
 
-class ViewController extends WWWController
+class ViewController extends Controller
 {
 	public function run ($view, $title = null)
 	{
@@ -14,4 +14,3 @@ class ViewController extends WWWController
 		echo $this->renderView($view);
 	}
 }
-

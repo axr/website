@@ -12,7 +12,7 @@
 				Connect
 			</span>
 		</a>
-		{{^_jsonly}}
+		{{^_ajax}}
 			<noscript>
 				<style type="text/css">
 					#auth_login_choice a.create
@@ -22,7 +22,7 @@
 				</style>
 				<input class="input_std" type="submit" value="Connect" />
 			</noscript>
-		{{/_jsonly}}
+		{{/_ajax}}
 		or <a href="/auth/openid_assoc?cancel=1&pt={{pt}}" class="cancel">cancel</a>
 	</form>
 </div>
@@ -35,4 +35,3 @@
 		});
 	</script>
 {{/_ajax}}
-
