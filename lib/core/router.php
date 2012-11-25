@@ -132,7 +132,7 @@ class Router
 				{
 					continue;
 				}
-				
+
 				$args['args'][$i] = isset($match[$replace]) ?
 					$match[$replace] : null;
 			}
@@ -179,7 +179,7 @@ class Router
 	{
 		$query = array();
 		$pairs = explode('&', $queryRaw);
-		
+
 		foreach ($pairs as $pair)
 		{
 			$pair = explode('=', $pair);
@@ -256,6 +256,7 @@ class Router
 	/**
 	 * Get current URL in parsed form
 	 *
+	 * @depreacted
 	 * @return StdClass
 	 */
 	public static function getUrl ()
@@ -267,6 +268,7 @@ class Router
 	 * Get domain from the URL. If domain name extraction fails, null
 	 * is returned.
 	 *
+	 * @deprecated
 	 * @param string $url
 	 * @return string
 	 */
@@ -276,4 +278,3 @@ class Router
 		return isset($match) && isset($match[1]) ? $match[1] : null;
 	}
 }
-
