@@ -105,6 +105,12 @@ class Router
 		{
 			$regex = $args['regex'];
 
+			if (isset($args['domain']) &&
+				$args['domain'] !== $this->url->host)
+			{
+				continue;
+			}
+
 			if (!(bool) preg_match($regex, $this->url->path, $match))
 			{
 				continue;
