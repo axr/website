@@ -1,5 +1,7 @@
 <?php
 
+namespace WWW;
+
 require_once(SHARED . '/lib/core/model.php');
 
 class UserOID extends \Core\Model

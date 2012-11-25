@@ -1,29 +1,27 @@
 <?php
 
-require_once(ROOT . '/lib/www_controller.php');
-require_once(ROOT . '/models/hssdoc_object.php');
-require_once(ROOT . '/models/hssdoc_property.php');
-require_once(ROOT . '/models/hssdoc_value.php');
+namespace WWW;
+
 require_once(SHARED . '/lib/core/exceptions/http_ajax.php');
 require_once(SHARED . '/lib/mustache_filters/markdown.php');
 
-class HssdocController extends WWWController
+class HssdocController extends Controller
 {
 	public function initialize ()
 	{
 		\Mustache\Filter::register(new \MustacheFilters\Markdown);
 
 		// The documentation is not being requested from hss.axr.vg domain
-		if(Router::get_instance()->url->host !==
-			Config::get('/shared/hssdoc_url')->host)
+		if(\Router::get_instance()->url->host !==
+			\Config::get('/shared/hssdoc_url')->host)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		// Add the common breadcrumb item
 		$this->breadcrumb[] = array(
 			'name' => 'HSS documentation',
-			'link' => Config::get('/shared/hssdoc_url')->copy()
+			'link' => \Config::get('/shared/hssdoc_url')->copy()
 		);
 	}
 
@@ -39,7 +37,7 @@ class HssdocController extends WWWController
 		{
 			$this->tabs[] = array(
 				'name' => 'New object',
-				'link' => Config::get('/shared/hssdoc_url')
+				'link' => \Config::get('/shared/hssdoc_url')
 					->copy()
 					->path('/add_object')
 			);
@@ -59,7 +57,7 @@ class HssdocController extends WWWController
 
 		if ($object === null)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		$properties = HssdocProperty::find('all', array(
@@ -70,7 +68,7 @@ class HssdocController extends WWWController
 
 		if (!is_array($properties))
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		$this->view->_title = $object->name;
@@ -124,13 +122,18 @@ class HssdocController extends WWWController
 			}
 			catch (\ActiveRecord\RecordNotFound $e)
 			{
-				throw new HTTPException(null, 404);
+				throw new \HTTPException(null, 404);
 			}
+		}
+
+		if ($object === null)
+		{
+			throw new \HTTPException(null, 404);
 		}
 
 		if (!$object->can_edit())
 		{
-			throw new HTTPException(null, 403);
+			throw new \HTTPException(null, 403);
 		}
 
 		if (isset($_POST['_via_post']))
@@ -192,7 +195,7 @@ class HssdocController extends WWWController
 		$this->view->object = $object;
 		$this->view->properties = $object->properties;
 		$this->view->edit_mode = $mode === 'edit';
-		$this->view->add_property_url = Config::get('/shared/hssdoc_url')
+		$this->view->add_property_url = \Config::get('/shared/hssdoc_url')
 			->copy()
 			->path('/add_property/' . $object->name);
 
@@ -217,7 +220,7 @@ class HssdocController extends WWWController
 
 			if ((int) $count === 0)
 			{
-				throw new HTTPException(null, 404);
+				throw new \HTTPException(null, 404);
 			}
 
 			$property->object = $arg;
@@ -230,13 +233,13 @@ class HssdocController extends WWWController
 			}
 			catch (\ActiveRecord\RecordNotFound $e)
 			{
-				throw new HTTPException(null, 404);
+				throw new \HTTPException(null, 404);
 			}
 		}
 
 		if (!$property->can_edit())
 		{
-			throw new HTTPException(null, 403);
+			throw new \HTTPException(null, 403);
 		}
 
 		if (isset($_POST['_via_post']))
@@ -306,17 +309,17 @@ class HssdocController extends WWWController
 		}
 		catch (\ActiveRecord\RecordNotFound $e)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		if (!$object->can_rm())
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		if (!$object->is_empty())
 		{
-			throw new HTTPException('Object is not empty', 403);
+			throw new \HTTPException('Object is not empty', 403);
 		}
 
 		$this->view->_title = 'Delete object';
@@ -329,7 +332,7 @@ class HssdocController extends WWWController
 		if (isset($_POST['_via_post']))
 		{
 			$object->delete();
-			$this->redirect(Config::get('/shared/hssdoc_url')->copy());
+			$this->redirect(\Config::get('/shared/hssdoc_url')->copy());
 		}
 
 		echo $this->renderView(ROOT . '/views/hssdoc_rm_object.html');
@@ -353,12 +356,12 @@ class HssdocController extends WWWController
 		}
 		catch (\ActiveRecord\RecordNotFound $e)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		if (!$property->can_rm())
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		$this->view->_title = 'Delete property';
@@ -372,7 +375,7 @@ class HssdocController extends WWWController
 		{
 			$property->delete();
 
-			$this->redirect(Config::get('/shared/hssdoc_url')
+			$this->redirect(\Config::get('/shared/hssdoc_url')
 				->copy()
 				->path('/' . $object_name));
 		}
@@ -387,7 +390,7 @@ class HssdocController extends WWWController
 	{
 		if (!isset($_GET['property']))
 		{
-			throw new HTTPAjaxException(null, 400);
+			throw new \HTTPAjaxException(null, 400);
 		}
 
 		try
@@ -396,7 +399,7 @@ class HssdocController extends WWWController
 		}
 		catch (\ActiveRecord\RecordNotFound $e)
 		{
-			throw new HTTPAjaxException(null, 404);
+			throw new \HTTPAjaxException(null, 404);
 		}
 
 		$data = array();
@@ -419,7 +422,7 @@ class HssdocController extends WWWController
 	{
 		if (!User::current()->can('/hssdoc/edit'))
 		{
-			throw new HTTPAjaxException(null, 403);
+			throw new \HTTPAjaxException(null, 403);
 		}
 
 		if (isset($_POST['id']))
@@ -441,7 +444,7 @@ class HssdocController extends WWWController
 			if (!isset($_POST['property_id']) ||
 				HssdocProperty::count($_POST['property_id']) === 0)
 			{
-				throw new HTTPAjaxException(null, 400);
+				throw new \HTTPAjaxException(null, 400);
 			}
 
 			$item->property_id = (int) $_POST['property_id'];
@@ -476,12 +479,12 @@ class HssdocController extends WWWController
 
 		if (!User::current()->can('/hssdoc/rm'))
 		{
-			throw new HTTPAjaxException(null, 403);
+			throw new \HTTPAjaxException(null, 403);
 		}
 
 		if (!isset($_DELETE['id']))
 		{
-			throw new HTTPAjaxException(null, 400);
+			throw new \HTTPAjaxException(null, 400);
 		}
 
 		try
@@ -490,7 +493,7 @@ class HssdocController extends WWWController
 		}
 		catch (\ActiveRecord\RecordNotFound $e)
 		{
-			throw new HTTPAjaxException(null, 404);
+			throw new \HTTPAjaxException(null, 404);
 		}
 
 		$item->delete();
@@ -511,7 +514,7 @@ class HssdocController extends WWWController
 			'order' => 'name asc'
 		));
 
-		$view = new StdClass();
+		$view = new \StdClass();
 		$view->objects = $objects;
 		$view->can_edit = User::current()->can('/hssdoc/edit');
 
@@ -561,7 +564,7 @@ class HssdocController extends WWWController
 			return null;
 		}
 
-		$view = new StdClass();
+		$view = new \StdClass();
 		$view->values = $data;
 
 		$mustache = new \Mustache\Renderer();

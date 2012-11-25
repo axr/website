@@ -25,4 +25,3 @@ class Session extends \ActiveRecord\Model
 		$this->data = json_decode($this->data);
 	}
 }
-

@@ -1,9 +1,10 @@
 <?php
 
-require_once(ROOT . '/lib/www_controller.php');
+namespace WWW;
+
 require_once(SHARED . '/lib/github_activity.php');
 
-class AjaxController extends WWWController
+class AjaxController extends Controller
 {
 	public function run ($mode)
 	{
@@ -19,10 +20,10 @@ class AjaxController extends WWWController
 			}
 			else
 			{
-				throw new Exception('unknown_mode');
+				throw new \Exception('unknown_mode');
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			echo json_encode(array(
 				'status' => 1,
@@ -35,7 +36,7 @@ class AjaxController extends WWWController
 	{
 		if (!isset($_GET['name']))
 		{
-			throw new Exception('invalid_request');
+			throw new \Exception('invalid_request');
 		}
 
 		$name = preg_replace('/[^a-z0-9-_]/i', '', $_GET['name']);
@@ -51,7 +52,7 @@ class AjaxController extends WWWController
 		}
 		else
 		{
-			throw new Exception('template_not_found');
+			throw new \Exception('template_not_found');
 		}
 
 		echo self::respond_json(array(
@@ -67,7 +68,7 @@ class AjaxController extends WWWController
 	{
 		$count = isset($_GET['count']) ? (int) $_GET['count'] : 9999;
 
-		$events = GithubActivity::getActivity();
+		$events = \GithubActivity::getActivity();
 		$events = array_splice($events, 0, $count);
 
 		foreach ($events as &$event)

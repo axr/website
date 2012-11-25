@@ -1,5 +1,7 @@
 <?php
 
+namespace WWW;
+
 require_once(SHARED . '/lib/core/model.php');
 require_once(SHARED . '/lib/php-markdown/markdown.php');
 
@@ -62,48 +64,48 @@ class HssdocObject extends \Core\Model
 	/**
 	 * Get display URL for the object
 	 *
-	 * @return URL
+	 * @return \URL
 	 */
 	public function get_display_url ()
 	{
-		return URL::create()
-			->from_string(Config::get('/shared/hssdoc_url'))
+		return \URL::create()
+			->from_string(\Config::get('/shared/hssdoc_url'))
 			->path('/' . $this->name);
 	}
 
 	/**
 	 * Get edit URL for the object
 	 *
-	 * @return URL
+	 * @return \URL
 	 */
 	public function get_edit_url ()
 	{
-		return URL::create()
-			->from_string(Config::get('/shared/hssdoc_url'))
+		return \URL::create()
+			->from_string(\Config::get('/shared/hssdoc_url'))
 			->path('/' . $this->name . '/edit');
 	}
 
 	/**
 	 * Get delete URL for the object
 	 *
-	 * @return URL
+	 * @return \URL
 	 */
 	public function get_rm_url ()
 	{
-		return URL::create()
-			->from_string(Config::get('/shared/hssdoc_url'))
+		return \URL::create()
+			->from_string(\Config::get('/shared/hssdoc_url'))
 			->path('/' . $this->name . '/rm');
 	}
 
 	/**
 	 * Get URL for creating a new property
 	 *
-	 * @return URL
+	 * @return \URL
 	 */
 	public function get_add_property_url ()
 	{
-		return URL::create()
-			->from_string(Config::get('/shared/hssdoc_url'))
+		return \URL::create()
+			->from_string(\Config::get('/shared/hssdoc_url'))
 			->path('/add_property/' . $this->name);
 	}
 

@@ -1,10 +1,10 @@
 <?php
 
-require_once(ROOT . '/lib/www_controller.php');
-require_once(ROOT . '/models/page.php');
+namespace WWW;
+
 require_once(SHARED . '/lib/mustache/src/mustache.php');
 
-class PageController extends WWWController
+class PageController extends Controller
 {
 	/**
 	 * Display a page
@@ -30,12 +30,12 @@ class PageController extends WWWController
 
 		if ($page === null)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		if (!$page->can_view())
 		{
-			throw new HTTPException(null, 403);
+			throw new \HTTPException(null, 403);
 		}
 
 		// if the page has an URL alias, use it
@@ -74,11 +74,11 @@ class PageController extends WWWController
 
 		if (isset($ctype->comments) && $ctype->comments === true)
 		{
-			$comments_view = new StdClass();
+			$comments_view = new \StdClass();
 			$comments_view->page = clone $page;
 			$comments_view->disqus = array(
-				'developer' => Config::get('/www/debug') ? 'true' : 'false',
-				'shortname' => Config::get('/www/disqus/shortname'),
+				'developer' => \Config::get('/www/debug') ? 'true' : 'false',
+				'shortname' => \Config::get('/www/disqus/shortname'),
 				'identifier' => '/page/' . $page->id,
 				'title' => str_replace('\'', '\\\'', $page->title)
 			);
@@ -107,7 +107,7 @@ class PageController extends WWWController
 			'order' => 'ctime desc',
 			'limit' => $per_page,
 			'offset' => $offset
-		));	
+		));
 
 		// Get total count of items
 		$count = Page::count(array(
@@ -156,7 +156,7 @@ class PageController extends WWWController
 
 		if (count($this->view->types) === 0)
 		{
-			throw new HTTPException(null, 403);
+			throw new \HTTPException(null, 403);
 		}
 
 		$this->view->_title = 'Create a new page';
@@ -186,12 +186,12 @@ class PageController extends WWWController
 
 		if (!isset(Page::$ctypes->{$page->ctype}))
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		if (!$page->can_edit())
 		{
-			throw new HTTPException(null, 403);
+			throw new \HTTPException(null, 403);
 		}
 
 		if (isset($_POST['_via_post']))
@@ -211,7 +211,7 @@ class PageController extends WWWController
 			}
 
 		}
-	
+
 		if ($mode === 'edit')
 		{
 			$this->view->_title = 'Edit page';
@@ -257,12 +257,12 @@ class PageController extends WWWController
 		}
 		catch (\ActiveRecord\RecordNotFound $e)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		if (!$page->can_rm())
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		$this->view->_title = 'Delete page';
@@ -283,4 +283,3 @@ class PageController extends WWWController
 		echo $this->renderView(ROOT . '/views/page_rm.html');
 	}
 }
-

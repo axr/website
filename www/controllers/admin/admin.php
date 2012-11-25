@@ -1,15 +1,16 @@
 <?php
 
-require_once(ROOT . '/lib/www_controller.php');
+namespace WWW;
+
 require_once(SHARED . '/lib/core/models/cache.php');
 
-class AdminController extends WWWController
+class AdminController extends Controller
 {
 	public function runCache ()
 	{
 		if (!User::current()->can('/cache/manage'))
 		{
-			throw new HTTPException(null, 403);
+			throw new \HTTPException(null, 403);
 		}
 
 		if (isset($_POST['_via_post']))
@@ -42,4 +43,3 @@ class AdminController extends WWWController
 		echo $this->renderView(ROOT . '/views/admin/cache.html');
 	}
 }
-

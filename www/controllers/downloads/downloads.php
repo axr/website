@@ -1,13 +1,14 @@
 <?php
 
-require_once(ROOT . '/lib/www_controller.php');
+namespace WWW;
+
 require_once(SHARED . '/lib/axr_releases.php');
 
-class DownloadsController extends WWWController
+class DownloadsController extends Controller
 {
 	public function run ()
 	{
-		$releases_browser = new AXRReleases(Config::get('/www/downloads/repo/browser'));
+		$releases_browser = new \AXRReleases(\Config::get('/www/downloads/repo/browser'));
 
 		$this->view->_title = 'Downloads';
 		$this->breadcrumb[] = array(

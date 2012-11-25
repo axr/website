@@ -1,5 +1,7 @@
 <?php
 
+namespace WWW;
+
 define('ROOT', dirname(__FILE__) . '/..');
 define('SHARED', ROOT . '/..');
 
@@ -17,6 +19,7 @@ require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/lib/core/session.php');
 require_once(SHARED . '/lib/core/router.php');
 require_once(SHARED . '/lib/core/cache.php');
+require_once(ROOT . '/lib/autoloader.php');
 require_once(ROOT . '/controllers/view/view.php');
 require_once(ROOT . '/models/user.php');
 
@@ -25,27 +28,27 @@ require_once(SHARED . '/config.php');
 require_once(ROOT . '/config.php');
 
 // Connect to the database
-ActiveRecord\Config::initialize(function($cfg)
+\ActiveRecord\Config::initialize(function($cfg)
 {
 	$cfg->set_model_directory(ROOT . '/models');
 	$cfg->set_default_connection('default');
 	$cfg->set_connections(array(
-		'default' => Config::get('/www/db/connection')
+		'default' => \Config::get('/www/db/connection')
 	));
 });
 
 // Initialize the cache
-Cache::initialize();
+\Cache::initialize();
 
 // Create new router
 $path = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
-$router = new Router('http://' . $_SERVER['SERVER_NAME'] . $path);
+$router = new \Router('http://' . $_SERVER['SERVER_NAME'] . $path);
 
 // Register routes
 require_once(ROOT . '/routes.php');
 
 // Initialize the session
-Session::initialize();
+\Session::initialize();
 
 $goto = $router->find();
 $_GET = $router->url->query;
@@ -54,25 +57,9 @@ header('Content-Type: text/html; charset=utf-8');
 
 try
 {
-	if ($goto === null)
+	if ($goto === null || !class_exists($goto[0]))
 	{
-		throw new HTTPException(null, 404);
-	}
-
-	$name = preg_replace('/Controller$/', '', $goto[0]);
-	$name = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $name));
-	$path = ROOT . '/controllers/' . $name . '/' . $name . '.php';
-
-	if (!file_exists($path))
-	{
-		throw new HTTPException(null, 404);
-	}
-
-	require_once($path);
-
-	if (!class_exists($goto[0]))
-	{
-		throw new HTTPException(null, 404);
+		throw new \HTTPException(null, 404);
 	}
 
 	$controller = new $goto[0]();
@@ -86,14 +73,14 @@ try
 	call_user_func(array($controller, 'initialize'));
 	call_user_func_array(array($controller, $goto[1]), $goto[2]);
 }
-catch (HTTPAjaxException $e)
+catch (\HTTPAjaxException $e)
 {
 	echo json_encode(array(
 		'status' => $e->getCode(),
 		'error' => $e->getMessage()
 	));
 }
-catch (HTTPException $e)
+catch (\HTTPException $e)
 {
 	$code_responses = array(
 		400 => 'HTTP/1.0 400 Bad Request',
@@ -125,4 +112,4 @@ catch (HTTPException $e)
 }
 
 // Save the session
-Session::save();
+\Session::save();

@@ -1,5 +1,7 @@
 <?php
 
+namespace WWW;
+
 require_once(SHARED . '/lib/core/model.php');
 require_once(SHARED . '/lib/php-markdown/markdown.php');
 
