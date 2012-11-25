@@ -195,6 +195,11 @@
 	background: #ddd;
 }
 
+#hssdoc_obj .prop_item table th sup
+{
+	font-weight: normal;
+}
+
 #hssdoc_obj .prop_item table td.version
 {
 	text-align: center;

@@ -92,7 +92,7 @@ class HssdocController extends Controller
 
 		foreach ($properties as &$property)
 		{
-			$property->_values_table = $this->render_values_table($property->id);
+			$property->_values_table = $this->render_values_table(clone $property);
 		}
 
 		$this->view->object = $object;
@@ -530,22 +530,23 @@ class HssdocController extends Controller
 	 * @param int $property_id
 	 * @return string
 	 */
-	private function render_values_table ($property_id)
+	private function render_values_table ($property)
 	{
-		$data = HssdocValue::find('all', array(
-			'conditions' => array('property_id = ?', $property_id),
-			'order' => 'version asc',
-			'readonly' => true
-		));
-
-		if (!is_array($data))
+		if (count($property->values) === 0)
 		{
 			return null;
 		}
 
+		// It is very important that the array is correctly ordered
+		uasort($property->values, function ($a, $b)
+		{
+			$cmp = strcmp($a->version, $b->version);
+			return ($cmp > 0 ? 1 : ($cmp < 0 ? -1 : 0));
+		});
+
 		$first_of_ver = array();
 
-		foreach ($data as $i => &$value)
+		foreach ($property->values as $i => &$value)
 		{
 			// So we can do whatever we want with it
 			$value = (object) $value->attributes();
@@ -566,13 +567,9 @@ class HssdocController extends Controller
 			$first_of_ver[$value->version]->_count++;
 		}
 
-		if (count($data) === 0)
-		{
-			return null;
-		}
-
 		$view = new \StdClass();
-		$view->values = $data;
+		$view->values = $property->values;
+		$view->property = $property;
 
 		$mustache = new \Mustache\Renderer();
 		$template = file_get_contents(ROOT . '/views/hssdoc_values_table.html');
