@@ -556,6 +556,13 @@ class HssdocController extends Controller
 				$first_of_ver[$value->version] = &$value;
 			}
 
+			if (preg_match('/^@[a-zA-Z0-9]+$/', $value->value, $match))
+			{
+				$value->_ref_url = \Router::get_instance()->url
+					->copy()
+					->path('/' . $match[0]);
+			}
+
 			$first_of_ver[$value->version]->_count++;
 		}
 

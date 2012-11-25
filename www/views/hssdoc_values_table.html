@@ -7,7 +7,14 @@
 		{{#values}}
 			<tr>
 				<td>
-					{{value}}
+					{{#_ref_url|bool}}
+						<a href="{{_ref_url}}">{{value}}</a>
+					{{/_ref_url}}
+
+					{{^_ref_url}}
+						{{value}}
+					{{/_ref_url}}
+
 					{{#default}}
 						<span class="flag default">default</span>
 					{{/default}}

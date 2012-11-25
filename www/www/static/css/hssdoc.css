@@ -200,6 +200,17 @@
 	text-align: center;
 }
 
+#hssdoc_obj .prop_item table td a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#hssdoc_obj .prop_item table td a:hover
+{
+	text-decoration: underline;
+}
+
 #hssdoc_obj .prop_item table .flag
 {
 	background: #bbb;
