@@ -130,6 +130,11 @@
 	margin: 25px 0;
 }
 
+#hssdoc_obj .prop_item header
+{
+	margin: 0 0 8px 0;
+}
+
 #hssdoc_obj .prop_item header h2
 {
 	display: inline-block;
@@ -198,6 +203,7 @@
 #hssdoc_obj .prop_item table th sup
 {
 	font-weight: normal;
+	cursor: help;
 }
 
 #hssdoc_obj .prop_item table td.version
@@ -251,21 +257,18 @@
 	width: 70px;
 }
 
-#hssdoc_add .table_actions
+#hssdoc_add table.values_table td.iibox
 {
-	margin: 10px 0 5px 0;
-	text-align: right;
+	padding: 0;
+	width: 280px;
 }
 
-#hssdoc_add .table_actions a
+#hssdoc_add table.values_table td.iibox input[type=text]
 {
-	color: #D09610;
-	text-decoration: none;
-}
-
-#hssdoc_add .table_actions a:hover
-{
-	text-decoration: underline;
+	background: transparent;
+	border: 0;
+	padding: 4px 8px;
+	width: 264px;
 }
 
 #hssdoc_add table.values_table tr.unsaved td

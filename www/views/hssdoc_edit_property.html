@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="uiFormField">
-			<label for="description">Read-only</label>
+			<label for="readonly">Read-only</label>
 			<input type="checkbox" name="readonly" value="1"
 				{{#property.readonly}}checked{{/property.readonly}} />
 		</div>
@@ -65,11 +65,14 @@
 					<td colspan="4">Loading...</td>
 				</tr>
 			</tbody>
+			<tfoot>
+				<tr class="actions">
+					<td colspan="4">
+						<a href="#" class="_new_value">New value</a>
+					</td>
+				</tr>
+			</tfoot>
 		</table>
-
-		<div class="table_actions">
-			<a href="#" class="_new_value">New value</a>
-		</div>
 	{{/edit_mode}}
 </div>
 

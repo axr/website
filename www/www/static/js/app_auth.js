@@ -14,8 +14,6 @@ window['App'] = window['App'] || {};
 		{
 			window.addEventListener('message', function (event)
 			{
-				console.log(event);
-window
 				var data;
 
 				var origin_url = $('<a>').attr('href', event.origin).get(0);
@@ -35,18 +33,19 @@ window
 					return;
 				}
 
-				window.localStorage.setItem('aa_done', true);
-
 				$.ajax({
 					url: App.site.aa_handler,
-					method: 'POST',
+					method: 'GET',
 					data: {
-						sid: data.sid
+						www_sid: data.sid
 					},
 					dataType: 'json',
 					success: function (data, text_status, jq_xhr)
 					{
-						alert('You have been automatically logged in');
+						if (data.autoauth.status === 0)
+						{
+							App.Auth.show_aa_bar(data.autoauth.payload);
+						}
 					}
 				});
 			}, false);
@@ -57,12 +56,18 @@ window
 		 */
 		autoauth: function ()
 		{
-			if (App.session.is_logged === true ||
-				window.localStorage === undefined ||
-				window.localStorage.getItem('aa_done'))
+			if (App.session.is_logged === true)
+			{
+				Cookie.set('aa_done', '1');
+				return;
+			}
+
+			if (Cookie.get('aa_done') === '1')
 			{
 				return;
 			}
+
+			Cookie.set('aa_done', '1');
 
 			var frame = $('<iframe>')
 				.attr('src', App['/shared/www_url'] + '/auth/ra_sid_frame' +
@@ -71,6 +76,36 @@ window
 				.hide();
 
 			$('body').append(frame);
+		},
+
+		/**
+		 * Show the autoauth notification bar
+		 *
+		 * @param {Object} data
+		 */
+		show_aa_bar: function (data)
+		{
+			App.data.template('autoauth_bar', function (template)
+			{
+				var bar = $(Mustache.render(template, data));
+
+				bar.on('click', 'a._close', function (e)
+				{
+					$('body > .aa_bar').fadeOut(200);
+
+					setTimeout(function ()
+					{
+						$('body > .aa_bar').remove();
+					}, 200);
+				});
+
+				bar.on('click', 'a._reload', function (e)
+				{
+					window.location.reload(false);
+				});
+
+				$('body').prepend(bar);
+			});
 		}
 	};
 })(window['App']);

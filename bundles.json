@@ -15,6 +15,7 @@
 		"type": "js",
 		"files": [
 			"js/json2.js",
+			"js/cookie.js",
 			"js/app_rsrc.js",
 			"js/app_modal.js",
 			"js/app.js",
@@ -35,6 +36,7 @@
 			"css/calendar.css",
 			"css/home.css",
 			"css/auth.css",
+			"css/account.css",
 			"css/get_involved.css"
 		]
 	},
@@ -74,4 +76,3 @@
 		]
 	}
 }
-

@@ -327,6 +327,11 @@ class URL
 			throw new \Core\Exceptions\URLReadonly();
 		}
 
+		if (is_numeric($value) || is_bool($value))
+		{
+			$value = (string) ((int) $value);
+		}
+
 		if (is_string($value) || is_array($value))
 		{
 			$key = array($key => $value);

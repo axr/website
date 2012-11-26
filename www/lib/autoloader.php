@@ -12,6 +12,7 @@ class Autoloader
 		'WWW\\HomeController' => '/controllers/home/home.php',
 		'WWW\\GetInvolvedController' => '/controllers/get_involved/get_involved.php',
 		'WWW\\DownloadsController' => '/controllers/downloads/downloads.php',
+		'WWW\\AccountController' => '/controllers/account/account.php',
 		'WWW\\AuthController' => '/controllers/auth/auth.php',
 		'WWW\\AjaxController' => '/controllers/ajax/ajax.php',
 		'WWW\\AdminController' => '/controllers/admin/admin.php',
@@ -32,7 +33,7 @@ class Autoloader
 	{
 		if (isset(self::$classes[$class]))
 		{
-			require_once(ROOT . self::$classes[$class]);
+			require_once(dirname(__FILE__) . '/..' . self::$classes[$class]);
 		}
 	}
 
