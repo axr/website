@@ -203,7 +203,7 @@
 #hssdoc_obj .prop_item table th sup
 {
 	font-weight: normal;
-	cursor: pointer;
+	cursor: help;
 }
 
 #hssdoc_obj .prop_item table td.version
