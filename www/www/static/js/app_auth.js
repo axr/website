@@ -44,7 +44,7 @@ window['App'] = window['App'] || {};
 					{
 						if (data.autoauth.status === 0)
 						{
-							alert('You have been automatically logged in');
+							App.Auth.show_aa_bar(data.autoauth.payload);
 						}
 					}
 				});
@@ -77,6 +77,36 @@ window['App'] = window['App'] || {};
 
 			$('body').append(frame);
 		},
+
+		/**
+		 * Show the autoauth notification bar
+		 *
+		 * @param {Object} data
+		 */
+		show_aa_bar: function (data)
+		{
+			App.data.template('autoauth_bar', function (template)
+			{
+				var bar = $(Mustache.render(template, data));
+
+				bar.on('click', 'a._close', function (e)
+				{
+					$('body > .aa_bar').fadeOut(200);
+
+					setTimeout(function ()
+					{
+						$('body > .aa_bar').remove();
+					}, 200);
+				});
+
+				bar.on('click', 'a._reload', function (e)
+				{
+					window.location.reload(false);
+				});
+
+				$('body').prepend(bar);
+			});
+		}
 	};
 })(window['App']);
 

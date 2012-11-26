@@ -64,7 +64,8 @@ class ApiAutoAuth extends ApiBase
 			'status' => 0,
 			'payload' => array(
 				'user' => array(
-					'id' => $id
+					'id' => $id,
+					'name' => $user->getName()
 				)
 			)
 		));
@@ -86,12 +87,5 @@ class ApiAutoAuth extends ApiBase
 				ApiBase::PARAM_REQUIRED => true
 			)
 		);
-	}
-
-	/**
-	 * Get user id by session id
-	 */
-	private static function sid_to_uid ()
-	{
 	}
 }
