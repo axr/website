@@ -347,7 +347,7 @@ window.App = window.App || {};
 			var $element = $(this).closest('tr');
 			$element.hide(700);
 
-			if ($element.attr('data-new') === '1')
+			if (isNaN($element.attr('data-id')))
 			{
 				$element.remove();
 			}
