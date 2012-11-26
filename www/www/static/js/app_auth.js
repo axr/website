@@ -42,7 +42,7 @@ window['App'] = window['App'] || {};
 					dataType: 'json',
 					success: function (data, text_status, jq_xhr)
 					{
-						if (data.autoauth.status === 0)
+						if ((data.autoauth || {}).status === 0)
 						{
 							App.Auth.show_aa_bar(data.autoauth.payload);
 						}

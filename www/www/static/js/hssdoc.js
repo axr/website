@@ -369,7 +369,7 @@ window.App = window.App || {};
 		});
 
 		// New link
-		$('#hssdoc_add .table_actions a._new_value').on('click', function (e)
+		$('#hssdoc_add table > tfoot > tr.actions a._new_value').on('click', function (e)
 		{
 			e.preventDefault();
 			edit.render_new_row();
