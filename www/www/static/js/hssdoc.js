@@ -345,7 +345,7 @@ window.App = window.App || {};
 			}
 
 			var $element = $(this).closest('tr');
-			$element.hide(700);
+			$element.hide(500);
 
 			if (isNaN($element.attr('data-id')))
 			{
