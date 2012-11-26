@@ -4,36 +4,43 @@
 	{{#release_groups}}
 		<h2>{{name}}</h2>
 
-		<table class="dtable">
-			<thead>
-				<tr>
-					<th class="version">Version</th>
-					<th class="os">Windows</th>
-					<th class="os">OS X</th>
-					<th class="os">Linux</th>
-					<th class="os">Source</th>
-				</tr>
-			</thead>
-			<tbody>
-				{{#releases}}
-					<tr>
-						<td class="version">{{version}}</td>
-						{{#oses}}
-							<td class="os">
-								{{#files|bool}}
-									<a class="dlink" href="#"><span class="icon {{os}}"></span>download</a>
-									<div class="dropdown">
-										{{#files}}
-											<a href="{{url}}" target="_blank">{{ext}} <span>{{arch}}</span></a>
+		<div class="rtable">
+			<header>
+				<div class="col version">Version</div>
+				<div class="colset_os">
+					<div class="col">Windows</div>
+					<div class="col">OS X</div>
+					<div class="col">Linux</div>
+					<div class="col">Source</div>
+				</div>
+			</header>
+			{{#releases}}
+				<div class="release">
+					<header>
+						<div class="col version">{{version}}</div>
+					</header>
+					{{#packages}}
+						<article>
+							<div class="col pkg">{{name}}</div>
+							<div class="colset_os">
+								{{#oses}}
+									<div class="col">
+										{{#files|bool}}
+											<a class="dlink" href="#"><span class="icon {{os}}"></span>download</a>
+											<div class="dropdown">
+												{{#files}}
+													<a href="{{url}}" target="_blank">{{ext}} <span>{{arch}}</span></a>
+												{{/files}}
+											</div>
 										{{/files}}
 									</div>
-								{{/files}}
-							</td>
-						{{/oses}}
-					</tr>
-				{{/releases}}
-			</tbody>
-		</table>
+								{{/oses}}
+							</div>
+						</article>
+					{{/packages}}
+				</div>
+			{{/releases}}
+		</div>
 	{{/release_groups}}
 
 	{{^release_groups|bool}}

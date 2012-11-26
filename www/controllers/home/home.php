@@ -2,27 +2,32 @@
 
 namespace WWW;
 
-require_once(SHARED . '/lib/axr_releases.php');
+require_once(SHARED . '/lib/axr/gh_repository.php');
 
 class HomeController extends Controller
 {
 	public function run ()
 	{
-		$releases = new \AXRReleases(\Config::get('/www/downloads/repo/browser'));
+		$repo = new \AXR\GHRepository(\Config::get('/www/downloads/repo/browser'));
+		$repo->load();
 
 		$oses = array(
 			'osx' => 'OSX',
 			'linux' => 'Linux',
-			'win' => 'Windows'
+			'windows' => 'Windows'
 		);
 
-		$release = $releases->get_releases_for_home();
+		$release = $repo->get_release('latest');
 
-		if (is_object($release))
+		if (is_object($release) &&
+			isset($release->packages) &&
+			isset($release->packages->{'axr-browser'}))
 		{
-			$this->view->release = clone $release;
-			$this->view->release->os = isset($oses[$release->os]) ?
-				$oses[$release->os] : $release->os;
+			$release->_file = \AXR\GHRepository::choose_best_file($release->packages->{'axr-browser'}->files);
+			$release->_file->_os = isset($oses[$release->_file->os]) ?
+				$oses[$release->_file->os] : $release->_file->os;
+
+			$this->view->release = $release;
 		}
 
 		// Get blog posts
