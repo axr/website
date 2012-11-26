@@ -180,7 +180,7 @@ form.uiForm .uiFormField a:hover
 		color-stop(0%, #f1cd60), color-stop(50%, #efc546),
 		color-stop(51%, #ecb819), color-stop(100%, #efc544));
 	border-radius: 4px;
-	color: #fff;	
+	color: #fff;
 	display: block;
 	font-weight: bold;
 	height: 33px;
