@@ -227,12 +227,13 @@ class AXRReleases
 
 			if (!$is_found)
 			{
-				preg_match('/^[#]+\s+Version\s+([0-9.]+)/', $line, $match);
+				preg_match('/^[#]+\s+Version\s+([^ ]+)\s+-\s+([0-9]{4}-[0-9]{2}-[0-9]{2}|Unreleased)/', $line, $match);
 
 				if (is_array($match) && isset($match[1]) &&
 					$match[1] === $version)
 				{
 					$is_found = true;
+					$date = $match[2];
 				}
 
 				continue;
@@ -247,13 +248,6 @@ class AXRReleases
 			{
 				// That's where the next version starts
 				break;
-			}
-
-			preg_match('/([0-9]{4}-[0-9]{2}-[0-9]{2})/', $line, $match);
-
-			if (is_array($match) && count($match) === 2)
-			{
-				$date = strtotime($match[1]);
 			}
 
 			if ($line[0] === '*')
@@ -325,4 +319,3 @@ class AXRReleases
 		return 'i386';
 	}
 }
-
