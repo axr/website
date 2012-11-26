@@ -394,3 +394,12 @@ table.uiTable a:hover
 {
 	text-decoration: underline;
 }
+
+table.uiTable > tfoot > tr.actions td
+{
+	background: none;
+	border: 0;
+	border-collapse: separate;
+	text-align: right;
+	padding: 6px 0 4px 0;
+}

@@ -27,6 +27,18 @@ $router->route('/^\/auth(\/|$)/', array(
 	'controller' => '\\WWW\\AuthController'
 ));
 
+$router->route('/^\/account\/?$/', array(
+	'domain' => $www_domain,
+	'controller' => '\\WWW\\AccountController'
+));
+
+$router->route('/^\/account\/oid_rm\/?$/', array(
+	'domain' => $www_domain,
+	'controller' => '\\WWW\\AccountController',
+	'run' => 'run_oid_rm_POST',
+	'method' => 'POST'
+));
+
 $router->route('/^\/get-involved\/?$/', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\GetInvolvedController'

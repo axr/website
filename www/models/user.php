@@ -6,7 +6,19 @@ require_once(SHARED . '/lib/core/model.php');
 
 class User extends \Core\Model
 {
-	static $table_name = 'www_users';
+	public static $table_name = 'www_users';
+
+	public static $attr_accessible = array('name', 'email');
+
+	public static $validates_presence_of = array(
+		array('name'),
+		array('email')
+	);
+
+	public static $validates_format_of = array(
+		array('email',
+			'with' => '/.+@.+\..+/')
+	);
 
 	private static $current = null;
 

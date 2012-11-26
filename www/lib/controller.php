@@ -28,6 +28,12 @@ class Controller extends \AXR\Controller
 				array(
 					'href' => \Config::get('/shared/www_url')
 						->copy()
+						->path('/account'),
+					'text' => 'Account'
+				),
+				array(
+					'href' => \Config::get('/shared/www_url')
+						->copy()
 						->path('/auth/logout')
 						->query('continue', (string) \Router::get_instance()->url),
 					'text' => 'Log out'

@@ -1,0 +1,21 @@
+#account table
+{
+	width: 100%;
+}
+
+#account .table_actions
+{
+	margin: 10px 0 5px 0;
+	text-align: right;
+}
+
+#account .table_actions a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+#account .table_actions a:hover
+{
+	text-decoration: underline;
+}

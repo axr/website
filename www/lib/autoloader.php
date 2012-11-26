@@ -12,6 +12,7 @@ class Autoloader
 		'WWW\\HomeController' => '/controllers/home/home.php',
 		'WWW\\GetInvolvedController' => '/controllers/get_involved/get_involved.php',
 		'WWW\\DownloadsController' => '/controllers/downloads/downloads.php',
+		'WWW\\AccountController' => '/controllers/account/account.php',
 		'WWW\\AuthController' => '/controllers/auth/auth.php',
 		'WWW\\AjaxController' => '/controllers/ajax/ajax.php',
 		'WWW\\AdminController' => '/controllers/admin/admin.php',
