@@ -9,7 +9,7 @@ class AuthController extends Controller
 {
 	public function initialize ()
 	{
-		$this->openid = new \LightOpenID(\Config::get('/shared/www_url'));
+		$this->openid = new \LightOpenID(\Config::get('/shared/www_url')->host);
 	}
 
 	public function run ($mode = null)
