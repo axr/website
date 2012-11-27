@@ -129,6 +129,14 @@ class PageController extends Controller
 			'name' => 'Blog'
 		);
 
+		if (User::current()->can('/page/edit/bpost'))
+		{
+			$this->tabs[] = array(
+				'name' => 'New post',
+				'link' => '/page/add/bpost'
+			);
+		}
+
 		echo $this->renderView(ROOT . '/views/pages_bpost.html');
 	}
 

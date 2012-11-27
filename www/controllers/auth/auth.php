@@ -263,6 +263,20 @@ class AuthController extends Controller
 			$oid = null;
 		}
 
+		if ($oid === null &&
+			\URL::create($identity)->host === 'www.google.com' &&
+			isset($attrs['contact/email']))
+		{
+			try
+			{
+				$oid = UserOID::find_by_email($attrs['contact/email']);
+			}
+			catch(\ActiveRecord\RecordNotFound $e)
+			{
+				$oid = null;
+			}
+		}
+
 		if (is_object($oid) && $oid->pending === null)
 		{
 			$oid->user->set_logged();
@@ -295,6 +309,11 @@ class AuthController extends Controller
 			}
 
 			$oid = new UserOID();
+
+			if (\URL::create($identity)->host === 'www.google.com')
+			{
+				$oid->email = array_key_or($attrs, 'contact/email', null);
+			}
 
 			$oid->identity = $identity;
 			$oid->pending = md5(uniqid($identify));
