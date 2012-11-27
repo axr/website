@@ -2,14 +2,12 @@
 
 namespace WWW;
 
-require_once(SHARED . '/lib/axr_releases.php');
+require_once(SHARED . '/lib/axr/gh_repository.php');
 
 class DownloadsController extends Controller
 {
 	public function run ()
 	{
-		$releases_browser = new \AXRReleases(\Config::get('/www/downloads/repo/browser'));
-
 		$this->view->_title = 'Downloads';
 		$this->breadcrumb[] = array(
 			'name' => 'Downloads'
@@ -18,7 +16,11 @@ class DownloadsController extends Controller
 		$this->view->release_groups = array(
 			array(
 				'name' => 'AXR Browser',
-				'releases' => self::get_releases($releases_browser)
+				'releases' => self::get_releases(\Config::get('/www/downloads/repo/browser'))
+			),
+			array(
+				'name' => 'AXR Core',
+				'releases' => self::get_releases(\Config::get('/www/downloads/repo/core'))
 			)
 		);
 
@@ -34,41 +36,79 @@ class DownloadsController extends Controller
 		echo $this->renderView(ROOT . '/views/downloads.html');
 	}
 
-	private static function get_releases ($releases)
+	/**
+	 * @todo Cache this monster
+	 */
+	private static function get_releases ($repo_name)
 	{
+		$repo = new \AXR\GHRepository($repo_name);
+		$repo->load();
+
+		$releases = $repo->get_releases();
+
+		// TODO: Order the releases
+
 		$out = array();
-		$data = (array) $releases->get_releases();
 
-		ksort($data);
-		$data = array_reverse($data);
-
-		foreach ($data as $version => $rel)
+		foreach ($releases as $version => $release)
 		{
-			$rel->windows = isset($rel->windows) ? $rel->windows : array();
-			$rel->osx = isset($rel->osx) ? $rel->osx : array();
-			$rel->linux = isset($rel->linux) ? $rel->linux : array();
-			$rel->src = isset($rel->src) ? $rel->src : array();
+			$packages = array();
+
+			if (!isset($release->packages))
+			{
+				continue;
+			}
+
+			foreach ($release->packages as $package_name => $package)
+			{
+				if (!isset($package->files))
+				{
+					continue;
+				}
+
+				$oses = array(
+					'windows' => array(
+						'os' => 'windows',
+						'files' => array()
+					),
+					'osx' => array(
+						'os' => 'osx',
+						'files' => array()
+					),
+					'linux' => array(
+						'os' => 'linux',
+						'files' => array()
+					),
+					'source' => array(
+						'os' => 'src',
+						'files' => array()
+					)
+				);
+
+				foreach ($package->files as $file)
+				{
+					if (!isset($oses[$file->os]))
+					{
+						continue;
+					}
+
+					if ($file->arch === 'osx_uni')
+					{
+						$file->arch = 'universal';
+					}
+
+					$oses[$file->os]['files'][] = $file;
+				}
+
+				$packages[] = array(
+					'name' => $package_name,
+					'oses' => $oses
+				);
+			}
 
 			$out[] = array(
-				'version' => $version,
-				'oses' => array(
-					array(
-						'os' => 'windows',
-						'files' => $rel->windows
-					),
-					array(
-						'os' => 'osx',
-						'files' => $rel->osx
-					),
-					array(
-						'os' => 'linux',
-						'files' => $rel->linux
-					),
-					array(
-						'os' => 'src',
-						'files' => $rel->src
-					)
-				)
+				'version' => $release->version,
+				'packages' => $packages
 			);
 		}
 
