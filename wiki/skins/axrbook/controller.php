@@ -46,18 +46,7 @@ class AxrBookController extends \AXR\Controller
 		$this->view->{'g/html_head'} = $out->getHeadLinks($this->mwt->skin, true) .
 			$out->getHeadScripts($this->mwt->skin);
 			$out->getHeadItems();
-		$this->view->{'g/html_bottom'} = $this->getMWTrail(). <<<DATA
-<script>
-	withApp(function ()
-	{
-		App.Rsrc.file('js/app_auth.js').use(function ()
-		{
-			App.Auth.initialize();
-			App.Auth.autoauth();
-		});
-	});
-</script>
-DATA;
+		$this->view->{'g/html_bottom'} = $this->getMWTrail();
 
 		// Local URL prefix
 		$wwwroot = Config::get('/shared/wiki_url');
