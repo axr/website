@@ -19,7 +19,7 @@ class AccountController extends Controller
 	{
 		if (User::current()->is_logged() === false)
 		{
-			throw new HTTPException(null, 404);
+			throw new \HTTPException(null, 404);
 		}
 
 		$this->breadcrumb[] = array(
