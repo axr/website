@@ -256,6 +256,7 @@ class GHRepository
 			return null;
 		}
 
+		$best = null;
 		$distro = self::detect_linux_distro();
 		$pref_types = array(
 			'debian' => 'deb',
@@ -272,6 +273,12 @@ class GHRepository
 			if (self::detect_os() !== $file->os)
 			{
 				continue;
+			}
+
+			if ($file->os === 'osx' && $file->arch === 'osx_uni')
+			{
+				$best = $file;
+				break;
 			}
 
 			if ($file->arch !== self::detect_arch())
@@ -292,11 +299,6 @@ class GHRepository
 					$best = $file;
 					break;
 				}
-			}
-			elseif ($file->os === 'osx' && $file->arch === 'osx_uni')
-			{
-				$best = $file;
-				break;
 			}
 			else
 			{
@@ -334,11 +336,6 @@ class GHRepository
 	 */
 	public static function detect_arch ()
 	{
-		if (self::detect_os() === 'osx')
-		{
-			return 'osx_uni';
-		}
-
 		if (preg_match('/wow64|x86_64|x86-64|x64|amd64/i', $_SERVER['HTTP_USER_AGENT']))
 		{
 			return 'x86_64';
