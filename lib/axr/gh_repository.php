@@ -336,6 +336,13 @@ class GHRepository
 	 */
 	public static function detect_arch ()
 	{
+		if (self::detect_os() === 'osx')
+		{
+			// The UA does not tell us the architecture, so we'll just have to
+			// assume it's x86_64
+			return 'x86_64';
+		}
+
 		if (preg_match('/wow64|x86_64|x86-64|x64|amd64/i', $_SERVER['HTTP_USER_AGENT']))
 		{
 			return 'x86_64';
