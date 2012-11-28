@@ -545,13 +545,6 @@ class HssdocController extends Controller
 			return null;
 		}
 
-		// It is very important that the array is correctly ordered
-		uasort($property->values, function ($a, $b)
-		{
-			$cmp = strcmp($a->version, $b->version);
-			return ($cmp > 0 ? 1 : ($cmp < 0 ? -1 : 0));
-		});
-
 		$first_of_ver = array();
 
 		foreach ($property->values as $i => &$value)
