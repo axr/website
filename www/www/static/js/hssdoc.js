@@ -300,6 +300,18 @@ window.App = window.App || {};
 
 	App.pageEvent.on('load_init', '/doc/edit_property', function ()
 	{
+		$('#hssdoc_add form input[name=readonly]').on('change', function (e)
+		{
+			if ($(this).is(':checked'))
+			{
+				$('#hssdoc_add section.values').hide();
+			}
+			else
+			{
+				$('#hssdoc_add section.values').show();
+			}
+		});
+
 		// Auto-save when a values field is edited
 		$('#hssdoc_add .values_table > tbody').on('change', 'tr input', function (e)
 		{
@@ -379,42 +391,45 @@ window.App = window.App || {};
 
 	App.pageEvent.on('load', '/doc/edit_property', function ()
 	{
-		if (edit.get_property_id() === null)
+		if ($('#hssdoc_add form input[name=readonly]').is(':checked'))
 		{
-			return;
+			$('#hssdoc_add section.values').hide();
 		}
 
-		edit.get_values(edit.get_property_id(), function (data, error)
+		if (edit.get_property_id() !== null)
 		{
-			if (data.length === 0)
+			edit.get_values(edit.get_property_id(), function (data, error)
 			{
-				$('#hssdoc_add .values_table > tbody > tr.loading').hide();
-				return;
-			}
-
-			// We request the template here, so the order if values
-			// does not get messed up
-			App.data.template('hssdoc_edit_values_row', function ()
-			{
-				// This is needed in order to make sure that the values are
-				// rendered in correct order
-
-				var cycle = function (i)
+				if (data.length === 0)
 				{
-					if (i > data.length - 1)
-					{
-						return;
-					}
+					$('#hssdoc_add .values_table > tbody > tr.loading').hide();
+					return;
+				}
 
-					edit.render_new_row(data[i], function ()
-					{
-						cycle(i + 1);
-					});
-				};
+				// We request the template here, so the order if values
+				// does not get messed up
+				App.data.template('hssdoc_edit_values_row', function ()
+				{
+					// This is needed in order to make sure that the values are
+					// rendered in correct order
 
-				cycle(0);
+					var cycle = function (i)
+					{
+						if (i > data.length - 1)
+						{
+							return;
+						}
+
+						edit.render_new_row(data[i], function ()
+						{
+							cycle(i + 1);
+						});
+					};
+
+					cycle(0);
+				});
 			});
-		});
+		}
 	});
 })(window.App);
 

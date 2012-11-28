@@ -49,30 +49,32 @@
 	</form>
 
 	{{#edit_mode}}
-		<h2>Values</h2>
+		<section class="values">
+			<h2>Values</h2>
 
-		<table class="uiTable values_table">
-			<thead>
-				<tr>
-					<th>Value</th>
-					<th>Since version</th>
-					<th>Options</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="loading">
-					<td colspan="4">Loading...</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr class="actions">
-					<td colspan="4">
-						<a href="#" class="_new_value">New value</a>
-					</td>
-				</tr>
-			</tfoot>
-		</table>
+			<table class="uiTable values_table">
+				<thead>
+					<tr>
+						<th>Value</th>
+						<th>Since version</th>
+						<th>Options</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="loading">
+						<td colspan="4">Loading...</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr class="actions">
+						<td colspan="4">
+							<a href="#" class="_new_value">New value</a>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</section>
 	{{/edit_mode}}
 </div>
 
