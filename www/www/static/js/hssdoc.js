@@ -314,12 +314,17 @@ window.App = window.App || {};
 				{
 					switch (error.name)
 					{
-						case 'TooEarlyToSave': return;
+						case 'TooEarlyToSave':
+							break;
+
 						case 'ValidationFailed':
 							alert(error.validation_errors.join("\n"));
 							break;
+
 						default: error.show();
 					}
+
+					$element.find('input').prop('disabled', false);
 
 					return;
 				}
