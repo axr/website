@@ -256,6 +256,15 @@ class GHRepository
 			return null;
 		}
 
+		$distro = self::detect_linux_distro();
+		$pref_types = array(
+			'debian' => 'deb',
+			'ubuntu' => 'deb',
+			'fedora' => 'rpm',
+			'redhat' => 'rpm',
+			'suse' => 'rpm'
+		);
+
 		for ($i = 0, $c = count($files); $i < $c; $i++)
 		{
 			$file = $files[$i];
@@ -265,19 +274,34 @@ class GHRepository
 				continue;
 			}
 
-			if ($file->arch === self::detect_arch())
+			if ($file->arch !== self::detect_arch())
+			{
+				continue;
+			}
+
+			if ($file->os === 'linux')
+			{
+				if ($file->ext === 'tar.gz')
+				{
+					$best = $file;
+				}
+
+				if ($distro !== null &&
+					array_key_or($pref_types, $distro, null) === $file->ext)
+				{
+					$best = $file;
+					break;
+				}
+			}
+			elseif ($file->os === 'osx' && $file->arch === 'osx_uni')
 			{
 				$best = $file;
 				break;
 			}
-
-			if ($file->os === 'osx' && $file->arch === 'osx_uni')
+			else
 			{
 				$best = $file;
-				break;
 			}
-
-			$best = $file;
 		}
 
 		return $best;
@@ -321,6 +345,26 @@ class GHRepository
 		}
 
 		return 'i386';
+	}
+
+	/**
+	 * Detect the client's Linux distribution
+	 *
+	 * @return string
+	 */
+	public static function detect_linux_distro ()
+	{
+		if (self::detect_os() !== 'linux')
+		{
+			return null;
+		}
+
+		if (preg_match('/(ubuntu|fedora|red hat|gentoo|suse)/i', $_SERVER['HTTP_USER_AGENT'], $match))
+		{
+			return str_replace(' ', '', $match[1]);
+		}
+
+		return null;
 	}
 
 	/**
