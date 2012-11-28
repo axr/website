@@ -230,11 +230,7 @@ window.App = window.App || {};
 					return;
 				}
 
-				if (typeof data !== 'object')
-				{
-					data = {'new?': true};
-				}
-				else
+				if (typeof data === 'object')
 				{
 					data['default?'] = parseInt(data['default']) === 1;
 				}
