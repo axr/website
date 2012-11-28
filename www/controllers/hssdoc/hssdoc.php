@@ -246,9 +246,17 @@ class HssdocController extends Controller
 		{
 			$property->set_attributes($_POST);
 
-			if ($property->save() && $mode === 'add')
+			if ($property->save())
 			{
-				$this->redirect($property->display_url);
+				if ($mode === 'add')
+				{
+					$this->redirect($property->edit_url);
+				}
+				else
+				{
+					$this->redirect($property->display_url);
+				}
+
 				return;
 			}
 
