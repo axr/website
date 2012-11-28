@@ -449,10 +449,23 @@ class HssdocController extends Controller
 			$item = new HssdocValue();
 
 			// Check if property exists
-			if (!isset($_POST['property_id']) ||
-				HssdocProperty::count($_POST['property_id']) === 0)
+			if (!isset($_POST['property_id']))
 			{
 				throw new \HTTPAjaxException(null, 400);
+			}
+
+			try
+			{
+				$property = HssdocProperty::find($_POST['property_id']);
+			}
+			catch (\ActiveRecord\RecordNotFound $e)
+			{
+				echo json_encode(array(
+					'status' => 1,
+					'error' => 'PropertyNotfound'
+				));
+
+				return;
 			}
 
 			$item->property_id = (int) $_POST['property_id'];
