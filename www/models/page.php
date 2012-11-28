@@ -75,6 +75,16 @@ class Page extends \Core\Model
 	}
 
 	/**
+	 * Returns whether the page is new or not
+	 *
+	 * @return bool
+	 */
+	public function get_is_new ()
+	{
+		return (time() - $this->ctime) < 3600 * 24 * 7;
+	}
+
+	/**
 	 * Override attributes()
 	 *
 	 * @return mixed

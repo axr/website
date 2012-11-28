@@ -24,10 +24,14 @@ class HomeController extends Controller
 			isset($release->packages->{'axr-browser'}))
 		{
 			$release->_file = \AXR\GHRepository::choose_best_file($release->packages->{'axr-browser'}->files);
-			$release->_file->_os = isset($oses[$release->_file->os]) ?
-				$oses[$release->_file->os] : $release->_file->os;
 
-			$this->view->release = $release;
+			if ($release->_file !== null)
+			{
+				$release->_file->_os = isset($oses[$release->_file->os]) ?
+					$oses[$release->_file->os] : $release->_file->os;
+
+				$this->view->release = $release;
+			}
 		}
 
 		// Get blog posts

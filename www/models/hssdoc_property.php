@@ -16,7 +16,8 @@ class HssdocProperty extends \Core\Model
 	static $has_many = array(
 		array('values',
 			'class_name' => '\\WWW\\HssdocValue',
-			'foreign_key' => 'property_id')
+			'foreign_key' => 'property_id',
+			'order' => 'version asc, value asc')
 	);
 
 	static $validates_presence_of = array(

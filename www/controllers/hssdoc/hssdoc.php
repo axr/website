@@ -246,9 +246,17 @@ class HssdocController extends Controller
 		{
 			$property->set_attributes($_POST);
 
-			if ($property->save() && $mode === 'add')
+			if ($property->save())
 			{
-				$this->redirect($property->display_url);
+				if ($mode === 'add')
+				{
+					$this->redirect($property->edit_url);
+				}
+				else
+				{
+					$this->redirect($property->display_url);
+				}
+
 				return;
 			}
 
@@ -441,10 +449,23 @@ class HssdocController extends Controller
 			$item = new HssdocValue();
 
 			// Check if property exists
-			if (!isset($_POST['property_id']) ||
-				HssdocProperty::count($_POST['property_id']) === 0)
+			if (!isset($_POST['property_id']))
 			{
 				throw new \HTTPAjaxException(null, 400);
+			}
+
+			try
+			{
+				$property = HssdocProperty::find($_POST['property_id']);
+			}
+			catch (\ActiveRecord\RecordNotFound $e)
+			{
+				echo json_encode(array(
+					'status' => 1,
+					'error' => 'PropertyNotfound'
+				));
+
+				return;
 			}
 
 			$item->property_id = (int) $_POST['property_id'];
@@ -536,13 +557,6 @@ class HssdocController extends Controller
 		{
 			return null;
 		}
-
-		// It is very important that the array is correctly ordered
-		uasort($property->values, function ($a, $b)
-		{
-			$cmp = strcmp($a->version, $b->version);
-			return ($cmp > 0 ? 1 : ($cmp < 0 ? -1 : 0));
-		});
 
 		$first_of_ver = array();
 

@@ -235,6 +235,13 @@
 	text-decoration: underline;
 }
 
+#home > .social > .left > ul.blog > li > .post > sup.new
+{
+	color: #F00;
+	font-size: 10px;
+	text-transform: uppercase;
+}
+
 #home > .social > .left > ul.blog > li > .post > time
 {
 	color: #aaa;
