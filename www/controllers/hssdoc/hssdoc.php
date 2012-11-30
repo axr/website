@@ -244,6 +244,9 @@ class HssdocController extends Controller
 
 		if (isset($_POST['_via_post']))
 		{
+			$_POST['readonly'] = (bool) array_key_or($_POST, 'readonly', false);
+			$_POST['many_values'] = (bool) array_key_or($_POST, 'many_values', false);
+
 			$property->set_attributes($_POST);
 
 			if ($property->save())
