@@ -1,4 +1,4 @@
-<table>
+<table class="values_table">
 	<thead>
 		<th>Value
 			{{#property.many_values}}
@@ -24,7 +24,12 @@
 					{{/default}}
 				</td>
 				{{#_count}}
-					<td rowspan="{{_count}}" class="version">{{version}}</td>
+					<td rowspan="{{_count}}" class="version">
+						{{version}}
+						{{^version}}
+							<span class="future">(not implemented)</span>
+						{{/version}}
+					</td>
 				{{/_count}}
 			</tr>
 		{{/values}}

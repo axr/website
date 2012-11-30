@@ -241,6 +241,11 @@
 	color: #fff;
 }
 
+#hssdoc_obj table.values_table td .future
+{
+	color: #999;
+}
+
 #hssdoc_add textarea
 {
 	font-family: Monaco, monospace;

@@ -16,15 +16,14 @@ require_once(SHARED . '/config.php');
 
 $wgSitename = 'AXR';
 
-preg_match('/(https?:\/\/[^\/]+)(\/.*)?$/', Config::get('/shared/wiki_url'), $match);
-
-$wgScriptPath = isset($match[2]) ? $match[2] : '';
+$wgScriptPath = Config::get('/shared/wiki_url')->path;
 $wgScriptExtension = '.php';
 $wgArticlePath = $wgScriptPath . '/$1';
 $wgUsePathInfo = true;
 
 // The protocol and server name to use in fully-qualified URLs
-$wgServer = $match[1];
+$wgServer = Config::get('/shared/wiki_url')->scheme . '://' .
+	Config::get('/shared/wiki_url')->host;
 
 // The relative URL path to the skins directory
 $wgStylePath = $wgScriptPath . '/skins';
