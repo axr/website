@@ -64,7 +64,14 @@ class DownloadsController extends Controller
 
 			$out[$version] = array(
 				'version' => $version,
-				'pkggroups' => array()
+				'pkggroups' => array(
+					'windows' => null,
+					'osx' => null,
+					'debian' => null,
+					'rpm' => null,
+					'linux' => null,
+					'src' => null
+				)
 			);
 
 			foreach ($release->packages as $package_name => $package)
@@ -89,7 +96,8 @@ class DownloadsController extends Controller
 						default: $group_name = $group_key;
 					}
 
-					if (!isset($out[$version]['pkggroups'][$group_key]))
+					if (!isset($out[$version]['pkggroups'][$group_key]) ||
+						$out[$version]['pkggroups'][$group_key] === null)
 					{
 						$out[$version]['pkggroups'][$group_key] = array(
 							'group_key' => $group_key,
