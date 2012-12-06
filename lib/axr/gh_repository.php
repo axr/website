@@ -261,6 +261,7 @@ class GHRepository
 		$pref_types = array(
 			'debian' => 'deb',
 			'ubuntu' => 'deb',
+			'centos' => 'rpm',
 			'fedora' => 'rpm',
 			'redhat' => 'rpm',
 			'suse' => 'rpm'
@@ -363,7 +364,7 @@ class GHRepository
 			return null;
 		}
 
-		if (preg_match('/(ubuntu|fedora|red hat|gentoo|suse)/i', $_SERVER['HTTP_USER_AGENT'], $match))
+		if (preg_match('/(ubuntu|fedora|red hat|gentoo|suse|centos)/i', $_SERVER['HTTP_USER_AGENT'], $match))
 		{
 			return str_replace(' ', '', $match[1]);
 		}
