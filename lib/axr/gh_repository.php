@@ -121,6 +121,7 @@ class GHRepository
 				continue;
 			}
 
+
 			$package = $match['package'];
 			$version = $match['version'];
 			$arch = isset($match['arch']) ? $match['arch'] : 'universal';

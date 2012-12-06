@@ -8,6 +8,7 @@
 			"css/style_modal.css",
 			"css/boilerplate_after.css",
 			"css/rainbow.css",
+			"css/tipsy.css",
 			"css/content.css"
 		]
 	},
@@ -20,6 +21,7 @@
 			"js/app_modal.js",
 			"js/app.js",
 			"js/mustache.js",
+			"js/jquery.tipsy.js",
 			"js/site.js"
 		]
 	},

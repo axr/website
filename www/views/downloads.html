@@ -27,10 +27,12 @@
 								<tbody>
 									{{#files}}
 										<tr>
-											<td class="name">{{package}}</td>
+											<td class="name"><span>{{package}}</span></td>
 											<td class="ext">{{ext}}</td>
 											<td class="arch">{{arch}}</td>
-											<td class="size" title="{{size}} bytes">{{size|filesize}}</td>
+											<td class="size">
+												<span title="{{size}} bytes">{{size|filesize}}</span>
+											</td>
 											<td class="dl">
 												<a href="{{url}}">download</a>
 											</td>
