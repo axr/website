@@ -49,7 +49,7 @@ class Session
 			self::$session->id = sha1(uniqid(time() . $_SERVER['REMOTE_ADDR']));
 
 			setcookie('axr_www_sid', self::$session->id, 0, '/',
-				'.' . Router::get_instance()->url->host, false, true);
+				'.' . \Config::get('/shared/www_url')->host, false, true);
 		}
 	}
 
@@ -100,4 +100,3 @@ class Session
 		return self::$session->id;
 	}
 }
-
