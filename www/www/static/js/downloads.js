@@ -19,13 +19,13 @@ window['App'] = window['App'] || {};
 		{
 			e.preventDefault();
 
-			var selected = $(this).parents('.release').find('.groups').toggle();
+			var selected = $(this).parents('.release').toggleClass('collapsed');
 
-			$(this).parents('.rtable').find('.groups').each(function (i, e)
+			$(this).parents('.release').each(function (i, e)
 			{
 				if (e !== selected[0])
 				{
-					$(e).hide();
+					$(e).removeClass('collapsed');
 				}
 			});
 		});
@@ -51,8 +51,8 @@ window['App'] = window['App'] || {};
 
 	App.pageEvent.on('load', '/downloads', function ()
 	{
-		$('#downloads .rtable .groups').hide();
-		$('#downloads .rtable[data-key=browser] .groups').show();
+		$('#downloads .rtable .release').addClass('collapsed');
+		$('#downloads .rtable[data-key=browser] .release').removeClass('collapsed');
 	});
 })(window['App']);
 

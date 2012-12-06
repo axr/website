@@ -23,7 +23,7 @@
 	background: #cfcfcf;
 	height: 16px;
 	margin: 0 0 1px 0;
-	padding: 10px 20px;
+	padding: 10px;
 }
 
 #downloads .rtable > .release > header > a.version
@@ -34,9 +34,22 @@
 	text-decoration: none;
 }
 
+#downloads .rtable > .release > header > a.version:before
+{
+	color: #666;
+	content: "▼";
+	margin: 0 5px 0 0;
+	text-decoration: none;
+}
+
+#downloads .rtable > .release.collapsed > header > a.version:before
+{
+	content: "►";
+}
+
 #downloads .rtable > .release > header > a.version:hover
 {
-	text-decoration: underline;
+	color: #444;
 }
 
 #downloads .rtable > .release > header > a.version mark
@@ -63,6 +76,11 @@
 	background: #d8d8d8;
 	margin: 0 0 1px 20px;
 	padding: 15px 20px;
+}
+
+#downloads .rtable > .release.collapsed > .groups
+{
+	display: none;
 }
 
 #downloads .rtable > .release table.pkggroup
