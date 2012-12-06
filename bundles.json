@@ -48,8 +48,13 @@
 			"js/auth.js",
 			"js/home.js",
 			"js/get_involved.js",
-			"js/downloads.js",
 			"js/hssdoc.js"
+		]
+	},
+	"js/downloads.js": {
+		"type": "js",
+		"files": [
+			"js/downloads.js"
 		]
 	},
 	"css/bundle_wiki.css": {

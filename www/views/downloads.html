@@ -54,8 +54,11 @@
 	<script>
 		withApp(function (App)
 		{
-			App.pageEvent.trigger('load_init', '/downloads');
-			App.pageEvent.trigger('load', '/downloads');
+			App.Rsrc.bundle('js/downloads.js').use(function ()
+			{
+				App.pageEvent.trigger('load_init', '/downloads');
+				App.pageEvent.trigger('load', '/downloads');
+			});
 		});
 	</script>
 {{/_ajax}}
