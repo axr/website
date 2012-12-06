@@ -124,7 +124,7 @@ class GHRepository
 
 			$package = $match['package'];
 			$version = $match['version'];
-			$arch = isset($match['arch']) ? $match['arch'] : 'universal';
+			$arch = isset($match['arch']) ? $match['arch'] : 'none';
 
 			if ($os === 'osx' && $arch === 'none')
 			{
@@ -394,7 +394,7 @@ class GHRepository
 			return $arch;
 		}
 
-		if (in_array($arch, array('all', 'noarch')))
+		if (in_array($arch, array('none', 'all', 'noarch')))
 		{
 			return 'none';
 		}
