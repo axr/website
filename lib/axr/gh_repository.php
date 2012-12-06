@@ -126,7 +126,7 @@ class GHRepository
 			$version = $match['version'];
 			$arch = isset($match['arch']) ? $match['arch'] : 'none';
 
-			if ($os === 'osx' && $arch === 'none')
+			if ($os === 'osx' && $arch === 'universal')
 			{
 				$arch = 'osx_uni';
 			}
