@@ -48,6 +48,7 @@
 			"js/auth.js",
 			"js/home.js",
 			"js/get_involved.js",
+			"js/downloads.js",
 			"js/hssdoc.js"
 		]
 	},

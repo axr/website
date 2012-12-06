@@ -3,9 +3,15 @@
 namespace WWW;
 
 require_once(SHARED . '/lib/axr/gh_repository.php');
+require_once(SHARED . '/lib/mustache_filters/filesize.php');
 
 class DownloadsController extends Controller
 {
+	public function initialize ()
+	{
+		\Mustache\Filter::register(new \MustacheFilters\Filesize);
+	}
+
 	public function run ()
 	{
 		$this->view->_title = 'Downloads';
@@ -15,10 +21,12 @@ class DownloadsController extends Controller
 
 		$this->view->release_groups = array(
 			array(
+				'key' => 'browser',
 				'name' => 'AXR Browser',
 				'releases' => self::get_releases(\Config::get('/www/downloads/repo/browser'))
 			),
 			array(
+				'key' => 'core',
 				'name' => 'AXR Core',
 				'releases' => self::get_releases(\Config::get('/www/downloads/repo/core'))
 			)
@@ -45,51 +53,49 @@ class DownloadsController extends Controller
 		$repo->load();
 
 		$releases = $repo->get_releases();
-
-		// TODO: Order the releases
-
 		$out = array();
 
 		foreach ($releases as $version => $release)
 		{
-			$packages = array();
-
 			if (!isset($release->packages))
 			{
 				continue;
 			}
 
+			$out[$version] = array(
+				'version' => $version,
+				'pkggroups' => array()
+			);
+
 			foreach ($release->packages as $package_name => $package)
 			{
-				if (!isset($package->files))
-				{
-					continue;
-				}
-
-				$oses = array(
-					'windows' => array(
-						'os' => 'windows',
-						'files' => array()
-					),
-					'osx' => array(
-						'os' => 'osx',
-						'files' => array()
-					),
-					'linux' => array(
-						'os' => 'linux',
-						'files' => array()
-					),
-					'source' => array(
-						'os' => 'src',
-						'files' => array()
-					)
-				);
-
 				foreach ($package->files as $file)
 				{
-					if (!isset($oses[$file->os]))
+					switch ($file->ext)
 					{
-						continue;
+						case 'deb': $group_key = 'debian'; break;
+						case 'rpm': $group_key = 'rpm'; break;
+						default: $group_key = $file->os;
+					}
+
+					switch ($group_key)
+					{
+						case 'linux': $group_name = 'Linux'; break;
+						case 'debian': $group_name = 'Debian'; break;
+						case 'rpm': $group_name = 'RPM'; break;
+						case 'osx': $group_name = 'OS X'; break;
+						case 'windows': $group_name = 'Windows'; break;
+						case 'src': $group_name = 'Source'; break;
+						default: $group_name = $group_key;
+					}
+
+					if (!isset($out[$version]['pkggroups'][$group_key]))
+					{
+						$out[$version]['pkggroups'][$group_key] = array(
+							'group_key' => $group_key,
+							'group_name' => $group_name,
+							'files' => array()
+						);
 					}
 
 					if ($file->arch === 'osx_uni')
@@ -97,19 +103,9 @@ class DownloadsController extends Controller
 						$file->arch = 'universal';
 					}
 
-					$oses[$file->os]['files'][] = $file;
+					$out[$version]['pkggroups'][$group_key]['files'][] = $file;
 				}
-
-				$packages[] = array(
-					'name' => $package_name,
-					'oses' => $oses
-				);
 			}
-
-			$out[] = array(
-				'version' => $release->version,
-				'packages' => $packages
-			);
 		}
 
 		return $out;
