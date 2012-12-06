@@ -74,39 +74,47 @@ class GHRepository
 			$ext = $match['ext'];
 			$regex = null;
 
-			switch ($ext)
+			if (preg_match('/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-src\.(tar\.gz|zip)/', $item->name, $match))
 			{
-				case 'exe':
-				case 'msi':
-					$regex = '/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-windows-(?<arch>x86|x64|ia64)\.(exe|msi)/';
-					$os = 'windows';
-					break;
-
-				case 'dmg':
-					$regex = '/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-osx-(?<arch>i386|x86_64|universal)\.dmg/';
-					$os = 'osx';
-					break;
-
-				case 'tar.gz':
-					$regex = '/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-linux-(?<arch>i386|x86_64)\.tar\.gz/';
-					$os = 'linux';
-					break;
-
-				case 'rpm':
-					$regex = '/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-([^-]+)\.(?<arch>i386|i586|i686|x86_64)\.rpm/';
-					$os = 'linux';
-					break;
-
-				case 'deb':
-					$regex = '/^(?<package>[a-zA-Z0-9_.-]+)_(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)_(?<arch>i386|amd64)\.deb/';
-					$os = 'linux';
-					break;
-
-				default:
-					continue 2;
+				$os = 'src';
 			}
+			else
+			{
+				switch ($ext)
+				{
+					case 'exe':
+					case 'msi':
+						$regex = '/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-windows-(?<arch>x86|x64|ia64)\.(exe|msi)/';
+						$os = 'windows';
+						break;
 
-			preg_match($regex, $item->name, $match);
+					case 'dmg':
+						$regex = '/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-osx-(?<arch>i386|x86_64|universal)\.dmg/';
+						$os = 'osx';
+						break;
+
+					case 'tar.gz':
+						$regex = '/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-linux-(?<arch>i386|x86_64)\.tar\.gz/';
+						$os = 'linux';
+						break;
+
+					case 'rpm':
+						$regex = '/^(?<package>[a-zA-Z0-9_.-]+)-(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)-([^-]+)\.(?<arch>i386|i586|i686|x86_64|noarch)\.rpm/';
+						$os = 'linux';
+						break;
+
+					case 'deb':
+						$regex = '/^(?<package>[a-zA-Z0-9_.-]+)_(?<version>(([0-9.]+){2,4})(\.(alpha|beta|rc)[0-9]+)?)_(?<arch>i386|amd64|all)\.deb/';
+						$os = 'linux';
+						break;
+
+					default:
+						// TODO: Detect source packages here
+						continue 2;
+				}
+
+				preg_match($regex, $item->name, $match);
+			}
 
 			if (!is_array($match) || count($match) === 0)
 			{
@@ -115,9 +123,9 @@ class GHRepository
 
 			$package = $match['package'];
 			$version = $match['version'];
-			$arch = $match['arch'];
+			$arch = isset($match['arch']) ? $match['arch'] : 'universal';
 
-			if ($os === 'osx' && $arch === 'universal')
+			if ($os === 'osx' && $arch === 'none')
 			{
 				$arch = 'osx_uni';
 			}
@@ -141,6 +149,8 @@ class GHRepository
 				'arch' => self::arch_to_canonical($arch),
 				'ext' => $ext,
 				'url' => $item->html_url,
+				'filename' => $item->name,
+				'package' => $package,
 				'size' => $item->size,
 			);
 		}
@@ -381,6 +391,11 @@ class GHRepository
 		if (in_array($arch, array('osx_uni', 'ia64')))
 		{
 			return $arch;
+		}
+
+		if (in_array($arch, array('all', 'noarch')))
+		{
+			return 'none';
 		}
 
 		if (in_array($arch, array('x86_64', 'x86-64', 'x64', 'amd64')))
