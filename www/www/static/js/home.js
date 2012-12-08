@@ -15,6 +15,11 @@ App.pageEvent.on('load_init', '/home', function ()
         $('#hss_features_content > div.selected').removeClass('selected');
         $('#hss_features_content > div[data-section-name='+section_name+']').addClass('selected');
 	});
+
+	$('#home .getit a.uiButton.get').on('click', function (e)
+	{
+		window._gaq.push(['_trackEvent', 'Downloads', 'HomeBigButton', $(this).attr('data-filename')]);
+	});
 });
 
 App.pageEvent.on('load', '/home', function ()

@@ -47,6 +47,11 @@ window['App'] = window['App'] || {};
 				});
 			}
 		});
+
+		$('#downloads .rtable .pkggroup tbody td.dl a').on('click', function (e)
+		{
+			window._gaq.push(['_trackEvent', 'Downloads', 'DownloadLink', $(this).attr('data-filename')]);
+		});
 	});
 
 	App.pageEvent.on('load', '/downloads', function ()
