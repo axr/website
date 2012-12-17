@@ -557,11 +557,16 @@ class HssdocController extends Controller
 				$first_of_ver[$value->version] = &$value;
 			}
 
-			if (preg_match('/^@[a-zA-Z0-9]+$/', $value->value, $match))
+			if (preg_match('/^(?<object>@[a-zA-Z0-9]+)(<(?<property>[a-zA-Z0-9]+)>)?$/', $value->value, $match))
 			{
 				$value->_ref_url = \Router::get_instance()->url
 					->copy()
-					->path('/' . $match[0]);
+					->path('/' . $match['object']);
+
+				if (isset($match['property']))
+				{
+					$value->_ref_url->fragment($match['property']);
+				}
 			}
 
 			$first_of_ver[$value->version]->_count++;
