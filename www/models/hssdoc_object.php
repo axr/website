@@ -8,9 +8,16 @@ require_once(SHARED . '/lib/php-markdown/markdown.php');
 class HssdocObject extends \Core\Model
 {
 	static $table_name = 'www_hssdoc_objects';
+	static $before_save = array('before_save');
 
 	static $validates_presence_of = array(
 		array('name')
+	);
+
+	static $belongs_to = array(
+		array('owner',
+			'class_name' => '\\WWW\\HssdocObject',
+			'foreign_key' => 'owner_id')
 	);
 
 	static $has_many = array(
@@ -20,6 +27,26 @@ class HssdocObject extends \Core\Model
 			'foreign_key' => 'object',
 			'order' => 'name asc')
 	);
+
+	/**
+	 * For the select menus
+	 */
+	public $is_selected = false;
+
+	/**
+	 * `before_save` callback
+	 *
+	 * @return bool
+	 */
+	public function before_save ()
+	{
+		if ($this->owner_id == 0)
+		{
+			$this->owner_id = null;
+		}
+
+		return true;
+	}
 
 	/**
 	 * Get all normal (non-readonly) properties
@@ -137,5 +164,34 @@ class HssdocObject extends \Core\Model
 	public function can_rm ()
 	{
 		return User::current()->can('/hssdoc/rm');
+	}
+
+	/**
+	 * Get a list of objects for a `<select>` drop-down
+	 *
+	 * @return HssdocObject[]
+	 */
+	public function get_all_for_select ()
+	{
+		$objects = HssdocObject::find('all');
+		$selection = array();
+
+		foreach ($objects as $object)
+		{
+			if ($object->id === $this->id)
+			{
+				continue;
+			}
+
+			if ($this->owner &&
+				$object->id === $this->owner->id)
+			{
+				$object->is_selected = true;
+			}
+
+			$selection[] = $object;
+		}
+
+		return $selection;
 	}
 }

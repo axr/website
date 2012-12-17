@@ -139,7 +139,8 @@ class HssdocController extends Controller
 		if (isset($_POST['_via_post']))
 		{
 			$object->set_attributes(array(
-				'description' => array_key_or($_POST, 'description', null)
+				'description' => array_key_or($_POST, 'description', null),
+				'owner_id' => array_key_or($_POST, 'owner_id', null)
 			));
 
 			if ($mode === 'add')
@@ -193,6 +194,7 @@ class HssdocController extends Controller
 		}
 
 		$this->view->object = $object;
+		$this->view->objects = $object->get_all_for_select();
 		$this->view->properties = $object->properties;
 		$this->view->edit_mode = $mode === 'edit';
 		$this->view->add_property_url = \Config::get('/shared/hssdoc_url')

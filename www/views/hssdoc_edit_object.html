@@ -19,6 +19,16 @@
 		</div>
 
 		<div class="uiFormField">
+			<label for="name">Owner</label>
+			<select name="owner_id" class="uiInput">
+				<option>None</option>
+				{{#objects}}
+					<option value="{{id}}"{{#is_selected}} selected{{/is_selected}}>{{name}}</option>
+				{{/objects}}
+			</select>
+		</div>
+
+		<div class="uiFormField">
 			<label for="description">Description</label>
 			<textarea name="description" class="uiInput">{{object.description}}</textarea>
 		</div>
