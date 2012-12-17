@@ -17,6 +17,15 @@ class Model extends \ActiveRecord\Model
 			return true;
 		}
 
+		try
+		{
+			$this->read_attribute($attribute_name);
+			return true;
+		}
+		catch (\ActiveRecord\UndefinedPropertyException $e)
+		{
+		}
+
 		return parent::__isset($attribute_name);
 	}
 }
