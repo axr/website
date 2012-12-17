@@ -19,7 +19,20 @@
 		</div>
 
 		<div class="uiFormField">
+			<label for="name">Owner</label>
+			<select name="owner_id" class="uiInput">
+				<option>None</option>
+				{{#objects}}
+					<option value="{{id}}"{{#is_selected}} selected{{/is_selected}}>{{name}}</option>
+				{{/objects}}
+			</select>
+		</div>
+
+		<div class="uiFormField">
 			<label for="description">Description</label>
+			<span class="description">
+				<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown syntax</a> is supported.
+			</span>
 			<textarea name="description" class="uiInput">{{object.description}}</textarea>
 		</div>
 
@@ -60,7 +73,7 @@
 			<tfoot>
 				<tr class="actions">
 					<td colspan="2">
-						<a href="{{add_property_url}}">New property</a>
+						<a href="{{object.add_property_url}}">New property</a>
 					</td>
 				</tr>
 			</tfoot>

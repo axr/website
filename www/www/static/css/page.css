@@ -119,24 +119,6 @@
 	font-weight: bold;
 }
 
-#page_add form > div.field
-{
-	display: block;
-	margin: 0 0 10px 0;
-}
-
-#page_add form > div.field > label
-{
-	display: block;
-}
-
-#page_add form > div.field > span.description
-{
-	color: #777;
-	display: block;
-	font-style: italic;
-}
-
 #page_add form textarea
 {
 	font-family: Monaco, monospace !important;

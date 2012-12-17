@@ -312,6 +312,29 @@ window.App = window.App || {};
 			}
 		});
 
+		// Allow only one value to be the default one
+		$('#hssdoc_add .values_table > tbody').on('change', 'input[name=default]', function (e)
+		{
+			var that = this;
+
+			$('#hssdoc_add .values_table > tbody input[name=default]').each(function (i, element)
+			{
+				if ($(element)[0] != $(that)[0])
+				{
+					if ($(element).is(':checked'))
+					{
+						$(element).attr('checked', false);
+						$(element).closest('tr').addClass('unsaved');
+
+						edit.save_from_element($(element).closest('tr'), function ()
+						{
+							$(element).closest('tr').removeClass('unsaved');
+						});
+					}
+				}
+			});
+		});
+
 		// Auto-save when a values field is edited
 		$('#hssdoc_add .values_table > tbody').on('change', 'tr input', function (e)
 		{

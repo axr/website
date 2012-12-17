@@ -13,6 +13,13 @@ class HssdocProperty extends \Core\Model
 
 	static $attr_accessible = array('name', 'description', 'readonly', 'many_values');
 
+	static $has_one = array(
+		array('owner',
+			'class_name' => '\\WWW\\HssdocObject',
+			'primary_key' => 'object',
+			'foreign_key' => 'name')
+	);
+
 	static $has_many = array(
 		array('values',
 			'class_name' => '\\WWW\\HssdocValue',
@@ -66,6 +73,18 @@ class HssdocProperty extends \Core\Model
 		return \URL::create()
 			->from_string(\Config::get('/shared/hssdoc_url'))
 			->path('/' . $this->object . '/' . $this->name . '/rm');
+	}
+
+	/**
+	 * Get the URL for adding a property
+	 *
+	 * @return \URL
+	 */
+	public function get_add_property_url ()
+	{
+		return \URL::create()
+			->from_string(\Config::get('/shared/hssdoc_url'))
+			->path('/add_property/' . $object->name);
 	}
 
 	/**
