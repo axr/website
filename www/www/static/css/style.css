@@ -74,6 +74,16 @@ form.uiForm .uiFormField
 form.uiForm .uiFormField label
 {
 	display: block;
+	font-size: 13px;
+	margin: 0 0 3px 0;
+}
+
+form.uiForm .uiFormField span.description
+{
+	color: #777;
+	display: block;
+	font-style: italic;
+	margin: -3px 0 3px 0;
 }
 
 form.uiForm .uiFormField a
