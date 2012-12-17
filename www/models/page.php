@@ -355,7 +355,8 @@ Page::$ctypes = (object) array(
 			(object) array(
 				'key' => 'summary',
 				'name' => 'Summary',
-				'description' => 'This will be displayed on the blog posts listing page',
+				'description' => 'This will be displayed on the blog posts listing page.
+				<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown syntax</a> is supported.',
 				'type' => 'textarea',
 				'required' => true,
 				'filters' => array('markdown')
@@ -363,6 +364,7 @@ Page::$ctypes = (object) array(
 			(object) array(
 				'key' => 'content',
 				'name' => 'Content',
+				'description' => '<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown syntax</a> is supported.',
 				'type' => 'textarea',
 				'required' => true,
 				'filters' => array('markdown')
@@ -377,6 +379,7 @@ Page::$ctypes = (object) array(
 			(object) array(
 				'key' => 'content',
 				'name' => 'Content',
+				'description' => '<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown syntax</a> is supported.',
 				'type' => 'textarea',
 				'required' => true,
 				'filters' => array('markdown')

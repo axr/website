@@ -22,7 +22,7 @@
 			<div class="field">
 				<label for="field_{{key}}">{{name}}</label>
 				{{#description}}
-					<span class="description">{{description}}</span>
+					<span class="description">{{description|raw}}</span>
 				{{/description}}
 				{{#typeIs_textarea}}
 					<textarea name="field_{{key}}" class="uiInput">{{_value}}</textarea>
