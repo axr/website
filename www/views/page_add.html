@@ -11,15 +11,15 @@
 		</div>
 	{{/has_errors}}
 
-	<form action="{{action}}" method="post">
-		<div class="field">
+	<form action="{{action}}" method="post" class="uiForm">
+		<div class="uiFormField">
 			<label for="title">Title</label>
 			<input type="text" name="title" class="uiInput long"
 				value="{{page.title}}" />
 		</div>
 
 		{{#fields}}
-			<div class="field">
+			<div class="uiFormField">
 				<label for="field_{{key}}">{{name}}</label>
 				{{#description}}
 					<span class="description">{{description|raw}}</span>
@@ -34,13 +34,13 @@
 			</div>
 		{{/fields}}
 
-		<div class="field">
+		<div class="uiFormField">
 			<label for="url">URL</label>
 			<input type="text" name="url" class="uiInput"
 				value="{{page.url}}" />
 		</div>
 
-		<div class="field">
+		<div class="uiFormField">
 			<label for="url">Published</label>
 			<input type="radio" name="published" value="1"{{#page.published}} checked{{/page.published}} /> Yes
 			<input type="radio" name="published" value="0"{{^page.published}} checked{{/page.published}} /> No
