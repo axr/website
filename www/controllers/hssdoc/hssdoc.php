@@ -457,8 +457,7 @@ class HssdocController extends Controller
 			$item->property_id = (int) $_POST['property_id'];
 		}
 
-		$item->set_attributes($_POST);
-		$item->save();
+		$item->update_attributes($_POST);
 
 		if ($item->is_valid())
 		{
