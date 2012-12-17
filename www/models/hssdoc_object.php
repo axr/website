@@ -10,6 +10,8 @@ class HssdocObject extends \Core\Model
 	static $table_name = 'www_hssdoc_objects';
 	static $before_save = array('before_save');
 
+	static $attr_accessible = array('description', 'owner_id');
+
 	static $validates_presence_of = array(
 		array('name')
 	);
@@ -32,6 +34,22 @@ class HssdocObject extends \Core\Model
 	 * For the select menus
 	 */
 	public $is_selected = false;
+
+	/**
+	 * Override `set_attribute` method
+	 *
+	 * @param array $attributes
+	 */
+	public function set_attributes (array $attributes)
+	{
+		if (isset($attributes['name']) && $this->is_new_record())
+		{
+			// The name can be set when creating the record, but not when editing
+			$this->name = $attributes['name'];
+		}
+
+		return parent::set_attributes($attributes);
+	}
 
 	/**
 	 * `before_save` callback

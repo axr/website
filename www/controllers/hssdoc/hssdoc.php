@@ -138,25 +138,11 @@ class HssdocController extends Controller
 
 		if (isset($_POST['_via_post']))
 		{
-			$object->set_attributes(array(
-				'description' => array_key_or($_POST, 'description', null),
-				'owner_id' => array_key_or($_POST, 'owner_id', null)
-			));
+			$object->update_attributes($_POST);
 
-			if ($mode === 'add')
+			if ($object->is_valid())
 			{
-				$object->set_attributes(array(
-					'name' => array_key_or($_POST, 'name', null)
-				));
-			}
-
-			if ($object->save())
-			{
-				// We want to always redirect after edit in case the object
-				// name gets changed
-
 				$this->redirect($object->edit_url);
-
 				return;
 			}
 
@@ -197,9 +183,6 @@ class HssdocController extends Controller
 		$this->view->objects = $object->get_all_for_select();
 		$this->view->properties = $object->properties;
 		$this->view->edit_mode = $mode === 'edit';
-		$this->view->add_property_url = \Config::get('/shared/hssdoc_url')
-			->copy()
-			->path('/add_property/' . $object->name);
 
 		echo $this->renderView(ROOT . '/views/hssdoc_edit_object.html');
 	}
@@ -246,12 +229,13 @@ class HssdocController extends Controller
 
 		if (isset($_POST['_via_post']))
 		{
+			// Required for checkboxes
 			$_POST['readonly'] = (bool) array_key_or($_POST, 'readonly', false);
 			$_POST['many_values'] = (bool) array_key_or($_POST, 'many_values', false);
 
-			$property->set_attributes($_POST);
+			$property->update_attributes($_POST);
 
-			if ($property->save())
+			if ($property->is_valid())
 			{
 				if ($mode === 'add')
 				{
@@ -274,8 +258,8 @@ class HssdocController extends Controller
 		}
 
 		$this->breadcrumb[] = array(
-			'name' => $property->object,
-			'link' => $property->display_url
+			'name' => $property->owner->name,
+			'link' => $property->owner->display_url
 		);
 
 		if ($mode === 'add')
@@ -387,10 +371,7 @@ class HssdocController extends Controller
 		if (isset($_POST['_via_post']))
 		{
 			$property->delete();
-
-			$this->redirect(\Config::get('/shared/hssdoc_url')
-				->copy()
-				->path('/' . $object_name));
+			$this->redirect($object->display_url);
 		}
 
 		echo $this->renderView(ROOT . '/views/hssdoc_rm_property.html');
