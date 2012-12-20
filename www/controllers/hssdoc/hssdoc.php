@@ -623,11 +623,20 @@ class HssdocController extends Controller
 	private static function objectOwnersBreadcrumb (HssdocObject $obj)
 	{
 		$items = array();
+		$names = array();
 
 		while ($obj = $obj->owner)
 		{
+			if (in_array($obj->name, $names))
+			{
+				// This makes sure we don't get stuck in an infinite loop in
+				// case of circular ownership.
+				break;
+			}
+
 			if (is_object($obj))
 			{
+				$names[] = $obj->name;
 				$items[] = array(
 					'name' => $obj->name,
 					'link' => $obj->display_url
