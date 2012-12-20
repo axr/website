@@ -1,4 +1,4 @@
-{{g/tabs/breadcrumb|raw}}
+{{g/breadcrumb/html|raw}}
 {{g/tabs/html|raw}}
 
 <div id="hssdoc_obj" class="clearfix">
@@ -8,12 +8,6 @@
 		<h1>{{object.name}}</h1>
 
 		<div class="parsedContent">
-			{{#object.owner|bool}}
-				<p>
-					<em>Belongs to <a href="{{object.owner.display_url}}">{{object.owner.name}}</a></em>
-				</p>
-			{{/object.owner}}
-
 			{{object.description|markdown|raw}}
 		</div>
 

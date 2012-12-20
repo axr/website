@@ -33,6 +33,9 @@ class HssdocController extends Controller
 		$this->view->_title = 'HSS documentation';
 		$this->view->sidebar = $this->render_sidebar();
 
+		// Remove the link from the last breadcrumb element
+		unset($this->breadcrumb[count($this->breadcrumb) - 1]['link']);
+
 		if (User::current()->can('/hssdoc/edit'))
 		{
 			$this->tabs[] = array(
@@ -72,6 +75,8 @@ class HssdocController extends Controller
 		}
 
 		$this->view->_title = $object->name;
+
+		$this->breadcrumb = array_merge($this->breadcrumb, self::objectOwnersBreadcrumb($object));
 		$this->breadcrumb[] = array(
 			'name' => $object->name
 		);
@@ -151,7 +156,6 @@ class HssdocController extends Controller
 				$this->view->errors = $object->errors->full_messages();
 				$this->view->has_errors = true;
 			}
-
 		}
 
 		if ($mode === 'add')
@@ -164,8 +168,14 @@ class HssdocController extends Controller
 		else
 		{
 			$this->view->_title = 'Edit object';
+
+			$this->breadcrumb = array_merge($this->breadcrumb, self::objectOwnersBreadcrumb($object));
 			$this->breadcrumb[] = array(
-				'name' => 'Edit object'
+				'name' => $object->name,
+				'link' => $object->display_url
+			);
+			$this->breadcrumb[] = array(
+				'name' => 'Edit'
 			);
 
 			$this->tabs[] = array(
@@ -257,6 +267,7 @@ class HssdocController extends Controller
 
 		}
 
+		$this->breadcrumb = array_merge($this->breadcrumb, self::objectOwnersBreadcrumb($property->owner));
 		$this->breadcrumb[] = array(
 			'name' => $property->owner->name,
 			'link' => $property->owner->display_url
@@ -272,8 +283,13 @@ class HssdocController extends Controller
 		else
 		{
 			$this->view->_title = 'Edit property';
+
 			$this->breadcrumb[] = array(
-				'name' => 'Edit property'
+				'name' => $property->name,
+				'link' => $property->display_url
+			);
+			$this->breadcrumb[] = array(
+				'name' => 'Edit'
 			);
 
 			$this->tabs[] = array(
@@ -517,15 +533,38 @@ class HssdocController extends Controller
 	private function render_sidebar ()
 	{
 		$objects = HssdocObject::find('all', array(
+			'conditions' => array('owner_id IS NULL'),
 			'order' => 'name asc'
 		));
+
+		$view = new \StdClass();
+		$view->tree = $this->render_sidebar_tree($objects);
+		$view->can_edit = User::current()->can('/hssdoc/edit');
+
+		$mustache = new \Mustache\Renderer();
+		$template = file_get_contents(ROOT . '/views/hssdoc_sidebar.html');
+
+		return $mustache->render($template, $view);
+	}
+
+	private function render_sidebar_tree (array $objects)
+	{
+		foreach ($objects as $object)
+		{
+			$object->reload();
+			if (is_array($object->child_objects) &&
+				count($object->child_objects) > 0)
+			{
+				$object->tree_html = $this->render_sidebar_tree($object->child_objects);
+			}
+		}
 
 		$view = new \StdClass();
 		$view->objects = $objects;
 		$view->can_edit = User::current()->can('/hssdoc/edit');
 
 		$mustache = new \Mustache\Renderer();
-		$template = file_get_contents(ROOT . '/views/hssdoc_sidebar.html');
+		$template = file_get_contents(ROOT . '/views/hssdoc_sidebar_tree.html');
 
 		return $mustache->render($template, $view);
 	}
@@ -579,5 +618,32 @@ class HssdocController extends Controller
 		$template = file_get_contents(ROOT . '/views/hssdoc_values_table.html');
 
 		return $mustache->render($template, $view);
+	}
+
+	private static function objectOwnersBreadcrumb (HssdocObject $obj)
+	{
+		$items = array();
+		$names = array();
+
+		while ($obj = $obj->owner)
+		{
+			if (in_array($obj->name, $names))
+			{
+				// This makes sure we don't get stuck in an infinite loop in
+				// case of circular ownership.
+				break;
+			}
+
+			if (is_object($obj))
+			{
+				$names[] = $obj->name;
+				$items[] = array(
+					'name' => $obj->name,
+					'link' => $obj->display_url
+				);
+			}
+		}
+
+		return array_reverse($items);
 	}
 }

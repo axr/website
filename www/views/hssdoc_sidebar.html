@@ -1,49 +1,5 @@
 <div id="hssdoc_sidebar">
-	{{#objects|bool}}
-		<ul class="obj_list">
-			{{#objects}}
-				<li data-object="{{name}}">
-					<span class="object">
-						<a href="#" class="open">[-]</a>
-						<a href="{{display_url}}" class="obj">{{name}}</a>
-						{{#can_edit}}
-							<a href="{{add_property_url}}"
-								class="new_property">new property</a>
-						{{/can_edit}}
-					</span>
-					<ul class="prop_list">
-						{{#properties_normal|bool}}
-							<li class="title">Properties:</li>
-							{{#properties_normal}}
-								<li>
-									<a href="{{display_url}}">{{name}}</a>
-									{{#can_edit}}
-										<a href="{{edit_url}}" class="edit">edit</a>
-									{{/can_edit}}
-								</li>
-							{{/properties_normal}}
-						{{/properties_normal}}
-
-						{{#properties_ro|bool}}
-							<li class="title">Read-only properties:</li>
-							{{#properties_ro}}
-								<li>
-									<a href="{{display_url}}">{{name}}</a>
-									{{#can_edit}}
-										<a href="{{edit_url}}" class="edit">edit</a>
-									{{/can_edit}}
-								</li>
-							{{/properties_ro}}
-						{{/properties_ro}}
-					</ul>
-				</li>
-			{{/objects}}
-		</ul>
-	{{/objects}}
-
-	{{^objects|bool}}
-		No objects were found
-	{{/objects}}
+	{{tree|raw}}
 
 	<div class="actions">
 		<a href="#" class="expand">expand all</a>

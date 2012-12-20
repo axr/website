@@ -9,7 +9,7 @@ class HssdocValue extends \Core\Model
 {
 	static $table_name = 'www_hssdoc_values';
 
-	static $before_save = array('clear_others_default');
+	static $after_save = array('clear_others_default');
 
 	static $attr_accessible = array('value', 'version', 'default');
 

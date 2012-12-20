@@ -9,7 +9,7 @@ window.App = window.App || {};
 	 */
 	var getObjectName = function ()
 	{
-		var match = window.location.pathname.match(/^\/([^\/]+)/);
+		var match = window.location.pathname.match(/^\/(@[a-zA-Z0-9]+)(\/|$)/);
 		return (match || [])[1];
 	};
 
@@ -38,19 +38,14 @@ window.App = window.App || {};
 	 */
 	var expandAll = function (collapse)
 	{
-		$('#hssdoc_sidebar .obj_list').each(function (i, element)
+		if (collapse === true)
 		{
-			if (collapse)
-			{
-				$(element).find('.prop_list').hide();
-				$(element).find('a.open').html('[+]');
-			}
-			else
-			{
-				$(element).find('.prop_list').show();
-				$(element).find('a.open').html('[-]');
-			}
-		});
+			$('#hssdoc_sidebar .obj_list > li').addClass('collapsed');
+		}
+		else
+		{
+			$('#hssdoc_sidebar .obj_list > li').removeClass('collapsed');
+		}
 	};
 
 	var edit = {
@@ -253,14 +248,10 @@ window.App = window.App || {};
 		scrollToProperty(window.location.hash.replace(/^#/, ''));
 
 		// Collapse all irrelevant objects on the sidebar
-		$('#hssdoc_sidebar .obj_list > li').each(function (i, element)
-		{
-			if ($(element).attr('data-object') !== getObjectName())
-			{
-				$(element).find('.prop_list').hide();
-				$(element).find('a.open').html('[+]');
-			}
-		});
+		$('#hssdoc_sidebar .obj_list > li').addClass('collapsed');
+		$('#hssdoc_sidebar .obj_list > li[data-object="' + getObjectName() + '"]')
+			.removeClass('collapsed')
+			.parents('.obj_list > li').removeClass('collapsed');
 	});
 
 	App.pageEvent.on('load_init', '/doc', function ()
@@ -268,9 +259,7 @@ window.App = window.App || {};
 		$('#hssdoc_sidebar .obj_list > li a.open').on('click', function (e)
 		{
 			e.preventDefault();
-
-			var el = $(this).parent().parent().find('.prop_list').toggle();
-			$(this).html(el.is(':visible') ? '[-]' : '[+]');
+			$(this).closest('.obj_list > li').toggleClass('collapsed');
 		});
 
 		$('#hssdoc_sidebar .obj_list .prop_list a').on('click', function (e)
