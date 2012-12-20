@@ -16,31 +16,47 @@
 	padding: 0;
 }
 
-#hssdoc_sidebar > ul > li
+#hssdoc_sidebar ul.obj_list > li
 {
 	margin: 0 0 10px 0;
 }
 
-#hssdoc_sidebar > ul > li:last-child
+#hssdoc_sidebar ul.obj_list > li:last-child
 {
 	margin: 0;
 }
 
-#hssdoc_sidebar > ul > li > span.object a.open
+#hssdoc_sidebar ul.obj_list > li.collapsed > .children
+{
+	display: none;
+}
+
+#hssdoc_sidebar ul.obj_list > li > span.object a.open
 {
 	color: #D09610;
 	font-size: 14px;
 	text-decoration: none !important;
 }
 
-#hssdoc_sidebar > ul > li > span.object a.obj
+#hssdoc_sidebar ul.obj_list > li > span.object a.open span.collapsed,
+#hssdoc_sidebar ul.obj_list > li.collapsed > span.object a.open span.expanded
+{
+	display: none;
+}
+
+#hssdoc_sidebar ul.obj_list > li.collapsed > span.object a.open span.collapsed
+{
+	display: inline-block;
+}
+
+#hssdoc_sidebar ul.obj_list > li > span.object a.obj
 {
 	color: #444;
 	font-size: 14px;
 	text-decoration: none;
 }
 
-#hssdoc_sidebar > ul > li > span.object a.new_property
+#hssdoc_sidebar ul.obj_list > li > span.object a.new_property
 {
 	color: #aaa;
 	display: none;
@@ -49,18 +65,18 @@
 	text-decoration: none;
 }
 
-#hssdoc_sidebar > ul > li > span.object a.new_property:hover
+#hssdoc_sidebar ul.obj_list > li > span.object a.new_property:hover
 {
 	text-decoration: underline;
 }
 
-#hssdoc_sidebar > ul > li:hover > span.object a.new_property
+#hssdoc_sidebar ul.obj_list > li:hover > span.object a.new_property
 {
 	display: inline-block;
 }
 
-#hssdoc_sidebar > ul > li > span.object a.open:hover,
-#hssdoc_sidebar > ul > li > span.object a.obj:hover
+#hssdoc_sidebar ul.obj_list > li > span.object a.open:hover,
+#hssdoc_sidebar ul.obj_list > li > span.object a.obj:hover
 {
 	text-decoration: underline;
 }

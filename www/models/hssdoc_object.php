@@ -27,13 +27,25 @@ class HssdocObject extends \Core\Model
 			'class_name' => '\\WWW\\HssdocProperty',
 			'primary_key' => 'name',
 			'foreign_key' => 'object',
-			'order' => 'name asc')
+			'order' => 'name asc'),
+		array('child_objects',
+			'class_name' => '\\WWW\\HssdocObject',
+			'primary_key' => 'id',
+			'foreign_key' => 'owner_id',
+			'order' => 'name asc'),
 	);
 
 	/**
 	 * For the select menus
 	 */
 	public $is_selected = false;
+
+	/**
+	 * This is used in the hssdoc_sidebar_tree.html view
+	 *
+	 * @type string
+	 */
+	public $tree_html;
 
 	/**
 	 * Override `set_attribute` method
