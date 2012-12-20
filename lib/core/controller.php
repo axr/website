@@ -68,52 +68,75 @@ class Controller
 
 	/**
 	 * Render a view
+	 *
+	 * @param string $view_path
+	 * @return string
 	 */
-	protected function renderView ($viewPath)
+	protected function renderView ($view_path)
 	{
-		$layoutPath = SHARED . '/views/layout.html';
-		$explode = explode('.', $viewPath);
-		$extension = end($explode);
-		$viewHTML = $viewPath;
-		$layoutHTML = '{{{g/content}}}';
+		$layout_path = SHARED . '/views/layout.html';
 
-		if (file_exists($viewPath))
-		{
-			$viewHTML = file_get_contents($viewPath);
-		}
+		$this->view->{'g/content'} = $this->render_simple_view($view_path, $this->view);
+		$html = $this->render_simple_view($layout_path, $this->view, array(
+			'minify' => true,
+			'fallback_template' => '{{{g/content}}}'
+		));
 
-		if (file_exists($layoutPath))
-		{
-			$layoutHTML = file_get_contents($layoutPath);
-		}
-
-		$mustache = new \Mustache\Renderer();
-
-		$this->view->{'g/content'} = $mustache->render($viewHTML, $this->view);
-		$out = $mustache->render($layoutHTML, $this->view);
-
-		return ($extension === 'html') ? \Minify::html($out) : $out;
+		return $html;
 	}
 
 	/**
 	 * Render just the view. Don't wrap it with the layout
+	 *
+	 * @deprecated use render_simple_view instead
 	 */
 	public function renderViewOnly ($file, $minify = false)
 	{
-		if (!file_exists($file))
+		return $this->render_simple_view($file, $this->view, array(
+			'minify' => $minify
+		));
+	}
+
+	/**
+	 * Render simple view.
+	 *
+	 * @param string $path
+	 * @param \StdClass $view
+	 * @return string
+	 */
+	protected function render_simple_view ($path, \StdClass $view, array $options = array())
+	{
+		$extension = pathinfo($path, PATHINFO_EXTENSION);
+
+		if (file_exists($path))
 		{
-			return false;
+			$template = file_get_contents($path);
+		}
+		elseif (isset($options['fallback_template']))
+		{
+			// We will intentionally still use the extension from the original
+			// path.
+
+			$template = $options['fallback_template'];
+		}
+		else
+		{
+			return null;
 		}
 
-		$explode = explode('.', $file);
-		$extension = end($explode);
-
-		$template = file_get_contents($file);
-
 		$mustache = new \Mustache\Renderer();
-		$out = $mustache->render($template, $this->view);
+		$html = $mustache->render($template, $view);
 
-		return ($minify && $extension === 'html') ? \Minify::html($out) : $out;
+		if (isset($options['minify']) && $options['minify'] === true)
+		{
+			// Templates are not always HTML
+			if ($extension === 'html')
+			{
+				$html = \Minify::html($html);
+			}
+		}
+
+		return $html;
 	}
 
 	/**
