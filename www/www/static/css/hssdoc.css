@@ -21,6 +21,11 @@
 	margin: 0 0 10px 0;
 }
 
+#hssdoc_sidebar .children ul.obj_list > li
+{
+	margin: 0;
+}
+
 #hssdoc_sidebar ul.obj_list > li:last-child
 {
 	margin: 0;

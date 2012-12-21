@@ -23,6 +23,16 @@ class User extends \Core\Model
 	private static $current = null;
 
 	/**
+	 * Get a short version of the user's name
+	 *
+	 * @return string
+	 */
+	public function get_name_short ()
+	{
+		return preg_replace('/^([^ ]+).*$/', '$1', $this->name);
+	}
+
+	/**
 	 * Check if user has a permission
 	 *
 	 * @param string $key
