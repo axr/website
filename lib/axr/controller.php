@@ -71,7 +71,7 @@ class Controller extends \Core\Controller
 		$this->breadcrumb = array(
 			array(
 				'name' => 'Home',
-				'link' => '/'
+				'link' => \Config::get('/shared/www_url')
 			)
 		);
 	}
