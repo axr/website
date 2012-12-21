@@ -92,7 +92,7 @@ class Controller
 	 * @param \StdClass $view
 	 * @return string
 	 */
-	protected function render_simple_view ($path, \StdClass $view, array $options = array())
+	public function render_simple_view ($path, \StdClass $view, array $options = array())
 	{
 		$extension = pathinfo($path, PATHINFO_EXTENSION);
 
