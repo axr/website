@@ -37,56 +37,85 @@ class AxrBookController extends \AXR\Controller
 		$this->rsrc->loadBundle('js/bundle_wiki.js');
 		$this->rsrc->loadBundle('js/bundle_rainbow.js');
 
-		// Resources
-		$this->view->{'g/rsrc/styles'} = $out->buildCssLinks($this->mwt->skin) .
-			$this->rsrc->getStylesHTML();
-		$this->view->{'g/rsrc/scripts'} = $this->rsrc->getScriptsHTML();
-
-		// Additional MW HTML
+		// Styles/scripts/metainfo for head
 		$this->view->{'g/html_head'} = $out->getHeadLinks($this->mwt->skin, true) .
-			$out->getHeadScripts($this->mwt->skin);
+			$out->getHeadScripts($this->mwt->skin) .
+			$out->buildCssLinks($this->mwt->skin) .
+			$this->rsrc->getStylesHTML() .
 			$out->getHeadItems();
-		$this->view->{'g/html_bottom'} = $this->getMWTrail();
 
-		// Local URL prefix
-		$wwwroot = Config::get('/shared/wiki_url');
+		// Scripts for footer
+		$this->view->{'g/html_bottom'} = $this->getMWTrail() .
+			$this->rsrc->getScriptsHTML();
 
-		// Variables for the user menu
+		$usermenu = null;
+		$search = null;
+
+		// Create the user menu
 		if (!is_object($this->wgUser) || $this->wgUser->getID() == 0)
 		{
-			$this->view->{'g/login_show'} = true;
-			$this->view->{'g/url_login'} = $wwroot . '/Special:MixedLogin';
-			$this->view->{'g/url_login/label'} = 'Login to wiki';
+			$usermenu = $this->render_simple_view(SHARED . '/views/layout_usermenu.html',
+				(object) array(
+				'can_login' => true,
+				'login_url' => Config::get('/shared/wiki_url')
+					->copy()
+					->path('/Special:MixedLogin'),
+				'login_label' => 'Login to wiki'
+			));
 		}
 		else
 		{
-			$this->view->{'g/user'} = new StdClass();
-			$this->view->{'g/user'}->name = $this->wgUser->getName();
-			$this->view->{'g/user'}->url = $wwwroot . '/User:' . $this->wgUser->getName();
-
-			$this->view->{'g/user'}->links = array(
-				array(
-					'href' => $wwwroot . '/User_talk:' . $this->wgUser->getName(),
-					'text' => 'My Talk'
+			$usermenu = $this->render_simple_view(SHARED . '/views/layout_usermenu.html',
+				(object) array(
+				'show_usermenu' => true,
+				'user' => array(
+					'id' => $this->wgUser->getID(),
+					'name' => $this->wgUser->getName(),
+					'url' => Config::get('/shared/wiki_url')
+						->copy()
+						->path('/User:' . $this->wgUser->getName())
 				),
-				array(
-					'href' => $wwwroot . '/Special:Preferences',
-					'text' => 'My preferences'
-				),
-				array(
-					'href' => $wwwroot . '/Special:Watchlist',
-					'text' => 'My watchlist'
-				),
-				array(
-					'href' => $wwwroot . '/Special:Contributions/' . $this->wgUser->getName(),
-					'text' => 'My contributions'
-				),
-				array(
-					'href' => $wwwroot . '/Special:UserLogout',
-					'text' => 'Log out'
+				'links' => array(
+					array(
+						'text' => 'My Talk',
+						'href' => Config::get('/shared/wiki_url')
+							->copy()
+							->path('/User_talk:' . $this->wgUser->getName())
+					),
+					array(
+						'text' => 'My preferences',
+						'href' => Config::get('/shared/wiki_url')
+							->copy()
+							->path('/Special:Preferences')
+					),
+					array(
+						'text' => 'My watchlist',
+						'href' => Config::get('/shared/wiki_url')
+							->copy()
+							->path('/Special:Watchlist')
+					),
+					array(
+						'text' => 'My contributions',
+						'href' => Config::get('/shared/wiki_url')
+							->copy()
+							->path('/Special:Contributions/' . $this->wgUser->getName())
+					),
+					array(
+						'text' => 'Log out',
+						'href' => Config::get('/shared/wiki_url')
+							->copy()
+							->path('/Special:UserLogout')
+					)
 				)
-			);
+			));
 		}
+
+		// Create the search box
+		// $search = $this->render_simple_view(SHARED . '/views/layout_search.html', (object) array(
+		// 	'placeholder' => 'Search the wiki'
+		// ));
+
+		$this->view->{'g/html_secondary'} = $usermenu . $search;
 
 		$this->view->site_notice = isset($wgSiteNotice) ? $wgSiteNotice : null;
 		$this->view->footer_info = array();

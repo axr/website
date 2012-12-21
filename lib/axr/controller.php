@@ -14,10 +14,8 @@ class Controller extends \Core\Controller
 
 		$this->view->{'g/breadcrumb/html'} = function () use ($that)
 		{
-			$mustache = new \Mustache\Renderer();
-			$template = file_get_contents(SHARED . '/views/layout_breadcrumb.html');
-
-			return $mustache->render($template, array(
+			return $that->render_simple_view(SHARED . '/views/layout_breadcrumb.html',
+				(object) array(
 				'has' => count($that->breadcrumb) > 0,
 				'breadcrumb' => $that->breadcrumb
 			));
@@ -25,9 +23,6 @@ class Controller extends \Core\Controller
 
 		$this->view->{'g/tabs/html'} = function () use ($that)
 		{
-			$mustache = new \Mustache\Renderer();
-			$template = file_get_contents(SHARED . '/views/layout_tabs.html');
-
 			// Only one tab, and it's active == no tabs
 			if (count($that->tabs) === 1 &&
 				array_key_or($that->tabs[0], 'current', false) === true)
@@ -35,7 +30,8 @@ class Controller extends \Core\Controller
 				return;
 			}
 
-			return $mustache->render($template, array(
+			return $that->render_simple_view(SHARED . '/views/layout_tabs.html',
+				(object) array(
 				'has' => count($that->tabs) > 0,
 				'tabs' => $that->tabs
 			));
@@ -61,7 +57,6 @@ class Controller extends \Core\Controller
 
 		$this->view->{'g/year'}  = date('Y');
 		$this->view->{'g/meta'} = new \StdClass();
-		$this->view->{'g/url_login/label'} = 'Login';
 
 		$this->view->{'g/rsrc_root'} = (string) \Config::get('/shared/rsrc_url');
 		$this->view->{'g/www_url'} = (string) \Config::get('/shared/www_url');

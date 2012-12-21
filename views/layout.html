@@ -40,16 +40,16 @@
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	{{g/rsrc/styles|raw}}
+	{{#g/app_vars}}
+		<script>
+			window.App = {{g/app_vars|json|raw}};
+			window.App._onInit = [];
 
-	<script>
-		window.App = {{g/app_vars|json|raw}};
-		window.App._onInit = [];
-
-		function withApp (callback) {
-			window.App._onInit.push(function () { callback(window.App); });
-		};
-	</script>
+			function withApp (callback) {
+				window.App._onInit.push(function () { callback(window.App); });
+			};
+		</script>
+	{{/g/app_vars}}
 </head>
 <body class="{{g/html_body_classes}}" {{g/html_body_attrs|raw}}>
 	{{g/html_top|raw}}
@@ -69,23 +69,7 @@
 				</a>
 			</div>
 			<div class="secondary">
-				{{#g/login_show}}
-					<span class="link login">
-						<span class="icon"></span>
-						<a href="{{g/url_login}}">{{g/url_login/label}}</a>
-					</span>
-				{{/g/login_show}}
-				{{#g/user|bool}}
-					<div class="user_menu">
-						<span class="arrow"></span>
-						<a class="user_link" href="{{g/user.url}}/"><span class="menu_title">{{g/user.name}}</span></a>
-						<div class="dropdown">
-							{{#g/user.links}}
-								<a href="{{href}}" class="{{class}}">{{text}}</a>
-							{{/g/user.links}}
-						</div>
-					</div>
-				{{/g/user}}
+				{{{g/html_secondary}}}
 			</div>
 			<nav>
 				<ul id="menu">
@@ -232,7 +216,6 @@
 	</form>
 
 	{{g/html_bottom|raw}}
-	{{g/rsrc/scripts|raw}}
 	<script src="https://apis.google.com/js/plusone.js"></script>
 
 	<!--[if lt IE 7 ]>

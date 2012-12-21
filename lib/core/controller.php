@@ -40,20 +40,8 @@ class Controller
 	 */
 	public function __construct ()
 	{
-		$that = $this;
-
 		$this->view = new \StdClass();
 		$this->rsrc = new \RSRC();
-
-		$this->view->{'g/rsrc/styles'} = function () use ($that)
-		{
-			return $that->rsrc->getStylesHTML();
-		};
-
-		$this->view->{'g/rsrc/scripts'} = function () use ($that)
-		{
-			return $that->rsrc->getScriptsHTML();
-		};
 
 		$this->view->_POST = $_POST;
 		$this->view->_GET = $_GET;
