@@ -146,6 +146,15 @@
 	width: 666px;
 }
 
+#hssdoc_obj .parsedContent h2,
+#hssdoc_obj .parsedContent h3,
+#hssdoc_obj .parsedContent h4,
+#hssdoc_obj .parsedContent h5,
+#hssdoc_obj .parsedContent h6
+{
+	clear: none;
+}
+
 #hssdoc_obj .prop_item
 {
 	margin: 25px 0;
