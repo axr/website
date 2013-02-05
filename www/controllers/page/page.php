@@ -86,39 +86,27 @@ class PageController extends Controller
 				continue;
 			}
 
-			$months = scandir($blog_root_path . '/' . $year);
-			rsort($months);
+			$items = scandir($blog_root_path . '/' . $year);
 
-			foreach ($months as $month)
+			foreach ($items as $item)
 			{
-				if (!is_numeric($month) ||
-					!is_dir($blog_root_path . '/' . $year . '/' . $month))
+				if ($item === '.' || $item === '..')
 				{
 					continue;
 				}
 
-				$items = scandir($blog_root_path . '/' . $year . '/' . $month);
+				$post = \GitData\Models\Page::find_by_path(
+					'/blog/' . $year . '/' . $item);
 
-				foreach ($items as $item)
+				if ($post === null)
 				{
-					if ($item === '.' || $item === '..')
-					{
-						continue;
-					}
-
-					$post = \GitData\Models\Page::find_by_path(
-						'/blog/' . $year . '/' . $month . '/' . $item);
-
-					if ($post === null)
-					{
-						continue;
-					}
-
-					$index[] = (object) array(
-						'date' => strtotime($post->date),
-						'path' => '/blog/' . $year . '/' . $month . '/' . $item
-					);
+					continue;
 				}
+
+				$index[] = (object) array(
+					'date' => strtotime($post->date),
+					'path' => '/blog/' . $year . '/' . $item
+				);
 			}
 		}
 
