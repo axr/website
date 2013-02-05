@@ -38,7 +38,7 @@ require_once(ROOT . '/config.php');
 	));
 });
 
-\GitData\GitData::$root = SHARED . '/data';
+\GitData\GitData::initialize(SHARED . '/data');
 
 // Initialize the cache
 \Cache::initialize();

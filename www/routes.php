@@ -94,7 +94,7 @@ $router->route('/^\/page\/(\d+)\/?$/', array(
 $router->route('/^\/blog\/?$/', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\PageController',
-	'run' => 'runBlogList'
+	'run' => 'run_blog_list'
 ));
 
 $router->route('/^\/add_object\/?$/i', array(

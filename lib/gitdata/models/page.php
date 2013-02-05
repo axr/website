@@ -23,6 +23,8 @@ class Page extends \GitData\Model
 	 */
 	protected $info;
 
+	protected $_parsed_content;
+
 	/**
 	 * __construct
 	 *
@@ -89,21 +91,33 @@ class Page extends \GitData\Model
 	 */
 	public function get_content ()
 	{
-		static $content;
-
-		if (!is_string($content))
+		if (!is_string($this->_parsed_content))
 		{
 			if ($this->get_content_type() === 'md')
 			{
-				$content = Markdown($this->content_file->data);
+				$this->_parsed_content = Markdown($this->content_file->data);
 			}
 			else
 			{
-				$content = $this->content_file->data;
+				$this->_parsed_content = $this->content_file->data;
 			}
 		}
 
-		return $content;
+		return $this->_parsed_content;
+	}
+
+	/**
+	 * Get a short summery for this page. This method is mostly used for blog
+	 * posts.
+	 *
+	 * @return string
+	 */
+	public function get_summary ()
+	{
+		$content = $this->get_content();
+		$explode = explode('<!--more-->', $content);
+
+		return $explode[0];
 	}
 
 	/**
@@ -114,6 +128,7 @@ class Page extends \GitData\Model
 	 */
 	public static function find_by_path ($path)
 	{
+		$path = preg_replace('/^\//', '', $path);
 		$info_file = \GitData\File::try_read_file('/pages/' . $path . '/info.json');
 
 		if ($info_file === null)

@@ -2,18 +2,18 @@
 {{g/breadcrumb/html|raw}}
 
 <div id="page" class="list">
-	{{#pages}}
+	{{#posts}}
 		<div class="page_item" itemscope itemtype="http://schema.org/BlogPosting">
 			<h1 itemprop="name">{{title}}</h1>
 			<div class="parsedContent clearfix" itemprop="description">
-				{{fields__merged.summary|raw}}
+				{{summary|raw}}
 			</div>
 			<ul class="page_links">
 				<li><a href="{{permalink}}" itemprop="url">Read more</a></li>
 				<li><a href="{{permalink}}#comments">Leave a coment</a></li>
 			</ul>
 		</div>
-	{{/pages}}
+	{{/posts}}
 
 	<nav class="pagination">
 		{{#has_prev}}
