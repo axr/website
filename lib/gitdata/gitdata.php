@@ -2,8 +2,6 @@
 
 namespace GitData;
 
-define('GITDATA_ROOT', dirname(__FILE__));
-
 class GitData
 {
 	public static $root = null;
@@ -18,12 +16,40 @@ class GitData
 	}
 }
 
-require_once(GITDATA_ROOT . '/git/repository.php');
-require_once(GITDATA_ROOT . '/git/commit.php');
-require_once(GITDATA_ROOT . '/git/file.php');
-require_once(GITDATA_ROOT . '/model.php');
-require_once(GITDATA_ROOT . '/asset.php');
-require_once(GITDATA_ROOT . '/exceptions/entity_invalid.php');
-require_once(GITDATA_ROOT . '/models/page.php');
-require_once(GITDATA_ROOT . '/models/wiki_page.php');
+class Autoloader
+{
+	protected static $classes = array(
+		'GitData\\Git\\Commit' => '/git/commit.php',
+		'GitData\\Git\\File' => '/git/file.php',
+		'GitData\\Git\\Repository' => '/git/repository.php',
+		'GitData\\Asset' => '/asset.php',
+		'GitData\\Exceptions\\EntityInvalid' => '/exceptions/entity_invalid.php',
+		'GitData\\Model' => '/model.php',
+		'GitData\\Models\\Page' => '/models/page.php',
+		'GitData\\Models\\WikiPage' => '/models/wiki_page.php'
+	);
 
+	/**
+	 * Load a class
+	 *
+	 * @param string $class
+	 */
+	public static function load ($class)
+	{
+		if (isset(self::$classes[$class]))
+		{
+			require_once(dirname(__FILE__) . '/' . self::$classes[$class]);
+		}
+	}
+
+	/**
+	 * Register the autoloader
+	 */
+	public static function register ()
+	{
+		spl_autoload_register(__CLASS__ . '::load');
+	}
+}
+
+// Register the autoloader
+Autoloader::register();
