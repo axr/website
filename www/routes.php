@@ -56,41 +56,6 @@ $router->route('/^\/about\/manifesto\/?$/', array(
 	'args' => array(ROOT . '/views/manifesto.html', 'Manifesto')
 ));
 
-$router->route('/^\/page\/add\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\PageController',
-	'run' => 'runAdd',
-	'args' => array(1)
-));
-
-$router->route('/^\/page\/add\/(\w+)\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\PageController',
-	'run' => 'runEdit',
-	'args' => array('add', 1)
-));
-
-$router->route('/^\/page\/(\d+)\/edit\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\PageController',
-	'run' => 'runEdit',
-	'args' => array('edit', 1)
-));
-
-$router->route('/^\/page\/(\w+)\/rm\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\PageController',
-	'run' => 'runRm',
-	'args' => array(1)
-));
-
-$router->route('/^\/page\/(\d+)\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\PageController',
-	'run' => 'runDisplay',
-	'args' => array(1, 'id')
-));
-
 $router->route('/^\/blog\/?$/', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\PageController',

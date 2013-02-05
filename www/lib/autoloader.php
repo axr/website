@@ -18,7 +18,6 @@ class Autoloader
 		'WWW\\AdminController' => '/controllers/admin/admin.php',
 		'WWW\\UserOID' => '/models/user_oid.php',
 		'WWW\\User' => '/models/user.php',
-		'WWW\\Page' => '/models/page.php',
 		'WWW\\HssdocValue' => '/models/hssdoc_value.php',
 		'WWW\\HssdocProperty' => '/models/hssdoc_property.php',
 		'WWW\\HssdocObject' => '/models/hssdoc_object.php'
