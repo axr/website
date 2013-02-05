@@ -22,6 +22,7 @@ require_once(SHARED . '/lib/core/cache.php');
 require_once(ROOT . '/lib/autoloader.php');
 require_once(ROOT . '/controllers/view/view.php');
 require_once(ROOT . '/models/user.php');
+require_once(SHARED . '/lib/gitdata/gitdata.php');
 
 // Load configs
 require_once(SHARED . '/config.php');
@@ -36,6 +37,8 @@ require_once(ROOT . '/config.php');
 		'default' => \Config::get('/www/db/connection')
 	));
 });
+
+\GitData\GitData::$root = SHARED . '/data';
 
 // Initialize the cache
 \Cache::initialize();

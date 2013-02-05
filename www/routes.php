@@ -188,6 +188,6 @@ $router->route('/^\/admin\/cache\/?$/', array(
 $router->route('/^\/(.+)$/', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\PageController',
-	'run' => 'runDisplay',
-	'args' => array(1, 'url')
+	'run' => 'run_display',
+	'args' => array(1)
 ));

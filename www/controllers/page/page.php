@@ -3,83 +3,60 @@
 namespace WWW;
 
 require_once(SHARED . '/lib/mustache/src/mustache.php');
+require_once(SHARED . '/lib/mustache_filters/markdown.php');
 
 class PageController extends Controller
 {
 	/**
+	 * Initialize
+	 */
+	public function initialize ()
+	{
+		\Mustache\Filter::register(new \MustacheFilters\Markdown);
+	}
+
+	/**
 	 * Display a page
 	 *
-	 * @param int|string $id
-	 * @param string $findBy (url|id)
+	 * @param string $path
 	 */
-	public function runDisplay ($value, $findBy = 'url')
+	public function run_display ($path)
 	{
-		if ($findBy !== 'url' && $findBy != 'id')
-		{
-			$findBy = is_numeric($value) ? 'id' : 'url';
-		}
-
-		if ($findBy === 'id')
-		{
-			$page = Page::find($value);
-		}
-		else
-		{
-			$page = Page::find_by_url($value);
-		}
+		$page = \GitData\Models\Page::find_by_path($path);
 
 		if ($page === null)
 		{
 			throw new \HTTPException(null, 404);
 		}
 
-		if (!$page->can_view())
-		{
-			throw new \HTTPException(null, 403);
-		}
-
-		// if the page has an URL alias, use it
-		if ($findBy === 'id' && !empty($page->url))
-		{
-			$url = preg_replace('/^\//', '', $page->url);
-			$this->redirect('/' . $url, 301);
-
-			return;
-		}
-
-		// Get the content type info
-		$ctype = Page::$ctypes->{$page->ctype};
-
 		$this->view->_title = $page->title;
 		$this->view->{'g/meta'}->canonical = $page->permalink;
-		$this->breadcrumb = $page->breadcrumb();
 
-		$this->tabs[] = array(
-			'name' => 'View',
-			'link' => $page->permalink,
-			'current' => true
-		);
-
-		// Edit tab
-		if ($page->can_edit())
+		// Generate the breadcrumb
 		{
-			$this->tabs[] = array(
-				'name' => 'Edit',
-				'link' => '/page/' . $page->id . '/edit'
+			if ($page->type === 'blog-post')
+			{
+				$this->breadcrumb[] = array(
+					'name' => 'Blog',
+					'link' => '/blog'
+				);
+			}
+
+			$this->breadcrumb[] = array(
+				'name' => $page->title
 			);
 		}
 
-		$this->view->page = (object) $page->attributes();
-		$this->view->page->fields = $page->fields__merged;
+		$this->view->page = $page;
 
-		if (isset($ctype->comments) && $ctype->comments === true)
+		// Render the comments section
+		if ($page->type === 'blog-post')
 		{
 			$comments_view = new \StdClass();
-			$comments_view->page = clone $page;
 			$comments_view->disqus = array(
 				'developer' => \Config::get('/www/debug') ? 'true' : 'false',
 				'shortname' => \Config::get('/www/disqus/shortname'),
-				'identifier' => '/page/' . $page->id,
+				'identifier' => $page->permalink,
 				'title' => str_replace('\'', '\\\'', $page->title)
 			);
 
@@ -89,7 +66,7 @@ class PageController extends Controller
 				$comments_view);
 		}
 
-		echo $this->renderView($ctype->view);
+		echo $this->render_view(ROOT . '/views/page_' . $page->type . '.html');
 	}
 
 	/**

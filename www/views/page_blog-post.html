@@ -6,17 +6,14 @@
 		<h1 itemprop="name">{{page.title}}</h1>
 		<div class="info">
 			Posted by <span class="author" itemprop="author"
-				itemtype="http://schema.org/Person">{{page.user.name}}</span>
-			on <time itemprop="dateCreated">{{page.ctime_str_Ymd}}</time>
+				itemtype="http://schema.org/Person">{{page.author_name}}</span>
+			on <time itemprop="dateCreated">{{page.date}}</time>
 		</div>
-
-		{{^page.published}}
-			<div class="message_std notice">This page is not published.</div>
-		{{/page.published}}
 
 		<div class="parsedContent clearfix" itemprop="articleBody">
-			{{page.fields.content|raw}}
+			{{page.content|raw}}
 		</div>
+
 		{{comments_html|raw}}
 	</div>
 </div>
