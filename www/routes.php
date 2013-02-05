@@ -16,6 +16,12 @@ $router->route('/^\/_ajax\/(\w+)(\/|$)/', array(
 	'args' => array(1)
 ));
 
+$router->route('/^\/gitdata\/asset\/?$/', array(
+	'domain' => $www_domain,
+	'controller' => '\\WWW\\GitDataController',
+	'run' => 'run_asset'
+));
+
 $router->route('/^\/auth\/(\w+)(\/|$)/', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\AuthController',

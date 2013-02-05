@@ -10,6 +10,7 @@ class Autoloader
 		'WWW\\PageController' => '/controllers/page/page.php',
 		'WWW\\HssdocController' => '/controllers/hssdoc/hssdoc.php',
 		'WWW\\HomeController' => '/controllers/home/home.php',
+		'WWW\\GitDataController' => '/controllers/gitdata/gitdata.php',
 		'WWW\\GetInvolvedController' => '/controllers/get_involved/get_involved.php',
 		'WWW\\DownloadsController' => '/controllers/downloads/downloads.php',
 		'WWW\\AccountController' => '/controllers/account/account.php',

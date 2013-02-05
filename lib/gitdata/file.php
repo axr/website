@@ -22,8 +22,7 @@ class File
 
 	public static function try_read_file ($path)
 	{
-		$path = preg_replace('/[.]+/', '.', $path);
-		$real_path = GitData::$root . '/' . $path;
+		$real_path = GitData::$root . '/' . self::make_path_safe($path);
 
 		if (!file_exists($real_path))
 		{
@@ -31,5 +30,40 @@ class File
 		}
 
 		return new File($path, file_get_contents($real_path));
+	}
+
+	/**
+	 * Check, if a file exists
+	 *
+	 * @param string $path
+	 * @return bool
+	 */
+	public static function file_exists ($path)
+	{
+		$real_path = GitData::$root . '/' . self::make_path_safe($path);
+		return file_exists($real_path) && is_file($real_path);
+	}
+
+	/**
+	 * Check, if a directory exists
+	 *
+	 * @param string $path
+	 * @return bool
+	 */
+	public static function directory_exists ($path)
+	{
+		$real_path = GitData::$root . '/' . self::make_path_safe($path);
+		return file_exists($real_path) && is_dir($real_path);
+	}
+
+	/**
+	 * Make a user-provided path safe to use
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	public static function make_path_safe ($path)
+	{
+		return preg_replace('/[.]+/', '.', $path);
 	}
 }

@@ -103,6 +103,9 @@ class Page extends \GitData\Model
 			}
 		}
 
+		$this->_parsed_content = \GitData\Asset::replace_urls_in_html(
+			dirname($this->info_file->path), $this->_parsed_content);
+
 		return $this->_parsed_content;
 	}
 
