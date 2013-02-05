@@ -69,7 +69,7 @@ class PageController extends Controller
 		echo $this->render_view(ROOT . '/views/page_' . $page->type . '.html');
 	}
 
-	protected static function build_blog_index ()
+	public static function build_blog_index ()
 	{
 		$blog_root_path = \GitData\GitData::$root . '/pages/blog';
 

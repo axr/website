@@ -70,43 +70,13 @@ class Page extends \GitData\Model
 	}
 
 	/**
-	 * Returns the type of the content file.
-	 * Possible values: md|html|text
-	 *
-	 * @return string
-	 */
-	public function get_content_type ()
-	{
-		// Extract the file extension
-		$explode = explode('.', $this->content_file->path);
-		$extension = end($explode);
-
-		return in_array($extension, array('md', 'html')) ? $extension : 'text';
-	}
-
-	/**
 	 * Returns the parsed content of the page
 	 *
 	 * @return string
 	 */
 	public function get_content ()
 	{
-		if (!is_string($this->_parsed_content))
-		{
-			if ($this->get_content_type() === 'md')
-			{
-				$this->_parsed_content = Markdown($this->content_file->data);
-			}
-			else
-			{
-				$this->_parsed_content = $this->content_file->data;
-			}
-		}
-
-		$this->_parsed_content = \GitData\Asset::replace_urls_in_html(
-			dirname($this->info_file->path), $this->_parsed_content);
-
-		return $this->_parsed_content;
+		return $this->parse_content($this->content_file);
 	}
 
 	/**
@@ -117,10 +87,61 @@ class Page extends \GitData\Model
 	 */
 	public function get_summary ()
 	{
+		if (isset($this->info->summary_file))
+		{
+			// Read the summary file
+			$summary_file = \GitData\File::try_read_file(
+				dirname($this->info_file->path) . '/' . $this->info->summary_file);
+
+			if ($summary_file !== null)
+			{
+				return $this->parse_content($summary_file);
+			}
+		}
+
 		$content = $this->get_content();
 		$explode = explode('<!--more-->', $content);
 
 		return $explode[0];
+	}
+
+	/**
+	 * Parse stuff like the page content and summary.
+	 *
+	 * @param \GitData\File $file
+	 */
+	protected function parse_content (\GitData\File $file)
+	{
+		$data = $file->data;
+
+		if (self::get_content_type($file->path) === 'md')
+		{
+			$data = Markdown($data);
+		}
+
+		if (in_array(self::get_content_type($file->path), array('md', 'html')))
+		{
+			$data = \GitData\Asset::replace_urls_in_html(
+				dirname($this->info_file->path), $data);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Returns the type of the content file (or of the path specified)
+	 * Possible values: md|html|text
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	protected static function get_content_type ($path)
+	{
+		// Extract the file extension
+		$explode = explode('.', $path);
+		$extension = end($explode);
+
+		return in_array($extension, array('md', 'html')) ? $extension : 'text';
 	}
 
 	/**
