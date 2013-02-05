@@ -57,10 +57,22 @@ class Controller
 	/**
 	 * Render a view
 	 *
+	 * @deprecated use render_view instead
 	 * @param string $view_path
 	 * @return string
 	 */
 	protected function renderView ($view_path)
+	{
+		return $this->render_view($view_path);
+	}
+
+	/**
+	 * Render a view
+	 *
+	 * @param string $view_path
+	 * @return string
+	 */
+	protected function render_view ($view_path)
 	{
 		$layout_path = SHARED . '/views/layout.html';
 
