@@ -62,14 +62,26 @@
 	color: #000;
 }
 
-.parsedContent code:not([data-language])
+.parsedContent p code
 {
 	background: #fff;
 	border: 1px solid #bbb;
 	border-radius: 3px;
 	color: #555;
 	display: inline;
+	font-size: 12px;
 	padding: 0 3px;
+}
+
+.parsedContent pre > code
+{
+	background: #fff;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	color: #555;
+	display: block;
+	font-size: 12px;
+	padding: 5px;
 }
 
 .parsedContent table

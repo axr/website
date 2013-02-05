@@ -73,20 +73,34 @@ class WikiPage extends \GitData\Model
 	 */
 	public function get_mtime_str ()
 	{
-		$file = \GitData\GitData::$repo->get_file($this->content_file->path);
+		$commit = $this->content_file->get_commit();
 		$mtime = 0;
 
-		if ($file !== null)
+		if ($commit !== null)
 		{
-			$commit = $file->get_commit();
-
-			if ($commit !== null)
-			{
-				$mtime = $commit->date;
-			}
+			$mtime = $commit->date;
 		}
 
 		return date('Y-m-d H:i', $mtime);
+	}
+
+	/**
+	 * Returns the last person who edited this file
+	 *
+	 * @return string
+	 */
+	public function get_last_author ()
+	{
+		$commit = $this->content_file->get_commit();
+
+		if ($commit === null)
+		{
+			// The commit can be missing ONLY in the local development
+			// environment
+			return 'you';
+		}
+
+		return $commit->author;
 	}
 
 	/**

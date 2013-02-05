@@ -1,0 +1,11 @@
+#page > .last_modified
+{
+	color: #888;
+	font-size: 13px;
+	font-style: italic;
+}
+
+#page > .last_modified span
+{
+	color: #666;
+}

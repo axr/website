@@ -6,6 +6,7 @@ class Autoloader
 {
 	protected static $classes = array(
 		'Wiki\\Controller' => '/lib/controller.php',
+		'Wiki\\IndexController' => '/controllers/index/index.php',
 		'Wiki\\PageController' => '/controllers/page/page.php',
 		'Wiki\\ViewController' => '/controllers/view/view.php'
 	);

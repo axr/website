@@ -1,0 +1,28 @@
+#index h2 mark
+{
+	background: none;
+	color: #666;
+	font-style: italic;
+}
+
+#index ul
+{
+	margin: 0 0 0 40px;
+	padding: 0;
+}
+
+#index ul li
+{
+	padding: 3px 0;
+}
+
+#index ul li a
+{
+	color: #666;
+	font-size: 14px;
+}
+
+#index ul li a:hover
+{
+	color: #000;
+}

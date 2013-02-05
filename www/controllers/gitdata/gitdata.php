@@ -22,8 +22,19 @@ class GitDataController extends Controller
 			throw new \HTTPException(null, 404);
 		}
 
-		$sha = $file->get_commit()->sha;
-		$mtime = $file->get_commit()->date;
+		$last_commit = $file->get_commit();
+
+		// These default will be used only if the requested file doesn't belong
+		// to any commit. This can only happen in the local development
+		// environment.
+		$sha = hash('sha1', uniqid(''));
+		$mtime = time();
+
+		if ($last_commit !== null)
+		{
+			$sha = $last_commit->sha;
+			$mtime = $last_commit->date;
+		}
 
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		$mime_type = finfo_file($finfo, \GitData\GitData::$root . '/' . $file->path);
