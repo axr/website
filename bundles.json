@@ -62,7 +62,7 @@
 	"css/bundle_wiki.css": {
 		"type": "css",
 		"files": [
-			"css/openid.css"
+			"css/404.css"
 		]
 	},
 	"js/bundle_wiki.js": {
