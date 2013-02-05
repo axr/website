@@ -39,6 +39,11 @@ class PageController extends Controller
 			);
 		}
 
+		$this->tabs[] = array(
+			'name' => 'History',
+			'link' => $page->get_github_history_url()
+		);
+
 		$this->view->page = $page;
 
 		echo $this->render_view(ROOT . '/views/page.html');

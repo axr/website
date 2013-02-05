@@ -100,6 +100,15 @@ class WikiPage extends \GitData\Model
 	}
 
 	/**
+	 * @return string
+	 */
+	public function get_github_history_url ()
+	{
+		return 'https://github.com/axr/website-data/commits/master/' .
+			$this->content_file->path;
+	}
+
+	/**
 	 * Parse stuff like the page content and summary.
 	 *
 	 * @param \GitData\Git\File $file
