@@ -7,12 +7,12 @@ require_once(SHARED . '/lib/php-markdown/markdown.php');
 class Page extends \GitData\Model
 {
 	/**
-	 * @var \GitData\File
+	 * @var \GitData\Git\File
 	 */
 	protected $info_file;
 
 	/**
-	 * @var \GitData\File
+	 * @var \GitData\Git\File
 	 */
 	protected $content_file;
 
@@ -28,14 +28,13 @@ class Page extends \GitData\Model
 	/**
 	 * __construct
 	 *
-	 * @param \GitData\File $info_file
+	 * @param \GitData\Git\File $info_file
 	 */
-	public function __construct (\GitData\File $info_file)
+	public function __construct (\GitData\Git\File $info_file)
 	{
 		$this->info_file = $info_file;
 
-		$this->info = json_decode($info_file->data);
-
+		$this->info = json_decode($info_file->get_data());
 		if (!is_object($this->info))
 		{
 			throw new \GitData\Exceptions\EntityInvalid(null);
@@ -51,7 +50,7 @@ class Page extends \GitData\Model
 			$content_path = dirname($this->info_file->path) . '/content.md';
 		}
 
-		$this->content_file = \GitData\File::try_read_file($content_path);
+		$this->content_file = \GitData\GitData::$repo->get_file($content_path);
 
 		if ($this->content_file === null)
 		{
@@ -66,7 +65,7 @@ class Page extends \GitData\Model
 	 */
 	public function get_permalink ()
 	{
-		return preg_replace('/^\/pages/', '', dirname($this->info_file->path));
+		return preg_replace('/^pages/', '', dirname($this->info_file->path));
 	}
 
 	/**
@@ -90,7 +89,7 @@ class Page extends \GitData\Model
 		if (isset($this->info->summary_file))
 		{
 			// Read the summary file
-			$summary_file = \GitData\File::try_read_file(
+			$summary_file = \GitData\GitData::$repo->get_file(
 				dirname($this->info_file->path) . '/' . $this->info->summary_file);
 
 			if ($summary_file !== null)
@@ -108,11 +107,11 @@ class Page extends \GitData\Model
 	/**
 	 * Parse stuff like the page content and summary.
 	 *
-	 * @param \GitData\File $file
+	 * @param \GitData\Git\File $file
 	 */
-	protected function parse_content (\GitData\File $file)
+	protected function parse_content (\GitData\Git\File $file)
 	{
-		$data = $file->data;
+		$data = $file->get_data();
 
 		if (self::get_content_type($file->path) === 'md')
 		{
@@ -153,7 +152,7 @@ class Page extends \GitData\Model
 	public static function find_by_path ($path)
 	{
 		$path = preg_replace('/^\//', '', $path);
-		$info_file = \GitData\File::try_read_file('/pages/' . $path . '/info.json');
+		$info_file = \GitData\GitData::$repo->get_file('/pages/' . $path . '/info.json');
 
 		if ($info_file === null)
 		{

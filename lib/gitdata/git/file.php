@@ -16,7 +16,7 @@ class File
 	 *
 	 * @var string
 	 */
-	protected $path;
+	public $path;
 
 	/**
 	 * __construct
@@ -28,6 +28,26 @@ class File
 	{
 		$this->repository = $repository;
 		$this->path = $path;
+	}
+
+	/**
+	 * Read the file
+	 *
+	 * @return mixed
+	 */
+	public function get_data ()
+	{
+		return file_get_contents(\GitData\GitData::$root . '/' . $this->path);
+	}
+
+	/**
+	 * Get the size of the file
+	 *
+	 * @return int
+	 */
+	public function get_size ()
+	{
+		return strlen($this->get_data());
 	}
 
 	/**

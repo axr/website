@@ -22,6 +22,18 @@ class Repository
 	}
 
 	/**
+	 * Check, if a file exists
+	 *
+	 * @param string $path
+	 * @return bool
+	 */
+	public function file_exists ($path)
+	{
+		$path = preg_replace('/^\//', '', $path);
+		return file_exists($this->path . '/' . $path);
+	}
+
+	/**
 	 * Get a file from the repository
 	 *
 	 * @param string $path
@@ -30,14 +42,13 @@ class Repository
 	public function get_file ($path)
 	{
 		$path = preg_replace('/^\//', '', $path);
-		$full_path = $this->path . '/' . $path;
 
-		if (!file_exists($full_path))
+		if ($this->file_exists($path))
 		{
-			return null;
+			return new File($this, $path);
 		}
 
-		return new File($this, $path);
+		return null;
 	}
 
 	/**

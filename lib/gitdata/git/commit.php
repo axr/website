@@ -16,7 +16,7 @@ class Commit
 	 *
 	 * @var string
 	 */
-	protected $sha;
+	public $sha;
 
 	/**
 	 * Author of the commit

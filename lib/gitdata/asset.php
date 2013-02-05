@@ -7,92 +7,21 @@ require_once(SHARED . '/lib/core/url.php');
 class Asset
 {
 	/**
-	 * Path to the asset
+	 * Returns if the provided file is a valid asset and can be accessed
+	 * publicly
 	 *
-	 * @var string
+	 * @param \GitData\Git\File $file
 	 */
-	public $path;
-
-	/**
-	 * Publicly accessible absolute URL to the asset
-	 *
-	 * @var \URL
-	 */
-	public $url;
-
-	/**
-	 * __construct
-	 *
-	 * @param string $path
-	 */
-	public function __construct ($path)
+	public static function is_asset ($file)
 	{
-		$this->path = $path;
-		$this->url = \Config::get('/shared/www_url')
-			->copy()
-			->path('/gitdata/asset')
-			->query('path', $path);
-	}
+		$explode = explode('/', $file->path);
 
-	/**
-	 * Get the asset's data
-	 *
-	 * @return mixed
-	 */
-	public function get_data ()
-	{
-		return file_get_contents(\GitData\GitData::$root . '/' . $this->path);
-	}
-
-	/**
-	 * Return the last modified time for the asset
-	 *
-	 * @return int
-	 */
-	public function get_mtime ()
-	{
-		return filemtime(\GitData\GitData::$root . '/' . $this->path);
-	}
-
-	/**
-	 * Return an MD5 checksum for the file
-	 *
-	 * @return string
-	 */
-	public function get_md5_checksum ()
-	{
-		return md5_file(\GitData\GitData::$root . '/' . $this->path);
-	}
-
-	/**
-	 * Return the asset's mime type
-	 *
-	 * @return string
-	 */
-	public function get_mime_type ()
-	{
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		return finfo_file($finfo, \GitData\GitData::$root . '/' . $this->path);
-	}
-
-	/**
-	 * Get an asset by it's path name
-	 */
-	public static function get_by_path ($path)
-	{
-		if (!File::file_exists($path))
+		if (!in_array($explode[0], array('pages', 'wiki', 'hssdoc')))
 		{
-			return null;
+			return false;
 		}
 
-		$explode = explode('/', $path);
-
-		if (!in_array($explode[1], array('pages', 'wiki', 'hssdoc')))
-		{
-			return null;
-		}
-
-		return new Asset($path);
+		return true;
 	}
 
 	/**
@@ -104,21 +33,28 @@ class Asset
 	 */
 	public static function replace_urls_in_html ($path, $html)
 	{
-		if (!File::file_exists($path . '/info.json'))
+		if (!\GitData\GitData::$repo->file_exists($path . '/info.json'))
 		{
 			return $html;
 		}
 
 		$html = preg_replace_callback('/<img ([^>]+)?src="(?<path>[^"]+)"/', function ($match) use ($path)
 		{
-			$asset = self::get_by_path($path . '/' . $match["path"]);
+			$file = \GitData\GitData::$repo->get_file($path . '/' . $match['path']);
 
-			if ($asset === null)
+			if ($file === null ||
+				!self::is_asset($file))
 			{
 				return $match[0];
 			}
 
-			return str_replace($match["path"], $asset->url->to_string(), $match[0]);
+			$url = \Config::get('/shared/www_url')
+				->copy()
+				->path('/gitdata/asset')
+				->query('path', $file->path)
+				->to_string();
+
+			return str_replace($match["path"], $url, $match[0]);
 		}, $html);
 
 		return $html;

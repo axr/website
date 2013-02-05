@@ -7,12 +7,12 @@ require_once(SHARED . '/lib/php-markdown/markdown.php');
 class WikiPage extends \GitData\Model
 {
 	/**
-	 * @var \GitData\File
+	 * @var \GitData\Git\File
 	 */
 	protected $info_file;
 
 	/**
-	 * @var \GitData\File
+	 * @var \GitData\Git\File
 	 */
 	protected $content_file;
 
@@ -26,14 +26,13 @@ class WikiPage extends \GitData\Model
 	/**
 	 * __construct
 	 *
-	 * @param \GitData\File $info_file
+	 * @param \GitData\Git\File $info_file
 	 */
-	public function __construct (\GitData\File $info_file)
+	public function __construct (\GitData\Git\File $info_file)
 	{
 		$this->info_file = $info_file;
 
-		$this->info = json_decode($info_file->data);
-
+		$this->info = json_decode($info_file->get_data());
 		if (!is_object($this->info))
 		{
 			throw new \GitData\Exceptions\EntityInvalid(null);
@@ -49,7 +48,7 @@ class WikiPage extends \GitData\Model
 			$content_path = dirname($this->info_file->path) . '/content.md';
 		}
 
-		$this->content_file = \GitData\File::try_read_file($content_path);
+		$this->content_file = \GitData\GitData::$repo->get_file($content_path);
 
 		if ($this->content_file === null)
 		{
@@ -64,7 +63,7 @@ class WikiPage extends \GitData\Model
 	 */
 	public function get_permalink ()
 	{
-		return preg_replace('/^\/wiki/', '', dirname($this->info_file->path));
+		return preg_replace('/^wiki/', '', dirname($this->info_file->path));
 	}
 
 	/**
@@ -103,11 +102,11 @@ class WikiPage extends \GitData\Model
 	/**
 	 * Parse stuff like the page content and summary.
 	 *
-	 * @param \GitData\File $file
+	 * @param \GitData\Git\File $file
 	 */
-	protected function parse_content (\GitData\File $file)
+	protected function parse_content (\GitData\Git\File $file)
 	{
-		$data = $file->data;
+		$data = $file->get_data();
 
 		if (self::get_content_type($file->path) === 'md')
 		{
@@ -148,16 +147,16 @@ class WikiPage extends \GitData\Model
 	public static function find_by_path ($path)
 	{
 		$path = preg_replace('/^\//', '', $path);
-		$info_file = \GitData\File::try_read_file('/wiki/' . $path . '/info.json');
+		$file = \GitData\GitData::$repo->get_file('wiki/' . $path . '/info.json');
 
-		if ($info_file === null)
+		if ($file === null)
 		{
 			return null;
 		}
 
 		try
 		{
-			return new WikiPage($info_file);
+			return new WikiPage($file);
 		}
 		catch (\GitData\Exceptions\EntityInvalid $e)
 		{

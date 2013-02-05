@@ -21,7 +21,6 @@ class GitData
 require_once(GITDATA_ROOT . '/git/repository.php');
 require_once(GITDATA_ROOT . '/git/commit.php');
 require_once(GITDATA_ROOT . '/git/file.php');
-require_once(GITDATA_ROOT . '/file.php');
 require_once(GITDATA_ROOT . '/model.php');
 require_once(GITDATA_ROOT . '/asset.php');
 require_once(GITDATA_ROOT . '/exceptions/entity_invalid.php');
