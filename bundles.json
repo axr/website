@@ -28,7 +28,6 @@
 	"css/bundle_www.css": {
 		"type": "css",
 		"files": [
-			"css/openid.css",
 			"css/404.css",
 			"css/blog.css",
 			"css/page.css",
