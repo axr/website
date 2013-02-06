@@ -86,19 +86,6 @@
 	text-decoration: underline;
 }
 
-#hssdoc_sidebar ul.prop_list > li > a.edit
-{
-	color: #aaa;
-	display: none;
-	float: right;
-	font-size: 11px;
-}
-
-#hssdoc_sidebar ul.prop_list > li:hover > a.edit
-{
-	display: inline-block;
-}
-
 #hssdoc_sidebar > ul ul
 {
 	margin: 0 0 0 18px;
@@ -109,14 +96,20 @@
 	padding: 2px 0;
 }
 
-#hssdoc_sidebar > ul ul li a
+#hssdoc_sidebar ul.prop_list li .ro
+{
+	color: #aaa;
+	font-size: 12px;
+}
+
+#hssdoc_sidebar ul.prop_list li a
 {
 	color: #D09610;
 	font-size: 13px;
 	text-decoration: none;
 }
 
-#hssdoc_sidebar > ul ul li a:hover
+#hssdoc_sidebar ul.prop_lst li a:hover
 {
 	text-decoration: underline;
 }

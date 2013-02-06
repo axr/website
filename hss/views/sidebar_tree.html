@@ -1,0 +1,28 @@
+<ul class="obj_list">
+	{{#objects}}
+		<li data-object="{{name}}">
+			<span class="object">
+				<a href="#" class="open">
+					<span class="collapsed">[+]</span>
+					<span class="expanded">[-]</span>
+				</a>
+				<a href="{{permalink}}" class="obj">{{name}}</a>
+			</span>
+
+			<div class="children">
+				{{tree_html|raw}}
+
+				<ul class="prop_list">
+					{{#properties}}
+						<li>
+							<a href="{{permalink}}">{{name}}</a>
+							{{#readonly}}
+								<span class="ro">(read-only)</span>
+							{{/readonly}}
+						</li>
+					{{/properties}}
+				</ul>
+			</div>
+		</li>
+	{{/objects}}
+</ul>

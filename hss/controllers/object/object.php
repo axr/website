@@ -27,6 +27,7 @@ class ObjectController extends Controller
 
 		$this->view->object = $object;
 		$this->view->properties = $properties;
+		$this->view->sidebar = Sidebar::render();
 
 		echo $this->renderView(ROOT . '/views/object.html');
 	}

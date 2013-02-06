@@ -14,6 +14,13 @@ class HssdocObject extends \GitData\Model
 	public $name;
 
 	/**
+	 * Owner of the object
+	 *
+	 * @var string
+	 */
+	public $owner;
+
+	/**
 	 * Permalink for the object
 	 *
 	 * @var string
