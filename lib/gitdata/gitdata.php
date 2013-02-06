@@ -28,6 +28,8 @@ class Autoloader
 		'GitData\\Models\\GenericConfig' => '/models/generic_config.php',
 		'GitData\\Models\\HssdocProperty' => '/models/hssdoc_property.php',
 		'GitData\\Models\\HssdocObject' => '/models/hssdoc_object.php',
+		'GitData\\Models\\Package' => '/models/package.php',
+		'GitData\\Models\\PackageRelease' => '/models/package_release.php',
 		'GitData\\Models\\Page' => '/models/page.php',
 		'GitData\\Models\\WikiPage' => '/models/wiki_page.php'
 	);
