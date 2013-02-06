@@ -112,11 +112,23 @@ class Sidebar
 		foreach ($guide as $object_name => $data)
 		{
 			$parent_object = \GitData\Models\HssdocObject::find_by_name($object_name);
+
+			if ($parent_object === null)
+			{
+				continue;
+			}
+
 			$parent_object->child_objects = array();
 
 			foreach ($data->children as $child_name => $child)
 			{
 				$object = \GitData\Models\HssdocObject::find_by_name($child_name);
+
+				if ($object === null)
+				{
+					continue;
+				}
+
 				$object->child_objects = array();
 
 				if (count($child->children) > 0)
