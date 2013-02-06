@@ -2,10 +2,6 @@
 
 namespace Core;
 
-require_once(SHARED . '/lib/core/rsrc.php');
-require_once(SHARED . '/lib/core/minify.php');
-require_once(SHARED . '/lib/core/router.php');
-require_once(SHARED . '/lib/core/url.php');
 require_once(SHARED . '/lib/mustache/src/mustache.php');
 require_once(SHARED . '/lib/mustache_filters/json.php');
 

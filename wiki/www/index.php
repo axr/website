@@ -13,12 +13,10 @@ require_once(SHARED . '/lib/core/benchmark.php');
 \Core\Benchmark::initialize();
 
 require_once(SHARED . '/lib/extend.php');
-require_once(SHARED . '/lib/core/http_exception.php');
-require_once(SHARED . '/lib/core/config.php');
-require_once(SHARED . '/lib/core/router.php');
-require_once(SHARED . '/lib/core/cache.php');
-require_once(ROOT . '/lib/autoloader.php');
+require_once(SHARED . '/lib/core/autoloader.php');
 require_once(SHARED . '/lib/gitdata/gitdata.php');
+require_once(ROOT . '/lib/autoloader.php');
+require_once(ROOT . '/controllers/view/view.php');
 
 // Load configs
 require_once(SHARED . '/config.php');
