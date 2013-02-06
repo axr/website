@@ -7,16 +7,25 @@ require_once(SHARED . '/lib/php-markdown/markdown.php');
 class HssdocObject extends \GitData\Model
 {
 	/**
-	 * @var \GitData\Git\File
+	 * Name of the object
+	 *
+	 * @var string
 	 */
-	protected $info_file;
+	public $name;
 
 	/**
-	 * Parsed info file of the page
+	 * Permalink for the object
 	 *
-	 * @var \StdClass
+	 * @var string
 	 */
-	protected $info;
+	public $permalink;
+
+	/**
+	 * Description of the object
+	 *
+	 * @var string
+	 */
+	public $description;
 
 	/**
 	 * __construct
@@ -25,12 +34,34 @@ class HssdocObject extends \GitData\Model
 	 */
 	public function __construct (\GitData\Git\File $info_file)
 	{
-		$this->info_file = $info_file;
+		$info = json_decode($info_file->get_data());
 
-		$this->info = json_decode($info_file->get_data());
-		if (!is_object($this->info))
+		if (!is_object($info))
 		{
 			throw new \GitData\Exceptions\EntityInvalid(null);
+		}
+
+		foreach ($info as $key => $value)
+		{
+			if (property_exists(__CLASS__, $key))
+			{
+				$this->$key = $value;
+			}
+		}
+
+		// Set the permalink
+		$this->permalink = preg_replace('/^hssdoc/', '', dirname($info_file->path));
+
+		// Read the description
+		if (isset($info->description_file))
+		{
+			$file = \GitData\GitData::$repo->get_file(
+				dirname($info_file->path) . '/' . $info->description_file);
+
+			if ($file !== null)
+			{
+				$this->description = self::parse_content($file);
+			}
 		}
 	}
 
@@ -41,76 +72,7 @@ class HssdocObject extends \GitData\Model
 	 */
 	public function get_properties ()
 	{
-		return \GitData\Models\HssdocProperty::find_all_by_object($this->info->name);
-	}
-
-	/**
-	 * Returns the permalink for this page
-	 *
-	 * @return string
-	 */
-	public function get_permalink ()
-	{
-		return preg_replace('/^hssdoc/', '', dirname($this->info_file->path));
-	}
-
-	/**
-	 * Returns the parsed description of the object
-	 *
-	 * @return string
-	 */
-	public function get_description ()
-	{
-		if (isset($this->info->description_file))
-		{
-			// Read the summary file
-			$file = \GitData\GitData::$repo->get_file(
-				dirname($this->info_file->path) . '/' . $this->info->description_file);
-
-			if ($file !== null)
-			{
-				return $this->parse_content($file);
-			}
-		}
-	}
-
-	/**
-	 * Parse stuff like the page content and summary.
-	 *
-	 * @param \GitData\Git\File $file
-	 */
-	protected function parse_content (\GitData\Git\File $file)
-	{
-		$data = $file->get_data();
-
-		if (self::get_content_type($file->path) === 'md')
-		{
-			$data = Markdown($data);
-		}
-
-		if (in_array(self::get_content_type($file->path), array('md', 'html')))
-		{
-			$data = \GitData\Asset::replace_urls_in_html(
-				dirname($this->info_file->path), $data);
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Returns the type of the content file (or of the path specified)
-	 * Possible values: md|html|text
-	 *
-	 * @param string $path
-	 * @return string
-	 */
-	protected static function get_content_type ($path)
-	{
-		// Extract the file extension
-		$explode = explode('.', $path);
-		$extension = end($explode);
-
-		return in_array($extension, array('md', 'html')) ? $extension : 'text';
+		return \GitData\Models\HssdocProperty::find_all_by_object($this->name);
 	}
 
 	/**

@@ -7,21 +7,37 @@ require_once(SHARED . '/lib/php-markdown/markdown.php');
 class WikiPage extends \GitData\Model
 {
 	/**
-	 * @var \GitData\Git\File
-	 */
-	protected $info_file;
-
-	/**
-	 * @var \GitData\Git\File
-	 */
-	protected $content_file;
-
-	/**
-	 * Parsed info file of the page
+	 * Title for the page
 	 *
-	 * @var \StdClass
+	 * @var string
 	 */
-	protected $info;
+	public $title;
+
+	/**
+	 * Content of the page
+	 *
+	 * @var string
+	 */
+	public $content;
+
+	/**
+	 * @var string
+	 */
+	public $mtime_str = '0000-00-00 00:00';
+
+	/**
+	 * The last person that edited this file
+	 *
+	 * @var string
+	 */
+	public $last_author;
+
+	/**
+	 * URL to the GitHub history page
+	 *
+	 * @var string
+	 */
+	public $github_history_url;
 
 	/**
 	 * __construct
@@ -30,142 +46,63 @@ class WikiPage extends \GitData\Model
 	 */
 	public function __construct (\GitData\Git\File $info_file)
 	{
-		$this->info_file = $info_file;
+		$info = json_decode($info_file->get_data());
 
-		$this->info = json_decode($info_file->get_data());
-		if (!is_object($this->info))
+		if (!is_object($info))
 		{
 			throw new \GitData\Exceptions\EntityInvalid(null);
 		}
 
-		// Get path to the content file
-		if (isset($this->info->file))
+		foreach ($info as $key => $value)
 		{
-			$content_path = dirname($this->info_file->path) . '/' . $this->info->file;
-		}
-		else
-		{
-			$content_path = dirname($this->info_file->path) . '/content.md';
+			if (property_exists(__CLASS__, $key))
+			{
+				$this->$key = $value;
+			}
 		}
 
-		$this->content_file = \GitData\GitData::$repo->get_file($content_path);
-
-		if ($this->content_file === null)
+		// Read the content
 		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
-		}
-	}
+			if (isset($info->file))
+			{
+				$content_path = dirname($info_file->path) . '/' . $info->file;
+			}
+			else
+			{
+				$content_path = dirname($info_file->path) . '/content.md';
+			}
 
-	/**
-	 * Returns the permalink for this page
-	 *
-	 * @return string
-	 */
-	public function get_permalink ()
-	{
-		return preg_replace('/^wiki/', '', dirname($this->info_file->path));
-	}
+			$content_file = \GitData\GitData::$repo->get_file($content_path);
 
-	/**
-	 * Get the time of the last modification to this page
-	 *
-	 * @return string
-	 */
-	public function get_mtime_str ()
-	{
-		$commit = $this->content_file->get_commit();
-		$mtime = 0;
+			if ($content_file === null)
+			{
+				throw new \GitData\Exceptions\EntityInvalid(null);
+			}
 
-		if ($commit !== null)
-		{
-			$mtime = $commit->date;
+			$this->content = self::parse_content($content_file);
 		}
 
-		return date('Y-m-d H:i', $mtime);
-	}
+		$this->permalink = preg_replace('/^wiki/', '', dirname($info_file->path));
+		$this->github_history_url = 'https://github.com/axr/website-data/commits/master/' .
+			$content_file->path;
 
-	/**
-	 * Returns the last person who edited this file
-	 *
-	 * @return string
-	 */
-	public function get_last_author ()
-	{
-		$commit = $this->content_file->get_commit();
-
-		if ($commit === null)
+		// Get last modified date and last author
 		{
-			// The commit can be missing ONLY in the local development
-			// environment
-			return 'you';
+			$commit = $content_file->get_commit();
+
+			if ($commit !== null)
+			{
+				$this->mtime_str = date('Y-m-d H:i', $commit->date);
+				$this->last_author = $commit->author;
+			}
 		}
-
-		return $commit->author;
-	}
-
-	/**
-	 * Returns the parsed content of the page
-	 *
-	 * @return string
-	 */
-	public function get_content ()
-	{
-		return $this->parse_content($this->content_file);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_github_history_url ()
-	{
-		return 'https://github.com/axr/website-data/commits/master/' .
-			$this->content_file->path;
-	}
-
-	/**
-	 * Parse stuff like the page content and summary.
-	 *
-	 * @param \GitData\Git\File $file
-	 */
-	protected function parse_content (\GitData\Git\File $file)
-	{
-		$data = $file->get_data();
-
-		if (self::get_content_type($file->path) === 'md')
-		{
-			$data = Markdown($data);
-		}
-
-		if (in_array(self::get_content_type($file->path), array('md', 'html')))
-		{
-			$data = \GitData\Asset::replace_urls_in_html(
-				dirname($this->info_file->path), $data);
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Returns the type of the content file (or of the path specified)
-	 * Possible values: md|html|text
-	 *
-	 * @param string $path
-	 * @return string
-	 */
-	protected static function get_content_type ($path)
-	{
-		// Extract the file extension
-		$explode = explode('.', $path);
-		$extension = end($explode);
-
-		return in_array($extension, array('md', 'html')) ? $extension : 'text';
 	}
 
 	/**
 	 * Find a page by path name from the URL.
 	 *
 	 * @param string $path
-	 * @return \GitData\Models\Page
+	 * @return \GitData\Models\WikiPage
 	 */
 	public static function find_by_path ($path)
 	{

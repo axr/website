@@ -5,35 +5,42 @@ namespace GitData;
 abstract class Model
 {
 	/**
-	 * __isset
+	 * Parse stuff like the page content and summary.
 	 *
-	 * @param string $key
-	 * @return bool
+	 * @todo Move to \GitData\Model
+	 * @param \GitData\Git\File $file
 	 */
-	public function __isset ($key)
+	protected static function parse_content (\GitData\Git\File $file)
 	{
-		return isset($this->info->$key) ||
-			method_exists(get_called_class(), 'get_' . $key);
+		$data = $file->get_data();
+
+		if (self::get_content_type($file->path) === 'md')
+		{
+			$data = Markdown($data);
+		}
+
+		if (in_array(self::get_content_type($file->path), array('md', 'html')))
+		{
+			$data = \GitData\Asset::replace_urls_in_html(dirname($file->path), $data);
+		}
+
+		return $data;
 	}
 
 	/**
-	 * __get
+	 * Returns the type of the content file (or of the path specified)
+	 * Possible values: md|html|text
 	 *
-	 * @param string $key
-	 * @return mixed
+	 * @todo Move to \GitData\Model
+	 * @param string $path
+	 * @return string
 	 */
-	public function __get ($key)
+	protected static function get_content_type ($path)
 	{
-		if (isset($this->info->$key))
-		{
-			return $this->info->$key;
-		}
+		// Extract the file extension
+		$explode = explode('.', $path);
+		$extension = end($explode);
 
-		if (method_exists(get_called_class(), 'get_' . $key))
-		{
-			return $this->{'get_' . $key}();
-		}
-
-		return null;
+		return in_array($extension, array('md', 'html')) ? $extension : 'text';
 	}
 }

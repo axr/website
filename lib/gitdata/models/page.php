@@ -7,23 +7,47 @@ require_once(SHARED . '/lib/php-markdown/markdown.php');
 class Page extends \GitData\Model
 {
 	/**
-	 * @var \GitData\Git\File
-	 */
-	protected $info_file;
-
-	/**
-	 * @var \GitData\Git\File
-	 */
-	protected $content_file;
-
-	/**
-	 * Parsed info file of the page
+	 * Type of the page
 	 *
-	 * @var \StdClass
+	 * @var string
 	 */
-	protected $info;
+	public $type;
 
-	protected $_parsed_content;
+	/**
+	 * Title for the page
+	 *
+	 * @var string
+	 */
+	public $title;
+
+	/**
+	 * Date of creation
+	 *
+	 * @var string
+	 */
+	public $date;
+
+	/**
+	 * Author's name
+	 *
+	 * @var string
+	 */
+	public $author_name;
+
+	/**
+	 * Content of the page
+	 *
+	 * @var string
+	 */
+	public $content;
+
+	/**
+	 * Summary of the page. This property is filled only for pages of type
+	 * `blog-post`.
+	 *
+	 * @var string
+	 */
+	public $summary;
 
 	/**
 	 * __construct
@@ -32,115 +56,66 @@ class Page extends \GitData\Model
 	 */
 	public function __construct (\GitData\Git\File $info_file)
 	{
-		$this->info_file = $info_file;
+		$info = json_decode($info_file->get_data());
 
-		$this->info = json_decode($info_file->get_data());
-		if (!is_object($this->info))
+		if (!is_object($info))
 		{
 			throw new \GitData\Exceptions\EntityInvalid(null);
 		}
 
-		// Get path to the content file
-		if (isset($this->info->file))
+		foreach ($info as $key => $value)
 		{
-			$content_path = dirname($this->info_file->path) . '/' . $this->info->file;
-		}
-		else
-		{
-			$content_path = dirname($this->info_file->path) . '/content.md';
-		}
-
-		$this->content_file = \GitData\GitData::$repo->get_file($content_path);
-
-		if ($this->content_file === null)
-		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
-		}
-	}
-
-	/**
-	 * Returns the permalink for this page
-	 *
-	 * @return string
-	 */
-	public function get_permalink ()
-	{
-		return preg_replace('/^pages/', '', dirname($this->info_file->path));
-	}
-
-	/**
-	 * Returns the parsed content of the page
-	 *
-	 * @return string
-	 */
-	public function get_content ()
-	{
-		return $this->parse_content($this->content_file);
-	}
-
-	/**
-	 * Get a short summery for this page. This method is mostly used for blog
-	 * posts.
-	 *
-	 * @return string
-	 */
-	public function get_summary ()
-	{
-		if (isset($this->info->summary_file))
-		{
-			// Read the summary file
-			$summary_file = \GitData\GitData::$repo->get_file(
-				dirname($this->info_file->path) . '/' . $this->info->summary_file);
-
-			if ($summary_file !== null)
+			if (property_exists(__CLASS__, $key))
 			{
-				return $this->parse_content($summary_file);
+				$this->$key = $value;
 			}
 		}
 
-		$content = $this->get_content();
-		$explode = explode('<!--more-->', $content);
+		// Set the permalink
+		$this->permalink = preg_replace('/^pages/', '', dirname($info_file->path));
 
-		return $explode[0];
-	}
-
-	/**
-	 * Parse stuff like the page content and summary.
-	 *
-	 * @param \GitData\Git\File $file
-	 */
-	protected function parse_content (\GitData\Git\File $file)
-	{
-		$data = $file->get_data();
-
-		if (self::get_content_type($file->path) === 'md')
+		// Read the content
 		{
-			$data = Markdown($data);
+			if (isset($info->file))
+			{
+				$content_path = dirname($info_file->path) . '/' . $info->file;
+			}
+			else
+			{
+				$content_path = dirname($info_file->path) . '/content.md';
+			}
+
+			$content_file = \GitData\GitData::$repo->get_file($content_path);
+
+			if ($content_file === null)
+			{
+				throw new \GitData\Exceptions\EntityInvalid(null);
+			}
+
+			$this->content = self::parse_content($content_file);
 		}
 
-		if (in_array(self::get_content_type($file->path), array('md', 'html')))
+		// Get the summary
+		if ($this->type === 'blog-post')
 		{
-			$data = \GitData\Asset::replace_urls_in_html(
-				dirname($this->info_file->path), $data);
+			if (isset($info->summary_file))
+			{
+				// Read the summary file
+				$summary_file = \GitData\GitData::$repo->get_file(
+					dirname($info_file->path) . '/' . $info->summary_file);
+
+				if ($summary_file !== null)
+				{
+					$this->summary = self::parse_content($summary_file);
+				}
+			}
+
+			if (empty($this->summary))
+			{
+				$explode = explode('<!--more-->', $this->content);
+				$this->summary = $explode[0];
+			}
 		}
-
-		return $data;
-	}
-
-	/**
-	 * Returns the type of the content file (or of the path specified)
-	 * Possible values: md|html|text
-	 *
-	 * @param string $path
-	 * @return string
-	 */
-	protected static function get_content_type ($path)
-	{
-		// Extract the file extension
-		$explode = explode('.', $path);
-		$extension = end($explode);
-
-		return in_array($extension, array('md', 'html')) ? $extension : 'text';
 	}
 
 	/**
