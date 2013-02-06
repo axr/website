@@ -3,7 +3,6 @@
 namespace WWW;
 
 $www_domain = \Config::get('/shared/www_url')->host;
-$hssdoc_domain = \Config::get('/shared/hssdoc_url')->host;
 
 $router->route('/^\/$/', array(
 	'domain' => $www_domain,
@@ -66,82 +65,6 @@ $router->route('/^\/blog\/?$/', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\PageController',
 	'run' => 'run_blog_list'
-));
-
-$router->route('/^\/add_object\/?$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_edit_object',
-	'args' => array('add')
-));
-
-$router->route('/^\/add_property\/([^\/]+)\/?$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_edit_property',
-	'args' => array('add', 1)
-));
-
-$router->route('/^\/edit_property\/(\d+)\/?$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_edit_property',
-	'args' => array('edit', 1)
-));
-
-$router->route('/^\/([^\/]+)\/edit\/?$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_edit_object',
-	'args' => array('edit', 1)
-));
-
-$router->route('/^\/([^\/]+)\/rm\/?$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_rm_object',
-	'args' => array(1)
-));
-
-$router->route('/^\/([^\/]+)\/([^\/]+)\/rm\/?$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_rm_property',
-	'args' => array(1, 2)
-));
-
-$router->route('/^\/property_values\.json$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_property_values_GET',
-	'method' => 'GET'
-));
-
-$router->route('/^\/property_values\.json$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_property_values_POST',
-	'method' => 'POST'
-));
-
-$router->route('/^\/property_values\.json$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_property_values_DELETE',
-	'method' => 'DELETE'
-));
-
-$router->route('/^\/([^\/#]+)\/?$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run_object',
-	'args' => array(1)
-));
-
-$router->route('/^\/?$/i', array(
-	'domain' => $hssdoc_domain,
-	'controller' => '\\WWW\\HssdocController',
-	'run' => 'run'
 ));
 
 $router->route('/^\/downloads\/?$/i', array(
