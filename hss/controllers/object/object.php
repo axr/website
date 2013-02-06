@@ -8,6 +8,11 @@ class ObjectController extends Controller
 	{
 		$object = \GitData\Models\HssdocObject::find_by_name($object_name);
 
+		if ($object === null)
+		{
+			throw new \HTTPException(null, 404);
+		}
+
 		$properties = $object->get_properties();
 
 		foreach ($properties as &$property)
