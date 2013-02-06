@@ -13,30 +13,17 @@ require_once(SHARED . '/lib/core/benchmark.php');
 \Core\Benchmark::initialize();
 
 require_once(SHARED . '/lib/extend.php');
-require_once(SHARED . '/lib/activerecord/ActiveRecord.php');
 require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/config.php');
-require_once(SHARED . '/lib/core/session.php');
 require_once(SHARED . '/lib/core/router.php');
 require_once(SHARED . '/lib/core/cache.php');
 require_once(ROOT . '/lib/autoloader.php');
 require_once(ROOT . '/controllers/view/view.php');
-require_once(ROOT . '/models/user.php');
 require_once(SHARED . '/lib/gitdata/gitdata.php');
 
 // Load configs
 require_once(SHARED . '/config.php');
 require_once(ROOT . '/config.php');
-
-// Connect to the database
-\ActiveRecord\Config::initialize(function($cfg)
-{
-	$cfg->set_model_directory(ROOT . '/models');
-	$cfg->set_default_connection('default');
-	$cfg->set_connections(array(
-		'default' => \Config::get('/www/db/connection')
-	));
-});
 
 \GitData\GitData::initialize(SHARED . '/data');
 
@@ -49,9 +36,6 @@ $router = new \Router('http://' . $_SERVER['SERVER_NAME'] . $path);
 
 // Register routes
 require_once(ROOT . '/routes.php');
-
-// Initialize the session
-\Session::initialize();
 
 $goto = $router->find();
 $_GET = $router->url->query;
@@ -113,6 +97,3 @@ catch (\HTTPException $e)
 		echo $e->getCode() . ': ' . $e->getMessage();
 	}
 }
-
-// Save the session
-\Session::save();

@@ -37,17 +37,12 @@
 			"css/manifesto.css",
 			"css/calendar.css",
 			"css/home.css",
-			"css/auth.css",
-			"css/account.css",
 			"css/get_involved.css"
 		]
 	},
 	"js/bundle_www.js": {
 		"type": "js",
 		"files": [
-			"js/openid-jquery.js",
-			"js/openid-en.js",
-			"js/auth.js",
 			"js/home.js",
 			"js/get_involved.js",
 			"js/hssdoc.js"
@@ -69,12 +64,7 @@
 	},
 	"js/bundle_wiki.js": {
 		"type": "js",
-		"files": [
-			"js/app_auth.js",
-			"js/openid-jquery.js",
-			"js/openid-en.js",
-			"js/wiki/mixed_login.js"
-		]
+		"files": []
 	},
 	"js/bundle_rainbow.js": {
 		"type": "js",

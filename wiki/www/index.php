@@ -13,7 +13,6 @@ require_once(SHARED . '/lib/core/benchmark.php');
 \Core\Benchmark::initialize();
 
 require_once(SHARED . '/lib/extend.php');
-require_once(SHARED . '/lib/activerecord/ActiveRecord.php');
 require_once(SHARED . '/lib/core/http_exception.php');
 require_once(SHARED . '/lib/core/config.php');
 require_once(SHARED . '/lib/core/router.php');
@@ -23,16 +22,6 @@ require_once(SHARED . '/lib/gitdata/gitdata.php');
 
 // Load configs
 require_once(SHARED . '/config.php');
-
-// Connect to the database
-// This is just temporary, until the cache doesn't depend on a database
-\ActiveRecord\Config::initialize(function($cfg)
-{
-	$cfg->set_default_connection('default');
-	$cfg->set_connections(array(
-		'default' => \Config::get('/www/db/connection')
-	));
-});
 
 \GitData\GitData::initialize(SHARED . '/data');
 
