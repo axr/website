@@ -13,6 +13,10 @@ Config::set('/shared/wiki_url', new \URL('http://wiki.axrproject.org'));
 // When in production, this should be set to the deployet commit's SHA
 Config::set('/shared/version', '0000000');
 
+Config::set('/shared/cache_servers', array(
+	array('localhost', 11211)
+));
+
 Config::set('/shared/apps', (object) array(
 	'www' => (object) array(
 		'domains' => array('axrproject.org', 'hss.axrproject.org')

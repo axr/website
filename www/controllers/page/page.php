@@ -74,14 +74,7 @@ class PageController extends Controller
 	 */
 	public function run_blog_list ()
 	{
-		$cache_key = '/www/blog_index?dataver=' . \GitData\GitData::$version;
-		$index = \Cache::get($cache_key);
-
-		if (!is_object($index))
-		{
-			$index = self::build_blog_index();
-			\Cache::set($cache_key, $index);
-		}
+		$index = self::get_blog_index();
 
 		$per_page = 25;
 		$count = count($index);
@@ -164,6 +157,21 @@ class PageController extends Controller
 		{
 			return ($a->date < $b->date) ? 1 : -1;
 		});
+
+		return $index;
+	}
+
+	public static function get_blog_index ()
+	{
+		$index = \Cache::get('/www/blog_index');
+
+		if (!is_object($index))
+		{
+			$index = self::build_blog_index();
+			\Cache::set('/www/blog_index', $index, array(
+				'data_version' => 'current'
+			));
+		}
 
 		return $index;
 	}

@@ -41,7 +41,7 @@ require_once(ROOT . '/config.php');
 \GitData\GitData::initialize(SHARED . '/data');
 
 // Initialize the cache
-\Cache::initialize();
+\Cache::initialize(\Config::get('/shared/cache_servers'));
 
 // Create new router
 $path = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';

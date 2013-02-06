@@ -1,11 +1,17 @@
 <?php
 
-require_once(SHARED . '/lib/core/models/cache.php');
-
 class Cache
 {
-	public static function initialize ()
+	protected static $memcached;
+
+	/**
+	 * Initialize the cache system. This MUST be called before any of the cache
+	 * functions can be used.
+	 */
+	public static function initialize (array $servers)
 	{
+		self::$memcached = new \Memcached();
+		self::$memcached->addServers($servers);
 	}
 
 	/**
@@ -13,30 +19,39 @@ class Cache
 	 *
 	 * $options:
 	 * - (int) expires: Max age in seconds
+	 * - (string) data_version: Version of the dataset
 	 *
 	 * @param string $path
 	 * @param mixed $data
 	 * @param mixed[] $options
 	 */
-	public static function set ($path, $data, $options = array())
+	public static function set ($path, $data, array $options = array())
 	{
-		try
+		$expires = (int) array_key_or($options, 'expires', 3600);
+
+		if ($expires > 0)
 		{
-			$item = \Core\Models\Cache::find($path);
-		}
-		catch (\ActiveRecord\RecordNotFound $e)
-		{
+			$expires += time();
 		}
 
-		if (!isset($item) || !is_object($item))
+		$store_obj = (object) array(
+			'data' => $data,
+			'data_version' => null
+		);
+
+		if (isset($options['data_version']))
 		{
-			$item = new \Core\Models\Cache();
+			if ($options['data_version'] === 'current')
+			{
+				$store_obj->data_version = \GitData\GitData::$version;
+			}
+			else
+			{
+				$store_obj->data_version = $options['data_version'];
+			}
 		}
 
-		$item->key = $path;
-		$item->data = serialize($data);
-		$item->expires = time() + (int) array_key_or($options, 'expires', 3600);
-		$item->save();
+		self::$memcached->set($path, serialize($store_obj), $expires);
 	}
 
 	/**
@@ -48,28 +63,24 @@ class Cache
 	 */
 	public static function get ($path)
 	{
-		try
-		{
-			$item = \Core\Models\Cache::find_by_key($path);
-		}
-		catch (\ActiveRecord\RecordNotFound $e)
-		{
-			return null;
-		}
+		$item = self::$memcached->get($path);
+		$item = unserialize($item);
 
 		if (!is_object($item))
 		{
+			self::rm($path);
 			return null;
 		}
 
-		if ($item->expires < time())
+		// This key is for another dataset version
+		if (isset($item->data_version) &&
+			$item->data_version !== \GitData\GitData::$version)
 		{
-			$item->delete();
-
+			self::rm($path);
 			return null;
 		}
 
-		return unserialize($item->data);
+		return $item->data;
 	}
 
 	/**
@@ -79,14 +90,6 @@ class Cache
 	 */
 	public static function rm ($path)
 	{
-		try
-		{
-			$item = \Core\Models\Cache::find_by_key($path);
-			$item->delete();
-		}
-		catch (\ActiveRecord\RecordNotFound $e)
-		{
-		}
+		self::$memcached->delete($path);
 	}
 }
-

@@ -36,14 +36,7 @@ class HomeController extends Controller
 
 		// Get the data for the latest blog posts section
 		{
-			$cache_key = '/www/blog_index?dataver=' . \GitData\GitData::$version;
-			$posts = \Cache::get($cache_key);
-
-			if (!is_object($posts))
-			{
-				$posts = PageController::build_blog_index();
-				\Cache::set($cache_key, $posts);
-			}
+			$posts = PageController::get_blog_index();
 
 			$this->view->blog_posts = array();
 
