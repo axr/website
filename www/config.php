@@ -5,9 +5,7 @@ require_once(SHARED . '/lib/core/config.php');
 Config::set('/www/debug', false);
 
 Config::set('/www/irc_count_file', '/dev/shm/irc_count');
-Config::set('/www/ga_account', 'UA-20384487-1');
 
-Config::set('/www/disqus/shortname', 'axr');
 Config::set('/www/downloads/repo/browser', 'axr/browser');
 Config::set('/www/downloads/repo/core', 'axr/core');
 
