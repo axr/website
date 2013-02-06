@@ -6,9 +6,9 @@ class Autoloader
 {
 	protected static $classes = array(
 		'Hssdoc\\Controller' => '/lib/controller.php',
+		'Hssdoc\\HomeController' => '/controllers/home/home.php',
 		'Hssdoc\\ObjectController' => '/controllers/object/object.php',
-		'Hssdoc\\Sidebar' => '/lib/sidebar.php',
-		'Hssdoc\\ViewController' => '/controllers/view/view.php'
+		'Hssdoc\\Sidebar' => '/lib/sidebar.php'
 	);
 
 	/**

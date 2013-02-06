@@ -12,7 +12,6 @@ require_once(SHARED . '/lib/extend.php');
 require_once(SHARED . '/lib/core/autoloader.php');
 require_once(SHARED . '/lib/gitdata/gitdata.php');
 require_once(ROOT . '/lib/autoloader.php');
-require_once(ROOT . '/controllers/view/view.php');
 
 // Load configs
 require_once(SHARED . '/config.php');
