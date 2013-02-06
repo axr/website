@@ -67,6 +67,7 @@
 	"css/bundle_hssdoc.css": {
 		"type": "css",
 		"files": [
+			"css/404.css",
 			"css/hssdoc.css"
 		]
 	},
