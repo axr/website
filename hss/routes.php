@@ -10,3 +10,10 @@ $router->route('/^\/$/', array(
 	'run' => 'run',
 	'args' => array(ROOT . '/views/hssdoc.html')
 ));
+
+$router->route('/^\/(@\w+)\/?$/', array(
+	'domain' => $hssdoc_domain,
+	'controller' => '\\Hssdoc\\ObjectController',
+	'run' => 'run',
+	'args' => array(1)
+));

@@ -32,7 +32,6 @@
 			"css/404.css",
 			"css/blog.css",
 			"css/page.css",
-			"css/hssdoc.css",
 			"css/downloads.css",
 			"css/manifesto.css",
 			"css/calendar.css",
@@ -44,8 +43,7 @@
 		"type": "js",
 		"files": [
 			"js/home.js",
-			"js/get_involved.js",
-			"js/hssdoc.js"
+			"js/get_involved.js"
 		]
 	},
 	"js/downloads.js": {
@@ -65,6 +63,18 @@
 	"js/bundle_wiki.js": {
 		"type": "js",
 		"files": []
+	},
+	"css/bundle_hssdoc.css": {
+		"type": "css",
+		"files": [
+			"css/hssdoc.css"
+		]
+	},
+	"js/bundle_hssdoc.js": {
+		"type": "js",
+		"files": [
+			"js/hssdoc.js"
+		]
 	},
 	"js/bundle_rainbow.js": {
 		"type": "js",

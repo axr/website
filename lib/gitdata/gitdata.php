@@ -25,6 +25,8 @@ class Autoloader
 		'GitData\\Asset' => '/asset.php',
 		'GitData\\Exceptions\\EntityInvalid' => '/exceptions/entity_invalid.php',
 		'GitData\\Model' => '/model.php',
+		'GitData\\Models\\HssdocProperty' => '/models/hssdoc_property.php',
+		'GitData\\Models\\HssdocObject' => '/models/hssdoc_object.php',
 		'GitData\\Models\\Page' => '/models/page.php',
 		'GitData\\Models\\WikiPage' => '/models/wiki_page.php'
 	);
