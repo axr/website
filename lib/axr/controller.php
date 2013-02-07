@@ -62,6 +62,7 @@ class Controller extends \Core\Controller
 		$this->view->{'g/rsrc_root'} = (string) \Config::get('/shared/rsrc_url');
 		$this->view->{'g/www_url'} = (string) \Config::get('/shared/www_url');
 		$this->view->{'g/wiki_url'}  = (string) \Config::get('/shared/wiki_url');
+		$this->view->{'g/hssdoc_url'}  = (string) \Config::get('/shared/hssdoc_url');
 
 		$this->tabs = array();
 		$this->breadcrumb = array(
