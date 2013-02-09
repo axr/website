@@ -23,7 +23,7 @@ class GithubActivity
 		if ($response === null ||
 			!is_array($response))
 		{
-			return false;
+			return array();
 		}
 
 		$events = array();
