@@ -12,6 +12,23 @@ class Cache
 	{
 		self::$memcached = new \Memcached();
 		self::$memcached->addServers($servers);
+
+		$stats = self::$memcached->getStats();
+		$connected = false;
+
+		foreach ($stats as $key => $server)
+		{
+			if ($server['pid'] > 0)
+			{
+				$connected = true;
+				break;
+			}
+		}
+
+		if ($connected === false)
+		{
+			throw new \Core\Exceptions\MemcacheFailure();
+		}
 	}
 
 	/**

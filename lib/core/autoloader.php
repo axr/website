@@ -16,6 +16,7 @@ class Autoloader
 		'Core\\Controller' => '/controller.php',
 		'Core\\Exceptions\\URLReadonly' => '/exceptions/url_readonly.php',
 		'Core\\Exceptions\\HTTPAjaxException' => '/exceptions/http_ajax.php',
+		'Core\\Exceptions\\MemcacheFailure' => '/exceptions/memcache_failure.php',
 		'HTTPException' => '/http_exception.php',
 		'Minify' => '/minify.php',
 		'Router' => '/router.php',

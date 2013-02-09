@@ -18,8 +18,16 @@ require_once(SHARED . '/config.php');
 
 \GitData\GitData::initialize(SHARED . '/data');
 
-// Initialize the cache
-\Cache::initialize(\Config::get('/shared/cache_servers'));
+try
+{
+	// Initialize the cache
+	\Cache::initialize(\Config::get('/shared/cache_servers'));
+}
+catch (\Core\Exceptions\MemcacheFailure $e)
+{
+	echo 'Could not establish connection to the cache server';
+	exit;
+}
 
 // Create new router
 $path = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
