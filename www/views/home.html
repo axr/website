@@ -356,9 +356,9 @@ qux:[title:startsWith("Welcome")] { }</code></pre>
 				more complicated than it really is, so here come some
 				examples:</p>
 <pre><code data-language="hss">// align foo to the right horizontally
-foo { alignX: left; }
-// align bar at the middle vertically
-bar { alignY: middle; }
+foo { alignX: right; }
+// vertically center bar
+bar { alignY: center; }
 // place baz with it's right edge 30 points to the left
 // of the center of its parent, without affecting other
 // elements
@@ -368,12 +368,12 @@ baz
 	alignX: 50% - 30;
 	flow: no;
 }
-// align all elements *inside* qux at the middle vertically,
+// vertically center all elements *inside* qux,
 // and lay them out from top to bottom instead of left
 // to right
 qux
 {
-	contentAlignY: middle;
+	contentAlignY: center;
 	direction: ttb;
 }</code></pre>
 			</div>
