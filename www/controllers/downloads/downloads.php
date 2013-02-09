@@ -47,9 +47,6 @@ class DownloadsController extends Controller
 		echo $this->renderView(ROOT . '/views/downloads.html');
 	}
 
-	/**
-	 * @todo Cache this monster
-	 */
 	private static function get_releases ($packages)
 	{
 		$cache_key = '/www/releases/' . md5(implode(',', $packages));

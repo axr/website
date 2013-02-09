@@ -2,35 +2,72 @@
 
 namespace WWW;
 
-require_once(SHARED . '/lib/axr/gh_repository.php');
+require_once(SHARED . '/lib/axr/pkgtools.php');
 
 class HomeController extends Controller
 {
 	public function run ()
 	{
-		$repo = new \AXR\GHRepository(\Config::get('/www/downloads/repo/browser'));
-		$repo->load();
+		$package = \GitData\Models\Package::find_by_name('axr-browser');
+		$release = $package->get_release('latest');
 
-		$oses = array(
-			'osx' => 'OSX',
-			'linux' => 'Linux',
-			'windows' => 'Windows'
-		);
-
-		$release = $repo->get_release('latest');
-
-		if (is_object($release) &&
-			isset($release->packages) &&
-			isset($release->packages->{'axr-browser'}))
+		if ($release !== null)
 		{
-			$release->_file = \AXR\GHRepository::choose_best_file($release->packages->{'axr-browser'}->files);
+			$best = null;
+			$perfect_match = false;
 
-			if ($release->_file !== null)
+			$client_os = \AXR\Pkgtools::detect_os();
+			$client_arch = \AXR\Pkgtools::detect_arch();
+			$client_distro = \AXR\Pkgtools::detect_linux_distro();
+			$client_pm_ext = \AXR\Pkgtools::get_pm_ext();
+
+			foreach ($release->files as $file)
 			{
-				$release->_file->_os = isset($oses[$release->_file->os]) ?
-					$oses[$release->_file->os] : $release->_file->os;
+				if ($file->os !== $client_os ||
+					$file->arch !== $client_arch)
+				{
+					continue;
+				}
 
-				$this->view->release = $release;
+				if ($client_os === 'linux')
+				{
+					if ($file->type === $client_pm_ext)
+					{
+						$perfect_match = true;
+						$best = $file;
+
+						break;
+					}
+
+					// Just in case we don't find a better match
+					if ($file->type === 'tar.gz')
+					{
+						$best = $file;
+					}
+				}
+				else
+				{
+					$best = $file;
+					break;
+				}
+			}
+
+			if ($best !== null)
+			{
+				$os_str = \AXR\Pkgtools::os_to_human($client_os);
+
+				if ($perfect_match === true &&
+					$client_distro !== null)
+				{
+					$os_str = \AXR\Pkgtools::distro_to_human($client_distro);
+				}
+
+				$this->view->release = array(
+					'os_str' => $os_str,
+					'version' => $release->version,
+					'filename' => $best->filename,
+					'url' => $best->url
+				);
 			}
 		}
 
