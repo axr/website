@@ -2,7 +2,6 @@
 
 namespace WWW;
 
-require_once(SHARED . '/lib/axr/gh_repository.php');
 require_once(SHARED . '/lib/mustache_filters/filesize.php');
 
 class DownloadsController extends Controller
