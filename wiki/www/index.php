@@ -21,6 +21,7 @@ require_once(ROOT . '/controllers/view/view.php');
 // Load configs
 require_once(SHARED . '/config.php');
 
+\Core\Benchmark::initialize();
 \GitData\GitData::initialize(SHARED . '/data');
 
 try
