@@ -45,6 +45,15 @@ class ObjectController extends Controller
 			return null;
 		}
 
+		$cache_key = '/hssdoc/values_table_html/' . $property->object_name .
+			'/' . $property->name;
+		$html = \Cache::get($cache_key);
+
+		if ($html !== null)
+		{
+			return $html;
+		}
+
 		$values = $property->values;
 		$first_of_ver = array();
 
@@ -78,6 +87,14 @@ class ObjectController extends Controller
 		$mustache = new \Mustache\Renderer();
 		$template = file_get_contents(ROOT . '/views/values_table.html');
 
-		return $mustache->render($template, $view);
+		// Render the values table
+		$html = $mustache->render($template, $view);
+
+		// And cache it
+		\Cache::set($cache_key, $html, array(
+			'data_version' => 'current'
+		));
+
+		return $html;
 	}
 }
