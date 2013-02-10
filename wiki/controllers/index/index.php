@@ -6,6 +6,14 @@ class IndexController extends Controller
 {
 	public function run ($path)
 	{
+		$html = $this->get_cached_page('/wiki/index/' . hash('sha1', $path));
+
+		if ($html !== null)
+		{
+			echo $html;
+			return;
+		}
+
 		$path = preg_replace('/[.]+/', '.', $path);
 		$full_path = \GitData\GitData::$root . '/wiki/' . $path;
 
@@ -78,6 +86,8 @@ class IndexController extends Controller
 		$this->view->paths = $paths;
 		$this->view->pages = $pages;
 
-		echo $this->render_view(ROOT . '/views/index.html');
+		echo $this->render_view(ROOT . '/views/index.html', array(
+			'cache_key' => '/wiki/index/' . hash('sha1', $path)
+		));
 	}
 }

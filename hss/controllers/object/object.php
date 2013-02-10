@@ -6,6 +6,14 @@ class ObjectController extends Controller
 {
 	public function run ($object_name)
 	{
+		$html = $this->get_cached_page('/hssdoc/@' . $object_name);
+
+		if ($html !== null)
+		{
+			echo $html;
+			return;
+		}
+
 		$object = \GitData\Models\HssdocObject::find_by_name($object_name);
 
 		if ($object === null)
@@ -29,7 +37,9 @@ class ObjectController extends Controller
 		$this->view->properties = $properties;
 		$this->view->sidebar = Sidebar::render();
 
-		echo $this->renderView(ROOT . '/views/object.html');
+		echo $this->render_view(ROOT . '/views/object.html', array(
+			'cache_key' => '/hssdoc/@' . $object_name
+		));
 	}
 
 	/**

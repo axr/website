@@ -22,6 +22,14 @@ class PageController extends Controller
 	 */
 	public function run_display ($path)
 	{
+		$html = $this->get_cached_page('/wiki/page/' . hash('sha1', $path));
+
+		if ($html !== null)
+		{
+			echo $html;
+			return;
+		}
+
 		$page = \GitData\Models\WikiPage::find_by_path($path);
 
 		if ($page === null)
@@ -46,6 +54,8 @@ class PageController extends Controller
 
 		$this->view->page = $page;
 
-		echo $this->render_view(ROOT . '/views/page.html');
+		echo $this->render_view(ROOT . '/views/page.html', array(
+			'cache_key' => '/wiki/page/' . hash('sha1', $path)
+		));
 	}
 }

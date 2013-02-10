@@ -13,6 +13,14 @@ class DownloadsController extends Controller
 
 	public function run ()
 	{
+		$html = $this->get_cached_page('/www/downloads');
+
+		if ($html !== null)
+		{
+			echo $html;
+			return;
+		}
+
 		$this->view->_title = 'Downloads';
 		$this->breadcrumb[] = array(
 			'name' => 'Downloads'
@@ -43,7 +51,9 @@ class DownloadsController extends Controller
 			}
 		}
 
-		echo $this->renderView(ROOT . '/views/downloads.html');
+		echo $this->render_view(ROOT . '/views/downloads.html', array(
+			'cache_key' => '/www/downloads'
+		));
 	}
 
 	private static function get_releases ($packages)
