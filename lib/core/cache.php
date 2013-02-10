@@ -53,7 +53,8 @@ class Cache
 
 		$store_obj = (object) array(
 			'data' => $data,
-			'data_version' => null
+			'data_version' => null,
+			'code_version' => \Config::get('/shared/version')
 		);
 
 		if (isset($options['data_version']))
@@ -84,6 +85,14 @@ class Cache
 		$item = unserialize($item);
 
 		if (!is_object($item))
+		{
+			self::rm($path);
+			return null;
+		}
+
+		// This key has been set by an older version of the site
+		if (isset($item->code_version) &&
+			$item->code_version !== \Config::get('/shared/version'))
 		{
 			self::rm($path);
 			return null;
