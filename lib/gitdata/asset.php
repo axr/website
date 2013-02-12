@@ -43,7 +43,7 @@ class Asset
 			$file = \GitData\GitData::$repo->get_file($path . '/' . $match['path']);
 
 			if ($file === null ||
-				!self::is_asset($file))
+				!Asset::is_asset($file))
 			{
 				return $match[0];
 			}
