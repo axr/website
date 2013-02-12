@@ -26,7 +26,7 @@
 	</div>
 	<hr class="block_separator" />
 
-	{{#release}}
+	{{#release|bool}}
 		<div class="getit clearfix">
 			<div class="info">
 				<h2>Get an early sneak-peek:</h2>
@@ -36,12 +36,12 @@
 					of the future.</p>
 			</div>
 			<div class="download">
-				<a href="{{release._file.url}}" data-filename="{{release._file.filename}}"
+				<a href="{{release.url}}" data-filename="{{release.filename}}"
 					class="uiButton get big" target="_blank">
 					<span class="inner">
 						<span class="big">Download now</span>
 						<span class="version">{{release.version}}</span>
-						<span class="for">for {{release._file._os}}</span>
+						<span class="for">for {{release.os_str}}</span>
 						<span class="bomb"></span>
 					</span>
 				</a>
@@ -62,7 +62,7 @@
 						<span class="post">
 							<a href="{{permalink}}">{{title}}</a>
 							{{#is_new}}<sup class="new">new</sup>{{/is_new}}
-							<time datetime="{{ctime_str_Ymd}}">({{ctime_str_Ymd}})</time>
+							<time datetime="{{date}}">({{date}})</time>
 						</span>
 					</li>
 				{{/blog_posts}}
@@ -71,13 +71,13 @@
 			<hr />
 
 			<h2>Social Media <span>Follow us on:</span></h2>
-			<a href="https://twitter.com/#!/AXRProject" target="_blank"
+			<a href="https://twitter.com/#!/{{g/social.twitter}}" target="_blank"
 				class="social_media twitter">Twitter</a>
-			<a href="https://facebook.com/AXRProject" target="_blank"
+			<a href="https://facebook.com/{{g/social.facebook}}" target="_blank"
 				class="social_media facebook">Facebook</a>
-			<a href="https://plus.google.com/105865857923622443169" target="_blank"
+			<a href="https://plus.google.com/{{g/social.google_plus}}" target="_blank"
 				class="social_media google_plus">Google+</a>
-			<a href="https://www.youtube.com/user/axrproject" target="_blank"
+			<a href="https://www.youtube.com/user/{{g/social.youtube}}" target="_blank"
 				class="social_media youtube">YouTube</a>
 		</div>
 
@@ -356,9 +356,9 @@ qux:[title:startsWith("Welcome")] { }</code></pre>
 				more complicated than it really is, so here come some
 				examples:</p>
 <pre><code data-language="hss">// align foo to the right horizontally
-foo { alignX: left; }
-// align bar at the middle vertically
-bar { alignY: middle; }
+foo { alignX: right; }
+// vertically center bar
+bar { alignY: center; }
 // place baz with it's right edge 30 points to the left
 // of the center of its parent, without affecting other
 // elements
@@ -368,12 +368,12 @@ baz
 	alignX: 50% - 30;
 	flow: no;
 }
-// align all elements *inside* qux at the middle vertically,
+// vertically center all elements *inside* qux,
 // and lay them out from top to bottom instead of left
 // to right
 qux
 {
-	contentAlignY: middle;
+	contentAlignY: center;
 	direction: ttb;
 }</code></pre>
 			</div>

@@ -10,6 +10,7 @@ class Autoloader
 		'WWW\\PageController' => '/controllers/page/page.php',
 		'WWW\\HssdocController' => '/controllers/hssdoc/hssdoc.php',
 		'WWW\\HomeController' => '/controllers/home/home.php',
+		'WWW\\GitDataController' => '/controllers/gitdata/gitdata.php',
 		'WWW\\GetInvolvedController' => '/controllers/get_involved/get_involved.php',
 		'WWW\\DownloadsController' => '/controllers/downloads/downloads.php',
 		'WWW\\AccountController' => '/controllers/account/account.php',
@@ -18,7 +19,6 @@ class Autoloader
 		'WWW\\AdminController' => '/controllers/admin/admin.php',
 		'WWW\\UserOID' => '/models/user_oid.php',
 		'WWW\\User' => '/models/user.php',
-		'WWW\\Page' => '/models/page.php',
 		'WWW\\HssdocValue' => '/models/hssdoc_value.php',
 		'WWW\\HssdocProperty' => '/models/hssdoc_property.php',
 		'WWW\\HssdocObject' => '/models/hssdoc_object.php'

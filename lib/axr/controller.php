@@ -57,10 +57,12 @@ class Controller extends \Core\Controller
 
 		$this->view->{'g/year'}  = date('Y');
 		$this->view->{'g/meta'} = new \StdClass();
+		$this->view->{'g/social'} = \GitData\Models\GenericConfig::file('config.json')->social;
 
 		$this->view->{'g/rsrc_root'} = (string) \Config::get('/shared/rsrc_url');
 		$this->view->{'g/www_url'} = (string) \Config::get('/shared/www_url');
 		$this->view->{'g/wiki_url'}  = (string) \Config::get('/shared/wiki_url');
+		$this->view->{'g/hssdoc_url'}  = (string) \Config::get('/shared/hssdoc_url');
 
 		$this->tabs = array();
 		$this->breadcrumb = array(

@@ -28,29 +28,21 @@
 	"css/bundle_www.css": {
 		"type": "css",
 		"files": [
-			"css/openid.css",
 			"css/404.css",
 			"css/blog.css",
 			"css/page.css",
-			"css/hssdoc.css",
 			"css/downloads.css",
 			"css/manifesto.css",
 			"css/calendar.css",
 			"css/home.css",
-			"css/auth.css",
-			"css/account.css",
 			"css/get_involved.css"
 		]
 	},
 	"js/bundle_www.js": {
 		"type": "js",
 		"files": [
-			"js/openid-jquery.js",
-			"js/openid-en.js",
-			"js/auth.js",
 			"js/home.js",
-			"js/get_involved.js",
-			"js/hssdoc.js"
+			"js/get_involved.js"
 		]
 	},
 	"js/downloads.js": {
@@ -62,16 +54,26 @@
 	"css/bundle_wiki.css": {
 		"type": "css",
 		"files": [
-			"css/openid.css"
+			"css/404.css",
+			"css/wiki/page.css",
+			"css/wiki/index.css"
 		]
 	},
 	"js/bundle_wiki.js": {
 		"type": "js",
+		"files": []
+	},
+	"css/bundle_hssdoc.css": {
+		"type": "css",
 		"files": [
-			"js/app_auth.js",
-			"js/openid-jquery.js",
-			"js/openid-en.js",
-			"js/wiki/mixed_login.js"
+			"css/404.css",
+			"css/hssdoc.css"
+		]
+	},
+	"js/bundle_hssdoc.js": {
+		"type": "js",
+		"files": [
+			"js/hssdoc.js"
 		]
 	},
 	"js/bundle_rainbow.js": {

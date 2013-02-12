@@ -2,7 +2,6 @@
 
 namespace WWW;
 
-require_once(SHARED . '/lib/axr/gh_repository.php');
 require_once(SHARED . '/lib/mustache_filters/filesize.php');
 
 class DownloadsController extends Controller
@@ -14,6 +13,14 @@ class DownloadsController extends Controller
 
 	public function run ()
 	{
+		$html = $this->get_cached_page('/www/downloads');
+
+		if ($html !== null)
+		{
+			echo $html;
+			return;
+		}
+
 		$this->view->_title = 'Downloads';
 		$this->breadcrumb[] = array(
 			'name' => 'Downloads'
@@ -23,12 +30,15 @@ class DownloadsController extends Controller
 			array(
 				'key' => 'browser',
 				'name' => 'AXR Browser',
-				'releases' => self::get_releases(\Config::get('/www/downloads/repo/browser'))
+				'releases' => self::get_releases(array('axr-browser'))
 			),
 			array(
 				'key' => 'core',
 				'name' => 'AXR Core',
-				'releases' => self::get_releases(\Config::get('/www/downloads/repo/core'))
+				'releases' => self::get_releases(array(
+					'axr-runtime',
+					'libaxr', 'libaxr-doc', 'libaxr-dev',
+					'axr', 'axr-doc', 'axr-devel'))
 			)
 		);
 
@@ -41,44 +51,56 @@ class DownloadsController extends Controller
 			}
 		}
 
-		echo $this->renderView(ROOT . '/views/downloads.html');
+		echo $this->render_view(ROOT . '/views/downloads.html', array(
+			'cache_key' => '/www/downloads'
+		));
 	}
 
-	/**
-	 * @todo Cache this monster
-	 */
-	private static function get_releases ($repo_name)
+	private static function get_releases ($packages)
 	{
-		$repo = new \AXR\GHRepository($repo_name);
-		$repo->load();
+		$cache_key = '/www/releases/' . md5(implode(',', $packages));
 
-		$releases = $repo->get_releases();
-		$out = array();
-
-		foreach ($releases as $version => $release)
+		$files = \Cache::get($cache_key);
+		if ($files !== null)
 		{
-			if (!isset($release->packages))
+			return $files;
+		}
+
+		$files = array();
+
+		foreach ($packages as $package_name)
+		{
+			$package = \GitData\Models\Package::find_by_name($package_name);
+
+			if ($package === null)
 			{
 				continue;
 			}
 
-			$out[$version] = array(
-				'version' => $version,
-				'pkggroups' => array(
-					'windows' => null,
-					'osx' => null,
-					'debian' => null,
-					'rpm' => null,
-					'linux' => null,
-					'src' => null
-				)
-			);
+			$releases = $package->get_all_releases();
 
-			foreach ($release->packages as $package_name => $package)
+			foreach ($releases as $release)
 			{
-				foreach ($package->files as $file)
+				if (!isset($files[$release->version]))
 				{
-					switch ($file->ext)
+					$files[$release->version] = array(
+						'version' => $release->version,
+						'pkggroups' => array(
+							'windows' => null,
+							'osx' => null,
+							'debian' => null,
+							'rpm' => null,
+							'linux' => null,
+							'src' => null
+						)
+					);
+				}
+
+				foreach ($release->files as $file)
+				{
+					$file->package = $package;
+
+					switch ($file->type)
 					{
 						case 'deb': $group_key = 'debian'; break;
 						case 'rpm': $group_key = 'rpm'; break;
@@ -96,26 +118,33 @@ class DownloadsController extends Controller
 						default: $group_name = $group_key;
 					}
 
-					if (!isset($out[$version]['pkggroups'][$group_key]) ||
-						$out[$version]['pkggroups'][$group_key] === null)
+					if (!isset($files[$release->version]['pkggroups'][$group_key]))
 					{
-						$out[$version]['pkggroups'][$group_key] = array(
+						$files[$release->version]['pkggroups'][$group_key] = array(
 							'group_key' => $group_key,
 							'group_name' => $group_name,
 							'files' => array()
 						);
 					}
 
-					if ($file->arch === 'osx_uni')
-					{
-						$file->arch = 'universal';
-					}
+					$files[$release->version]['pkggroups'][$group_key]['files'][] = $file;
+				}
+			}
 
-					$out[$version]['pkggroups'][$group_key]['files'][] = $file;
+			// Remove empty pkggroups
+			foreach ($files[$release->version]['pkggroups'] as $key => $data)
+			{
+				if ($data === null)
+				{
+					unset($files[$release->version]['pkggroups'][$key]);
 				}
 			}
 		}
 
-		return $out;
+		\Cache::set($cache_key, $files, array(
+			'data_version' => 'current'
+		));
+
+		return $files;
 	}
 }

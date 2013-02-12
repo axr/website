@@ -1,0 +1,15 @@
+{{g/breadcrumb/html|raw}}
+{{g/tabs/html|raw}}
+
+<div id="page">
+	<h1>{{page.title}}</h1>
+
+	<div class="parsedContent">
+		{{page.content|raw}}
+	</div>
+
+	<div class="last_modified">
+		This page was last modified on <span>{{page.mtime_str}}</span> by
+		<span>{{page.last_author}}</span>.
+	</div>
+</div>

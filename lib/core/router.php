@@ -1,7 +1,5 @@
 <?php
 
-require_once(SHARED . '/lib/core/url.php');
-
 class Router
 {
 	/**

@@ -2,10 +2,6 @@
 
 namespace Core;
 
-require_once(SHARED . '/lib/core/rsrc.php');
-require_once(SHARED . '/lib/core/minify.php');
-require_once(SHARED . '/lib/core/router.php');
-require_once(SHARED . '/lib/core/url.php');
 require_once(SHARED . '/lib/mustache/src/mustache.php');
 require_once(SHARED . '/lib/mustache_filters/json.php');
 
@@ -55,12 +51,41 @@ class Controller
 	}
 
 	/**
+	 * Get an already rendered page from the cache. If nothing is found, `null`
+	 * is returned.
+	 *
+	 * @param string $cache_key
+	 * @return string
+	 */
+	protected function get_cached_page ($cache_key)
+	{
+		return \Cache::get('/_prerendered_page/' . hash('sha1', $cache_key));
+	}
+
+	/**
 	 * Render a view
 	 *
+	 * @deprecated use render_view instead
 	 * @param string $view_path
 	 * @return string
 	 */
 	protected function renderView ($view_path)
+	{
+		return $this->render_view($view_path);
+	}
+
+	/**
+	 * Render a view
+	 *
+	 * Options:
+	 * - string cache_key: An unique identifier for the page for caching
+	 * - mixed[] cache_options
+	 *
+	 * @param string $view_path
+	 * @param mixed[] $options
+	 * @return string
+	 */
+	protected function render_view ($view_path, array $options = array())
 	{
 		$layout_path = SHARED . '/views/layout.html';
 
@@ -69,6 +94,23 @@ class Controller
 			'minify' => true,
 			'fallback_template' => '{{{g/content}}}'
 		));
+
+		if (isset($options['cache_key']) && is_string($options['cache_key']))
+		{
+			$cache_key = '/_prerendered_page/' . hash('sha1', $options['cache_key']);
+			$cache_options = array(
+				'data_version' => 'current'
+			);
+
+			if (isset($options['cache_options']) &&
+				is_array($options['cache_options']))
+			{
+				$cache_options = array_merge($cache_options,
+					$options['cache_options']);
+			}
+
+			\Cache::set($cache_key, $html, $cache_options);
+		}
 
 		return $html;
 	}

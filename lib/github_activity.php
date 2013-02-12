@@ -3,6 +3,17 @@
 class GithubActivity
 {
 	/**
+	 * List of repositories to ignore
+	 *
+	 * @var string[]
+	 */
+	public static $ignored_repos = array(
+		'axr/website',
+		'axr/website-data',
+		'axr/design-sources'
+	);
+
+	/**
 	 * Fetch and parse GitHub activity via GitHub API
 	 * Some boring events have been commented out
 	 *
@@ -23,7 +34,7 @@ class GithubActivity
 		if ($response === null ||
 			!is_array($response))
 		{
-			return false;
+			return array();
 		}
 
 		$events = array();
@@ -39,7 +50,7 @@ class GithubActivity
 			$title = null;
 			$body = null;
 
-			if (in_array($event->repo->name, array('axr/website', 'axr/design-sources')))
+			if (in_array($event->repo->name, self::$ignored_repos))
 			{
 				// People don't care about the website
 				continue;

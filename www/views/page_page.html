@@ -5,13 +5,8 @@
 	<div class="page_item">
 		<h1>{{page.title}}</h1>
 
-		{{^page.published}}
-			<div class="message_std notice">This page is not published.</div>
-		{{/page.published}}
-
 		<div class="parsedContent clearfix">
-			{{page.fields.content|raw}}
+			{{page.content|raw}}
 		</div>
-		{{comments_html|raw}}
 	</div>
 </div>

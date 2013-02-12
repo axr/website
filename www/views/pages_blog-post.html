@@ -1,0 +1,26 @@
+{{g/tabs/html|raw}}
+{{g/breadcrumb/html|raw}}
+
+<div id="page" class="list">
+	{{#posts}}
+		<div class="page_item" itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 itemprop="name">{{title}}</h1>
+			<div class="parsedContent clearfix" itemprop="description">
+				{{summary|raw}}
+			</div>
+			<ul class="page_links">
+				<li><a href="{{permalink}}" itemprop="url">Read more</a></li>
+				<li><a href="{{permalink}}#comments">Leave a coment</a></li>
+			</ul>
+		</div>
+	{{/posts}}
+
+	<nav class="pagination">
+		{{#has_prev}}
+			<a href="?page={{prev}}" rel="prev">&laquo; Previous entries</a>
+		{{/has_prev}}
+		{{#has_next}}
+			<a href="?page={{next}}" rel="next" class="next">Next entries &raquo;</a>
+		{{/has_next}}
+	</nav>
+</div>

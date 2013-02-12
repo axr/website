@@ -1,0 +1,42 @@
+{{g/breadcrumb/html|raw}}
+{{g/tabs/html|raw}}
+
+<div id="hssdoc_obj" class="clearfix">
+	{{sidebar|raw}}
+
+	<div class="wrapper">
+		<h1>{{object.name}}</h1>
+
+		<div class="parsedContent">
+			{{object.description|raw}}
+		</div>
+
+		{{#properties}}
+			<section class="prop_item" data-property="{{name}">
+				<header>
+					<h2><a href="{{permalink}}" name="{{name}}">{{name}}</a></h2>
+
+					{{#readonly}}
+						<span class="ro">Read-only</span>
+					{{/readonly}}
+				</header>
+
+				<div class="parsedContent">
+					{{description|raw}}
+				</div>
+
+				{{_values_table|raw}}
+			</section>
+		{{/properties}}
+	</div>
+</div>
+
+{{^_ajax}}
+	<script>
+		withApp(function (App)
+		{
+			App.pageEvent.trigger('load_init', '/doc');
+			App.pageEvent.trigger('load', '/doc');
+		});
+	</script>
+{{/_ajax}}

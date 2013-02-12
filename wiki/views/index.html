@@ -1,0 +1,20 @@
+{{g/breadcrumb/html|raw}}
+{{g/tabs/html|raw}}
+
+<div id="index">
+	{{#paths|bool}}
+		<h2>Paths</h2>
+		<ul class="paths">
+			{{#paths}}
+				<li><a href="{{permalink}}">{{name}}</a></li>
+			{{/paths}}
+		</ul>
+	{{/paths}}
+
+	<h2>Pages under <mark>{{parent_path}}</mark></h2>
+	<ul class="pages">
+		{{#pages}}
+			<li><a href="{{permalink}}">{{title}}</a></li>
+		{{/pages}}
+	</ul>
+</div>

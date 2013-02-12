@@ -33,47 +33,5 @@ class Controller extends \AXR\Controller
 		$this->view->{'g/app_vars'}->site->url = (string) \Config::get('/shared/www_url');
 		$this->view->{'g/app_vars'}->site->ga_account = \Config::get('/www/ga_account');
 		$this->view->{'g/app_vars'}->site->app_id = 'www';
-		$this->view->{'g/app_vars'}->session->is_logged = User::current()->is_logged();
-
-		$usermenu = null;
-		$search = null;
-
-		// Create the user menu
-		if (User::current()->is_logged())
-		{
-			$usermenu = $this->render_simple_view(SHARED . '/views/layout_usermenu.html',
-				(object) array(
-				'show_usermenu' => true,
-				'user' => array(
-					'id' => User::current()->id,
-					'name' => User::current()->name_short,
-					'url' => \URL::create()
-						->from_string(\Config::get('/shared/www_url'))
-						->path('/account')
-				),
-				'links' => array(
-					array(
-						'text' => 'Account',
-						'href' => \URL::create()
-							->from_string(\Config::get('/shared/www_url'))
-							->path('/account')
-					),
-					array(
-						'text' => 'Log out',
-						'href' => \URL::create()
-							->from_string(\Config::get('/shared/www_url'))
-							->path('/auth/logout')
-							->query('continue', (string) \Router::get_instance()->url)
-					)
-				)
-			));
-		}
-
-		// Create the search box
-		// $search = $this->render_simple_view(SHARED . '/views/layout_search.html', (object) array(
-		// 	'placeholder' => 'Search the website'
-		// ));
-
-		$this->view->{'g/html_secondary'} = $usermenu . $search;
 	}
 }

@@ -1,0 +1,37 @@
+<table class="values_table">
+	<thead>
+		<th>Value
+			{{#property.many_values}}
+				<sup title="This property accepts multiple values at once.">unlimited</sup>
+			{{/property.many_values}}
+		</th>
+		<th>Since version</th>
+	</thead>
+	<tbody>
+		{{#values}}
+			<tr>
+				<td>
+					{{#_ref_url|bool}}
+						<a href="{{_ref_url}}">{{value}}</a>
+					{{/_ref_url}}
+
+					{{^_ref_url}}
+						{{value}}
+					{{/_ref_url}}
+
+					{{#is_default}}
+						<span class="flag default">default</span>
+					{{/is_default}}
+				</td>
+				{{#_count}}
+					<td rowspan="{{_count}}" class="version">
+						{{since_version}}
+						{{^since_version}}
+							<span class="future">(not implemented)</span>
+						{{/since_version}}
+					</td>
+				{{/_count}}
+			</tr>
+		{{/values}}
+	</tbody>
+</table>
