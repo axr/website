@@ -10,6 +10,11 @@
 	margin: 0 0 20px 0;
 }
 
+.parsedContent p:last-child
+{
+	margin-bottom: 0;
+}
+
 .parsedContent h2,
 .parsedContent h3,
 .parsedContent h4,
