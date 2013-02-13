@@ -24,6 +24,12 @@ td + .connect_widget_vertical_center
 {
 	visibility: visible !important;
 }
+.connect_top > .connect_action > table
+{
+	position: absolute;
+	right: 10px;
+	top: 0;
+}
 .connect_widget_interactive_area
 {
 	position: absolute !important;
