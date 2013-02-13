@@ -3,6 +3,17 @@
 	margin: 15px 0 10px 0;
 }
 
+#page .page_item > h1 a
+{
+	color: #666;
+	text-decoration: none;
+}
+
+#page .page_item > h1 a:hover
+{
+	text-decoration: underline;
+}
+
 #page .page_item > .info
 {
 	font-size: 13px;
