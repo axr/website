@@ -4,7 +4,7 @@
 <div id="page" class="list">
 	{{#posts}}
 		<div class="page_item" itemscope itemtype="http://schema.org/BlogPosting">
-			<h1 itemprop="name">{{title}}</h1>
+			<h1 itemprop="name"><a href="{{permalink}}">{{title}}</a></h1>
 			<div class="parsedContent clearfix" itemprop="description">
 				{{summary|raw}}
 			</div>
