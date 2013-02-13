@@ -333,6 +333,7 @@ form.uiForm .uiFormField a:hover
  */
 .uiButton.small
 {
+	font-size: 12px;
 	height: 29px;
 }
 
