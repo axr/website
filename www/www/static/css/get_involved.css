@@ -37,8 +37,7 @@
 
 #get_involved .get_involved > .join_us > ul.we_need > li > span
 {
-	display: block;
-	float: left;
+	display: inline-block;
 }
 
 #get_involved .get_involved > .join_us > ul.we_need > li > span.block_0
