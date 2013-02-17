@@ -50,7 +50,7 @@ class RSRC
 
 		$bundle = $bundles->$bundleName;
 
-		if (Config::get('/shared/rsrc/prod') === true)
+		if (Config::get('/shared/prod') === true)
 		{
 			$file = Config::get('/shared/rsrc_url') . '/' . $bundleName;
 
@@ -99,7 +99,7 @@ class RSRC
 
 			$html .= '<link type="text/css" rel="stylesheet" ';
 			$html .= 'href="' . $path . '" ';
-			
+
 			if (isset($args['media']))
 			{
 				$html .= 'media="' . $args['media'] . '" ';
@@ -129,7 +129,7 @@ class RSRC
 
 			$html .= '<script ';
 			$html .= 'src="' . $path . '" ';
-			
+
 			if (isset($args['type']))
 			{
 				$html .= 'type="' . $args['type'] . '" ';
