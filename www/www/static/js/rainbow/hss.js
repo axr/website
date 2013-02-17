@@ -5,145 +5,146 @@
  * @version 1.0.0
  */
 
-window['App'].Rsrc.file('js/rainbow/rainbow.js').use(function ()
+(new Rsrc.File('js/rainbow/hss.js')).provide(function ()
 {
-	var general = [
-		{
-			'name': 'comment',
-			'pattern': /(\/\/.*|\/\*.*\*\/)/g
-		},
-		{
-			'name': 'constant.hex-color',
-			'pattern': /#([a-f0-9]{8}|[a-f0-9]{3,4}|[a-f0-9])/gi
-		},
-		{
-			'name': 'constant.numeric',
-			'pattern': /(\d+)(%|px)?/g
-		},
-		{
-			'name': 'string',
-			'pattern': /".*?"/g
-		},
-		{
-			'matches': {
-				1: 'hss-property'
+	(new Rsrc.File('js/rainbow/rainbow.js')).request(function ()
+	{
+		var general = [
+			{
+				'name': 'comment',
+				'pattern': /(\/\/.*|\/\*.*\*\/)/g
 			},
-			'pattern': /(\w+):\s*/gi
-		},
-		{
-			'matches': {
-				1: 'hss-property',
-				2: 'hss-keyword'
+			{
+				'name': 'constant.hex-color',
+				'pattern': /#([a-f0-9]{8}|[a-f0-9]{3,4}|[a-f0-9])/gi
 			},
-			'pattern': /(\w+):\s*([a-z]+)\s*;/gi
-		},
-		{
-			'matches': {
-				1: 'hss-object-type',
-				2: 'hss-object-name'
+			{
+				'name': 'constant.numeric',
+				'pattern': /(\d+)(%|px)?/g
 			},
-			'pattern': /(@[a-z]+)(\s+([a-zA-Z0-9_]+))?/gi
-		},
-		{
-			'name': 'hss-instruction',
-			'pattern': /#[a-z]+/gi
-		},
-		{
-			'matches': {
-				1: 'hss-instruction',
-				2: [
-					{
-						'name': 'hss-selector',
-						'pattern': /[a-z0-9_]+/gi
-					}
-				]
+			{
+				'name': 'string',
+				'pattern': /".*?"/g
 			},
-			'pattern': /(#[a-z]+)\((.+?)\)/gi
-		},
-		{
-			'matches': {
-				1: 'hss-function'
+			{
+				'matches': {
+					1: 'hss-property'
+				},
+				'pattern': /(\w+):\s*/gi
 			},
-			'pattern': /(min|max|ref)\(/g
-		}
-	];
+			{
+				'matches': {
+					1: 'hss-property',
+					2: 'hss-keyword'
+				},
+				'pattern': /(\w+):\s*([a-z]+)\s*;/gi
+			},
+			{
+				'matches': {
+					1: 'hss-object-type',
+					2: 'hss-object-name'
+				},
+				'pattern': /(@[a-z]+)(\s+([a-zA-Z0-9_]+))?/gi
+			},
+			{
+				'name': 'hss-instruction',
+				'pattern': /#[a-z]+/gi
+			},
+			{
+				'matches': {
+					1: 'hss-instruction',
+					2: [
+						{
+							'name': 'hss-selector',
+							'pattern': /[a-z0-9_]+/gi
+						}
+					]
+				},
+				'pattern': /(#[a-z]+)\((.+?)\)/gi
+			},
+			{
+				'matches': {
+					1: 'hss-function'
+				},
+				'pattern': /(min|max|ref)\(/g
+			}
+		];
 
-	Rainbow.extend('hss', [
-		{
-			'matches': {
-				1: 'hss-function',
-				2: general.concat([
-					{
-						'matches': {
-							1: 'hss-property',
-							2: [
-								{
-									'name': 'hss-object-name',
-									'pattern': /@[a-zA-Z0-9_]+/g
-								},
-								{
-									'name': 'hss-selector',
-									'pattern': /([a-z0-9_]+|\*)/gi
-								}
-							]
+		Rainbow.extend('hss', [
+			{
+				'matches': {
+					1: 'hss-function',
+					2: general.concat([
+						{
+							'matches': {
+								1: 'hss-property',
+								2: [
+									{
+										'name': 'hss-object-name',
+										'pattern': /@[a-zA-Z0-9_]+/g
+									},
+									{
+										'name': 'hss-selector',
+										'pattern': /([a-z0-9_]+|\*)/gi
+									}
+								]
+							},
+							'pattern': /^(\w+) of (.+)?$/g
 						},
-						'pattern': /^(\w+) of (.+)?$/g
-					},
-					{
-						'name': 'hss-property',
-						'pattern': /^\w+$/g
-					}
-				])
+						{
+							'name': 'hss-property',
+							'pattern': /^\w+$/g
+						}
+					])
+				},
+				'pattern': /(min|max|ref)\((.+?)\)/g
 			},
-			'pattern': /(min|max|ref)\((.+?)\)/g
-		},
-		{
-			'matches': {
-				3: 'hss-selector',
-				4: [
-					{
-						'matches': {
-							1: 'hss-property',
-							3: 'constant.numeric'
-						},
-						'pattern': /\((\w+)\s*(&lt;|&gt;|[=])\s*([0-9]+)/g
-					}
-				]
-			},
-			'pattern': /(^\s*|\[\s*|([+\-=>]|\.\.|)\s*)([a-z0-9_]+)(\(.+\))?(\s+|\s*\{|$)/gmi
-		}
-		/*{
-			'matches': {
-				1: 'hss-selector',
-				2: 'hss-property',
-				3: 'constant.numeric'
-			},
-			'pattern': /(\w+)\((\w+) +\> +(.+?)\)/g
-		}*/
-	], true);
+			{
+				'matches': {
+					3: 'hss-selector',
+					4: [
+						{
+							'matches': {
+								1: 'hss-property',
+								3: 'constant.numeric'
+							},
+							'pattern': /\((\w+)\s*(&lt;|&gt;|[=])\s*([0-9]+)/g
+						}
+					]
+				},
+				'pattern': /(^\s*|\[\s*|([+\-=>]|\.\.|)\s*)([a-z0-9_]+)(\(.+\))?(\s+|\s*\{|$)/gmi
+			}
+			/*{
+				'matches': {
+					1: 'hss-selector',
+					2: 'hss-property',
+					3: 'constant.numeric'
+				},
+				'pattern': /(\w+)\((\w+) +\> +(.+?)\)/g
+			}*/
+		], true);
 
-	var filter = {
-		'name': 'hss-filter',
-		'matches': {
-			1: 'hss-selector',
-			3: general
-		},
-		'pattern': /([a-z0-9_]+):\w+(\((.+?)\))?/gi
-	};
-	general.push(filter);
-
-	Rainbow.extend('hss', general, true);
-	Rainbow.extend('hss', [
-		{
+		var filter = {
 			'name': 'hss-filter',
 			'matches': {
 				1: 'hss-selector',
-				2: 'hss-selector',
 				3: general
 			},
-			'pattern': /([a-z0-9_]+):\[([a-z0-9_]+)(.+?)\]/gi
-		}
-	], true);
-});
+			'pattern': /([a-z0-9_]+):\w+(\((.+?)\))?/gi
+		};
+		general.push(filter);
 
-window['App'].Rsrc.file('js/rainbow/hss.js').set_loaded();
+		Rainbow.extend('hss', general, true);
+		Rainbow.extend('hss', [
+			{
+				'name': 'hss-filter',
+				'matches': {
+					1: 'hss-selector',
+					2: 'hss-selector',
+					3: general
+				},
+				'pattern': /([a-z0-9_]+):\[([a-z0-9_]+)(.+?)\]/gi
+			}
+		], true);
+	});
+});

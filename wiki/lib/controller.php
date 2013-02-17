@@ -25,14 +25,9 @@ class Controller extends \AXR\Controller
 		// Load some default resources
 		$this->rsrc->loadBundle('css/bundle_shared.css');
 		$this->rsrc->loadBundle('css/bundle_wiki.css');
-		$this->rsrc->loadScript('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+		$this->rsrc->loadScript('https://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js');
 		$this->rsrc->loadBundle('js/bundle_shared.js');
 		$this->rsrc->loadBundle('js/bundle_wiki.js');
-
-		// Set application variables
-		$this->view->{'g/app_vars'}->site->url = (string) \Config::get('/shared/wiki_url');
-		$this->view->{'g/app_vars'}->site->ga_account = \Config::get('/www/ga_account');
-		$this->view->{'g/app_vars'}->site->app_id = 'wiki';
 
 		$this->breadcrumb[] = array(
 			'name' => 'Wiki',

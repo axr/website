@@ -6,13 +6,3 @@
 
 	<h1>HSS documentation</h1>
 </div>
-
-{{^_ajax}}
-	<script>
-		withApp(function (App)
-		{
-			App.pageEvent.trigger('load_init', '/doc');
-			App.pageEvent.trigger('load', '/doc');
-		});
-	</script>
-{{/_ajax}}

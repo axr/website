@@ -40,14 +40,34 @@
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
+	{{g/rsrc_scripts}}
+
 	{{#g/app_vars}}
 		<script>
-			window.App = {{g/app_vars|json|raw}};
-			window.App._onInit = [];
+			window.App = {};
+			window.App.vars = {{g/app_vars|json|raw}};
 
-			function withApp (callback) {
-				window.App._onInit.push(function () { callback(window.App); });
-			};
+			(function ()
+			{
+				var interval;
+				var queue = [];
+
+				window.Rsrc = {};
+				window.Rsrc.use =function (a, b) { queue.push([a, b]); };
+
+				interval = setInterval(function ()
+				{
+					if (typeof window.Rsrc.File === 'function')
+					{
+						for (var i = 0, c = queue.length; i < c; i++)
+						{
+							window.Rsrc.use(queue[i][0], queue[i][1]);
+						}
+
+						clearInterval(interval);
+					}
+				}, 20);
+			})();
 		</script>
 	{{/g/app_vars}}
 </head>
@@ -149,7 +169,7 @@
 		</div>
 
 		<footer>
-			<a href="#top" title="Back to top">Back to top</a>
+			<a href="#top" title="Back to top" class="back_to_top">Back to top</a>
 			<ul class="technologies_used">
 				<li class="html5">
 					<a href="https://www.w3.org/html/logo/"
@@ -218,6 +238,7 @@
 	</form>
 
 	{{g/html_bottom|raw}}
+
 	<script src="https://apis.google.com/js/plusone.js"></script>
 
 	<!--[if lt IE 7 ]>

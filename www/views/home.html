@@ -383,10 +383,9 @@ qux
 
 {{^_ajax}}
 	<script>
-		withApp(function (App)
+		Rsrc.use(['js/app.js', 'js/www/home.js'], function ()
 		{
-			App.pageEvent.trigger('load_init', '/home');
-			App.pageEvent.trigger('load', '/home');
+			App.Event.trigger('App.WWW.Home.load');
 		});
 	</script>
 {{/_ajax}}

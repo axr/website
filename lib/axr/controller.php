@@ -38,21 +38,15 @@ class Controller extends \Core\Controller
 		};
 
 		$this->view->{'g/app_vars'} = (object) array(
-			'/shared/hssdoc_url' => (string) \Config::get('/shared/hssdoc_url'),
-			'/shared/www_url' => (string) \Config::get('/shared/www_url'),
+			'hssdoc_url' => (string) \Config::get('/shared/hssdoc_url'),
+			'www_url' => (string) \Config::get('/shared/www_url'),
+			'wiki_url' => (string) \Config::get('/shared/wiki_url'),
 			'version' => \Config::get('/shared/version'),
-			'rsrc' => (object) array(
-				'root' => (string) \Config::get('/shared/rsrc_url'),
-				'prod' => \Config::get('/shared/rsrc/prod'),
-				'bundles' => $this->rsrc->getBundlesInfo()
-			),
-			'site' => (object) array(
-				'url' => null,
-				'ga_account' => null
-			),
-			'session' => (object) array(
-				'is_logged' => false
-			)
+
+			'rsrc_root' => (string) \Config::get('/shared/rsrc_url'),
+			'rsrc_bundles' => $this->rsrc->getBundlesInfo(),
+
+			'ga_accounts' => \Config::get('/shared/ga_accounts')
 		);
 
 		$this->view->{'g/year'}  = date('Y');
