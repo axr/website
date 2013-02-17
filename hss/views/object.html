@@ -12,7 +12,7 @@
 		</div>
 
 		{{#properties}}
-			<section class="prop_item" data-property="{{name}">
+			<section class="prop_item" data-hash="{{name}">
 				<header>
 					<h2><a href="{{permalink}}" name="{{name}}">{{name}}</a></h2>
 
@@ -33,10 +33,9 @@
 
 {{^_ajax}}
 	<script>
-		withApp(function (App)
+		Rsrc.use(['js/app.js', 'js/hss/object.js'], function ()
 		{
-			App.pageEvent.trigger('load_init', '/doc');
-			App.pageEvent.trigger('load', '/doc');
+			App.Event.trigger('App.HSS.Object.load');
 		});
 	</script>
 {{/_ajax}}

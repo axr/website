@@ -8,7 +8,6 @@
 			"css/style_modal.css",
 			"css/boilerplate_after.css",
 			"css/rainbow.css",
-			"css/tipsy.css",
 			"css/content.css"
 		]
 	},
@@ -16,13 +15,9 @@
 		"type": "js",
 		"files": [
 			"js/json2.js",
-			"js/cookie.js",
-			"js/app_rsrc.js",
-			"js/app_modal.js",
+			"js/rsrc.js",
 			"js/app.js",
-			"js/mustache.js",
-			"js/jquery.tipsy.js",
-			"js/site.js"
+			"js/mustache.js"
 		]
 	},
 	"css/bundle_www.css": {
@@ -41,14 +36,11 @@
 	"js/bundle_www.js": {
 		"type": "js",
 		"files": [
-			"js/home.js",
-			"js/get_involved.js"
-		]
-	},
-	"js/downloads.js": {
-		"type": "js",
-		"files": [
-			"js/downloads.js"
+			"js/site.js",
+			"js/www/site.js",
+			"js/www/home.js",
+			"js/www/get_involved.js",
+			"js/www/downloads.js"
 		]
 	},
 	"css/bundle_wiki.css": {
@@ -61,7 +53,10 @@
 	},
 	"js/bundle_wiki.js": {
 		"type": "js",
-		"files": []
+		"files": [
+			"js/site.js",
+			"js/wiki/site.js"
+		]
 	},
 	"css/bundle_hssdoc.css": {
 		"type": "css",
@@ -73,7 +68,8 @@
 	"js/bundle_hssdoc.js": {
 		"type": "js",
 		"files": [
-			"js/hssdoc.js"
+			"js/site.js",
+			"js/hss/site.js"
 		]
 	},
 	"js/bundle_rainbow.js": {

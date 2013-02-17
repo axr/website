@@ -1,58 +1,8 @@
 window['App'] = window['App'] || {};
 
-(function (App)
+(new Rsrc.File('js/app.js')).provide(function ()
 {
-	App.data = App.data || {};
-	App.util = App.util || {};
-
-	/**
-	 * Initialize the app.
-	 */
-	App.initialize = function ()
-	{
-		window.withApp = function (callback)
-		{
-			callback(App);
-		};
-
-		if (App._onInit !== undefined && App._onInit instanceof Array)
-		{
-			for (var i = 0, c = App._onInit.length; i < c; i++)
-			{
-				App._onInit[i](App);
-			}
-		}
-
-		// Initialize GA queue
-		window._gaq = window._gaq || [];
-		window._gaq.push(['_setAccount', App.site.ga_account]);
-		window._gaq.push(['_trackPageview']);
-
-		// Load GA tracker code
-		(function ()
-		{
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		})();
-	};
-
-	/**
-	 * Display an error to the user
-	 * A fatal error is an error that occurrs during generation of the
-	 * page and due to which the page cannot be displayed
-	 *
-	 * @param {string} error
-	 * @param {boolean} fatal
-	 */
-	App.error = function (error, fatal)
-	{
-		fatal = fatal || false;
-		App.modal.show('<strong>Error:</strong> ' + error);
-	};
+	var App = window['App'];
 
 	/**
 	 * Error
@@ -94,9 +44,68 @@ window['App'] = window['App'] || {};
 	};
 
 	/**
+	 * App events
+	 */
+	App.Event = {
+		/**
+		 * All registered events are stored in here
+		 *
+		 * @private
+		 */
+		_events: {},
+
+		/**
+		 * Register a event listever.
+		 * The `page` should be in a path format (starting with /) but it
+		 * does not have to reflect the actual page URL. The first segment
+		 * is usually controller name.
+		 *
+		 * @param {string} eventName
+		 * @param {function()} callback
+		 */
+		on: function (eventName, callback)
+		{
+			this._events[eventName] = this._events[eventName] || [];
+			this._events[eventName].push(callback);
+		},
+
+		/**
+		 * Trigger a page event.
+		 * The callback gets called after all event handlers have returned
+		 *
+		 * @param {string} eventName
+		 * @param {function()} callback
+		 */
+		trigger: function (eventName, callback)
+		{
+			if (typeof callback !== 'function')
+			{
+				callback = function () {};
+			}
+
+			var handlers = this._events[eventName] || [];
+
+			var mc_count = handlers.length;
+			var mc = function ()
+			{
+				if (--mc_count === 0 && typeof callback === 'function')
+				{
+					callback();
+				}
+			};
+
+			for (var i = 0, c = handlers.length; i < c; i++)
+			{
+				handlers[i]();
+				mc();
+			}
+		}
+	};
+
+	/**
 	 * Cache system
 	 */
-	App.cache = {
+	App.Cache = {
 		_cache: {},
 
 		/**
@@ -157,7 +166,7 @@ window['App'] = window['App'] || {};
 			}
 
 			if (item === null ||
-				item.version !== App.version ||
+				item.version !== App.vars.version ||
 				(!isNaN(item.expires) && (new Date()).getTime() > item.expires))
 			{
 				window.localStorage.removeItem('cache:' + key);
@@ -178,458 +187,498 @@ window['App'] = window['App'] || {};
 		}
 	};
 
+	App.LoadOnce = function ()
+	{
+		this._loading = false;
+		this._callbacks = [];
+		this._handler = null;
+
+		this.callback = function (callback)
+		{
+			if (typeof this._handler === 'function')
+			{
+				this._handler(callback);
+			}
+			else
+			{
+				this._callbacks.push(callback);
+			}
+		};
+
+		this.load = function (loader)
+		{
+			if (this._loading === false)
+			{
+				loader();
+				this._loading = true;
+			}
+		};
+
+		this.handle = function (handler)
+		{
+			this._handler = handler;
+
+			for (var i = 0, c = this._callbacks.length; i < c; i++)
+			{
+				if (typeof this._callbacks[i] === 'function')
+				{
+					handler(this._callbacks[i]);
+				}
+			}
+		};
+	};
+
 	/**
-	 * A block class
-	 *
-	 * @constructor
+	 * Utilities
 	 */
-	App.Block = function (id)
+	App.Util = {
+		/**
+		 * Format dates into "x units ago" format. If the timestamp is not a number
+		 * "some time ago" is returned.
+		 *
+		 * @param {integer} timestamp
+		 * @return string
+		 */
+		format_date_ago: function (timestamp)
+		{
+			if (isNaN(timestamp))
+			{
+				return 'some time ago';
+			}
+
+			var diff = Math.floor((new Date()).getTime() / 1000) - timestamp;
+
+			if (diff == 0) {
+				return 'just now';
+			}
+
+			var unit = 'year', divide = 31556926;
+			if (diff < 31556926) { unit = 'month', divide = 2628000; }
+			if (diff < 2629744) { unit = 'week', divide = 604800; }
+			if (diff < 604800) { unit = 'day', divide = 86400; }
+			if (diff < 86400) { unit = 'hour', divide = 3600; }
+			if (diff < 3600) { unit = 'minute', divide = 60; }
+			if (diff < 60) { unit = 'second', divide = 1; }
+
+			var value = Math.floor(diff / divide);
+
+			return value + ' ' + unit + (value > 1 ? 's' : '') + ' ago';
+		},
+
+		/**
+		 * Scroll to the first element that has a `data-hash` attribute value
+		 * matching to the argument `hash.
+		 *
+		 * @param {string} hash
+		 */
+		scroll_to_hash: function (hash)
+		{
+			var offset = $('[data-hash]').not(function ()
+			{
+				return $(this).attr('data-hash') !== hash;
+			}).offset();
+
+			if (offset !== null && !isNaN(offset.top))
+			{
+				$('html, body').animate({
+					scrollTop: offset.top
+				}, 800);
+			}
+		}
+	};
+
+	/**
+	 * Template
+	 *
+	 * @param {string} name
+	 */
+	App.Template = function (name)
+	{
+		var that = this;
+		var prototype = App.Template.prototype;
+
+		{
+			prototype._instances = prototype._instances || {};
+
+			if (prototype._instances[name] !== undefined)
+			{
+				return prototype._instances[name];
+			}
+
+			prototype._instances[name] = this;
+		}
+
+		/**
+		 * Loader
+		 *
+		 * @type {App.LoadOnce}
+		 */
+		this._loader = new App.LoadOnce();
+
+		/**
+		 * Name of the template
+		 *
+		 * @type {string}
+		 */
+		this.name = name;
+
+		/**
+		 * Request access to this template
+		 *
+		 * @param {function(string, App.Error)} callback
+		 */
+		this.request = function (callback)
+		{
+			this._loader.callback(callback);
+			this._loader.load(function ()
+			{
+				if (App.Cache.get('App.Template?name=' + this.name))
+				{
+					that._loader.handle(function (callback)
+					{
+						callback(App.Cache.get('App.Template?name=' + this.name), null);
+					});
+
+					return;
+				}
+
+				$.ajax({
+					url: App.vars.www_url + '/_ajax/template?callback=?',
+					data: {
+						name: that.name
+					},
+					dataType: 'jsonp',
+					success: function (data)
+					{
+						if (typeof data !== 'object' || data.status !== 0)
+						{
+							that._loader.handle(function (callback)
+							{
+								callback(null, new App.Error('App.Template.RequestError'));
+							});
+
+							return;
+						}
+
+						App.Cache.set('App.Template?name=' + that.name, data.payload.template, {
+							persistent: true
+						});
+
+						that._loader.handle(function (callback)
+						{
+							callback(data.payload.template, null);
+						});
+					},
+					error: function ()
+					{
+						that._loader.handle(function (callback)
+						{
+							callback(null, new App.Error('App.Template.RequestError'));
+						});
+					}
+				});
+			});
+		}
+	};
+
+	/**
+	 * Modal box
+	 */
+	App.Modal = function (html, options)
 	{
 		var that = this;
 
 		/**
-		 * Generate a random id
-		 */
-		this.id = (id !== undefined) ? id : ((Math.random()*0xFFFFFF).toString(32) + (Math.random()*0xFFFFFF).toString(32)).replace(/\./g, '');
-
-		/**
-		 * HTML for the block
+		 * Contents of the modal box
 		 *
-		 * @private
+		 * @type {string}
 		 */
-		this._html = null;
+		this._html = html;
 
 		/**
-		 * Fields
+		 * Options
 		 *
-		 * @private
+		 * @type {Object<string, *>}
 		 */
-		this._fields = {};
+		this._options = options || {};
 
 		/**
-		 * Replace the placeholder
+		 * Initialize
 		 */
-		this.html = function (html)
+		this.initialize = function ()
 		{
-			this._html = html;
-			$('.as_block_' + this.id).html(html);
+			if ($('#as_modal').length === 0)
+			{
+				$('body').prepend(
+					'<div id="as_modal">' +
+						'<div id="as_modal_wrap">' +
+							'<div class="inner">' +
+								'<div class="content"></div>' +
+							'</div>' +
+						'</div>' +
+					'</div>');
+			}
 		};
 
 		/**
-		 * Append to block's HTML
+		 * Show a modal box
 		 */
-		this.append = function (html)
+		this.show = function ()
 		{
-			this.html((this._html || '') + html);
+			this.initialize();
+			this.hide();
+
+			if (!(this._options.size instanceof Array) ||
+					this._options.size.length !== 2)
+			{
+				this._options.size = [500, 375];
+			}
+
+			$('#as_modal > div > .inner')
+				.css('width', this._options.size[0] + 'px')
+				.css('height', this._options.size[1] + 'px')
+				.css('right', '-' + (this._options.size[0] / 2) + 'px')
+				.css('bottom', '-' + (this._options.size[1] / 2) + 'px');
+			$('#as_modal > div > .inner > .content').html(this._html);
+
+			$('#as_modal').on('click', '._as_modal_close', function ()
+			{
+				that.hide();
+			});
+
+			$('#as_modal').show();
 		};
 
 		/**
-		 * Set value for a field
+		 * Hide the modal box
+		 */
+		this.hide = function ()
+		{
+			$('#as_modal').hide();
+			$('#as_modal > div > .inner > .content').empty();
+		};
+	};
+
+	/**
+	 * Google Analytics methods
+	 */
+	App.GoogleAnalytics = {
+		/**
+		 * Initialize GA
 		 *
-		 * @param {string} name
-		 * @param {string} value
+		 * @param {string} account
 		 */
-		this.setField = function (name, value)
+		initialize: function (account)
 		{
-			this._fields[name] = value;
-			$('.as_field_' + this.id + '_' + name).html(value);
-		};
+			// Initialize GA queue
+			window._gaq = window._gaq || [];
+			window._gaq.push(['_setAccount', account]);
+			//window._gaq.push(['_trackPageview']);
+
+			// Load GA tracker code
+			(function ()
+			{
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+		},
+
+		queue: function (data)
+		{
+			window._gaq.push(data);
+		}
+	};
+
+	/**
+	 * Methods for communicating with Twitter and stuff.
+	 */
+	App.Twitter = {
+		_last_tweet_loader: new App.LoadOnce(),
 
 		/**
-		 * Return a placeholder
-		 */
-		this.placeholder = function ($el)
-		{
-				var $el = $('<div>')
-				.attr('class', 'as_block_' + this.id)
-				.html(this._html);
-
-			return $('<div>').append($el).html();
-		};
-
-		/**
-		 * Return placeholder for a field
+		 * Makes your tweets beautiful
 		 *
-		 * @param {string} name
-		 * @param {string} value default value
+		 * @param {string} tweet
 		 * @return string
 		 */
-		this.field = function (name, value)
+		beautify_tweet: function (tweet)
 		{
-			var $el = $('<span>')
-				.attr('class', 'as_field_' + this.id + '_' + name)
-				.html(this._fields[name] || value || '');
-
-			return $('<div>').append($el).html();
-		};
-
-		/**
-		 * Count how many placeholders there are currently in the DOM
-		 *
-		 * @return int
-		 */
-		this.count = function ()
-		{
-			return $('.as_block_' + this.id).length;
-		};
-
-		// Wait for element to be created
-		var interval = setInterval(function ()
-		{
-			if ($('.as_block_' + that.id).length > 0)
+			var parseURL = function (tweet)
 			{
-				clearInterval(interval);
-				$('.as_block_' + that.id).html(that._html);
-			}
-		}, 100);
-	};
+				return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/g,
+					function (url)
+				{
+					return url.link(url);
+				});
+			};
 
-	/**
-	 * Calls `finalCallback` after the returned function has been called
-	 * `count` times.
-	 *
-	 * @param {integer} count
-	 * @param {function()} finalCallback
-	 * @return function
-	 */
-	App.util.multiCallback = function (count, finalCallback)
-	{
-		return function ()
-		{
-			if (--count === 0 && typeof finalCallback === 'function')
+			var parseUsername = function (tweet)
 			{
-				finalCallback();
-			}
-		};
-	};
+				return tweet.replace(/[@]+[A-Za-z0-9-_]+/g, function (u)
+				{
+					return u.link('https://twitter.com/#!/' + u.replace('@', ''));
+				});
+			};
 
-	/**
-	 * Makes your tweets beautiful
-	 *
-	 * @param {string} tweet
-	 * @return string
-	 */
-	App.util.beautifyTweet = function (tweet)
-	{
-		parseURL = function (tweet)
-		{
-			return tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/g,
-				function (url)
+			var parseHashtag = function (tweet)
 			{
-				return url.link(url);
-			});
-		};
+				return tweet.replace(/[#]+[A-Za-z0-9-_]+/g, function (t)
+				{
+					return t.link('http://search.twitter.com/search?q=' +
+						t.replace('#', '%23'));
+				});
+			};
 
-		parseUsername = function (tweet)
-		{
-			return tweet.replace(/[@]+[A-Za-z0-9-_]+/g, function (u)
-			{
-				return u.link('https://twitter.com/#!/' + u.replace('@', ''));
-			});
-		};
+			tweet = parseURL(tweet);
+			tweet = parseUsername(tweet);
+			tweet = parseHashtag(tweet);
 
-		parseHashtag = function (tweet)
-		{
-			return tweet.replace(/[#]+[A-Za-z0-9-_]+/g, function (t)
-			{
-				return t.link('http://search.twitter.com/search?q=' +
-					t.replace('#', '%23'));
-			});
-		};
-
-		tweet = parseURL(tweet);
-		tweet = parseUsername(tweet);
-		tweet = parseHashtag(tweet);
-
-		return tweet;
-	};
-
-	/**
-	 * Format dates into "x units ago" format. If the timestamp is not a number
-	 * "some time ago" is returned.
-	 *
-	 * @param {integer} timestamp
-	 * @return string
-	 */
-	App.util.formatDateAgo = function (timestamp)
-	{
-		if (isNaN(timestamp))
-		{
-			return 'some time ago';
-		}
-
-		var diff = Math.floor((new Date()).getTime() / 1000) - timestamp;
-
-		if (diff == 0) {
-			return 'just now';
-		}
-
-		var unit = 'year', divide = 31556926;
-		if (diff < 31556926) { unit = 'month', divide = 2628000; }
-		if (diff < 2629744) { unit = 'week', divide = 604800; }
-		if (diff < 604800) { unit = 'day', divide = 86400; }
-		if (diff < 86400) { unit = 'hour', divide = 3600; }
-		if (diff < 3600) { unit = 'minute', divide = 60; }
-		if (diff < 60) { unit = 'second', divide = 1; }
-
-		var value = Math.floor(diff / divide);
-
-		return value + ' ' + unit + (value > 1 ? 's' : '') + ' ago';
-	};
-
-	App.pageEvent = {
-		/**
-		 * All registered events are stored in here
-		 *
-		 * @private
-		 */
-		_events: {},
-
-		/**
-		 * Register a event listever.
-		 * The `page` should be in a path format (starting with /) but it
-		 * does not have to reflect the actual page URL. The first segment
-		 * is usually controller name.
-		 *
-		 * @param {string} eventType
-		 * @param {string} page
-		 * @param {function()} callback
-		 */
-		on: function (eventType, page, callback)
-		{
-			this._events[eventType] = this._events[eventType] || {};
-			this._events[eventType][page] = this._events[eventType][page] || [];
-			this._events[eventType][page].push(callback);
+			return tweet;
 		},
 
 		/**
-		 * Trigger a page event.
-		 * The callback gets called after all event handlers have returned
+		 * Get our last tweet
 		 *
-		 * @param {string} eventType
-		 * @param {string} page
-		 * @param {function()} callback
+		 * @param {function(string, App.Error)}
 		 */
-		trigger: function (eventType, page, callback)
+		get_last_tweet: function (callback)
 		{
-			if (typeof callback !== 'function')
-			{
-				callback = function () {};
-			}
+			var that = this;
 
-			if (page !== '*')
+			this._last_tweet_loader.callback(callback);
+			this._last_tweet_loader.load(function ()
 			{
-				callback = function ()
+				if (App.Cache.get('App.Twitter.last_tweet'))
 				{
-					App.pageEvent.trigger(eventType, '*', callback);
-				};
-			}
+					that._loader.handle(function (callback)
+					{
+						callback(App.Cache.get('App.Twitter.last_tweet'), null);
+					});
 
-			var handlers = (this._events[eventType] || {})[page] || [];
-			var f = App.util.multiCallback(handlers.length, callback);
+					return;
+				}
 
-			for (var i = 0, c = handlers.length; i < c; i++)
-			{
-				handlers[i]();
-				f();
-			}
-		}
-	};
+				$.ajax({
+					url: 'https://api.twitter.com/1/statuses/user_timeline.json?callback=?',
+					method: 'get',
+					data: {
+						screen_name: 'axrproject',
+						include_rts: 'true',
+						include_entities: 'false',
+						exclude_replies: 'true',
+						trim_user: 'true',
+						count: 10
+					},
+					dataType: 'jsonp',
+					success: function (data)
+					{
+						if (data[0] === undefined)
+						{
+							that._last_tweet_loader.handle(function (callback)
+							{
+								callback(null, new App.Error('App.Twitter.APIError'));
+							});
 
-	/**
-	 * Load a template
-	 *
-	 * @param {string} name
-	 * @param {function(?string, ?string)} callback
-	 */
-	App.data.template = function (name, callback)
-	{
-		if (typeof callback !== 'function')
-		{
-			callback = function () {};
-		}
+							return;
+						}
 
-		// We already have the template in cache
-		if (App.cache.get('/template/' + name) !== undefined)
-		{
-			callback(App.cache.get('/template/' + name), null);
-			return;
-		}
+						var timestamp = Date.parse(data[0].created_at) / 1000;
+						var tweet = App.Twitter.beautify_tweet(data[0].text) +
+							' &mdash; ' + App.Util.format_date_ago(timestamp);
 
-		// The template is currently being loaded
-		if (App.cache.get('/template/:loading/' + name) === true)
-		{
-			setTimeout(function ()
-			{
-				App.data.template(name, callback);
-			}, 100);
+						App.Cache.set('App.Twitter.last_tweet', tweet);
 
-			return;
-		}
-
-		App.cache.set('/template/:loading/' + name, true);
-
-		$.ajax({
-			url: App['/shared/www_url'] + '/_ajax/template?callback=?',
-			data: {
-				name: name
-			},
-			dataType: 'jsonp'
-		}).success(function (data)
-		{
-			if (typeof data !== 'object' || data.status !== 0)
-			{
-				callback(null, 'Error loading template `' + name + '`. Returned status: ' + (data || {}).status);
-				return;
-			}
-
-			App.cache.set('/template/' + name, data.payload.template, {
-				persistent: true
+						that._last_tweet_loader.handle(function (callback)
+						{
+							callback(tweet, null);
+						});
+					},
+					error: function ()
+					{
+						that._last_tweet_loader.handle(function (callback)
+						{
+							callback(null, new App.Error('App.Twitter.APIError'));
+						});
+					}
+				});
 			});
-			App.cache.set('/template/:loading/' + name, false);
-
-			callback(data.payload.template, false);
-		}).error(function ()
-		{
-			App.cache.get('/template/:loading/' + name, false);
-			callback(null, 'Error while loading template `' + name + '`');
-		});
+		}
 	};
 
 	/**
-	 * Get last tweet.
-	 *
-	 * @param {function(?string, ?string)}
+	 * Methods for communicating with GitHub
 	 */
-	App.data.lastTweetForBox = function (callback)
-	{
-		if (App.cache.get('/lastTweetForBox'))
-		{
-			callback(App.cache.get('/lastTweetForBox'), null)
-			return;
-		}
+	App.GitHub = {
+		_activity_loading: false,
 
-		if (App.cache.get('/lastTweetForBox/:loading') === true)
+		/**
+		 * Get GitHub activity
+		 *
+		 * @param {function} callback (events, error)
+		 */
+		get_activity: function (callback)
 		{
-			setTimeout(function ()
+			var that = this;
+
+			if (App.Cache.get('App.GitHub.activity'))
 			{
-				App.data.lastTweetForBox(callback);
-			}, 200);
-
-			return;
-		}
-
-		App.cache.set('/lastTweetForBox/:loading', true);
-
-		$.ajax({
-			url: 'https://api.twitter.com/1/statuses/user_timeline.json?callback=?',
-			method: 'get',
-			data: {
-				screen_name: 'axrproject',
-				include_rts: 'true',
-				include_entities: 'false',
-				exclude_replies: 'true',
-				trim_user: 'true',
-				count: 10
-			},
-			dataType: 'jsonp'
-		}).success(function (data)
-		{
-			if (data[0] === undefined)
-			{
-				callback(null, 'Error loading last tweet');
+				callback(App.Cache.get('App.GitHub.activity'), null)
 				return;
 			}
 
-			var timestamp = Date.parse(data[0].created_at) / 1000;
-			var tweet = App.util.beautifyTweet(data[0].text) +
-				' &mdash; ' + App.util.formatDateAgo(timestamp);
-
-			App.cache.set('/lastTweetForBox', tweet);
-			App.cache.set('/lastTweetForBox/:loading', false);
-
-			if (typeof callback === 'function')
+			if (this._activity_loading === true)
 			{
-				callback(tweet, null);
-			}
-		}).error(function ()
-		{
-			App.cache.set('/lastTweetForBox/:loading', false);
-			callback(null, 'Error loading last tweet');
-		});
-	};
-
-	/**
-	 * Get GitHub activity
-	 *
-	 * @param object options
-	 * @param function callback (events, error)
-	 */
-	App.data.githubActivity = function (options, callback)
-	{
-		if (typeof callback !== 'function')
-		{
-			callback = function () {};
-		}
-
-		options.count = options.count || 20;
-		var cache_key = '/githubActivity/:count/' + options.count;
-
-		if (App.cache.get(cache_key))
-		{
-			callback(App.cache.get(cache_key), null)
-			return;
-		}
-
-		if (App.cache.get(cache_key + '/:loading') === true)
-		{
-			setTimeout(function ()
-			{
-				App.data.githubActivity(ptions, callback);
-			}, 200);
-
-			return;
-		}
-
-		App.cache.set(cache_key + '/:loading', true);
-
-		$.ajax({
-			url: App['/shared/www_url'] + '/_ajax/ghactivity?callback=?',
-			method: 'get',
-			data: {
-				count: options.count
-			},
-			dataType: 'jsonp'
-		}).success(function (data)
-		{
-			if (data.status !== 0)
-			{
-				callback(null, new App.Error('ResponseError', {
-					response_status: data.status,
-					response_error: data.error
-				}));
+				setTimeout(function ()
+				{
+					App.GitHub.get_activity(callback);
+				}, 200);
 
 				return;
 			}
 
-			App.cache.set(cache_key, data.payload.events, {
-				persistent: true,
-				max_age: 1800
+			this._activity_loading = true;
+
+			$.ajax({
+				url: App.vars.www_url + '/_ajax/ghactivity?callback=?',
+				method: 'get',
+				data: {
+					count: 10
+				},
+				dataType: 'jsonp',
+				success: function (data)
+				{
+					if (data.status !== 0)
+					{
+						callback(null, new App.Error('App.GitHub.APIError', {
+							response_status: data.status,
+							response_error: data.error
+						}));
+
+						return;
+					}
+
+					App.Cache.set('App.GitHub.activity', data.payload.events, {
+						persistent: true,
+						max_age: 1800
+					});
+					that._activity_loading = false;
+
+					callback(data.payload.events, null);
+				},
+				error: function (xhr, text_status, error_thrown)
+				{
+					that._activity_loading = false;
+
+					callback(null, new App.Error('App.GitHub.APIError', {
+						text_status: text_status,
+						error_thrown: error_thrown
+					}));
+				}
 			});
-			App.cache.set(cache_key + '/:loading', false);
-
-			callback(data.payload.events, null);
-		}).error(function (jqXHR, text_status, error_thrown)
-		{
-			App.cache.set(cache_key + '/:loading', false);
-
-			callback(null, new App.Error('RequestError', {
-				text_status: text_status,
-				error_thrown: error_thrown
-			}));
-		});
+		}
 	};
-
-	// Initialize the app
-	$('document').ready(App.initialize);
-})(window['App']);
+});

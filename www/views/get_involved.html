@@ -136,10 +136,9 @@
 
 {{^_ajax}}
 	<script>
-		withApp(function (App)
+		Rsrc.use(['js/app.js', 'js/www/get_involved.js'], function ()
 		{
-			App.pageEvent.trigger('load_init', '/get-involved');
-			App.pageEvent.trigger('load', '/get-involved');
+			App.Event.trigger('App.WWW.GetInvolved.load');;
 		});
 	</script>
 {{/_ajax}}

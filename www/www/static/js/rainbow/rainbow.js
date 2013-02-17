@@ -18,6 +18,10 @@
  * @preserve @version 1.1.8
  * @url rainbowco.de
  */
+
+(new Rsrc.File('js/rainbow/rainbow.js')).provide(function ()
+{
+
 window['Rainbow'] = (function() {
 
     /**
@@ -760,4 +764,4 @@ window['Rainbow'] = (function() {
 Rainbow["onHighlight"] = Rainbow.onHighlight;
 Rainbow["addClass"] = Rainbow.addClass;
 
-window['App'].Rsrc.file('js/rainbow/rainbow.js').set_loaded();
+});

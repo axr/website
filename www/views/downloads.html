@@ -54,13 +54,9 @@
 
 {{^_ajax}}
 	<script>
-		withApp(function (App)
+		Rsrc.use(['js/app.js', 'js/www/downloads.js'], function ()
 		{
-			App.Rsrc.bundle('js/downloads.js').use(function ()
-			{
-				App.pageEvent.trigger('load_init', '/downloads');
-				App.pageEvent.trigger('load', '/downloads');
-			});
+			App.Event.trigger('App.WWW.Downloads.load');;
 		});
 	</script>
 {{/_ajax}}

@@ -25,7 +25,7 @@ class AjaxController extends Controller
 		}
 		catch (\Exception $e)
 		{
-			echo json_encode(array(
+			echo self::respond_json(array(
 				'status' => 1,
 				'error' => $e->getMessage()
 			));

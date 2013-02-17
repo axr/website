@@ -30,6 +30,13 @@ Config::set('/shared/cache_servers', array(
 	array('localhost', 11211)
 ));
 
+/**
+ * Google Analytics account IDs
+ */
+Config::set('/shared/ga_accounts', (object) array(
+	'default' => 'UA-20384487-1'
+));
+
 if (file_exists(dirname(__FILE__) . '/config.user.php'))
 {
 	require_once(dirname(__FILE__) . '/config.user.php');
