@@ -97,9 +97,13 @@ class AjaxController extends Controller
 
 		if (isset($_GET['callback']))
 		{
+			header('Content-Type: application/javascript');
+
 			$callback = preg_replace('/[^a-zA-Z0-9_]/', '', $_GET['callback']);
 			return $callback . '(' . $data . ');';
 		}
+
+		header('Content-Type: application/json');
 
 		return $data;
 	}
