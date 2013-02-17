@@ -214,6 +214,7 @@
 {
 	background: #eaeaea;
 	border: 1px solid #aaa;
+	font-size: 13px;
 	padding: 4px 8px;
 	text-align: left;
 }
@@ -267,45 +268,5 @@
 #hssdoc_obj table.values_table td .future
 {
 	color: #999;
-	font-size: 9px;
-}
-
-#hssdoc_add textarea
-{
-	font-family: Monaco, monospace;
-}
-
-#hssdoc_add table
-{
-	width: 100%;
-}
-
-#hssdoc_add table th.actions,
-#hssdoc_add table td.actions
-{
-	width: 70px;
-}
-
-#hssdoc_add table.values_table td.iibox
-{
-	padding: 0;
-	width: 280px;
-}
-
-#hssdoc_add table.values_table td.iibox input[type=text]
-{
-	background: transparent;
-	border: 0;
-	padding: 4px 8px;
-	width: 264px;
-}
-
-#hssdoc_add table.values_table tr.unsaved td
-{
-	background: #d5d5d5;
-}
-
-#hssdoc_rm p
-{
-	font-size: 14px;
+	font-size: 10px;
 }
