@@ -1,24 +1,29 @@
-#get_involved .get_involved
+#get_involved
+{
+	margin: 10px 0 0 0;
+	position: relative;
+}
+
+#get_involved > .content
 {
 	float: left;
-	margin: 10px 0 0 0;
 	width: 515px;
 }
 
-#get_involved .get_involved > .join_us > p
+#get_involved > .content > .join_us p
 {
 	font-size: 1.2em;
 	width: 450px;
 }
 
-#get_involved .get_involved > .join_us > a.join
+#get_involved > .content > .join_us a.join
 {
-	margin: 30px 0 40px 8px;
+	margin: 30px 0 40px 0;
 	text-align: center;
 	width: 300px;
 }
 
-#get_involved .get_involved > .join_us > ul.we_need
+#get_involved > .content > .join_us ul.we_need
 {
 	float: left;
 	list-style: none;
@@ -27,36 +32,35 @@
 	padding: 0;
 }
 
-#get_involved .get_involved > .join_us > ul.we_need > li
+#get_involved > .content > .join_us ul.we_need li
 {
-	margin: 20px 0;
 	clear: both;
-	overflow: hidden;
 	font-size: 1.2em;
+	margin: 20px 0;
+	overflow: hidden;
 }
 
-#get_involved .get_involved > .join_us > ul.we_need > li > span
+#get_involved > .content > .join_us ul.we_need li span
 {
 	display: inline-block;
 }
 
-#get_involved .get_involved > .join_us > ul.we_need > li > span.block_0
+#get_involved > .content > .join_us > ul.we_need li span.icon
 {
-	width: 18px;
+	background: url(../images/sprite32.png) -69px -20px;
 	height: 18px;
-	background-image: url(../images/sprite32.png);
-	background-position: -69px -20px;
 	margin: 0 10px 0 0;
+	width: 18px;
 }
 
-#get_involved .get_involved > .chat
+#get_involved > .content > .chat
 {
 	font-size: 14px;
 	padding: 0 0 40px 0;
 	position: relative;
 }
 
-#get_involved .get_involved > .chat .intro
+#get_involved > .content > .chat .intro
 {
 	font-size: 14px;
 	float: left;
@@ -64,12 +68,12 @@
 	width: 250px;
 }
 
-#get_involved .get_involved > .chat .intro p
+#get_involved > .content > .chat .intro p
 {
 	margin: 0 0 10px 0;
 }
 
-#get_involved .get_involved > .chat .ircinfo
+#get_involved > .content > .chat .ircinfo
 {
 	background: #ccc;
 	border-radius: 5px;
@@ -81,7 +85,7 @@
 	width: 250px;
 }
 
-#get_involved .get_involved > .chat .ircinfo li
+#get_involved > .content > .chat .ircinfo li
 {
 	border-bottom: 1px solid #e4e4e4;
 	font-weight: bold;
@@ -89,13 +93,13 @@
 	padding: 18px 15px;
 }
 
-#get_involved .get_involved > .chat .ircinfo li:last-child
+#get_involved > .content > .chat .ircinfo li:last-child
 {
 	border-bottom: 0;
 	padding-top: 16px;
 }
 
-#get_involved .get_involved > .chat .ircinfo li span
+#get_involved > .content > .chat .ircinfo li span
 {
 	font-weight: normal;
 	width: 70px;
@@ -164,14 +168,13 @@
 
 #get_involved .sidebar > .box > .icon > .extra_1
 {
-	background: url(../images/get_involved_sprite.png) no-repeat;
-	background-position: -100px -125px;
-	height: 15px;
-	margin: 0 -2px 0 0;
+	background: url(../images/get-involved-box-arrow.svg) no-repeat;
+	height: 12px;
+	margin: 0 -3px 0 0;
 	position: absolute;
 	top: 15px;
 	right: 0;
-	width: 10px;
+	width: 14px;
 	z-index: 1;
 }
 
@@ -227,7 +230,7 @@
 
 #get_involved .sidebar > .box.newsletter > .icon > .extra_1
 {
-	background-position: -114px -125px;
+	background-position: 0 -13px;
 }
 
 #get_involved .sidebar > .box.newsletter > .nested_0
