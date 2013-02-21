@@ -968,93 +968,66 @@ nav#breadcrumb .extra_0
 	background-position: -921px -353px;
 }
 
-#container > footer > .activity > .last_tweet
+#container > footer > .activity > .twitter
 {
-	padding: 0;
-	margin: 0;
+	height: 126px;
+	left: 250px;
 	position: absolute;
-	left: 180px;
 	top: 26px;
 }
 
-#container > footer > .activity > .last_tweet  a
+#container > footer > .activity > .twitter a
 {
 	color: #D09610;
 	text-decoration: none;
-	font-weight: bold;
 }
 
-#container > footer > .activity > .last_tweet a:hover
+#container > footer > .activity > .twitter a:hover
 {
 	text-decoration: underline;
 }
 
-#container > footer > .activity > .last_tweet > li
+#container > footer > .activity > .twitter > .icon .icon
 {
-	list-style-type: none;
-	position: absolute;
-	text-shadow: 0 1px 0 #EBEBEB;
+	background-position: -93px 0;
+	height: 38px;
+	margin: 4px 0;
+	width: 55px;
 }
 
-#container > footer > .activity > .last_tweet > .tweet_container
+#container > footer > .activity > .twitter > .nested_0
 {
-	z-index: 1;
-	margin: 1px 0 0 75px;
-	height: 50px;
-	width: 223px;
-	padding: 15px 18px 18px 18px;
-	color: #606060;
+	background: #d3d3d3;
+	border: 1px solid #e1e1e1;
+	border-radius: 8px;
+	min-height: 49px;
+}
+
+#container > footer > .activity > .twitter > .box > .inner
+{
+	border-bottom: 1px solid #bdbdbd;
 	font-weight: bold;
-	font-size: 0.9em;
-	word-wrap: break-word;
-	overflow: hidden;
-	text-overflow: -o-ellipsis-lastline;
-	border: 1px solid;
-	border-color: #E1E1E1 #E1E1E1 #BEBEBE #E1E1E1;
-	-moz-border-radius: 8px 8px 0 0;
-	-webkit-border-radius: 8px 8px 0 0;
-	border-radius: 8px 8px 0 0;
-}
-
-#container > footer > .activity > .last_tweet > .tweet_container:hover
-{
+	font-size: 1em;
+	height: 65px;
+	padding: 12px 20px;
 	text-overflow: clip;
+	text-shadow: #ededed 0 1px 0;
 }
 
-#container > footer > .activity > .last_tweet > .follow_us
+#container > footer > .activity > .twitter > .box > .follow
 {
-
-	width: 261px;
-	margin-left: 74px;
-	text-align: center;
+	border-top: 1px solid #e1e1e1;
 	color: #939393;
 	font-weight: bold;
-	background: #D3D3D3;
-	border: 1px solid #BEBEBE;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;     
+	height: 17px;
+	padding: 8px 0;
+	text-align: center;
 }
 
-#container > footer > .activity > .last_tweet > .follow_us > span
-{  
-	margin-top: 85px;
-	display: block;
-	height: 36px;
-	line-height: 36px;
-	border: 1px solid #E1E1E1;
-	-moz-border-radius: 0 0 8px 8px;
-	-webkit-border-radius: 0 0 8px 8px;
-	border-radius: 0 0 8px 8px;
-}
-
-#container > footer > .activity > .last_tweet > .bird
+#container > footer > .activity > .twitter > .box > .follow a
 {
-	background: url("../images/sprite32.png") no-repeat -116px -29px;
-	height: 47px;
-	width: 76px;
-	margin-top:12px;
-	z-index: 2;
+	color: ;
+	text-shadow: #ededed 1px 1px 3px;
 }
 
 #container > footer > .activity > .participate

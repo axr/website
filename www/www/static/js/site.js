@@ -8,7 +8,7 @@ window['App'] = window['App'] || {};
 
 		App.Twitter.get_last_tweet(function (tweet, error)
 		{
-			$('#container > footer .last_tweet .tweet_container')
+			$('#container > footer ._last_tweet')
 				.html(tweet || error.to_s());
 		});
 	});
