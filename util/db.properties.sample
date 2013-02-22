@@ -1,9 +1,0 @@
-# Credentials for the database migrations
-db.host=localhost
-db.user=user
-db.pass=password
-db.name=example
-
-# paths to programs
-progs.mysql=/usr/bin/mysql
-
