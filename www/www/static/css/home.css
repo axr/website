@@ -304,7 +304,7 @@
 
 #home > .social > .github > .box > .icon > .icon
 {
-	background-position: -45px 0;
+	background-image: url(../images/sprite_get-involved-icons/github.png);
 	height: 47px;
 	margin: 0 5px;
 	width: 47px;

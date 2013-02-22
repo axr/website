@@ -989,7 +989,7 @@ nav#breadcrumb .extra_0
 
 #container > footer > .activity > .twitter > .icon .icon
 {
-	background-position: -93px 0;
+	background-image: url(../images/sprite_get-involved-icons/twitter.png);
 	height: 38px;
 	margin: 4px 0;
 	width: 55px;
@@ -1026,7 +1026,6 @@ nav#breadcrumb .extra_0
 
 #container > footer > .activity > .twitter > .box > .follow a
 {
-	color: ;
 	text-shadow: #ededed 1px 1px 3px;
 }
 

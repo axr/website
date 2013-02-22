@@ -45,7 +45,7 @@
 	border: 1px solid #999;
 }
 
-input[type!=submit].uiInput
+input.uiInput
 {
 	max-width: 300px;
 	width: 90%;
@@ -438,8 +438,8 @@ table.uiTable > tfoot > tr.actions td
 
 .getInvolvedBox > .icon .icon
 {
-	background: url(../images/get-involved-icons.png) no-repeat;
-	background-position: -9999px -9999px;
+	/*background: url(../images/get-involved-icons.png) no-repeat;
+	background-position: -9999px -9999px;*/
 	height: 1px;
 	width: 55px;
 }
