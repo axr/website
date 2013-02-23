@@ -1031,43 +1031,37 @@ nav#breadcrumb .extra_0
 
 #container > footer > .activity > .participate
 {
-	background-image: url("../images/sprite.jpg");
-	background-position: -680px -99px;
-	height: 126px; left: 550px;
+	height: 126px;
 	position: absolute;
-	top: 25px;
-	width: 267px;
-	font-weight: bold;
+	right: 0;
+	top: 26px;
 }
 
-#container > footer > .activity > .participate > h2
+#container > footer > .activity > .participate > .box .title
 {
-
-	color: white;
-	font-weight: bold;
-	margin: 10px 0 0 20px;
-	text-shadow: 0 1px 0 #666666;
-	width: 72px;
+	height: 19px;
 }
 
-#container > footer > .activity > .participate > p
+#container > footer > .activity > .participate > .box .inner
 {
-
-	color: white;
-	font-size: 0.89em;
-	margin: 16px 0 0 20px;
-	text-shadow: 0 1px 0 #666666;
-	width: 230px;
+	font-size: 11px;
+	height: 89px;
 }
 
-#container > footer > .activity > .participate > p > a
+#container > footer > .activity > .participate > .box .inner p
+{
+	margin: 0;
+	padding: 15px 0;
+}
+
+#container > footer > .activity > .participate > .box a
 {
 	color: #FFD519;
 	text-decoration: none;
 	text-shadow: 0 1px 0 #666666;
 }
 
-#container > footer > .activity > .participate > p > a:hover
+#container > footer > .activity > .participate > .box a:hover
 {
 	text-decoration: underline;
 }
