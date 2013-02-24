@@ -915,59 +915,6 @@ nav#breadcrumb .extra_0
 	background-position: -831px -271px;
 }
 
-#container > footer > .activity > .follow_us
-{
-	background-image: url("../images/sprite.jpg");
-	background-position: -624px -228px;
-	height: 77px;
-	left: -25px;
-	list-style: none outside none;
-	margin: 0;
-	padding: 11px 0 0 29px;
-	position: absolute;
-	top: 100px;
-	width: 178px;
-	z-index: 1;
-}
-
-#container > footer > .activity > .follow_us > li
-{
-	display: block;
-	float: left;
-	height: 26px;
-	margin-right: 13px;
-	width: 24px;
-}
-
-#container > footer > .activity > .follow_us > li > a
-{
-	display: block;
-	height: 100%;
-	overflow: hidden;
-	text-indent: -999px;
-	width: 100%;
-}
-
-#container > footer > .activity > .follow_us > li > a:hover
-{
-	background-image: url("../images/sprite.jpg");
-}
-
-#container > footer > .activity > .follow_us > li.twitter > a:hover
-{
-	background-position: -873px -353px;
-}
-
-#container > footer > .activity > .follow_us > li.facebook > a:hover
-{
-	background-position: -897px -353px;
-}
-
-#container > footer > .activity > .follow_us > li.vimeo > a:hover
-{
-	background-position: -921px -353px;
-}
-
 #container > footer > .activity > .twitter
 {
 	height: 126px;
