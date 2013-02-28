@@ -255,13 +255,7 @@
 
 #get_involved .getInvolvedBox.facebook > .box .inner
 {
-	padding: 0;
-}
-
-#get_involved .getInvolvedBox.facebook > .box .inner iframe
-{
-	display: block !important;
-	visibility: visible !important;
+	padding: 10px 20px;
 }
 
 
