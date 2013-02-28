@@ -297,102 +297,62 @@
 
 #home > .social > .github > .box
 {
-	border: 1px solid #bdbdbd;
-	border-radius: 8px;
 	float: right;
 	margin: 0 0 30px 0;
 	width: 262px;
 }
 
-#home > .social > .github > .box > .icon
+#home > .social > .github > .box > .icon > .icon
 {
-	float: left;
-	margin: 0 0 0 -76px;
-	position: relative;
-	width: 75px;
-}
-
-#home > .social > .github > .box > .icon > .extra_0
-{
-	background: url(../images/get_involved_sprite.png) no-repeat;
-	height: 47px;
-	width: 55px;
-}
-
-#home > .social > .github > .box > .icon > .extra_1
-{
-	background: url(../images/get_involved_sprite.png) no-repeat;
-	background-position: -100px -125px;
-	height: 15px;
-	margin: 0 -2px 0 0;
-	position: absolute;
-	top: 15px;
-	right: 0;
-	width: 10px;
-	z-index: 1;
-}
-
-#home > .social > .github > .box > .icon > .extra_0
-{
-	background-position: -50px -102px;
+	background-image: url(../images/sprite_get-involved-icons/github.png);
 	height: 47px;
 	margin: 0 5px;
 	width: 47px;
 }
 
-#home > .social > .github > .box > .nested_0
+#home > .social > .github > .box > .box a
 {
-	background: #d3d3d3;
-	border: 1px solid #e1e1e1;
-	border-radius: 8px;
-	min-height: 49px;
+	color: #D09610;
+	text-decoration: none;
 }
 
-#home > .social > .github > .box > .nested_0 > ul
+#home > .social > .github > .box > .box a
+{
+	text-decoration: underline;
+}
+
+#home > .social > .github > .box > .box ul
 {
 	margin: 0 2px;
-	padding: 0;
+	padding: 6px 0;
 	list-style-type: none;
 }
 
-#home > .social > .github > .box > .nested_0 > ul li
-{
-	border-bottom: 1px solid #bdbdbd;
-	border-top: 1px solid #e1e1e1;
-}
-
-#home > .social > .github > .box > .nested_0 > ul li:first-child
-{
-	border-top: 0;
-}
-
-#home > .social > .github > .box > .nested_0 > ul li:last-child
+#home > .social > .github > .box > .box ul li:last-child
 {
 	border-bottom: 0;
 }
 
-#home > .social > .github > .box > .nested_0 > ul li:last-child .inner
+#home > .social > .github > .box > .box ul li:last-child .inner
 {
 	border-bottom: 0;
 }
 
-#home > .social > .github > .box > .nested_0 > ul li .inner
+#home > .social > .github > .box > .box ul li .inner
 {
 	color: #6b6b6b;
 	font-size: 1em;
 	font-weight: bold;
-	padding: 8px 20px 8px 22px;
+	padding: 5px 20px 7px 22px;
 	text-shadow: #ededed 0 1px 0;
 }
 
-#home > .social > .github > .box > .nested_0 > ul li a
+#home > .social > .github > .box > .box ul li a
 {
-	color: #D09610;
-	text-decoration: underline;
 	text-shadow: #ededed 0 1px 0;
 }
 
-#home > .social > .github > .box > .nested_0 > ul li span
+#home > .social > .github > .box > .box ul li span
 {
 	color: #979797;
 	text-shadow: #ededed 0 1px 0;

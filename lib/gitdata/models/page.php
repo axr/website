@@ -28,11 +28,11 @@ class Page extends \GitData\Model
 	public $date;
 
 	/**
-	 * Author's name
+	 * List of the authors
 	 *
-	 * @var string
+	 * @var string[]
 	 */
-	public $author_name;
+	public $authors;
 
 	/**
 	 * Content of the page
@@ -69,6 +69,16 @@ class Page extends \GitData\Model
 			{
 				$this->$key = $value;
 			}
+		}
+
+		if (isset($info->author_name))
+		{
+			if (!is_array($this->authors))
+			{
+				$this->authors = array();
+			}
+
+			array_unshift($this->authors, $info->author_name);
 		}
 
 		// Set the permalink

@@ -1,4 +1,2 @@
 bundles/
-db/scripts/*.sql
-db.properties
 *.pyc

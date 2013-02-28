@@ -1,6 +1,3 @@
-[submodule "util/deps/phing"]
-	path = util/deps/phing
-	url = git://github.com/phingofficial/phing.git
 [submodule "lib/mustache"]
 	path = lib/mustache
 	url = git://github.com/Ragnis/mustache-extended.git

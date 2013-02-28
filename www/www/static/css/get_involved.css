@@ -1,24 +1,29 @@
-#get_involved .get_involved
+#get_involved
+{
+	margin: 10px 0 0 0;
+	position: relative;
+}
+
+#get_involved > .content
 {
 	float: left;
-	margin: 10px 0 0 0;
 	width: 515px;
 }
 
-#get_involved .get_involved > .join_us > p
+#get_involved > .content > .join_us p
 {
 	font-size: 1.2em;
 	width: 450px;
 }
 
-#get_involved .get_involved > .join_us > a.join
+#get_involved > .content > .join_us a.join
 {
-	margin: 30px 0 40px 8px;
+	margin: 30px 0 40px 0;
 	text-align: center;
 	width: 300px;
 }
 
-#get_involved .get_involved > .join_us > ul.we_need
+#get_involved > .content > .join_us ul.we_need
 {
 	float: left;
 	list-style: none;
@@ -27,36 +32,35 @@
 	padding: 0;
 }
 
-#get_involved .get_involved > .join_us > ul.we_need > li
+#get_involved > .content > .join_us ul.we_need li
 {
-	margin: 20px 0;
 	clear: both;
-	overflow: hidden;
 	font-size: 1.2em;
+	margin: 20px 0;
+	overflow: hidden;
 }
 
-#get_involved .get_involved > .join_us > ul.we_need > li > span
+#get_involved > .content > .join_us ul.we_need li span
 {
 	display: inline-block;
 }
 
-#get_involved .get_involved > .join_us > ul.we_need > li > span.block_0
+#get_involved > .content > .join_us > ul.we_need li span.icon
 {
-	width: 18px;
+	background-image: url(../images/sprite_32/star.png);
 	height: 18px;
-	background-image: url(../images/sprite32.png);
-	background-position: -69px -20px;
 	margin: 0 10px 0 0;
+	width: 18px;
 }
 
-#get_involved .get_involved > .chat
+#get_involved > .content > .chat
 {
 	font-size: 14px;
 	padding: 0 0 40px 0;
 	position: relative;
 }
 
-#get_involved .get_involved > .chat .intro
+#get_involved > .content > .chat .intro
 {
 	font-size: 14px;
 	float: left;
@@ -64,12 +68,12 @@
 	width: 250px;
 }
 
-#get_involved .get_involved > .chat .intro p
+#get_involved > .content > .chat .intro p
 {
 	margin: 0 0 10px 0;
 }
 
-#get_involved .get_involved > .chat .ircinfo
+#get_involved > .content > .chat .ircinfo
 {
 	background: #ccc;
 	border-radius: 5px;
@@ -80,6 +84,27 @@
 	padding: 0;
 	width: 250px;
 }
+
+#get_involved > .content > .chat .ircinfo li
+{
+	border-bottom: 1px solid #e4e4e4;
+	font-weight: bold;
+	height: 13px;
+	padding: 18px 15px;
+}
+
+#get_involved > .content > .chat .ircinfo li:last-child
+{
+	border-bottom: 0;
+	padding-top: 16px;
+}
+
+#get_involved > .content > .chat .ircinfo li span
+{
+	font-weight: normal;
+	width: 70px;
+}
+
 
 #get_involved .get_involved > .chat .ircinfo li
 {
@@ -101,6 +126,10 @@
 	width: 70px;
 }
 
+/**
+ * Sidebar
+ * =======
+ */
 #get_involved .sidebar
 {
 	background: url(../images/separator_big_repeat.png) repeat-y top left;
@@ -138,127 +167,45 @@
 	width: 26px;
 }
 
-#get_involved .sidebar > .box
-{
-	border: 1px solid #bdbdbd;
-	border-radius: 8px;
-	float: right;
-	margin: 0 0 30px 0;
-	width: 262px;
-}
 
-#get_involved .sidebar > .box > .icon
-{
-	float: left;
-	margin: 0 0 0 -76px;
-	position: relative;
-	width: 75px;
-}
-
-#get_involved .sidebar > .box > .icon > .extra_0
-{
-	background: url(../images/get_involved_sprite.png) no-repeat;
-	height: 47px;
-	width: 55px;
-}
-
-#get_involved .sidebar > .box > .icon > .extra_1
-{
-	background: url(../images/get_involved_sprite.png) no-repeat;
-	background-position: -100px -125px;
-	height: 15px;
-	margin: 0 -2px 0 0;
-	position: absolute;
-	top: 15px;
-	right: 0;
-	width: 10px;
-	z-index: 1;
-}
-
-#get_involved .sidebar > .box > .nested_0
-{
-	background: #d3d3d3;
-	border: 1px solid #e1e1e1;
-	border-radius: 8px;
-	min-height: 49px;
-}
-
-#get_involved .sidebar > .box > .nested_0 > .title
-{
-	color: #666;
-	font-size: 1.2em;
-	font-weight: bold;
-	padding: 7px 20px;
-	text-shadow: #ddd 0 1px 0;
-}
-
-#get_involved .sidebar > .box > .nested_0 > .title a
+/**
+ * Sidebar boxes
+ * =============
+ */
+#get_involved .getInvolvedBox.twitter > .box a,
+#get_involved .getInvolvedBox.github > .box a
 {
 	color: #D09610;
 	text-decoration: none;
 }
 
-#get_involved .sidebar > .box > .nested_0 > .title a:hover
+#get_involved .getInvolvedBox.twitter > .box a:hover,
+#get_involved .getInvolvedBox.github > .box a
 {
 	text-decoration: underline;
 }
 
-#get_involved .sidebar > .box > .nested_0 > .inner
-{
-	color: #606060;
-	font-weight:bold;
-	font-size: 1em;
-	padding: 0 20px;
-	text-shadow: #ededed 0 1px 0;
-}
 
-#get_involved .sidebar > .box.newsletter
+/**
+ * Newsletter box
+ * --------------
+ */
+#get_involved .getInvolvedBox.newsletter > .icon > .icon
 {
-	border: 1px solid #969696;
-}
-
-#get_involved .sidebar > .box.newsletter > .icon > .extra_0
-{
-	background-position: -97px -101px;
+	background-image: url(../images/sprite_get-involved-icons/newsletter.png);
 	height: 23px;
 	margin: 12px 4px;
-	width: 47px;
+	width: 43px;
 }
 
-#get_involved .sidebar > .box.newsletter > .icon > .extra_1
-{
-	background-position: -114px -125px;
-}
-
-#get_involved .sidebar > .box.newsletter > .nested_0
-{
-	background: #acacac;
-	border: 1px solid #cdcdcd;
-}
-
-#get_involved .sidebar > .box.newsletter > .nested_0 > .title
-{
-	border-bottom: 1px solid #939393;
-	color: #fff;
-	text-shadow: #666 0 1px 0;
-}
-
-#get_involved .sidebar > .box.newsletter > .nested_0 > .inner
-{
-	border-top: 1px solid #cbcbcb;
-	color: #fff;
-	font-size: 1em;
-	text-shadow: #666 0 1px 0;
-}
-
-#get_involved .sidebar > .box.newsletter > .nested_0 > .inner > form
+#get_involved .getInvolvedBox.newsletter > .box > .inner > form
 {
 	border: 1px solid #ccc;
 	border-radius: 15px;
 	margin: 0 0 10px 0;
 }
 
-#get_involved .sidebar > .box.newsletter > .nested_0 > .inner > form > input.subscribe
+#get_involved .getInvolvedBox.newsletter > .box > .inner > form > input.subscribe
 {
 	border: 1px solid #939393;
 	border-radius: 15px;
@@ -270,32 +217,26 @@
 	width: 186px;
 }
 
-#get_involved > .sidebar > .box.twitter > .icon > .extra_0
+
+/**
+ * Sidebar box: Twitter
+ * --------------------
+ */
+#get_involved .getInvolvedBox.twitter > .icon > .icon
 {
-	background-position: -143px -101px;
+	background-image: url(../images/sprite_get-involved-icons/twitter.png);
 	height: 38px;
 	margin: 4px 0;
 	width: 55px;
 }
 
-#get_involved > .sidebar > .box.twitter > .nested_0 a
-{
-	color: #D09610;
-	text-decoration: none;
-}
-
-#get_involved > .sidebar > .box.twitter > .nested_0 a:hover
-{
-	text-decoration: underline;
-}
-
-#get_involved > .sidebar > .box.twitter > .nested_0 > .inner
+#get_involved .getInvolvedBox.twitter > .box .inner
 {
 	border-bottom: 1px solid #bdbdbd;
 	padding: 12px 20px;
 }
 
-#get_involved > .sidebar > .box.twitter > .nested_0 > .follow
+#get_involved .getInvolvedBox.twitter > .box .follow
 {
 	border-top: 1px solid #e1e1e1;
 	color: #939393;
@@ -304,81 +245,70 @@
 	text-align: center;
 }
 
-#get_involved > .sidebar > .box.twitter > .nested_0 > .follow a
+#get_involved .getInvolvedBox.twitter > .box .follow a
 {
 	text-shadow: #ededed 1px 1px 3px;
 }
 
-#get_involved > .sidebar > .box.googleplus > .icon > .extra_0
-{
-	background: none;
-	height: 38px;
-	margin: 4px 0;
-	width: 55px;
-}
 
-#get_involved > .sidebar > .box.googleplus > .nested_0 > .title
+/**
+ * Sidebar box: Google+
+ * --------------------
+ */
+#get_involved .getInvolvedBox.googleplus > .box .inner
 {
-	border-bottom: 1px solid #bdbdbd;
-}
-
-#get_involved > .sidebar > .box.googleplus > .nested_0 > .inner
-{
-	border-top: 1px solid #e1e1e1;
 	padding: 10px 20px;
 }
 
-#get_involved .sidebar > .box.facebook > .icon > .extra_0
+
+/**
+ * Sidebar box: Facebook
+ * ---------------------
+ */
+#get_involved .getInvolvedBox.facebook > .icon > .icon
 {
-	background-position: -3px -105px;
+	background-image: url(../images/sprite_get-involved-icons/facebook.png);
 	height: 45px;
 	margin: 1px 5px;
 	width: 44px;
 }
 
-#get_involved .sidebar > .box.facebook > .nested_0 > .inner
+#get_involved .getInvolvedBox.facebook > .box .inner
 {
-	padding: 0;
+	padding: 10px 20px;
 }
 
-#get_involved .sidebar > .box.facebook > .nested_0 > .inner > iframe
-{
-	display: block !important;
-	visibility: visible !important;
-}
 
-#get_involved .sidebar > .box.github > .icon > .extra_0
+/**
+ * Sidebar box: GitHub
+ * -------------------
+ */
+#get_involved .getInvolvedBox.github > .icon > .icon
 {
-	background-position: -50px -102px;
+	background-image: url(../images/sprite_get-involved-icons/github.png);
 	height: 47px;
 	margin: 0 5px;
 	width: 47px;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > .title
+#get_involved .getInvolvedBox.github > .box ul
 {
-	border-bottom: 1px solid #bdbdbd;
-}
-
-#get_involved .sidebar > .box.github > .nested_0 > ul
-{
-	border-top: 1px solid #e1e1e1;
 	margin: 0 2px;
 	padding: 6px 0;
 	list-style-type: none;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul li:last-child
+#get_involved .getInvolvedBox.github > .box ul li:last-child
 {
 	border-bottom: 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul li:last-child .inner
+#get_involved .getInvolvedBox.github > .box ul li:last-child .inner
 {
 	border-bottom: 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul li .inner
+#get_involved .getInvolvedBox.github > .box ul li .inner
 {
 	color: #6b6b6b;
 	font-size: 1em;
@@ -387,25 +317,22 @@
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul li a
+#get_involved .getInvolvedBox.github > .box ul li a
 {
-	color: #D09610;
-	text-decoration: underline;
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > ul li span
+#get_involved .getInvolvedBox.github > .box ul li span
 {
 	color: #979797;
 	text-shadow: #ededed 0 1px 0;
 }
 
-#get_involved .sidebar > .box.github > .nested_0 > .inner a.see_all
-{
-	margin: 10px auto 0 auto;
-	width: 200px;
-}
 
+/**
+ * "Join" pop-up box
+ * =================
+ */
 #get_involved_join .inner
 {
 	background: #cecece;

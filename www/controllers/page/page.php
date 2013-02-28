@@ -48,6 +48,15 @@ class PageController extends Controller
 		}
 
 		$this->view->page = $page;
+		$this->view->authors = array();
+
+		for ($i = 0, $c = count($page->authors); $i < $c; $i++)
+		{
+			$this->view->authors[] = (object) array(
+				'name' => $page->authors[$i],
+				'last' => !($i + 1 < $c)
+			);
+		}
 
 		// Render the comments section
 		if ($page->type === 'blog-post')

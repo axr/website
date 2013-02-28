@@ -1,5 +1,0 @@
-ALTER TABLE `www_pages`
-ADD `user_id` int(11) NOT NULL AFTER `mtime`,
-COMMENT=''
-REMOVE PARTITIONING;
-

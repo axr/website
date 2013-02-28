@@ -763,37 +763,34 @@ nav#breadcrumb .extra_0
 
 #container > footer
 {
-	background-image: url("../images/footer_repeat.jpg");
-	background-position: center 115px;
-	background-repeat: repeat-x;
 	position: relative;
 	width: 100%;
 }
 
-#container > footer > a
+#container > footer > a.back_to_top
 {
-	background-image: url("../images/sprite.jpg");
-	background-position: -508px -353px;
+	background-image: url(../images/sprite_site/back-to-top.png);
 	display: block;
-	height: 116px;
-	margin: 0 auto;
-	overflow: hidden;
-	position: relative;
+	height: 94px;
+	left: 50%;
+	margin: 0 0 0 -70px;
+	position: absolute;
 	text-indent: -9999px;
-	width: 365px;
+	top: 0;
+	width: 140px;
 	z-index: 1;
 }
 
-#container > footer > a:hover
+#container > footer > a.back_to_top:hover
 {
-	background-position: -508px -469px;
+	background-image: url(../images/sprite_site/back-to-top-hover.png);
 }
 
 #container > footer > ul.technologies_used
 {
 	height: 95px;
 	list-style: none outside none;
-	margin: -95px auto 0;
+	margin: 0 auto 0;
 	pointer-events: none;
 	position: relative;
 	width: 780px;
@@ -891,13 +888,32 @@ nav#breadcrumb .extra_0
 
 #container > footer > .activity
 {
+	background-image: linear-gradient(top, #d5d5d5 0%, #e5e5e5 40px);
+	background-image: -moz-linear-gradient(top, #d5d5d5 0%, #e5e5e5 40px);
+	background-image: -webkit-gradient(linear, left top, 0 40, from(#d5d5d5), to(#e5e5e5));
+	border-top: 1px solid #c0c0c0;
+	position: relative;
+}
+
+#container > footer > .activity:before
+{
+	border-bottom: 1px solid #efefef;
+	content: " ";
+	left: 0;
+	position: absolute;
+	top: -2px;
+	width: 100%;
+}
+
+#container > footer > .activity > .inner
+{
 	height: 201px;
 	margin: 20px auto;
 	position: relative;
 	width: 810px;
 }
 
-#container > footer > .activity > a.paypal
+#container > footer > .activity > .inner > a.paypal
 {
 	background-image: url("../images/sprite.jpg");
 	background-position: -831px -228px;
@@ -910,197 +926,110 @@ nav#breadcrumb .extra_0
 	width: 105px;
 }
 
-#container > footer > .activity > a.paypal:hover
+#container > footer > .activity > .inner > a.paypal:hover
 {
 	background-position: -831px -271px;
 }
 
-#container > footer > .activity > .follow_us
+#container > footer > .activity > .inner > .twitter
 {
-	background-image: url("../images/sprite.jpg");
-	background-position: -624px -228px;
-	height: 77px;
-	left: -25px;
-	list-style: none outside none;
-	margin: 0;
-	padding: 11px 0 0 29px;
+	height: 126px;
+	left: 250px;
 	position: absolute;
-	top: 100px;
-	width: 178px;
-	z-index: 1;
-}
-
-#container > footer > .activity > .follow_us > li
-{
-	display: block;
-	float: left;
-	height: 26px;
-	margin-right: 13px;
-	width: 24px;
-}
-
-#container > footer > .activity > .follow_us > li > a
-{
-	display: block;
-	height: 100%;
-	overflow: hidden;
-	text-indent: -999px;
-	width: 100%;
-}
-
-#container > footer > .activity > .follow_us > li > a:hover
-{
-	background-image: url("../images/sprite.jpg");
-}
-
-#container > footer > .activity > .follow_us > li.twitter > a:hover
-{
-	background-position: -873px -353px;
-}
-
-#container > footer > .activity > .follow_us > li.facebook > a:hover
-{
-	background-position: -897px -353px;
-}
-
-#container > footer > .activity > .follow_us > li.vimeo > a:hover
-{
-	background-position: -921px -353px;
-}
-
-#container > footer > .activity > .last_tweet
-{
-	padding: 0;
-	margin: 0;
-	position: absolute;
-	left: 180px;
 	top: 26px;
 }
 
-#container > footer > .activity > .last_tweet  a
+#container > footer > .activity > .inner > .twitter a
 {
 	color: #D09610;
 	text-decoration: none;
-	font-weight: bold;
 }
 
-#container > footer > .activity > .last_tweet a:hover
+#container > footer > .activity > .inner > .twitter a:hover
 {
 	text-decoration: underline;
 }
 
-#container > footer > .activity > .last_tweet > li
+#container > footer > .activity > .inner > .twitter > .icon .icon
 {
-	list-style-type: none;
-	position: absolute;
-	text-shadow: 0 1px 0 #EBEBEB;
+	background-image: url(../images/sprite_get-involved-icons/twitter.png);
+	height: 38px;
+	margin: 4px 0;
+	width: 55px;
 }
 
-#container > footer > .activity > .last_tweet > .tweet_container
+#container > footer > .activity > .inner > .twitter > .nested_0
 {
-	z-index: 1;
-	margin: 1px 0 0 75px;
-	height: 50px;
-	width: 223px;
-	padding: 15px 18px 18px 18px;
-	color: #606060;
+	background: #d3d3d3;
+	border: 1px solid #e1e1e1;
+	border-radius: 8px;
+	min-height: 49px;
+}
+
+#container > footer > .activity > .inner > .twitter > .box > .inner
+{
+	border-bottom: 1px solid #bdbdbd;
 	font-weight: bold;
-	font-size: 0.9em;
-	word-wrap: break-word;
-	overflow: hidden;
-	text-overflow: -o-ellipsis-lastline;
-	border: 1px solid;
-	border-color: #E1E1E1 #E1E1E1 #BEBEBE #E1E1E1;
-	-moz-border-radius: 8px 8px 0 0;
-	-webkit-border-radius: 8px 8px 0 0;
-	border-radius: 8px 8px 0 0;
-}
-
-#container > footer > .activity > .last_tweet > .tweet_container:hover
-{
+	font-size: 1em;
+	height: 65px;
+	padding: 12px 20px;
 	text-overflow: clip;
+	text-shadow: #ededed 0 1px 0;
 }
 
-#container > footer > .activity > .last_tweet > .follow_us
+#container > footer > .activity > .inner > .twitter > .box > .follow
 {
-
-	width: 261px;
-	margin-left: 74px;
-	text-align: center;
+	border-top: 1px solid #e1e1e1;
 	color: #939393;
 	font-weight: bold;
-	background: #D3D3D3;
-	border: 1px solid #BEBEBE;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;     
+	height: 17px;
+	padding: 8px 0;
+	text-align: center;
 }
 
-#container > footer > .activity > .last_tweet > .follow_us > span
-{  
-	margin-top: 85px;
-	display: block;
-	height: 36px;
-	line-height: 36px;
-	border: 1px solid #E1E1E1;
-	-moz-border-radius: 0 0 8px 8px;
-	-webkit-border-radius: 0 0 8px 8px;
-	border-radius: 0 0 8px 8px;
-}
-
-#container > footer > .activity > .last_tweet > .bird
+#container > footer > .activity > .inner > .twitter > .box > .follow a
 {
-	background: url("../images/sprite32.png") no-repeat -116px -29px;
-	height: 47px;
-	width: 76px;
-	margin-top:12px;
-	z-index: 2;
+	text-shadow: #ededed 1px 1px 3px;
 }
 
-#container > footer > .activity > .participate
+#container > footer > .activity > .inner > .participate
 {
-	background-image: url("../images/sprite.jpg");
-	background-position: -680px -99px;
-	height: 126px; left: 550px;
+	height: 126px;
 	position: absolute;
-	top: 25px;
-	width: 267px;
-	font-weight: bold;
+	right: 0;
+	top: 26px;
 }
 
-#container > footer > .activity > .participate > h2
+#container > footer > .activity > .inner > .participate > .box .title
 {
-
-	color: white;
-	font-weight: bold;
-	margin: 10px 0 0 20px;
-	text-shadow: 0 1px 0 #666666;
-	width: 72px;
+	height: 19px;
 }
 
-#container > footer > .activity > .participate > p
+#container > footer > .activity > .inner > .participate > .box .inner
 {
-
-	color: white;
-	font-size: 0.89em;
-	margin: 16px 0 0 20px;
-	text-shadow: 0 1px 0 #666666;
-	width: 230px;
+	font-size: 11px;
+	height: 89px;
 }
 
-#container > footer > .activity > .participate > p > a
+#container > footer > .activity > .inner > .participate > .box .inner p
+{
+	margin: 0;
+	padding: 15px 0;
+}
+
+#container > footer > .activity > .inner > .participate > .box a
 {
 	color: #FFD519;
 	text-decoration: none;
 	text-shadow: 0 1px 0 #666666;
 }
 
-#container > footer > .activity > .participate > p > a:hover
+#container > footer > .activity > .inner > .participate > .box a:hover
 {
 	text-decoration: underline;
 }
 
-#container > footer > .activity > .copy
+#container > footer > .activity > .inner > .copy
 {
 	bottom: 0px;
 	position: absolute;
@@ -1109,14 +1038,14 @@ nav#breadcrumb .extra_0
 	width: 100%;
 }
 
-#container > footer > .activity > .copy > p > a
+#container > footer > .activity > .inner > .copy > p > a
 {
 	color: #666666;
 	font-weight: bold;
 	text-decoration: none;
 }
 
-#container > footer > .activity > .copy > p > a:hover
+#container > footer > .activity > .inner > .copy > p > a:hover
 {
 	text-decoration: underline;
 }

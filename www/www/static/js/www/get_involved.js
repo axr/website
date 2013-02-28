@@ -40,7 +40,7 @@
 
 		App.Twitter.get_last_tweet(function (tweet, error)
 		{
-			$('#get_involved .box.twitter ._last_tweet')
+			$('#get_involved ._last_tweet')
 				.html(tweet || error.to_s());
 		});
 

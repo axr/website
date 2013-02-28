@@ -91,6 +91,7 @@ class HomeController extends Controller
 					$this->view->blog_posts[] = array(
 						'title' => $post->title,
 						'date' => $post->date,
+						'permalink' => $post->permalink,
 						'is_new' => time() - strtotime($post->date) < 14 * 86400
 					);
 				}
