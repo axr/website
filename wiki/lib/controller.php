@@ -31,7 +31,7 @@ class Controller extends \AXR\Controller
 
 		$this->breadcrumb[] = array(
 			'name' => 'Wiki',
-			'link' => \Config::get('/shared/wiki_url')
+			'link' => \Config::get()->url->wiki
 		);
 	}
 }

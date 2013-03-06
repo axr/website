@@ -2,7 +2,7 @@
 
 namespace WWW;
 
-$www_domain = \Config::get('/shared/www_url')->host;
+$www_domain = \URL::create(\Config::get()->url->www)->host;
 
 $router->route('/^\/$/', array(
 	'domain' => $www_domain,

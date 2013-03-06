@@ -19,7 +19,8 @@ require_once(ROOT . '/lib/autoloader.php');
 require_once(ROOT . '/controllers/view/view.php');
 
 // Load configs
-require_once(SHARED . '/config.php');
+\Config::load_from_file(SHARED . '/config.default.json');
+\Config::load_from_file(SHARED . '/config.json');
 
 \Core\Benchmark::initialize();
 \GitData\GitData::initialize(SHARED . '/data');
@@ -27,7 +28,7 @@ require_once(SHARED . '/config.php');
 try
 {
 	// Initialize the cache
-	\Cache::initialize(\Config::get('/shared/cache_servers'));
+	\Cache::initialize(\Config::get()->cache_servers);
 }
 catch (\Core\Exceptions\MemcacheFailure $e)
 {

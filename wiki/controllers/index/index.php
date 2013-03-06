@@ -47,8 +47,7 @@ class IndexController extends Controller
 				$permalink = '/index/' . $path . '/' . $item;
 				$paths[] = array(
 					'name' => $path . '/' . $item,
-					'permalink' => \Config::get('/shared/wiki_url')
-						->copy()
+					'permalink' => \URL::create(\Config::get()->url->wiki)
 						->path(preg_replace('/[\/]+/', '/', $permalink))
 				);
 			}
@@ -72,8 +71,7 @@ class IndexController extends Controller
 		{
 			$this->breadcrumb[] = array(
 				'name' => 'Index',
-				'link' => \Config::get('/shared/wiki_url')
-					->copy()
+				'link' => \URL::create(\Config::get()->url->wiki)
 					->path('/index')
 			);
 

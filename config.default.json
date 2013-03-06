@@ -1,0 +1,21 @@
+{
+	"prod": true,
+	"version": "0000000",
+
+	"url": {
+		"rsrc": "http://static.axrproject.org/prod-2",
+		"www": "http://axrproject.org",
+		"hssdoc": "http://hss.axrproject.org",
+		"wiki": "http://wiki.axrproject.org"
+	},
+
+	"cache_servers": [
+		["localhost", 11211]
+	],
+
+	"ga_accounts": {
+		"default": "UA-20384487-1"
+	},
+
+	"disqus_shortname": "axr"
+}

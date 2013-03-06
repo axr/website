@@ -37,32 +37,29 @@ class Controller extends \Core\Controller
 			));
 		};
 
-		$this->view->{'g/app_vars'} = (object) array(
-			'hssdoc_url' => (string) \Config::get('/shared/hssdoc_url'),
-			'www_url' => (string) \Config::get('/shared/www_url'),
-			'wiki_url' => (string) \Config::get('/shared/wiki_url'),
-			'version' => \Config::get('/shared/version'),
+		$this->view->{'g/config'} = \Config::get();
 
-			'rsrc_root' => (string) \Config::get('/shared/rsrc_url'),
+		$this->view->{'g/app_vars'} = (object) array(
+			'hssdoc_url' => \Config::get()->url->hssdoc,
+			'www_url' => \Config::get()->url->www,
+			'wiki_url' => \Config::get()->url->wiki,
+			'version' => \Config::get()->version,
+
+			'rsrc_root' => \Config::get()->url->rsrc,
 			'rsrc_bundles' => $this->rsrc->getBundlesInfo(),
 
-			'ga_accounts' => \Config::get('/shared/ga_accounts')
+			'ga_accounts' => \Config::get()->ga_accounts
 		);
 
 		$this->view->{'g/year'}  = date('Y');
 		$this->view->{'g/meta'} = new \StdClass();
 		$this->view->{'g/social'} = \GitData\Models\GenericConfig::file('config.json')->social;
 
-		$this->view->{'g/rsrc_root'} = (string) \Config::get('/shared/rsrc_url');
-		$this->view->{'g/www_url'} = (string) \Config::get('/shared/www_url');
-		$this->view->{'g/wiki_url'}  = (string) \Config::get('/shared/wiki_url');
-		$this->view->{'g/hssdoc_url'}  = (string) \Config::get('/shared/hssdoc_url');
-
 		$this->tabs = array();
 		$this->breadcrumb = array(
 			array(
 				'name' => 'Home',
-				'link' => \Config::get('/shared/www_url')
+				'link' => \Config::get()->url->www
 			)
 		);
 	}
