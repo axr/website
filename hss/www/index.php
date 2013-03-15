@@ -33,7 +33,7 @@ catch (\Core\Exceptions\MemcacheFailure $e)
 
 // Create new router
 $path = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
-$router = new \Router('http://' . $_SERVER['SERVER_NAME'] . $path);
+$router = new \Router(\Config::get()->url->hss . $path);
 
 // Register routes
 require_once(ROOT . '/routes.php');
