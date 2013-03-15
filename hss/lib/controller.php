@@ -31,7 +31,7 @@ class Controller extends \AXR\Controller
 
 		$this->breadcrumb[] = array(
 			'name' => 'HSS documentation',
-			'link' => \Config::get()->url->hssdoc
+			'link' => \Config::get()->url->hss
 		);
 	}
 }

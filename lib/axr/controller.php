@@ -40,7 +40,7 @@ class Controller extends \Core\Controller
 		$this->view->{'g/config'} = \Config::get();
 
 		$this->view->{'g/app_vars'} = (object) array(
-			'hssdoc_url' => \Config::get()->url->hssdoc,
+			'hssdoc_url' => \Config::get()->url->hss,
 			'www_url' => \Config::get()->url->www,
 			'wiki_url' => \Config::get()->url->wiki,
 			'version' => \Config::get()->version,
