@@ -347,6 +347,7 @@
 	border-radius: 5px;
 	box-shadow: 0 0 10px rgba(80,80,80,.9);
 	height: 550px;
+	position: relative;
 	width: 640px;
 }
 
@@ -356,7 +357,7 @@
 	display: block;
 	width: 18px;
 	height: 18px;
-	background: url("../images/sprite32.png") -193px -90px;
+	background-image: url(../images/sprite_32/modal-close.png);
 	position: absolute;
 	top: 12px;
 	right: 11px;

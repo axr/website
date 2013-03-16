@@ -4,8 +4,8 @@ require_once(SHARED . '/lib/extend.php');
 
 class URL
 {
-	private static $parts = array('scheme', 'host', 'user', 'pass', 'path',
-		'query', 'fragment');
+	private static $parts = array('scheme', 'host', 'port', 'user', 'pass',
+		'path', 'query', 'fragment');
 
 	/**
 	 * Is readonly?
@@ -27,6 +27,13 @@ class URL
 	 * @var string
 	 */
 	private $host = null;
+
+	/**
+	 * Port number
+	 *
+	 * @var int
+	 */
+	private $port = null;
 
 	/**
 	 * User
@@ -180,6 +187,7 @@ class URL
 		$url = http_build_url('', array(
 			'scheme' => $this->scheme,
 			'host' => $this->host,
+			'port' => $this->port,
 			'user' => $this->user,
 			'pass' =>  $this->pass,
 			'path' => $this->path,
@@ -234,6 +242,29 @@ class URL
 		}
 
 		$this->host = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Getter/setter for URL port number
+	 *
+	 * @param int $value
+	 * @return mixed
+	 */
+	public function port ($value = null)
+	{
+		if ($value === null)
+		{
+			return $this->port;
+		}
+
+		if ($this->is_readonly())
+		{
+			throw new \Core\Exceptions\URLReadonly();
+		}
+
+		$this->port = $value;
 
 		return $this;
 	}

@@ -50,9 +50,9 @@ class RSRC
 
 		$bundle = $bundles->$bundleName;
 
-		if (Config::get('/shared/prod') === true)
+		if (Config::get()->prod === true)
 		{
-			$file = Config::get('/shared/rsrc_url') . '/' . $bundleName;
+			$file = Config::get()->url->rsrc . '/' . $bundleName;
 
 			if ($bundle->type === 'css')
 			{
@@ -68,7 +68,7 @@ class RSRC
 
 		foreach ($bundle->files as $file)
 		{
-			$file = Config::get('/shared/rsrc_url') . '/' . $file;
+			$file = Config::get()->url->rsrc . '/' . $file;
 
 			if ($bundle->type === 'css')
 			{
@@ -94,7 +94,7 @@ class RSRC
 		{
 			if ($path[0] == '/')
 			{
-				$path = Config::get('/shared/rsrc_url') . '/' . $path;
+				$path = \Config::get()->url->rsrc . '/' . $path;
 			}
 
 			$html .= '<link type="text/css" rel="stylesheet" ';
@@ -124,7 +124,7 @@ class RSRC
 		{
 			if ($path[0] == '/')
 			{
-				$path = Config::get('/shared/rsrc_url') . '/' . $path;
+				$path = Config::get()->url->rsrc . '/' . $path;
 			}
 
 			$html .= '<script ';

@@ -1,6 +1,5 @@
 /data/
 
-/config.user.php
-/www/config.user.php
+/config.json
 /wiki/LocalSettings.2.php
 

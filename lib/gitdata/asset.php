@@ -48,8 +48,7 @@ class Asset
 				return $match[0];
 			}
 
-			$url = \Config::get('/shared/www_url')
-				->copy()
+			$url = \URL::create(\Config::get()->url->www)
 				->path('/gitdata/asset')
 				->query('path', $file->path)
 				->to_string();

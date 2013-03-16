@@ -111,6 +111,25 @@ if (!function_exists('http_build_url'))
 	}
 }
 
+function object_merge_recursive (\StdClass $object1, \StdClass $object2)
+{
+	$vars = get_object_vars($object2);
+
+	foreach ($vars as $var => $value)
+	{
+		if (isset($object1->$var) &&
+			is_object($object1->$var) &&
+			is_object($object2->$var))
+		{
+			object_merge_recursive($object1->$var, $object2->$var);
+		}
+		else
+		{
+			$object1->$var = $object2->$var;
+		}
+	}
+}
+
 /**
  * Format dates in `x units ago` format
  *

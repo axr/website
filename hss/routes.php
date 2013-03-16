@@ -2,7 +2,7 @@
 
 namespace Hssdoc;
 
-$hssdoc_domain = \Config::get('/shared/hssdoc_url')->host;
+$hssdoc_domain = \URL::create(\Config::get()->url->hss)->host;
 
 $router->route('/^\/$/', array(
 	'domain' => $hssdoc_domain,

@@ -2,7 +2,7 @@
 
 namespace Wiki;
 
-$wiki_domain = \Config::get('/shared/wiki_url')->host;
+$wiki_domain = \URL::create(\Config::get()->url->wiki)->host;
 
 $router->route('/^\/$/', array(
 	'domain' => $wiki_domain,
