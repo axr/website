@@ -39,7 +39,12 @@ config_set ()
 
 update_url ()
 {
-	url="$(echo "$(config "$1")" | sed -r 's/^(https?:\/\/)([^\/]+)(.*)$/\1'"$2"'\3/g')"
+	url="http://$2"
+
+	if [ "$(config "$1")" != "" ]; then
+		url="$(echo "$(config "$1")" | sed 's/^\(http:\/\/\)[^\/]\+\(.*\)$/\1'"$2"'\2/g')"
+	fi
+
 	config_set "$1" "$url"
 }
 
@@ -64,6 +69,13 @@ esac
 if [ "$APP" != "www" ]; then
 	log_info "'$APP' depends on 'www' so make sure that it is running"
 fi
+
+if [ ! -f "$ROOT/config.json" ]; then
+	log_info "No config.json found. Creating one with some default values"
+	config_set "url.rsrc" "http://127.0.0.1/static"
+fi
+
+config_set "prod" "false"
 
 log_info "Checking for memcached connectivity ..."
 memcached-tool "$(config cache_servers.0.0):$(config cache_servers.0.1)" > /dev/null
