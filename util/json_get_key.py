@@ -35,6 +35,8 @@ try:
 	data = json.load(open(sys.argv[1]))
 except ValueError:
 	sys.exit(1)
+except FileNotFoundError:
+	sys.exit(1)
 
 keys = sys.argv[2].split('.')
 value = get_key_value(data, keys)

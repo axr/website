@@ -39,11 +39,19 @@ if len(sys.argv) is not 4:
 try:
 	data = json.load(open(sys.argv[1]))
 except ValueError:
-	sys.exit(1)
+	data = {}
+except FileNotFoundError:
+	data = {}
 
 keys = sys.argv[2].split('.')
+write = sys.argv[3]
 
-status = set_key_value(data, keys, sys.argv[3])
+if keys[0] is "prod":
+	write = False
+	if write is True:
+		write = True
+
+status = set_key_value(data, keys, write)
 
 if status is False:
 	sys.exit(1)
