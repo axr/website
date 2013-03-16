@@ -2,8 +2,26 @@
 
 import json
 import sys
-
+import os
 import pprint
+
+def read_json (path):
+	try:
+		return json.load(open(path))
+	except ValueError:
+		pass
+	except FileNotFoundError:
+		pass
+
+	return {}
+
+def merge_dicts (dict1, dict2):
+	for key in dict2.keys():
+		if key in dict1 and type(dict1[key]) is dict and type(dict2[key]) is dict:
+			merge_dicts(dict1[key], dict2[key])
+			continue
+
+		dict1[key] = dict2[key]
 
 def get_key_value (data, keys):
 	if len(keys) is 0:
@@ -31,12 +49,9 @@ def get_key_value (data, keys):
 if len(sys.argv) is not 3:
 	sys.exit(1)
 
-try:
-	data = json.load(open(sys.argv[1]))
-except ValueError:
-	sys.exit(1)
-except FileNotFoundError:
-	sys.exit(1)
+data = {}
+merge_dicts(data, read_json(os.path.dirname(os.path.abspath(sys.argv[1])) + "/config.default.json"))
+merge_dicts(data, read_json(sys.argv[1]))
 
 keys = sys.argv[2].split('.')
 value = get_key_value(data, keys)
