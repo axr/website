@@ -40,13 +40,13 @@ try:
 	data = json.load(open(sys.argv[1]))
 except ValueError:
 	data = {}
-except FileNotFoundError:
+except (OSError, IOError):
 	data = {}
 
 keys = sys.argv[2].split('.')
 write = sys.argv[3]
 
-if keys[0] is "prod":
+if keys[0] == "prod":
 	write = False
 	if write is True:
 		write = True
