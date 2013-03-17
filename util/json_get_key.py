@@ -10,7 +10,7 @@ def read_json (path):
 		return json.load(open(path))
 	except ValueError:
 		pass
-	except FileNotFoundError:
+	except (OSError, IOError):
 		pass
 
 	return {}

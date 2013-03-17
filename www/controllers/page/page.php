@@ -63,7 +63,7 @@ class PageController extends Controller
 		{
 			$comments_view = new \StdClass();
 			$comments_view->disqus = array(
-				'developer' => !\Config::get()->prod,
+				'developer' => \Config::get()->prod ? 'false' : 'true',
 				'shortname' => \Config::get()->disqus_shortname,
 				'identifier' => $page->permalink,
 				'title' => str_replace('\'', '\\\'', $page->title)

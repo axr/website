@@ -92,4 +92,4 @@ fi
 
 log_info "Starting PHP server at $(app_url)"
 log_info "If you want to use a domain name, you can use NGINX as a proxy"
-php -S "$(app_url)" -t "${ROOT}/${APP}/www"
+php -S "$(app_url)" -t "${ROOT}/${APP}/www/" "${ROOT}/util/dev_server_router.php"
