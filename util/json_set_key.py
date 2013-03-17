@@ -47,9 +47,10 @@ keys = sys.argv[2].split('.')
 write = sys.argv[3]
 
 if keys[0] == "prod":
-	write = False
-	if write is True:
+	if write == "true":
 		write = True
+	else:
+		write = False
 
 status = set_key_value(data, keys, write)
 
