@@ -20,7 +20,7 @@ class RSRC
 	 */
 	public function loadStyle ($path, $args = array())
 	{
-		$this->styles[$path] = $args;
+		$this->styles[(string) $path] = $args;
 	}
 
 	/**
@@ -31,7 +31,7 @@ class RSRC
 	 */
 	public function loadScript ($path, $args = array())
 	{
-		$this->scripts[$path] = $args;
+		$this->scripts[(string) $path] = $args;
 	}
 
 	/**
@@ -52,15 +52,16 @@ class RSRC
 
 		if (Config::get()->prod === true)
 		{
-			$file = Config::get()->url->rsrc . '/' . $bundleName;
+			$url = \URL::create(Config::get()->url->rsrc);
+			$url->path .= '/' . $bundleName;
 
 			if ($bundle->type === 'css')
 			{
-				$this->loadStyle($file);
+				$this->loadStyle($url);
 			}
 			else if ($bundle->type === 'js')
 			{
-				 $this->loadScript($file);
+				 $this->loadScript($url);
 			}
 
 			return;
@@ -68,15 +69,16 @@ class RSRC
 
 		foreach ($bundle->files as $file)
 		{
-			$file = Config::get()->url->rsrc . '/' . $file;
+			$url = \URL::create(Config::get()->url->rsrc);
+			$url->path .= '/' . $file;
 
 			if ($bundle->type === 'css')
 			{
-				$this->loadStyle($file);
+				$this->loadStyle($url);
 			}
 			else if ($bundle->type === 'js')
 			{
-				$this->loadScript($file);
+				$this->loadScript($url);
 			}
 		}
 	}
@@ -92,13 +94,16 @@ class RSRC
 
 		foreach ($this->styles as $path => $args)
 		{
-			if ($path[0] == '/')
+			$url = $path;
+
+			if ($path[0] === '/' && $path[1] !== '/')
 			{
-				$path = \Config::get()->url->rsrc . '/' . $path;
+				$url = \URL::create(Config::get()->url->rsrc);
+				$url->path .= '/' . $path;
 			}
 
 			$html .= '<link type="text/css" rel="stylesheet" ';
-			$html .= 'href="' . $path . '" ';
+			$html .= 'href="' . $url . '" ';
 
 			if (isset($args['media']))
 			{
@@ -122,13 +127,16 @@ class RSRC
 
 		foreach ($this->scripts as $path => $args)
 		{
-			if ($path[0] == '/')
+			$url = $path;
+
+			if ($path[0] === '/' && $path[1] !== '/')
 			{
-				$path = Config::get()->url->rsrc . '/' . $path;
+				$url = \URL::create(Config::get()->url->rsrc);
+				$url->path .= '/' . $path;
 			}
 
 			$html .= '<script ';
-			$html .= 'src="' . $path . '" ';
+			$html .= 'src="' . $url . '" ';
 
 			if (isset($args['type']))
 			{
