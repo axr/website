@@ -28,6 +28,13 @@ class HssdocProperty extends \GitData\Model
 	public $readonly = false;
 
 	/**
+	 * Is this property permanent or not?
+	 *
+	 * @var bool
+	 */
+	public $permanent = false;
+
+	/**
 	 * Whether this property supports many values
 	 *
 	 * @var bool

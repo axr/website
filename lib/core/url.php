@@ -110,6 +110,20 @@ class URL
 	}
 
 	/**
+	 * Setter
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	public function __set ($key, $value)
+	{
+		if (in_array($key, self::$parts) && $key !== 'query')
+		{
+			call_user_func(array($this, $key), $value);
+		}
+	}
+
+	/**
 	 * Return a copy of this instance
 	 *
 	 * @return URL
@@ -156,6 +170,14 @@ class URL
 	 */
 	public function from_string ($url)
 	{
+		$automatic_scheme = $url[0] === '/' && $url[1] === '/';
+
+		if ($automatic_scheme)
+		{
+			// Because PHP cannot handle the protocol being missing
+			$url = 'http:' . $url;
+		}
+
 		$parsed = parse_url($url);
 
 		if (isset($parsed['query']))
@@ -172,6 +194,12 @@ class URL
 			}
 
 			$this->{$key} = $item;
+		}
+
+		if ($automatic_scheme === true &&
+			isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
+		{
+			$this->scheme = 'https';
 		}
 
 		return $this;

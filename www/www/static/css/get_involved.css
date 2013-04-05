@@ -260,6 +260,14 @@
 	padding: 10px 20px;
 }
 
+#get_involved .getInvolvedBox.googleplus > .icon > .icon
+{
+	background-image: url(../images/sprite_get-involved-icons/googleplus.png);
+	height: 45px;
+	margin: 1px 5px;
+	width: 44px;
+}
+
 
 /**
  * Sidebar box: Facebook

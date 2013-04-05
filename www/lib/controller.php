@@ -14,21 +14,21 @@ class Controller extends \AXR\Controller
 
 		$this->view->{'g/html_head'} = function () use ($that)
 		{
-			return $that->rsrc->getStylesHTML();
+			return $that->rsrc->get_styles_html();
 		};
 
 		$this->view->{'g/html_bottom'} = function () use ($that)
 		{
-			return $that->rsrc->getScriptsHTML();
+			return $that->rsrc->get_scripts_html();
 		};
 
 		// Load some default resources
-		$this->rsrc->loadBundle('css/bundle_shared.css');
-		$this->rsrc->loadBundle('css/bundle_rainbow.css');
-		$this->rsrc->loadBundle('css/bundle_www.css');
-		$this->rsrc->loadScript('https://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js');
-		$this->rsrc->loadBundle('js/bundle_shared.js');
-		$this->rsrc->loadBundle('js/bundle_rainbow.js');
-		$this->rsrc->loadBundle('js/bundle_www.js');
+		$this->rsrc->load_bundle('css/bundle_shared.css');
+		$this->rsrc->load_bundle('css/bundle_rainbow.css');
+		$this->rsrc->load_bundle('css/bundle_www.css');
+		$this->rsrc->load_script('https://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js');
+		$this->rsrc->load_bundle('js/bundle_shared.js');
+		$this->rsrc->load_bundle('js/bundle_rainbow.js');
+		$this->rsrc->load_bundle('js/bundle_www.js');
 	}
 }

@@ -15,23 +15,23 @@ class RSRC
 	/**
 	 * Add a style to the page
 	 *
-	 * @param string $path
+	 * @param mixed $url
 	 * @param mixed[] $args
 	 */
-	public function loadStyle ($path, $args = array())
+	public function load_style ($url, array $args = array())
 	{
-		$this->styles[$path] = $args;
+		$this->styles[(string) $url] = $args;
 	}
 
 	/**
 	 * Add a script to the page
 	 *
-	 * @param string $path
+	 * @param mixed $url
 	 * @param mixed[] $args
 	 */
-	public function loadScript ($path, $args = array())
+	public function load_script ($url, array $args = array())
 	{
-		$this->scripts[$path] = $args;
+		$this->scripts[(string) $url] = $args;
 	}
 
 	/**
@@ -39,44 +39,39 @@ class RSRC
 	 *
 	 * @param string $bundle
 	 */
-	public function loadBundle ($bundleName)
+	public function load_bundle ($bundle_name)
 	{
-		$bundles = $this->getBundlesInfo();
+		$bundles = $this->get_bundles_info();
 
-		if (!isset($bundles->$bundleName))
+		if (!isset($bundles->$bundle_name))
 		{
 			return;
 		}
 
-		$bundle = $bundles->$bundleName;
+		$bundle = $bundles->$bundle_name;
+		$files = array();
 
 		if (Config::get()->prod === true)
 		{
-			$file = Config::get()->url->rsrc . '/' . $bundleName;
-
-			if ($bundle->type === 'css')
-			{
-				$this->loadStyle($file);
-			}
-			else if ($bundle->type === 'js')
-			{
-				 $this->loadScript($file);
-			}
-
-			return;
+			$files[] = $bundle_name;
+		}
+		else
+		{
+			$files = (array) $bundle->files;
 		}
 
-		foreach ($bundle->files as $file)
+		foreach ($files as $file)
 		{
-			$file = Config::get()->url->rsrc . '/' . $file;
+			$url = \URL::create(Config::get()->url->rsrc);
+			$url->path .= '/' . $file;
 
 			if ($bundle->type === 'css')
 			{
-				$this->loadStyle($file);
+				$this->load_style($url);
 			}
 			else if ($bundle->type === 'js')
 			{
-				$this->loadScript($file);
+				$this->load_script($url);
 			}
 		}
 	}
@@ -86,19 +81,22 @@ class RSRC
 	 *
 	 * @return string
 	 */
-	public function getStylesHTML ()
+	public function get_styles_html ()
 	{
 		$html = '';
 
 		foreach ($this->styles as $path => $args)
 		{
-			if ($path[0] == '/')
+			$url = $path;
+
+			if ($path[0] === '/' && $path[1] !== '/')
 			{
-				$path = \Config::get()->url->rsrc . '/' . $path;
+				$url = \URL::create(Config::get()->url->rsrc);
+				$url->path .= '/' . $path;
 			}
 
 			$html .= '<link type="text/css" rel="stylesheet" ';
-			$html .= 'href="' . $path . '" ';
+			$html .= 'href="' . $url . '" ';
 
 			if (isset($args['media']))
 			{
@@ -116,19 +114,22 @@ class RSRC
 	 *
 	 * @return string
 	 */
-	public function getScriptsHTML ()
+	public function get_scripts_html ()
 	{
 		$html = '';
 
 		foreach ($this->scripts as $path => $args)
 		{
-			if ($path[0] == '/')
+			$url = $path;
+
+			if ($path[0] === '/' && $path[1] !== '/')
 			{
-				$path = Config::get()->url->rsrc . '/' . $path;
+				$url = \URL::create(Config::get()->url->rsrc);
+				$url->path .= '/' . $path;
 			}
 
 			$html .= '<script ';
-			$html .= 'src="' . $path . '" ';
+			$html .= 'src="' . $url . '" ';
 
 			if (isset($args['type']))
 			{
@@ -144,9 +145,10 @@ class RSRC
 	/**
 	 * Get bundles info
 	 *
+	 * @todo cache this
 	 * @return string
 	 */
-	public function getBundlesInfo ()
+	public function get_bundles_info ()
 	{
 		static $bundles;
 
