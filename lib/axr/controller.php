@@ -51,6 +51,11 @@ class Controller extends \Core\Controller
 			'ga_accounts' => \Config::get()->ga_accounts
 		);
 
+		$this->view->{'g/code_version'} = substr(\Config::get()->version, 0, 7);
+		$this->view->{'g/data_version'} = substr(\GitData\GitData::$version, 0, 7);
+		$this->view->{'g/code_version_full'} = \Config::get()->version;
+		$this->view->{'g/data_version_full'} = \GitData\GitData::$version;
+
 		$this->view->{'g/year'}  = date('Y');
 		$this->view->{'g/meta'} = new \StdClass();
 		$this->view->{'g/social'} = \GitData\Models\GenericConfig::file('config.json')->social;
