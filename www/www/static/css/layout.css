@@ -1076,6 +1076,17 @@ nav#breadcrumb .extra_0
 	width: 100%;
 }
 
+#container > footer > .activity > .inner > .copy > p
+{
+	margin: 0;
+	padding: 0;
+}
+
+#container > footer > .activity > .inner > .copy > p.version
+{
+	color: #999;
+}
+
 #container > footer > .activity > .inner > .copy > p > a
 {
 	color: #666666;
