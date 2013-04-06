@@ -11,6 +11,6 @@ class ViewController extends Controller
 			'name' => $title
 		);
 
-		echo $this->renderView($view);
+		echo $this->render_page($view);
 	}
 }

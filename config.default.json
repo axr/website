@@ -4,7 +4,7 @@
 
 	"url": {
 		"rsrc": "http://static.axrproject.org/prod-2",
-		"www": "http://axrproject.org",
+		"www": "//axrproject.org",
 		"hss": "http://hss.axrproject.org",
 		"wiki": "http://wiki.axrproject.org"
 	},

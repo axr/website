@@ -37,7 +37,7 @@ class ObjectController extends Controller
 		$this->view->properties = $properties;
 		$this->view->sidebar = Sidebar::render();
 
-		echo $this->render_view(ROOT . '/views/object.html', array(
+		echo $this->render_page(ROOT . '/views/object.html', array(
 			'cache_key' => '/hssdoc/@' . $object_name
 		));
 	}

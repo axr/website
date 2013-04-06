@@ -85,6 +85,8 @@ window['Rsrc'] = {};
 		 */
 		this.request = function (callback)
 		{
+			var that = this;
+
 			switch (this.status)
 			{
 				case Rsrc.STATUS_LOADED:
@@ -129,7 +131,7 @@ window['Rsrc'] = {};
 				{
 					if (that.status !== Rsrc.STATUS_LOADED)
 					{
-						this._call_callbacks(new Error('Rsrc.LoadError', {
+						that._call_callbacks(new Error('Rsrc.LoadError', {
 							name: that.name
 						}));
 					}

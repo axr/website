@@ -98,6 +98,6 @@ class HomeController extends Controller
 			}
 		}
 
-		echo $this->renderView(ROOT . '/views/home.html');
+		echo $this->render_page(ROOT . '/views/home.html');
 	}
 }

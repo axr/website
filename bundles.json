@@ -8,6 +8,7 @@
 			"css/style_modal.css",
 			"css/boilerplate_after.css",
 			"css/rainbow.css",
+			"css/code_box.css",
 			"css/content.css"
 		]
 	},
@@ -17,7 +18,8 @@
 			"js/json2.js",
 			"js/rsrc.js",
 			"js/app.js",
-			"js/mustache.js"
+			"js/mustache.js",
+			"js/code_box.js"
 		]
 	},
 	"css/bundle_www.css": {

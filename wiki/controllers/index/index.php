@@ -84,7 +84,7 @@ class IndexController extends Controller
 		$this->view->paths = $paths;
 		$this->view->pages = $pages;
 
-		echo $this->render_view(ROOT . '/views/index.html', array(
+		echo $this->render_page(ROOT . '/views/index.html', array(
 			'cache_key' => '/wiki/index/' . hash('sha1', $path)
 		));
 	}

@@ -11,6 +11,6 @@ class GetInvolvedController extends Controller
 			'name' => 'Get involved'
 		);
 
-		echo $this->renderView(ROOT . '/views/get_involved.html');
+		echo $this->render_page(ROOT . '/views/get_involved.html');
 	}
 }
