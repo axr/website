@@ -54,7 +54,7 @@ class PageController extends Controller
 
 		$this->view->page = $page;
 
-		echo $this->render_view(ROOT . '/views/page.html', array(
+		echo $this->render_page(ROOT . '/views/page.html', array(
 			'cache_key' => '/wiki/page/' . hash('sha1', $path)
 		));
 	}

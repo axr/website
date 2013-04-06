@@ -51,7 +51,7 @@ class DownloadsController extends Controller
 			}
 		}
 
-		echo $this->render_view(ROOT . '/views/downloads.html', array(
+		echo $this->render_page(ROOT . '/views/downloads.html', array(
 			'cache_key' => '/www/downloads'
 		));
 	}

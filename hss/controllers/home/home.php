@@ -11,6 +11,6 @@ class HomeController extends Controller
 
 		$this->view->sidebar = Sidebar::render();
 
-		echo $this->render_view(ROOT . '/views/hssdoc.html');
+		echo $this->render_page(ROOT . '/views/hssdoc.html');
 	}
 }

@@ -75,7 +75,7 @@ class PageController extends Controller
 				$comments_view);
 		}
 
-		echo $this->render_view(ROOT . '/views/page_' . $page->type . '.html');
+		echo $this->render_page(ROOT . '/views/page_' . $page->type . '.html');
 	}
 
 	/**
@@ -118,7 +118,7 @@ class PageController extends Controller
 			'name' => 'Blog'
 		);
 
-		echo $this->renderView(ROOT . '/views/pages_blog-post.html');
+		echo $this->render_page(ROOT . '/views/pages_blog-post.html');
 	}
 
 	public static function build_blog_index ()
