@@ -1,0 +1,35 @@
+.uiCodeBox
+{
+	background: #fff;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	font-size: 13px;
+	margin: 10px 0 10px 0;
+}
+
+.uiCodeBox > .line
+{
+	position: relative;
+}
+
+.uiCodeBox > .line .number
+{
+	background: #e5e5e5;
+	border-right: 1px solid #bbb;
+	left: 0;
+	padding: 0 5px;
+	position: absolute;
+	text-align: right;
+	top: 0;
+	width: 25px;
+}
+
+.uiCodeBox > .line code
+{
+	border: 0;
+	color: #555;
+	font-size: 13px;
+	margin: 0 0 0 35px;
+	padding: 0 10px;
+	white-space: pre-wrap;
+}

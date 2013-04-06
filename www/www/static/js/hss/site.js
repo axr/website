@@ -12,6 +12,11 @@ window['App'] = window['App'] || {};
 		$('#hssdoc_sidebar .obj_list > li[data-object="' + current_object_name() + '"]')
 			.removeClass('collapsed')
 			.parents('.obj_list > li').removeClass('collapsed');
+
+		(new Rsrc.File('js/code_box.js')).request(function (error)
+		{
+			App.CodeBox.find_all(document.body);
+		});
 	});
 
 	/**

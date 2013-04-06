@@ -45,7 +45,7 @@ class Controller extends \Core\Controller
 			'wiki_url' => \Config::get()->url->wiki,
 			'version' => \Config::get()->version,
 
-			'rsrc_root' => \Config::get()->url->rsrc,
+			'rsrc_root' => (string) \URL::create(\Config::get()->url->rsrc),
 			'rsrc_bundles' => $this->rsrc->get_bundles_info(),
 
 			'ga_accounts' => \Config::get()->ga_accounts
