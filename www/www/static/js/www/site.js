@@ -6,62 +6,10 @@ window['App'] = window['App'] || {};
 	{
 		App.GoogleAnalytics.initialize(App.vars.ga_accounts['default']);
 		App.GoogleAnalytics.queue(['_trackPageview']);
-	});
 
-	(new Rsrc.File('js/rainbow/rainbow.js')).request(function ()
-	{
-		Rainbow.onHighlight(function (block)
+		(new Rsrc.File('js/code_box.js')).request(function (error)
 		{
-			var language = $(block).attr('data-language');
-			var code = $(block).html().split('\n');
-			var lines = [];
-
-			for (var i = 0, c = code.length; i < c; i++)
-			{
-				lines.push({
-					number: i,
-					line: code[i].replace('\t', '    ') + '\n'
-				});
-			}
-
-			// If the first line is empty, remove it
-			if (lines[0].line.replace(/\s+/, '').length === 0)
-			{
-				lines.splice(0, 1);
-			}
-
-			// If the last line is empty, remove it
-			if (lines[lines.length - 1].line.replace(/\s+/, '').length === 0)
-			{
-				lines.splice(lines.length - 1, 1);
-			}
-
-			(new App.Template('code_frame')).request(function (template, error)
-			{
-				if (error)
-				{
-					return;
-				}
-
-				var html = Mustache.render(template, {
-					language: language,
-					lines: lines
-				});
-
-				if ($(block).parent().prop('tagName') === 'PRE')
-				{
-					$(block).parent().replaceWith(html);
-				}
-				else
-				{
-					$(block).replaceWith(html);
-				}
-			});
-		});
-
-		$(document).ready(function ()
-		{
-			Rainbow.color();
+			App.CodeBox.find_all(document.body);
 		});
 	});
 
