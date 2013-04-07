@@ -11,7 +11,7 @@ class GitData
 	public static function initialize ($root)
 	{
 		self::$root = $root;
-		self::$version = file_get_contents(self::$root . '/.git/refs/heads/master');
+		self::$version = file_get_contents(self::$root . '/.git/HEAD');
 		self::$repo = new Git\Repository($root);
 	}
 }
