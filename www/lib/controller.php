@@ -28,7 +28,6 @@ class Controller extends \AXR\Controller
 		$this->rsrc->load_bundle('css/bundle_www.css');
 		$this->rsrc->load_script('https://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js');
 		$this->rsrc->load_bundle('js/bundle_shared.js');
-		$this->rsrc->load_bundle('js/bundle_rainbow.js');
 		$this->rsrc->load_bundle('js/bundle_www.js');
 	}
 }
