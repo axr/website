@@ -16,6 +16,7 @@
 {
 	background: #e5e5e5;
 	border-right: 1px solid #bbb;
+	height: 100%;
 	left: 0;
 	padding: 0 5px;
 	position: absolute;
@@ -28,6 +29,7 @@
 {
 	border: 0;
 	color: #555;
+	display: block;
 	font-size: 13px;
 	margin: 0 0 0 35px;
 	padding: 0 10px;
