@@ -7,7 +7,6 @@
 			"css/style.css",
 			"css/style_modal.css",
 			"css/boilerplate_after.css",
-			"css/rainbow.css",
 			"css/code_box.css",
 			"css/content.css"
 		]
@@ -72,15 +71,6 @@
 		"files": [
 			"js/site.js",
 			"js/hss/site.js"
-		]
-	},
-	"js/bundle_rainbow.js": {
-		"type": "js",
-		"files": [
-			"js/rainbow/rainbow.js",
-			"js/rainbow/css.js",
-			"js/rainbow/hss.js",
-			"js/rainbow/xml.js"
 		]
 	}
 }

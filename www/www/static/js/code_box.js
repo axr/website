@@ -50,7 +50,10 @@ window['App'] = window['App'] || {};
 
 				lines.push({
 					number: i + 1,
-					line: lines_raw[i]
+					line: lines_raw[i].replace(/^[\t]+/, function (match)
+					{
+						return (new Array(match.length * 4 + 1)).join(' ')
+					})
 				});
 			}
 
