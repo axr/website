@@ -348,44 +348,6 @@ body
 }
 
 /**
- * .net awards
- * -----------
- */
-#container > header > .netawards
-{
-	right: 0;
-	position: absolute;
-	top: 35px;
-}
-
-#container > header > .netawards a
-{
-	display: block;
-	text-decoration: none;
-}
-
-#container > header > .netawards a .title
-{
-	color: #666;
-	font-size: 18px;
-	font-weight: bold;
-	margin: 0 0 2px 0;
-	text-decoration: none;
-}
-
-#container > header > .netawards a .subtitle
-{
-	font-size: 13px;
-	color: #666;
-}
-
-#container > header > .netawards a .subtitle strong
-{
-	color: #D09610;
-	text-decoration: underline;
-}
-
-/**
  * Secondary header (search ^ user links)
  * --------------------------------------
  */
