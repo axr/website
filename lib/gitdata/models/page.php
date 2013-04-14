@@ -102,7 +102,9 @@ class Page extends \GitData\Model
 				throw new \GitData\Exceptions\EntityInvalid(null);
 			}
 
-			$this->content = self::parse_content($content_file);
+			$this->content = self::parse_content($content_file, array(
+				'link_titles' => true
+			));
 		}
 
 		// Get the summary
