@@ -34,7 +34,11 @@
 												<span title="{{size}} bytes">{{size|filesize}}</span>
 											</td>
 											<td class="dl">
-												<a href="{{url}}" data-filename="{{filename}}" target="_blank">download</a>
+												{{#checksums}}
+													<a href="#" data-checksums="{{checksums|json}}" class="checksums">checksums</a>
+												{{/checksums}}
+
+												<a href="{{url}}" data-filename="{{filename}}" class="dl" target="_blank">download</a>
 											</td>
 										</tr>
 									{{/files}}

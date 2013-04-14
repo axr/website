@@ -111,7 +111,7 @@
 
 #downloads .rtable > .release table.pkggroup td.size
 {
-	width: 140px;
+	width: 100px;
 }
 
 #downloads .rtable > .release table.pkggroup td.dl
@@ -145,6 +145,11 @@
 	padding: 7px 0;
 }
 
+#downloads .rtable > .release table.pkggroup tbody tr td.dl
+{
+	min-width: 150px;
+}
+
 #downloads .rtable > .release table.pkggroup tbody tr td.dl a
 {
 	color: #D09610;
@@ -154,4 +159,87 @@
 #downloads .rtable > .release table.pkggroup tbody tr td.dl a:hover
 {
 	text-decoration: underline;
+}
+
+#downloads .rtable > .release table.pkggroup tbody tr td.dl a.checksums
+{
+	margin-right: 10px;
+}
+
+#downloads_checksums_overlay
+{
+	background: transparent;
+	display: none;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+#downloads_checksums
+{
+	background: #eaeaea;
+	border: 1px solid #c2c2c2;
+	border-radius: 3px;
+	box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+	display: none;
+	padding: 14px;
+	position: absolute;
+	left: 300px;
+	top: 100px;
+	z-index: 9999;
+}
+
+#downloads_checksums:after,
+#downloads_checksums:before
+{
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 100%;
+	width: 0;
+}
+
+#downloads_checksums:after
+{
+	border-color: rgba(234, 234, 234, 0);
+	border-top-color: #eaeaea;
+	border-width: 8px;
+	left: 50%;
+	margin-left: -8px;
+}
+
+#downloads_checksums:before
+{
+	border-color: rgba(194, 194, 194, 0);
+	border-top-color: #c2c2c2;
+	border-width: 9px;
+	left: 50%;
+	margin-left: -9px;
+}
+
+#downloads_checksums dl
+{
+	font-size: 13px;
+	margin: 0 0 6px 0;
+}
+
+#downloads_checksums dl:last-child
+{
+	margin-bottom: 0;
+}
+
+#downloads_checksums dl dt
+{
+	float: left;
+	font-weight: bold;
+	width: 40px;
+}
+
+#downloads_checksums dl dd
+{
+	margin: 0 0 0 50px;
 }
