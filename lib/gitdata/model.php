@@ -7,10 +7,15 @@ abstract class Model
 	/**
 	 * Parse stuff like the page content and summary.
 	 *
+	 * $options:
+	 * - (bool) link_titles: Whether to make all h1-h3 titles links. Default is
+	 *   false.
+	 *
 	 * @todo Move to \GitData\Model
 	 * @param \GitData\Git\File $file
+	 * @param array $options
 	 */
-	protected static function parse_content (\GitData\Git\File $file)
+	protected static function parse_content (\GitData\Git\File $file, array $options = array())
 	{
 		$data = $file->get_data();
 
@@ -24,21 +29,24 @@ abstract class Model
 			$data = \GitData\Asset::replace_urls_in_html(dirname($file->path), $data);
 		}
 
-		preg_match_all('/<h(?P<n>[1-3])>(?P<title>.+?)<\/h\1>/', $data, $matches);
-
-		for ($i = 0, $c = count($matches['title']); $i < $c; $i++)
+		if (isset($options['link_titles']) && $options['link_titles'] === true)
 		{
-			$matched = $matches[0][$i];
-			$n = $matches['n'][$i];
-			$title = $matches['title'][$i];
+			preg_match_all('/<h(?P<n>[1-3])>(?P<title>.+?)<\/h\1>/', $data, $matches);
 
-			$alias = strtolower($title);
-			$alias = str_replace(' ', '-', $alias);
-			$alias = preg_replace('/[^a-z0-9-_.]/', '', $alias);
+			for ($i = 0, $c = count($matches['title']); $i < $c; $i++)
+			{
+				$matched = $matches[0][$i];
+				$n = $matches['n'][$i];
+				$title = $matches['title'][$i];
 
-			$replacement = "<h{$n}><a href=\"#{$alias}\" name=\"{$alias}\">{$title}</a></h{$n}>";
+				$alias = strtolower($title);
+				$alias = str_replace(' ', '-', $alias);
+				$alias = preg_replace('/[^a-z0-9-_.]/', '', $alias);
 
-			$data = str_replace($matched, $replacement, $data);
+				$replacement = "<h{$n}><a href=\"#{$alias}\" name=\"{$alias}\">{$title}</a></h{$n}>";
+
+				$data = str_replace($matched, $replacement, $data);
+			}
 		}
 
 		return $data;
