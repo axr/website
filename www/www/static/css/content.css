@@ -15,6 +15,15 @@
 	margin-bottom: 0;
 }
 
+.parsedContent a {
+	color: #666;
+}
+
+.parsedContent a:hover
+{
+	color: #000;
+}
+
 .parsedContent h2,
 .parsedContent h3,
 .parsedContent h4,
@@ -23,6 +32,15 @@
 {
 	clear: both;
 	display: block;
+}
+
+.parsedContent h2 a,
+.parsedContent h3 a,
+.parsedContent h4 a,
+.parsedContent h5 a,
+.parsedContent h6 a
+{
+	text-decoration: none;
 }
 
 .parsedContent img.alignLeft
@@ -56,15 +74,6 @@
 .parsedContent .contentConter
 {
 	text-align: center;
-}
-
-.parsedContent a {
-	color: #666;
-}
-
-.parsedContent a:hover
-{
-	color: #000;
 }
 
 .parsedContent code
