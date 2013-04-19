@@ -25,7 +25,6 @@ class Controller extends \AXR\Controller
 		// Load some default resources
 		$this->rsrc->load_bundle('css/bundle_shared.css');
 		$this->rsrc->load_bundle('css/bundle_hssdoc.css');
-		$this->rsrc->load_script('https://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js');
 		$this->rsrc->load_bundle('js/bundle_shared.js');
 		$this->rsrc->load_bundle('js/bundle_hssdoc.js');
 
