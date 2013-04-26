@@ -12,7 +12,7 @@ below.
 The workflow
 ============
 You can find a detailed workflow description on our
-[wiki](http://axr.vg/wiki/Website_workflow)
+[wiki](http://wiki.axrproject.org/website/workflow).
 
 Pre-commit hook
 ===============
