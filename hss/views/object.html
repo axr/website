@@ -34,12 +34,3 @@
 		{{/properties}}
 	</div>
 </div>
-
-{{^_ajax}}
-	<script>
-		Rsrc.use(['js/app.js', 'js/hss/object.js'], function ()
-		{
-			App.Event.trigger('App.HSS.Object.load');
-		});
-	</script>
-{{/_ajax}}
