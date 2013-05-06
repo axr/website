@@ -1,54 +1,32 @@
-(new Rsrc.File('js/www/get_involved.js')).provide(function ()
+(function ()
 {
-	App.WWW = App.WWW || {};
-
-	App.WWW.GetInvolved = {
-		_initialized: false,
-
-		initialize: function ()
-		{
-			if (this._initialized === true)
-			{
-				return;
-			}
-
-			this._initialized = true;
-
-			$('#get_involved .join_us a.join').on('click', function (e)
-			{
-				e.preventDefault();
-
-				(new App.Template('get_involved_join')).request(function (template, error)
-				{
-					if (error instanceof App.Error)
-					{
-						error.show();
-						return;
-					}
-
-					(new App.Modal(template)).show({
-						size: [640, 550]
-					});
-				});
-			});
-		}
-	};
-
-	App.Event.on('App.WWW.GetInvolved.load', function ()
+	Core.Router.instance().on(/^\/get-involved\/?$/, function ()
 	{
-		App.WWW.GetInvolved.initialize();
-
-		App.Twitter.get_last_tweet(function (tweet, error)
+		$('#get_involved .join_us a.join').on('click', function (e)
 		{
-			$('#get_involved ._last_tweet')
-				.html(tweet || error.to_s());
+			e.preventDefault();
+
+			var html = $('#get_involved > script[data-template="join_us"]').text();
+
+			(new Core.Modal(html)).show({
+				size: [640, 550]
+			});
+		});
+	});
+
+	Core.Router.instance().on(/^\/get-involved\/?$/, function ()
+	{
+		Core.social.LastTweet.instance().get(function (tweet, error)
+		{
+			$('#get_involved ._last_tweet').html(tweet || error);
 		});
 
-		App.GitHub.get_activity(function (events, error)
+		Core.social.GitHubActivity.instance().get(function (events, error)
 		{
-			if (error instanceof App.Error)
+			if (error)
 			{
-				$('#ghactivity').html(error.to_s());
+				$('#ghactivity')
+					.html('<li><div class="inner">' + error.message + '</div></li>');
 				return;
 			}
 
@@ -61,9 +39,15 @@
 					break;
 				}
 
-				$('#ghactivity').append('<li><div class="inner">' +
-					events[i].title + '</div></li>');
+				$('#ghactivity')
+					.append('<li><div class="inner">' + events[i].title + '</div></li>');
+			}
+
+			if (events.length === 0)
+			{
+				$('#ghactivity')
+					.html('<li><div class="inner">No recent activity</div></li>');
 			}
 		});
 	});
-});
+})();
