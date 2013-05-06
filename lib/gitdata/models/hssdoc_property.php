@@ -63,6 +63,13 @@ class HssdocProperty extends \GitData\Model
 	public $description;
 
 	/**
+	 * "Scope" for the properties of the @text object
+	 *
+	 * @var string[]
+	 */
+	public $text_scope = array();
+
+	/**
 	 * __construct
 	 *
 	 * @param \GitData\Git\File $info_file

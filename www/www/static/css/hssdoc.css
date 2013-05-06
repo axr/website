@@ -276,6 +276,11 @@
 	color: #fff;
 }
 
+#hssdoc_obj .prop_item table.text_scope td .symbol
+{
+	font-weight: bold;
+}
+
 #hssdoc_obj table.values_table td .future
 {
 	color: #999;

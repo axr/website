@@ -26,6 +26,17 @@ class ObjectController extends Controller
 		foreach ($properties as &$property)
 		{
 			$property->_values_table = $this->render_values_table($property);
+
+			if (count($property->text_scope) > 0)
+			{
+				foreach (array('line', 'word', 'character') as $name)
+				{
+					$property->_text_scope[] = array(
+						'name' => $name,
+						'is_valid' => in_array($name, $property->text_scope)
+					);
+				}
+			}
 		}
 
 		$this->view->_title = $object->name;
