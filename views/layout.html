@@ -46,28 +46,6 @@
 		<script>
 			window.App = {};
 			window.App.vars = {{g/app_vars|json|raw}};
-
-			(function ()
-			{
-				var interval;
-				var queue = [];
-
-				window.Rsrc = {};
-				window.Rsrc.use =function (a, b) { queue.push([a, b]); };
-
-				interval = setInterval(function ()
-				{
-					if (typeof window.Rsrc.File === 'function')
-					{
-						for (var i = 0, c = queue.length; i < c; i++)
-						{
-							window.Rsrc.use(queue[i][0], queue[i][1]);
-						}
-
-						clearInterval(interval);
-					}
-				}, 20);
-			})();
 		</script>
 	{{/g/app_vars}}
 </head>

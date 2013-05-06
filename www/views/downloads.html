@@ -55,12 +55,3 @@
 		<div class="none">No releases are currently available</div>
 	{{/release_groups}}
 </div>
-
-{{^_ajax}}
-	<script>
-		Rsrc.use(['js/app.js', 'js/www/downloads.js'], function ()
-		{
-			App.Event.trigger('App.WWW.Downloads.load');;
-		});
-	</script>
-{{/_ajax}}
