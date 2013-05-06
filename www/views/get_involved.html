@@ -138,13 +138,20 @@
 		</div>
 	</div>
 	<br style="clear: both" />
-</div>
 
-{{^_ajax}}
-	<script>
-		Rsrc.use(['js/app.js', 'js/www/get_involved.js'], function ()
-		{
-			App.Event.trigger('App.WWW.GetInvolved.load');;
-		});
+	<script type="text/html" data-template="join_us">
+		<div id="get_involved_join">
+			<div class="inner">
+				<a class="close _as_modal_close">Close this</a>
+				<h2>Joining the revolution</h2>
+				<ol>
+					<li>subscribe to the <a href="https://groups.google.com/forum/#!forum/axr-main" target="_blank">mailing list</a> to be involved directly</li>
+					<li>join the <a href="http://webchat.freenode.net/?channels=axr" target="_blank">irc channel</a> to discuss ideas</li>
+					<li>follow our progress on <a href="http://twitter.com/#!/AXRProject" target="_blank">Twitter</a>, <a href="https://www.facebook.com/AXRProject" target="_blank">Facebook</a> and <a href="https://plus.google.com/105865857923622443169" target="_blank">Google+</a></li>
+					<li>fork us on <a href="http://www.github.com/axr" target="_blank">GitHub</a></li>
+					<li>take part in the discussions on the <a href="under_construction.html">forum</a></li>
+					<li>celebrate!</li>
+			</div>
+		</div>
 	</script>
-{{/_ajax}}
+</div>

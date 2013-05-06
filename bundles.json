@@ -15,10 +15,7 @@
 		"type": "js",
 		"files": [
 			"js/json2.js",
-			"js/rsrc.js",
-			"js/app.js",
-			"js/mustache.js",
-			"js/code_box.js"
+			"js/core.js"
 		]
 	},
 	"css/bundle_www.css": {
@@ -55,8 +52,7 @@
 	"js/bundle_wiki.js": {
 		"type": "js",
 		"files": [
-			"js/site.js",
-			"js/wiki/site.js"
+			"js/site.js"
 		]
 	},
 	"css/bundle_hssdoc.css": {
