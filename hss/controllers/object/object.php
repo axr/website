@@ -2,6 +2,8 @@
 
 namespace Hssdoc;
 
+require_once(SHARED . '/lib/axr/pkgtools.php');
+
 class ObjectController extends Controller
 {
 	public function run ($object_name)
@@ -26,6 +28,17 @@ class ObjectController extends Controller
 		foreach ($properties as &$property)
 		{
 			$property->_values_table = $this->render_values_table($property);
+
+			if (count($property->text_scope) > 0)
+			{
+				foreach (array('line', 'word', 'character') as $name)
+				{
+					$property->_text_scope[] = array(
+						'name' => $name,
+						'is_valid' => in_array($name, $property->text_scope)
+					);
+				}
+			}
 		}
 
 		$this->view->_title = $object->name;
@@ -64,6 +77,11 @@ class ObjectController extends Controller
 			return $html;
 		}
 
+		// This version obtaining code is not cached so it is important that the
+		// rendered values table is cached.
+		$core = \GitData\Models\Package::find_by_name('libaxr');
+		$core_version = $core->get_latest_version_number();
+
 		$values = $property->values;
 		$first_of_ver = array();
 
@@ -85,6 +103,12 @@ class ObjectController extends Controller
 				{
 					$value->_ref_url->fragment($match['property']);
 				}
+			}
+
+			// This is a future version
+			if (\AXR\Pkgtools::compare_versions($value->since_version, $core_version) === 1)
+			{
+				$value->_is_future = true;
 			}
 
 			$first_of_ver[$value->since_version]->_count++;

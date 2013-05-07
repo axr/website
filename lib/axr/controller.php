@@ -46,8 +46,6 @@ class Controller extends \Core\Controller
 			'version' => \Config::get()->version,
 
 			'rsrc_root' => (string) \URL::create(\Config::get()->url->rsrc),
-			'rsrc_bundles' => $this->rsrc->get_bundles_info(),
-
 			'ga_accounts' => \Config::get()->ga_accounts
 		);
 

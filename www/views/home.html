@@ -381,12 +381,3 @@ qux
 		</div>
 	</div>
 </div>
-
-{{^_ajax}}
-	<script>
-		Rsrc.use(['js/app.js', 'js/www/home.js'], function ()
-		{
-			App.Event.trigger('App.WWW.Home.load');
-		});
-	</script>
-{{/_ajax}}

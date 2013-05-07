@@ -25,7 +25,10 @@
 				</td>
 				{{#_count}}
 					<td rowspan="{{_count}}" class="version">
-						{{since_version}}
+						{{^_is_future}}{{since_version}}{{/_is_future}}
+						{{#_is_future}}
+							<span class="future">(coming in {{since_version}})</span>
+						{{/_is_future}}
 						{{^since_version}}
 							<span class="future">(not implemented)</span>
 						{{/since_version}}

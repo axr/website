@@ -150,7 +150,9 @@
 
 #hssdoc_obj .prop_item
 {
+	border-bottom: 1px solid #ccc;
 	margin: 25px 0;
+	padding: 0 0 25px 0;
 }
 
 #hssdoc_obj .prop_item header
@@ -274,6 +276,11 @@
 {
 	background: #468847;
 	color: #fff;
+}
+
+#hssdoc_obj .prop_item table.text_scope td .symbol
+{
+	font-weight: bold;
 }
 
 #hssdoc_obj table.values_table td .future

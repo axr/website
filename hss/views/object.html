@@ -25,6 +25,21 @@
 					{{/permanent}}
 				</header>
 
+				{{#_text_scope|bool}}
+					<table class="text_scope">
+						<tr>
+							<th>Scope</th>
+							{{#_text_scope}}
+								<td>
+									{{#is_valid}}<span class="symbol">✓</span>{{/is_valid}}
+									{{^is_valid}}<span class="symbol">×</span>{{/is_valid}}
+									{{name}}
+								</td>
+							{{/_text_scope}}
+						</tr>
+					</table>
+				{{/_text_scope}}
+
 				<div class="parsedContent">
 					{{description|raw}}
 				</div>
@@ -34,12 +49,3 @@
 		{{/properties}}
 	</div>
 </div>
-
-{{^_ajax}}
-	<script>
-		Rsrc.use(['js/app.js', 'js/hss/object.js'], function ()
-		{
-			App.Event.trigger('App.HSS.Object.load');
-		});
-	</script>
-{{/_ajax}}
