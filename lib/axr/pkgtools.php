@@ -123,4 +123,40 @@ class Pkgtools
 
 		return isset($distros[$distro]) ? $distros[$distro] : $distro;
 	}
+
+	/**
+	 * Compare two version numbers.
+	 *
+	 * Return values:
+	 * - `-1` $a < $b
+	 * - `0` $a = $b
+	 * - `1` $a > $b
+	 *
+	 * @param string $a
+	 * @param string $b
+	 * @return int
+	 */
+	public static function compare_versions ($a, $b)
+	{
+		$a_comp = explode('.', $a);
+		$b_comp = explode('.', $b);
+
+		$cmp = function ($a, $b)
+		{
+			return $a > $b ? 1 : ($a < $b ? -1 : 0);
+		};
+
+		for ($i = 0; $i < 4; $i++)
+		{
+			$a0 = isset($a_comp[$i]) ? (int) $a_comp[$i] : 0;
+			$b0 = isset($b_comp[$i]) ? (int) $b_comp[$i] : 0;
+
+			if ($a0 !== $b0)
+			{
+				return $a0 > $b0 ? 1 : -1;
+			}
+		}
+
+		return 0;
+	}
 }
