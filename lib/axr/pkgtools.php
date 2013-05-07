@@ -141,11 +141,6 @@ class Pkgtools
 		$a_comp = explode('.', $a);
 		$b_comp = explode('.', $b);
 
-		$cmp = function ($a, $b)
-		{
-			return $a > $b ? 1 : ($a < $b ? -1 : 0);
-		};
-
 		for ($i = 0; $i < 4; $i++)
 		{
 			$a0 = isset($a_comp[$i]) ? (int) $a_comp[$i] : 0;
