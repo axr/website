@@ -35,3 +35,69 @@
 	padding: 0 10px;
 	white-space: pre-wrap;
 }
+
+.uiCodeBox > .line code .token.comment,
+.uiCodeBox > .line code .token.prolog,
+.uiCodeBox > .line code .token.doctype,
+.uiCodeBox > .line code .token.cdata
+{
+	color: slategray;
+}
+
+.uiCodeBox > .line code .token.punctuation
+{
+	color: #999;
+}
+
+.uiCodeBox > .line code .namespace
+{
+	opacity: .7;
+}
+
+.uiCodeBox > .line code .token.property,
+.uiCodeBox > .line code .token.tag,
+.uiCodeBox > .line code .token.boolean,
+.uiCodeBox > .line code .token.number
+{
+	color: #905;
+}
+
+.uiCodeBox > .line code .token.selector,
+.uiCodeBox > .line code .token.attr-name,
+.uiCodeBox > .line code .token.string
+{
+	color: #690;
+}
+
+.uiCodeBox > .line code .token.operator,
+.uiCodeBox > .line code .token.entity,
+.uiCodeBox > .line code .token.url,
+.uiCodeBox > .line code .language-css .token.string,
+.uiCodeBox > .line code .style .token.string
+{
+	color: #a67f59;
+	background: hsla(0,0%,100%,.5);
+}
+
+.uiCodeBox > .line code .token.atrule,
+.uiCodeBox > .line code .token.attr-value,
+.uiCodeBox > .line code .token.keyword
+{
+	color: #07a;
+}
+
+.uiCodeBox > .line code .token.regex,
+.uiCodeBox > .line code .token.important
+{
+	color: #e90;
+}
+
+.uiCodeBox > .line code .token.important
+{
+	font-weight: bold;
+}
+
+.uiCodeBox > .line code .token.entity
+{
+	cursor: help;
+}

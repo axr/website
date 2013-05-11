@@ -23,7 +23,8 @@ class GithubActivity
 	{
 		$ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/orgs/AXR/events?page=' . $page);
+		curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/orgs/axr/events?page=' . $page);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'http://axrproject.org');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 		$response = curl_exec($ch);

@@ -15,7 +15,9 @@
 		"type": "js",
 		"files": [
 			"js/json2.js",
-			"js/core.js"
+			"js/core.js",
+			"js/prism/prism.js",
+			"js/prism/hss.js"
 		]
 	},
 	"css/bundle_www.css": {

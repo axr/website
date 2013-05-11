@@ -176,6 +176,31 @@ window['Core'] = {};
 		 */
 		this.element = element;
 
+		/**
+		 * The code that this code box contains
+		 *
+		 * @type {string}
+		 */
+		this.code = this.element.find('code').html();
+
+		/**
+		 * Syntax of the code
+		 *
+		 * @type {string}
+		 */
+		this.syntax = null;
+
+		var match = this.code.match(/^(\/\/|#|\/\*) language=([a-z]+)( \*\/)?\n/);
+		if (match instanceof Array)
+		{
+			this.syntax = match[2];
+			this.code = this.code.replace(/^.+?\n/, '');
+		}
+		else if ($(element).find('code').is('[data-language]'))
+		{
+			this.syntax = $(element).find('code').attr('data-language');
+		}
+
 		this.render();
 	};
 
@@ -192,11 +217,18 @@ window['Core'] = {};
 	 */
 	Core.CodeBox.prototype.render = function ()
 	{
-		var code_element = this.element.find('code');
-		var lines = code_element.html().split('\n');
+		if (typeof Prism.languages[this.syntax] === 'object')
+		{
+			var lines = Prism.highlight(this.code, Prism.languages[this.syntax])
+				.split('\n');
+		}
+		else
+		{
+			var lines = this.code.split('\n');
+		}
 
 		var html = [];
-		html.push('<div class="uiCodeBox" data-language="raw">');
+		html.push('<div class="uiCodeBox">');
 
 		for (var i = 0, c = lines.length; i < c; i++)
 		{
