@@ -2,16 +2,11 @@
 
 namespace GitData\Models;
 
-require_once(SHARED . '/lib/php-markdown/markdown.php');
-
 class WikiPage extends \GitData\Model
 {
-	/**
-	 * Title for the page
-	 *
-	 * @var string
-	 */
-	public $title;
+	protected $attrs = array('title', 'content_file', 'generate_toc');
+	protected $public = array('content', 'mtime_str', 'last_author',
+		'github_history_url');
 
 	/**
 	 * Content of the page
@@ -19,6 +14,11 @@ class WikiPage extends \GitData\Model
 	 * @var string
 	 */
 	public $content;
+
+	/**
+	 * Table of contents
+	 */
+	public $toc;
 
 	/**
 	 * @var string
@@ -46,32 +46,18 @@ class WikiPage extends \GitData\Model
 	 */
 	public function __construct (\GitData\Git\File $info_file)
 	{
-		$info = json_decode($info_file->get_data());
+		// Set some defaults
+		$this->attrs_data = (object) array(
+			'generate_toc' => false
+		);
 
-		if (!is_object($info))
-		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
-		}
-
-		foreach ($info as $key => $value)
-		{
-			if (property_exists(__CLASS__, $key))
-			{
-				$this->$key = $value;
-			}
-		}
+		parent::__construct($info_file);
 
 		// Read the content
 		{
-			if (isset($info->file))
-			{
-				$content_path = dirname($info_file->path) . '/' . $info->file;
-			}
-			else
-			{
-				$content_path = dirname($info_file->path) . '/content.md';
-			}
-
+			$content_path = isset($info->file) ?
+				dirname($info_file->path) . '/' . $info->file :
+				dirname($info_file->path) . '/content.md';
 			$content_file = \GitData\GitData::$repo->get_file($content_path);
 
 			if ($content_file === null)
@@ -79,9 +65,17 @@ class WikiPage extends \GitData\Model
 				throw new \GitData\Exceptions\EntityInvalid(null);
 			}
 
-			$this->content = self::parse_content($content_file, array(
-				'link_titles' => true
+			$content = new \GitData\Content($content_file, array(
+				'link_titles' => true,
+				'generate_toc' => $this->attrs_data->generate_toc === true
 			));
+
+			if ($this->attrs_data->generate_toc === true)
+			{
+				$this->toc = $content->get_toc();
+			}
+
+			$this->content = (string) $content;
 		}
 
 		$this->permalink = preg_replace('/^wiki/', '', dirname($info_file->path));

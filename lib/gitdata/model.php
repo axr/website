@@ -5,67 +5,87 @@ namespace GitData;
 abstract class Model
 {
 	/**
-	 * Parse stuff like the page content and summary.
+	 * Attributes that will be copied over from the model's JSON data file
 	 *
-	 * $options:
-	 * - (bool) link_titles: Whether to make all h1-h3 titles links. Default is
-	 *   false.
-	 *
-	 * @todo Move to \GitData\Model
-	 * @param \GitData\Git\File $file
-	 * @param array $options
+	 * @var string[]
 	 */
-	protected static function parse_content (\GitData\Git\File $file, array $options = array())
+	protected $attrs;
+
+	/**
+	 * Properties of this class that should be publicly readable
+	 *
+	 * @var string[]
+	 */
+	protected $public;
+
+	/**
+	 * Data of the attributes from the model's JSON data file
+	 */
+	protected $attrs_data;
+
+	/**
+	 * Constructor
+	 *
+	 * @param \GitData\Git\File $info_file
+	 */
+	public function __construct (\GitData\Git\File $info_file)
 	{
-		$data = $file->get_data();
-
-		if (self::get_content_type($file->path) === 'md')
+		if (!is_object($this->attrs_data))
 		{
-			$data = Markdown($data);
+			$this->attrs_data = (object) array();
 		}
 
-		if (in_array(self::get_content_type($file->path), array('md', 'html')))
+		$info = json_decode($info_file->get_data());
+
+		if (!is_object($info))
 		{
-			$data = \GitData\Asset::replace_urls_in_html(dirname($file->path), $data);
+			throw new \GitData\Exceptions\EntityInvalid(null);
 		}
 
-		if (isset($options['link_titles']) && $options['link_titles'] === true)
+		foreach ($info as $key => $value)
 		{
-			preg_match_all('/<h(?P<n>[1-3])>(?P<title>.+?)<\/h\1>/', $data, $matches);
-
-			for ($i = 0, $c = count($matches['title']); $i < $c; $i++)
+			if (in_array($key, $this->attrs))
 			{
-				$matched = $matches[0][$i];
-				$n = $matches['n'][$i];
-				$title = $matches['title'][$i];
-
-				$alias = strtolower($title);
-				$alias = str_replace(' ', '-', $alias);
-				$alias = preg_replace('/[^a-z0-9-_.]/', '', $alias);
-
-				$replacement = "<h{$n}><a href=\"#{$alias}\" name=\"{$alias}\">{$title}</a></h{$n}>";
-
-				$data = str_replace($matched, $replacement, $data);
+				$this->attrs_data->{$key} = $value;
 			}
 		}
-
-		return $data;
 	}
 
 	/**
-	 * Returns the type of the content file (or of the path specified)
-	 * Possible values: md|html|text
+	 * __get
 	 *
-	 * @todo Move to \GitData\Model
-	 * @param string $path
-	 * @return string
+	 * @param string $key
 	 */
-	protected static function get_content_type ($path)
+	public function __get ($key)
 	{
-		// Extract the file extension
-		$explode = explode('.', $path);
-		$extension = end($explode);
+		if (isset($this->{$key}) && in_array($key, $this->public))
+		{
+			return $this->{$key};
+		}
 
-		return in_array($extension, array('md', 'html')) ? $extension : 'text';
+		if (isset($this->attrs_data->{$key}))
+		{
+			return $this->attrs_data->{$key};
+		}
+	}
+
+	/**
+	 * __isset
+	 *
+	 * @param string $key
+	 */
+	public function __isset ($key)
+	{
+		if (isset($this->{$key}) && in_array($key, $this->public))
+		{
+			return true;
+		}
+
+		if (isset($this->attrs_data->{$key}))
+		{
+			return true;
+		}
+
+		return false;
 	}
 }

@@ -2,23 +2,10 @@
 
 namespace GitData\Models;
 
-require_once(SHARED . '/lib/php-markdown/markdown.php');
-
 class HssdocObject extends \GitData\Model
 {
-	/**
-	 * Name of the object
-	 *
-	 * @var string
-	 */
-	public $name;
-
-	/**
-	 * Owner of the object
-	 *
-	 * @var string
-	 */
-	public $owner;
+	protected $attrs = array('name', 'owner', 'description_file');
+	protected $public = array('description', 'permalink');
 
 	/**
 	 * Permalink for the object
@@ -41,20 +28,7 @@ class HssdocObject extends \GitData\Model
 	 */
 	public function __construct (\GitData\Git\File $info_file)
 	{
-		$info = json_decode($info_file->get_data());
-
-		if (!is_object($info))
-		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
-		}
-
-		foreach ($info as $key => $value)
-		{
-			if (property_exists(__CLASS__, $key))
-			{
-				$this->$key = $value;
-			}
-		}
+		parent::__construct($info_file);
 
 		// Set the permalink
 		$this->permalink = preg_replace('/^hssdoc/', '', dirname($info_file->path));
@@ -62,12 +36,12 @@ class HssdocObject extends \GitData\Model
 		// Read the description
 		if (isset($info->description_file))
 		{
-			$file = \GitData\GitData::$repo->get_file(
-				dirname($info_file->path) . '/' . $info->description_file);
+			$path = dirname($info_file->path) . '/' . $info->description_file;
+			$file = \GitData\GitData::$repo->get_file($path);
 
 			if ($file !== null)
 			{
-				$this->description = self::parse_content($file);
+				$this->description = (string) new \GitData\Content($file);
 			}
 		}
 	}
