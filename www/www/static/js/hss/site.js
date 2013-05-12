@@ -35,6 +35,15 @@
 		$('#hssdoc_sidebar .obj_list > li[data-object="' + current_object_name() + '"]')
 			.removeClass('collapsed')
 			.parents('.obj_list > li').removeClass('collapsed');
+
+		$('#hssdoc_sidebar .prop_list')
+			.find('.ro, .implSemi, .implNone')
+			.each(function (i, element)
+			{
+				$(element).tipsy({
+					gravity: 'e'
+				});
+			});
 	});
 
 	/**
