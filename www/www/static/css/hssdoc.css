@@ -96,10 +96,40 @@
 	padding: 2px 0;
 }
 
+#hssdoc_sidebar ul.prop_list li .ro,
+#hssdoc_sidebar ul.prop_list li .implNone,
+#hssdoc_sidebar ul.prop_list li .implSemi
+{
+	background: url(../images/hss_icons.svg) no-repeat;
+	display: inline-block;
+	float: right;
+	height: 16px;
+	margin: 0 0 0 5px;
+	opacity: 0.15;
+	text-indent: -9999px;
+	width: 16px;
+}
+
+#hssdoc_sidebar ul.prop_list li:hover .ro,
+#hssdoc_sidebar ul.prop_list li:hover .implNone,
+#hssdoc_sidebar ul.prop_list li:hover .implSemi
+{
+	opacity: 0.5;
+}
+
 #hssdoc_sidebar ul.prop_list li .ro
 {
-	color: #aaa;
-	font-size: 12px;
+	background-position: -1px -1px;
+}
+
+#hssdoc_sidebar ul.prop_list li .implNone
+{
+	background-position: -58px -1px;
+}
+
+#hssdoc_sidebar ul.prop_list li .implSemi
+{
+	background-position: -19px -1px;
 }
 
 #hssdoc_sidebar ul.prop_list li a
@@ -109,7 +139,7 @@
 	text-decoration: none;
 }
 
-#hssdoc_sidebar ul.prop_lst li a:hover
+#hssdoc_sidebar ul.prop_list li a:hover
 {
 	text-decoration: underline;
 }

@@ -6,6 +6,10 @@ require_once(SHARED . '/lib/php-markdown/markdown.php');
 
 class HssdocProperty extends \GitData\Model
 {
+	const IMPL_NONE = 0;
+	const IMPL_SEMI = 1;
+	const IMPL_FULL = 2;
+
 	/**
 	 * Name of the parent object
 	 *
@@ -70,6 +74,13 @@ class HssdocProperty extends \GitData\Model
 	public $text_scope = array();
 
 	/**
+	 * Implementation status of this property
+	 *
+	 * @var int
+	 */
+	public $implemented;
+
+	/**
 	 * __construct
 	 *
 	 * @param \GitData\Git\File $info_file
@@ -91,6 +102,8 @@ class HssdocProperty extends \GitData\Model
 			}
 		}
 
+		$implemented_count = 0;
+
 		foreach ($this->values as &$value)
 		{
 			$value = (object) array_merge(array(
@@ -99,7 +112,25 @@ class HssdocProperty extends \GitData\Model
 				'since_version' => null
 			), (array) $value);
 
+			if ($value->since_version !== null)
+			{
+				$implemented_count++;
+			}
+
 			unset($value);
+		}
+
+		if ($implemented_count === count($this->values))
+		{
+			$this->implemented = self::IMPL_FULL;
+		}
+		else if ($implemented_count === 0)
+		{
+			$this->implemented = self::IMPL_NONE;
+		}
+		else
+		{
+			$this->implemented = self::IMPL_SEMI;
 		}
 
 		// Extract the parent object name

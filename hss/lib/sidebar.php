@@ -33,6 +33,26 @@ class Sidebar
 			}
 
 			$object->properties = $object->get_properties();
+
+			foreach ($object->properties as &$property)
+			{
+				switch ($property->implemented)
+				{
+					case \GitData\Models\HssdocProperty::IMPL_NONE:
+						$property->_impl_none = true;
+						break;
+
+					case \GitData\Models\HssdocProperty::IMPL_SEMI:
+						$property->_impl_semi = true;
+						break;
+
+					case \GitData\Models\HssdocProperty::IMPL_FULL:
+						$property->_impl_full = true;
+						break;
+				}
+
+				unset($property);
+			}
 		}
 
 		$view = new \StdClass();
