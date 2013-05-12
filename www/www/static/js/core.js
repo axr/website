@@ -190,10 +190,10 @@ window['Core'] = {};
 		 */
 		this.syntax = null;
 
-		var match = this.code.match(/^(\/\/|#|\/\*) language=([a-z]+)( \*\/)?\n/);
+		var match = this.code.match(/^(\/\/|#|\/\*|([<]|&lt;)!--) language=([a-z]+)( \*\/| --([>]|&gt;))?\n/);
 		if (match instanceof Array)
 		{
-			this.syntax = match[2];
+			this.syntax = match[3];
 			this.code = this.code.replace(/^.+?\n/, '');
 		}
 		else if ($(element).find('code').is('[data-language]'))
