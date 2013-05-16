@@ -8,7 +8,7 @@ class HssdocProperty extends \GitData\Model
 	const IMPL_SEMI = 1;
 	const IMPL_FULL = 2;
 
-	protected $attrs = array('name', 'readonly', 'permanent', 'manu_values',
+	protected $attrs = array('name', 'readonly', 'permanent', 'many_values',
 		'values', 'text_scope', 'description_file');
 	protected $public = array('object_name', 'permalink', 'description',
 		'implemented');
