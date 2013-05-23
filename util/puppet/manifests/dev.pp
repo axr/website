@@ -79,3 +79,12 @@ file { '/etc/nginx/sites-enabled/':
   recurse => true,
   source => 'puppet:///modules/axrwww/nginx/sites-enabled/'
 }
+
+file { '/etc/php5/fpm/php.ini':
+  group => 'www-data',
+  owner => 'www-data',
+  mode => 0550,
+  notify => Service['php5-fpm'],
+  require => Package['php5-fpm'],
+  source => 'puppet:///modules/axrwww/php/php.ini'
+}
