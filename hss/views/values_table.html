@@ -10,7 +10,7 @@
 	<tbody>
 		{{#values}}
 			<tr>
-				<td>
+				<td data-hash="{{property.name}}[{{value}}]">
 					{{#_ref_url|bool}}
 						<a href="{{_ref_url}}">{{value}}</a>
 					{{/_ref_url}}
