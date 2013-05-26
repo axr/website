@@ -80,6 +80,15 @@ file { '/etc/nginx/sites-enabled/':
   source => 'puppet:///modules/axrwww/nginx/sites-enabled/'
 }
 
+file { '/etc/nginx/nginx.conf':
+  group => 'www-data',
+  owner => 'www-data',
+  mode => 0550,
+  notify => Service['nginx'],
+  require => Package['nginx'],
+  source => 'puppet:///modules/axrwww/nginx/nginx.conf'
+}
+
 file { '/etc/php5/fpm/php.ini':
   group => 'www-data',
   owner => 'www-data',
