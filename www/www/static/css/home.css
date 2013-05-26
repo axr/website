@@ -365,7 +365,6 @@
 
 #home .hss_features > .features_menu
 {
-
 	width: 225px;
 	float: left;
 	margin-right: 20px;
@@ -373,7 +372,6 @@
 
 #home .hss_features > .features_menu > .header
 {
-
 	height: 25px;
 	background-image: url(../images/sprite.jpg);
 	background-position: -1px -600px;
@@ -381,7 +379,6 @@
 
 #home .hss_features > .features_menu > .content
 {
-
 	background-image: url(../images/features_menu_repeat_y.png);
 	padding: 1px 0;
 	margin: 0;
@@ -390,7 +387,6 @@
 
 #home .hss_features > .features_menu > .footer
 {
-
 	height: 25px;
 	background-image: url(../images/sprite.jpg);
 	background-position: -1px -640px;
@@ -399,14 +395,12 @@
 
 #home .hss_features > .features_menu > .content > li
 {
-
 	margin: 0;
 	padding: 0 2px 0 12px;
 }
 
 #home .hss_features > .features_menu > .content > li:not(:last-child):not(.selected) > a:after
 {
-
 	display: block;
 	content: "";
 	height: 15px;
@@ -417,7 +411,6 @@
 
 #home .hss_features > .features_menu > .content > li > a
 {
-
 	display: block;
 	color: #666666;
 	font-weight: bold;
@@ -433,7 +426,6 @@
 
 #home .hss_features > .features_menu > .content > li > a > .content
 {
-
 	display: block;
 	padding: 5px 0 10px 15px;
 }
@@ -454,14 +446,12 @@
 
 #home .hss_features > .features_menu > .content > li.selected > a > span
 {
-
 	display: block;
 	height: 43px;
 }
 
 #home .hss_features > .features_menu > .content > li.selected > a > .header
 {
-
 	width: 7px;
 	background-image: url(../images/sprite.jpg);
 	background-position: -227px -600px;
@@ -472,7 +462,6 @@
 
 #home .hss_features > .features_menu > .content > li.selected > a > .content
 {
-
 	background-image: url(../images/sprite_repeat_h.png);
 	background-position: 0 -490px;
 	background-repeat: repeat-x;
@@ -485,7 +474,6 @@
 
 #home .hss_features > .features_menu > .content > li.selected > a > .footer
 {
-
 	width: 19px;
 	background-image: url(../images/sprite.jpg);
 	background-position: -234px -600px;
@@ -496,7 +484,6 @@
 
 #home .hss_features > .features_menu > .content > h2
 {
-
 	margin: 0;
 }
 
@@ -524,6 +511,5 @@
 
 #home .hss_features > .features_content > div > p
 {
-
 	font-size: 1.2em;
 }
