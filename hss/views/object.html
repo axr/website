@@ -7,6 +7,24 @@
 	<div class="wrapper">
 		<h1>{{object.name}}</h1>
 
+		{{#object._shorthand_stack|bool}}
+			<table class="shorthand_stack">
+				<caption>Shorthand stack order:</caption>
+				<tr>
+					<th>Position</th>
+					{{#object._shorthand_stack}}
+						<th>{{number}}</th>
+					{{/object._shorthand_stack}}
+				</tr>
+				<tr>
+					<th>Property</th>
+					{{#object._shorthand_stack}}
+						<td><a href="{{property.permalink}}">{{property.name}}</a></td>
+					{{/object._shorthand_stack}}
+				</tr>
+			</table>
+		{{/object._shorthand_stack}}
+
 		<div class="parsedContent">
 			{{object.description|raw}}
 		</div>

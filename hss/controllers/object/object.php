@@ -23,6 +23,21 @@ class ObjectController extends Controller
 			throw new \HTTPException(null, 404);
 		}
 
+		if (is_array($object->shorthand_stack) &&
+			count($object->shorthand_stack) > 0)
+		{
+			$numbers = array('1st', '2nd', '3rd');
+			$object->_shorthand_stack = array();
+
+			foreach ($object->shorthand_stack as $i => $property_name)
+			{
+				$object->_shorthand_stack[] = array(
+					'number' => isset($numbers[$i]) ? $numbers[$i] : $i . 'th',
+					'property' => $object->get_property_by_name($property_name)
+				);
+			}
+		}
+
 		$properties = $object->get_properties();
 
 		foreach ($properties as &$property)

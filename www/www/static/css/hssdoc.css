@@ -245,7 +245,7 @@
 	text-decoration: underline;
 }
 
-#hssdoc_obj .prop_item table
+#hssdoc_obj table
 {
 	border-collapse: collapse;
 	empty-cells: hide;
@@ -253,8 +253,16 @@
 	text-align: center;
 }
 
-#hssdoc_obj .prop_item table th,
-#hssdoc_obj .prop_item table td
+#hssdoc_obj table caption
+{
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0 0 4px 0;
+	text-align: left;
+}
+
+#hssdoc_obj table th,
+#hssdoc_obj table td
 {
 	background: #eaeaea;
 	border: 1px solid #aaa;
@@ -263,34 +271,34 @@
 	text-align: left;
 }
 
-#hssdoc_obj .prop_item table th
+#hssdoc_obj table th
 {
 	background: #ddd;
 }
 
-#hssdoc_obj .prop_item table th sup
+#hssdoc_obj table th sup
 {
 	font-weight: normal;
 	cursor: help;
 }
 
-#hssdoc_obj .prop_item table td.version
+#hssdoc_obj table td.version
 {
 	text-align: center;
 }
 
-#hssdoc_obj .prop_item table td a
+#hssdoc_obj table td a
 {
 	color: #D09610;
 	text-decoration: none;
 }
 
-#hssdoc_obj .prop_item table td a:hover
+#hssdoc_obj table td a:hover
 {
 	text-decoration: underline;
 }
 
-#hssdoc_obj .prop_item table .flag
+#hssdoc_obj table .flag
 {
 	background: #bbb;
 	border-radius: 3px;
@@ -303,13 +311,13 @@
 	text-transform: lowercase;
 }
 
-#hssdoc_obj .prop_item table .flag.default
+#hssdoc_obj table .flag.default
 {
 	background: #468847;
 	color: #fff;
 }
 
-#hssdoc_obj .prop_item table.text_scope td .symbol
+#hssdoc_obj table.text_scope td .symbol
 {
 	font-weight: bold;
 }
