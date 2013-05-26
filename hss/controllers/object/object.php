@@ -31,6 +31,8 @@ class ObjectController extends Controller
 
 			if (count($property->text_scope) > 0)
 			{
+				$property->_text_scope = array();
+
 				foreach (array('line', 'word', 'character') as $name)
 				{
 					$property->_text_scope[] = array(
@@ -93,17 +95,16 @@ class ObjectController extends Controller
 				$first_of_ver[$value->since_version] = &$value;
 			}
 
-			if (preg_match('/^(?<object>@[a-zA-Z0-9]+)(<(?<property>[a-zA-Z0-9]+)>)?$/', $value->value, $match))
-			{
-				$value->_ref_url = \Router::get_instance()->url
-					->copy()
-					->path('/' . $match['object']);
+			$value->_ref_url = $this->ref_to_link($value->value);
 
-				if (isset($match['property']))
-				{
-					$value->_ref_url->fragment($match['property']);
-				}
+			if (isset($value->link_to))
+			{
+				// The previously generated link is intentionally overwritten so
+				// that the automatic generation of links from the value can be
+				// disabled when needed.
+				$value->_ref_url = $this->ref_to_link($value->link_to);
 			}
+
 
 			// This is a future version
 			if (\AXR\Pkgtools::compare_versions($value->since_version, $core_version) === 1)
@@ -130,5 +131,31 @@ class ObjectController extends Controller
 		));
 
 		return $html;
+	}
+
+	private function ref_to_link ($ref)
+	{
+		$link = null;
+
+		if (preg_match('/^(?<object>@[a-zA-Z0-9]+)(<(?<property>[a-zA-Z0-9]+)>(\[(?<value>.+?)\])?)?$/', $ref, $match))
+		{
+			$link = \Router::get_instance()->url
+				->copy()
+				->path('/' . $match['object']);
+
+			if (isset($match['property']))
+			{
+				$fragment = $match['property'];
+
+				if (isset($match['value']))
+				{
+					$fragment .= '[' . $match['value'] . ']';
+				}
+
+				$link->fragment($fragment);
+			}
+		}
+
+		return $link;
 	}
 }

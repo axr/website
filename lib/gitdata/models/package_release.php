@@ -2,8 +2,6 @@
 
 namespace GitData\Models;
 
-require_once(SHARED . '/lib/php-markdown/markdown.php');
-
 class PackageRelease extends \GitData\Model
 {
 	/**

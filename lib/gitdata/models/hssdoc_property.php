@@ -2,13 +2,16 @@
 
 namespace GitData\Models;
 
-require_once(SHARED . '/lib/php-markdown/markdown.php');
-
 class HssdocProperty extends \GitData\Model
 {
 	const IMPL_NONE = 0;
 	const IMPL_SEMI = 1;
 	const IMPL_FULL = 2;
+
+	protected $attrs = array('name', 'readonly', 'permanent', 'many_values',
+		'values', 'text_scope', 'description_file');
+	protected $public = array('object_name', 'permalink', 'description',
+		'implemented');
 
 	/**
 	 * Name of the parent object
@@ -16,41 +19,6 @@ class HssdocProperty extends \GitData\Model
 	 * @var string
 	 */
 	public $object_name;
-
-	/**
-	 * Name of the property
-	 *
-	 * @var string
-	 */
-	public $name;
-
-	/**
-	 * Is this property readonly or not?
-	 *
-	 * @var bool
-	 */
-	public $readonly = false;
-
-	/**
-	 * Is this property permanent or not?
-	 *
-	 * @var bool
-	 */
-	public $permanent = false;
-
-	/**
-	 * Whether this property supports many values
-	 *
-	 * @var bool
-	 */
-	public $many_values = false;
-
-	/**
-	 * Values list for this property
-	 *
-	 * @var StdClass[]
-	 */
-	public $values = array();
 
 	/**
 	 * Permalink for the property
@@ -67,13 +35,6 @@ class HssdocProperty extends \GitData\Model
 	public $description;
 
 	/**
-	 * "Scope" for the properties of the @text object
-	 *
-	 * @var string[]
-	 */
-	public $text_scope = array();
-
-	/**
 	 * Implementation status of this property
 	 *
 	 * @var int
@@ -87,24 +48,19 @@ class HssdocProperty extends \GitData\Model
 	 */
 	public function __construct (\GitData\Git\File $info_file)
 	{
-		$info = json_decode($info_file->get_data());
+		// Set some defaults
+		$this->attrs_data = (object) array(
+			'readonly' => false,
+			'permanent' => false,
+			'many_values' => false,
+			'values' => array()
+		);
 
-		if (!is_object($info))
-		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
-		}
-
-		foreach ($info as $key => $value)
-		{
-			if (property_exists(__CLASS__, $key))
-			{
-				$this->$key = $value;
-			}
-		}
+		parent::__construct($info_file);
 
 		$implemented_count = 0;
 
-		foreach ($this->values as &$value)
+		foreach ($this->attrs_data->values as &$value)
 		{
 			$value = (object) array_merge(array(
 				'value' => null,
@@ -138,17 +94,17 @@ class HssdocProperty extends \GitData\Model
 		$this->object_name = $match[1];
 
 		// Set the permalink
-		$this->permalink = '/' . $this->object_name . '#' . $info->name;
+		$this->permalink = '/' . $this->object_name . '#' . $this->attrs_data->name;
 
 		// Read the description
-		if (isset($info->description_file))
+		if (isset($this->attrs_data->description_file))
 		{
-			$file = \GitData\GitData::$repo->get_file(
-				dirname($info_file->path) . '/' . $info->description_file);
+			$path = dirname($info_file->path) . '/' . $this->attrs_data->description_file;
+			$file = \GitData\GitData::$repo->get_file($path);
 
 			if ($file !== null)
 			{
-				$this->description = self::parse_content($file);
+				$this->description = (string) new \GitData\Content($file);
 			}
 		}
 	}

@@ -2,37 +2,23 @@
 
 namespace GitData\Models;
 
-require_once(SHARED . '/lib/php-markdown/markdown.php');
-
 class Page extends \GitData\Model
 {
+	protected $public = array('content', 'summary', 'permalink', 'toc');
+	protected $attrs = array('type', 'title', 'file', 'summary_file', 'date',
+		'authors', 'author_name', 'generate_toc');
+
 	/**
-	 * Type of the page
+	 * Permalink of the page
 	 *
 	 * @var string
 	 */
-	public $type;
+	public $permalink;
 
 	/**
-	 * Title for the page
-	 *
-	 * @var string
+	 * Table of contents
 	 */
-	public $title;
-
-	/**
-	 * Date of creation
-	 *
-	 * @var string
-	 */
-	public $date;
-
-	/**
-	 * List of the authors
-	 *
-	 * @var string[]
-	 */
-	public $authors;
+	public $toc;
 
 	/**
 	 * Content of the page
@@ -56,29 +42,17 @@ class Page extends \GitData\Model
 	 */
 	public function __construct (\GitData\Git\File $info_file)
 	{
-		$info = json_decode($info_file->get_data());
+		// Set some defaults
+		$this->attrs_data = (object) array(
+			'authors' => array(),
+			'generate_toc' => false
+		);
 
-		if (!is_object($info))
+		parent::__construct($info_file);
+
+		if (isset($this->attrs_data->author_name))
 		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
-		}
-
-		foreach ($info as $key => $value)
-		{
-			if (property_exists(__CLASS__, $key))
-			{
-				$this->$key = $value;
-			}
-		}
-
-		if (isset($info->author_name))
-		{
-			if (!is_array($this->authors))
-			{
-				$this->authors = array();
-			}
-
-			array_unshift($this->authors, $info->author_name);
+			array_unshift($this->attrs_data->authors, $this->attrs_data->author_name);
 		}
 
 		// Set the permalink
@@ -86,15 +60,9 @@ class Page extends \GitData\Model
 
 		// Read the content
 		{
-			if (isset($info->file))
-			{
-				$content_path = dirname($info_file->path) . '/' . $info->file;
-			}
-			else
-			{
-				$content_path = dirname($info_file->path) . '/content.md';
-			}
-
+			$content_path = isset($info->file) ?
+				dirname($info_file->path) . '/' . $info->file :
+				dirname($info_file->path) . '/content.md';
 			$content_file = \GitData\GitData::$repo->get_file($content_path);
 
 			if ($content_file === null)
@@ -102,30 +70,36 @@ class Page extends \GitData\Model
 				throw new \GitData\Exceptions\EntityInvalid(null);
 			}
 
-			$this->content = self::parse_content($content_file, array(
-				'link_titles' => true
+			$content = new \GitData\Content($content_file, array(
+				'link_titles' => true,
+				'generate_toc' => $this->attrs_data->generate_toc === true
 			));
+
+			if ($this->attrs_data->generate_toc === true)
+			{
+				$this->toc = $content->get_toc();
+			}
+
+			$this->content = (string) $content;
 		}
 
 		// Get the summary
 		if ($this->type === 'blog-post')
 		{
-			if (isset($info->summary_file))
+			if (isset($this->attrs_data->summary_file))
 			{
-				// Read the summary file
-				$summary_file = \GitData\GitData::$repo->get_file(
-					dirname($info_file->path) . '/' . $info->summary_file);
+				$summary_path = dirname($info_file->path) . '/' . $this->attrs_data->summary_file;
+				$summary_file = \GitData\GitData::$repo->get_file($summary_path);
 
 				if ($summary_file !== null)
 				{
-					$this->summary = self::parse_content($summary_file);
+					$this->summary = (string) new \GitData\Content($summary_file);
 				}
 			}
 
-			if (empty($this->summary))
+			if ($this->summary === null)
 			{
-				$explode = explode('<!--more-->', $this->content);
-				$this->summary = $explode[0];
+				$this->summary = $content->get_summary();
 			}
 		}
 	}

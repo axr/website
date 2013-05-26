@@ -42,6 +42,19 @@ class PageController extends Controller
 
 		// Generate the breadcrumb
 		{
+			$parents = explode('/', $path);
+			array_pop($parents);
+
+			while (count($parents) > 0)
+			{
+				$this->breadcrumb[] = array(
+					'name' => $parents[count($parents) - 1],
+					'link' => '/index/' . implode('/', $parents)
+				);
+
+				array_pop($parents);
+			}
+
 			$this->breadcrumb[] = array(
 				'name' => $page->title
 			);

@@ -249,6 +249,7 @@
 {
 	border-collapse: collapse;
 	empty-cells: hide;
+	margin: 10px 0;
 	text-align: center;
 }
 

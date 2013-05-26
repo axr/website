@@ -23,6 +23,7 @@ class Autoloader
 		'GitData\\Git\\File' => '/git/file.php',
 		'GitData\\Git\\Repository' => '/git/repository.php',
 		'GitData\\Asset' => '/asset.php',
+		'GitData\\Content' => '/content.php',
 		'GitData\\Exceptions\\EntityInvalid' => '/exceptions/entity_invalid.php',
 		'GitData\\Model' => '/model.php',
 		'GitData\\Models\\GenericConfig' => '/models/generic_config.php',
