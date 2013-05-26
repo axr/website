@@ -31,6 +31,8 @@ class ObjectController extends Controller
 
 			if (count($property->text_scope) > 0)
 			{
+				$property->_text_scope = array();
+
 				foreach (array('line', 'word', 'character') as $name)
 				{
 					$property->_text_scope[] = array(
