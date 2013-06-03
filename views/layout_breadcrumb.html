@@ -1,17 +1,16 @@
-{{#has}}
+{% if breadcrumb|length > 1 %}
 	<nav id="breadcrumb">
-		{{#breadcrumb}}
-			{{^link}}
+		{% for item in breadcrumb %}
+			{% if loop.last %}
 				<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-					<span class="current" itemprop="title">{{name}}</span>
+					<span class="current" itemprop="title">{{item.title}}</span>
 				</div>
-			{{/link}}
-			{{#link}}
+			{% else %}
 				<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-					<a href="{{link}}" itemprop="url"><span itemprop="title">{{name}}</span></a>
+					<a href="{{item.link}}" itemprop="url"><span itemprop="title">{{item.title}}</span></a>
 				</div>
 				<span class="extra_0"></span>
-			{{/link}}
-		{{/breadcrumb}}
+			{% endif %}
+		{% endfor %}
 	</nav>
-{{/has}}
+{% endif %}

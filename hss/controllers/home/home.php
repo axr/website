@@ -6,11 +6,15 @@ class HomeController extends Controller
 {
 	public function run ()
 	{
-		$this->view->_title = 'HSS documentation';
-		unset($this->breadcrumb[count($this->breadcrumb) - 1]['link']);
+		$view = new \Core\View(ROOT . '/views/home.html');
+		$view->load_from_cache();
 
-		$this->view->sidebar = Sidebar::render();
+		$view->sidebar = (string) new SidebarView();
+		$view->breadcrumb = $this->breadcrumb->get_rendered();
 
-		echo $this->render_page(ROOT . '/views/hssdoc.html');
+		$this->layout->title = 'HSS documentation';
+		$this->layout->content = $view->get_rendered();
+
+		echo $this->layout->get_rendered();
 	}
 }

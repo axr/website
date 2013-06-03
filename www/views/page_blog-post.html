@@ -1,15 +1,12 @@
-{{g/tabs/html|raw}}
-{{g/breadcrumb/html|raw}}
-
 <div id="page">
 	<div class="page_item" itemscope itemtype="http://schema.org/BlogPosting">
 		<h1 itemprop="name">{{page.title}}</h1>
 		<div class="info">
 			Posted by
-			{{#authors}}
+			{% for author in page.authors %}
 				<span class="author" itemprop="author"
-					itemtype="http://schema.org/Person">{{name}}</span>{{^last}}, {{/last}}
-			{{/authors}}
+					itemtype="http://schema.org/Person">{{author}}</span>{% if loop.last == false %}, {% endif %}
+			{% endfor %}
 			on <time itemprop="dateCreated">{{page.date}}</time>
 		</div>
 
@@ -17,6 +14,6 @@
 			{{page.content|raw}}
 		</div>
 
-		{{comments_html|raw}}
+		{{comments|raw}}
 	</div>
 </div>

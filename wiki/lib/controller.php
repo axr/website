@@ -10,27 +10,14 @@ class Controller extends \AXR\Controller
 	{
 		parent::__construct();
 
-		$that = $this;
-
-		$this->view->{'g/html_head'} = function () use ($that)
-		{
-			return $that->rsrc->get_styles_html();
-		};
-
-		$this->view->{'g/html_bottom'} = function () use ($that)
-		{
-			return $that->rsrc->get_scripts_html();
-		};
-
-		// Load some default resources
+		// Load default resources
 		$this->rsrc->load_bundle('css/bundle_shared.css');
 		$this->rsrc->load_bundle('css/bundle_wiki.css');
 		$this->rsrc->load_bundle('js/bundle_shared.js');
 		$this->rsrc->load_bundle('js/bundle_wiki.js');
 
-		$this->breadcrumb[] = array(
-			'name' => 'Wiki',
-			'link' => \Config::get()->url->wiki
-		);
+		// Set default breadcrumb
+		$this->breadcrumb->push('Home', \Config::get()->url->www);
+		$this->breadcrumb->push('Wiki', \Config::get()->url->wiki);
 	}
 }

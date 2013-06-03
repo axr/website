@@ -21,7 +21,8 @@ class Autoloader
 		'Minify' => '/minify.php',
 		'Router' => '/router.php',
 		'RSRC' => '/rsrc.php',
-		'URL' => '/url.php'
+		'URL' => '/url.php',
+		'Core\\View' => '/view.php'
 	);
 
 	/**
@@ -48,3 +49,7 @@ class Autoloader
 
 // Register the autoloader
 Autoloader::register();
+
+// Register Twig's autoloader
+require_once SHARED . '/lib/twig/lib/Twig/Autoloader.php';
+\Twig_Autoloader::register();

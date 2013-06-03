@@ -1,0 +1,26 @@
+<div class="comments" data-hash="comments">
+	<h1>Comments</h1>
+
+	<div id="disqus_thread">Loading comments...</div>
+
+	<script>
+		var vars = {{vars|json_encode|raw}};
+
+		{% autoescape false %}
+		var disqus_developer = vars.developer;
+		var disqus_shortname = vars.shortname;
+		var disqus_identifier = vars.identifier;
+		var disqus_title = vars.title;
+
+		(function ()
+		{
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = 'http://axr.disqus.com/embed.js';
+			document.getElementsByTagName('body')[0].appendChild(dsq);
+		})();
+		{% endautoescape %}
+	</script>
+	<noscript>Please enable JavaScript to view the comments</noscript>
+</div>

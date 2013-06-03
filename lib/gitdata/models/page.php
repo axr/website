@@ -4,7 +4,7 @@ namespace GitData\Models;
 
 class Page extends \GitData\Model
 {
-	protected $public = array('content', 'summary', 'permalink', 'toc');
+	protected $public = array('content', 'summary', 'permalink', 'toc', 'is_new');
 	protected $attrs = array('type', 'title', 'file', 'summary_file', 'date',
 		'authors', 'author_name', 'generate_toc');
 
@@ -34,6 +34,13 @@ class Page extends \GitData\Model
 	 * @var string
 	 */
 	public $summary;
+
+	/**
+	 * Is the post new. This property is set only for pages of type `blog-post`
+	 *
+	 * @var bool
+	 */
+	public $is_new;
 
 	/**
 	 * __construct
@@ -101,6 +108,8 @@ class Page extends \GitData\Model
 			{
 				$this->summary = $content->get_summary();
 			}
+
+			$this->is_new = time() - strtotime($this->attrs_data->date) < 14 * 86400;
 		}
 	}
 

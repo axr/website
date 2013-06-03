@@ -8,20 +8,11 @@ class Autoloader
 		'WWW\\Controller' => '/lib/controller.php',
 		'WWW\\ViewController' => '/controllers/view/view.php',
 		'WWW\\PageController' => '/controllers/page/page.php',
-		'WWW\\HssdocController' => '/controllers/hssdoc/hssdoc.php',
 		'WWW\\HomeController' => '/controllers/home/home.php',
 		'WWW\\GitDataController' => '/controllers/gitdata/gitdata.php',
-		'WWW\\GetInvolvedController' => '/controllers/get_involved/get_involved.php',
 		'WWW\\DownloadsController' => '/controllers/downloads/downloads.php',
-		'WWW\\AccountController' => '/controllers/account/account.php',
-		'WWW\\AuthController' => '/controllers/auth/auth.php',
 		'WWW\\AjaxController' => '/controllers/ajax/ajax.php',
-		'WWW\\AdminController' => '/controllers/admin/admin.php',
-		'WWW\\UserOID' => '/models/user_oid.php',
-		'WWW\\User' => '/models/user.php',
-		'WWW\\HssdocValue' => '/models/hssdoc_value.php',
-		'WWW\\HssdocProperty' => '/models/hssdoc_property.php',
-		'WWW\\HssdocObject' => '/models/hssdoc_object.php'
+		'WWW\\DisqusCommentsView' => '/lib/disqus_comments_view.php'
 	);
 
 	/**

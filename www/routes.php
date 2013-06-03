@@ -46,7 +46,8 @@ $router->route('/^\/account\/oid_rm\/?$/', array(
 
 $router->route('/^\/get-involved\/?$/', array(
 	'domain' => $www_domain,
-	'controller' => '\\WWW\\GetInvolvedController'
+	'controller' => '\\WWW\\ViewController',
+	'args' => array(ROOT . '/views/get_involved.html', 'Get Involved')
 ));
 
 $router->route('/^\/calendar\/?$/', array(

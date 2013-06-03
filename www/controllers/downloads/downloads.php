@@ -2,58 +2,61 @@
 
 namespace WWW;
 
-require_once(SHARED . '/lib/mustache_filters/filesize.php');
-
 class DownloadsController extends Controller
 {
-	public function initialize ()
-	{
-		\Mustache\Filter::register(new \MustacheFilters\Filesize);
-	}
-
 	public function run ()
 	{
-		$html = $this->get_cached_page('/www/downloads');
+		$view = new \Core\View(ROOT . '/views/downloads.html');
+		$view->cache_condition('data_version', \GitData\GitData::$version);
 
-		if ($html !== null)
+		$view->twig()->addFilter(new \Twig_SimpleFilter('filesize', function ($bytes)
 		{
-			echo $html;
-			return;
-		}
+			$size = (int) $bytes;
 
-		$this->view->_title = 'Downloads';
-		$this->breadcrumb[] = array(
-			'name' => 'Downloads'
-		);
+			$table = array(
+				$size < pow(1024, 4) => array(pow(1024, 3), 'GiB'),
+				$size < pow(1024, 3) => array(pow(1024, 2), 'MiB'),
+				$size < pow(1024, 2) => array(pow(1024, 1), 'KiB'),
+				$size < 1024 => array(1, 'B'),
+			);
 
-		$this->view->release_groups = array(
-			array(
-				'key' => 'browser',
-				'name' => 'AXR Browser',
-				'releases' => self::get_releases(array('axr-browser'))
-			),
-			array(
-				'key' => 'core',
-				'name' => 'AXR Core',
-				'releases' => self::get_releases(array(
-					'axr-runtime',
-					'libaxr', 'libaxr-doc', 'libaxr-dev',
-					'axr', 'axr-doc', 'axr-devel'))
-			)
-		);
+			return number_format($size / $table[true][0], 2) . ' ' . $table[true][1];
+		}));
 
-		// Remove empty release groups
-		for ($i = 0, $c = count($this->view->release_groups); $i < $c; $i++)
+		if (!$view->load_from_cache())
 		{
-			if (count($this->view->release_groups[$i]['releases']) === 0)
+			$view->release_groups = array(
+				array(
+					'key' => 'browser',
+					'name' => 'AXR Browser',
+					'releases' => self::get_releases(array('axr-browser'))
+				),
+				array(
+					'key' => 'core',
+					'name' => 'AXR Core',
+					'releases' => self::get_releases(array(
+						'axr-runtime',
+						'libaxr', 'libaxr-doc', 'libaxr-dev',
+						'axr', 'axr-doc', 'axr-devel'))
+				)
+			);
+
+			// Remove empty release groups
+			for ($i = 0, $c = count($view->release_groups); $i < $c; $i++)
 			{
-				unset($this->view->release_groups[$i]);
+				if (count($view->release_groups[$i]['releases']) === 0)
+				{
+					unset($view->release_groups[$i]);
+				}
 			}
 		}
 
-		echo $this->render_page(ROOT . '/views/downloads.html', array(
-			'cache_key' => '/www/downloads'
-		));
+		$this->breadcrumb->push('Downloads', '/downloads');
+
+		$this->layout->title = 'Downloads';
+		$this->layout->content = $view->get_rendered();
+
+		echo $this->layout->get_rendered();
 	}
 
 	private static function get_releases ($packages)
@@ -84,7 +87,6 @@ class DownloadsController extends Controller
 				if (!isset($files[$release->version]))
 				{
 					$files[$release->version] = array(
-						'version' => $release->version,
 						'pkggroups' => array(
 							'windows' => null,
 							'osx' => null,

@@ -1,40 +1,38 @@
 <table class="values_table">
 	<thead>
 		<th>Value
-			{{#property.many_values}}
+			{% if property.many_values %}
 				<sup title="This property accepts multiple values at once.">unlimited</sup>
-			{{/property.many_values}}
+			{% endif %}
 		</th>
 		<th>Since version</th>
 	</thead>
 	<tbody>
-		{{#values}}
+		{% for item in values %}
 			<tr>
-				<td data-hash="{{property.name}}[{{value}}]">
-					{{#_ref_url|bool}}
-						<a href="{{_ref_url}}">{{value}}</a>
-					{{/_ref_url}}
+				<td data-hash="{{item.property.name}}[{{item.value}}]">
+					{% if item._ref_url %}
+						<a href="{{item._ref_url}}">{{item.value}}</a>
+					{% else %}
+						{{item.value}}
+					{% endif %}
 
-					{{^_ref_url}}
-						{{value}}
-					{{/_ref_url}}
-
-					{{#is_default}}
+					{% if is_default %}
 						<span class="flag default">default</span>
-					{{/is_default}}
+					{% endif %}
 				</td>
-				{{#_count}}
-					<td rowspan="{{_count}}" class="version">
-						{{^_is_future}}{{since_version}}{{/_is_future}}
-						{{#_is_future}}
-							<span class="future">(coming in {{since_version}})</span>
-						{{/_is_future}}
-						{{^since_version}}
+				{% if item._count %}
+					<td rowspan="{{item._count}}" class="version">
+						{% if item._is_future %}
+							<span class="future">(coming in {{item.since_version}})</span>
+						{% elseif item.since_version == null %}
 							<span class="future">(not implemented)</span>
-						{{/since_version}}
+						{% else %}
+							{{item.since_version}}
+						{% endif %}
 					</td>
-				{{/_count}}
+				{% endif %}
 			</tr>
-		{{/values}}
+		{% endfor %}
 	</tbody>
 </table>

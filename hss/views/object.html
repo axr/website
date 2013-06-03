@@ -1,69 +1,70 @@
-{{g/breadcrumb/html|raw}}
-{{g/tabs/html|raw}}
-
 <div id="hssdoc_obj" class="clearfix">
 	{{sidebar|raw}}
 
 	<div class="wrapper">
 		<h1>{{object.name}}</h1>
 
-		{{#object._shorthand_stack|bool}}
+		{% if object.shorthand_stack %}
 			<table class="shorthand_stack">
 				<caption>Shorthand stack order:</caption>
 				<tr>
 					<th>Position</th>
-					{{#object._shorthand_stack}}
-						<th>{{number}}</th>
-					{{/object._shorthand_stack}}
+					{% for item in object.shorthand_stack %}
+						<th>{{loop.index|ordinal}}</th>
+					{% endfor %}
 				</tr>
 				<tr>
 					<th>Property</th>
-					{{#object._shorthand_stack}}
-						<td><a href="{{property.permalink}}">{{property.name}}</a></td>
-					{{/object._shorthand_stack}}
+					{% for property_name in object.shorthand_stack %}
+						<td><a href="/{{object.name}}#{{property_name}}">{{property_name}}</a></td>
+					{% endfor %}
 				</tr>
 			</table>
-		{{/object._shorthand_stack}}
+		{% endif %}
 
 		<div class="parsedContent">
 			{{object.description|raw}}
 		</div>
 
-		{{#properties}}
-			<section class="prop_item" data-hash="{{name}}">
+		{% for property in properties %}
+			<section class="prop_item" data-hash="{{property.name}}">
 				<header>
-					<h2><a href="{{permalink}}" name="{{name}}">{{name}}</a></h2>
+					<h2><a href="{{property.permalink}}" name="{{property.name}}">{{property.name}}</a></h2>
 
-					{{#readonly}}
+					{% if property.readonly %}
 						<span class="ro">Read-only</span>
-					{{/readonly}}
+					{% endif %}
 
-					{{#permanent}}
+					{% if property.permanent %}
 						<span class="permanent" title="This property remains referenceable in any case">Permanent</span>
-					{{/permanent}}
+					{% endif %}
 				</header>
 
-				{{#_text_scope|bool}}
+				{% if property.text_scope %}
 					<table class="text_scope">
 						<tr>
 							<th>Scope</th>
-							{{#_text_scope}}
+							{% for name in ['line', 'word', 'character'] %}
 								<td>
-									{{#is_valid}}<span class="symbol">✓</span>{{/is_valid}}
-									{{^is_valid}}<span class="symbol">×</span>{{/is_valid}}
+									{% if name in property.text_scope %}
+										<span class="symbol">✓</span>
+									{% else %}
+										<span class="symbol">×</span>
+									{% endif %}
+
 									{{name}}
 								</td>
-							{{/_text_scope}}
+							{% endfor %}
 						</tr>
 					</table>
-				{{/_text_scope}}
+				{% endif %}
 
 				<div class="parsedContent">
-					{{description|raw}}
+					{{property.description|raw}}
 				</div>
 
-				{{_values_table|raw}}
+				{{values_table(property)|raw}}
 			</section>
-		{{/properties}}
+		{% endfor %}
 	</div>
 </div>

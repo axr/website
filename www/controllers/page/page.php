@@ -2,19 +2,8 @@
 
 namespace WWW;
 
-require_once(SHARED . '/lib/mustache/src/mustache.php');
-require_once(SHARED . '/lib/mustache_filters/markdown.php');
-
 class PageController extends Controller
 {
-	/**
-	 * Initialize
-	 */
-	public function initialize ()
-	{
-		\Mustache\Filter::register(new \MustacheFilters\Markdown);
-	}
-
 	/**
 	 * Display a page
 	 *
@@ -22,6 +11,7 @@ class PageController extends Controller
 	 */
 	public function run_display ($path)
 	{
+		// Yeah... If the model could just cache it, that'd be great
 		$page = \GitData\Models\Page::find_by_path($path);
 
 		if ($page === null)
@@ -29,53 +19,33 @@ class PageController extends Controller
 			throw new \HTTPException(null, 404);
 		}
 
-		$this->view->_title = $page->title;
-		$this->view->{'g/meta'}->canonical = $page->permalink;
+		$view = new \Core\View(ROOT . '/views/page_' . $page->type . '.html');
+		$view->cache_condition('data_version', \GitData\GitData::$version);
+		$view->cache_condition('path', $path);
 
-		// Generate the breadcrumb
+		if (!$view->load_from_cache())
 		{
 			if ($page->type === 'blog-post')
 			{
-				$this->breadcrumb[] = array(
-					'name' => 'Blog',
-					'link' => '/blog'
-				);
+				$view->comments = (string)
+					new DisqusCommentsView($page->permalink, $page->title);
 			}
 
-			$this->breadcrumb[] = array(
-				'name' => $page->title
-			);
+			$view->page = $page;
 		}
 
-		$this->view->page = $page;
-		$this->view->authors = array();
-
-		for ($i = 0, $c = count($page->authors); $i < $c; $i++)
-		{
-			$this->view->authors[] = (object) array(
-				'name' => $page->authors[$i],
-				'last' => !($i + 1 < $c)
-			);
-		}
-
-		// Render the comments section
 		if ($page->type === 'blog-post')
 		{
-			$comments_view = new \StdClass();
-			$comments_view->disqus = array(
-				'developer' => \Config::get()->prod ? 'false' : 'true',
-				'shortname' => \Config::get()->disqus_shortname,
-				'identifier' => $page->permalink,
-				'title' => str_replace('\'', '\\\'', $page->title)
-			);
-
-			$mustache = new \Mustache\Renderer();
-			$this->view->comments_html = $mustache->render(
-				file_get_contents(ROOT . '/views/page__comments.html'),
-				$comments_view);
+			$this->breadcrumb->push('Blog', '/blog');
 		}
 
-		echo $this->render_page(ROOT . '/views/page_' . $page->type . '.html');
+		$this->breadcrumb->push($page->title, $page->permalink);
+
+		$this->layout->title = $page->title;
+		$this->layout->content = $view->get_rendered();
+		$this->layout->meta->canonical = $page->permalink;
+
+		echo $this->layout->get_rendered();
 	}
 
 	/**
@@ -86,39 +56,44 @@ class PageController extends Controller
 		$index = self::get_blog_index();
 
 		$per_page = 25;
-		$count = count($index);
-
 		$page = (int) array_key_or($_GET, 'page', 0);
 		$offset = $page * $per_page;
 
-		$posts = array();
+		$view = new \Core\View(ROOT . '/views/pages_blog-post.html');
+		$view->cache_condition('data_version', \GitData\GitData::$version);
+		$view->cache_condition('page', $page);
 
-		for ($i = $offset, $c = $offset + $per_page; $i < $c; $i++)
+		if (!$view->load_from_cache())
 		{
-			if (!isset($index[$i]))
+			$posts = array();
+
+			for ($i = $offset, $c = $offset + $per_page; $i < $c; $i++)
 			{
-				break;
+				if (!isset($index[$i]))
+				{
+					break;
+				}
+
+				$posts[] = \GitData\Models\Page::find_by_path($index[$i]->path);
 			}
 
-			$posts[] = \GitData\Models\Page::find_by_path($index[$i]->path);
+			$this->breadcrumb->push('Blog', '/blog');
+
+			// Get previous and next page numbers
+			$view->prev = $page - 1;
+			$view->next = $page + 1;
+
+			// Check, if generated page numbers exist
+			$view->has_prev = $view->prev >= 0;
+			$view->has_next = $view->next !== (int) ceil(count($index) / $per_page);
+
+			$view->posts = $posts;
 		}
 
-		// Get previous and next page numbers
-		$this->view->prev = $page - 1;
-		$this->view->next = $page + 1;
+		$this->layout->title = 'Blog';
+		$this->layout->content = $view->get_rendered();
 
-		// Check, if generated page numbers exist
-		$this->view->has_prev = $this->view->prev >= 0;
-		$this->view->has_next = $this->view->next !== (int) ceil($count / $per_page);
-
-		$this->view->posts = $posts;
-
-		$this->view->_title = 'Blog';
-		$this->breadcrumb[] = array(
-			'name' => 'Blog'
-		);
-
-		echo $this->render_page(ROOT . '/views/pages_blog-post.html');
+		echo $this->layout->get_rendered();
 	}
 
 	public static function build_blog_index ()

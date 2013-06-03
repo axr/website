@@ -1,26 +1,23 @@
-{{g/tabs/html|raw}}
-{{g/breadcrumb/html|raw}}
-
 <div id="page" class="list">
-	{{#posts}}
+	{% for post in posts %}
 		<div class="page_item" itemscope itemtype="http://schema.org/BlogPosting">
-			<h1 itemprop="name"><a href="{{permalink}}">{{title}}</a></h1>
+			<h1 itemprop="name"><a href="{{post.permalink}}">{{post.title}}</a></h1>
 			<div class="parsedContent clearfix" itemprop="description">
-				{{summary|raw}}
+				{{post.summary|raw}}
 			</div>
 			<ul class="page_links">
-				<li><a href="{{permalink}}" itemprop="url">Read more</a></li>
-				<li><a href="{{permalink}}#comments">Leave a coment</a></li>
+				<li><a href="{{post.permalink}}" itemprop="url">Read more</a></li>
+				<li><a href="{{post.permalink}}#comments">Leave a coment</a></li>
 			</ul>
 		</div>
-	{{/posts}}
+	{% endfor %}
 
 	<nav class="pagination">
-		{{#has_prev}}
+		{% if has_prev %}
 			<a href="?page={{prev}}" rel="prev">&laquo; Previous entries</a>
-		{{/has_prev}}
-		{{#has_next}}
+		{% endif %}
+		{% if has_next %}
 			<a href="?page={{next}}" rel="next" class="next">Next entries &raquo;</a>
-		{{/has_next}}
+		{% endif %}
 	</nav>
 </div>
