@@ -40,16 +40,35 @@ class IndexController extends Controller
 			{
 				$pages[] = $page;
 			}
-			else if (!file_exists($full_path . '/' . $item . '/info.json'))
-			{
-				// Looks like a category. Let's hope that is is.
 
-				$permalink = '/index/' . $path . '/' . $item;
-				$paths[] = array(
-					'name' => $path . '/' . $item,
-					'permalink' => \URL::create(\Config::get()->url->wiki)
-						->path(preg_replace('/[\/]+/', '/', $permalink))
-				);
+			if (is_dir($full_path . '/' . $item))
+			{
+				$subitems = scandir($full_path . '/' . $item);
+				$is_category = false;
+
+				foreach ($subitems as $subitem)
+				{
+					if ($subitem === '.' || $subitem === '..')
+					{
+						continue;
+					}
+
+					if (file_exists($full_path . '/' . $item . '/' . $subitem . '/info.json'))
+					{
+						$is_category = true;
+						break;
+					}
+				}
+
+				if ($is_category)
+				{
+					$permalink = '/index/' . $path . '/' . $item;
+					$paths[] = array(
+						'name' => $path . '/' . $item,
+						'permalink' => \URL::create(\Config::get()->url->wiki)
+							->path(preg_replace('/[\/]+/', '/', $permalink))
+					);
+				}
 			}
 		}
 
