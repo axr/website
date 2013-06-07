@@ -45,12 +45,6 @@ class Cache
 	public static function set ($path, $data, array $options = array())
 	{
 		$expires = (int) array_key_or($options, 'expires', 3600);
-
-		if ($expires > 0)
-		{
-			$expires += time();
-		}
-
 		$store_obj = (object) array(
 			'data' => $data,
 			'data_version' => null,
@@ -81,8 +75,13 @@ class Cache
 	 */
 	public static function get ($path)
 	{
+		if ($path === null)
+		{
+			return null;
+		}
+
 		$item = self::$memcached->get($path);
-		$item = unserialize($item);
+		$item = @unserialize($item);
 
 		if (!is_object($item))
 		{
@@ -100,6 +99,7 @@ class Cache
 
 		// This key is for another dataset version
 		if (isset($item->data_version) &&
+			$item->data_version !== null &&
 			$item->data_version !== \GitData\GitData::$version)
 		{
 			self::rm($path);

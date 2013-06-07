@@ -92,6 +92,8 @@ class WikiPage extends \GitData\Model
 				$this->last_author = $commit->author;
 			}
 		}
+
+		$this->_cache_write_state();
 	}
 
 	/**
@@ -112,7 +114,7 @@ class WikiPage extends \GitData\Model
 
 		try
 		{
-			return new WikiPage($file);
+			return WikiPage::new_instance($file);
 		}
 		catch (\GitData\Exceptions\EntityInvalid $e)
 		{

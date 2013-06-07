@@ -111,6 +111,8 @@ class Page extends \GitData\Model
 
 			$this->is_new = time() - strtotime($this->attrs_data->date) < 14 * 86400;
 		}
+
+		$this->_cache_write_state();
 	}
 
 	/**
@@ -131,7 +133,7 @@ class Page extends \GitData\Model
 
 		try
 		{
-			return new Page($info_file);
+			return Page::new_instance($info_file);
 		}
 		catch (\GitData\Exceptions\EntityInvalid $e)
 		{

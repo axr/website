@@ -44,6 +44,8 @@ class HssdocObject extends \GitData\Model
 				$this->description = (string) new \GitData\Content($file);
 			}
 		}
+
+		$this->_cache_write_state();
 	}
 
 	/**
@@ -100,7 +102,7 @@ class HssdocObject extends \GitData\Model
 
 		try
 		{
-			return new HssdocObject($info_file);
+			return HssdocObject::new_instance($info_file);
 		}
 		catch (\GitData\Exceptions\EntityInvalid $e)
 		{
