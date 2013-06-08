@@ -53,7 +53,7 @@ class PageController extends Controller
 	 */
 	public function run_blog_list ()
 	{
-		$index = self::get_blog_index();
+		$index = self::_blog_index();
 
 		$per_page = 25;
 		$page = (int) array_key_or($_GET, 'page', 0);
@@ -96,10 +96,16 @@ class PageController extends Controller
 		echo $this->layout->get_rendered();
 	}
 
-	public static function build_blog_index ()
+	public static function _blog_index ($rebuild = false)
 	{
-		$blog_root_path = \GitData\GitData::$root . '/pages/blog';
+		$index = \Cache::get('/www/blog_index');
 
+		if (is_object($index) && $rebuild === false)
+		{
+			return $index;
+		}
+
+		$blog_root_path = \GitData\GitData::$root . '/pages/blog';
 		$index = array();
 
 		$years = scandir($blog_root_path);
@@ -142,20 +148,9 @@ class PageController extends Controller
 			return ($a->date < $b->date) ? 1 : -1;
 		});
 
-		return $index;
-	}
-
-	public static function get_blog_index ()
-	{
-		$index = \Cache::get('/www/blog_index');
-
-		if (!is_object($index))
-		{
-			$index = self::build_blog_index();
-			\Cache::set('/www/blog_index', $index, array(
-				'data_version' => 'current'
-			));
-		}
+		\Cache::set('/www/blog_index', $index, array(
+			'data_version' => 'current'
+		));
 
 		return $index;
 	}

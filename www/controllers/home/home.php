@@ -20,7 +20,7 @@ class HomeController extends Controller
 
 		// Get the data for the latest blog posts section
 		{
-			$all_posts = PageController::get_blog_index();
+			$all_posts = PageController::_blog_index();
 			$posts = array();
 
 			for ($i = 0; $i < 5; $i++)
