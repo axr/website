@@ -65,7 +65,7 @@ class Pkgtools
 	}
 
 	/**
-	 * Get the client's package manager's prefered extension. If no match is
+	 * Get the client's package manager's preferred extension. If no match is
 	 * found, `tar.gz` is returned
 	 *
 	 * @return string

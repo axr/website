@@ -113,7 +113,7 @@ class ObjectController extends Controller
 	{
 		$link = null;
 
-		if (preg_match('/^(?<object>@[a-zA-Z0-9]+)(<(?<property>[a-zA-Z0-9]+)>(\[(?<value>.+?)\])?)?$/', $ref, $match))
+		if (preg_match('/^(?<object>@[a-zA-Z]+)(<(?<property>[a-zA-Z]+)>(\[(?<value>.+?)\])?)?$/', $ref, $match))
 		{
 			$link = \Router::get_instance()->url
 				->copy()
