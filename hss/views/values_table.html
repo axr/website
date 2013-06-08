@@ -10,7 +10,7 @@
 	<tbody>
 		{% for item in values %}
 			<tr>
-				<td data-hash="{{item.property.name}}[{{item.value}}]">
+				<td data-hash="{{property.name}}[{{item.value}}]">
 					{% if item._ref_url %}
 						<a href="{{item._ref_url}}">{{item.value}}</a>
 					{% else %}
