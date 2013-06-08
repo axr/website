@@ -1,8 +1,10 @@
 $(document).ready(function ()
 {
+	var hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+	console.log(hash);
 	var offset = $('[data-hash]').not(function ()
 	{
-		return $(this).attr('data-hash') !== window.location.hash.replace(/^#/, '');
+		return $(this).attr('data-hash') !== hash;
 	}).offset();
 
 	if (offset !== null && !isNaN((offset || {}).top))

@@ -190,10 +190,15 @@ class URL
 			if ($key === 'query')
 			{
 				$this->{$key} = array_merge($this->{$key}, $item);
-				continue;
 			}
-
-			$this->{$key} = $item;
+			else if ($key === 'fragment')
+			{
+				$this->{$key} = urldecode($item);
+			}
+			else
+			{
+				$this->{$key} = $item;
+			}
 		}
 
 		if ($automatic_scheme === true &&
@@ -220,7 +225,7 @@ class URL
 			'pass' =>  $this->pass,
 			'path' => $this->path,
 			'query' => http_build_query($this->query),
-			'fragment' => $this->fragment
+			'fragment' => urlencode($this->fragment)
 		));
 
 		$url = preg_replace('/\?($|#)/', '$1', $url);
