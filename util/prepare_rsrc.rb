@@ -24,6 +24,8 @@ class Bundle
   end
 
   def append_file (path)
+    return unless File.exists? path
+
     File.open(@path, 'a') do |file|
       file.puts File.open(path).read
     end

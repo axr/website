@@ -26,7 +26,6 @@
 		"type": "css",
 		"files": [
 			"css/404.css",
-			"css/blog.css",
 			"css/page.css",
 			"css/downloads.css",
 			"css/manifesto.css",
