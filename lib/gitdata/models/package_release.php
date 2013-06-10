@@ -46,6 +46,8 @@ class PackageRelease extends \GitData\Model
 				$this->$key = $value;
 			}
 		}
+
+		$this->_cache_write_state();
 	}
 
 	/**
@@ -67,7 +69,7 @@ class PackageRelease extends \GitData\Model
 
 		try
 		{
-			return new PackageRelease($info_file);
+			return PackageRelease::new_instance($info_file);
 		}
 		catch (\GitData\Exceptions\EntityInvalid $e)
 		{

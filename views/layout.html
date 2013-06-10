@@ -8,15 +8,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<!-- general meta-->
-	<title>{{#_title}}{{_title|raw}} | {{/_title}}AXR Project</title>
-
-	{{g/html_head|raw}}
+	<title>{% if title %}{{title|raw}} | {% endif %}AXR Project</title>
 
 	<meta name="description" content="AXR stands for Arbitrary XML Rendering. Its aim is to provide a better alternative to HTML+CSS">
 
-	{{#g/meta.canonical}}
-		<link rel="canonical" href="{{g/meta.canonical}}">
-	{{/g/meta.canonical}}
+	{% if meta.canonical %}
+		<link rel="canonical" href="{{meta.canonical}}">
+	{% endif %}
 
 	<!-- open graph metadata-->
 	<meta property="og:title" content="AXR: The web, done right #axr" />
@@ -40,22 +38,22 @@
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	{{g/rsrc_scripts}}
+	{{rsrc_styles|raw}}
 
-	{{#g/app_vars}}
+	{% if app_vars %}
 		<script>
 			window.App = {};
-			window.App.vars = {{g/app_vars|json|raw}};
+			window.App.vars = {{app_vars|json_encode|raw}};
 		</script>
-	{{/g/app_vars}}
+	{% endif %}
 </head>
-<body class="{{g/html_body_classes}}" {{g/html_body_attrs|raw}}>
-	{{g/html_top|raw}}
+<body>
+	{{html_top|raw}}
 
 	<div id="container">
 		<header>
-			<a href="{{g/config.url.www}}" id="logo">
-				<img src="{{g/config.url.rsrc}}/images/logo.jpg" height="230" width="310" alt="AXR Logo" title="AXR Project" />
+			<a href="{{config.url.www}}" id="logo">
+				<img src="{{config.url.rsrc}}/images/logo.jpg" height="230" width="310" alt="AXR Logo" title="AXR Project" />
 			</a>
 			<div class="help_us">
 				Help us out:
@@ -66,19 +64,16 @@
 					</span>
 				</a>
 			</div>
-			<div class="secondary">
-				{{{g/html_secondary}}}
-			</div>
 			<nav>
 				<ul id="menu">
 					<li class="about">
 						<span class="arrow"></span>
-						<a href="{{g/config.url.www}}/about/features">About</a>
+						<a href="{{config.url.www}}/about/features">About</a>
 						<div>
 							<a class="features first"
-								href="{{g/config.url.www}}/about/features">Features</a>
+								href="{{config.url.www}}/about/features">Features</a>
 							<a class="manifesto last"
-								href="{{g/config.url.www}}/about/manifesto">Manifesto</a>
+								href="{{config.url.www}}/about/manifesto">Manifesto</a>
 						</div>
 					</li>
 					<li class="specification">
@@ -86,12 +81,12 @@
 					</li>
 					<li class="resources">
 						<span class="arrow"></span>
-						<a href="{{g/config.url.www}}/downloads">Resources</a>
+						<a href="{{config.url.www}}/downloads">Resources</a>
 						<div>
 							<a class="downloads first"
-								href="{{g/config.url.www}}/downloads">Downloads</a>
+								href="{{config.url.www}}/downloads">Downloads</a>
 							<a class="hssdoc"
-								href="{{g/config.url.hss}}">HSS documentation</a>
+								href="{{config.url.hss}}">HSS documentation</a>
 							<a class="documentation"
 								href="http://docs.axrproject.org">Prototype documentation</a>
 							<a class="changelog last"
@@ -101,10 +96,10 @@
 					</li>
 					<li class="community">
 						<span class="arrow"></span>
-						<a href="{{g/config.url.www}}/get-involved">Community</a>
+						<a href="{{config.url.www}}/get-involved">Community</a>
 						<div>
 							<a class="get_involved first"
-								href="{{g/config.url.www}}/get-involved">Get involved</a>
+								href="{{config.url.www}}/get-involved">Get involved</a>
 							<a class="chat"
 								href="http://webchat.freenode.net/?channels=axr"
 								target="_blank">Chat</a>
@@ -115,23 +110,23 @@
 								href="https://groups.google.com/forum/#!forum/axr-main"
 								target="_blank">Mailing list</a>
 							<a class="calendar last"
-								href="{{g/config.url.www}}/calendar">Calendar</a>
+								href="{{config.url.www}}/calendar">Calendar</a>
 						</div>
 					</li>
 					<li class="wiki">
 						<span class="arrow"></span>
-						<a href="{{g/config.url.wiki}}">Wiki</a>
+						<a href="{{config.url.wiki}}">Wiki</a>
 						<div>
 							<a class="main first"
-								href="{{g/config.url.wiki}}">Main page</a>
+								href="{{config.url.wiki}}">Main page</a>
 							<a class="faq"
-								href="{{g/config.url.wiki}}/faq">FAQ</a>
+								href="{{config.url.wiki}}/faq">FAQ</a>
 							<a class="roadmap last"
-								href="{{g/config.url.wiki}}/roadmap">Roadmap</a>
+								href="{{config.url.wiki}}/roadmap">Roadmap</a>
 						</div>
 					</li>
 					<li class="blog">
-						<a href="{{g/config.url.www}}/blog">Blog</a>
+						<a href="{{config.url.www}}/blog">Blog</a>
 					</li>
 				</ul>
 			</nav>
@@ -143,7 +138,8 @@
 		</div>
 
 		<div id="main" role="main">
-			{{g/content|raw}}
+			{{breadcrumb|raw}}
+			{{content|raw}}
 		</div>
 
 		<footer>
@@ -183,7 +179,7 @@
 						<div class="box">
 							<div class="inner _last_tweet">Loading...</div>
 							<div class="follow">
-								Follow us on Twitter: <a href="https://twitter.com/{{g/social.twitter}}/">@{{g/social.twitter}}</a>
+								Follow us on Twitter: <a href="https://twitter.com/{{social.twitter}}/">@{{social.twitter}}</a>
 							</div>
 						</div>
 					</div>
@@ -201,10 +197,10 @@
 					</div>
 
 					<div class="copy">
-						<p>The AXR Project | <a href="mailto:team@axrproject.org">team@axrproject.org</a> | &copy; 2010 - {{g/year}}</p>
+						<p>The AXR Project | <a href="mailto:team@axrproject.org">team@axrproject.org</a> | &copy; 2010 - {{year}}</p>
 						<p class="version">
-							<span title="Website: {{g/code_version_full}}">{{g/code_version}}</span> /
-							<span title="Data: {{g/data_version_full}}">{{g/data_version}}</span>
+							<span title="Website: {{versions.code}}">{{versions.code|slice(0, 7)}}</span> /
+							<span title="Data: {{versions.data}}">{{versions.data|slice(0, 7)}}</span>
 						</p>
 					</div>
 				</div>
@@ -218,7 +214,7 @@
 	</form>
 
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	{{g/html_bottom|raw}}
+	{{rsrc_scripts|raw}}
 
 	<script src="https://apis.google.com/js/plusone.js"></script>
 

@@ -5,7 +5,7 @@ namespace GitData\Models;
 class WikiPage extends \GitData\Model
 {
 	protected $attrs = array('title', 'content_file', 'generate_toc');
-	protected $public = array('content', 'mtime_str', 'last_author',
+	protected $public = array('content', 'mtime', 'last_author',
 		'github_history_url');
 
 	/**
@@ -21,9 +21,9 @@ class WikiPage extends \GitData\Model
 	public $toc;
 
 	/**
-	 * @var string
+	 * @var int
 	 */
-	public $mtime_str = '0000-00-00 00:00';
+	public $mtime;
 
 	/**
 	 * The last person that edited this file
@@ -88,10 +88,12 @@ class WikiPage extends \GitData\Model
 
 			if ($commit !== null)
 			{
-				$this->mtime_str = date('Y-m-d H:i', $commit->date);
+				$this->mtime = $commit->date;
 				$this->last_author = $commit->author;
 			}
 		}
+
+		$this->_cache_write_state();
 	}
 
 	/**
@@ -112,7 +114,7 @@ class WikiPage extends \GitData\Model
 
 		try
 		{
-			return new WikiPage($file);
+			return WikiPage::new_instance($file);
 		}
 		catch (\GitData\Exceptions\EntityInvalid $e)
 		{

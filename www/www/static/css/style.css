@@ -1,103 +1,4 @@
 /**
- * Form elements
- * =============
- */
-
-.uiInput
-{
-	background: #fff;
-	display: inline-block;
-	border: 1px solid #B3B3B3;
-	border-radius: 4px;
-	box-shadow: #ECECEC 0 1px 0, #ECECEC 0 -1px 0;
-	margin: 0 5px 0 0;
-	padding: 6px;
-}
-
-.uiInput.button
-{
-	background-image: linear-gradient(
-		bottom,
-		rgb(255,255,255) 100%,
-		rgb(221,221,221) 50%);
-	background-image: -o-linear-gradient(
-		bottom,
-		rgb(255,255,255) 100%,
-		rgb(221,221,221) 50%);
-	background-image: -moz-linear-gradient(
-		bottom,
-		rgb(255,255,255) 100%,
-		rgb(221,221,221) 50%);
-	background-image: -webkit-linear-gradient(
-		bottom,
-		rgb(255,255,255) 100%,
-		rgb(221,221,221) 50%);
-	background-image: -ms-linear-gradient(
-		bottom,
-		rgb(255,255,255) 100%,
-		rgb(221,221,221) 50%);
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(1, rgb(255,255,255)),
-		color-stop(0.5, rgb(221,221,221)));
-	border: 1px solid #999;
-}
-
-input.uiInput
-{
-	max-width: 300px;
-	width: 90%;
-}
-
-input[type=text].uiInput
-{
-	width: 220px;
-}
-
-textarea.uiInput
-{
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	height: 120px;
-	width: 100%;
-}
-
-form.uiForm .uiFormField
-{
-	margin: 0 0 10px 0;
-}
-
-form.uiForm .uiFormField label
-{
-	display: block;
-	font-size: 13px;
-	margin: 0 0 3px 0;
-}
-
-form.uiForm .uiFormField span.description
-{
-	color: #777;
-	display: block;
-	font-style: italic;
-	margin: -3px 0 3px 0;
-}
-
-form.uiForm .uiFormField a
-{
-	color: #D09610;
-	text-decoration: none;
-}
-
-form.uiForm .uiFormField a:hover
-{
-	text-decoration: underline;
-}
-
-/**
  * Message boxes
  * =============
  * @todo style this
@@ -369,51 +270,6 @@ form.uiForm .uiFormField a:hover
 	width: 26px;
 }
 
-/**
- * Tables
- * ======
- */
-
-table.uiTable
-{
-	border-collapse: collapse;
-	empty-cells: hide;
-	text-align: center;
-}
-
-table.uiTable th,
-table.uiTable td
-{
-	background: #eaeaea;
-	border: 1px solid #aaa;
-	padding: 4px 8px;
-	text-align: left;
-}
-
-table.uiTable th
-{
-	background: #ddd;
-}
-
-table.uiTable a
-{
-	color: #D09610;
-	text-decoration: none;
-}
-
-table.uiTable a:hover
-{
-	text-decoration: underline;
-}
-
-table.uiTable > tfoot > tr.actions td
-{
-	background: none;
-	border: 0;
-	border-collapse: separate;
-	text-align: right;
-	padding: 6px 0 4px 0;
-}
 
 /**
  * "Get Involved" page style boxes
@@ -438,8 +294,6 @@ table.uiTable > tfoot > tr.actions td
 
 .getInvolvedBox > .icon .icon
 {
-	/*background: url(../images/get-involved-icons.png) no-repeat;
-	background-position: -9999px -9999px;*/
 	height: 1px;
 	width: 55px;
 }

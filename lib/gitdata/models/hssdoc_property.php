@@ -107,6 +107,8 @@ class HssdocProperty extends \GitData\Model
 				$this->description = (string) new \GitData\Content($file);
 			}
 		}
+
+		$this->_cache_write_state();
 	}
 
 	/**
@@ -145,7 +147,7 @@ class HssdocProperty extends \GitData\Model
 
 			try
 			{
-				$properties[] = new HssdocProperty($info_file);
+				$properties[] = HssdocProperty::new_instance($info_file);
 			}
 			catch (\GitData\Exceptions\EntityInvalid $e)
 			{

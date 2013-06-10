@@ -808,7 +808,6 @@ nav#breadcrumb .extra_0
 
 #container > footer > ul.technologies_used > li > a
 {
-	background-image: url("../images/sprite.jpg");
 	display: block;
 	overflow: hidden;
 	text-indent: -9999px;
@@ -822,32 +821,32 @@ nav#breadcrumb .extra_0
 
 #container > footer > ul.technologies_used > li.html5 > a
 {
-	background-position: -508px -228px;
-	height: 53px;
-	width: 116px;
+	background-image: url(../images/sprite_site/tech_html5_monochrome.png);
+	height: 50px;
+	width: 110px;
 }
 
 #container > footer > ul.technologies_used > li.html5 > a:hover
 {
-	background-position: -508px -281px;
+	background-image: url(../images/sprite_site/tech_html5.png);
 }
 
 #container > footer > ul.technologies_used > li.humanstxt
 {
-	left: 175px;
-	top: 30px;
+	left: 184px;
+	top: 42px;
 }
 
 #container > footer > ul.technologies_used > li.humanstxt > a
 {
-	background-position: -624px -316px;
-	height: 37px;
-	width: 137px;
+	background-image: url(../images/sprite_site/tech_humanstxt_monochrome.png);
+	height: 25px;
+	width: 128px;
 }
 
 #container > footer > ul.technologies_used > li.humanstxt > a:hover
 {
-	background-position: -761px -316px;
+	background-image: url(../images/sprite_site/tech_humanstxt.png);
 }
 
 #container > footer > ul.technologies_used > li.github
@@ -858,32 +857,32 @@ nav#breadcrumb .extra_0
 
 #container > footer > ul.technologies_used > li.github > a
 {
-	background-position: -873px -383px;
-	height: 43px;
-	width: 119px;
+	background-image: url(../images/sprite_site/tech_github_monochrome.png);
+	height: 50px;
+	width: 127px;
 }
 
 #container > footer > ul.technologies_used > li.github > a:hover
 {
-	background-position: -873px -426px;
+	background-image: url(../images/sprite_site/tech_github.png);
 }
 
 #container > footer > ul.technologies_used > li.google_groups
 {
 	left: 725px;
-	top: 35px;
+	top: 10px;
 }
 
 #container > footer > ul.technologies_used > li.google_groups > a
 {
-	background-position: -311px -228px;
-	height: 48px;
-	width: 90px;
+	background-image: url(../images/sprite_site/tech_groups_monochrome.png);
+	height: 80px;
+	width: 80px;
 }
 
 #container > footer > ul.technologies_used > li.google_groups > a:hover
 {
-	background-position: -401px -228px;
+	background-image: url(../images/sprite_site/tech_groups.png);
 }
 
 #container > footer > .activity

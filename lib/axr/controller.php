@@ -2,44 +2,49 @@
 
 namespace AXR;
 
-require_once(SHARED . '/lib/core/controller.php');
+require_once(SHARED . '/lib/axr/breadcrumb_view.php');
 
 class Controller extends \Core\Controller
 {
+	/**
+	 * The layout view
+	 *
+	 * @var \Core\View
+	 */
+	public $layout;
+
+	/**
+	 * The breadcrumb view
+	 *
+	 * @var \AXR\BreadcrumbView
+	 */
+	public $breadcrumb;
+
+	/**
+	 * __construct
+	 */
 	public function __construct ()
 	{
 		parent::__construct();
 
 		$that = $this;
 
-		$this->view->{'g/breadcrumb/html'} = function () use ($that)
+		$this->layout = new \Core\View(SHARED . '/views/layout.html');
+		$this->breadcrumb = new \AXR\BreadcrumbView();
+
+		$this->layout->on_before_render(function ($view) use ($that)
 		{
-			return $that->render_simple_view(SHARED . '/views/layout_breadcrumb.html',
-				(object) array(
-				'has' => count($that->breadcrumb) > 0,
-				'breadcrumb' => $that->breadcrumb
-			));
-		};
+			$view->rsrc_styles = $that->rsrc->get_styles_html();
+			$view->rsrc_scripts = $that->rsrc->get_scripts_html();
 
-		$this->view->{'g/tabs/html'} = function () use ($that)
-		{
-			// Only one tab, and it's active == no tabs
-			if (count($that->tabs) === 1 &&
-				array_key_or($that->tabs[0], 'current', false) === true)
-			{
-				return;
-			}
+			$view->breadcrumb = $that->breadcrumb->get_rendered();
+		});
 
-			return $that->render_simple_view(SHARED . '/views/layout_tabs.html',
-				(object) array(
-				'has' => count($that->tabs) > 0,
-				'tabs' => $that->tabs
-			));
-		};
+		$this->layout->config = \Config::get();
+		$this->layout->social = \GitData\Models\GenericConfig::file('config.json')->social;
 
-		$this->view->{'g/config'} = \Config::get();
-
-		$this->view->{'g/app_vars'} = (object) array(
+		// TODO: Clean this up
+		$this->layout->app_vars = (object) array(
 			'hssdoc_url' => \Config::get()->url->hss,
 			'www_url' => \Config::get()->url->www,
 			'wiki_url' => \Config::get()->url->wiki,
@@ -49,21 +54,12 @@ class Controller extends \Core\Controller
 			'ga_accounts' => \Config::get()->ga_accounts
 		);
 
-		$this->view->{'g/code_version'} = substr(\Config::get()->version, 0, 7);
-		$this->view->{'g/data_version'} = substr(\GitData\GitData::$version, 0, 7);
-		$this->view->{'g/code_version_full'} = \Config::get()->version;
-		$this->view->{'g/data_version_full'} = \GitData\GitData::$version;
-
-		$this->view->{'g/year'}  = date('Y');
-		$this->view->{'g/meta'} = new \StdClass();
-		$this->view->{'g/social'} = \GitData\Models\GenericConfig::file('config.json')->social;
-
-		$this->tabs = array();
-		$this->breadcrumb = array(
-			array(
-				'name' => 'Home',
-				'link' => \Config::get()->url->www
-			)
+		$this->layout->versions = array(
+			'code' => \Config::get()->version,
+			'data' => \GitData\GitData::$version
 		);
+
+		$this->layout->year  = date('Y');
+		$this->layout->meta = new \StdClass();
 	}
 }

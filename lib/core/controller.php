@@ -2,11 +2,6 @@
 
 namespace Core;
 
-require_once(SHARED . '/lib/mustache/src/mustache.php');
-require_once(SHARED . '/lib/mustache_filters/json.php');
-
-\Mustache\Filter::register(new \MustacheFilters\JSON);
-
 class Controller
 {
 	/**

@@ -1,34 +1,37 @@
 <ul class="obj_list">
-	{{#objects}}
-		<li data-object="{{name}}">
+	{% for object in objects %}
+		<li data-object="{{object.name}}">
 			<span class="object">
 				<a href="#" class="open">
 					<span class="collapsed">[+]</span>
 					<span class="expanded">[-]</span>
 				</a>
-				<a href="{{permalink}}" class="obj">{{name}}</a>
+				<a href="{{object.permalink}}" class="obj">{{object.name}}</a>
 			</span>
 
 			<div class="children">
-				{{tree_html|raw}}
+				{{object._tree|raw}}
 
 				<ul class="prop_list">
-					{{#properties}}
+					{% for property in object.properties %}
 						<li>
-							<a href="{{permalink}}">{{name}}</a>
-							{{#readonly}}
+							<a href="{{property.permalink}}">{{property.name}}</a>
+
+							{% if property.readonly %}
 								<span class="ro" title="This is a read-only property">(read-only)</span>
-							{{/readonly}}
-							{{#_impl_none}}
+							{% endif %}
+
+							{% if property.implemented == IMPL_NONE %}
 								<span class="implNone" title="This property has not been implemented yet">(not implemented)</span>
-							{{/_impl_none}}
-							{{#_impl_semi}}
+							{% endif %}
+
+							{% if property.implemented == IMPL_SEMI %}
 								<span class="implSemi" title="This property is not fully implemented yet">(half implemented)</span>
-							{{/_impl_semi}}
+							{% endif %}
 						</li>
-					{{/properties}}
+					{% endfor %}
 				</ul>
 			</div>
 		</li>
-	{{/objects}}
+	{% endfor %}
 </ul>

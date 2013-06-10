@@ -51,7 +51,10 @@ class File
 	}
 
 	/**
-	 * Get a commit that has edited this file
+	 * Get a commit that has edited this file.
+	 *
+	 * Warning: This process seems quite slow, so be careful.
+	 * @todo Cache this
 	 *
 	 * @param int $skip
 	 * @return Commit
@@ -70,6 +73,18 @@ class File
 			return null;
 		}
 
-		return new Commit($this->repository, $sha);
+		return new Commit($this->repository,
+			preg_replace('/[^a-f0-9]/', '', $sha));
+	}
+
+	/**
+	 * Quickly get a unique id for this file. The ID returned by this method
+	 * can change even if the file doesn't.
+	 *
+	 * @return string
+	 */
+	public function get_unique_id ()
+	{
+		return hash('sha1', $this->path . \GitData\GitData::$version);
 	}
 }

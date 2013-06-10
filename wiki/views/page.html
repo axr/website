@@ -1,26 +1,27 @@
-{{g/breadcrumb/html|raw}}
-{{g/tabs/html|raw}}
+<nav id="tabs_main">
+	<a href="{{page.github_history_url}}">History</a>
+</nav>
 
 <div id="page">
 	<h1>{{page.title}}</h1>
 
-	{{#page.toc|bool}}
+	{% if page.toc %}
 		<div class="toc">
 			Table of contents:
 			<nav>
-				{{#page.toc}}
-					<a href="#{{alias}}" class="depth_{{depth}}">{{title}}</a>
-				{{/page.toc}}
+				{% for item in page.toc %}
+					<a href="#{{item.alias}}" class="depth_{{item.depth}}">{{item.title}}</a>
+				{% endfor %}
 			</nav>
 		</div>
-	{{/page.toc}}
+	{% endif %}
 
 	<div class="parsedContent">
 		{{page.content|raw}}
 	</div>
 
 	<div class="last_modified">
-		This page was last modified on <span>{{page.mtime_str}}</span> by
+		This page was last modified on <span>{{page.mtime|date('Y-m-d H:i')}}</span> by
 		<span>{{page.last_author}}</span>.
 	</div>
 </div>

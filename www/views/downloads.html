@@ -1,23 +1,20 @@
-{{g/breadcrumb/html|raw}}
-
 <div id="downloads">
-	{{#release_groups}}
-		<h2>{{name}}</h2>
+	{% for group in release_groups %}
+		<h2>{{group.name}}</h2>
 
-		<div class="rtable" data-key="{{key}}">
-			{{#releases}}
+		<div class="rtable" data-key="{{group.key}}">
+			{% for version, release in group.releases %}
 				<div class="release">
 					<header>
 						<a class="version" href="#">Version <mark>{{version}}</mark></a>
-						{{#false}}<a class="changelog" href="#">Changelog</a>{{/false}}
 					</header>
 
 					<div class="groups">
-						{{#pkggroups}}
+						{% for pkggroup in release.pkggroups %}
 							<table class="pkggroup">
 								<thead>
 									<tr>
-										<td class="name">{{group_name}}</td>
+										<td class="name">{{pkggroup.group_name}}</td>
 										<td class="ext">Type</td>
 										<td class="arch">Architecture</td>
 										<td class="size">Size</td>
@@ -25,33 +22,32 @@
 									</tr>
 								</thead>
 								<tbody>
-									{{#files}}
+									{% for file in pkggroup.files %}
 										<tr>
-											<td class="name"><span>{{package.name}}</span></td>
-											<td class="ext">{{type}}</td>
-											<td class="arch">{{arch}}</td>
+											<td class="name"><span>{{file.package.name}}</span></td>
+											<td class="ext">{{file.type}}</td>
+											<td class="arch">{{file.arch}}</td>
 											<td class="size">
-												<span title="{{size}} bytes">{{size|filesize}}</span>
+												<span title="{{size}} bytes">{{file.size|filesize}}</span>
 											</td>
 											<td class="dl">
-												{{#checksums}}
-													<a href="#" data-checksums="{{checksums|json}}" class="checksums">checksums</a>
-												{{/checksums}}
+												{% if file.checksums %}
+													<a href="#" data-checksums="{{file.checksums|json_encode}}"
+														class="checksums">checksums</a>
+												{% endif %}
 
-												<a href="{{url}}" data-filename="{{filename}}" class="dl" target="_blank">download</a>
+												<a href="{{file.url}}" data-filename="{{file.filename}}" class="dl" target="_blank">download</a>
 											</td>
 										</tr>
-									{{/files}}
+									{% endfor %}
 								</tbody>
 							</table>
-						{{/pkggroups}}
+						{% endfor %}
 					</div>
 				</div>
-			{{/releases}}
+			{% endfor %}
 		</div>
-	{{/release_groups}}
-
-	{{^release_groups|bool}}
+	{% else %}
 		<div class="none">No releases are currently available</div>
-	{{/release_groups}}
+	{% endfor %}
 </div>

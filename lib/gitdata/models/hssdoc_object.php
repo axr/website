@@ -4,7 +4,7 @@ namespace GitData\Models;
 
 class HssdocObject extends \GitData\Model
 {
-	protected $attrs = array('name', 'owner', 'description_file');
+	protected $attrs = array('name', 'owner', 'description_file', 'shorthand_stack');
 	protected $public = array('description', 'permalink');
 
 	/**
@@ -44,6 +44,8 @@ class HssdocObject extends \GitData\Model
 				$this->description = (string) new \GitData\Content($file);
 			}
 		}
+
+		$this->_cache_write_state();
 	}
 
 	/**
@@ -54,6 +56,33 @@ class HssdocObject extends \GitData\Model
 	public function get_properties ()
 	{
 		return \GitData\Models\HssdocProperty::find_all_by_object($this->name);
+	}
+
+	/**
+	 * Get a property by its name
+	 *
+	 * @param string $name
+	 * @return \GitData\Models\HssdocProperty
+	 */
+	public function get_property_by_name ($name)
+	{
+		$info_file = \GitData\GitData::$repo->get_file(
+			'hssdoc/' . $this->name . '/property-' . $name . '.json');
+
+		if ($info_file === null)
+		{
+			return null;
+		}
+
+		try
+		{
+			return new HssdocProperty($info_file);
+		}
+		catch (\GitData\Exceptions\EntityInvalid $e)
+		{
+		}
+
+		return null;
 	}
 
 	/**
@@ -73,7 +102,7 @@ class HssdocObject extends \GitData\Model
 
 		try
 		{
-			return new HssdocObject($info_file);
+			return HssdocObject::new_instance($info_file);
 		}
 		catch (\GitData\Exceptions\EntityInvalid $e)
 		{

@@ -9,7 +9,7 @@ class Autoloader
 		'Hssdoc\\HomeController' => '/controllers/home/home.php',
 		'Hssdoc\\ObjectController' => '/controllers/object/object.php',
 		'Hssdoc\\ViewController' => '/controllers/view/view.php',
-		'Hssdoc\\Sidebar' => '/lib/sidebar.php'
+		'Hssdoc\\SidebarView' => '/lib/sidebar_view.php'
 	);
 
 	/**

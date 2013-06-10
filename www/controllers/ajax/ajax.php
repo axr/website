@@ -10,11 +10,7 @@ class AjaxController extends Controller
 	{
 		try
 		{
-			if ($mode === 'template')
-			{
-				$this->template();
-			}
-			else if ($mode === 'ghactivity')
+			if ($mode === 'ghactivity')
 			{
 				$this->ghactivity();
 			}
@@ -30,38 +26,6 @@ class AjaxController extends Controller
 				'error' => $e->getMessage()
 			));
 		}
-	}
-
-	public function template ()
-	{
-		if (!isset($_GET['name']))
-		{
-			throw new \Exception('invalid_request');
-		}
-
-		$name = preg_replace('/[^a-z0-9-_]/i', '', $_GET['name']);
-		$template = null;
-
-		if (file_exists(ROOT . '/views/' . $name . '.html'))
-		{
-			$template = file_get_contents(ROOT . '/views/' . $name . '.html');
-		}
-		elseif (file_exists(SHARED . '/views/' . $name . '.html'))
-		{
-			$template = file_get_contents(SHARED . '/views/' . $name . '.html');
-		}
-		else
-		{
-			throw new \Exception('template_not_found');
-		}
-
-		echo self::respond_json(array(
-			'status' => 0,
-			'payload' => array(
-				'name' => $name,
-				'template' => $template
-			)
-		));
 	}
 
 	public function ghactivity ()
