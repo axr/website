@@ -68,8 +68,7 @@
 	"js/bundle_hssdoc.js": {
 		"type": "js",
 		"files": [
-			"js/site.js",
-			"js/hss/site.js"
+			"js/site.js"
 		]
 	}
 }
