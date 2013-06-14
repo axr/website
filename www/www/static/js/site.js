@@ -1,7 +1,6 @@
 $(document).ready(function ()
 {
 	var hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
-	console.log(hash);
 	var offset = $('[data-hash]').not(function ()
 	{
 		return $(this).attr('data-hash') !== hash;
