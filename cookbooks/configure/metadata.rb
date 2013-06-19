@@ -1,0 +1,10 @@
+name              "configure"
+maintainer        "AXR Project"
+maintainer_email  "team@axrproject.org"
+license           "MIT"
+description       "Writes configuration files"
+version           "1.0"
+
+recipe "configure", "Creates config.json if one doesn't exist"
+recipe "configure::nginx", "Writes NGINX configuration files"
+recipe "configure::php", "Writes PHP configuration files"
