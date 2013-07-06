@@ -57,7 +57,7 @@ These rules apply everywhere:
 			'anotherkey => 'value' // <- No comma in the end of the last element
 		)
 
-- Lines should be longer than 80 characters
+- Lines should be no longer than 80 characters
 - Use `===` instead of `==` whenever possible
 
 PHP standards
