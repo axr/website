@@ -13,3 +13,6 @@
 [submodule "cookbooks/memcached"]
 	path = cookbooks/memcached
 	url = https://github.com/opscode-cookbooks/memcached.git
+[submodule "cookbooks/rvm"]
+	path = cookbooks/rvm
+	url = https://github.com/fnichol/chef-rvm
