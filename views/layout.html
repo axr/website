@@ -179,7 +179,7 @@
 						<div class="box">
 							<div class="inner _last_tweet">Loading...</div>
 							<div class="follow">
-								Follow us on Twitter: <a href="https://twitter.com/{{social.twitter}}/">@{{social.twitter}}</a>
+								Follow us on Twitter: <a href="https://twitter.com/axrproject/">@axrproject</a>
 							</div>
 						</div>
 					</div>
@@ -198,10 +198,12 @@
 
 					<div class="copy">
 						<p>The AXR Project | <a href="mailto:team@axrproject.org">team@axrproject.org</a> | &copy; 2010 - {{year}}</p>
-						<p class="version">
-							<span title="Website: {{versions.code}}">{{versions.code|slice(0, 7)}}</span> /
-							<span title="Data: {{versions.data}}">{{versions.data|slice(0, 7)}}</span>
-						</p>
+						{% if versions %}
+							<p class="version">
+								<span title="Website: {{versions.code}}">{{versions.code|slice(0, 7)}}</span> /
+								<span title="Data: {{versions.data}}">{{versions.data|slice(0, 7)}}</span>
+							</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
