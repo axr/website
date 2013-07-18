@@ -70,5 +70,18 @@
 		"files": [
 			"js/site.js"
 		]
+	},
+	"css/bundle_search.css": {
+		"type": "css",
+		"files": [
+			"css/search/results.css"
+		]
+	},
+	"js/bundle_search.js": {
+		"type": "js",
+		"files": [
+			"js/site.js",
+			"js/search/results.js"
+		]
 	}
 }

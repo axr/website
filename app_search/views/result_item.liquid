@@ -1,0 +1,14 @@
+{% if item.item_type == 'Page' or item.item_type == 'WikiPage' %}
+	<article data-score="{{item.score}}" class="type_{{item.item_type}}">
+		<header>
+			<span class="source">{{item.source_name|join: ' ... '}}</span>
+			<span class="separator">/</span>
+			<a class="title" href="{{item.item.permalink}}">{{item.highlight.title}}</a>
+
+			<a href="#" class="info" title="Score: {{item.score}}">&#9432;</a>
+		</header>
+		<section>
+			{{item.highlight.content|join: ' ... '}}
+		</section>
+	</article>
+{% endif %}

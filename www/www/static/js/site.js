@@ -21,10 +21,15 @@ $(document).ready(function ()
 
 	Core.CodeBox.find_all(document.body);
 
-	// Set up GA queue
-	window._gaq = window._gaq || [];
-	window._gaq.push(['_setAccount', App.vars.ga_accounts['default']]);
-	window._gaq.push(['_trackPageview']);
+	if (typeof App === 'object' &&
+		typeof App.vars === 'object' &&
+		typeof App.vars.ga_account === 'object')
+	{
+		// Set up GA queue
+		window._gaq = window._gaq || [];
+		window._gaq.push(['_setAccount', App.vars.ga_accounts['default']]);
+		window._gaq.push(['_trackPageview']);
+	}
 
 	Core.Router.instance().update(window.location.pathname);
 });
