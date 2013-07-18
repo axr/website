@@ -5,6 +5,8 @@ module Shared
     @@data = {}
 
     def self.load file
+      return unless File.exists?(file)
+
       begin
         @@data.merge! JSON.load File.read(file)
       rescue JSON::ParserError
