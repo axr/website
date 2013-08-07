@@ -1,15 +1,11 @@
-require 'singleton'
-
 module Shared
   class Rsrc
-    include Singleton
-
     attr_accessor :production
     attr_accessor :root
 
-    def initialize
-      @production = true
-      @root = nil
+    def initialize attrs
+      @production = attrs[:production?].nil? ? true : attrs[:production]
+      @root = attrs[:root] || nil
 
       @bundles_info = {}
       @css = []
