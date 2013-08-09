@@ -1,5 +1,6 @@
 server {
-	listen 8081;
+	listen 80;
+	server_name wiki.local.axrproject.org;
 
 	index index.php index.html;
 	root /vagrant/wiki/www;
