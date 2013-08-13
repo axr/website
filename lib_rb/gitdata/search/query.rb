@@ -33,6 +33,7 @@ module GitData
       end
 
       def execute
+        return [] if Query.simplify(@query).length <= 3
         scored = []
 
         @indexes.each do |index|
@@ -56,10 +57,7 @@ module GitData
 
       def results
         uid = "#{Digest::SHA256.hexdigest(@query)}@#{GitData.ref}"
-
-        results = Results.load(uid)
-        results = Results.new(uid, execute) if results.nil?
-        results
+        Results.load(uid) || Results.new(uid, execute)
       end
 
       def highlight text
@@ -88,6 +86,10 @@ module GitData
         end
 
         return index.name
+      end
+
+      def self.simplify query
+        query.gsub(/(\A|\s)\w+:\w+(?=\Z|\s)/, '').squeeze(' ').strip
       end
     end
   end

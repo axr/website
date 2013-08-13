@@ -4,29 +4,28 @@ require 'liquid'
 module SearchApp
   class App < Sinatra::Base
     get '/q/:query' do
+      query = params[:query].gsub('+', ' ')
+
       liquid :results, {
         :locals => {
-          :query => params[:query],
-          :query_safe => params[:query].gsub(/(["\\])/, '\\\1')
+          :query => query,
+          :query_safe => query.gsub(/(["\\])/, '\\\1')
         }
       }
     end
 
     get '/q.json' do
       raise Sinatra::NotFound unless params.has_key?('query')
-      offset = params.has_key?('offset') ? params['offset'].to_i : 0
-      results = nil
 
-      if params['query'].length > 3
-        query = GitData::Search::Query.new params['query']
-        results = query.results.slice(offset, 10)
-      end
+      query = params[:query]
+      offset = params[:offset].to_i || 0
 
-      results = [] if results.nil?
+      results = GitData::Search::Query.new(query).results
+
       html = []
       template = File.read("#{ROOT}/views/result_item.liquid")
 
-      results.each do |item|
+      (results.slice(offset, 10) || []).each do |item|
         item[:item] = item[:item].to_h
 
         html.push Liquid::Template.parse(template).render({
