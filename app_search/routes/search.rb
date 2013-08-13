@@ -2,14 +2,20 @@ require 'active_support/core_ext/hash'
 require 'liquid'
 
 module SearchApp
-  class App < Sinatra::Base
+  class App
     get '/q/:query' do
       query = params[:query].gsub('+', ' ')
+      simple_query = GitData::Search::Query.simplify(query)
+
+      @breadcrumb.append({
+        :title => "Results for <strong>#{simple_query}</strong>",
+        :noescape => true
+      })
 
       liquid :results, {
         :locals => {
           :query => query,
-          :query_safe => query.gsub(/(["\\])/, '\\\1')
+          :breadcrumb => breadcrumb(@breadcrumb)
         }
       }
     end

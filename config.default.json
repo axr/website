@@ -6,7 +6,8 @@
 		"rsrc": "http://static.axrproject.org/prod-2",
 		"www": "http://axrproject.org",
 		"hss": "http://hss.axrproject.org",
-		"wiki": "http://wiki.axrproject.org"
+		"wiki": "http://wiki.axrproject.org",
+		"search": "http://search.axrproject.org"
 	},
 
 	"cache_servers": [
