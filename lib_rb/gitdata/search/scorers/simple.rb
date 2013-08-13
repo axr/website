@@ -9,8 +9,10 @@ module GitData
         end
 
         def score_all query
-          keywords = query.split ' '
+          keywords = query.split(' ').reject {|kw| kw.length <= 3}
           scored = []
+
+          return [] if keywords.empty?
 
           keywords_safe = (keywords.map {|kw| Regexp.escape kw}).join '|'
           regex_match = /(\A|\W)(#{keywords_safe})(\W|\Z)/i
