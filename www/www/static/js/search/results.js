@@ -315,6 +315,9 @@
 			this.set_attr('no_results', false);
 
 			$('#results ._results').empty();
+
+			var query_simple = query.replace(/\b\w+:\w+\b/g, '').replace(/\s+/, ' ');
+			$('#breadcrumb span.current').html('Results for <strong>' + query_simple + '</strong>');
 		};
 
 		this.load_more = function ()
