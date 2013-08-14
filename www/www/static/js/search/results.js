@@ -123,6 +123,8 @@
 		var that = this;
 
 		this.element = element;
+		this.rp = null;
+
 		this.sources = {
 			www: {name: 'Website', selected: false},
 			hss: {name: 'HSS doc', selected: false},
@@ -131,25 +133,12 @@
 			irc: {name: 'IRC', selected: false}
 		};
 
-		this.update_options = function ()
+		this.clean_query = function (initial)
 		{
 			var query = this.element.find('input[name=query]').val();
 			var match_groups = query.match(/\bsource:(\w+)\b/g) || [];
 
-			if (match_groups.length > 0)
-			{
-				for (var key in this.sources)
-				{
-					this.sources[key].selected = false;
-				}
-
-				for (var i = 0, c = match_groups.length; i < c; i++)
-				{
-					var match = match_groups[i].match(/\bsource:(\w+)\b/);
-					(this.sources[match[1]] || {}).selected = true;
-				}
-			}
-			else
+			if (initial === true && match_groups.length === 0)
 			{
 				for (var key in this.sources)
 				{
@@ -157,6 +146,24 @@
 				}
 			}
 
+			// Take sources from the query and mark them selected
+			for (var i = 0, c = match_groups.length; i < c; i++)
+			{
+				var match = match_groups[i].match(/\bsource:(\w+)\b/);
+
+				if (typeof this.sources[match[1]] === 'object')
+				{
+					this.sources[match[1]].selected = true;
+					query = query.replace(new RegExp('\\bsource:' + match[1] + '\\b', 'g'), '');
+				}
+			}
+
+			this.element.find('input[name=query]').val(query.replace(/\s+/, ' '));
+			this.update_options_ui();
+		};
+
+		this.update_options_ui = function ()
+		{
 			for (var key in this.sources)
 			{
 				var element = this.element.find('.options .sources a[data-key=' + key + ']');
@@ -172,46 +179,51 @@
 			}
 		};
 
-		this.update_query = function ()
+		this.build_query = function ()
 		{
+			this.clean_query();
+
 			var query = this.element.find('input[name=query]').val();
-			var match_groups = query.match(/\bsource:(\w+)\b/g) || [];
+			var all_sources_selected = true;
 
-			// Remove sources that are no longer selected from the query
-			for (var i = 0, c = match_groups.length; i < c; i++)
-			{
-				var match = match_groups[i].match(/\bsource:(\w+)\b/);
-
-				if ((this.sources[match[1]] || {}).selected !== true)
-				{
-					var key_safe = match[1].replace(/\W/, '');
-					query = query.replace(new RegExp('\\bsource:' + key_safe + '\\b'), '');
-				}
-			}
-
-			// Append new sources to the query
 			for (var key in this.sources)
 			{
-				var key_safe = key.replace(/\W/, '');
-
-				if (this.sources[key].selected === true &&
-					!(new RegExp('\\bsource:' + key_safe + '\\b')).test(query))
+				if (this.sources[key].selected !== true)
 				{
-					query += ' source:' + key_safe;
+					all_sources_selected = false;
+					break;
 				}
 			}
 
-			this.element.find('input[name=query]')
-				.removeClass('inactive')
-				.val(query.replace(/\s+/, ' '));
+			if (all_sources_selected === false)
+			{
+				// Append new sources to the query
+				for (var key in this.sources)
+				{
+					if (this.sources[key].selected === true)
+					{
+						query += ' source:' + key.replace(/\W/, '');
+					}
+				}
+			}
+
+			return query;
 		};
 
 		this.submit = function ()
 		{
-			window.location = '/q/' +
-				encodeURIComponent(this.element.find('input.query').val());
+			if (that.rp !== null)
+			{
+				that.rp.set_query(that.build_query());
+				that.rp.load_more();
+			}
+			else
+			{
+				window.location = '/q/' + encodeURIComponent(that.build_query());
+			}
 		};
 
+		// Load all the source buttons
 		for (var key in this.sources)
 		{
 			this.element.find('.options .sources').append($('<a>')
@@ -223,13 +235,26 @@
 		this.element.on('click', '.options .sources a', function (e)
 		{
 			var key = $(this).attr('data-key');
+			var selected_count = 0;
+
+			for (var key2 in that.sources)
+			{
+				selected_count += !!that.sources[key2].selected + 0;
+			}
+
 			if (that.sources[key] !== undefined)
 			{
+				if (that.sources[key].selected === true && selected_count === 1)
+				{
+					// Don't allow to deselect the last source
+					return;
+				}
+
 				that.sources[key].selected = !that.sources[key].selected;
 			}
 
-			that.update_query();
-			that.update_options();
+			that.update_options_ui();
+			that.submit();
 		});
 
 		this.element.on('focusin focusout keyup', 'input[name=query]', function (e)
@@ -253,7 +278,7 @@
 				break;
 
 				case 'keyup':
-					that.update_options();
+					that.clean_query();
 				break;
 			}
 		});
@@ -263,7 +288,7 @@
 			that.submit();
 		});
 
-		this.update_options();
+		this.clean_query(true);
 	};
 
 	var ResultsPage = function ()
@@ -272,39 +297,38 @@
 
 		this.query = null;
 		this.next_offset = 0;
-		this.load_anim = new LoadAnimation($('#results .loading canvas'));
+		this.ajax = [];
 
-		this.is_loading = false;
-		this.has_results = false;
-		this.has_more = true;
-
-		this.update_ui = function ()
+		this.set_query = function (query, params)
 		{
-			$('#results .loading').css({
-				display: this.is_loading ? 'block' : 'none'
-			});
+			this.query = query;
+			this.next_offset = 0;
 
-			$('#results .load_more').css({
-				display: this.has_more ? 'block' : 'none'
-			});
+			// Abort all current ajax requests
+			while (this.ajax.length > 0)
+			{
+				this.ajax.pop().abort();
+			}
 
-			$('#results .no_results').css({
-				display: (!this.is_loading && !this.has_results) ? 'block' : 'none'
-			});
+			this.set_attr('loading', false);
+			this.set_attr('has_more', false);
+			this.set_attr('no_results', false);
+
+			$('#results ._results').empty();
 		};
 
 		this.load_more = function ()
 		{
-			if (this.is_loading === true)
+			if (this.query === null || this.ajax.length > 0)
 			{
 				return;
 			}
 
-			this.is_loading = true;
-			this.has_more = false;
-			this.update_ui();
+			this.set_attr('loading', true);
+			this.set_attr('has_more', false);
+			this.set_attr('no_results', false);
 
-			$.ajax({
+			this.ajax.push($.ajax({
 				url: '/q.json',
 				data: {
 					query: this.query,
@@ -318,23 +342,36 @@
 						$('#results ._results').append(data.results[i]);
 					}
 
-					if (data.results.length > 0)
-					{
-						that.has_results = true;
-					}
-
-					that.is_loading = false;
-					that.has_more = data.has_more;
-					that.update_ui();
-
 					that.next_offset = data.next;
+					that.ajax.pop();
+
+					that.set_attr('loading', false);
+					that.set_attr('no_results', data.results.length === 0);
+					that.set_attr('has_more', data.has_more);
 				}
-			});
+			}));
 		};
+
+		this.set_attr = function (name, value)
+		{
+			var selectors = {
+				loading: '#results .loading',
+				no_results: '#results .no_results',
+				has_more: '#results .load_more',
+			};
+
+			if (selectors[name] !== undefined)
+			{
+				$(selectors[name]).css('display', value ? 'block' : 'none');
+			}
+		};
+
+		new LoadAnimation($('#results .loading canvas'));
 	};
 
 	var rp = new ResultsPage();
 	var sb = new SearchBar($('#search_box'));
+	sb.rp = rp;
 
 	Core.Router.instance().once(/^\/q\//, function ()
 	{
@@ -352,7 +389,7 @@
 
 	Core.Router.instance().on(/^\/q\//, function ()
 	{
-		rp.query = $('#results ._results').attr('data-query');
+		rp.set_query($('#results ._results').attr('data-query'));
 
 		if ($('#results ._results').children().length === 0)
 		{
