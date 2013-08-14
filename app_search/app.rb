@@ -11,7 +11,7 @@ module SearchApp
       :layout => File.read("#{Shared::ROOT}/views/layout.html"),
       :locals => {
         :config => Shared::Config.get,
-        :year => DateTime.now.strftime("%Y")
+        :year => lambda {DateTime.now.strftime("%Y")}
       }
     }
 
