@@ -5,30 +5,18 @@ module SearchApp
   Shared::Config.load "#{ROOT}/config.json"
 
   class App < Sinatra::Base
-    @rsrc = Shared::Rsrc.new({
-      :root => Shared::Config.get['url']['rsrc'],
-      :production? => Sinatra::Base.production?
-    })
+    def initialize
+      super
 
-    @rsrc.bundle "css/bundle_shared.css"
-    @rsrc.bundle "css/bundle_search.css"
-    @rsrc.bundle "js/bundle_shared.js"
-    @rsrc.bundle "js/bundle_search.js"
+      @rsrc = Shared::Rsrc.new({
+        :root => Shared::Config.get['url']['rsrc'],
+        :production? => Sinatra::Base.production?
+      })
 
-    helpers Sinatra::AXRLayoutHelpers
-
-    set :liquid, {
-      :layout => File.read("#{Shared::ROOT}/views/layout.html"),
-      :locals => {
-        :rsrc_styles => @rsrc.html(:css),
-        :rsrc_scripts => @rsrc.html(:js),
-        :config => Shared::Config.get,
-        :year => DateTime.now.strftime("%Y")
-      }
-    }
-
-    before do
-      content_type :html, 'charset' => 'utf-8'
+      @rsrc.bundle "css/bundle_shared.css"
+      @rsrc.bundle "css/bundle_search.css"
+      @rsrc.bundle "js/bundle_shared.js"
+      @rsrc.bundle "js/bundle_search.js"
 
       @breadcrumb = [
         {
@@ -36,6 +24,22 @@ module SearchApp
           :link => Shared::Config.get['url']['search']
         }
       ]
+
+      App.set :liquid, {
+        :layout => File.read("#{Shared::ROOT}/views/layout.html"),
+        :locals => {
+          :rsrc_styles => lambda {@rsrc.html(:css)},
+          :rsrc_scripts => @rsrc.html(:js),
+          :config => Shared::Config.get,
+          :year => DateTime.now.strftime("%Y")
+        }
+      }
+    end
+
+    helpers Sinatra::AXRLayoutHelpers
+
+    before do
+      content_type :html, 'charset' => 'utf-8'
     end
 
     get '/' do
