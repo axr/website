@@ -1,6 +1,7 @@
 module GitData
   class Model
     @@info_attrs = {}
+    @@cached = {}
 
     def initialize info_file
       @info_file = info_file
@@ -23,6 +24,20 @@ module GitData
       @data
     end
 
+    def self.new_cached info
+      return unless info.kind_of? File
+      return unless info.exists?
+
+      klass = self.ancestors[0].name
+      instance_id = [klass, info.path]
+
+      unless @@cached.has_key?(instance_id)
+        @@cached[instance_id] = eval('::' + klass).new(info)
+      end
+
+      @@cached[instance_id]
+    end
+
     def self.info_attr name, *others
       @@info_attrs[name] = others[0] || {}
     end
@@ -33,7 +48,7 @@ module GitData
       end
 
       info = GitData.file_reader.file(InfoFile, path)
-      eval('::' + self.ancestors[0].name).new(info) if info.exists?
+      eval('::' + self.ancestors[0].name).new_cached(info) if info.exists?
     end
   end
 end
