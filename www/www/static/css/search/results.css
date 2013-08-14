@@ -1,3 +1,79 @@
+#search_box
+{
+	background: #efefef;
+	border: 1px solid #cacaca;
+	border-radius: 2px;
+	font-size: 0;
+	margin: 15px 0 0 0;
+	padding: 4px;
+}
+
+#search_box > input.query
+{
+	border: 1px solid #bbb;
+	border-radius: 2px 0 0 2px;
+	color: #666;
+	font-size: 13px;
+	padding: 3px;
+	outline: none;
+	width: 400px;
+}
+
+#search_box > input.query.inactive
+{
+	color: #aaa;
+}
+
+#search_box > button.submit
+{
+	background: #ddd;
+	border: 1px solid #bbb;
+	border-left: 0;
+	border-radius: 0 2px 2px 0;
+	font-size: 13px;
+	padding: 3px;
+}
+
+#search_box > .options
+{
+	float: right;
+	font-size: 13px;
+}
+
+#search_box > .options .sources
+{
+	display: inline-block;
+	font-size: 0;
+}
+
+#search_box > .options .sources a
+{
+	background: #ddd;
+	border: 1px solid #bbb;
+	border-right-width: 0;
+	color: #666;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 13px;
+	padding: 3px 6px;
+}
+
+#search_box > .options .sources a:first-child
+{
+	border-radius: 2px 0 0 2px;
+}
+
+#search_box > .options .sources a:last-child
+{
+	border-right-width: 1px;
+	border-radius: 0 2px 2px 0;
+}
+
+#search_box > .options .sources a.selected
+{
+	background-color: #FEF098;
+}
+
 #results
 {
 	margin: 15px 0 0 0;

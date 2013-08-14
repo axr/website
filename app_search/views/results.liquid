@@ -1,6 +1,12 @@
 {{breadcrumb|raw}}
 
 <div id="search_box">
+	<input type="text" name="query" data-placeholder="Search" value="{{query|escape}}" class="query" />
+	<button name="submit" class="submit">Search</button>
+
+	<div class="options">
+		Source: <div class="sources"></div>
+	</div>
 </div>
 
 <div id="results">

@@ -118,6 +118,154 @@
 		}, 10);
 	};
 
+	var SearchBar = function (element)
+	{
+		var that = this;
+
+		this.element = element;
+		this.sources = {
+			www: {name: 'Website', selected: false},
+			hss: {name: 'HSS doc', selected: false},
+			spec: {name: 'Spec', selected: false},
+			wiki: {name: 'Wiki', selected: false},
+			irc: {name: 'IRC', selected: false}
+		};
+
+		this.update_options = function ()
+		{
+			var query = this.element.find('input[name=query]').val();
+			var match_groups = query.match(/\bsource:(\w+)\b/g) || [];
+
+			if (match_groups.length > 0)
+			{
+				for (var key in this.sources)
+				{
+					this.sources[key].selected = false;
+				}
+
+				for (var i = 0, c = match_groups.length; i < c; i++)
+				{
+					var match = match_groups[i].match(/\bsource:(\w+)\b/);
+					(this.sources[match[1]] || {}).selected = true;
+				}
+			}
+			else
+			{
+				for (var key in this.sources)
+				{
+					this.sources[key].selected = true;
+				}
+			}
+
+			for (var key in this.sources)
+			{
+				var element = this.element.find('.options .sources a[data-key=' + key + ']');
+
+				if (this.sources[key].selected === true)
+				{
+					element.attr('data-selected', 1).addClass('selected');
+				}
+				else
+				{
+					element.attr('data-selected', 0).removeClass('selected');
+				}
+			}
+		};
+
+		this.update_query = function ()
+		{
+			var query = this.element.find('input[name=query]').val();
+			var match_groups = query.match(/\bsource:(\w+)\b/g) || [];
+
+			// Remove sources that are no longer selected from the query
+			for (var i = 0, c = match_groups.length; i < c; i++)
+			{
+				var match = match_groups[i].match(/\bsource:(\w+)\b/);
+
+				if ((this.sources[match[1]] || {}).selected !== true)
+				{
+					var key_safe = match[1].replace(/\W/, '');
+					query = query.replace(new RegExp('\\bsource:' + key_safe + '\\b'), '');
+				}
+			}
+
+			// Append new sources to the query
+			for (var key in this.sources)
+			{
+				var key_safe = key.replace(/\W/, '');
+
+				if (this.sources[key].selected === true &&
+					!(new RegExp('\\bsource:' + key_safe + '\\b')).test(query))
+				{
+					query += ' source:' + key_safe;
+				}
+			}
+
+			this.element.find('input[name=query]')
+				.removeClass('inactive')
+				.val(query.replace(/\s+/, ' '));
+		};
+
+		this.submit = function ()
+		{
+			window.location = '/q/' +
+				encodeURIComponent(this.element.find('input.query').val());
+		};
+
+		for (var key in this.sources)
+		{
+			this.element.find('.options .sources').append($('<a>')
+				.attr('data-key', key)
+				.attr('data-selected', !!this.sources[key].selected + 0)
+				.html(this.sources[key].name));
+		}
+
+		this.element.on('click', '.options .sources a', function (e)
+		{
+			var key = $(this).attr('data-key');
+			if (that.sources[key] !== undefined)
+			{
+				that.sources[key].selected = !that.sources[key].selected;
+			}
+
+			that.update_query();
+			that.update_options();
+		});
+
+		this.element.on('focusin focusout keyup', 'input[name=query]', function (e)
+		{
+			switch (e.type)
+			{
+				case 'focusin':
+					if ($(this).val() === $(this).attr('data-placeholder'))
+					{
+						$(this).removeClass('inactive').val('');
+					}
+				break;
+
+				case 'focusout':
+					if ($(this).val().replace(/\s+/, '').length === 0)
+					{
+						$(this)
+							.val($(this).attr('data-placeholder'))
+							.addClass('inactive');
+					}
+				break;
+
+				case 'keyup':
+					that.update_options();
+				break;
+			}
+		});
+
+		this.element.on('click', 'button[name=submit]', function (e)
+		{
+			that.submit();
+		});
+
+		this.update_options();
+	};
+
 	var ResultsPage = function ()
 	{
 		var that = this;
@@ -186,6 +334,7 @@
 	};
 
 	var rp = new ResultsPage();
+	var sb = new SearchBar($('#search_box'));
 
 	Core.Router.instance().once(/^\/q\//, function ()
 	{
