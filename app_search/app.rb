@@ -5,8 +5,18 @@ module SearchApp
   Shared::Config.load "#{ROOT}/config.json"
 
   class App < Sinatra::Base
-    def initialize
-      super
+    helpers Sinatra::AXRLayoutHelpers
+
+    set :liquid, {
+      :layout => File.read("#{Shared::ROOT}/views/layout.html"),
+      :locals => {
+        :config => Shared::Config.get,
+        :year => DateTime.now.strftime("%Y")
+      }
+    }
+
+    before do
+      content_type :html, 'charset' => 'utf-8'
 
       @rsrc = Shared::Rsrc.new({
         :root => Shared::Config.get['url']['rsrc'],
@@ -25,21 +35,12 @@ module SearchApp
         }
       ]
 
-      App.set :liquid, {
-        :layout => File.read("#{Shared::ROOT}/views/layout.html"),
-        :locals => {
-          :rsrc_styles => lambda {@rsrc.html(:css)},
-          :rsrc_scripts => @rsrc.html(:js),
-          :config => Shared::Config.get,
-          :year => DateTime.now.strftime("%Y")
-        }
+     App.set :liquid, {
+      :locals => {
+        :rsrc_styles => lambda {@rsrc.html(:css)},
+        :rsrc_scripts => lambda {@rsrc.html(:js)}
       }
-    end
-
-    helpers Sinatra::AXRLayoutHelpers
-
-    before do
-      content_type :html, 'charset' => 'utf-8'
+    }
     end
 
     get '/' do
