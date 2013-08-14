@@ -133,6 +133,12 @@
 			irc: {name: 'IRC', selected: false}
 		};
 
+		this.set_query = function (query)
+		{
+			this.element.find('input[name=query]').val(query);
+			this.clean_query();
+		};
+
 		this.clean_query = function (initial)
 		{
 			var query = this.element.find('input[name=query]').val();
@@ -214,8 +220,7 @@
 		{
 			if (that.rp !== null)
 			{
-				that.rp.set_query(that.build_query());
-				that.rp.load_more();
+				Core.Router.instance().navigate('/q/' + encodeURIComponent(that.build_query()));
 			}
 			else
 			{
@@ -392,7 +397,11 @@
 
 	Core.Router.instance().on(/^\/q\//, function ()
 	{
-		rp.set_query($('#results ._results').attr('data-query'));
+		var matchdata = Core.Router.instance().url().match(/\/q\/(.+)/) || [];
+		var query = decodeURIComponent(matchdata[1].replace('+', ' '));
+
+		rp.set_query(query);
+		sb.set_query(query);
 
 		if ($('#results ._results').children().length === 0)
 		{

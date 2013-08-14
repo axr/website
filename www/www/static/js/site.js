@@ -31,7 +31,7 @@ $(document).ready(function ()
 		window._gaq.push(['_trackPageview']);
 	}
 
-	Core.Router.instance().update(window.location.pathname);
+	Core.Router.instance().update(Core.Router.instance().url(window.location));
 });
 
 // Load GA tracker code

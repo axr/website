@@ -23,6 +23,8 @@ window['Core'] = {};
 	 */
 	Core.Router = function ()
 	{
+		var that = this;
+
 		this._routes = [];
 		this._url = null;
 
@@ -52,6 +54,39 @@ window['Core'] = {};
 			}
 		};
 
+		this.url = function (location)
+		{
+			var location = location || window.location;
+			var matchdata = (location.hash || '').match(/\?_fp=(.+)$/) || [];
+			return (typeof matchdata[1] === 'string') ?
+				decodeURIComponent(matchdata[1]) : location.pathname;
+		};
+
+		/**
+		 * Update the current URL in the browser.
+		 *
+		 * @param {string} url
+		 */
+		this.navigate = function (url)
+		{
+			if (url === this._url)
+			{
+				return;
+			}
+
+			if (typeof window.history.pushState === 'function')
+			{
+				window.history.pushState({}, null, url);
+				this.update(url);
+			}
+			else
+			{
+				var hashstring = window.location.hash
+					.replace(/\?_fp=.+$/, '') + '?_fp=' + encodeURIComponent(url);
+				window.location.hash = hashstring;
+			}
+		};
+
 		/**
 		 * Update the current URL. This will not actually navigate anywhere,
 		 * it'll just call the callbacks.
@@ -60,6 +95,11 @@ window['Core'] = {};
 		 */
 		this.update = function (url)
 		{
+			if (url === this._url)
+			{
+				return;
+			}
+
 			this._url = url;
 			this._route();
 		};
@@ -85,6 +125,22 @@ window['Core'] = {};
 		this.once = function (regex, callback)
 		{
 			this.on(regex, callback, { once: true });
+		};
+
+		window.onpopstate = function (e)
+		{
+			that.update(window.location.pathname);
+		};
+
+		window.onhashchange = function (e)
+		{
+			var md_old = e.oldURL.match(/\?_fp=(.+)$/) || [];
+			var md_new = e.newURL.match(/\?_fp=(.+)$/) || [];
+
+			if (typeof md_old[1] === 'string' && md_old[1] !== md_new[1])
+			{
+				that.update(that.url());
+			}
 		};
 	};
 
