@@ -1,14 +1,16 @@
 module GitData
   class Model
-    @@info_attrs = []
+    @@info_attrs = {}
 
     def initialize info_file
       @info_file = info_file
       @data = {}
 
-      @@info_attrs.each do |name|
+      @@info_attrs.each do |name, params|
         if @info_file.data.has_key?(name)
           @data[name] = @info_file.data[name]
+        elsif params.has_key?(:default)
+          @data[name] = params[:default]
         end
       end
     end
@@ -21,9 +23,8 @@ module GitData
       @data
     end
 
-    def self.info_attr name
-      @@info_attrs.push name
-      self.class_eval("def #{name.to_s};@data[:#{name.to_s}];end")
+    def self.info_attr name, *others
+      @@info_attrs[name] = others[0] || {}
     end
 
     def self.from_file path
