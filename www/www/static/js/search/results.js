@@ -350,6 +350,8 @@
 						$('#results ._results').append(data.results[i]);
 					}
 
+					Core.CodeBox.find_all($('#results ._results'));
+
 					that.next_offset = data.next;
 					that.ajax.pop();
 
