@@ -15,9 +15,9 @@ module GitData
           return [] if keywords.empty?
 
           keywords_safe = (keywords.map {|kw| Regexp.escape kw}).join '|'
-          regex_match = /(\A|\W)(#{keywords_safe})(\W|\Z)/i
+          regex_match = /\b(#{keywords_safe})\b/i
           regex_fuzzy = /(#{keywords_safe})/i
-          regex_hl = /(?:\s|\A)(?<m>[A-Z]?[^.!?\n]{0,200}(?<kw>#{keywords_safe})[^.!?\n]{0,200}[.!?]?)(?=\Z|\s|[.!?])/mi
+          regex_hl = /\b(?<m>[A-Z]?[^.!?\n]{0,200}(?<kw>#{keywords_safe})[^.!?\n]{0,200}[.!?]?)\b/mi
 
           @index.items.each do |item|
             item_info = {
@@ -44,9 +44,7 @@ module GitData
               case rule[:size]
               when :short
                 item_info[:highlight][rule[:field]] = lambda do
-                  field.gsub(regex_match) do |m|
-                    "<mark>#{m}</mark>"
-                  end
+                  field.gsub(regex_match) {|m| "<mark>#{m}</mark>"}
                 end
 
               else
@@ -65,7 +63,7 @@ module GitData
                   matches.each_with_index do |m, i|
                     next unless selected.include? i
 
-                    item = m[0].gsub(m[1], "<mark>#{m[1]}</mark>")
+                    item = m[0].gsub(regex_match) {|m| "<mark>#{m}</mark>"}
                     out_length += item.length - "<mark></mark>".length
 
                     out.push item unless out_length > 350
