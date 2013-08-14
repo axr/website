@@ -162,7 +162,6 @@
 
 #results > .loading
 {
-	border-top: 1px solid #bbb;
 	display: block;
 	font-size: 15px;
 	margin: 0 0 20px 0;
@@ -172,7 +171,7 @@
 #results > .loading canvas
 {
 	display: block;
-	height: 2px;
+	height: 3px;
 	width: 900px;
 }
 
