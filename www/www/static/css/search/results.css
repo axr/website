@@ -6,6 +6,7 @@
 	font-size: 0;
 	margin: 15px 0 0 0;
 	padding: 4px;
+	position: relative;
 }
 
 #search_box > input.query
@@ -36,8 +37,10 @@
 
 #search_box > .options
 {
-	float: right;
 	font-size: 13px;
+	position: absolute;
+	right: 4px;
+	top: 4px;
 }
 
 #search_box > .options .sources
