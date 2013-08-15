@@ -164,7 +164,9 @@
 				}
 			}
 
-			this.element.find('input[name=query]').val(query.replace(/\s+/, ' '));
+			query = query.replace(/[ ]+/g, ' ').replace(/(^\s|\s$)/, '')
+
+			this.element.find('input[name=query]').val(query);
 			this.update_options_ui();
 		};
 
