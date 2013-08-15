@@ -37,7 +37,7 @@ module SearchApp
 
         html.push Liquid::Template.parse(template).render({
           'item' => item.with_indifferent_access
-        }).gsub(/[\n\t]/, '')
+        })
       end
 
       content_type :json, :charset => 'utf-8'
