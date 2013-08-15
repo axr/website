@@ -70,8 +70,28 @@
 
 			<a href="#" class="info" title="Score: {{item.score}}">&#9432;</a>
 		</header>
-		{% if item.score == 1 and (item.item.description) %}
+		{% if item.score == 1 and (item.item.description or item.item.text_scope) %}
 			<section class="embedded">
+				{% if item.item.text_scope %}
+					<table class="uiTable">
+						<tr>
+							<th>Scope</th>
+							{% assign scopes = "line|word|character"|split: "|" %}
+							{% for name in scopes %}
+								<td>
+									{% if item.item.text_scope contains name %}
+										<span class="symbol">&#10003;</span>
+									{% else %}
+										<span class="symbol">&#215;</span>
+									{% endif %}
+
+									{{name}}
+								</td>
+							{% endfor %}
+						</tr>
+					</table>
+				{% endif %}
+
 				<div class="parsedContent">
 					{{item.item.description}}
 				</div>
