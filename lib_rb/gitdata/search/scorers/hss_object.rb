@@ -14,11 +14,6 @@ module GitData
           }
         ]
 
-        alias :super_initialize :initialize
-        def initialize index
-          super_initialize(index)
-        end
-
         def score_all query
           query = query.squeeze(' ').strip
           keywords = query.split(' ').reject {|kw| kw.length <= 3}
