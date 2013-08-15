@@ -19,13 +19,11 @@ module GitData
         ]
 
         def score_all query
-          query = query.squeeze(' ').strip
-          keywords = query.split(' ').reject {|kw| kw.length <= 3}
           scored = []
 
-          return [] if keywords.empty?
+          return [] if query.keywords.empty?
 
-          keywords_safe = (keywords.map {|kw| Regexp.escape kw}).join '|'
+          keywords_safe = (query.keywords.map {|kw| Regexp.escape kw}).join '|'
           regex_match = /\b(#{keywords_safe})\b/i
           regex_fuzzy = /(#{keywords_safe})/i
           regex_hl = /\b(?<m>[A-Z]?[^.!?\n]{0,200}(?<kw>#{keywords_safe})[^.!?\n]{0,200}[.!?]?)\b/mi
@@ -52,7 +50,7 @@ module GitData
 
               item_info[:score] += score
               item_info[:highlight][rule[:field]] = lambda do
-                self.class.highlight_text(keywords, field, {
+                self.class.highlight_text(query, field, {
                   :size => rule[:size]
                 })
               end

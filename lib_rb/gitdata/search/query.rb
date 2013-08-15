@@ -2,6 +2,8 @@ module GitData
   module Search
     class Query
       attr_reader :query
+      attr_reader :keywords
+      attr_reader :tags
 
       @@sources = {
         :www => {
@@ -20,20 +22,31 @@ module GitData
 
       def initialize query
         @query = query
+        @keywords = []
+        @tags = {}
         @indexes = []
 
-        sources_matched = false
-        query.scan(/(\A|\s)source:(?<source>\w+)(?=\Z|\s)/) do |m|
-          next unless @@sources.has_key? m[0].to_sym
-          sources_matched = true
-          @@sources[m[0].to_sym][:indexes].each {|index| add_index index}
+        /\b(?<key>\w+):(?<value>\w+)\b/.match(query) do |m|
+          key = m[:key].to_sym
+          @tags[key] = [] unless @tags.has_key?(key)
+          @tags[key].push m[:value]
         end
 
-        unless sources_matched
+        if @tags.has_key? :source
+          @tags[:source].each do |source|
+            if @@sources.has_key? source.to_sym
+              @@sources[source.to_sym][:indexes].each {|index| add_index index}
+            end
+          end
+        else
           @@sources.each do |key, source|
             source[:indexes].each {|index| add_index index}
           end
         end
+
+        @keywords = query.gsub(/\b\w+:\w+\b/, '')
+          .squeeze(' ').strip
+          .split(' ').reject {|kw| kw.length <= 3}
       end
 
       def execute
@@ -44,7 +57,7 @@ module GitData
           source_name = source_name_from_index(index)
           item_type = index.name.split('::').last
 
-          items = index.instance.scorer.score_all(@query)
+          items = index.instance.scorer.score_all(self)
           items.map! do |item|
             {
               :source_name => source_name,

@@ -7,10 +7,10 @@ module GitData
 
       private
 
-      def self.highlight_text keywords, text, *others
+      def self.highlight_text query, text, *others
         params = others[0] || {}
 
-        keywords_safe = (keywords.map {|kw| Regexp.escape kw}).join '|'
+        keywords_safe = (query.keywords.map {|kw| Regexp.escape kw}).join '|'
         regex_match = /(#{keywords_safe})/i
         regex_hl = /\b(?<m>[A-Z]?[^.!?\n]{0,200}(?<kw>#{keywords_safe})[^.!?\n]{0,200}[.!?]?)\b/mi
 
