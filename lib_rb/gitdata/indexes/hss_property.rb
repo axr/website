@@ -8,22 +8,7 @@ module GitData
       end
 
       def scorer
-        # TODO: Write a custom scorer for this
-        Search::Scorers::Simple.new(self, [
-          {
-            :field => :name,
-            :influence => 0.4,
-            :size => :short
-          },
-          {
-            :field => :object_name,
-            :influence => 0.2
-          },
-          {
-            :field => :description,
-            :influence => 0.4
-          }
-        ])
+        Search::Scorers::HSSProperty.new self
       end
     end
   end
