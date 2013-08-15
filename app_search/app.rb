@@ -7,14 +7,6 @@ module SearchApp
   class App < Sinatra::Base
     helpers Sinatra::AXRLayoutHelpers
 
-    set :liquid, {
-      :layout => File.read("#{Shared::ROOT}/views/layout.html"),
-      :locals => {
-        :config => Shared::Config.get,
-        :year => lambda {DateTime.now.strftime("%Y")}
-      }
-    }
-
     before do
       content_type :html, 'charset' => 'utf-8'
 
@@ -36,9 +28,12 @@ module SearchApp
       ]
 
      App.set :liquid, {
+      :layout => File.read("#{Shared::ROOT}/views/layout.html"),
       :locals => {
         :rsrc_styles => lambda {@rsrc.html(:css)},
-        :rsrc_scripts => lambda {@rsrc.html(:js)}
+        :rsrc_scripts => lambda {@rsrc.html(:js)},
+        :config => Shared::Config.get,
+        :year => lambda {DateTime.now.strftime("%Y")}
       }
     }
     end
