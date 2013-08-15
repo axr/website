@@ -10,6 +10,7 @@ module GitData
       info_attr :permanent, :default => false
       info_attr :many_values, :default => false
       info_attr :values, :default => []
+      info_attr :description_file
       info_attr :text_scope
 
       alias :super_initialize :initialize

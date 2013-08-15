@@ -35,24 +35,28 @@ module GitData
               :highlight => {}
             }
 
-            @@rules.each do |rule|
-              next if item[rule[:field]].nil?
+            if "#{item[:object_name]}.#{item[:name]}" == query.keywords[0]
+              item_info[:score] = 1
+            else
+              @@rules.each do |rule|
+                next if item[rule[:field]].nil?
 
-              field = self.class.simplify_text(item[rule[:field]])
-              total_kwc = field.count(' ') + 1
-              match_kwc = field.scan(regex_match).size
+                field = self.class.simplify_text(item[rule[:field]])
+                total_kwc = field.count(' ') + 1
+                match_kwc = field.scan(regex_match).size
 
-              # This might make the total score be > 1
-              fuzzy = (field.scan(regex_fuzzy).size - match_kwc) * 0.1
+                # This might make the total score be > 1
+                fuzzy = (field.scan(regex_fuzzy).size - match_kwc) * 0.1
 
-              score = (match_kwc / total_kwc.to_f + fuzzy) * rule[:influence]
-              score = rule[:influence] if score > rule[:influence]
+                score = (match_kwc / total_kwc.to_f + fuzzy) * rule[:influence]
+                score = rule[:influence] if score > rule[:influence]
 
-              item_info[:score] += score
-              item_info[:highlight][rule[:field]] = lambda do
-                self.class.highlight_text(query, field, {
-                  :size => rule[:size]
-                })
+                item_info[:score] += score
+                item_info[:highlight][rule[:field]] = lambda do
+                  self.class.highlight_text(query, field, {
+                    :size => rule[:size]
+                  })
+                end
               end
             end
 

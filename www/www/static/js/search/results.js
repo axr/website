@@ -312,7 +312,14 @@
 				break;
 
 				case 'keyup':
-					that.clean_query();
+					if (e.keyCode === 13)
+					{
+						that.submit();
+					}
+					else
+					{
+						that.clean_query();
+					}
 				break;
 			}
 		});

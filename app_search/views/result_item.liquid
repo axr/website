@@ -60,10 +60,26 @@
 			<a class="title" href="{{item.item.item.permalink}}">{{item.item.object_name}}</a>.
 			<a class="title" href="{{item.item.permalink}}">{{item.item.name}}</a>
 
+			{% if item.item.readonly %}
+				<span class="ro">Read-only</span>
+			{% endif %}
+
+			{% if item.item.permanent %}
+				<span class="permanent" title="This property remains referenceable in any case">Permanent</span>
+			{% endif %}
+
 			<a href="#" class="info" title="Score: {{item.score}}">&#9432;</a>
 		</header>
-		<section>
-			{{item.highlight.description|join: ' ... '}}
-		</section>
+		{% if item.score == 1 and (item.item.description) %}
+			<section class="embedded">
+				<div class="parsedContent">
+					{{item.item.description}}
+				</div>
+			</section>
+		{% else %}
+			<section>
+				{{item.highlight.description|join: ' ... '}}
+			</section>
+		{% endif %}
 	</article>
 {% endif %}
