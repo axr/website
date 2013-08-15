@@ -237,25 +237,47 @@
 				.html(this.sources[key].name));
 		}
 
-		this.element.on('click', '.options .sources a', function (e)
+		this.element.on('click dblclick', '.options .sources a', function (e)
 		{
+			e.preventDefault();
+
 			var key = $(this).attr('data-key');
-			var selected_count = 0;
 
-			for (var key2 in that.sources)
+			if (e.type === 'click')
 			{
-				selected_count += !!that.sources[key2].selected + 0;
-			}
+				var selected_count = 0;
 
-			if (that.sources[key] !== undefined)
-			{
-				if (that.sources[key].selected === true && selected_count === 1)
+				for (var key2 in that.sources)
 				{
-					// Don't allow to deselect the last source
-					return;
+					selected_count += !!that.sources[key2].selected + 0;
 				}
 
-				that.sources[key].selected = !that.sources[key].selected;
+				if (that.sources[key] !== undefined)
+				{
+					if (that.sources[key].selected === true && selected_count === 1)
+					{
+						// Don't allow to deselect the last source
+						return;
+					}
+
+					that.sources[key].selected = !that.sources[key].selected;
+				}
+			}
+			else if (e.type === 'dblclick')
+			{
+				var current_selected = that.sources[key].selected;
+
+				for (var key2 in that.sources)
+				{
+					if (current_selected === true)
+					{
+						that.sources[key2].selected = (key !== key2);
+					}
+					else
+					{
+						that.sources[key2].selected = (key === key2);
+					}
+				}
 			}
 
 			that.update_options_ui();
