@@ -142,6 +142,7 @@
 		this.clean_query = function (initial)
 		{
 			var query = this.element.find('input[name=query]').val();
+			var old_query = query;
 			var match_groups = query.match(/\bsource:(\w+)\b/g) || [];
 
 			if (initial === true && match_groups.length === 0)
@@ -166,7 +167,11 @@
 
 			query = query.replace(/[ ]+/g, ' ').replace(/(^\s|\s$)/, '')
 
-			this.element.find('input[name=query]').val(query);
+			if (query !== old_query)
+			{
+				this.element.find('input[name=query]').val(query);
+			}
+
 			this.update_options_ui();
 		};
 
