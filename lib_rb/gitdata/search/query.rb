@@ -11,6 +11,10 @@ module GitData
         :wiki => {
           :name => 'Wiki',
           :indexes => [Indexes::WikiPage]
+        },
+        :hss => {
+          :name => 'HSS doc',
+          :indexes => [Indexes::HSSObject, Indexes::HSSProperty]
         }
       }
 

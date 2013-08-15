@@ -29,7 +29,7 @@ module GitData
             @rules.each do |rule|
               next if item[rule[:field]].nil?
 
-              field = simplify_text(item[rule[:field]])
+              field = self.class.simplify_text(item[rule[:field]])
               total_kwc = field.count(' ') + 1
               match_kwc = field.scan(regex_match).size
 
@@ -40,37 +40,10 @@ module GitData
               score = rule[:influence] if score > rule[:influence]
 
               item_info[:score] += score
-
-              case rule[:size]
-              when :short
-                item_info[:highlight][rule[:field]] = lambda do
-                  field.gsub(regex_match) {|m| "<mark>#{m}</mark>"}
-                end
-
-              else
-                item_info[:highlight][rule[:field]] = lambda do
-                  out = []
-                  matches = field.scan(regex_hl)
-                  out_length = 0
-
-                  if matches.length > 3
-                    mod = matches.length / 3.0
-                    selected = [0, 1 * mod, 2 * mod]
-                  else
-                    selected = 0..2
-                  end
-
-                  matches.each_with_index do |m, i|
-                    next unless selected.include? i
-
-                    item = m[0].gsub(regex_match) {|m| "<mark>#{m}</mark>"}
-                    out_length += item.length - "<mark></mark>".length
-
-                    out.push item unless out_length > 350
-                  end
-
-                  out
-                end
+              item_info[:highlight][rule[:field]] = lambda do
+                self.class.highlight_text(keywords, field, {
+                  :size => rule[:size]
+                })
               end
             end
 
@@ -78,16 +51,6 @@ module GitData
           end
 
           scored
-        end
-
-        private
-
-        def simplify_text text
-          text.gsub!(/<pre[^>]*>.+?<\/pre>/m, '') # Remove <pre>
-          text.gsub!(/(<\/(li|div|td)>)/, "\1\n\n")
-          text.gsub!(/([^\n])\n(?=[^\n]|\Z)/, '\1 ') # Remove single newlines
-          text.gsub!(/<.+?>/, '') # Remove HTML tags
-          text
         end
       end
     end

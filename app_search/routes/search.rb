@@ -1,5 +1,6 @@
 require 'active_support/core_ext/hash'
 require 'liquid'
+require 'liquid/ordinal_filter'
 
 module SearchApp
   class App

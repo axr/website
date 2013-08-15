@@ -399,3 +399,56 @@
 	color: #fff;
 	text-shadow: #666 0 1px 0;
 }
+
+table.uiTable
+{
+	border-collapse: collapse;
+	empty-cells: hide;
+	margin: 10px 0;
+	text-align: center;
+}
+
+table.uiTable caption
+{
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0 0 4px 0;
+	text-align: left;
+}
+
+table.uiTable th,
+table.uiTable td
+{
+	background: #eaeaea;
+	border: 1px solid #aaa;
+	font-size: 13px;
+	padding: 4px 8px;
+	text-align: left;
+}
+
+table.uiTable th
+{
+	background: #ddd;
+}
+
+table.uiTable th sup
+{
+	font-weight: normal;
+	cursor: help;
+}
+
+table.uiTable td.version
+{
+	text-align: center;
+}
+
+table.uiTable td a
+{
+	color: #D09610;
+	text-decoration: none;
+}
+
+table.uiTable td a:hover
+{
+	text-decoration: underline;
+}

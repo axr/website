@@ -15,6 +15,8 @@ Shared::Config.load "#{Shared::ROOT}/config.json"
 GitData::GitData.data_path = Shared::Config.get['repo_dirs']['data']
 GitData::Indexes::Page.instance.load
 GitData::Indexes::WikiPage.instance.load
+GitData::Indexes::HSSObject.instance.load
+GitData::Indexes::HSSProperty.instance.load
 
 require "#{path}/app_search/app"
 
