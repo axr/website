@@ -9,6 +9,7 @@ GEM
       tzinfo (~> 0.3.37)
     atomic (1.1.10)
     dalli (2.6.4)
+    htmlentities (4.3.1)
     i18n (0.6.4)
     liquid (2.5.0)
     minitest (4.7.5)
@@ -32,6 +33,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   dalli
+  htmlentities
   liquid
   redcarpet
   sinatra
