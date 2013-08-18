@@ -4,7 +4,7 @@ module Shared
     attr_accessor :root
 
     def initialize attrs
-      @production = attrs[:production?].nil? ? true : attrs[:production]
+      @production = attrs[:production?].nil? ? true : attrs[:production?]
       @root = attrs[:root] || nil
 
       @bundles_info = {}
