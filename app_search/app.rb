@@ -33,7 +33,8 @@ module SearchApp
         :rsrc_styles => lambda {@rsrc.html(:css)},
         :rsrc_scripts => lambda {@rsrc.html(:js)},
         :config => Shared::Config.get,
-        :year => lambda {DateTime.now.strftime("%Y")}
+        :year => lambda {DateTime.now.strftime("%Y")},
+        :dev_notice? => !Sinatra::Base.production?
       }
     }
     end
