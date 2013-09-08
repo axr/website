@@ -1,9 +1,8 @@
-
              a  A
             AM\/MA
            (MA:MMD
             :: VD
-           ::  ¼
+           ::  ï¿½
           ::
          ::   **      .A$MMMMND   AMMMD     AMMM6    MMMM  MMMM6
        6::Z. TMMM    MMMMMMMMMDA   VMMMD   AMMM6     MMMMMMMMM6
@@ -18,7 +17,7 @@
        TMMMMMM$       MMMM6 MMMM  AMMM6      MMMMD   MMMM
       TMMM MMMM
      TMMM  .MMM
-     TMM   .MMD       ARBITRARY·······XML········RENDERING
+     TMM   .MMD       ARBITRARYï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½XMLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½RENDERING
      TMM    MMA       ====================================
      TMN    MM
       MN    ZM
@@ -26,20 +25,17 @@
 
 Project leader: Miro Keller (@veosotano)
 
+Core Team:
+	Miro Keller
+	Jake Petroules (@jakepetroules)
+
 Web Team:
-	Funcod
-	Miro Keller (@veosotano)
-	Mohammed Ameen (@amxn)
 	Ragnis Armus (@aragnis)
-	Valerij Primachenko (@vprimachenko)
-	Zisu Andrei (@matzipan)
 
 Spec Team:
-	Jeff Smits (@Apanatshka),
-	Allan Kimmer Jensen (@Saturate)
+	Marc G. (@Mouvedia)
 
 Thanks:
 	Thomas Eitler
 	Guillermo Pascual (@pasku1)
 	All the other great guys on the list, IRC and Twitter!
-
