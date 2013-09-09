@@ -34,9 +34,9 @@ class HssdocObject extends \GitData\Model
 		$this->permalink = preg_replace('/^hssdoc/', '', dirname($info_file->path));
 
 		// Read the description
-		if (isset($info->description_file))
+		if (isset($this->description_file))
 		{
-			$path = dirname($info_file->path) . '/' . $info->description_file;
+			$path = dirname($info_file->path) . '/' . $this->description_file;
 			$file = \GitData\GitData::$repo->get_file($path);
 
 			if ($file !== null)
