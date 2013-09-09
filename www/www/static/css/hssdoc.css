@@ -173,7 +173,12 @@
 #hssdoc_obj .parsedContent h3,
 #hssdoc_obj .parsedContent h4,
 #hssdoc_obj .parsedContent h5,
-#hssdoc_obj .parsedContent h6
+#hssdoc_obj .parsedContent h6,
+#hssdoc_home .parsedContent h2,
+#hssdoc_home .parsedContent h3,
+#hssdoc_home .parsedContent h4,
+#hssdoc_home .parsedContent h5,
+#hssdoc_home .parsedContent h6
 {
 	clear: none;
 }
@@ -326,4 +331,9 @@
 {
 	color: #999;
 	font-size: 10px;
+}
+
+#hssdoc_home > .wrapper
+{
+	width: 666px;
 }
