@@ -1,6 +1,10 @@
+.parsedContent
+{
+	font-size: 14px;
+}
+
 .parsedContent p,
 .parsedContent li {
-	font-size: 14px;
 	line-height: 1.7;
 	margin: 0 0 5px 0;
 }
@@ -97,4 +101,20 @@
 .parsedContent table th
 {
 	background: #ddd;
+}
+
+.parsedContent dl
+{
+}
+
+.parsedContent dl dt
+{
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+.parsedContent dl dd
+{
+	margin: 0 0 0 20px;
+	padding: 2px 0;
 }
