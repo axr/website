@@ -59,6 +59,16 @@ class HssdocObject extends \GitData\Model
 	}
 
 	/**
+	 * Get the object's owner
+	 *
+	 * @return \GitData\Models\HssdocObject
+	 */
+	public function get_owner ()
+	{
+		return self::find_by_name($this->owner);
+	}
+
+	/**
 	 * Get a property by its name
 	 *
 	 * @param string $name
