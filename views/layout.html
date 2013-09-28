@@ -39,13 +39,6 @@
 	<![endif]-->
 
 	{{rsrc_styles|raw}}
-
-	{% if app_vars %}
-		<script>
-			window.App = {};
-			window.App.vars = {{app_vars|json_encode|raw}};
-		</script>
-	{% endif %}
 </head>
 <body>
 	{{html_top|raw}}

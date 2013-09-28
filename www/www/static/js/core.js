@@ -2,6 +2,14 @@ window['Core'] = {};
 
 (function (Core)
 {
+	if (!window.console)
+	{
+		window.console = {
+			log: function () {},
+			warn: function () {}
+		};
+	}
+
 	var instance_getter = function (klass)
 	{
 		return function ()
@@ -17,6 +25,45 @@ window['Core'] = {};
 
 	Core.util = {};
 	Core.social = {};
+	Core.site = {};
+
+	Core.site.on_ready = function ()
+	{
+		var hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+		var offset = $('[data-hash]').not(function ()
+		{
+			return $(this).attr('data-hash') !== hash;
+		}).offset();
+
+		if (offset !== null && !isNaN((offset || {}).top))
+		{
+			$('html, body').animate({
+				scrollTop: offset.top
+			}, 800);
+		}
+
+		Core.social.LastTweet.instance().get(function (tweet, error)
+		{
+			$('#container > footer ._last_tweet')
+				.html(tweet || error.message);
+		});
+
+		Core.CodeBox.find_all(document.body);
+		Core.Router.instance().trigger_callbacks(Core.Router.instance().url(window.location));
+	};
+
+	Core.site.ga_load = function ()
+	{
+		(function ()
+		{
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		})();
+	};
 
 	/**
 	 * A simple router system
@@ -54,6 +101,9 @@ window['Core'] = {};
 			}
 		};
 
+		/**
+		 * Get the current URL
+		 */
 		this.url = function (location)
 		{
 			var location = location || window.location;
@@ -77,7 +127,7 @@ window['Core'] = {};
 			if (typeof window.history.pushState === 'function')
 			{
 				window.history.pushState({}, null, url);
-				this.update(url);
+				this.trigger_callbacks(url);
 			}
 			else
 			{
@@ -93,7 +143,7 @@ window['Core'] = {};
 		 *
 		 * @param {string} url
 		 */
-		this.update = function (url)
+		this.trigger_callbacks = function (url)
 		{
 			if (url === this._url)
 			{
@@ -102,6 +152,12 @@ window['Core'] = {};
 
 			this._url = url;
 			this._route();
+		};
+
+		this.update = function (url)
+		{
+			console.warn("Deprecated function Core.Router.update called");
+			this.trigger_callbacks(url);
 		};
 
 		/**
@@ -129,7 +185,7 @@ window['Core'] = {};
 
 		window.onpopstate = function (e)
 		{
-			that.update(window.location.pathname);
+			that.trigger_callbacks(window.location.pathname);
 		};
 
 		window.onhashchange = function (e)
@@ -139,7 +195,7 @@ window['Core'] = {};
 
 			if (typeof md_old[1] === 'string' && md_old[1] !== md_new[1])
 			{
-				that.update(that.url());
+				that.trigger_callbacks(that.url());
 			}
 		};
 	};

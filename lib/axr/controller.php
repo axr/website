@@ -43,17 +43,6 @@ class Controller extends \Core\Controller
 		$this->layout->config = \Config::get();
 		$this->layout->social = \GitData\Models\GenericConfig::file('config.json')->social;
 
-		// TODO: Clean this up
-		$this->layout->app_vars = (object) array(
-			'hssdoc_url' => \Config::get()->url->hss,
-			'www_url' => \Config::get()->url->www,
-			'wiki_url' => \Config::get()->url->wiki,
-			'version' => \Config::get()->version,
-
-			'rsrc_root' => (string) \URL::create(\Config::get()->url->rsrc),
-			'ga_accounts' => \Config::get()->ga_accounts
-		);
-
 		$this->layout->versions = array(
 			'code' => \Config::get()->version,
 			'data' => \GitData\GitData::$version
