@@ -1,0 +1,17 @@
+{
+	"css/bundle_wiki.css": {
+		"owner": "wiki",
+		"type": "css",
+		"files": [
+			"css/page.css",
+			"css/index.css"
+		]
+	},
+	"js/bundle_wiki.js": {
+		"owner": "wiki",
+		"type": "js",
+		"files": [
+			"js/site.js"
+		]
+	}
+}

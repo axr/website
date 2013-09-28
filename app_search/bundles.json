@@ -1,0 +1,15 @@
+{
+	"css/bundle_search.css": {
+		"type": "css",
+		"files": [
+			"css/results.css"
+		]
+	},
+	"js/bundle_search.js": {
+		"type": "js",
+		"files": [
+			"js/site.js",
+			"js/results.js"
+		]
+	}
+}

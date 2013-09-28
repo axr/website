@@ -3,3 +3,5 @@ source "http://rubygems.org"
 
 gem "chunky_png"
 gem "sass"
+gem "therubyracer"
+gem "uglifier"

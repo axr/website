@@ -52,7 +52,7 @@ window['Core'] = {};
 		Core.Router.instance().trigger_callbacks(Core.Router.instance().url(window.location));
 	};
 
-	Core.site.ga_load = function ()
+	Core.site.load_ga = function ()
 	{
 		(function ()
 		{
@@ -547,7 +547,7 @@ window['Core'] = {};
 		this._load = function ()
 		{
 			$.ajax({
-				url: App.vars.www_url + '/_ajax/ghactivity?callback=?',
+				url: '/_ajax/ghactivity?callback=?',
 				method: 'get',
 				data: {
 					count: 10

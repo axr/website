@@ -1,5 +1,6 @@
 {
 	"css/bundle_shared.css": {
+		"owner": "www",
 		"type": "css",
 		"files": [
 			"css/boilerplate.css",
@@ -13,6 +14,7 @@
 		]
 	},
 	"js/bundle_shared.js": {
+		"owner": "www",
 		"type": "js",
 		"files": [
 			"js/json2.js",
@@ -23,6 +25,7 @@
 		]
 	},
 	"css/bundle_www.css": {
+		"owner": "www",
 		"type": "css",
 		"files": [
 			"css/404.css",
@@ -35,53 +38,13 @@
 		]
 	},
 	"js/bundle_www.js": {
+		"owner": "www",
 		"type": "js",
 		"files": [
 			"js/site.js",
-			"js/www/site.js",
-			"js/www/home.js",
-			"js/www/get_involved.js",
-			"js/www/downloads.js"
-		]
-	},
-	"css/bundle_wiki.css": {
-		"type": "css",
-		"files": [
-			"css/404.css",
-			"css/wiki/page.css",
-			"css/wiki/index.css"
-		]
-	},
-	"js/bundle_wiki.js": {
-		"type": "js",
-		"files": [
-			"js/site.js"
-		]
-	},
-	"css/bundle_hssdoc.css": {
-		"type": "css",
-		"files": [
-			"css/404.css",
-			"css/hssdoc.css"
-		]
-	},
-	"js/bundle_hssdoc.js": {
-		"type": "js",
-		"files": [
-			"js/site.js"
-		]
-	},
-	"css/bundle_search.css": {
-		"type": "css",
-		"files": [
-			"css/search/results.css"
-		]
-	},
-	"js/bundle_search.js": {
-		"type": "js",
-		"files": [
-			"js/site.js",
-			"js/search/results.js"
+			"js/home.js",
+			"js/get_involved.js",
+			"js/downloads.js"
 		]
 	}
 }

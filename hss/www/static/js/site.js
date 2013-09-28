@@ -30,6 +30,8 @@
 
 	$(document).ready(function ()
 	{
+		Core.site.on_ready();
+
 		// Collapse all irrelevant objects on the sidebar
 		$('#hssdoc_sidebar .obj_list > li').addClass('collapsed');
 		$('#hssdoc_sidebar .obj_list > li[data-object="' + current_object_name() + '"]')
@@ -67,3 +69,8 @@
 		expand_all(true);
 	});
 })();
+
+window._gaq = window._gaq || [];
+window._gaq.push(['_setAccount', 'UA-20384487-1']);
+window._gaq.push(['_trackPageview']);
+Core.site.load_ga();
