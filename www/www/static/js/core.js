@@ -471,16 +471,8 @@ window['Core'] = {};
 		this._load = function ()
 		{
 			$.ajax({
-				url: 'https://api.twitter.com/1/statuses/user_timeline.json?callback=?',
+				url: 'https://axrproject.org/bin/twitter_you_suck.php?callback=?',
 				method: 'get',
-				data: {
-					screen_name: 'axrproject',
-					include_rts: 'true',
-					include_entities: 'false',
-					exclude_replies: 'true',
-					trim_user: 'true',
-					count: 10
-				},
 				dataType: 'jsonp',
 				success: function (data)
 				{
