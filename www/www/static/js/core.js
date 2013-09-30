@@ -267,7 +267,7 @@ window['Core'] = {};
 		{
 			return tweet.replace(/[#]+[A-Za-z0-9-_]+/g, function (t)
 			{
-				return t.link('http://search.twitter.com/search?q=' +
+				return t.link('https://twitter.com/search?src=typd&q=' +
 					t.replace('#', '%23'));
 			});
 		};
