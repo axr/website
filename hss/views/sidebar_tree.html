@@ -17,16 +17,16 @@
 						<li>
 							<a href="{{property.permalink}}">{{property.name}}</a>
 
-							{% if property.readonly %}
-								<span class="ro" title="This is a read-only property">(read-only)</span>
-							{% endif %}
-
 							{% if property.implemented == IMPL_NONE %}
 								<span class="implNone" title="This property has not been implemented yet">(not implemented)</span>
 							{% endif %}
 
 							{% if property.implemented == IMPL_SEMI %}
 								<span class="implSemi" title="This property is not fully implemented yet">(half implemented)</span>
+							{% endif %}
+							
+							{% if property.readonly %}
+								<span class="ro" title="This is a read-only property">(read-only)</span>
 							{% endif %}
 						</li>
 					{% endfor %}
