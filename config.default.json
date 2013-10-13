@@ -4,9 +4,10 @@
 
 	"url": {
 		"rsrc": "http://static.axrproject.org/prod-2",
-		"www": "//axrproject.org",
+		"www": "http://axrproject.org",
 		"hss": "http://hss.axrproject.org",
-		"wiki": "http://wiki.axrproject.org"
+		"wiki": "http://wiki.axrproject.org",
+		"search": "http://search.axrproject.org"
 	},
 
 	"cache_servers": [
@@ -19,6 +20,10 @@
 
 	"ga_accounts": {
 		"default": "UA-20384487-1"
+	},
+
+	"repo_dirs": {
+		"data": "/var/prod/data"
 	},
 
 	"disqus_shortname": "axr"

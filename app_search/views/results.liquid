@@ -1,0 +1,26 @@
+{{breadcrumb|raw}}
+
+<div id="search_box">
+	<input type="text" name="query" data-placeholder="Search" value="{{query|escape}}" class="query" />
+	<button name="submit" class="submit">Search</button>
+
+	<div class="options">
+		Source: <div class="sources"></div>
+	</div>
+</div>
+
+<div id="results">
+	<div class="_results" data-query="{{query|escape}}">
+	</div>
+
+	<div class="load_more">
+		<a href="#">load more results</a>
+	</div>
+
+	<div class="loading">
+		<canvas></canvas>
+		<span class="text">loading...</span>
+	</div>
+
+	<div class="no_results">No results found. Try using a different query.</div>
+</div>

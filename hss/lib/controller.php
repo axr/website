@@ -11,6 +11,8 @@ class Controller extends \AXR\Controller
 		parent::__construct();
 
 		// Load default resources
+		$this->rsrc->load_bundles_file(SHARED . '/www/bundles.json');
+		$this->rsrc->load_bundles_file(ROOT . '/bundles.json');
 		$this->rsrc->load_bundle('css/bundle_shared.css');
 		$this->rsrc->load_bundle('css/bundle_hssdoc.css');
 		$this->rsrc->load_bundle('js/bundle_shared.js');

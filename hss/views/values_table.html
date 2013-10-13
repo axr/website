@@ -1,6 +1,6 @@
 <table class="values_table">
 	<thead>
-		<th>Value
+		<th>{% if property.readonly %}Returned value{% else %}Value{% endif %}
 			{% if property.many_values %}
 				<sup title="This property accepts multiple values at once.">unlimited</sup>
 			{% endif %}
@@ -17,7 +17,7 @@
 						{{item.value}}
 					{% endif %}
 
-					{% if is_default %}
+					{% if item.is_default %}
 						<span class="flag default">default</span>
 					{% endif %}
 				</td>

@@ -1,0 +1,16 @@
+{
+	"css/bundle_hssdoc.css": {
+		"owner": "hss",
+		"type": "css",
+		"files": [
+			"css/hssdoc.css"
+		]
+	},
+	"js/bundle_hssdoc.js": {
+		"owner": "hss",
+		"type": "js",
+		"files": [
+			"js/site.js"
+		]
+	}
+}

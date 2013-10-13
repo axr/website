@@ -2,6 +2,8 @@
 
 class RSRC
 {
+	private $bundles;
+
 	/**
 	 * Styles
 	 */
@@ -11,6 +13,32 @@ class RSRC
 	 * Scripts
 	 */
 	private $scripts = array();
+
+	public function __construct ()
+	{
+		$bundles = new StdClass;
+	}
+
+	/**
+	 * Load a bundles.json file
+	 *
+	 * @param string $path
+	 */
+	public function load_bundles_file ($path)
+	{
+		if (!file_exists($path))
+		{
+			return;
+		}
+
+		$bundles = file_get_contents($path);
+		$bundles = json_decode($bundles);
+
+		if (is_object($bundles))
+		{
+			$this->bundles = (object) array_merge((array) $this->bundles, (array) $bundles);
+		}
+	}
 
 	/**
 	 * Add a style to the page
@@ -41,14 +69,12 @@ class RSRC
 	 */
 	public function load_bundle ($bundle_name)
 	{
-		$bundles = $this->get_bundles_info();
-
-		if (!isset($bundles->$bundle_name))
+		if (!isset($this->bundles->$bundle_name))
 		{
 			return;
 		}
 
-		$bundle = $bundles->$bundle_name;
+		$bundle = $this->bundles->$bundle_name;
 		$files = array();
 
 		if (Config::get()->prod === true)
@@ -62,8 +88,21 @@ class RSRC
 
 		foreach ($files as $file)
 		{
-			$url = \URL::create(Config::get()->url->rsrc);
-			$url->path .= '/' . $file;
+			if (Config::get()->prod === true)
+			{
+				$url = \URL::create(Config::get()->url->rsrc);
+				$url->path .= '/' . $file;
+			}
+			else
+			{
+				if (!isset(Config::get()->url->{$bundle->owner}))
+				{
+					continue;
+				}
+
+				$url = \URL::create(Config::get()->url->{$bundle->owner});
+				$url->path .= '/static/' . $file;
+			}
 
 			if ($bundle->type === 'css')
 			{
@@ -140,32 +179,6 @@ class RSRC
 		}
 
 		return $html;
-	}
-
-	/**
-	 * Get bundles info
-	 *
-	 * @todo cache this
-	 * @return string
-	 */
-	public function get_bundles_info ()
-	{
-		static $bundles;
-
-		if (is_object($bundles))
-		{
-			return $bundles;
-		}
-
-		$bundles = file_get_contents(SHARED . '/bundles.json');
-		$bundles = json_decode($bundles);
-
-		if (!is_object($bundles))
-		{
-			$bundles = new StdClass();
-		}
-
-		return $bundles;
 	}
 }
 

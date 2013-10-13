@@ -20,7 +20,7 @@
 	<meta property="og:title" content="AXR: The web, done right #axr" />
 	<meta property="og:type" content="Open Source Technology" />
 	<meta property="og:url" content="http://axrproject.org" />
-	<meta property="og:image" content="{{g/rsrc_root}}/images/logo.jpg" />
+	<meta property="og:image" content="{{config.url.rsrc}}/images/logo.jpg" />
 	<meta property="og:description" content="AXR is a new standard for making web sites and apps, replacing HTML with XML and CSS with HSS. A unified platform independent of browsers, possible to install as plug-in." />
 	<meta property="og:site_name" content="AXR: Arbitrary XML Rendering" />
 
@@ -29,7 +29,7 @@
 
 	<meta itemprop="name" content="AXR: The web, done right #axr">
 	<meta itemprop="description" content="AXR is a new standard for making web sites and apps, replacing HTML with XML and CSS with HSS. A unified platform independent of browsers, possible to install as plug-in.">
-	<meta itemprop="image" content="{{g/config.url.rsrc}}/images/logo.jpg">
+	<meta itemprop="image" content="{{config.url.rsrc}}/images/logo.jpg">
 
 	<!-- unleash the beast-->
 	<meta name="viewport" content="width=device-width,initial-scale=1">
@@ -39,16 +39,16 @@
 	<![endif]-->
 
 	{{rsrc_styles|raw}}
-
-	{% if app_vars %}
-		<script>
-			window.App = {};
-			window.App.vars = {{app_vars|json_encode|raw}};
-		</script>
-	{% endif %}
 </head>
 <body>
 	{{html_top|raw}}
+
+	{% if dev_notice %}
+		<div id="devNotice">
+			<strong>NOTICE!</strong>
+			You are looking at a development version of this site.
+		</div>
+	{% endif %}
 
 	<div id="container">
 		<header>
@@ -179,7 +179,7 @@
 						<div class="box">
 							<div class="inner _last_tweet">Loading...</div>
 							<div class="follow">
-								Follow us on Twitter: <a href="https://twitter.com/{{social.twitter}}/">@{{social.twitter}}</a>
+								Follow us on Twitter: <a href="https://twitter.com/axrproject/">@axrproject</a>
 							</div>
 						</div>
 					</div>
@@ -198,10 +198,12 @@
 
 					<div class="copy">
 						<p>The AXR Project | <a href="mailto:team@axrproject.org">team@axrproject.org</a> | &copy; 2010 - {{year}}</p>
-						<p class="version">
-							<span title="Website: {{versions.code}}">{{versions.code|slice(0, 7)}}</span> /
-							<span title="Data: {{versions.data}}">{{versions.data|slice(0, 7)}}</span>
-						</p>
+						{% if versions %}
+							<p class="version">
+								<span title="Website: {{versions.code}}">{{versions.code|slice(0, 7)}}</span> /
+								<span title="Data: {{versions.data}}">{{versions.data|slice(0, 7)}}</span>
+							</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>

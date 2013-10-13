@@ -1,42 +1,40 @@
 $(document).ready(function ()
 {
-	var hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
-	console.log(hash);
-	var offset = $('[data-hash]').not(function ()
-	{
-		return $(this).attr('data-hash') !== hash;
-	}).offset();
-
-	if (offset !== null && !isNaN((offset || {}).top))
-	{
-		$('html, body').animate({
-			scrollTop: offset.top
-		}, 800);
-	}
-
-	Core.social.LastTweet.instance().get(function (tweet, error)
-	{
-		$('#container > footer ._last_tweet')
-			.html(tweet || error.message);
-	});
-
-	Core.CodeBox.find_all(document.body);
-
-	// Set up GA queue
-	window._gaq = window._gaq || [];
-	window._gaq.push(['_setAccount', App.vars.ga_accounts['default']]);
-	window._gaq.push(['_trackPageview']);
-
-	Core.Router.instance().update(window.location.pathname);
+	Core.site.on_ready();
 });
 
-// Load GA tracker code
-(function ()
+/**
+ * Dropdown menu
+ * @fixme Shouldn't this be implemented in CSS?
+ */
+$('#container > header > nav > ul > li').on('hover', function ()
 {
-	var ga = document.createElement('script');
-	ga.type = 'text/javascript';
-	ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0];
-	s.parentNode.insertBefore(ga, s);
-})();
+	$(this).closest('li')
+		.addClass('hover')
+		.find('.sections')
+		.removeClass('hidden');
+}, function ()
+{
+	$(this).closest('li')
+		.removeClass('hover')
+		.find('.sections')
+		.addClass('hidden');
+});
+
+/**
+ * Back to top link animation
+ */
+$('#container > footer .back_to_top').on('click', function (event)
+{
+	event.preventDefault();
+
+	$('html, body').animate({
+		scrollTop: 0
+	}, 800);
+});
+
+
+window._gaq = window._gaq || [];
+window._gaq.push(['_setAccount', 'UA-20384487-1']);
+window._gaq.push(['_trackPageview']);
+Core.site.load_ga();

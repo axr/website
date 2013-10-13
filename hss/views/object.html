@@ -29,7 +29,7 @@
 		{% for property in properties %}
 			<section class="prop_item" data-hash="{{property.name}}">
 				<header>
-					<h2><a href="{{property.permalink}}" name="{{property.name}}">{{property.name}}</a></h2>
+					<h2><a href="{{property.permalink}}">{{property.name}}</a></h2>
 
 					{% if property.readonly %}
 						<span class="ro">Read-only</span>

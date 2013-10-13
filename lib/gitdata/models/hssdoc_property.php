@@ -68,12 +68,26 @@ class HssdocProperty extends \GitData\Model
 				'since_version' => null
 			), (array) $value);
 
+			if ($this->attrs_data->readonly === true)
+			{
+				// It doesn't make sense for a readonly property to have a
+				// default value.
+				$value->is_default = false;
+			}
+
 			if ($value->since_version !== null)
 			{
 				$implemented_count++;
 			}
 
 			unset($value);
+		}
+
+		if ($this->attrs_data->readonly === true &&
+			$this->attrs_data->many_values === true)
+		{
+			// This doesn't make sense, so it's not allowed
+			$this->attrs_data->many_values = false;
 		}
 
 		if ($implemented_count === count($this->values))

@@ -90,6 +90,14 @@ class ObjectController extends Controller
 			$view->object = $object;
 			$view->properties = $object->get_properties();
 			$view->sidebar = (string) new SidebarView();
+
+			$parent = $object;
+			while ($parent = $parent->get_owner())
+			{
+				$this->breadcrumb->push($parent->name, $parent->permalink);
+			}
+
+			$this->breadcrumb->push($object_name, $object->permalink);
 		}
 
 		$this->layout->title = $object_name;

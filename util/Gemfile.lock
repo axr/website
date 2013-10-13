@@ -1,0 +1,25 @@
+GEM
+  remote: http://rubygems.org/
+  remote: http://rubygems.org/
+  specs:
+    chunky_png (1.2.8)
+    execjs (2.0.2)
+    libv8 (3.16.14.3)
+    multi_json (1.8.0)
+    ref (1.0.5)
+    sass (3.2.11)
+    therubyracer (0.12.0)
+      libv8 (~> 3.16.14.0)
+      ref
+    uglifier (2.2.1)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  chunky_png
+  sass
+  therubyracer
+  uglifier

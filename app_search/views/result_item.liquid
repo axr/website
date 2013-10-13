@@ -1,0 +1,105 @@
+{% if item.item_type == 'Page' or item.item_type == 'WikiPage' %}
+	<article data-score="{{item.score}}" class="type_{{item.item_type}}">
+		<header>
+			<span class="source">{{item.source_name|join: ' ... '}}</span>
+			<span class="separator">/</span>
+			<a class="title" href="{{item.item.permalink}}">{{item.highlight.title}}</a>
+
+			<a href="#" class="info" title="Score: {{item.score}}">&#9432;</a>
+		</header>
+		<section>
+			{{item.highlight.content|join: ' ... '}}
+		</section>
+	</article>
+{% elsif item.item_type == 'HSSObject' %}
+	<article data-score="{{item.score}}" class="type_{{item.item_type}}">
+		<header>
+			<span class="source">{{item.source_name|join: ' ... '}}</span>
+			<span class="separator">/</span>
+			<a class="title" href="{{item.item.permalink}}">{{item.item.name}}</a>
+
+			{% if item.score < 1 %}
+				<a href="#" class="info" title="Score: {{item.score}}">&#9432;</a>
+			{% endif %}
+		</header>
+		{% if item.score == 1 %}
+			<section class="embedded">
+				{% if item.item.shorthand_stack %}
+					<table class="uiTable">
+						<caption>Shorthand stack order:</caption>
+						<tr>
+							<th>Position</th>
+							{% for element in item.item.shorthand_stack %}
+								<th>{{forloop.index|ordinal}}</th>
+							{% endfor %}
+						</tr>
+						<tr>
+							<th>Property</th>
+							{% for property_name in item.item.shorthand_stack %}
+								<td><a href="{{item.item.permalink}}#{{property_name}}">{{property_name}}</a></td>
+							{% endfor %}
+						</tr>
+					</table>
+				{% endif %}
+
+				<div class="parsedContent">
+					{{item.item.description}}
+				</div>
+			</section>
+		{% else %}
+			<section>
+				{{item.highlight.description|join: ' ... '}}
+			</section>
+		{% endif %}
+	</article>
+{% elsif item.item_type == 'HSSProperty' %}
+	<article data-score="{{item.score}}" class="type_{{item.item_type}}">
+		<header>
+			<span class="source">{{item.source_name|join: ' ... '}}</span>
+			<span class="separator">/</span>
+			<a class="title" href="{{item.item.item.permalink}}">{{item.item.object_name}}</a>.
+			<a class="title" href="{{item.item.permalink}}">{{item.item.name}}</a>
+
+			{% if item.item.readonly %}
+				<span class="ro">Read-only</span>
+			{% endif %}
+
+			{% if item.item.permanent %}
+				<span class="permanent" title="This property remains referenceable in any case">Permanent</span>
+			{% endif %}
+
+			<a href="#" class="info" title="Score: {{item.score}}">&#9432;</a>
+		</header>
+		{% if item.score == 1 and (item.item.description or item.item.text_scope) %}
+			<section class="embedded">
+				{% if item.item.text_scope %}
+					<table class="uiTable">
+						<tr>
+							<th>Scope</th>
+							{% assign scopes = "line|word|character"|split: "|" %}
+							{% for name in scopes %}
+								<td>
+									{% if item.item.text_scope contains name %}
+										<span class="symbol">&#10003;</span>
+									{% else %}
+										<span class="symbol">&#215;</span>
+									{% endif %}
+
+									{{name}}
+								</td>
+							{% endfor %}
+						</tr>
+					</table>
+				{% endif %}
+
+				<div class="parsedContent">
+					{{item.item.description}}
+				</div>
+			</section>
+		{% else %}
+			<section>
+				{{item.highlight.description|join: ' ... '}}
+			</section>
+		{% endif %}
+	</article>
+{% endif %}
