@@ -5,16 +5,16 @@ module Shared
 
     def initialize attrs
       @production = attrs[:production?].nil? ? true : attrs[:production?]
-      @root = attrs[:root] || nil
+      @root = (@production ? attrs[:root] : attrs[:root_dev]) || nil
 
       @bundles_info = {}
       @css = []
       @js = []
+    end
 
-      begin
-        @bundles_info = JSON.parse(File.read("#{Shared::ROOT}/bundles.json"))
-      rescue JSON::ParserError
-      end
+    def load_bundles_file file
+      @bundles_info.merge! JSON.parse(File.read(file))
+    rescue JSON::ParserError
     end
 
     def file file
