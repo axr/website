@@ -106,7 +106,13 @@
 
 		this.submit = function ()
 		{
-			window.location = '/q/' + encodeURIComponent(that.build_query());
+			var query = that.build_query();
+			var query_encoded = encodeURIComponent(query)
+				.replace(/%20/g, '+')
+				.replace(/%3A/g, ':')
+				.replace(/%40/g, '@');
+
+			window.location = '/q/' + query_encoded;
 		};
 
 		// Load all the source buttons
