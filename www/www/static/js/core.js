@@ -29,6 +29,25 @@ window['Core'] = {};
 
 	Core.site.on_ready = function ()
 	{
+		Core.site.scroll_to_hash();
+
+		$(window).on('hashchange', function()
+		{
+			Core.site.scroll_to_hash();
+		});
+
+		Core.social.LastTweet.instance().get(function (tweet, error)
+		{
+			$('#container > footer ._last_tweet')
+				.html(tweet || error.message);
+		});
+
+		Core.CodeBox.find_all(document.body);
+		Core.Router.instance().trigger_callbacks(Core.Router.instance().url(window.location));
+	};
+
+	Core.site.scroll_to_hash = function ()
+	{
 		var hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
 		var offset = $('[data-hash]').not(function ()
 		{
@@ -41,15 +60,6 @@ window['Core'] = {};
 				scrollTop: offset.top
 			}, 800);
 		}
-
-		Core.social.LastTweet.instance().get(function (tweet, error)
-		{
-			$('#container > footer ._last_tweet')
-				.html(tweet || error.message);
-		});
-
-		Core.CodeBox.find_all(document.body);
-		Core.Router.instance().trigger_callbacks(Core.Router.instance().url(window.location));
 	};
 
 	Core.site.load_ga = function ()
