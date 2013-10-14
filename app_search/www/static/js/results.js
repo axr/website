@@ -9,9 +9,7 @@
 		this.sources = {
 			www: {name: 'Website', selected: false},
 			hss: {name: 'HSS doc', selected: false},
-			spec: {name: 'Spec', selected: false},
-			wiki: {name: 'Wiki', selected: false},
-			irc: {name: 'IRC', selected: false}
+			wiki: {name: 'Wiki', selected: false}
 		};
 
 		this.set_query = function (query)
