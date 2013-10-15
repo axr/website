@@ -178,57 +178,8 @@
 	background: #3a87ad;
 }
 
-#results > .load_more
-{
-	border-top: 1px solid #bbb;
-	display: block;
-	margin: 0 0 20px 0;
-	padding: 5px 0 0 0;
-	text-align: center;
-}
-
-#results > .load_more a
-{
-	color: #666;
-	font-size: 15px;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-#results > .load_more a:hover
-{
-	text-decoration: underline;
-}
-
-#results > .loading
-{
-	display: block;
-	font-size: 15px;
-	margin: 0 0 20px 0;
-	text-align: center;
-}
-
-#results > .loading canvas
-{
-	display: block;
-	height: 3px;
-	width: 900px;
-}
-
-#results > .loading .text
-{
-	padding: 5px 0 0 0;
-}
-
 #results > .no_results
 {
 	font-size: 16px;
 	text-align: center;
-}
-
-#results > .no_results,
-#results > .load_more,
-#results > .loading
-{
-	display: none;
 }

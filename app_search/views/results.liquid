@@ -11,16 +11,10 @@
 
 <div id="results">
 	<div class="_results" data-query="{{query|escape}}">
+		{{results|raw}}
 	</div>
 
-	<div class="load_more">
-		<a href="#">load more results</a>
-	</div>
-
-	<div class="loading">
-		<canvas></canvas>
-		<span class="text">loading...</span>
-	</div>
-
-	<div class="no_results">No results found. Try using a different query.</div>
+	{% if count == 0 %}
+		<div class="no_results">No results found. Try using a different query.</div>
+	{% endif %}
 </div>

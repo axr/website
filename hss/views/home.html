@@ -2,14 +2,14 @@
 	{{sidebar|raw}}
 
 	<div class="wrapper parsedContent">
-		<h2>Value Glossary</h2>
+		<h3>Value Glossary</h3>
 
 		<dl>
 			<dt>ℕ</dt>
 				<dd>natural numbers (e.g. 0, 1, 2, 3, etc.)</dd>
 			<dt>ℤ</dt>
 				<dd>integers (equivalent to ℕ and -ℕ)</dd>
-			<dt>&lt;numbers&gt;</dt>
+			<dt>&lt;number&gt;</dt>
 				<dd>represents rational numbers (e.g. 1, 0.1, -1)</dd>
 			<dt>&lt;object&gt;</dt>
 				<dd>represents the object type(s) accepted in the current context
@@ -17,10 +17,15 @@
 				object names</a> of this/these type(s).</dd>
 		</dl>
 
-		<h2>Reminder</h2>
+		<h3>Reminders</h3>
 
-		<p>All properties accept the special keywords (<code>default</code>, <code>inherit</code><sup>*</sup> and
-		<code>current</code>).</p>
+		<ul>
+		<li>The 3 special keywords <code>default</code>, <code>inherit</code><sup>*</sup> and
+		<code>current</code> are accepted on all properties.</li>
+			
+		<li>You can prevent properties from being reset using the cascade property, like so:
+		<code>property.cascade: no;</code></li>
+		</ul>
 
 		<small><sup>*</sup> except properties set on the root element.</small>
 	</div>

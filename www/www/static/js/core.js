@@ -29,6 +29,25 @@ window['Core'] = {};
 
 	Core.site.on_ready = function ()
 	{
+		Core.site.scroll_to_hash();
+
+		$(window).on('hashchange', function()
+		{
+			Core.site.scroll_to_hash();
+		});
+
+		Core.social.LastTweet.instance().get(function (tweet, error)
+		{
+			$('#container > footer ._last_tweet')
+				.html(tweet || error.message);
+		});
+
+		Core.CodeBox.find_all(document.body);
+		Core.Router.instance().trigger_callbacks(Core.Router.instance().url(window.location));
+	};
+
+	Core.site.scroll_to_hash = function ()
+	{
 		var hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
 		var offset = $('[data-hash]').not(function ()
 		{
@@ -41,15 +60,6 @@ window['Core'] = {};
 				scrollTop: offset.top
 			}, 800);
 		}
-
-		Core.social.LastTweet.instance().get(function (tweet, error)
-		{
-			$('#container > footer ._last_tweet')
-				.html(tweet || error.message);
-		});
-
-		Core.CodeBox.find_all(document.body);
-		Core.Router.instance().trigger_callbacks(Core.Router.instance().url(window.location));
 	};
 
 	Core.site.load_ga = function ()
@@ -113,31 +123,6 @@ window['Core'] = {};
 		};
 
 		/**
-		 * Update the current URL in the browser.
-		 *
-		 * @param {string} url
-		 */
-		this.navigate = function (url)
-		{
-			if (url === this._url)
-			{
-				return;
-			}
-
-			if (typeof window.history.pushState === 'function')
-			{
-				window.history.pushState({}, null, url);
-				this.trigger_callbacks(url);
-			}
-			else
-			{
-				var hashstring = window.location.hash
-					.replace(/\?_fp=.+$/, '') + '?_fp=' + encodeURIComponent(url);
-				window.location.hash = hashstring;
-			}
-		};
-
-		/**
 		 * Update the current URL. This will not actually navigate anywhere,
 		 * it'll just call the callbacks.
 		 *
@@ -181,22 +166,6 @@ window['Core'] = {};
 		this.once = function (regex, callback)
 		{
 			this.on(regex, callback, { once: true });
-		};
-
-		window.onpopstate = function (e)
-		{
-			that.trigger_callbacks(window.location.pathname);
-		};
-
-		window.onhashchange = function (e)
-		{
-			var md_old = e.oldURL.match(/\?_fp=(.+)$/) || [];
-			var md_new = e.newURL.match(/\?_fp=(.+)$/) || [];
-
-			if (typeof md_old[1] === 'string' && md_old[1] !== md_new[1])
-			{
-				that.trigger_callbacks(that.url());
-			}
 		};
 	};
 
