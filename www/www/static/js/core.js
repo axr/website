@@ -43,7 +43,7 @@ window['Core'] = {};
 		});
 
 		Core.CodeBox.find_all(document.body);
-		Core.Router.instance().trigger_callbacks(Core.Router.instance().url(window.location));
+		Core.Router.instance().trigger_url_changed(window.location.pathname);
 	};
 
 	Core.site.scroll_to_hash = function ()
@@ -112,23 +112,11 @@ window['Core'] = {};
 		};
 
 		/**
-		 * Get the current URL
-		 */
-		this.url = function (location)
-		{
-			var location = location || window.location;
-			var matchdata = (location.hash || '').match(/\?_fp=(.+)$/) || [];
-			return (typeof matchdata[1] === 'string') ?
-				decodeURIComponent(matchdata[1]) : location.pathname;
-		};
-
-		/**
-		 * Update the current URL. This will not actually navigate anywhere,
-		 * it'll just call the callbacks.
+		 * This should be called when the current URL changes
 		 *
 		 * @param {string} url
 		 */
-		this.trigger_callbacks = function (url)
+		this.trigger_url_changed = function (url)
 		{
 			if (url === this._url)
 			{
@@ -137,12 +125,6 @@ window['Core'] = {};
 
 			this._url = url;
 			this._route();
-		};
-
-		this.update = function (url)
-		{
-			console.warn("Deprecated function Core.Router.update called");
-			this.trigger_callbacks(url);
 		};
 
 		/**
