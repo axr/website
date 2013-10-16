@@ -6,7 +6,6 @@
 			"css/boilerplate.css",
 			"css/layout.css",
 			"css/style.css",
-			"css/style_modal.css",
 			"css/boilerplate_after.css",
 			"css/code_box.css",
 			"css/content.css",
@@ -43,7 +42,6 @@
 		"files": [
 			"js/site.js",
 			"js/home.js",
-			"js/get_involved.js",
 			"js/downloads.js"
 		]
 	}
