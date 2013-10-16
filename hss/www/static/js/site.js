@@ -28,6 +28,11 @@
 		}
 	};
 
+	$(window).on('hashchange load', function()
+	{
+		Core.site.scroll_to_hash();
+	});
+
 	$(document).ready(function ()
 	{
 		Core.site.on_ready();

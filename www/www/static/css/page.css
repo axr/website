@@ -133,56 +133,6 @@
 	float: right;
 }
 
-#page_add a,
-#page_add_select a,
-#page_rm a
-{
-	color: #D09610;
-	text-decoration: none;
-}
-
-#page_add a:hover,
-#page_add_select a:hover,
-#page_rm a:hover
-{
-	text-decoration: underline;
-}
-
-#page_add_select ul.types
-{
-	list-style-type: bull;
-	margin: 0 0 0 30px;
-	padding: 0;
-}
-
-#page_add_select ul.types li
-{
-	border-bottom: 1px solid #bbb;
-	padding: 6px 0;
-	margin: 0 0 10px 0;
-}
-
-#page_add_select ul.types li a
-{
-	font-size: 14px;
-	font-weight: bold;
-}
-
-#page_add form textarea
-{
-	font-family: Monaco, monospace !important;
-}
-
-#page_add form input[name=title]
-{
-	width: 420px;
-}
-
-#page_add form textarea[name=field_content]
-{
-	height: 400px;
-}
-
 #livefyre
 {
 	margin-top: 0 !important;

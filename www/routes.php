@@ -21,39 +21,10 @@ $router->route('/^\/gitdata\/asset\/?$/', array(
 	'run' => 'run_asset'
 ));
 
-$router->route('/^\/auth\/(\w+)(\/|$)/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\AuthController',
-	'args' => array(1)
-));
-
-$router->route('/^\/auth(\/|$)/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\AuthController'
-));
-
-$router->route('/^\/account\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\AccountController'
-));
-
-$router->route('/^\/account\/oid_rm\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\AccountController',
-	'run' => 'run_oid_rm_POST',
-	'method' => 'POST'
-));
-
 $router->route('/^\/get-involved\/?$/', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\ViewController',
 	'args' => array(ROOT . '/views/get_involved.html', 'Get Involved')
-));
-
-$router->route('/^\/calendar\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\ViewController',
-	'args' => array(ROOT . '/views/calendar.html', 'Calendar')
 ));
 
 $router->route('/^\/about\/manifesto\/?$/', array(
@@ -72,12 +43,6 @@ $router->route('/^\/downloads\/?$/i', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\DownloadsController',
 	'run' => 'run'
-));
-
-$router->route('/^\/admin\/cache\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\AdminController',
-	'run' => 'runCache'
 ));
 
 $router->route('/^\/(.+)$/', array(

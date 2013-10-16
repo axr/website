@@ -29,13 +29,6 @@ window['Core'] = {};
 
 	Core.site.on_ready = function ()
 	{
-		Core.site.scroll_to_hash();
-
-		$(window).on('hashchange', function()
-		{
-			Core.site.scroll_to_hash();
-		});
-
 		Core.social.LastTweet.instance().get(function (tweet, error)
 		{
 			$('#container > footer ._last_tweet')
@@ -43,7 +36,7 @@ window['Core'] = {};
 		});
 
 		Core.CodeBox.find_all(document.body);
-		Core.Router.instance().trigger_callbacks(Core.Router.instance().url(window.location));
+		Core.Router.instance().trigger_url_changed(window.location.pathname);
 	};
 
 	Core.site.scroll_to_hash = function ()
@@ -112,23 +105,11 @@ window['Core'] = {};
 		};
 
 		/**
-		 * Get the current URL
-		 */
-		this.url = function (location)
-		{
-			var location = location || window.location;
-			var matchdata = (location.hash || '').match(/\?_fp=(.+)$/) || [];
-			return (typeof matchdata[1] === 'string') ?
-				decodeURIComponent(matchdata[1]) : location.pathname;
-		};
-
-		/**
-		 * Update the current URL. This will not actually navigate anywhere,
-		 * it'll just call the callbacks.
+		 * This should be called when the current URL changes
 		 *
 		 * @param {string} url
 		 */
-		this.trigger_callbacks = function (url)
+		this.trigger_url_changed = function (url)
 		{
 			if (url === this._url)
 			{
@@ -137,12 +118,6 @@ window['Core'] = {};
 
 			this._url = url;
 			this._route();
-		};
-
-		this.update = function (url)
-		{
-			console.warn("Deprecated function Core.Router.update called");
-			this.trigger_callbacks(url);
 		};
 
 		/**
@@ -347,81 +322,6 @@ window['Core'] = {};
 		{
 			new Core.CodeBox($(element).parent());
 		});
-	};
-
-	Core.Modal = function (html, options)
-	{
-		var that = this;
-
-		/**
-		 * Contents of the modal box
-		 *
-		 * @type {string}
-		 */
-		this._html = html;
-
-		/**
-		 * Options
-		 *
-		 * @type {Object<string, *>}
-		 */
-		this._options = options || {};
-
-		/**
-		 * Initialize
-		 */
-		this.initialize = function ()
-		{
-			if ($('#as_modal').length === 0)
-			{
-				$('body').prepend(
-					'<div id="as_modal">' +
-						'<div id="as_modal_wrap">' +
-							'<div class="inner">' +
-								'<div class="content"></div>' +
-							'</div>' +
-						'</div>' +
-					'</div>');
-			}
-		};
-
-		/**
-		 * Show a modal box
-		 */
-		this.show = function ()
-		{
-			this.initialize();
-			this.hide();
-
-			if (!(this._options.size instanceof Array) ||
-					this._options.size.length !== 2)
-			{
-				this._options.size = [500, 375];
-			}
-
-			$('#as_modal > div > .inner')
-				.css('width', this._options.size[0] + 'px')
-				.css('height', this._options.size[1] + 'px')
-				.css('right', '-' + (this._options.size[0] / 2) + 'px')
-				.css('bottom', '-' + (this._options.size[1] / 2) + 'px');
-			$('#as_modal > div > .inner > .content').html(this._html);
-
-			$('#as_modal').on('click', '._as_modal_close', function ()
-			{
-				that.hide();
-			});
-
-			$('#as_modal').show();
-		};
-
-		/**
-		 * Hide the modal box
-		 */
-		this.hide = function ()
-		{
-			$('#as_modal').hide();
-			$('#as_modal > div > .inner > .content').empty();
-		};
 	};
 
 	/**

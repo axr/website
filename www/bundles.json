@@ -6,11 +6,11 @@
 			"css/boilerplate.css",
 			"css/layout.css",
 			"css/style.css",
-			"css/style_modal.css",
 			"css/boilerplate_after.css",
 			"css/code_box.css",
 			"css/content.css",
-			"css/tipsy.jquery.css"
+			"css/tipsy.jquery.css",
+			"css/404.css"
 		]
 	},
 	"js/bundle_shared.js": {
@@ -28,11 +28,9 @@
 		"owner": "www",
 		"type": "css",
 		"files": [
-			"css/404.css",
 			"css/page.css",
 			"css/downloads.css",
 			"css/manifesto.css",
-			"css/calendar.css",
 			"css/home.css",
 			"css/get_involved.css"
 		]
@@ -43,7 +41,6 @@
 		"files": [
 			"js/site.js",
 			"js/home.js",
-			"js/get_involved.js",
 			"js/downloads.js"
 		]
 	}
