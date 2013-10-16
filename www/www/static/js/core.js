@@ -29,13 +29,6 @@ window['Core'] = {};
 
 	Core.site.on_ready = function ()
 	{
-		Core.site.scroll_to_hash();
-
-		$(window).on('hashchange', function()
-		{
-			Core.site.scroll_to_hash();
-		});
-
 		Core.social.LastTweet.instance().get(function (tweet, error)
 		{
 			$('#container > footer ._last_tweet')
