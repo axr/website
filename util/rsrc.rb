@@ -27,6 +27,7 @@ module AXR
           sprite.image.save "#{destination}/images/sprite_#{sprite.filename}"
 
           @bundles.each do |bundle|
+            next unless bundle.type == :css
             bundle.sprite sprite
           end
         end
@@ -107,7 +108,7 @@ module AXR
       end
 
       def sprite sprite
-        sprite.filter_css @output
+        @output = sprite.filter_css @output
       end
 
       def filename
@@ -192,7 +193,7 @@ module AXR
       end
 
       def filter_css css
-        css.scan(/(background-image: url\(\.\.\/images\/sprite_\w+\/([^\/)]+)\);)/) do |match|
+        css.scan(/(background-image:\s*url\(\.\.\/images\/sprite_[a-zA-Z0-9_-]+\/([^\/)]+)\);)/) do |match|
           replace = match[0]
           filename = match[1]
 
@@ -204,6 +205,8 @@ module AXR
 
           css = css.gsub(replace, replacement)
         end
+
+        css
       end
     end
   end
