@@ -50,12 +50,6 @@ $router->route('/^\/get-involved\/?$/', array(
 	'args' => array(ROOT . '/views/get_involved.html', 'Get Involved')
 ));
 
-$router->route('/^\/calendar\/?$/', array(
-	'domain' => $www_domain,
-	'controller' => '\\WWW\\ViewController',
-	'args' => array(ROOT . '/views/calendar.html', 'Calendar')
-));
-
 $router->route('/^\/about\/manifesto\/?$/', array(
 	'domain' => $www_domain,
 	'controller' => '\\WWW\\ViewController',
