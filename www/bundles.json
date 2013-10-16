@@ -9,7 +9,8 @@
 			"css/boilerplate_after.css",
 			"css/code_box.css",
 			"css/content.css",
-			"css/tipsy.jquery.css"
+			"css/tipsy.jquery.css",
+			"css/404.css"
 		]
 	},
 	"js/bundle_shared.js": {
@@ -27,7 +28,6 @@
 		"owner": "www",
 		"type": "css",
 		"files": [
-			"css/404.css",
 			"css/page.css",
 			"css/downloads.css",
 			"css/manifesto.css",
