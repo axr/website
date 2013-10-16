@@ -25,7 +25,8 @@ end
 
 # Load sprites
 [
-  "www/www/static/images"
+  "www/www/static/images",
+  "hss/www/static/images"
 ].each do |search_path|
   Dir.entries("#{ROOT}/#{search_path}").each do |entryname|
     path = "#{ROOT}/#{search_path}/#{entryname}"
