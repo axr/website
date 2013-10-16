@@ -24,7 +24,7 @@
 		});
 	});
 
-	Core.Router.instance().once(/^\/$/, function ()
+	Core.Router.instance().on(/^\/$/, function ()
 	{
 		Core.social.GitHubActivity.instance().get(function (events, error)
 		{
