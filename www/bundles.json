@@ -41,7 +41,8 @@
 		"files": [
 			"js/site.js",
 			"js/home.js",
-			"js/downloads.js"
+			"js/downloads.js",
+			"js/get_involved.js"
 		]
 	}
 }
