@@ -7,3 +7,17 @@ unless File.exists? "/vagrant/config.json"
     })
   end
 end
+
+cookbook_file "/etc/rc.local" do
+  backup false
+  source "rc.local"
+  mode 0777
+  action :create
+end
+
+bash "enable_rc.local" do
+  action :run
+  code <<-EOH
+    sudo update-rc.d rc.local enable
+  EOH
+end

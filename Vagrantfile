@@ -22,6 +22,16 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'rvm::system'
 
     chef.json = {
+      'configure' => {
+        'url' => {
+          'www' => 'http://local.axrproject.org:8080',
+          'rsrc' => 'http://local.axrproject.org:8080/static',
+          'wiki' => 'http://wiki.local.axrproject.org:8080',
+          'hss' => 'http://hss.local.axrproject.org:8080',
+          'search' => 'http://search.local.axrproject.org:8080'
+        }
+      },
+
       'nginx' => {
         'sendfile' => 'off'
       },
@@ -50,15 +60,21 @@ Vagrant.configure("2") do |config|
   end
 
   gemfiles = [
-    '/vagrant/Gemfile',
-    '/vagrant/app_search/Gemfile'
+    {
+      :gemfile => '/vagrant/Gemfile',
+      :ruby => '1.9.3'
+    },
+    {
+      :gemfile => '/vagrant/app_search/Gemfile',
+      :ruby => '1.9.3'
+    }
   ]
 
   # Run Gemfiles
   gemfiles.each do |gemfile|
-    config.vm.provision :shell, :inline => "bundle install --gemfile=#{gemfile}"
+    config.vm.provision :shell, :inline => "
+      source /usr/local/rvm/scripts/rvm
+      rvm use #{gemfile[:ruby]}
+      bundle install --gemfile=#{gemfile[:gemfile]}"
   end
-
-  # Launch apps
-  # shotgun --host=0.0.0.0 --port=8084 /vagrant/app_search/config.ru
 end
