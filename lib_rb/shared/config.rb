@@ -1,4 +1,5 @@
 require 'json'
+require 'active_support/core_ext/hash/deep_merge'
 
 module Shared
   class Config
@@ -8,7 +9,7 @@ module Shared
       return unless File.exists?(file)
 
       begin
-        @@data.merge! JSON.load File.read(file)
+        @@data.deep_merge! JSON.load(File.read(file))
       rescue JSON::ParserError
         return
       end
