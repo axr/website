@@ -14,7 +14,7 @@ module GitData
 
       @file = file
       @type = params[:type]
-      @text = parse_content(file.data)
+      @text = parse_content(file.text)
       @toc = []
 
       if params[:link_titles] or params[:generate_toc]
@@ -37,7 +37,7 @@ module GitData
     end
 
     def summary
-      parse_content(@file.data.split('<!--more-->')[0])
+      parse_content(@file.text.split('<!--more-->')[0])
     end
 
     private

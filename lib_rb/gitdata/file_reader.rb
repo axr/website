@@ -1,8 +1,6 @@
 module GitData
   class File
     attr_reader :path
-    attr_reader :data
-
     attr_reader :dirname
     attr_reader :extname
 
@@ -13,10 +11,16 @@ module GitData
 
       @dirname = ::File.dirname(path)
       @extname = ::File.extname(path).gsub(/^\./, '')
+    end
 
-      if @exists
-        @data = @reader.read @path
-      end
+    def data
+      @data ||= @reader.read(@path) if @exists
+      @data
+    end
+
+    def text
+      @text ||= @reader.read_text(@path) if @exists
+      @text
     end
 
     def exists?
@@ -29,19 +33,22 @@ module GitData
   end
 
   class InfoFile < GitData::File
-    alias :super_initialize :initialize
     def initialize reader, path
-      super_initialize(reader, path)
+      super(reader, path)
 
       if @exists
         begin
-          @data = JSON.parse(@data, {
+          @data = JSON.parse(self.text, {
             :symbolize_names => true
           })
         rescue JSON::ParserError
           @exists = false
         end
       end
+    end
+
+    def data
+      @data
     end
   end
 
@@ -82,6 +89,14 @@ module GitData
       when :fs
         return ::File.read("#{@path}/#{path}")
       end
+    end
+
+    def read_text path
+      read(path).encode("UTF-8", {
+        :invalid => :replace,
+        :undef => :replace,
+        :universal_newline => true
+      })
     end
 
     def glob path
