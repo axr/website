@@ -12,7 +12,8 @@ package = AXR::RsrcBuilder::Package.new
 [
   "www/bundles.json",
   "wiki/bundles.json",
-  "hss/bundles.json"
+  "hss/bundles.json",
+  "app_search/bundles.json"
 ].each do |filename|
   bf = AXR::RsrcBuilder::Bundlefile.new("#{ROOT}/#{filename}")
   next unless bf.bundles.kind_of?(Array)
