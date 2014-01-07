@@ -1,4 +1,17 @@
+require 'shared/shared'
+require 'gitdata/gitdata'
 require 'sinatra/axr_layout_helpers'
+
+# Load shared config
+Shared::Config.load "#{Shared::ROOT}/config.default.json"
+Shared::Config.load "#{Shared::ROOT}/config.json"
+
+# Initialize GitData
+GitData::GitData.data_path = Shared::Config.get['repo_dirs']['data']
+GitData::Indexes::Page.instance.load
+GitData::Indexes::WikiPage.instance.load
+GitData::Indexes::HSSObject.instance.load
+GitData::Indexes::HSSProperty.instance.load
 
 module SearchApp
   ROOT = File.expand_path(File.dirname(__FILE__))
