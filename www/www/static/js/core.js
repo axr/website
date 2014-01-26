@@ -284,7 +284,8 @@ window['Core'] = {};
 		}
 
 		var html = [];
-		html.push('<div class="uiCodeBox">');
+		var html_linenos = [];
+		var html_code = [];
 
 		for (var i = 0, c = lines.length; i < c; i++)
 		{
@@ -300,12 +301,13 @@ window['Core'] = {};
 				return (new Array(match.length * 4 + 1)).join(' ')
 			});
 
-			html.push('<div class="line">');
-			html.push('<div class="number">' + (i + 1) + '</div>');
-			html.push('<code>' + line + '</code>');
-			html.push('</div>');
+			html_linenos.push('<div>' + (i + 1) + '</div>');
+			html_code.push(line);
 		}
 
+		html.push('<div class="uiCodeBox">');
+		html.push('<div class="linenos">' + html_linenos.join('') + '</div>');
+		html.push('<pre>' + html_code.join('\n') + '</pre>');
 		html.push('</div>');
 
 		this.replace_with(html.join(''));
