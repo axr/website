@@ -3,101 +3,107 @@
 	background: #fff;
 	border: 1px solid #bbb;
 	border-radius: 3px;
+	clear: both;
 	font-size: 13px;
 	margin: 10px 0 10px 0;
-}
-
-.uiCodeBox > .line
-{
 	position: relative;
 }
 
-.uiCodeBox > .line .number
+.uiCodeBox > .linenos
 {
 	background: #e5e5e5;
 	border-right: 1px solid #bbb;
 	height: 100%;
 	left: 0;
-	padding: 0 5px;
 	position: absolute;
-	text-align: right;
-	top: 0;
 	width: 25px;
 }
 
-.uiCodeBox > .line code
+.uiCodeBox > .linenos > div
+{
+	padding: 0 5px;
+	height: 17px;
+	text-align: right;
+}
+
+.uiCodeBox > pre
+{
+	margin: 0 0 0 35px;
+	overflow-x: auto;
+}
+
+.uiCodeBox > pre > .line
 {
 	border: 0;
 	color: #555;
-	display: block;
 	font-size: 13px;
-	margin: 0 0 0 35px;
+	height: 17px;
 	padding: 0 10px;
-	white-space: pre-wrap;
 }
 
-.uiCodeBox > .line code .token.comment,
-.uiCodeBox > .line code .token.prolog,
-.uiCodeBox > .line code .token.doctype,
-.uiCodeBox > .line code .token.cdata
+
+.uiCodeBox pre .token.comment,
+.uiCodeBox pre .token.prolog,
+.uiCodeBox pre .token.doctype,
+.uiCodeBox pre .token.cdata
 {
 	color: slategray;
 }
 
-.uiCodeBox > .line code .token.punctuation
+.uiCodeBox pre .token.punctuation
 {
 	color: #999;
 }
 
-.uiCodeBox > .line code .namespace
+.uiCodeBox pre .namespace
 {
 	opacity: .7;
 }
 
-.uiCodeBox > .line code .token.property,
-.uiCodeBox > .line code .token.tag,
-.uiCodeBox > .line code .token.boolean,
-.uiCodeBox > .line code .token.number
+.uiCodeBox pre .token.property,
+.uiCodeBox pre .token.tag,
+.uiCodeBox pre .token.boolean,
+.uiCodeBox pre .token.number
 {
 	color: #905;
 }
 
-.uiCodeBox > .line code .token.selector,
-.uiCodeBox > .line code .token.attr-name,
-.uiCodeBox > .line code .token.string
+.uiCodeBox pre .token.selector,
+.uiCodeBox pre .token.attr-name,
+.uiCodeBox pre .token.string
 {
 	color: #690;
 }
 
-.uiCodeBox > .line code .token.operator,
-.uiCodeBox > .line code .token.entity,
-.uiCodeBox > .line code .token.url,
-.uiCodeBox > .line code .language-css .token.string,
-.uiCodeBox > .line code .style .token.string
+.uiCodeBox pre .token.operator,
+.uiCodeBox pre .token.entity,
+.uiCodeBox pre .token.url,
+.uiCodeBox pre .language-css .token.string,
+.uiCodeBox pre .style .token.string
 {
 	color: #a67f59;
 	background: hsla(0,0%,100%,.5);
 }
 
-.uiCodeBox > .line code .token.atrule,
-.uiCodeBox > .line code .token.attr-value,
-.uiCodeBox > .line code .token.keyword
+.uiCodeBox pre .token.atrule,
+.uiCodeBox pre .token.attr-value,
+.uiCodeBox pre .token.keyword
 {
 	color: #07a;
 }
 
-.uiCodeBox > .line code .token.regex,
-.uiCodeBox > .line code .token.important
+.uiCodeBox pre .token.regex,
+.uiCodeBox pre .token.important
 {
 	color: #e90;
 }
 
-.uiCodeBox > .line code .token.important
+.uiCodeBox pre .token.important
 {
 	font-weight: bold;
 }
 
-.uiCodeBox > .line code .token.entity
+.uiCodeBox pre .token.entity
 {
 	cursor: help;
 }
