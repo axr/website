@@ -266,7 +266,7 @@ content
 {
 	// make it 20% the width of the parent, but at
 	// least 150 points wide and at most 400 points
-	width: min(150, max(400, 20%));
+	width: max(150, min(400, 20%));
 }</code></pre>
 			</div>
 			<div data-section-name="references">
@@ -281,7 +281,7 @@ content
 	sidebar
 	{
 		// like in the previous example
-		width: min(150, max(400, 20%));
+		width: max(150, min(400, 20%));
 	}
 
 	content
