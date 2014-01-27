@@ -4,26 +4,8 @@ namespace GitData\Models;
 
 class PackageRelease extends \GitData\Model
 {
-	/**
-	 * Name of the package that this release belongs to
-	 *
-	 * @var string
-	 */
-	public $package;
-
-	/**
-	 * Version of this release
-	 *
-	 * @var string
-	 */
-	public $version;
-
-	/**
-	 * List of files within this release
-	 *
-	 * @var string
-	 */
-	public $files;
+	protected $attrs = array('package', 'version', 'core_version', 'files');
+	protected $public = array();
 
 	/**
 	 * __construct
@@ -32,20 +14,7 @@ class PackageRelease extends \GitData\Model
 	 */
 	public function __construct (\GitData\Git\File $info_file)
 	{
-		$info = json_decode($info_file->get_data());
-
-		if (!is_object($info))
-		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
-		}
-
-		foreach ($info as $key => $value)
-		{
-			if (property_exists(__CLASS__, $key))
-			{
-				$this->$key = $value;
-			}
-		}
+		parent::__construct($info_file);
 
 		$this->_cache_write_state();
 	}
