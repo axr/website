@@ -61,14 +61,6 @@ class DownloadsController extends Controller
 
 	private static function get_releases ($packages)
 	{
-		$cache_key = '/www/releases/' . md5(implode(',', $packages));
-
-		$files = \Cache::get($cache_key);
-		if ($files !== null)
-		{
-			return $files;
-		}
-
 		$files = array();
 
 		foreach ($packages as $package_name)
@@ -147,10 +139,6 @@ class DownloadsController extends Controller
 				}
 			}
 		}
-
-		\Cache::set($cache_key, $files, array(
-			'data_version' => 'current'
-		));
 
 		return $files;
 	}
