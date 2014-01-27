@@ -81,6 +81,6 @@
 	Core.Router.instance().on(/^\/downloads\/?$/, function ()
 	{
 		$('#downloads .rtable .release').addClass('collapsed');
-		$('#downloads .rtable[data-key=browser] .release').removeClass('collapsed');
+		$('#downloads .rtable[data-key=browser] .release:first-child').removeClass('collapsed');
 	});
 })();

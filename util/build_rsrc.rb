@@ -56,6 +56,6 @@ end
 end
 
 puts "Building the package for #{SHA}"
-package.build "#{ROOT}/rsrc_#{SHA}"
+package.build "#{ROOT}/prod-#{SHA}"
 
 puts "Good."
