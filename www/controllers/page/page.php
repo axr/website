@@ -11,7 +11,6 @@ class PageController extends Controller
 	 */
 	public function run_display ($path)
 	{
-		// Yeah... If the model could just cache it, that'd be great
 		$page = \GitData\Models\Page::find_by_path($path);
 
 		if ($page === null)
@@ -53,8 +52,6 @@ class PageController extends Controller
 	 */
 	public function run_blog_list ()
 	{
-		$index = self::_blog_index();
-
 		$per_page = 25;
 		$page = (int) array_key_or($_GET, 'page', 0);
 		$offset = $page * $per_page;
@@ -65,6 +62,7 @@ class PageController extends Controller
 
 		if (!$view->load_from_cache())
 		{
+			$index = \GitData\Models\Page::get_blog_index();
 			$posts = array();
 
 			for ($i = $offset, $c = $offset + $per_page; $i < $c; $i++)
@@ -94,64 +92,5 @@ class PageController extends Controller
 		$this->layout->content = $view->get_rendered();
 
 		echo $this->layout->get_rendered();
-	}
-
-	public static function _blog_index ($rebuild = false)
-	{
-		$index = \Cache::get('/www/blog_index');
-
-		if (is_object($index) && $rebuild === false)
-		{
-			return $index;
-		}
-
-		$blog_root_path = \GitData\GitData::$root . '/pages/blog';
-		$index = array();
-
-		$years = scandir($blog_root_path);
-		rsort($years);
-
-		foreach ($years as $year)
-		{
-			if (!is_numeric($year) ||
-				!is_dir($blog_root_path . '/' . $year))
-			{
-				continue;
-			}
-
-			$items = scandir($blog_root_path . '/' . $year);
-
-			foreach ($items as $item)
-			{
-				if ($item === '.' || $item === '..')
-				{
-					continue;
-				}
-
-				$post = \GitData\Models\Page::find_by_path(
-					'/blog/' . $year . '/' . $item);
-
-				if ($post === null)
-				{
-					continue;
-				}
-
-				$index[] = (object) array(
-					'date' => strtotime($post->date),
-					'path' => '/blog/' . $year . '/' . $item
-				);
-			}
-		}
-
-		usort($index, function ($a, $b)
-		{
-			return ($a->date < $b->date) ? 1 : -1;
-		});
-
-		\Cache::set('/www/blog_index', $index, array(
-			'data_version' => 'current'
-		));
-
-		return $index;
 	}
 }
