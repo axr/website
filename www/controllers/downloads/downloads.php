@@ -96,6 +96,11 @@ class DownloadsController extends Controller
 							'src' => null
 						)
 					);
+
+					if ($release->core_version !== null)
+					{
+						$files[$release->version]['core_version'] = $release->core_version;
+					}
 				}
 
 				foreach ($release->files as $file)
