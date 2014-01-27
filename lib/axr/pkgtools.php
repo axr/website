@@ -157,6 +157,13 @@ class Pkgtools
 
 	public static function test_arch_compatibility ($base, $b)
 	{
+		if ($base === 'intel')
+		{
+			// Client is running OS X, let's assume that it's compatible with
+			// everything.
+			return true;
+		}
+
 		return ($base === $b || $base === 'x86_64');
 	}
 }
