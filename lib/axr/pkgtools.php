@@ -154,4 +154,9 @@ class Pkgtools
 
 		return 0;
 	}
+
+	public static function test_arch_compatibility ($base, $b)
+	{
+		return ($base === $b || $base === 'x86_64');
+	}
 }

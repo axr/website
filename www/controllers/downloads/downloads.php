@@ -131,14 +131,14 @@ class DownloadsController extends Controller
 
 					$files[$release->version]['pkggroups'][$group_key]['files'][] = $file;
 				}
-			}
 
-			// Remove empty pkggroups
-			foreach ($files[$release->version]['pkggroups'] as $key => $data)
-			{
-				if ($data === null)
+				// Remove empty pkggroups
+				foreach ($files[$release->version]['pkggroups'] as $key => $data)
 				{
-					unset($files[$release->version]['pkggroups'][$key]);
+					if ($data === null)
+					{
+						unset($files[$release->version]['pkggroups'][$key]);
+					}
 				}
 			}
 		}
