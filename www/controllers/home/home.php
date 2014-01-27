@@ -11,11 +11,26 @@ class HomeController extends Controller
 		$view = new \Core\View(ROOT . '/views/home.html');
 
 		$package = \GitData\Models\Package::find_by_name('axr-browser');
-		$release = $package->get_release('latest');
+		$best_file = self::find_best_file($package);
 
-		if ($release !== null)
+		if ($best_file !== null)
 		{
-			$view->release = self::find_best_file($release);
+			$client_os = \AXR\Pkgtools::detect_os();
+			$client_distro = \AXR\Pkgtools::detect_linux_distro();
+
+			$os_str = \AXR\Pkgtools::os_to_human($client_os);
+
+			if ($best_file->type !== '.tar.gz' && $client_distro !== null)
+			{
+				$os_str = \AXR\Pkgtools::distro_to_human($client_distro);
+			}
+
+			$view->release = array(
+				'os_str' => $os_str,
+				'version' => $best_file->_version,
+				'filename' => $best_file->filename,
+				'url' => $best_file->url
+			);
 		}
 
 		// Get the data for the latest blog posts section
@@ -43,63 +58,55 @@ class HomeController extends Controller
 		echo $this->layout->get_rendered();
 	}
 
-	protected static function find_best_file (\GitData\Models\PackageRelease $release)
+	protected static function find_best_file (\GitData\Models\Package $package)
 	{
-		$best = null;
-		$perfect_match = false;
+		$releases = $package->get_all_releases();
 
 		$client_os = \AXR\Pkgtools::detect_os();
 		$client_arch = \AXR\Pkgtools::detect_arch();
-		$client_distro = \AXR\Pkgtools::detect_linux_distro();
 		$client_pm_ext = \AXR\Pkgtools::get_pm_ext();
 
-		foreach ($release->files as $file)
+		$close_enough = null;
+
+		foreach ($releases as $release)
 		{
-			if ($file->os !== $client_os ||
-				$file->arch !== $client_arch)
+			foreach ($release->files as $file)
 			{
-				continue;
-			}
-
-			if ($client_os === 'linux')
-			{
-				if ($file->type === $client_pm_ext)
+				if ($file->os !== $client_os ||
+					!\AXR\Pkgtools::test_arch_compatibility($client_arch, $file->arch))
 				{
-					$perfect_match = true;
-					$best = $file;
-
-					break;
+					// Skip 100% incompatible files
+					continue;
 				}
 
-				// Just in case we don't find a better match
-				if ($file->type === 'tar.gz')
+				$file->_version = $release->version;
+
+				if ($client_os === 'linux')
 				{
-					$best = $file;
+					// Compare package managers
+					if ($file->type === $client_pm_ext)
+					{
+						return $file;
+					}
+
+					// Just in case we don't find a better match
+					if ($file->type === 'tar.gz')
+					{
+						$close_enough = $file;
+					}
+				}
+				else
+				{
+					return $file;
 				}
 			}
-			else
+
+			if ($close_enough !== null)
 			{
-				$best = $file;
 				break;
 			}
 		}
 
-		if ($best !== null)
-		{
-			$os_str = \AXR\Pkgtools::os_to_human($client_os);
-
-			if ($perfect_match === true &&
-				$client_distro !== null)
-			{
-				$os_str = \AXR\Pkgtools::distro_to_human($client_distro);
-			}
-
-			return array(
-				'os_str' => $os_str,
-				'version' => $release->version,
-				'filename' => $best->filename,
-				'url' => $best->url
-			);
-		}
+		return $close_enough;
 	}
 }
