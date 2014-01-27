@@ -49,8 +49,8 @@ end
         package.add_sprite sprite
       end
     else
-      FileUtils.mkdir_p "#{ROOT}/rsrc_#{SHA}/images"
-      FileUtils.cp path, "#{ROOT}/rsrc_#{SHA}/images"
+      FileUtils.mkdir_p "#{ROOT}/prod-#{SHA}/images"
+      FileUtils.cp path, "#{ROOT}/prod-#{SHA}/images"
     end
   end
 end
