@@ -140,4 +140,63 @@ class Page extends \GitData\Model
 			return null;
 		}
 	}
+
+	public static function get_blog_index ()
+	{
+		$index = \Cache::get('/www/blog_index');
+
+		if (is_object($index))
+		{
+			return $index;
+		}
+
+		$blog_root_path = \GitData\GitData::$root . '/pages/blog';
+		$index = array();
+
+		$years = scandir($blog_root_path);
+		rsort($years);
+
+		foreach ($years as $year)
+		{
+			if (!is_numeric($year) ||
+				!is_dir($blog_root_path . '/' . $year))
+			{
+				continue;
+			}
+
+			$items = scandir($blog_root_path . '/' . $year);
+
+			foreach ($items as $item)
+			{
+				if ($item === '.' || $item === '..')
+				{
+					continue;
+				}
+
+				$post = \GitData\Models\Page::find_by_path(
+					'/blog/' . $year . '/' . $item);
+
+				if ($post === null)
+				{
+					continue;
+				}
+
+				$index[] = (object) array(
+					'date' => strtotime($post->date),
+					'path' => '/blog/' . $year . '/' . $item
+				);
+			}
+		}
+
+		usort($index, function ($a, $b)
+		{
+			return ($a->date < $b->date) ? 1 : -1;
+		});
+
+		\Cache::set('/www/blog_index', $index, array(
+			'data_version' => 'current'
+		));
+
+		return $index;
+	}
 }

@@ -58,6 +58,12 @@
 	color: #444;
 }
 
+#downloads .rtable > .release > header > .core_version
+{
+	color: #888;
+	margin: 0 0 0 5px;
+}
+
 #downloads .rtable > .release > header > a.changelog
 {
 	color: #888;

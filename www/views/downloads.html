@@ -7,6 +7,10 @@
 				<div class="release">
 					<header>
 						<a class="version" href="#">Version <mark>{{version}}</mark></a>
+
+						{% if release.core_version %}
+							<span class="core_version">(core {{release.core_version}})</span>
+						{% endif %}
 					</header>
 
 					<div class="groups">
