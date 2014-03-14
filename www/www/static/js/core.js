@@ -342,7 +342,7 @@ window['Core'] = {};
 		this._load = function ()
 		{
 			$.ajax({
-				url: 'https://axrproject.org/bin/twitter_you_suck.php?callback=?',
+				url: 'http://axrproject.org/bin/twitter_you_suck.php?callback=?',
 				method: 'get',
 				dataType: 'jsonp',
 				success: function (data)
