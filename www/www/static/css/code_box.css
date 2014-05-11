@@ -13,8 +13,8 @@
 {
 	background: #e5e5e5;
 	border-right: 1px solid #bbb;
-	height: 100%;
 	left: 0;
+	padding: 5px 0;
 	position: absolute;
 	width: 25px;
 }
@@ -30,6 +30,7 @@
 {
 	margin: 0 0 0 35px;
 	overflow-x: auto;
+	padding: 5px 0;
 }
 
 .uiCodeBox > pre > .line
