@@ -1,8 +1,0 @@
-source 'https://rubygems.org'
-ruby '1.9.3'
-gem 'sinatra'
-gem 'activesupport'
-gem 'liquid'
-gem 'dalli'
-gem 'redcarpet'
-gem 'htmlentities'
