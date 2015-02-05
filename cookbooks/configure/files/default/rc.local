@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Make sure eth0 is working. This works around Vagrant issue #391
-dhclient eth0
-
-bash -c "shotgun --host=0.0.0.0 --port=8083 /vagrant/app_search/config.ru > /vagrant/app_search/tmp/shotgun.log 2>&1" &
-
-exit 0

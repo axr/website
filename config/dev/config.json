@@ -1,0 +1,12 @@
+{
+    "prod": false,
+    "url": {
+		"www": "http://local.axrproject.org:8000",
+		"rsrc": "http://local.axrproject.org:8000/static",
+		"wiki": "http://wiki.local.axrproject.org:8000",
+		"hss": "http://hss.local.axrproject.org:8000"
+	},
+    "repo_dirs": {
+    	"data": "/vagrant/data"
+	}
+}
