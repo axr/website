@@ -41,7 +41,6 @@ class Controller extends \Core\Controller
 		});
 
 		$this->layout->config = \Config::get();
-		$this->layout->social = \GitData\Models\GenericConfig::file('config.json')->social;
 
 		$this->layout->versions = array(
 			'code' => \Config::get()->version,
