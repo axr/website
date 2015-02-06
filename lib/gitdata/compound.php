@@ -58,7 +58,7 @@ class Compound
 		if (preg_match('/(?={((?:[^{}]+|{(?1)})*)})/', $content, $match) === 1)
 		{
 			$json = '{' . $match[1] . '}';
-			$content = substr($content, strlen($json) + 2);
+			$content = substr($content, strlen($json) + 1);
 			$info = json_decode($json);
 
 			if (!is_object($info))
