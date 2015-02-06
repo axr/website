@@ -92,7 +92,8 @@ class Page extends \GitData\Model
 		$path = preg_replace('/^\//', '', $path);
 		$compound = \GitData\Compound::load(array(
 			'pages/' . $path . '/info.json',
-			'pages/' . $path . '/content.md'
+			'pages/' . $path . '/content.md',
+			'pages/' . $path . '.md'
 		));
 
 		if ($compound)
