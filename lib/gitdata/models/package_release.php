@@ -9,14 +9,10 @@ class PackageRelease extends \GitData\Model
 
 	/**
 	 * __construct
-	 *
-	 * @param \GitData\Git\File $info_file
 	 */
-	public function __construct (\GitData\Git\File $info_file)
+	public function __construct ($info)
 	{
-		parent::__construct($info_file);
-
-		$this->_cache_write_state();
+		parent::__construct($info);
 	}
 
 	/**
@@ -28,21 +24,12 @@ class PackageRelease extends \GitData\Model
 	 */
 	public static function find_by_package_and_version ($package, $version)
 	{
-		$info_file = \GitData\GitData::$repo->get_file(
-			'/packages/' . $package . '/release-' . $version . '.json');
+		$path = 'packages/' . $package . '/release-' . $version . '.json';
+		$info = \GitData\Util::read_info($path);
 
-		if ($info_file === null)
+		if ($info)
 		{
-			return null;
-		}
-
-		try
-		{
-			return PackageRelease::new_instance($info_file);
-		}
-		catch (\GitData\Exceptions\EntityInvalid $e)
-		{
-			return null;
+			return new PackageRelease($info);
 		}
 	}
 }

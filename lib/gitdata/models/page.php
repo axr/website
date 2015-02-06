@@ -44,18 +44,15 @@ class Page extends \GitData\Model
 
 	/**
 	 * __construct
-	 *
-	 * @param \GitData\Git\File $info_file
 	 */
-	public function __construct (\GitData\Git\File $info_file)
+	public function __construct ($compound)
 	{
-		// Set some defaults
-		$this->attrs_data = (object) array(
-			'authors' => array(),
-			'generate_toc' => false
-		);
+		parent::__construct($compound->info);
 
-		parent::__construct($info_file);
+		if (!isset($this->attrs_data->authors))
+		{
+			$this->attrs_data->authors = array();
+		}
 
 		if (isset($this->attrs_data->author_name))
 		{
@@ -63,56 +60,25 @@ class Page extends \GitData\Model
 		}
 
 		// Set the permalink
-		$this->permalink = preg_replace('/^pages/', '', dirname($info_file->path));
+		$this->permalink = preg_replace('/^pages/', '', $compound->info->_basedir);
 
-		// Read the content
+		if (isset($compound->info->_filename))
 		{
-			$content_path = isset($info->file) ?
-				dirname($info_file->path) . '/' . $info->file :
-				dirname($info_file->path) . '/content.md';
-			$content_file = \GitData\GitData::$repo->get_file($content_path);
+			$this->permalink .= preg_replace('/\..*$/', '', $compound->info->_filename);
+		}
 
-			if ($content_file === null)
-			{
-				throw new \GitData\Exceptions\EntityInvalid(null);
-			}
-
-			$content = new \GitData\Content($content_file, array(
-				'link_titles' => true,
-				'generate_toc' => $this->attrs_data->generate_toc === true
-			));
-
-			if ($this->attrs_data->generate_toc === true)
-			{
-				$this->toc = $content->get_toc();
-			}
-
-			$this->content = (string) $content;
+		if ($compound->content)
+		{
+			$this->content = (string) $compound->content;
+			$this->toc = $compound->content->get_toc();
 		}
 
 		// Get the summary
 		if ($this->type === 'blog-post')
 		{
-			if (isset($this->attrs_data->summary_file))
-			{
-				$summary_path = dirname($info_file->path) . '/' . $this->attrs_data->summary_file;
-				$summary_file = \GitData\GitData::$repo->get_file($summary_path);
-
-				if ($summary_file !== null)
-				{
-					$this->summary = (string) new \GitData\Content($summary_file);
-				}
-			}
-
-			if ($this->summary === null)
-			{
-				$this->summary = $content->get_summary();
-			}
-
+			$this->summary = $compound->content->get_summary();
 			$this->is_new = time() - strtotime($this->attrs_data->date) < 14 * 86400;
 		}
-
-		$this->_cache_write_state();
 	}
 
 	/**
@@ -124,20 +90,14 @@ class Page extends \GitData\Model
 	public static function find_by_path ($path)
 	{
 		$path = preg_replace('/^\//', '', $path);
-		$info_file = \GitData\GitData::$repo->get_file('/pages/' . $path . '/info.json');
+		$compound = \GitData\Compound::load(array(
+			'pages/' . $path . '/info.json',
+			'pages/' . $path . '.md'
+		));
 
-		if ($info_file === null)
+		if ($compound)
 		{
-			return null;
-		}
-
-		try
-		{
-			return Page::new_instance($info_file);
-		}
-		catch (\GitData\Exceptions\EntityInvalid $e)
-		{
-			return null;
+			return new Page($compound);
 		}
 	}
 
@@ -145,58 +105,98 @@ class Page extends \GitData\Model
 	{
 		$index = \Cache::get('/www/blog_index');
 
-		if (is_object($index))
+		if (is_array($index))
 		{
-			return $index;
+			//return $index;
 		}
 
-		$blog_root_path = \GitData\GitData::$root . '/pages/blog';
 		$index = array();
 
-		$years = scandir($blog_root_path);
-		rsort($years);
-
-		foreach ($years as $year)
+		foreach (self::find_all_years() as $year)
 		{
-			if (!is_numeric($year) ||
-				!is_dir($blog_root_path . '/' . $year))
+			foreach (self::get_blog_index_by_year($year) as $entry)
 			{
-				continue;
-			}
-
-			$items = scandir($blog_root_path . '/' . $year);
-
-			foreach ($items as $item)
-			{
-				if ($item === '.' || $item === '..')
-				{
-					continue;
-				}
-
-				$post = \GitData\Models\Page::find_by_path(
-					'/blog/' . $year . '/' . $item);
-
-				if ($post === null)
-				{
-					continue;
-				}
-
-				$index[] = (object) array(
-					'date' => strtotime($post->date),
-					'path' => '/blog/' . $year . '/' . $item
-				);
+				$index[] = $entry;
 			}
 		}
-
-		usort($index, function ($a, $b)
-		{
-			return ($a->date < $b->date) ? 1 : -1;
-		});
 
 		\Cache::set('/www/blog_index', $index, array(
 			'data_version' => 'current'
 		));
 
 		return $index;
+	}
+
+	private static function get_blog_index_by_year ($year)
+	{
+		$entry = git_tree_entry_bypath(\GitData\GitData::$tree, 'pages/blog/' . $year);
+
+		if (!$entry || git_tree_entry_type($entry) !== GIT_OBJ_TREE)
+		{
+			return array();
+		}
+
+		$tree = git_tree_lookup(\GitData\GitData::$repo, git_tree_entry_id($entry));
+
+		if (!$tree)
+		{
+			return array();
+		}
+
+		$index = array();
+
+		git_tree_walk($tree, GIT_TREEWALK_PRE, function ($_1, $entry, &$index) use ($year)
+		{
+			$path = 'blog/' . $year . '/' . git_tree_entry_name($entry);
+			$page = Page::find_by_path($path);
+
+			if ($page)
+			{
+				$index[] = (object) array(
+					'date' => strtotime($page->date),
+					'path' => $page->permalink
+				);
+			}
+		}, $index);
+
+		usort($index, function ($a, $b)
+		{
+			return ($a->date < $b->date) ? 1 : -1;
+		});
+
+		return $index;
+	}
+
+	private static function find_all_years ()
+	{
+		$entry = git_tree_entry_bypath(\GitData\GitData::$tree, 'pages/blog');
+
+		if (!$entry || git_tree_entry_type($entry) !== GIT_OBJ_TREE)
+		{
+			return array();
+		}
+
+		$tree = git_tree_lookup(\GitData\GitData::$repo, git_tree_entry_id($entry));
+
+		if (!$tree)
+		{
+			return array();
+		}
+
+		$years = array();
+
+		git_tree_walk($tree, GIT_TREEWALK_PRE, function ($_1, $entry, &$years)
+		{
+			$name = git_tree_entry_name($entry);
+
+			if (is_numeric($name) && git_tree_entry_filemode($entry) == GIT_FILEMODE_TREE)
+			{
+				$years[] = (int) $name;
+			}
+		}, $years);
+
+		rsort($years);
+
+		return $years;
 	}
 }

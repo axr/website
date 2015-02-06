@@ -5,6 +5,11 @@ namespace GitData\Models;
 class Package extends \GitData\Model
 {
 	/**
+	 * The git tree for this package.
+	 */
+	private $tree;
+
+	/**
 	 * Name of the package
 	 *
 	 * @var string
@@ -16,9 +21,10 @@ class Package extends \GitData\Model
 	 *
 	 * @param string $name
 	 */
-	public function __construct ($name)
+	public function __construct ($name, $tree)
 	{
 		$this->name = $name;
+		$this->tree = $tree;
 	}
 
 	/**
@@ -50,34 +56,33 @@ class Package extends \GitData\Model
 	public function get_all_releases ()
 	{
 		$cache_key = '/gitdata/package/' . $this->name . '/all_releases';
-
 		$releases = \Cache::get($cache_key);
+
 		if ($releases !== null)
 		{
 			return $releases;
 		}
 
 		$releases = array();
+		$self = $this;
 
-		$filenames = scandir(\GitData\GitData::$root . '/packages/' . $this->name);
-
-		foreach ($filenames as $filename)
+		git_tree_walk($this->tree, GIT_TREEWALK_PRE, function ($_1, $entry, &$releases)
+			use (&$self)
 		{
-			if (!preg_match('/^release-(.+)\.json$/', $filename, $match))
+			$name = git_tree_entry_name($entry);
+
+			if (!preg_match('/^release-(.+)\.json$/', $name, $match))
 			{
-				continue;
+				return 1;
 			}
 
-			$release = PackageRelease::find_by_package_and_version($this->name,
-				$match[1]);
+			$release = PackageRelease::find_by_package_and_version($self->name, $match[1]);
 
-			if ($release === null)
+			if ($release)
 			{
-				continue;
+				$releases[] = $release;
 			}
-
-			$releases[] = $release;
-		}
+		}, $releases);
 
 		usort($releases, function ($a, $b)
 		{
@@ -98,27 +103,22 @@ class Package extends \GitData\Model
 	 */
 	public function get_latest_version_number ()
 	{
-		$filenames = scandir(\GitData\GitData::$root . '/packages/' . $this->name);
 		$latest = null;
 
-		foreach ($filenames as $filename)
+		git_tree_walk($this->tree, GIT_TREEWALK_PRE, function ($_1, $entry, &$latest)
 		{
-			if (!preg_match('/^release-(.+)\.json$/', $filename, $match))
+			$name = git_tree_entry_name($entry);
+
+			if (!preg_match('/^release-(.+)\.json$/', $name, $match))
 			{
-				continue;
+				return 1;
 			}
 
-			if ($latest === null)
-			{
-				$latest = $match[1];
-				continue;
-			}
-
-			if (strcmp($latest, $match[1]) < 0)
+			if (!$latest || strcmp($latest, $match[1]) < 0)
 			{
 				$latest = $match[1];
 			}
-		}
+		}, $latest);
 
 		return $latest;
 	}
@@ -131,18 +131,20 @@ class Package extends \GitData\Model
 	 */
 	public static function find_by_name ($name)
 	{
-		if (!is_dir(\GitData\GitData::$root . '/packages/' . $name))
+		$object = git_object_lookup_bypath(\GitData\GitData::$tree, 'packages/' . $name, GIT_OBJ_TREE);
+
+		if (!$object)
 		{
 			return null;
 		}
 
-		try
-		{
-			return new Package($name);
-		}
-		catch (\GitData\Exceptions\EntityInvalid $e)
+		$tree = git_tree_lookup(\GitData\GitData::$repo, git_object_id($object));
+
+		if (!$tree)
 		{
 			return null;
 		}
+
+		return new Package($name, $tree);
 	}
 }

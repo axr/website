@@ -1,0 +1,27 @@
+From 3db9b9c2866bb6a1aa83441ff3ab17c058c5a053 Mon Sep 17 00:00:00 2001
+From: Ragnis Armus <ragnis.armus@gmail.com>
+Date: Fri, 6 Feb 2015 01:37:57 +0200
+Subject: [PATCH] Suppress warnings
+
+---
+ helper.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/helper.c b/helper.c
+index 84c898d..e75497a 100644
+--- a/helper.c
++++ b/helper.c
+@@ -24,8 +24,8 @@ int php_git2_check_error(int error_code, const char *action TSRMLS_DC)
+ 	}
+ 
+ 	error = giterr_last();
+-	php_error_docref(NULL TSRMLS_CC, E_WARNING, "WARNING %d %s - %s",
+-		error_code, action, (error && error->message) ? error->message : "???");
++	/*php_error_docref(NULL TSRMLS_CC, E_WARNING, "WARNING %d %s - %s",*/
++		/*error_code, action, (error && error->message) ? error->message : "???");*/
+ 
+ 	result = 1;
+ 	return result;
+-- 
+2.2.2
+

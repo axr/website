@@ -49,44 +49,29 @@ class SidebarView extends \Core\View
 	 */
 	protected function build_tree ()
 	{
-		$root = \GitData\GitData::$root . '/hssdoc';
-		$objects_dir = scandir($root);
-
 		$objects = array();
 
-		// Find all the objects
-		foreach ($objects_dir as $object_name)
+		foreach (\GitData\Models\HssdocObject::find_all() as $name => $object)
 		{
-			if ($object_name[0] !== '@')
-			{
-				continue;
-			}
-
-			$object = \GitData\Models\HssdocObject::find_by_name($object_name);
-
-			if ($object !== null)
-			{
-				$object->_children = array();
-				$objects[$object_name] = $object;
-			}
+			$objects[$name] = $object;
+			$objects[$name]->_children = array();
 		}
 
 		// Make the associations
-		foreach ($objects as $object_name => $object)
+		foreach ($objects as $name => $object)
 		{
-			if (is_string($object->owner) &&
-				isset($objects[$object->owner]))
+			if (is_string($object->owner) && isset($objects[$object->owner]))
 			{
 				$objects[$object->owner]->_children[] = $object;
 			}
 		}
 
 		// Clean up
-		foreach ($objects as $object_name => $object)
+		foreach ($objects as $name => $object)
 		{
 			if ($object->owner !== null)
 			{
-				unset($objects[$object_name]);
+				unset($objects[$name]);
 			}
 		}
 

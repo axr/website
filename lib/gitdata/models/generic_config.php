@@ -30,18 +30,11 @@ class GenericConfig extends \GitData\Model
 	/**
 	 * __construct
 	 *
-	 * @param \GitData\Git\File $info_file
+	 * @param \StdClass $data the config
 	 */
-	public function __construct (\GitData\Git\File $info_file)
+	public function __construct ($data)
 	{
-		$info = json_decode($info_file->get_data());
-
-		if (!is_object($info))
-		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
-		}
-
-		foreach ($info as $key => $value)
+		foreach ($data as $key => $value)
 		{
 			if (property_exists(__CLASS__, $key))
 			{
@@ -70,22 +63,22 @@ class GenericConfig extends \GitData\Model
 	 */
 	public static function find_by_path ($path)
 	{
-		$path = preg_replace('/^\//', '', $path);
-		$info_file = \GitData\GitData::$repo->get_file($path);
+		$object = git_object_lookup_bypath(\GitData\GitData::$tree, $path, GIT_OBJ_BLOB);
 
-		if ($info_file === null)
+		if (!$object)
 		{
 			return null;
 		}
 
-		try
-		{
-			return new GenericConfig($info_file);
-		}
-		catch (\GitData\Exceptions\EntityInvalid $e)
+		$blob = git_blob_lookup(\GitData\GitData::$repo, git_object_id($object));
+		$data = json_decode(git_blob_rawcontent($blob));
+
+		if (!is_object($data))
 		{
 			return null;
 		}
+
+		return new GenericConfig($data);
 	}
 
 	/**

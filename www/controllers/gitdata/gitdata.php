@@ -4,6 +4,20 @@ namespace WWW;
 
 class GitDataController extends Controller
 {
+	private static $mime_types = array(
+		// images
+		'png' => 'image/png',
+		'jpe' => 'image/jpeg',
+		'jpeg' => 'image/jpeg',
+		'jpg' => 'image/jpeg',
+		'gif' => 'image/gif',
+		'svg' => 'image/svg+xml',
+		'svgz' => 'image/svg+xml',
+
+		// archives
+		'zip' => 'application/zip'
+	);
+
 	/**
 	 * Handle /gitdata/asset URLs
 	 */
@@ -14,30 +28,24 @@ class GitDataController extends Controller
 			throw new \HTTPException(null, 404);
 		}
 
-		$file = \GitData\GitData::$repo->get_file($_GET['path']);
+		$object = git_object_lookup_bypath(\GitData\GitData::$tree, $_GET['path'], GIT_OBJ_BLOB);
 
-		if ($file === null ||
-			!\GitData\Asset::is_asset($file))
+		if (!$object)
 		{
 			throw new \HTTPException(null, 404);
 		}
 
-		$last_commit = $file->get_commit();
+		$blob = git_blob_lookup(\GitData\GitData::$repo, git_object_id($object));
+		$commit = \GitData\GitData::commit();
 
-		// These default will be used only if the requested file doesn't belong
-		// to any commit. This can only happen in the local development
-		// environment.
-		$sha = hash('sha1', uniqid(''));
-		$mtime = time();
+		$mtime = git_commit_time($commit);
+		$sha = git_commit_id($commit);
+		$extension = array_pop(explode('.', $_GET['path']));
 
-		if ($last_commit !== null)
+		if (!isset(self::$mime_types[$extension]))
 		{
-			$sha = $last_commit->sha;
-			$mtime = $last_commit->date;
+			throw new \HTTPException(null, 404);
 		}
-
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		$mime_type = finfo_file($finfo, \GitData\GitData::$root . '/' . $file->path);
 
 		$if_modified_since = (int) array_key_or($_SERVER, 'HTTP_IF_MODIFIED_SINCE', 0);
 		$etag_header = array_key_or($_SERVER, 'HTTP_IF_NONE_MATCH', false);
@@ -45,15 +53,14 @@ class GitDataController extends Controller
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $mtime) . ' GMT');
 		header('Etag: ' . $sha);
 		header('Cache-Control: public');
-		header('Content-Length: ' . $file->get_size());
-		header('Content-Type: ' . $mime_type);
+		header('Content-Length: ' . git_blob_rawsize($blob));
+		header('Content-Type: ' . self::$mime_types[$extension]);
 
-		if (strtotime($if_modified_since) === $mtime ||
-			$etag_header === $sha)
+		if (strtotime($if_modified_since) === $mtime || $etag_header === $sha)
 		{
 			header('HTTP/1.1 304 Not Modified');
 		}
 
-		echo $file->get_data();
+		echo git_blob_rawcontent($blob);
 	}
 }

@@ -43,10 +43,8 @@ class HssdocProperty extends \GitData\Model
 
 	/**
 	 * __construct
-	 *
-	 * @param \GitData\Git\File $info_file
 	 */
-	public function __construct (\GitData\Git\File $info_file)
+	public function __construct ($compound)
 	{
 		// Set some defaults
 		$this->attrs_data = (object) array(
@@ -56,7 +54,7 @@ class HssdocProperty extends \GitData\Model
 			'values' => array()
 		);
 
-		parent::__construct($info_file);
+		parent::__construct($compound->info);
 
 		$implemented_count = 0;
 
@@ -104,25 +102,11 @@ class HssdocProperty extends \GitData\Model
 		}
 
 		// Extract the parent object name
-		preg_match('/^hssdoc\/(@\w+)\//', $info_file->path, $match);
+		preg_match('/^hssdoc\/(@\w+)/', $compound->info->_basedir, $match);
 		$this->object_name = $match[1];
 
-		// Set the permalink
 		$this->permalink = '/' . $this->object_name . '#' . $this->attrs_data->name;
-
-		// Read the description
-		if (isset($this->attrs_data->description_file))
-		{
-			$path = dirname($info_file->path) . '/' . $this->attrs_data->description_file;
-			$file = \GitData\GitData::$repo->get_file($path);
-
-			if ($file !== null)
-			{
-				$this->description = (string) new \GitData\Content($file);
-			}
-		}
-
-		$this->_cache_write_state();
+		$this->description = (string) $compound->content;
 	}
 
 	/**
@@ -134,39 +118,41 @@ class HssdocProperty extends \GitData\Model
 	 */
 	public static function find_all_by_object ($object_name)
 	{
-		$object_dir = \GitData\GitData::$root . '/hssdoc/' . $object_name;
+		$git_object = git_object_lookup_bypath(\GitData\GitData::$tree, 'hssdoc/' . $object_name, GIT_OBJ_TREE);
 
-		if (!is_dir($object_dir))
+		if (!$git_object)
 		{
 			return array();
 		}
 
-		$filenames = scandir($object_dir);
+		$tree = git_tree_lookup(\GitData\GitData::$repo, git_object_id($git_object));
+
+		if (!$tree)
+		{
+			return array();
+		}
+
 		$properties = array();
 
-		foreach ($filenames as $filename)
+		git_tree_walk($tree, GIT_TREEWALK_PRE, function ($_1, $entry, &$properties)
+			use ($object_name)
 		{
-			if (!preg_match('/^property-(.+)\.json$/', $filename))
+			$name = git_tree_entry_name($entry);
+			$path = 'hssdoc/' . $object_name . '/' . $name;
+
+			if (git_tree_entry_filemode($entry) !== GIT_FILEMODE_BLOB ||
+				!preg_match('/^property-(.+)\.(json|md)$/', $name))
 			{
-				continue;
+				return 1;
 			}
 
-			$info_file = \GitData\GitData::$repo->get_file(
-				'hssdoc/' . $object_name . '/' . $filename);
+			$compound = \GitData\Compound::load($path);
 
-			if ($info_file === null)
+			if ($compound && isset($compound->info->name))
 			{
-				continue;
+				$properties[] = new HssdocProperty($compound);
 			}
-
-			try
-			{
-				$properties[] = HssdocProperty::new_instance($info_file);
-			}
-			catch (\GitData\Exceptions\EntityInvalid $e)
-			{
-			}
-		}
+		}, $properties);
 
 		usort($properties, function ($a, $b)
 		{
