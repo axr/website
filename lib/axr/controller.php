@@ -45,7 +45,7 @@ class Controller extends \Core\Controller
 
 		$this->layout->versions = array(
 			'code' => \Config::get()->version,
-			'data' => \GitData\GitData::$version
+			'data' => git_commit_id(\GitData\GitData::commit())
 		);
 
 		$this->layout->year  = date('Y');
