@@ -47,12 +47,12 @@ class Page extends \GitData\Model
 	 */
 	public function __construct ($compound)
 	{
-		parent::__construct($compound->info);
+		$this->attrs_data = (object) array(
+			'type' => 'page',
+			'authors' => array()
+		);
 
-		if (!isset($this->attrs_data->authors))
-		{
-			$this->attrs_data->authors = array();
-		}
+		parent::__construct($compound->info);
 
 		if (isset($this->attrs_data->author_name))
 		{
@@ -92,7 +92,7 @@ class Page extends \GitData\Model
 		$path = preg_replace('/^\//', '', $path);
 		$compound = \GitData\Compound::load(array(
 			'pages/' . $path . '/info.json',
-			'pages/' . $path . '.md'
+			'pages/' . $path . '/content.md'
 		));
 
 		if ($compound)
@@ -107,7 +107,7 @@ class Page extends \GitData\Model
 
 		if (is_array($index))
 		{
-			//return $index;
+			return $index;
 		}
 
 		$index = array();
