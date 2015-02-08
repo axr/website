@@ -5,13 +5,6 @@ namespace GitData;
 abstract class Model
 {
 	/**
-	 * The model's info file
-	 *
-	 * @var \GitData\Git\File
-	 */
-	protected $info_file;
-
-	/**
 	 * Attributes that will be copied over from the model's JSON data file
 	 *
 	 * @var string[]
@@ -35,20 +28,11 @@ abstract class Model
 	 *
 	 * @param \GitData\Git\File $info_file
 	 */
-	public function __construct (\GitData\Git\File $info_file)
+	public function __construct ($info)
 	{
-		$this->info_file = $info_file;
-
 		if (!is_object($this->attrs_data))
 		{
 			$this->attrs_data = (object) array();
-		}
-
-		$info = json_decode($info_file->get_data());
-
-		if (!is_object($info))
-		{
-			throw new \GitData\Exceptions\EntityInvalid(null);
 		}
 
 		foreach ($info as $key => $value)
@@ -96,47 +80,5 @@ abstract class Model
 		}
 
 		return false;
-	}
-
-	public static function new_instance (\GitData\Git\File $info_file)
-	{
-		$cached = \Cache::get(self::_cache_get_key($info_file));
-
-		if ($cached === null)
-		{
-			$reflection = new \ReflectionClass(get_called_class());
-			return $reflection->newInstance($info_file);
-		}
-		else
-		{
-			return $cached;
-		}
-	}
-
-	protected static function _cache_get_key (\GitData\Git\File $info_file)
-	{
-		return '/gitdata/model/' .
-			preg_replace('/^.+?([^\\\\]+)$/', '$1', get_called_class()) .
-			'/file:' . $info_file->get_unique_id();
-	}
-
-	/**
-	 * Write the current model state to the cache
-	 */
-	protected function _cache_write_state ()
-	{
-		if ($this->info_file === null)
-		{
-			return;
-		}
-
-		$key = self::_cache_get_key($this->info_file);
-
-		if ($key !== null)
-		{
-			\Cache::set($key, $this, array(
-				'expires' => 0
-			));
-		}
 	}
 }

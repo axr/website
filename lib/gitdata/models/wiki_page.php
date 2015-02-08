@@ -41,59 +41,36 @@ class WikiPage extends \GitData\Model
 
 	/**
 	 * __construct
-	 *
-	 * @param \GitData\Git\File $info_file
 	 */
-	public function __construct (\GitData\Git\File $info_file)
+	public function __construct ($compound)
 	{
-		// Set some defaults
-		$this->attrs_data = (object) array(
-			'generate_toc' => false
-		);
+		parent::__construct($compound->info);
 
-		parent::__construct($info_file);
-
-		// Read the content
+		if ($compound->content)
 		{
-			$content_path = isset($info->file) ?
-				dirname($info_file->path) . '/' . $info->file :
-				dirname($info_file->path) . '/content.md';
-			$content_file = \GitData\GitData::$repo->get_file($content_path);
-
-			if ($content_file === null)
-			{
-				throw new \GitData\Exceptions\EntityInvalid(null);
-			}
-
-			$content = new \GitData\Content($content_file, array(
-				'link_titles' => true,
-				'generate_toc' => $this->attrs_data->generate_toc === true
-			));
-
-			if ($this->attrs_data->generate_toc === true)
-			{
-				$this->toc = $content->get_toc();
-			}
-
-			$this->content = (string) $content;
+			$this->content = (string) $compound->content;
+			$this->toc = $compound->content->get_toc();
 		}
 
-		$this->permalink = preg_replace('/^wiki/', '', dirname($info_file->path));
-		$this->github_history_url = 'https://github.com/axr/website-data/commits/master/' .
-			$content_file->path;
+		$this->permalink = preg_replace('/^wiki/', '', $compound->info->_basedir);
+
+		if (isset($info->_filename))
+		{
+			$this->permalink .= preg_replace('/\..*$/', '', $compound->info->_filename);
+		}
+
+		$this->github_history_url = 'https://github.com/axr/website-data';
 
 		// Get last modified date and last author
 		{
-			$commit = $content_file->get_commit();
+			$author = git_commit_author($compound->info->_git_commit);
 
-			if ($commit !== null)
+			if ($author)
 			{
-				$this->mtime = $commit->date;
-				$this->last_author = $commit->author;
+				$this->last_author = "{$author['name']} <{$author['email']}>";
+				$this->mtime = $author['time'];
 			}
 		}
-
-		$this->_cache_write_state();
 	}
 
 	/**
@@ -105,20 +82,109 @@ class WikiPage extends \GitData\Model
 	public static function find_by_path ($path)
 	{
 		$path = preg_replace('/^\//', '', $path);
-		$file = \GitData\GitData::$repo->get_file('wiki/' . $path . '/info.json');
+		$compound = \GitData\Compound::load(array(
+			'wiki/' . $path . '/info.json',
+			'wiki/' . $path . '.md'
+		));
 
-		if ($file === null)
+		if ($compound)
 		{
-			return null;
+			return new WikiPage($compound);
+		}
+	}
+
+	/**
+	 * List all pages and categories under the specified path.
+	 */
+	public static function list_all ($path)
+	{
+		$tree = git_object_lookup_bypath(\GitData\GitData::$tree, 'wiki/' . $path, GIT_OBJ_TREE);
+
+		if (!$tree)
+		{
+			return array(array(), array());
 		}
 
-		try
+		$categories = array();
+		$pages = array();
+
+		git_tree_walk($tree, GIT_TREEWALK_PRE, function ($root, $entry, &$_1)
+			use ($path, &$pages, &$categories)
 		{
-			return WikiPage::new_instance($file);
-		}
-		catch (\GitData\Exceptions\EntityInvalid $e)
+			$entry_name = git_tree_entry_name($entry);
+
+			if ($entry_name === 'content.md')
+			{
+				return 1;
+			}
+
+			$item = preg_replace('/[\/]+/', '/', $path . '/' . $entry_name);
+			$item = preg_replace('/(^\/|\.md$)/', '', $item);
+
+			$page = WikiPage::find_by_path($item);
+
+			if ($page)
+			{
+				$pages[] = $page;
+			}
+
+			if (WikiPage::tree_entry_is_category($entry))
+			{
+				$categories[] = (object) array(
+					'name' => $item,
+					'permalink' => \URL::create(\Config::get()->url->wiki)
+						->path('/index/' . $item)
+				);
+			}
+		}, $none);
+
+		return array($categories, $pages);
+	}
+
+	/**
+	 * Test, if a tree is a category. Once the oldstyle pages have been eliminated,
+	 * this will get a lot simpler.
+	 */
+	public static function tree_entry_is_category ($entry)
+	{
+		$ret = false;
+
+		if (git_tree_entry_filemode($entry) != GIT_FILEMODE_TREE)
 		{
-			return null;
+			return false;
 		}
+
+		$tree = git_tree_lookup(\GitData\GitData::$repo, git_tree_entry_id($entry));
+
+		if (!$tree)
+		{
+			return false;
+		}
+
+		git_tree_walk($tree, GIT_TREEWALK_PRE, function ($_1, $entry, &$ret)
+		{
+			$filemode = git_tree_entry_filemode($entry);
+			$name = git_tree_entry_name($entry);
+
+			if ($filemode == GIT_FILEMODE_BLOB &&
+				substr($name, -4) == '.md' && $name != 'content.md')
+			{
+				$ret = true;
+				return -1;
+			}
+
+			if ($filemode == GIT_FILEMODE_TREE)
+			{
+				$subtree = git_tree_lookup(\GitData\GitData::$repo, git_tree_entry_id($entry));
+
+				if ($subtree && git_tree_entry_byname($subtree, 'info.json'))
+				{
+					$ret = true;
+					return -1;
+				}
+			}
+		}, $ret);
+
+		return $ret;
 	}
 }

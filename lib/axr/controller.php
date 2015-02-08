@@ -41,11 +41,10 @@ class Controller extends \Core\Controller
 		});
 
 		$this->layout->config = \Config::get();
-		$this->layout->social = \GitData\Models\GenericConfig::file('config.json')->social;
 
 		$this->layout->versions = array(
 			'code' => \Config::get()->version,
-			'data' => \GitData\GitData::$version
+			'data' => git_commit_id(\GitData\GitData::commit())
 		);
 
 		$this->layout->year  = date('Y');

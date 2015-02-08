@@ -4,25 +4,38 @@ namespace GitData;
 
 class GitData
 {
-	public static $root = null;
-	public static $version = '0';
 	public static $repo = null;
+	public static $head = null;
+	public static $tree = null;
+	public static $version = '0';
 
-	public static function initialize ($root)
+	public static function initialize ($path)
 	{
-		self::$root = $root;
-		self::$version = file_get_contents(self::$root . '/.git/HEAD');
-		self::$repo = new Git\Repository($root);
+		self::$repo = git_repository_open($path);
+		self::$head = git_repository_head(self::$repo);
+		self::$tree = git_reference_peel(self::$head, GIT_OBJ_TREE);
+	}
+
+	public static function commit ()
+	{
+		static $commit = null;
+
+		if (!$commit)
+		{
+			$oid = git_reference_target(self::$head);
+			$commit = git_commit_lookup(self::$repo, $oid);
+		}
+
+		return $commit;
 	}
 }
 
 class Autoloader
 {
 	protected static $classes = array(
-		'GitData\\Git\\Commit' => '/git/commit.php',
 		'GitData\\Git\\File' => '/git/file.php',
-		'GitData\\Git\\Repository' => '/git/repository.php',
 		'GitData\\Asset' => '/asset.php',
+		'GitData\\Compound' => '/compound.php',
 		'GitData\\Content' => '/content.php',
 		'GitData\\Exceptions\\EntityInvalid' => '/exceptions/entity_invalid.php',
 		'GitData\\Model' => '/model.php',
@@ -32,7 +45,8 @@ class Autoloader
 		'GitData\\Models\\Package' => '/models/package.php',
 		'GitData\\Models\\PackageRelease' => '/models/package_release.php',
 		'GitData\\Models\\Page' => '/models/page.php',
-		'GitData\\Models\\WikiPage' => '/models/wiki_page.php'
+		'GitData\\Models\\WikiPage' => '/models/wiki_page.php',
+		'GitData\\Util' => '/util.php'
 	);
 
 	/**
