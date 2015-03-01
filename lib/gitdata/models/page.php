@@ -121,9 +121,7 @@ class Page extends \GitData\Model
 			}
 		}
 
-		\Cache::set('/www/blog_index', $index, array(
-			'data_version' => 'current'
-		));
+		\Cache::set('/www/blog_index', $index);
 
 		return $index;
 	}
