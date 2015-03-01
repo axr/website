@@ -64,7 +64,7 @@ class Page extends \GitData\Model
 
 		if (isset($compound->info->_filename))
 		{
-			$this->permalink .= preg_replace('/\..*$/', '', $compound->info->_filename);
+			$this->permalink .= '/' . preg_replace('/\..*$/', '', $compound->info->_filename);
 		}
 
 		if ($compound->content)
@@ -121,9 +121,7 @@ class Page extends \GitData\Model
 			}
 		}
 
-		\Cache::set('/www/blog_index', $index, array(
-			'data_version' => 'current'
-		));
+		\Cache::set('/www/blog_index', $index);
 
 		return $index;
 	}
