@@ -156,7 +156,7 @@ window['Core'] = {};
 	 * @param {integer} timestamp
 	 * @return string
 	 */
-	Core.util.format_date_ago = function (timestamp)
+	Core.util.format_date_ago = function (timestamp, limit)
 	{
 		if (isNaN(timestamp))
 		{
@@ -167,6 +167,11 @@ window['Core'] = {};
 
 		if (diff == 0) {
 			return 'just now';
+		}
+
+		if (!isNaN(limit) && diff > limit)
+		{
+			return 'some time ago';
 		}
 
 		var unit = 'year', divide = 31556926;
@@ -354,9 +359,10 @@ window['Core'] = {};
 					}
 
 					var timestamp = Date.parse(data[0].created_at) / 1000;
+					var limit = 86400 * 45;
 
 					that._tweet = Core.util.beautify_tweet(data[0].text) +
-						' &mdash; ' + Core.util.format_date_ago(timestamp);
+						' &mdash; ' + Core.util.format_date_ago(timestamp, limit);
 				},
 				error: function ()
 				{
