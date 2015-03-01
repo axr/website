@@ -64,7 +64,7 @@ class Page extends \GitData\Model
 
 		if (isset($compound->info->_filename))
 		{
-			$this->permalink .= preg_replace('/\..*$/', '', $compound->info->_filename);
+			$this->permalink .= '/' . preg_replace('/\..*$/', '', $compound->info->_filename);
 		}
 
 		if ($compound->content)
