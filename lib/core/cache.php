@@ -36,7 +36,6 @@ class Cache
 	 *
 	 * $options:
 	 * - (int) expires: Max age in seconds
-	 * - (string) data_version: Version of the dataset
 	 *
 	 * @param string $path
 	 * @param mixed $data
@@ -45,25 +44,7 @@ class Cache
 	public static function set ($path, $data, array $options = array())
 	{
 		$expires = (int) array_key_or($options, 'expires', 3600);
-		$store_obj = (object) array(
-			'data' => $data,
-			'data_version' => null,
-			'code_version' => \Config::get()->version
-		);
-
-		if (isset($options['data_version']))
-		{
-			if ($options['data_version'] === 'current')
-			{
-				$store_obj->data_version = \GitData\GitData::$version;
-			}
-			else
-			{
-				$store_obj->data_version = $options['data_version'];
-			}
-		}
-
-		self::$memcached->set($path, serialize($store_obj), $expires);
+		self::$memcached->set(self::path($path), serialize($data), $expires);
 	}
 
 	/**
@@ -80,33 +61,21 @@ class Cache
 			return null;
 		}
 
-		$item = self::$memcached->get($path);
-		$item = @unserialize($item);
+		$data = self::$memcached->get(self::path($path));
 
-		if (!is_object($item))
+		if (!$data)
 		{
-			self::rm($path);
 			return null;
 		}
 
-		// This key has been set by an older version of the site
-		if (isset($item->code_version) &&
-			$item->code_version !== \Config::get()->version)
+		$data = unserialize($data);
+
+		if (!$data)
 		{
-			self::rm($path);
 			return null;
 		}
 
-		// This key is for another dataset version
-		if (isset($item->data_version) &&
-			$item->data_version !== null &&
-			$item->data_version !== \GitData\GitData::$version)
-		{
-			self::rm($path);
-			return null;
-		}
-
-		return $item->data;
+		return $data;
 	}
 
 	/**
@@ -116,6 +85,17 @@ class Cache
 	 */
 	public static function rm ($path)
 	{
-		self::$memcached->delete($path);
+		self::$memcached->delete(self::path($path));
+	}
+
+	/**
+	 * Get a version-specific path.
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	private static function path ($path)
+	{
+		return \Config::get()->version . ':' . \GitData\GitData::$version . ':' . $path;
 	}
 }
