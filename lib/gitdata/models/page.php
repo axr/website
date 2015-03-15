@@ -64,7 +64,7 @@ class Page extends \GitData\Model
 
 		if (isset($compound->info->_filename))
 		{
-			$this->permalink .= '/' . preg_replace('/\..*$/', '', $compound->info->_filename);
+			$this->permalink .= '/' . preg_replace('/\.json\.md$/', '', $compound->info->_filename);
 		}
 
 		if ($compound->content)
@@ -90,10 +90,11 @@ class Page extends \GitData\Model
 	public static function find_by_path ($path)
 	{
 		$path = preg_replace('/^\//', '', $path);
+		$path = preg_replace('/\/$/', '', $path);
+
 		$compound = \GitData\Compound::load(array(
 			'pages/' . $path . '/info.json',
-			'pages/' . $path . '/content.md',
-			'pages/' . $path . '.md'
+			'pages/' . $path . '.json.md'
 		));
 
 		if ($compound)
@@ -147,6 +148,12 @@ class Page extends \GitData\Model
 		git_tree_walk($tree, GIT_TREEWALK_PRE, function ($_1, $entry, &$index) use ($year)
 		{
 			$path = 'blog/' . $year . '/' . git_tree_entry_name($entry);
+
+			if (substr($path, -8) === '.json.md')
+			{
+				$path = substr($path, 0, -8);
+			}
+
 			$page = Page::find_by_path($path);
 
 			if ($page)

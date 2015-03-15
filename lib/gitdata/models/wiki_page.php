@@ -52,11 +52,12 @@ class WikiPage extends \GitData\Model
 			$this->toc = $compound->content->get_toc();
 		}
 
-		$this->permalink = preg_replace('/^wiki/', '', $compound->info->_basedir);
+		$this->permalink = preg_replace('/^wiki/', '/', $compound->info->_basedir);
+		$this->permalink = preg_replace('/[\/]+/', '/', $this->permalink);
 
-		if (isset($info->_filename))
+		if (isset($compound->info->_filename))
 		{
-			$this->permalink .= preg_replace('/\..*$/', '', $compound->info->_filename);
+			$this->permalink .= preg_replace('/\.json\.md$/', '', $compound->info->_filename);
 		}
 
 		$this->github_history_url = 'https://github.com/axr/website-data';
@@ -84,7 +85,7 @@ class WikiPage extends \GitData\Model
 		$path = preg_replace('/^\//', '', $path);
 		$compound = \GitData\Compound::load(array(
 			'wiki/' . $path . '/info.json',
-			'wiki/' . $path . '.md'
+			'wiki/' . $path . '.json.md'
 		));
 
 		if ($compound)
@@ -119,7 +120,7 @@ class WikiPage extends \GitData\Model
 			}
 
 			$item = preg_replace('/[\/]+/', '/', $path . '/' . $entry_name);
-			$item = preg_replace('/(^\/|\.md$)/', '', $item);
+			$item = preg_replace('/(^\/|(\.json)?\.md$)/', '', $item);
 
 			$page = WikiPage::find_by_path($item);
 
@@ -166,8 +167,7 @@ class WikiPage extends \GitData\Model
 			$filemode = git_tree_entry_filemode($entry);
 			$name = git_tree_entry_name($entry);
 
-			if ($filemode == GIT_FILEMODE_BLOB &&
-				substr($name, -4) == '.md' && $name != 'content.md')
+			if ($filemode == GIT_FILEMODE_BLOB && substr($name, -8) == '.json.md')
 			{
 				$ret = true;
 				return -1;

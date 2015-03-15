@@ -27,7 +27,7 @@ class Compound
 		{
 			$ret = null;
 
-			if (substr($paths[$i], -3) === '.md')
+			if (substr($paths[$i], -8) === '.json.md')
 			{
 				$ret = self::load_compound($paths[$i]);
 			}
