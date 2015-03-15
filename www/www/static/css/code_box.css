@@ -45,6 +45,21 @@
 
 .uiCodeBox pre .token.comment,
 .uiCodeBox pre .token.prolog,
+code
+{
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 13px;
+	padding: 1px 2px;
+}
+
+pre > code
+{
+	border: 0;
+	background: none;
+}
+
 .uiCodeBox pre .token.doctype,
 .uiCodeBox pre .token.cdata
 {
