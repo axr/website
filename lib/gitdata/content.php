@@ -112,11 +112,11 @@ class Content
 	public function get_summary ()
 	{
 		$summary = $this->summary_raw;
+		$match = null;
 
-		if (!$summary)
+		if (!$summary && preg_match('/^(.+)<!--\s*more\s*-->/s', $this->content_raw, $match))
 		{
-			$explode = explode('<!--more-->', $this->content_raw);
-			$summary = $explode[0];
+			$summary = $match[1];
 		}
 
 		return $this->parse_content($summary);
